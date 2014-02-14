@@ -1,0 +1,61 @@
+<project name="Introspect" default="make_jar" basedir=".">
+
+	<!-- IMPORTANT VARIABLE HERE -->
+	<property name="project.dir" value="." />
+	<property name="lib.dir" value="${project.dir}/lib" />
+	<property name="src.dir" value="${project.dir}/src" />
+	<property name="dist.dir" value="${project.dir}/dist" />
+	<property name="dist.bin.dir" value="${dist.dir}/bin" />
+	<property name="manifest.file" value="${src.dir}/META-INF/MANIFEST.MF" />
+	<path id="class.path">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<target name="create_dist_dir" >
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.bin.dir}" />
+	</target>
+
+
+	<!-- CLEAN TARGET -->
+	<target name="clean">
+		<delete dir="${dist.dir}" />
+		<delete dir="${dist.bin.dir}" />
+	</target>
+
+	<!-- COMPILE TARGET -->
+	<target name="compile" depends="clean,create_dist_dir">
+		<javac destdir="${dist.bin.dir}" source="1.6">
+			<src path="${src.dir}" />
+			<exclude name="**/_*.java" />
+			<classpath refid="class.path" />
+		</javac>
+	</target>
+
+	<!-- UPDATE MANIFEST -->
+	<taskdef name="antManifest" classname="nth.ant.manifest.AntManifest">
+		<classpath refid="class.path" />
+	</taskdef>
+	<target name="update_manifest">
+		<antManifest manifestFile="${manifest.file}" createdBy="Nils ten Hoeve" />
+	</target>
+
+	<!-- MAKE JAR TARGET -->
+	<target name="make_jar" depends="compile,update_manifest">
+		<copy todir="${dist.bin.dir}">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<jar basedir="${dist.bin.dir}" jarfile="${dist.dir}/${ant.project.name}.jar" includes="**/*.*" manifest="${manifest.file}" />
+		<copy todir="${dist.dir}">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		<delete dir="${dist.bin.dir}" />
+	</target>
+</project>

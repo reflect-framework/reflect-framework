@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Introspect"/>
+	<classpathentry kind="lib" path="lib/jgoodies-binding-2.9.0.jar" sourcepath="J:/Libs/jgoodies-binding-2.9.0/jgoodies-binding-2.9.0-sources.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectReportMsExcel"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectUserInterfaceUtil"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
