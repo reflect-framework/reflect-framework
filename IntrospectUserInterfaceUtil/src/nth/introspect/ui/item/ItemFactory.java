@@ -79,9 +79,7 @@ public class ItemFactory {
 
 		// create filter for service object items
 		Class<?> domainType = parameterModel.getValueType();
-		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
-				new ReturnTypeFilter(domainType));
-		filter.or(new ParameterTypeFilter(domainType));
+		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(new ParameterTypeFilter(domainType));
 		filter.andNot(new MethodsFilter(methodInfoToExclude));
 
 		// create MethodOwnerItem for first service object
@@ -95,8 +93,7 @@ public class ItemFactory {
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 
-				item = new MethodOwnerItem(serviceObject,
-						new NoParameterOrParameterFactoryFilter(), null);
+				item = new MethodOwnerItem(serviceObject,filter, parameterModel);
 				items.add(item);
 			}
 		}

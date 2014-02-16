@@ -24,8 +24,8 @@ public class DefaultPathProvider implements PathProvider {
 	private HashMap<CharSequence, URI> existingImagePaths;
 	private HashMap<CharSequence, URI> noneExistingImagePaths;
 
-	public DefaultPathProvider() throws URISyntaxException {
-		this(Introspect.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+	public DefaultPathProvider(Object application) throws URISyntaxException {
+		this(application.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
 	}
 
 	public DefaultPathProvider(URI rootPath) throws URISyntaxException {

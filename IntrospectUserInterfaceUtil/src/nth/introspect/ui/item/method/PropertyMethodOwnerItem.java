@@ -35,7 +35,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 			
 			List<MethodInfo> propertyMethods = Introspect.getDomainProvider().getMethodInfos(domainClass, filter);
 			for (MethodInfo propertyMethodInfo : propertyMethods) {
-				PropertyMethodItem propertyMethodItem=new PropertyMethodItem(domainValueModel, propertyInfo, propertyMethodInfo, parameterValueModel);
+				PropertyMethodItem propertyMethodItem=new PropertyMethodItem(formView, propertyInfo, propertyMethodInfo, parameterValueModel);
 				getChildren().add(propertyMethodItem);
 			}
 		}

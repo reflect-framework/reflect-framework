@@ -13,7 +13,7 @@ public class OrNotFilter<T> implements Filter<T> {
 	
 	@Override
 	public boolean isMatch(T t) {
-		return filter1.isMatch(t) && !filter2.isMatch(t);
+		return filter1.isMatch(t) || !filter2.isMatch(t);
 	}
 
 }

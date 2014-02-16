@@ -4,6 +4,7 @@ import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
+import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.ui.item.Item;
 import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
@@ -11,12 +12,14 @@ import nth.introspect.valuemodel.ReadOnlyValueModel;
 public class PropertyMethodItem extends Item {
 
 	private PropertyInfo propertyInfo;
-	private ReadOnlyValueModel propertyOwnerValueModel;
+	private ReadOnlyValueModel propertyOwnerModel;
 	private MethodInfo propertyMethodInfo;
 	private ReadOnlyValueModel parameterValueModel;
+	private FormView formView;
 
-	public PropertyMethodItem(ReadOnlyValueModel propertyOwnerValueModel, PropertyInfo propertyInfo, MethodInfo propertyMethodInfo, ReadOnlyValueModel parameterValueModel) {
-		this.propertyOwnerValueModel = propertyOwnerValueModel;
+	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo, MethodInfo propertyMethodInfo, ReadOnlyValueModel parameterValueModel) {
+		this.formView = formView;
+		this.propertyOwnerModel = formView.getDomainValueModel();
 		this.propertyInfo = propertyInfo;
 		this.propertyMethodInfo = propertyMethodInfo;
 		this.parameterValueModel = parameterValueModel;
@@ -28,10 +31,11 @@ public class PropertyMethodItem extends Item {
 
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfacePort = Introspect.getUserInterfaceProvider();
-				Object propertyOwner = propertyOwnerValueModel.getValue();
+				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
+				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
-				userInterfacePort.excuteMethod(propertyOwner, propertyMethodInfo, methodParameter);
+				userInterfaceProvider.excuteMethod(propertyOwner, propertyMethodInfo, methodParameter);
+				userInterfaceProvider.getViewContainer().selectView(formView);
 			}
 		};
 	}

@@ -94,8 +94,9 @@ public class Item {
 		String descText = null;
 		if (description == null || description.trim().length() == 0) {
 			descText = getText();
+		} else {
+			descText = Introspect.getLanguageProvider().getText(description);
 		}
-		descText = Introspect.getLanguageProvider().getText(description);
 		return getDescriptionWithHotKey(descText);
 	}
 

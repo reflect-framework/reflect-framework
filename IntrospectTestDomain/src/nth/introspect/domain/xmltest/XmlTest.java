@@ -41,7 +41,7 @@ public class XmlTest {
 			@Override
 			public PathProvider createPathProvider() {
 				try {
-					return new DefaultPathProvider();
+					return new DefaultPathProvider(this);
 				} catch (URISyntaxException e) {
 					return null;
 				}

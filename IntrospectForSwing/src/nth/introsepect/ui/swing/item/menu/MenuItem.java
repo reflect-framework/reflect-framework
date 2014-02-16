@@ -60,6 +60,7 @@ public class MenuItem extends JMenuItem {
 		if (item == null) {
 			return super.isEnabled();
 		} else {
+			boolean enabled = item.isEnabled();
 			return item.isEnabled();
 		}
 	}

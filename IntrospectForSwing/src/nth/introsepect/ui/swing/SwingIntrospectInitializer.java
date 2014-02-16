@@ -56,7 +56,7 @@ public class SwingIntrospectInitializer implements IntrospectInitializer {
 	@Override
 	public PathProvider createPathProvider() {
 		try {
-			return new DefaultPathProvider();
+			return new DefaultPathProvider(application);
 		} catch (URISyntaxException e) {
 			return null;
 		}
