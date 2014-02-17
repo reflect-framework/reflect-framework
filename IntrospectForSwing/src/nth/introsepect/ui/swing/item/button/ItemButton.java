@@ -1,5 +1,8 @@
 package nth.introsepect.ui.swing.item.button;
 
+import java.awt.Dimension;
+
+import nth.introsepect.ui.swing.style.SwingStyleConstant;
 import nth.introspect.ui.item.Item;
 
 public class ItemButton extends ItemIconButton {
@@ -9,6 +12,7 @@ public class ItemButton extends ItemIconButton {
 	public ItemButton(final Item item) {
 		super(item);
 		setText(item.getText());
+		setPreferredSize(new Dimension(getPreferredSize().width, SwingStyleConstant.TEXT_BUTTON_HEIGHT));
 	}
 	
 	
