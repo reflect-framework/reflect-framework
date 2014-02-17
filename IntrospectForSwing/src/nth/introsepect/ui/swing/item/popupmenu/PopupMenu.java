@@ -1,5 +1,7 @@
 package nth.introsepect.ui.swing.item.popupmenu;
 
+import java.awt.Component;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JMenuItem;
@@ -33,4 +35,14 @@ public class PopupMenu extends JPopupMenu {
 			add(menuItem);
 		}
 	}
+
+	@Override
+	public void show(Component invoker, int x, int y) {
+		// TODO Auto-generated method stub
+		super.show(invoker, x, y);
+		// select first visible item (not default behavior but I prefer it anyway)  
+		dispatchEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, 0, 0,
+				KeyEvent.VK_DOWN, '\0'));
+	}
+
 }

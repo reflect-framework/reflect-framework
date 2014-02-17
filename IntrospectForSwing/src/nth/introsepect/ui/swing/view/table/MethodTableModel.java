@@ -72,4 +72,8 @@ public class MethodTableModel extends AbstractTableModel implements DomainTableM
 		list = new ArrayList<Object>(collection);
 	}
 
+	public int getRow(Object domainObject) {
+		return list.indexOf(domainObject);
+	}
+
 }

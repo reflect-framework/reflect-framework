@@ -1,13 +1,21 @@
 package nth.introsepect.ui.swing.view.table;
 
 import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URI;
 import java.util.List;
 
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 
 import nth.introsepect.ui.swing.item.menubar.MenuBar;
 import nth.introsepect.ui.swing.item.popupmenu.PopupMenu;
@@ -20,8 +28,10 @@ import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
-public class TableView extends SwingView implements nth.introspect.provider.userinterface.view.TableView {
+public class TableView extends SwingView implements
+		nth.introspect.provider.userinterface.view.TableView {
 
+	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;
 	private final Object serviceObject;
 	private final MethodInfo methodInfo;
@@ -33,7 +43,8 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
 
-	public TableView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue) {
+	public TableView(Object serviceObject, MethodInfo methodInfo,
+			Object methodParameterValue) {
 		this.serviceObject = serviceObject;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -45,9 +56,9 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 		JScrollPane tabelContainer = new JScrollPane(table);
 		tabelContainer.getViewport().setBackground(table.getBackground());
 
-		
 		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
-		menuPopUp = createPopUpMenu(menuItems);menuBar=createMenuBar(menuItems);
+		menuPopUp = createPopUpMenu(menuItems);
+		menuBar = createMenuBar(menuItems);
 		add(createMenuBar(menuItems), BorderLayout.NORTH);
 		add(tabelContainer, BorderLayout.CENTER);
 	}
@@ -56,11 +67,12 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 		final JTable table = new JTable();
 		table.setModel(tableModel);
 		table.setRowHeight(22);// Row height a bit higher than default: 1.5 * 16
-		
+
 		table.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				onTableRowSelect(e.getX(), e.getY());
 			}
 
 			@Override
@@ -77,20 +89,44 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				List<Item> menuItems = ItemFactory.createTableViewRowItems(TableView.this);
-				menuPopUp.repopulate(menuItems);
-				menuPopUp.show(table, e.getX(), e.getY());
 			}
-			
-			//FIXME: add keyboard listeners to open popupmenu when the user selects a row with space or enter
+
+		});
+
+		// register space and enter keys to open the context menu. Note that we
+		// do not use the key listener because we want to override the default
+		// enter key behavior (go to next row)
+		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), ON_ROW_CLICK);
+		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
+				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), ON_ROW_CLICK);
+		table.getActionMap().put(ON_ROW_CLICK, new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				Rectangle positionInTable = table.getCellRect(selectedRow, 0,
+						true);
+				Point positionInWindow = table.getLocation(positionInTable
+						.getLocation());
+				onTableRowSelect(positionInTable.x + 20, positionInTable.y);
+
+			}
 		});
 		return table;
+	}
+
+	protected void onTableRowSelect(int x, int y) {
+		List<Item> menuItems = ItemFactory
+				.createTableViewRowItems(TableView.this);
+		menuPopUp.repopulate(menuItems);
+		menuPopUp.show(table, x, y);
 	}
 
 	public PopupMenu createPopUpMenu(final List<Item> menuItems) {
 		return new PopupMenu(menuItems);
 	}
-	
+
 	private MenuBar createMenuBar(List<Item> menuItems) {
 		return new MenuBar(menuItems);
 	}
@@ -110,23 +146,34 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 		return methodInfo.getIconURI(serviceObject);
 	}
 
-
 	@Override
 	public void onViewActivate() {
-		//update table
+		// get selected domain object
+		Object selectedDomainObject = null;
+		int selectedRow = table.getSelectedRow();
+		if (selectedRow != -1) {
+			selectedDomainObject = tableModel.getDomainValue(selectedRow);
+		}
+
+		// update table
 		tableModel.refresh();
-		//update menus
+		// update menus
 		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
 		menuPopUp.repopulate(menuItems);
 		menuBar.repopulate(menuItems);
-		//set focus
+		// set focus (preferably on the same domain object)
+		selectedRow = tableModel.getRow(selectedDomainObject);
+		if (selectedRow == -1) {
+			selectedRow = 0;
+		}
+		table.changeSelection(selectedRow, 0, false, false);
 		table.requestFocus();
 	}
 
 	@Override
 	public ReadOnlyValueModel getSelectedRowModel() {
-		if (selectedRowsModel==null) {
-			selectedRowsModel= new ReadOnlyValueModel() {
+		if (selectedRowsModel == null) {
+			selectedRowsModel = new ReadOnlyValueModel() {
 
 				@Override
 				public Object getValue() {
@@ -139,25 +186,37 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 						// single row selected
 						return tableModel.getDomainValue(selectedRows[0]);
 					default:
-						throw new RuntimeException("Table must be in single selection mode!!!");//TODO in future: support multi selection to!
-//						// multiple rows selected
-//						List<Object> selectedDomainObjects = new ArrayList<Object>();
-//						for (int selectedRow : table.getSelectedRows()) {
-//							Object domainObject = tableModel.getDomainValue(selectedRow);
-//							selectedDomainObjects.add(domainObject);
-//						}
-//						return selectedDomainObjects;
+						throw new RuntimeException(
+								"Table must be in single selection mode!!!");// TODO
+																				// in
+																				// future:
+																				// support
+																				// multi
+																				// selection
+																				// to!
+						// // multiple rows selected
+						// List<Object> selectedDomainObjects = new
+						// ArrayList<Object>();
+						// for (int selectedRow : table.getSelectedRows()) {
+						// Object domainObject =
+						// tableModel.getDomainValue(selectedRow);
+						// selectedDomainObjects.add(domainObject);
+						// }
+						// return selectedDomainObjects;
 					}
 				}
 
 				@Override
 				public Class<?> getValueType() {
-					return methodInfo.getReturnType().getTypeOrGenericCollectionType();
+					return methodInfo.getReturnType()
+							.getTypeOrGenericCollectionType();
 				}
 
 				@Override
 				public boolean canGetValue() {
-					return table.getSelectedRow() != -1;// can only get a value when a row is selected
+					return table.getSelectedRow() != -1;// can only get a value
+														// when a row is
+														// selected
 				}
 
 			};
@@ -167,35 +226,39 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 
 	@Override
 	public ReadOnlyValueModel getAllRowsModel() {
-		if (allRowsModel==null) {
-			
-		
-		allRowsModel= new ReadOnlyValueModel() {
+		if (allRowsModel == null) {
 
-			@Override
-			public Object getValue() {
-				try {
-					return methodInfo.invoke(serviceObject, methodParameterValue);
-				} catch (Exception e) {
-					UserInterfaceProvider<?> userInterfacePort = Introspect.getUserInterfaceProvider();
-					userInterfacePort.showErrorDialog(getViewTitle(), "Error getting table values.", e);
-					return null;
+			allRowsModel = new ReadOnlyValueModel() {
+
+				@Override
+				public Object getValue() {
+					try {
+						return methodInfo.invoke(serviceObject,
+								methodParameterValue);
+					} catch (Exception e) {
+						UserInterfaceProvider<?> userInterfacePort = Introspect
+								.getUserInterfaceProvider();
+						userInterfacePort.showErrorDialog(getViewTitle(),
+								"Error getting table values.", e);
+						return null;
+					}
 				}
-			}
 
-			@Override
-			public Class<?> getValueType() {
-				return methodInfo.getReturnType().getTypeOrGenericCollectionType();
-			}
+				@Override
+				public Class<?> getValueType() {
+					return methodInfo.getReturnType()
+							.getTypeOrGenericCollectionType();
+				}
 
-			@Override
-			public boolean canGetValue() {
-				return true;// TODO only true when method does not return null or a empty collction?
-			}
-		};
+				@Override
+				public boolean canGetValue() {
+					return true;// TODO only true when method does not return
+								// null or a empty collction?
+				}
+			};
 		}
 		return allRowsModel;
-		
+
 	}
 
 	@Override
@@ -207,7 +270,5 @@ public class TableView extends SwingView implements nth.introspect.provider.user
 	public Object getServiceObject() {
 		return serviceObject;
 	}
-
-	
 
 }
