@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.FilterBuilder;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
-import nth.introspect.provider.domain.info.method.filter.MethodsFilter;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.view.FormView;
@@ -50,7 +50,7 @@ public class TableViewItemFactory {
 			}
 		}
 
-		FilterBuilder filter = new FilterBuilder().exclude(new MethodsFilter(methodInfoOfView)).include(new ParameterTypeFilter(domainClass));
+		FilterBuilder filter = new FilterBuilder().exclude(new EqualsFilter<MethodInfo>(methodInfoOfView)).include(new ParameterTypeFilter(domainClass));
 		MethodOwnerItem serviceObjectMenu = new MethodOwnerItem(serviceObject, filter, domainClassValueModel);
 
 		// add serviceObjectMenu

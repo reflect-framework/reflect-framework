@@ -18,25 +18,42 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	private FormView formView;
 
 	public PropertyMethodOwnerItem (FormView formView, ReadOnlyValueModel parameterValueModel) {
-		this.formView = formView;
-		pupulateChildren(formView, parameterValueModel);
+		this(formView, parameterValueModel,null);
 	}
 
-	public void pupulateChildren(FormView formView, ReadOnlyValueModel parameterValueModel) {
-		ReadOnlyValueModel domainValueModel=formView.getDomainValueModel();
+	public PropertyMethodOwnerItem(FormView formView,
+			ReadOnlyValueModel parameterValueModel,
+			PropertyInfo propertyToExclude) {
+		this.formView = formView;
+		pupulateChildren(formView, parameterValueModel, propertyToExclude);
+	}
+
+	public void pupulateChildren(FormView formView,
+			ReadOnlyValueModel parameterValueModel,
+			PropertyInfo propertyToExclude) {
+		ReadOnlyValueModel domainValueModel = formView.getDomainValueModel();
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
-		
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(domainClass);
+
+		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider()
+				.getPropertyInfos(domainClass);
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			
-			LogicFilter<MethodInfo> filter=new LogicFilter(new LinkedToPropertyFilter(propertyInfo));
-			filter.and(new ParameterTypeFilter(parameterClass));
-			
-			List<MethodInfo> propertyMethods = Introspect.getDomainProvider().getMethodInfos(domainClass, filter);
-			for (MethodInfo propertyMethodInfo : propertyMethods) {
-				PropertyMethodItem propertyMethodItem=new PropertyMethodItem(formView, propertyInfo, propertyMethodInfo, parameterValueModel);
-				getChildren().add(propertyMethodItem);
+
+			if (propertyInfo != propertyToExclude) {
+
+				LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
+						new LinkedToPropertyFilter(propertyInfo));
+				filter.and(new ParameterTypeFilter(parameterClass));
+
+				List<MethodInfo> propertyMethods = Introspect
+						.getDomainProvider()
+						.getMethodInfos(domainClass, filter);
+				for (MethodInfo propertyMethodInfo : propertyMethods) {
+					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
+							formView, propertyInfo, propertyMethodInfo,
+							parameterValueModel);
+					getChildren().add(propertyMethodItem);
+				}
 			}
 		}
 	}
@@ -48,8 +65,10 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 
 	@Override
 	public String getText() {
-		//TODO return TitleUtil.createTitle(methodInfo, methodParameter, false);
-		return formView.getViewTitle();//using description instead of title because the title could be truncated
+		// TODO return TitleUtil.createTitle(methodInfo, methodParameter,
+		// false);
+		return formView.getViewTitle();// using description instead of title
+										// because the title could be truncated
 	}
 
 	@Override
@@ -60,6 +79,6 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	@Override
 	public String getDescription() {
 		return formView.getViewDescription();
-	}	
+	}
 
 }

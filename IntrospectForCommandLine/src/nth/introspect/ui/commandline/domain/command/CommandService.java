@@ -10,7 +10,6 @@ import java.util.Map;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.filter.AllMethods;
 
 public class CommandService {
 
@@ -47,7 +46,7 @@ public class CommandService {
 		for (Object serviceObject : serviceObjects) {
 			Class<? extends Object> serviceClass = serviceObject.getClass();
 			
-			List<MethodInfo> methodInfos = domainProvider.getMethodInfos(serviceClass, new AllMethods() );
+			List<MethodInfo> methodInfos = domainProvider.getMethodInfos(serviceClass );
 
 			for (MethodInfo methodInfo : methodInfos) {
 				Command command = new Command(serviceObject, methodInfo, shortCommandName);

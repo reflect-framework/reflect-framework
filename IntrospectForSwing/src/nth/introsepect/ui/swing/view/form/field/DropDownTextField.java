@@ -26,15 +26,15 @@ public class DropDownTextField extends JTextField {
 		dropDownButton = createDropDownButton();
 		setLayout(new BorderLayout());
 		add(getDropDownButton(), BorderLayout.EAST);
-		setDocument(new PlainDocument() {//FIXME: this will disable setText, but is needed to prevent the user from changing the text value
-
-			@Override
-			public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-				// dont change text. We want a read only text field, but with a enabled look and feel
-				fireDropDown();
-			}
-
-		});
+//		setDocument(new PlainDocument() {//FIXME: this will disable setText, but is needed to prevent the user from changing the text value
+//
+//			@Override
+//			public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+//				// dont change text. We want a read only text field, but with a enabled look and feel
+//				fireDropDown();
+//			}
+//
+//		});
 
 	}
 
