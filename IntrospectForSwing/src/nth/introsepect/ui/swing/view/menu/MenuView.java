@@ -21,12 +21,14 @@ public class MenuView extends SwingView {
 
 	private JComboBox searchBox;
 
+	private ItemAccordion itemAccordion;
+
 	public MenuView() {
 		List<MethodOwnerItem> menuItems = ItemFactory.createMenuViewItems();
 
 		setLayout(new BorderLayout());
 
-		ItemAccordion itemAccordion=new ItemAccordion(menuItems);
+		itemAccordion=new ItemAccordion(menuItems);
 		add(itemAccordion,BorderLayout.CENTER);
 		
 		searchBox = createSearchBox(itemAccordion, menuItems);
@@ -69,7 +71,7 @@ public class MenuView extends SwingView {
 
 	@Override
 	public void onViewActivate() {
-		// TODO Auto-generated method stub
+		// set focus to first list item
 		
 	}
 }

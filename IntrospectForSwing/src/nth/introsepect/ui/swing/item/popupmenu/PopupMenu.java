@@ -38,7 +38,6 @@ public class PopupMenu extends JPopupMenu {
 
 	@Override
 	public void show(Component invoker, int x, int y) {
-		// TODO Auto-generated method stub
 		super.show(invoker, x, y);
 		// select first visible item (not default behavior but I prefer it anyway)  
 		dispatchEvent(new KeyEvent(this, KeyEvent.KEY_PRESSED, 0, 0,

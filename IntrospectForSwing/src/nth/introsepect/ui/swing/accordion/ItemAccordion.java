@@ -1,5 +1,7 @@
 package nth.introsepect.ui.swing.accordion;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -38,7 +40,8 @@ public class ItemAccordion extends Accordion {
 			serviceItemToFind = (MethodOwnerItem) selectedItem;
 		} else if (selectedItem instanceof MethodItem) {
 			methodItemToFind = (MethodItem) selectedItem;
-			// TODO serviceItemToFind = (MethodOwnerItem) methodItemToFind.getParent();
+			// TODO serviceItemToFind = (MethodOwnerItem)
+			// methodItemToFind.getParent();
 		} else {
 			return;
 		}
@@ -48,7 +51,8 @@ public class ItemAccordion extends Accordion {
 		for (BarInfo bar : bars) {
 			if (bar instanceof ServiceObjectBar) {
 				ServiceObjectBar serviceObjectBar = (ServiceObjectBar) bar;
-				if (serviceItemToFind.equals(serviceObjectBar.getMethodOwnerItem())) {
+				if (serviceItemToFind.equals(serviceObjectBar
+						.getMethodOwnerItem())) {
 					// open service object bar in accordion
 					setVisibleBar(i);
 
@@ -88,56 +92,79 @@ public class ItemAccordion extends Accordion {
 		menuList.setFixedCellHeight(ITEM_HEIGHT);
 		menuList.addKeyListener(createMenuListKeyListener());
 		menuList.addMouseListener(createMenuListMouseListener());
+		menuList.setSelectedIndex(0);
+		menuList.setRequestFocusEnabled(true); //TODO Does not work
+		menuList.setFocusable(true);
+		
 		return menuList;
 	}
 
 	private MouseListener createMenuListMouseListener() {
 		return new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				executeSelectedMenuItem((JList) e.getSource());
+				onMenuItemClick((JList) e.getSource());
 			}
 		};
 	}
 
 	private KeyListener createMenuListKeyListener() {
 		return new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar()==KeyEvent.VK_ENTER || e.getKeyChar()==KeyEvent.VK_SPACE ) {
-					executeSelectedMenuItem((JList)e.getSource());
+				switch (e.getKeyChar()) {
+				case KeyEvent.VK_ENTER:
+				case KeyEvent.VK_SPACE:
+					onMenuItemClick((JList) e.getSource());
+					break;
+				case KeyEvent.VK_UP:
+					onFocusPrevious();
+					break;
+				case KeyEvent.VK_DOWN:
+					onFocusNext();
+					break;
+				default:
+					break;
 				}
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 			}
 		};
 	}
 
-	protected void executeSelectedMenuItem(JList menuList) {
+	protected void onFocusNext() {
+		System.out.println("Next");//TODO does not work
+	}
+
+	protected void onFocusPrevious() {
+		System.out.println("Previous");//TODO does not work
+	}
+
+	protected void onMenuItemClick(JList menuList) {
 		int index = menuList.getSelectedIndex();
 		Item item = (Item) menuList.getModel().getElementAt(index);
 		item.getAction().run();
@@ -152,7 +179,8 @@ public class ItemAccordion extends Accordion {
 			this.methodOwnerItem = methodOwnerItem;
 			getButton().setText(methodOwnerItem.getText());
 			getButton().setToolTipText(methodOwnerItem.getDescription());
-			getButton().setIcon(IconFactory.create(methodOwnerItem.getIconURI()));
+			getButton().setIcon(
+					IconFactory.create(methodOwnerItem.getIconURI()));
 		}
 
 		public MethodOwnerItem getMethodOwnerItem() {
