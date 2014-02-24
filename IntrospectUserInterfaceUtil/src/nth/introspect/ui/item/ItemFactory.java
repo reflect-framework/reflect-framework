@@ -3,6 +3,8 @@ package nth.introspect.ui.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.xml.internal.bind.v2.runtime.property.PropertyFactory;
+
 import nth.introspect.Introspect;
 import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.Filter;
@@ -10,6 +12,7 @@ import nth.introspect.filter.LogicFilter;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.provider.domain.info.method.filter.NoParameterOrParameterFactoryFilter;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.domain.info.method.filter.ReturnTypeFilter;
@@ -19,10 +22,12 @@ import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.provider.userinterface.view.TableView;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
+import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodOwnerItem;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
+import nth.introspect.valuemodel.ReadWriteValueModel;
 
 public class ItemFactory {
 
@@ -41,39 +46,41 @@ public class ItemFactory {
 	}
 
 	public static List<Item> createFormViewRelationalFieldItems(
-			FormView formView, PropertyValueModel propertyValueModel) {
+			FormView formView, ReadOnlyValueModel parameterModel,
+			PropertyInfo propertyInfo) {
 		List<Item> items = new ArrayList<Item>();
 
 		// get info from form view
 		MethodInfo methodInfoToExclude = formView.getMethodInfo();
-		PropertyInfo propertyToExclude = propertyValueModel.getPropertyInfo();
-		ReadOnlyValueModel parameterModel = propertyValueModel;
+		Class<?> domainType=formView.getDomainValueModel().getValueType(); 
 		Class<?> parameterType = parameterModel.getValueType();
 		Object serviceObject = formView.getServiceObject();
 
 		// property methods
-		// DomainProvider domainProvider=Introspect.getDomainProvider();
-		// LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(new
-		// NoParameterOrParameterFactoryFilter());
-		// filter.or(new ParameterTypeFilter(parameterType));
-		// List<MethodInfo> methodInfos =
-		// domainProvider.getMethodInfos(parameterType, filter);
-		// for (MethodInfo methodInfo : methodInfos) {
-		// item=new MethodItem(methodOwner, methodInfo,
-		// methodParameterValueModel) TODO methodOwner needs to be a value
-		// model!!!
-		// items.add(item)
-		// }
-
-		items.addAll(createPropertyOwnerItems(parameterModel, propertyToExclude));
-
-		Class<?> domainType = parameterModel.getValueType();
+		DomainProvider domainProvider = Introspect.getDomainProvider();
+		Object methodOwner = formView.getDomainValueModel().getValue();
 		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
-				new ParameterTypeFilter(domainType));
+				new NoParameterOrParameterFactoryFilter());
+		filter.or(new ParameterTypeFilter(parameterType));
+		filter.and(new LinkedToPropertyFilter(propertyInfo));
+		List<MethodInfo> methodInfos = domainProvider.getMethodInfos(
+				domainType, filter);
+		for (MethodInfo methodInfo : methodInfos) {
+			MethodItem item = new MethodItem(methodOwner, methodInfo,
+					parameterModel); // TODO methodOwner needs to be a value
+										// model!!!
+			items.add(item);
+		}
+
+		items.addAll(createPropertyOwnerItems(parameterModel, propertyInfo));
+
+		
+		filter = new LogicFilter<MethodInfo>(
+				new ParameterTypeFilter(parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
 		items.addAll(createServiceObjectItems(serviceObject, parameterModel,
-				filter));
+				filter)); 
 
 		return items;
 
@@ -141,7 +148,7 @@ public class ItemFactory {
 	}
 
 	private static List<Item> createPropertyOwnerItems(
-			ReadOnlyValueModel paramaterModel, PropertyInfo propertyToExclude) {
+			ReadOnlyValueModel paramaterModel, PropertyInfo propertyInfo) {
 		List<Item> items = new ArrayList<Item>();
 
 		UserInterfaceProvider<?> userInterfaceProvider = Introspect
@@ -154,7 +161,7 @@ public class ItemFactory {
 				FormModeType formMode = formView.getFormMode();
 				if (FormModeType.editParameterThenExecuteMethodOrCancel == formMode) {
 					PropertyMethodOwnerItem item = new PropertyMethodOwnerItem(
-							formView, paramaterModel,propertyToExclude);
+							formView, paramaterModel, propertyInfo);
 					items.add(item);
 				}
 			}

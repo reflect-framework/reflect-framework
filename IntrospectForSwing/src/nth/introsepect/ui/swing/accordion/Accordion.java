@@ -10,17 +10,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-
-import nth.introsepect.ui.swing.accordion.ItemAccordion.ServiceObjectBar;
 
 /**
  * A Accordion provides a component that is similar to a JTabbedPane, but
@@ -66,12 +62,6 @@ public class Accordion extends JPanel implements ActionListener {
 		this.add(bottomPanel, BorderLayout.SOUTH);
 	}
 
-	public void addBar(ServiceObjectBar serviceObjectBar) {
-		serviceObjectBar.getButton().addActionListener(this);
-		this.bars.add(serviceObjectBar);
-		render();
-	}
-
 	public Collection<BarInfo> getBars() {
 		return Collections.unmodifiableCollection(bars);
 	}
@@ -86,7 +76,12 @@ public class Accordion extends JPanel implements ActionListener {
 	 */
 	public void addBar(BarInfo bar) {
 		this.bars.add(bar);
-		render();
+		bar.getButton().addActionListener(this);
+		if (visibleBar == null) {
+			setVisibleBar(bar);
+		} else {
+			render();
+		}
 	}
 
 	/**
@@ -99,7 +94,6 @@ public class Accordion extends JPanel implements ActionListener {
 	 */
 	public void addBar(String name, JComponent component) {
 		BarInfo bar = new BarInfo(name, component);
-		bar.getButton().addActionListener(this);
 		addBar(bar);
 	}
 
@@ -115,7 +109,6 @@ public class Accordion extends JPanel implements ActionListener {
 	 */
 	public void addBar(String name, Icon icon, JComponent component) {
 		BarInfo bar = new BarInfo(name, icon, component);
-		bar.getButton().addActionListener(this);
 		addBar(bar);
 	}
 
@@ -182,7 +175,9 @@ public class Accordion extends JPanel implements ActionListener {
 	 */
 	public void render() {
 		if (visibleBar == null) {
-			setVisibleBar(getVisibleBar());//TODO supposed to set focus to visiblebar.getcomponent bus somehow it does not
+			setVisibleBar(getVisibleBar());// TODO supposed to set focus to
+											// visiblebar.getcomponent bus
+											// somehow it does not
 		} else {
 			// get a valid visible bar
 			getVisibleBar();

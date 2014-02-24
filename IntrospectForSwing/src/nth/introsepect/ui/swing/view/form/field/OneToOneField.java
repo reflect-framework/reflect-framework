@@ -42,7 +42,7 @@ public class OneToOneField extends DropDownTextField implements Refreshable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				List<Item> items = ItemFactory.createFormViewRelationalFieldItems(formView, propertyValueModel);
+				List<Item> items = ItemFactory.createFormViewRelationalFieldItems(formView, propertyValueModel, propertyValueModel.getPropertyInfo());
 				PopupMenu popupmenu = new PopupMenu(items);
 				popupmenu.show((Component) e.getSource(), 17, -3);
 			}

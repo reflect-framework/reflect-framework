@@ -30,19 +30,19 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 
 	public void pupulateChildren(FormView formView,
 			ReadOnlyValueModel parameterValueModel,
-			PropertyInfo propertyToExclude) {
+			PropertyInfo propertyInfo) {
 		ReadOnlyValueModel domainValueModel = formView.getDomainValueModel();
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
 		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider()
 				.getPropertyInfos(domainClass);
-		for (PropertyInfo propertyInfo : propertyInfos) {
+		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
-			if (propertyInfo != propertyToExclude) {
+			if (otherPropertyInfo != propertyInfo) {
 
 				LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
-						new LinkedToPropertyFilter(propertyInfo));
+						new LinkedToPropertyFilter(otherPropertyInfo));
 				filter.and(new ParameterTypeFilter(parameterClass));
 
 				List<MethodInfo> propertyMethods = Introspect
@@ -50,7 +50,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 						.getMethodInfos(domainClass, filter);
 				for (MethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
-							formView, propertyInfo, propertyMethodInfo,
+							formView, otherPropertyInfo, propertyMethodInfo,
 							parameterValueModel);
 					getChildren().add(propertyMethodItem);
 				}

@@ -15,8 +15,8 @@ public class LinkedToPropertyFilter implements Filter<MethodInfo> {
 	
 	@Override
 	public boolean isMatch(MethodInfo methodInfo) {
-		//return (TypeCategory.NONE== methodInfo.getParameterType().getTypeCategory()  || methodInfo.hasParameterFactory()) && propertyName.equals( methodInfo.getLinkedPropertyName());
-		return propertyName.equals( methodInfo.getLinkedPropertyName());
+		String methodPropertyName = methodInfo.getLinkedPropertyName();
+		return propertyName.equals( methodPropertyName);
 	}
 
 }

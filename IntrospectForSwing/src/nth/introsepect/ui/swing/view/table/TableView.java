@@ -59,7 +59,7 @@ public class TableView extends SwingView implements
 		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
 		menuPopUp = createPopUpMenu(menuItems);
 		menuBar = createMenuBar(menuItems);
-		add(createMenuBar(menuItems), BorderLayout.NORTH);
+		add(menuBar, BorderLayout.NORTH);
 		add(tabelContainer, BorderLayout.CENTER);
 	}
 
