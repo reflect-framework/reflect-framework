@@ -3,8 +3,6 @@ package nth.introspect.ui.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.xml.internal.bind.v2.runtime.property.PropertyFactory;
-
 import nth.introspect.Introspect;
 import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.Filter;
@@ -25,9 +23,7 @@ import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodOwnerItem;
-import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
-import nth.introspect.valuemodel.ReadWriteValueModel;
 
 public class ItemFactory {
 
@@ -56,8 +52,9 @@ public class ItemFactory {
 		Class<?> parameterType = parameterModel.getValueType();
 		Object serviceObject = formView.getServiceObject();
 
-		// property methods
+		// add property methods 
 		DomainProvider domainProvider = Introspect.getDomainProvider();
+		// TODO does methodOwner needs to be a value model??? We now assume the menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
 		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
 				new NoParameterOrParameterFactoryFilter());
@@ -67,14 +64,13 @@ public class ItemFactory {
 				domainType, filter);
 		for (MethodInfo methodInfo : methodInfos) {
 			MethodItem item = new MethodItem(methodOwner, methodInfo,
-					parameterModel); // TODO methodOwner needs to be a value
-										// model!!!
+					parameterModel); 
 			items.add(item);
 		}
 
 		items.addAll(createPropertyOwnerItems(parameterModel, propertyInfo));
 
-		
+		//service object methods
 		filter = new LogicFilter<MethodInfo>(
 				new ParameterTypeFilter(parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
