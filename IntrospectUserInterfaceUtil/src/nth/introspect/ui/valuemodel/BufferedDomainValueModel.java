@@ -50,4 +50,5 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 		return true;
 	}
 	
+	
 }

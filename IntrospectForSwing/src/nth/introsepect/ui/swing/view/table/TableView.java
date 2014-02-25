@@ -53,14 +53,16 @@ public class TableView extends SwingView implements
 
 		tableModel = new MethodTableModel(getAllRowsModel());
 		table = createTable(tableModel);
-		JScrollPane tabelContainer = new JScrollPane(table);
-		tabelContainer.getViewport().setBackground(table.getBackground());
+		JScrollPane tableContainer = new JScrollPane(table);
+		tableContainer.getViewport().setBackground(table.getBackground());
+//		tableContainer.setFocusable(false); TODO test
+//		tableContainer.addMouseListener TODO test		
 
 		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
 		menuPopUp = createPopUpMenu(menuItems);
 		menuBar = createMenuBar(menuItems);
 		add(menuBar, BorderLayout.NORTH);
-		add(tabelContainer, BorderLayout.CENTER);
+		add(tableContainer, BorderLayout.CENTER);
 	}
 
 	private JTable createTable(final MethodTableModel tableModel) {

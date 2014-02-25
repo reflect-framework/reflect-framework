@@ -21,7 +21,7 @@ import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
-public class ManyToOneOrManyField extends JPanel implements Refreshable {
+public class ManyToOneOrManyField extends JPanel implements Refreshable  {
 
 	private static final long serialVersionUID = -3143477177672443570L;
 	private static final int TABLE_HEIGHT = 200;

@@ -51,7 +51,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 				for (MethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
 							formView, otherPropertyInfo, propertyMethodInfo,
-							parameterValueModel);
+							parameterValueModel, true);
 					getChildren().add(propertyMethodItem);
 				}
 			}

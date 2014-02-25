@@ -22,6 +22,7 @@ import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
+import nth.introspect.ui.item.method.PropertyMethodItem;
 import nth.introspect.ui.item.method.PropertyMethodOwnerItem;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
@@ -48,13 +49,14 @@ public class ItemFactory {
 
 		// get info from form view
 		MethodInfo methodInfoToExclude = formView.getMethodInfo();
-		Class<?> domainType=formView.getDomainValueModel().getValueType(); 
+		Class<?> domainType = formView.getDomainValueModel().getValueType();
 		Class<?> parameterType = parameterModel.getValueType();
 		Object serviceObject = formView.getServiceObject();
 
-		// add property methods 
+		// add property methods
 		DomainProvider domainProvider = Introspect.getDomainProvider();
-		// TODO does methodOwner needs to be a value model??? We now assume the menu will be created when a field is selected.
+		// TODO does methodOwner needs to be a value model??? We now assume the
+		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
 		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
 				new NoParameterOrParameterFactoryFilter());
@@ -63,20 +65,22 @@ public class ItemFactory {
 		List<MethodInfo> methodInfos = domainProvider.getMethodInfos(
 				domainType, filter);
 		for (MethodInfo methodInfo : methodInfos) {
-			MethodItem item = new MethodItem(methodOwner, methodInfo,
-					parameterModel); 
+			PropertyMethodItem item = new PropertyMethodItem(formView,
+					propertyInfo, methodInfo, parameterModel,false);
+			// MethodItem item = new MethodItem(methodOwner,
+			// methodInfo,parameterModel);
 			items.add(item);
 		}
 
 		items.addAll(createPropertyOwnerItems(parameterModel, propertyInfo));
 
-		//service object methods
-		filter = new LogicFilter<MethodInfo>(
-				new ParameterTypeFilter(parameterType));
+		// service object methods
+		filter = new LogicFilter<MethodInfo>(new ParameterTypeFilter(
+				parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
 		items.addAll(createServiceObjectItems(serviceObject, parameterModel,
-				filter)); 
+				filter));
 
 		return items;
 

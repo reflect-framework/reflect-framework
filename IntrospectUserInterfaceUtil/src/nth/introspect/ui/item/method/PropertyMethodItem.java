@@ -2,6 +2,7 @@ package nth.introspect.ui.item.method;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.view.FormView;
@@ -16,9 +17,13 @@ public class PropertyMethodItem extends Item {
 	private MethodInfo propertyMethodInfo;
 	private ReadOnlyValueModel parameterValueModel;
 	private FormView formView;
+	private boolean showPropertyName;
 
-	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo, MethodInfo propertyMethodInfo, ReadOnlyValueModel parameterValueModel) {
+	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo,
+			MethodInfo propertyMethodInfo,
+			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
 		this.formView = formView;
+		this.showPropertyName = showPropertyName;
 		this.propertyOwnerModel = formView.getDomainValueModel();
 		this.propertyInfo = propertyInfo;
 		this.propertyMethodInfo = propertyMethodInfo;
@@ -31,10 +36,12 @@ public class PropertyMethodItem extends Item {
 
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
+				UserInterfaceProvider<?> userInterfaceProvider = Introspect
+						.getUserInterfaceProvider();
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
-				userInterfaceProvider.excuteMethod(propertyOwner, propertyMethodInfo, methodParameter);
+				userInterfaceProvider.excuteMethod(propertyOwner,
+						propertyMethodInfo, methodParameter);
 				userInterfaceProvider.getViewContainer().selectView(formView);
 			}
 		};
@@ -44,10 +51,29 @@ public class PropertyMethodItem extends Item {
 	public String getText() {
 		// text format: propertyName: propertyMethodName
 		StringBuffer text = new StringBuffer();
-		text.append(propertyInfo.getText());
-		text.append(": ");
-		text.append(TitleUtil.createTitle(propertyMethodInfo, parameterValueModel.getValue(), false));
+		if (showPropertyName) {
+			text.append(propertyInfo.getText());
+			text.append(": ");
+		}
+		Object parameterValue = null;
+		if (!propertyMethodInfo.hasParameterFactory()) {
+			parameterValue = parameterValueModel.getValue();
+		}
+		text.append(TitleUtil.createTitle(propertyMethodInfo,
+				parameterValue, false));
 		return text.toString();
 	}
+
+	@Override
+	public boolean isEnabled() {
+		return propertyMethodInfo.isEnabled(propertyOwnerModel.getValue());
+	}
+	
+	@Override
+	public boolean isVisible() {
+		return FormModeType.editParameterThenExecuteMethodOrCancel == formView
+				.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+	}
+	
 
 }

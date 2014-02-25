@@ -18,7 +18,8 @@ import nth.introspect.ui.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
-public class OneToOneField extends DropDownTextField implements Refreshable {
+//public class OneToOneField extends DropDownTextField implements Refreshable {
+public class OneToOneField extends DropDownTextfield implements Refreshable {
 
 	private static final long serialVersionUID = -567238728222479488L;
 	private final PropertyValueModel propertyValueModel;
@@ -57,9 +58,9 @@ public class OneToOneField extends DropDownTextField implements Refreshable {
 		ClassInfo classInfo = domainProvider.getClassInfo(propertyValueModel.getValueType());
 		Object propertyValue = propertyValueModel.getValue();
 		String title = classInfo.getTitle(propertyValue);
-		setText(title);
+		getTextField().setText(title);
 		// TODO description?
-		setEnabled(propertyValueModel.canSetValue());
+		getTextField().setEnabled(propertyValueModel.canSetValue());
 
 	}
 
