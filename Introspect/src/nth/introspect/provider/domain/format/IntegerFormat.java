@@ -8,16 +8,20 @@ import java.text.ParsePosition;
 public class IntegerFormat extends Format {
 
 	@Override
-	public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-		return toAppendTo.append((Integer)obj);
+	public StringBuffer format(Object obj, StringBuffer toAppendTo,
+			FieldPosition pos) {
+		return toAppendTo.append((Integer) obj);
 	}
 
 	@Override
 	public Object parseObject(String source, ParsePosition pos) {
-		if (source==null || source.length()<1) {
+		if (source == null || source.length() < 1) {
 			return null;
 		}
-		return Integer.valueOf(source);
+		Integer i = Integer.valueOf(source);
+		pos.setIndex(source.length());//success
+		return i;
+
 	}
 
 }
