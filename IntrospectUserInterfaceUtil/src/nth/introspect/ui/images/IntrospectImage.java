@@ -15,8 +15,7 @@ public class IntrospectImage {
 	public static final IntrospectImagePathIdentifier BUTTON_ROUND_MINUS = new IntrospectImagePathIdentifier("button_round_minus.png");
 	public static final IntrospectImagePathIdentifier BUTTON_ROUND_EXPAND = new IntrospectImagePathIdentifier("button_round_expand.png");
 	public static final IntrospectImagePathIdentifier BUTTON_ROUND_COLLAPSE = new IntrospectImagePathIdentifier("button_round_collapse.png");
-
-	public static final IntrospectImagePathIdentifier BUTTON_ROUND_CANCEL = BUTTON_ROUND_ABOUT;//TODO
+	public static final IntrospectImagePathIdentifier BUTTON_ROUND_CANCEL = new IntrospectImagePathIdentifier("button_round_close.png");
 	
 	public static final IntrospectImagePathIdentifier BUTTON_DROPDOWN_1 = new IntrospectImagePathIdentifier("btn_dropdown_1.png");//TODO replace with a little triangle or round button. than remove btn_drop*.*
 	public static final IntrospectImagePathIdentifier BUTTON_DROPDOWN_2 = new IntrospectImagePathIdentifier("btn_dropdown_2.png");
