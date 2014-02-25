@@ -6,6 +6,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.userinterface.item.Item;
 
 public class HierarchicalItem extends Item { 
 

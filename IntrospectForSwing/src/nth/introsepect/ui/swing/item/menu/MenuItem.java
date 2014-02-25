@@ -10,7 +10,7 @@ import javax.swing.JMenuItem;
 
 import nth.introsepect.ui.swing.icon.IconFactory;
 import nth.introsepect.ui.swing.style.SwingStyleConstant;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 
 /**
  * {@link MenuItem} is an adapter for a {@link JMenuItem} to work with {@link Item}
@@ -37,7 +37,7 @@ public class MenuItem extends JMenuItem {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				nth.introspect.ui.item.Item.Action action = item.getAction();
+				nth.introspect.provider.userinterface.item.Item.Action action = item.getAction();
 				if (action != null) {
 					action.run();
 				}

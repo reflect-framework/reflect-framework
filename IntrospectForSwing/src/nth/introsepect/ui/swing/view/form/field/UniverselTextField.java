@@ -29,13 +29,15 @@ public class UniverselTextField extends JFormattedTextField implements Refreshab
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				// text has changed, so update the valueModel
-				valueModel.setValue(getValue());
+				Object value = getValue();
+				valueModel.setValue(value);
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				// text has changed, so update the valueModel
-				valueModel.setValue(getValue());
+				Object value = getValue();
+				valueModel.setValue(value);
 			}
 
 			@Override

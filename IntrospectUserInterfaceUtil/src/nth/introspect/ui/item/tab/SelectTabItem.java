@@ -3,9 +3,9 @@ package nth.introspect.ui.item.tab;
 import java.net.URI;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
-import nth.introspect.ui.item.Item;
 
 public class SelectTabItem extends Item {
 

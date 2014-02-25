@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Format;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -32,6 +33,8 @@ public class FormatFactory {
 			} else {
 				if (TypeUtil.isShort(type)) {
 					return new ShortFormat();					
+				} else if (type.isAssignableFrom(Integer.class)) {
+					return new IntegerFormat();
 				} else {
 					return new DecimalFormat();
 				}

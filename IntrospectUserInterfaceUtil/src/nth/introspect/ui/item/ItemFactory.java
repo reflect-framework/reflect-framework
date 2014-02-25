@@ -16,6 +16,7 @@ import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.domain.info.method.filter.ReturnTypeFilter;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.provider.userinterface.view.TableView;
 import nth.introspect.provider.userinterface.view.View;

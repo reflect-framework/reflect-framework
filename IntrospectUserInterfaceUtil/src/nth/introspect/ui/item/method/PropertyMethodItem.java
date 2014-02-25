@@ -7,8 +7,8 @@ import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.type.MethodParameterType;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.FormView;
-import nth.introspect.ui.item.Item;
 import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 

@@ -23,8 +23,8 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import nth.introsepect.ui.swing.item.popupmenu.PopupMenu;
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
-import nth.introspect.ui.item.Item;
 import nth.introspect.ui.item.tab.TabsItem;
 
 /**

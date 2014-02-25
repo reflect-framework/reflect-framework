@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import nth.introsepect.ui.swing.item.menu.MenuItemFactory;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 
 /**
  * This PopupMenu is an adapter for the JPopupmenu to work with {@code Item}<br>

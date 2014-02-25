@@ -8,7 +8,7 @@ import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.valuemodel.PropertyValueModel;

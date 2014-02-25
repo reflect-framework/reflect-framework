@@ -12,8 +12,8 @@ import javax.swing.ComboBoxEditor;
 import javax.swing.ComboBoxModel;
 import javax.swing.JTextField;
 
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.ui.item.Item;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 

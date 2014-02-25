@@ -23,7 +23,7 @@ import nth.introsepect.ui.swing.view.SwingView;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;

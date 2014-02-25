@@ -82,6 +82,7 @@ public class DocumentFacory {
 		} else if (Short.class.isAssignableFrom(valueClass)) {
 			return new RegExpDocument(SHORT_REG_EXP);
 		} else {
+			//TODO simple types should also be supported!
 			throw new IllegalArgumentException("Property type:" + valueClass.getCanonicalName() + " is not supported.");
 		}
 	}

@@ -15,7 +15,7 @@ import javax.swing.ListModel;
 
 import nth.introsepect.ui.swing.icon.IconFactory;
 import nth.introsepect.ui.swing.view.menu.MenuListRenderer;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 

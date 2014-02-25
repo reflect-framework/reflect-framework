@@ -2,8 +2,8 @@ package nth.introsepect.ui.swing.item.menu;
 
 import javax.swing.JMenuItem;
 
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.ui.item.Item;
 
 public class MenuItemFactory {
 	public static JMenuItem create(Item item) {

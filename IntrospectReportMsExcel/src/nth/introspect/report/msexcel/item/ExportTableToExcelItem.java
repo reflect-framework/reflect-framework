@@ -19,7 +19,7 @@ import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
 import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.util.TypeUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 

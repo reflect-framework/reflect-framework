@@ -7,7 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import nth.introsepect.ui.swing.item.menu.MenuItemFactory;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 
 public class MenuBar extends JMenuBar {
 	private static final long serialVersionUID = -2631861999697579802L;

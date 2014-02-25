@@ -8,7 +8,7 @@ import javax.swing.JList;
 
 import nth.introsepect.ui.swing.icon.IconFactory;
 import nth.introsepect.ui.swing.style.SwingStyleConstant;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 
 @SuppressWarnings("serial")
 public class MenuListRenderer extends DefaultListCellRenderer {

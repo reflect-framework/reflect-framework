@@ -6,7 +6,7 @@ import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class MethodItem extends Item {

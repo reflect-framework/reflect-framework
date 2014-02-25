@@ -1,4 +1,4 @@
-package nth.introspect.ui.item;
+package nth.introspect.provider.userinterface.item;
 
 import java.net.URI;
 import java.util.StringTokenizer;

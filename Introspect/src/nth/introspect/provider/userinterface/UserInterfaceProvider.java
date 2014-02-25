@@ -1,9 +1,11 @@
 package nth.introspect.provider.userinterface;
 
 import java.net.URI;
+import java.util.List;
 
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 
 public interface UserInterfaceProvider<T> extends Provider{
@@ -15,6 +17,8 @@ public interface UserInterfaceProvider<T> extends Provider{
 	 */
 	public void showInfoMessage( String message);
 
+	public void showDialog(DialogType dialogType,String title, String message, List<Item> items);
+	
 	public void showErrorDialog(String title, String message, Throwable throwable);
 	
 	public void showProgressDialog(String taskDescription, int currentValue, int maxValue);//TODO refactor parameters to: taskName, int percentageCompleted

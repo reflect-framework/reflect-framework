@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.ui.item.Item;
 import nth.introspect.ui.item.SeparatorItem;
 
 public class TabsItem extends HierarchicalItem {

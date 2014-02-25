@@ -3,7 +3,7 @@ package nth.introsepect.ui.swing.item.button;
 import java.awt.Dimension;
 
 import nth.introsepect.ui.swing.style.SwingStyleConstant;
-import nth.introspect.ui.item.Item;
+import nth.introspect.provider.userinterface.item.Item;
 
 public class ItemButton extends ItemIconButton {
 

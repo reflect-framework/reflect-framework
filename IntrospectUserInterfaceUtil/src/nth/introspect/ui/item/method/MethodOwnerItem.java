@@ -7,8 +7,8 @@ import nth.introspect.filter.Filter;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.ui.item.Item;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class MethodOwnerItem extends HierarchicalItem {

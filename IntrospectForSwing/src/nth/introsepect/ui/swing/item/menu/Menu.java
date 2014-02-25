@@ -9,8 +9,8 @@ import javax.swing.Icon;
 import javax.swing.JMenu;
 
 import nth.introsepect.ui.swing.icon.IconFactory;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.ui.item.Item;
 
 public class Menu extends JMenu {
 
@@ -105,7 +105,7 @@ public class Menu extends JMenu {
 		return new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				nth.introspect.ui.item.Item.Action action = item.getAction();
+				nth.introspect.provider.userinterface.item.Item.Action action = item.getAction();
 				action.run();
 			}
 		};

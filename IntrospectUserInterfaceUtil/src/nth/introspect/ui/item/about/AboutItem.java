@@ -8,8 +8,8 @@ import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
 import nth.introspect.provider.info.InfoProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.images.IntrospectImage;
-import nth.introspect.ui.item.Item;
 
 public class AboutItem extends Item {
 	private static final String ABOUT = "About";

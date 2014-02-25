@@ -9,8 +9,8 @@ import nth.introsepect.ui.swing.accordion.ItemAccordion;
 import nth.introsepect.ui.swing.textprompt.TextPrompt;
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.userinterface.item.Item.Action;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.ui.item.Item.Action;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 
 @SuppressWarnings("serial")
