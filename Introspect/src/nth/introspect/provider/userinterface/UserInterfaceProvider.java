@@ -8,10 +8,15 @@ import nth.introspect.provider.userinterface.view.ViewContainer;
 
 public interface UserInterfaceProvider<T> extends Provider{
 
+
+	/**
+	 * Provides simple feedback about an operation in a small popup. It only fills the amount of space required for the message and the current activity remains visible and interactive. The message popup will automatically disappear after a timeout
+	 * @param message
+	 */
+	public void showInfoMessage( String message);
+
 	public void showErrorDialog(String title, String message, Throwable throwable);
-
-	public void showInfoDialog(String title, String message);
-
+	
 	public void showProgressDialog(String taskDescription, int currentValue, int maxValue);//TODO refactor parameters to: taskName, int percentageCompleted
 
 	public void closeProgressDialog();//TODO remove. progress dialog should close automatically when percentageCompleted=100

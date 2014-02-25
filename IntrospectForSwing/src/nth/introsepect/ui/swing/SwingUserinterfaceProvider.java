@@ -11,6 +11,8 @@ import java.net.URI;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import nth.introsepect.ui.swing.dialog.toast.Toast;
+import nth.introsepect.ui.swing.dialog.toast.Toast.Style;
 import nth.introsepect.ui.swing.mainwindow.MainWindow;
 import nth.introsepect.ui.swing.view.SwingView;
 import nth.introsepect.ui.swing.view.form.FormView;
@@ -60,8 +62,8 @@ public class SwingUserinterfaceProvider extends AbstractUserinterfaceProvider<Sw
 	}
 
 	@Override
-	public void showInfoDialog(String title, String message) {
-		JOptionPane.showMessageDialog(mainWindow, message, title, JOptionPane.INFORMATION_MESSAGE);
+	public void showInfoMessage( String message) {
+		Toast.makeText(mainWindow, message, Style.NORMAL).display();
 	}
 
 	@Override

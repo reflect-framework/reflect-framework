@@ -29,7 +29,7 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable  {
 	private MethodTableModel tableModel;
 	private JTable table;
 	private PopupMenu menuPopUp;
-	private MenuBar menuBar;
+//	private MenuBar menuBar;
 	private final FormView formView;
 	private ReadOnlyValueModel selectedRowModel;
 
@@ -53,8 +53,8 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable  {
 				formView, getSelectedRowModel(),
 				propertyValueModel.getPropertyInfo());
 		menuPopUp = createPopUpMenu(menuItems);
-		menuBar = createMenuBar(menuItems);
-		add(menuBar, BorderLayout.NORTH);
+//		menuBar = createMenuBar(menuItems);
+//		add(menuBar, BorderLayout.NORTH);
 		add(tabelContainer, BorderLayout.CENTER);
 	}
 
@@ -157,7 +157,7 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable  {
 				propertyValueModel.getPropertyInfo());
 		// Do not have to refresh the menu, because it is refreshed when opened,
 		// so no need for menuPopUp.repopulate(menuItems);
-		menuBar.repopulate(menuItems);
+//		menuBar.repopulate(menuItems);
 	}
 
 }

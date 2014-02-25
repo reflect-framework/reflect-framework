@@ -102,9 +102,9 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 	}
 
 	@Override
-	public void showInfoDialog(String title, String message) {
+	public void showInfoMessage(String message) {
 		// display message
-		System.out.println(title + ": " + message);
+		System.out.println(message);
 	}
 
 	@Override
