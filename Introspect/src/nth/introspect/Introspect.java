@@ -11,6 +11,7 @@ import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.info.InfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
+import nth.introspect.provider.report.ReportProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
@@ -81,9 +82,9 @@ public class Introspect {
 	private static InfoProvider infoProvider;
 	private static ValidationProvider validationProvider;
 	private static List<DataAccessProvider<?>> dataAccessProviders=new ArrayList<DataAccessProvider<?>>();
+	private static List<ReportProvider<?>> reportProviders;
 
 	public static void init(IntrospectInitializer initializer) {
-		//TODO add reporting
 		pathProvider = initializer.createPathProvider();
 		languageProvider = initializer.createLanguageProvider();
 		authorizationProvider = initializer.createAuthorizationProvider();
@@ -92,6 +93,7 @@ public class Introspect {
 		infoProvider = initializer.createInfoProvider();
 		userInterfaceProvider = initializer.createUserInterfaceProvider();
 		dataAccessProviders=new ArrayList<DataAccessProvider<?>>();
+		reportProviders=new ArrayList<ReportProvider<?>>();
 	}
 
 	public static UserInterfaceProvider<?> getUserInterfaceProvider() {
@@ -134,6 +136,23 @@ public class Introspect {
 			DataAccessProvider<?> dataAccessProvider = dataAccessClass.newInstance();
 			dataAccessProviders.add(dataAccessProvider);
 			return dataAccessProvider;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static ReportProvider<?> getReportProvider(Class<? extends ReportProvider<?>> reportProviderClass) {
+		//try to find an existing dataAccessProvider 
+		for (ReportProvider<?> reportProvider:reportProviders) {
+			if (reportProvider.getClass().equals(reportProviderClass)) {
+				return reportProvider;
+			}
+		}
+		//if not found: try to instantiate the dataAccessProvider 
+		try {
+			ReportProvider<?> reportProvider = reportProviderClass.newInstance();
+			reportProviders.add(reportProvider);
+			return reportProvider;
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		}

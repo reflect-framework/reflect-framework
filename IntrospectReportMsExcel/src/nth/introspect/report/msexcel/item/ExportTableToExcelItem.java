@@ -65,7 +65,7 @@ public class ExportTableToExcelItem extends Item {
 		};
 	}
 
-	private void exportToExcel() {
+	public void exportToExcel() {
 		DomainProvider domainProvider = Introspect.getDomainProvider();
 		Class<?> valueType = valueModel.getValueType();
 

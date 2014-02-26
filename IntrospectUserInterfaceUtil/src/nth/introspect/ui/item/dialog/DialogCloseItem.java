@@ -1,4 +1,4 @@
-package nth.introsepect.ui.swing;
+package nth.introspect.ui.item.dialog;
 
 import nth.introspect.provider.userinterface.item.Item;
 

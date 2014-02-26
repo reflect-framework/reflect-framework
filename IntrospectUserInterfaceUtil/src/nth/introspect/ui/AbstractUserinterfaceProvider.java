@@ -2,7 +2,10 @@ package nth.introspect.ui;
 
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.security.auth.callback.DialogCallbackHandler;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.DomainProvider;
@@ -10,9 +13,15 @@ import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
 import nth.introspect.provider.domain.info.type.TypeCategory;
+import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
+import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
+import nth.introspect.ui.item.dialog.DialogCancelItem;
+import nth.introspect.ui.item.dialog.DialogMethodItem;
+import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.util.TitleUtil;
 
 /**
@@ -30,7 +39,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 	private static final int PERCENT_100 = 100;
 
 	@Override
-	public void startExecution(Object serviceObject, MethodInfo methodInfo,
+	public void startExecution(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
 		try {
 			FormModeType executionMode = methodInfo.getFormMode();
@@ -38,18 +47,15 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			case showParameterThenClose:
 			case showParameterThenExecuteMethodOrCancel:
 			case editParameterThenExecuteMethodOrCancel:
+				createAndShowParameterForm(methodOwner, methodInfo,
+						methodParameterValue, executionMode);
+				break;
 			case executeMethodAfterConformation:
-				Object domainObject = methodParameterValue;
-				if (methodInfo.hasParameterFactory()) {
-					domainObject = methodInfo
-							.createMethodParameter(serviceObject);
-				}
-				T formView = createFormView(serviceObject, methodInfo,
-						methodParameterValue, domainObject, executionMode);
-				getViewContainer().addView(formView);
+				createAndShowConformationDialog(methodOwner, methodInfo,
+						methodParameterValue);
 				break;
 			case executeMethodDirectly:
-				excuteMethod(serviceObject, methodInfo, methodParameterValue);
+				excuteMethod(methodOwner, methodInfo, methodParameterValue);
 				break;
 			}
 		} catch (Exception exception) {
@@ -59,6 +65,40 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 					"Failed to execute.");
 			showErrorDialog(title, message, exception);
 		}
+	}
+
+	private void createAndShowParameterForm(Object methodOwner,
+			MethodInfo methodInfo, Object methodParameterValue,
+			FormModeType executionMode) throws InstantiationException,
+			IllegalAccessException {
+		Object domainObject = methodParameterValue;
+		if (methodInfo.hasParameterFactory()) {
+			domainObject = methodInfo
+					.createMethodParameter(methodOwner);
+		}
+		T formView = createFormView(methodOwner, methodInfo,
+				methodParameterValue, domainObject, executionMode);
+		getViewContainer().addView(formView);
+	}
+
+	private void createAndShowConformationDialog(Object methodOwner,
+			MethodInfo methodInfo, Object methodParameterValue) {
+		//create the dialog items/ buttons
+		List<Item> items=new ArrayList<Item>();
+		DialogMethodItem methodExecuteItem=new DialogMethodItem(methodOwner, methodInfo, methodParameterValue );
+		items.add(methodExecuteItem);
+		DialogCancelItem cancelItem=new DialogCancelItem();
+		items.add(cancelItem);
+		
+		//create the confirmation title and message
+		LanguageProvider languageProvider = Introspect.getLanguageProvider();
+		String title=languageProvider.getText("Confirmation");
+		StringBuilder message=new StringBuilder();
+		message.append(languageProvider.getText("Do you want to "));
+		message.append(TitleUtil.createTitle(methodInfo, methodParameterValue, false));
+		
+		//show the dialog
+		showDialog(DialogType.QUESTION, title, message.toString(), items);
 	}
 
 	@Override

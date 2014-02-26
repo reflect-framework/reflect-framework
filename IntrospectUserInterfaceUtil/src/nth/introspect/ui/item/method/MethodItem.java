@@ -29,26 +29,12 @@ public class MethodItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				goToNextView();
+				Object methodParameterValue = (methodParameterValueModel == null) ? null : methodParameterValueModel.getValue();
+				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
+				userInterfaceProvider.startExecution(methodOwner, methodInfo, methodParameterValue);
 			}
 
 		});
-	}
-
-	public void goToNextView() {
-		@SuppressWarnings("rawtypes")
-		UserInterfaceProvider userInterfaceProvider = Introspect.getUserInterfaceProvider();
-		TypeCategory parameterType = methodInfo.getParameterType().getTypeCategory();
-		switch (parameterType) {
-		case NONE:
-			userInterfaceProvider.startExecution(methodOwner, methodInfo, null);
-			break;
-		case DOMAIN_TYPE:
-			Object methodParameter = (methodParameterValueModel == null) ? null : methodParameterValueModel.getValue();
-			//TODO methodParameter validation?
-			userInterfaceProvider.startExecution(methodOwner, methodInfo, methodParameter);
-			break;
-		}// TODO parameterType=collection?
 	}
 
 	@Override

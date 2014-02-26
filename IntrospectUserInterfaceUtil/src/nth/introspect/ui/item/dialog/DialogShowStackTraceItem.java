@@ -1,4 +1,4 @@
-package nth.introsepect.ui.swing;
+package nth.introspect.ui.item.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.util.ExceptionUtil;
 
 //TODO move to UserinterfaceUtil project
-public class ShowStackTraceItem extends Item {
+public class DialogShowStackTraceItem extends Item {
 
 	private String title;
 	private String message;
 	private Throwable throwable;
 
-	public ShowStackTraceItem(String title, String message, Throwable throwable) {
+	public DialogShowStackTraceItem(String title, String message, Throwable throwable) {
 		this.title = title;
 		this.message = message;
 		this.throwable = throwable;

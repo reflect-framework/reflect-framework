@@ -28,6 +28,8 @@ import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.item.Item.Action;
 import nth.introspect.ui.AbstractUserinterfaceProvider;
+import nth.introspect.ui.item.dialog.DialogCloseItem;
+import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.util.ExceptionUtil;
 
 public class SwingUserinterfaceProvider extends
@@ -59,27 +61,28 @@ public class SwingUserinterfaceProvider extends
 	@Override
 	public void showErrorDialog(String title, String message,
 			Throwable throwable) {
-//		StringBuffer text = new StringBuffer(message);
-//		// add stack trace
-//		if (throwable != null) {
-//			text.append("\n\n");
-//			text.append(ExceptionUtil.getRootCauseStackTrace(throwable));
-//		}
-//
-//		// show dialog
-//		JOptionPane.showMessageDialog(mainWindow, text, title,
-//				JOptionPane.ERROR_MESSAGE);
-		
-		//TODO move to UserInterfaceUtil  Project
+		// StringBuffer text = new StringBuffer(message);
+		// // add stack trace
+		// if (throwable != null) {
+		// text.append("\n\n");
+		// text.append(ExceptionUtil.getRootCauseStackTrace(throwable));
+		// }
+		//
+		// // show dialog
+		// JOptionPane.showMessageDialog(mainWindow, text, title,
+		// JOptionPane.ERROR_MESSAGE);
 
-//		!!!! TODO not called????
-		
-		List<Item> items=new ArrayList<Item>();
-		ShowStackTraceItem showStackTraceItem = new ShowStackTraceItem(title, message, throwable);
+		// TODO move to UserInterfaceUtil Project
+
+		// !!!! TODO not called????
+
+		List<Item> items = new ArrayList<Item>();
+		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(title,
+				message, throwable);
 		items.add(showStackTraceItem);
 		DialogCloseItem closeItem = new DialogCloseItem();
 		items.add(closeItem);
-		
+
 		showDialog(DialogType.ERROR, title, message, items);
 	}
 
@@ -159,33 +162,36 @@ public class SwingUserinterfaceProvider extends
 	@Override
 	public void showDialog(DialogType dialogType, String title, String message,
 			List<Item> items) {
-		
-		//get dialog type
-		int messageType=0;
+
+		// get dialog type
+		int messageType = 0;
 		switch (dialogType) {
-		case QUESTION: 
-			messageType=JOptionPane.QUESTION_MESSAGE; 
+		case QUESTION:
+			messageType = JOptionPane.QUESTION_MESSAGE;
 			break;
 		case ERROR:
-			messageType=JOptionPane.ERROR_MESSAGE;
+			messageType = JOptionPane.ERROR_MESSAGE;
 		}
-		
-		//get options, assuming that all items are enabled and visible
-		Object[] options=new String[items.size()];
-		for (int index=0;index<items.size();index++) {
-			options[index]=items.get(index).getText();
+
+		// get options, assuming that all items are enabled and visible
+		Object[] options = new String[items.size()];
+		for (int index = 0; index < items.size(); index++) {
+			options[index] = items.get(index).getText();
 		}
-		Object defaultOption=options[items.size()-1];
-		
-		//show dialog
-		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, message, title, JOptionPane.DEFAULT_OPTION, messageType, null, options, defaultOption);
-		
-		//execute selected item
+		Object defaultOption = options[items.size() - 1];
+
+		// show dialog
+		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, message,
+				title, JOptionPane.DEFAULT_OPTION, messageType, null, options,
+				defaultOption);
+
+		// execute selected item
 		Item selectedItem = items.get(selectedIndex);
 		Action action = selectedItem.getAction();
-		action.run();
-		
+		if (action != null) {
+			action.run();
+		}
+
 	}
-	
-	
+
 }

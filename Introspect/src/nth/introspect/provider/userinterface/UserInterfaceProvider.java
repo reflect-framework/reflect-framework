@@ -35,12 +35,12 @@ public interface UserInterfaceProvider<T> extends Provider{
 	/**
 	 * This method is called from a {@link MethodItem} and starts the process of invoking a method
 	 * 
-	 * @param serviceObject
+	 * @param methodOwner Domain or service object that owns the method
 	 * @param methodInfo
 	 * @param methodParameterValue
 	 */
 
-	public void startExecution(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue);
+	public void startExecution(Object methodOwner, MethodInfo methodInfo, Object methodParameterValue);
 
 	/**
 	 * This method is called from {@link #startExecution(Object, MethodInfo, Object)} or from the {@link FormOkItem} linked to the OK button <br>
