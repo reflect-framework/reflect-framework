@@ -1,6 +1,7 @@
 package nth.introspect.ui.commandline.view;
 
 import nth.introspect.provider.domain.format.MethodNotSupportedException;
+import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 
 public class CommandLineViewContainer implements ViewContainer<CommandLineView> {
@@ -11,7 +12,7 @@ public class CommandLineViewContainer implements ViewContainer<CommandLineView> 
 	}
 
 	@Override
-	public void selectView(CommandLineView view) {
+	public void setSelectView(CommandLineView view) {
 		throw new MethodNotSupportedException();
 	}
 
@@ -28,6 +29,11 @@ public class CommandLineViewContainer implements ViewContainer<CommandLineView> 
 	@Override
 	public CommandLineView getView(int index) {
 		throw new MethodNotSupportedException();
+	}
+
+	@Override
+	public View getSelectedView() {
+		return null;
 	}
 
 }

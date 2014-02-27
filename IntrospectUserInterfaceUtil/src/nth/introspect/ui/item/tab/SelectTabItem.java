@@ -18,7 +18,7 @@ public class SelectTabItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				viewContainer.selectView(view);
+				viewContainer.setSelectView(view);
 			}
 		});
 	}

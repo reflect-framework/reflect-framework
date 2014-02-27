@@ -12,6 +12,7 @@ import javax.swing.event.ChangeListener;
 import nth.introsepect.ui.swing.icon.IconFactory;
 import nth.introsepect.ui.swing.style.SwingStyleConstant;
 import nth.introsepect.ui.swing.view.SwingView;
+import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 
 @SuppressWarnings("serial")
@@ -56,7 +57,7 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Swi
 	}
 
 	@Override
-	public void selectView(SwingView view) {
+	public void setSelectView(SwingView view) {
 		view.onViewActivate();
 		setSelectedComponent((Component) view);
 	}
@@ -79,5 +80,10 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Swi
 	@Override
 	public int getViewCount() {
 		return getTabCount();
+	}
+
+	@Override
+	public View getSelectedView() {
+		return (View) getSelectedComponent();
 	}
 }

@@ -74,8 +74,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			IllegalAccessException {
 		Object domainObject = methodParameterValue;
 		if (methodInfo.hasParameterFactory()) {
-			domainObject = methodInfo
-					.createMethodParameter(methodOwner);
+			domainObject = methodInfo.createMethodParameter(methodOwner);
 		}
 		T formView = createFormView(methodOwner, methodInfo,
 				methodParameterValue, domainObject, formMode);
@@ -84,21 +83,24 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 
 	private void createAndShowConformationDialog(Object methodOwner,
 			MethodInfo methodInfo, Object methodParameterValue) {
-		//create the dialog items/ buttons
-		List<Item> items=new ArrayList<Item>();
-		DialogMethodItem methodExecuteItem=new DialogMethodItem(methodOwner, methodInfo, methodParameterValue );
+		// create the dialog items/ buttons
+		List<Item> items = new ArrayList<Item>();
+		DialogMethodItem methodExecuteItem = new DialogMethodItem(methodOwner,
+				methodInfo, methodParameterValue);
 		items.add(methodExecuteItem);
-		DialogCancelItem cancelItem=new DialogCancelItem();
+		DialogCancelItem cancelItem = new DialogCancelItem();
 		items.add(cancelItem);
-		
-		//create the confirmation title and message
+
+		// create the confirmation title and message
 		LanguageProvider languageProvider = Introspect.getLanguageProvider();
-		String title=languageProvider.getText("Confirmation");
-		StringBuilder message=new StringBuilder();
-		message.append(languageProvider.getText("Do you want to "));
-		message.append(TitleUtil.createTitle(methodInfo, methodParameterValue, false));
-		
-		//show the dialog
+		String title = languageProvider.getText("Confirmation");
+		StringBuilder message = new StringBuilder();
+		message.append(languageProvider.getText("Do you want to: "));
+		message.append(TitleUtil.createTitle(methodInfo, methodParameterValue,
+				false));
+		message.append("?");
+
+		// show the dialog
 		showDialog(DialogType.QUESTION, title, message.toString(), items);
 	}
 
@@ -176,7 +178,18 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 						methodReturnValue = method.invoke(serviceObject,
 								methodArguments);
 					}
-					Introspect.getUserInterfaceProvider()
+
+					UserInterfaceProvider<?> userInterfaceProvider = Introspect
+							.getUserInterfaceProvider();
+					// update current view (calling a method on a object is most
+					// likely to change its state
+					View selectedView = userInterfaceProvider
+							.getViewContainer().getSelectedView();
+					if (selectedView != null) {
+						selectedView.onViewActivate();
+					}
+					// show method result
+					userInterfaceProvider
 							.showMethodReturnValue(serviceObject, methodInfo,
 									methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
@@ -209,8 +222,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 		case DOMAIN_TYPE:
 			Object domainObject = methodReturnValue;
 			T formView = createFormView(serviceObject, methodInfo,
-					methodParameterValue, domainObject,
-					FormMode.READ_ONLY_MODE);
+					methodParameterValue, domainObject, FormMode.READ_ONLY_MODE);
 			getViewContainer().addView(formView);
 			break;
 		case COLLECTION_TYPE:
@@ -282,7 +294,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 	 */
 	public abstract T createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
-			Object domainObject, FormMode formMode); 
+			Object domainObject, FormMode formMode);
 
 	public abstract T createTableView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
@@ -299,8 +311,8 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			Throwable throwable) {
 
 		List<Item> items = new ArrayList<Item>();
-		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(title,
-				message, throwable);
+		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(
+				title, message, throwable);
 		items.add(showStackTraceItem);
 		DialogCloseItem closeItem = new DialogCloseItem();
 		items.add(closeItem);
