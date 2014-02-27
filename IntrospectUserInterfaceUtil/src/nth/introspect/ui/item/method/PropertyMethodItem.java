@@ -8,7 +8,8 @@ import nth.introspect.provider.domain.info.type.MethodParameterType;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.view.FormView;
+import nth.introspect.ui.view.FormMode;
+import nth.introspect.ui.view.FormView;
 import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
@@ -79,7 +80,7 @@ public class PropertyMethodItem extends MethodItem {
 	 */
 	@Override
 	public boolean isVisible() {
-		return !formView.isFormReadOnly() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+		return FormMode.EDIT_MODE== formView.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
 	}
 	
 

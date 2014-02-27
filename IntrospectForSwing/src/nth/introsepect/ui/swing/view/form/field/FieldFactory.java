@@ -4,8 +4,8 @@ import java.awt.Component;
 
 import nth.introspect.provider.domain.info.property.FieldModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
+import nth.introspect.ui.view.FormView;
 
 public class FieldFactory {
 

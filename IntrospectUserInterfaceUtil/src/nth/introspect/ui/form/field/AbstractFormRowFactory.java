@@ -4,11 +4,12 @@ import nth.introspect.provider.domain.info.property.FieldModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
+import nth.introspect.ui.view.FormMode;
 
 public abstract class AbstractFormRowFactory<T> {
 
-	public T createField(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, boolean formIsReadOnly ) {
-		PropertyValueModel propertyValueModel=new PropertyValueModel(domainValueModel, propertyInfo, formIsReadOnly);
+	public T createField(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode ) {
+		PropertyValueModel propertyValueModel=new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		FieldModeType fieldMode = propertyInfo.getFieldMode();
 		switch (fieldMode) {
 		case TEXT:

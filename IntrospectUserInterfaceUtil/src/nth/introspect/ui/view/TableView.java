@@ -1,4 +1,4 @@
-package nth.introspect.provider.userinterface.view;
+package nth.introspect.ui.view;
 
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.valuemodel.ReadOnlyValueModel;

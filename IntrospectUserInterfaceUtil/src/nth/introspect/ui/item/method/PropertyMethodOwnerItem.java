@@ -9,8 +9,8 @@ import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.ui.item.HierarchicalItem;
+import nth.introspect.ui.view.FormView;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class PropertyMethodOwnerItem extends HierarchicalItem {

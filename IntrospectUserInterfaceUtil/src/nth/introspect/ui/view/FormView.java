@@ -1,13 +1,14 @@
-package nth.introspect.provider.userinterface.view;
+package nth.introspect.ui.view;
 
 import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public interface FormView extends View {
 
 	public ReadOnlyValueModel getDomainValueModel();
 
-	public boolean isFormReadOnly();//FIXME: replace in FormMode getFormMode (FormMode enum {READ_ONLY_MODE, EDIT_MODE})
+	public FormMode getFormMode();
 
 	public MethodInfo getMethodInfo();
 

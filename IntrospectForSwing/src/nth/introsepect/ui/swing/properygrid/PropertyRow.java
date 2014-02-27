@@ -16,9 +16,10 @@ import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.PropertyChangeListener;
 import nth.introspect.provider.domain.PropertyChangeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
+import nth.introspect.ui.view.FormMode;
+import nth.introspect.ui.view.FormView;
 
 public class PropertyRow extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = -1361779111256295050L;
@@ -46,12 +47,12 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 	// getField().setPreferredSize(new Dimension(Integer.MAX_VALUE,height));
 	// }
 
-	public PropertyRow(FormView formView, BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, boolean formIsReadOnly) {
+	public PropertyRow(FormView formView, BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
 		this.domainValueModel = domainValueModel;
 		this.propertyInfo = propertyInfo;
 		// create value model to bind domainObject and SWING field
 		
-		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formIsReadOnly);
+		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		
 		DomainProvider domainProvider = Introspect.getDomainProvider();
 		domainProvider.addPropertyChangeListener(this);//FIXME where is the property change listener beeing unsubscribed?

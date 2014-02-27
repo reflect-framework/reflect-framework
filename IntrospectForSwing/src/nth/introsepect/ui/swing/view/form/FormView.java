@@ -24,35 +24,35 @@ import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
 import nth.introspect.ui.item.tab.CloseThisTabItem;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
+import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 @SuppressWarnings("serial")
-public class FormView extends SwingView implements nth.introspect.provider.userinterface.view.FormView { // implements ReadOnlyValueModel {
+public class FormView extends SwingView implements nth.introspect.ui.view.FormView { // implements ReadOnlyValueModel {
 
 	private final MethodInfo methodInfo;
 	private final Object serviceObject;
 	private BufferedDomainValueModel domainValueModel;
 	private final Object methodParameterValue;
-	private boolean formIsReadonly;
+	private FormMode formMode;
 
-	public FormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, boolean formIsReadonly) {
+	public FormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.serviceObject = serviceObject;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
-		this.formIsReadonly = formIsReadonly;
-		// this.domainObject = domainObject;
+		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
 		DomainProvider domainProvider = Introspect.getDomainProvider();
 		List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(domainObject.getClass());
 
-		domainValueModel = new BufferedDomainValueModel(domainObject, formIsReadonly);
+		domainValueModel = new BufferedDomainValueModel(domainObject, formMode);
 
 		PropertyGrid propertyGrid = new PropertyGrid();
 		add(propertyGrid, BorderLayout.CENTER);
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyRow propertyRow = new PropertyRow(this, domainValueModel, propertyInfo, formIsReadonly);
+			PropertyRow propertyRow = new PropertyRow(this, domainValueModel, propertyInfo, formMode);
 			propertyGrid.addPropertyRow(propertyRow);
 		}
 		//FIXME: request focus to first enabled field
@@ -65,13 +65,16 @@ public class FormView extends SwingView implements nth.introspect.provider.useri
 		buttonBar.setAlignmentX(JToolBar.CENTER_ALIGNMENT);
 		buttonBar.add(Box.createHorizontalGlue());
 
-		if (formIsReadonly) {
-			//read only mode
+		switch (formMode) {
+		case READ_ONLY_MODE:
 			buttonBar.add(createCloseButton());
-		} else {
-			//in edit mode
+			break;
+		case EDIT_MODE:
 			buttonBar.add(createOkButton());
 			buttonBar.add(createCancelButton());
+			break;
+		default:
+			break;
 		}
 
 		buttonBar.add(Box.createHorizontalGlue());
@@ -130,7 +133,7 @@ public class FormView extends SwingView implements nth.introspect.provider.useri
 	}
 
 	@Override
-	public boolean isFormReadOnly() {
-		return formIsReadonly;
+	public FormMode getFormMode() {
+		return formMode;
 	}
 }

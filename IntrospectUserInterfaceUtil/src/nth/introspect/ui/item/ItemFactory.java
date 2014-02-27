@@ -17,14 +17,15 @@ import nth.introspect.provider.domain.info.method.filter.ReturnTypeFilter;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.view.FormView;
-import nth.introspect.provider.userinterface.view.TableView;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodItem;
 import nth.introspect.ui.item.method.PropertyMethodOwnerItem;
+import nth.introspect.ui.view.FormMode;
+import nth.introspect.ui.view.FormView;
+import nth.introspect.ui.view.TableView;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class ItemFactory {
@@ -159,7 +160,7 @@ public class ItemFactory {
 			View view = (View) viewContainer.getView(index);
 			if (view instanceof FormView) {
 				FormView formView = (FormView) view;
-				if (!formView.isFormReadOnly()) {
+				if (FormMode.EDIT_MODE==formView.getFormMode()) {
 					PropertyMethodOwnerItem item = new PropertyMethodOwnerItem(
 							formView, paramaterModel, propertyInfo);
 					items.add(item);

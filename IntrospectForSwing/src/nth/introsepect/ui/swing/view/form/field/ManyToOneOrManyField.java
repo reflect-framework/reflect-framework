@@ -16,9 +16,9 @@ import nth.introsepect.ui.swing.style.ColorUtil;
 import nth.introsepect.ui.swing.view.table.MethodTableModel;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
+import nth.introspect.ui.view.FormView;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class ManyToOneOrManyField extends JPanel implements Refreshable  {

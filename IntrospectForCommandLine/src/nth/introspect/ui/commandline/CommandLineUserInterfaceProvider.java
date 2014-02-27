@@ -32,6 +32,7 @@ import nth.introspect.ui.commandline.view.CommandLineViewContainer;
 import nth.introspect.ui.commandline.view.FormView;
 import nth.introspect.ui.commandline.view.HelpView;
 import nth.introspect.ui.commandline.view.TableView;
+import nth.introspect.ui.view.FormMode;
 
 public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvider<CommandLineView> {
 
@@ -187,7 +188,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 	}
 
 	@Override
-	public CommandLineView createFormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, boolean formIsReadOnly) {
+	public CommandLineView createFormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
 		return new FormView(methodInfo, domainObject);
 	}
 

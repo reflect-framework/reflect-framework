@@ -1,18 +1,19 @@
 package nth.introspect.ui.valuemodel;
 
 import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.ui.view.FormMode;
 import nth.introspect.valuemodel.ReadWriteValueModel;
 
 public class PropertyValueModel implements ReadWriteValueModel {
 
 	private final PropertyInfo propertyInfo;
 	private final BufferedDomainValueModel domainValueModel;
-	private final boolean formIsReadOnly;
+	private FormMode formMode;
 
-	public PropertyValueModel(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, boolean formIsReadOnly) {
+	public PropertyValueModel(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
 		this.domainValueModel = domainValueModel;
 		this.propertyInfo = propertyInfo;
-		this.formIsReadOnly = formIsReadOnly;
+		this.formMode = formMode;
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class PropertyValueModel implements ReadWriteValueModel {
 
 	@Override
 	public boolean canSetValue() {
-		return !formIsReadOnly && propertyInfo.isEnabled(domainValueModel.getValue());
+		return FormMode.EDIT_MODE==formMode && propertyInfo.isEnabled(domainValueModel.getValue());
 	}
 
 	public boolean isVisible() {

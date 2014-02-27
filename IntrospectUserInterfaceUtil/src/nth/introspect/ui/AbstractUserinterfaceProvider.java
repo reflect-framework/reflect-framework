@@ -24,6 +24,7 @@ import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.ui.item.method.FormOkItem;
+import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.TitleUtil;
 
 /**
@@ -48,7 +49,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			switch (executionMode) {
 			case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
 				createAndShowParameterForm(methodOwner, methodInfo,
-						methodParameterValue, false);
+						methodParameterValue, FormMode.EDIT_MODE);
 				break;
 			case EXECUTE_METHOD_AFTER_CONFORMATION:
 				createAndShowConformationDialog(methodOwner, methodInfo,
@@ -69,7 +70,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 
 	private void createAndShowParameterForm(Object methodOwner,
 			MethodInfo methodInfo, Object methodParameterValue,
-			boolean formIsReadonly) throws InstantiationException,
+			FormMode formMode) throws InstantiationException,
 			IllegalAccessException {
 		Object domainObject = methodParameterValue;
 		if (methodInfo.hasParameterFactory()) {
@@ -77,7 +78,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 					.createMethodParameter(methodOwner);
 		}
 		T formView = createFormView(methodOwner, methodInfo,
-				methodParameterValue, domainObject, formIsReadonly);
+				methodParameterValue, domainObject, formMode);
 		getViewContainer().addView(formView);
 	}
 
@@ -209,7 +210,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			Object domainObject = methodReturnValue;
 			T formView = createFormView(serviceObject, methodInfo,
 					methodParameterValue, domainObject,
-					true);
+					FormMode.EDIT_MODE);
 			getViewContainer().addView(formView);
 			break;
 		case COLLECTION_TYPE:
@@ -277,12 +278,11 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 	 * @param methodInfo
 	 * @param methodParameterValue
 	 * @param domainObject
-	 * @param formIsReadonly
 	 * @return
 	 */
 	public abstract T createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
-			Object domainObject, boolean formIsReadonly); 
+			Object domainObject, FormMode formMode); 
 
 	public abstract T createTableView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,

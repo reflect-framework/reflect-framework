@@ -11,13 +11,14 @@ import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.report.msexcel.item.ExportTableToExcelItem;
 import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodOwnerItem;
+import nth.introspect.ui.view.FormMode;
+import nth.introspect.ui.view.FormView;
 import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
@@ -43,8 +44,7 @@ public class TableViewItemFactory {
 			Object view = viewContainer.getView(index);
 			if (view instanceof FormView) {
 				FormView formView = (FormView) view;
-				if (!formView.isFormReadOnly()) {
-					//form is in edit mode
+				if (FormMode.EDIT_MODE== formView.getFormMode()) {
 					PropertyMethodOwnerItem propertyMethodOwnerItem = new PropertyMethodOwnerItem(formView,domainClassValueModel);
 					items.add(propertyMethodOwnerItem);
 				}

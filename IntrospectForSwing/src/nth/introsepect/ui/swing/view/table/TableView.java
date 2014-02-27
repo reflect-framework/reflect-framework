@@ -29,7 +29,7 @@ import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class TableView extends SwingView implements
-		nth.introspect.provider.userinterface.view.TableView {
+		nth.introspect.ui.view.TableView {
 
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;

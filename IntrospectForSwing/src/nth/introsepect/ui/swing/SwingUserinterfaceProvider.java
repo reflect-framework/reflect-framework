@@ -30,6 +30,7 @@ import nth.introspect.provider.userinterface.item.Item.Action;
 import nth.introspect.ui.AbstractUserinterfaceProvider;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
+import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.ExceptionUtil;
 
 public class SwingUserinterfaceProvider extends
@@ -103,9 +104,9 @@ public class SwingUserinterfaceProvider extends
 	@Override
 	public SwingView createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
-			Object domainObject, boolean formIsReadonly) {
+			Object domainObject, FormMode formMode) {
 		return new FormView(serviceObject, methodInfo, methodParameterValue,
-				domainObject, formIsReadonly);
+				domainObject, formMode);
 	}
 
 	@Override

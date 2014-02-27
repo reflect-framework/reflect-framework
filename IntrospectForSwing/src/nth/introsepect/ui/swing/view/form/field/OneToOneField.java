@@ -14,9 +14,9 @@ import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
+import nth.introspect.ui.view.FormView;
 
 //public class OneToOneField extends DropDownTextField implements Refreshable {
 public class OneToOneField extends DropDownTextfield implements Refreshable {
