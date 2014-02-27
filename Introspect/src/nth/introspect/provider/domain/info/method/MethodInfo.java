@@ -35,9 +35,9 @@ public class MethodInfo implements IntrospectionInfo {
 	public final static String ICON = "icon";
 	public final static String PARAMETER_FACTORY = "parameterFactory";
 	public final static String PARAMETER_MODIFIER = "parameterModifier";
-	public final static String FORM_MODE = "formMode";// TODO change to userInterfaceMode???
+	public final static String EXECUTION_MODE = "executionMode";
 	public final static String ACCESS_KEY = "accessKey";
-	public final String[] ANNOTATION_NAMES = new String[] {ICON, ORDER, VISIBLE, ENABLED, RETURN_CLASS, FORM_MODE};
+	public final String[] ANNOTATION_NAMES = new String[] {ICON, ORDER, VISIBLE, ENABLED, RETURN_CLASS, EXECUTION_MODE};
 	public final static String[] METHOD_NAMES = new String[] {PARAMETER_FACTORY, ICON, VISIBLE, ENABLED};
 	public static final String RETURN_CLASS = "returnClass";
 
@@ -48,14 +48,10 @@ public class MethodInfo implements IntrospectionInfo {
 	private final MethodParameterType parameterType; 
 	private final MethodReturnType returnType; 
 
-	public enum FormModeType {
-		//TODO rename to executionMode
-		//TODO rename executeMethodDirectly to EXECUTE_METHOD_DIRECTLY
-		//TODO rename executeMethodAfterConformation to EXECUTE_METHOD_AFTER_CONFORMATION
-		//TODO rename editParameterThenExecuteMethodOrCancel to EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL
-		//TODO Remove showParameterThenExecuteMethodOrCancel: (same as EXECUTE_METHOD_AFTER_CONFORMATION)
-		//TODO Remove showParameterThenClose: (same as EXECUTE_METHOD_DIRECTLY of a method that returns a value)
-		executeMethodDirectly, executeMethodAfterConformation, editParameterThenExecuteMethodOrCancel, showParameterThenExecuteMethodOrCancel, showParameterThenClose
+	
+	
+	public enum ExecutionModeType {
+		EXECUTE_METHOD_DIRECTLY, EXECUTE_METHOD_AFTER_CONFORMATION, EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL 
 	}
 
 	public MethodInfo(Method method) {
@@ -82,7 +78,7 @@ public class MethodInfo implements IntrospectionInfo {
 		valueModels.put(ORDER, new SimpleValue(0));
 		valueModels.put(VISIBLE, new SimpleValue(true));
 		valueModels.put(ENABLED, new SimpleValue(true));
-		valueModels.put(FORM_MODE, new SimpleValue(FormModeType.editParameterThenExecuteMethodOrCancel));
+		valueModels.put(EXECUTION_MODE, new SimpleValue(ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL));
 
 		// create value getters from annotations
 		// TODO add a value getter for domainclass from EJB annotations (when available) because Introspect cannot determine the generic type of a collection
@@ -96,8 +92,8 @@ public class MethodInfo implements IntrospectionInfo {
 
 		
 		// overwrite form mode when necessary
-		if (TypeCategory.NONE== getParameterType().getTypeCategory() && getFormMode() != FormModeType.executeMethodAfterConformation) {
-			valueModels.put(FORM_MODE, new SimpleValue(FormModeType.executeMethodDirectly));
+		if (TypeCategory.NONE== getParameterType().getTypeCategory() && getExecutionMode() != ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION) {
+			valueModels.put(EXECUTION_MODE, new SimpleValue(ExecutionModeType.EXECUTE_METHOD_DIRECTLY));
 		}
 
 	}
@@ -159,12 +155,12 @@ public class MethodInfo implements IntrospectionInfo {
 		return valueModels.getBooleanValue(ENABLED, serviceObject);
 	}
 
-	public FormModeType getFormMode() {//TODO getRefactor to getExecutionMode (see also TODO in formModeType)
-		return (FormModeType) valueModels.getValue(FORM_MODE);
+	public ExecutionModeType getExecutionMode() {
+		return (ExecutionModeType) valueModels.getValue(EXECUTION_MODE);
 	}
 
-	public void setFormMode(FormModeType formMode) {
-		valueModels.put(FORM_MODE,new SimpleValue(formMode));
+	public void setFormMode(ExecutionModeType formMode) {
+		valueModels.put(EXECUTION_MODE,new SimpleValue(formMode));
 	}
 	
 	public MethodParameterType getParameterType() {

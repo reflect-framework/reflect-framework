@@ -22,7 +22,7 @@ import nth.introsepect.ui.swing.view.form.FormView;
 import nth.introsepect.ui.swing.view.table.TableView;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.item.Item;
@@ -58,33 +58,7 @@ public class SwingUserinterfaceProvider extends
 		return mainWindow;
 	}
 
-	@Override
-	public void showErrorDialog(String title, String message,
-			Throwable throwable) {
-		// StringBuffer text = new StringBuffer(message);
-		// // add stack trace
-		// if (throwable != null) {
-		// text.append("\n\n");
-		// text.append(ExceptionUtil.getRootCauseStackTrace(throwable));
-		// }
-		//
-		// // show dialog
-		// JOptionPane.showMessageDialog(mainWindow, text, title,
-		// JOptionPane.ERROR_MESSAGE);
 
-		// TODO move to UserInterfaceUtil Project
-
-		// !!!! TODO not called????
-
-		List<Item> items = new ArrayList<Item>();
-		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(title,
-				message, throwable);
-		items.add(showStackTraceItem);
-		DialogCloseItem closeItem = new DialogCloseItem();
-		items.add(closeItem);
-
-		showDialog(DialogType.ERROR, title, message, items);
-	}
 
 	@Override
 	public void showInfoMessage(String message) {
@@ -129,9 +103,9 @@ public class SwingUserinterfaceProvider extends
 	@Override
 	public SwingView createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
-			Object domainObject, FormModeType executionMode) {
+			Object domainObject, boolean formIsReadonly) {
 		return new FormView(serviceObject, methodInfo, methodParameterValue,
-				domainObject, executionMode);
+				domainObject, formIsReadonly);
 	}
 
 	@Override

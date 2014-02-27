@@ -11,9 +11,9 @@ import nth.introspect.Introspect;
 import nth.introspect.domain.test.TestsService;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.valuemodel.annotations.FormMode;
+import nth.introspect.provider.domain.info.valuemodel.annotations.ExecutionMode;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.util.TypeUtil;
@@ -98,7 +98,7 @@ public class ClassDiagramService {
 	// return classDiagram;
 	// }
 
-	@FormMode(FormModeType.executeMethodDirectly)
+	@ExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
 	public ClassDiagram openClassDiagram(ClassFeature classFeature) {
 		Class<?> introspectedClass = classFeature.getType();
 		if (introspectedClass == null) {

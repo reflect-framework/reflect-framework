@@ -1,10 +1,12 @@
 package nth.introspect.ui.commandline;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.Collection;
@@ -15,8 +17,12 @@ import javax.swing.JFileChooser;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.format.MethodNotSupportedException;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
+import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.provider.userinterface.item.Item.Action;
 import nth.introspect.ui.AbstractUserinterfaceProvider;
 import nth.introspect.ui.commandline.domain.command.Command;
 import nth.introspect.ui.commandline.domain.command.CommandService;
@@ -26,7 +32,6 @@ import nth.introspect.ui.commandline.view.CommandLineViewContainer;
 import nth.introspect.ui.commandline.view.FormView;
 import nth.introspect.ui.commandline.view.HelpView;
 import nth.introspect.ui.commandline.view.TableView;
-import nth.introspect.util.ExceptionUtil;
 
 public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvider<CommandLineView> {
 
@@ -77,7 +82,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 			Object serviceObject = command.getServiceObject();
 			MethodInfo methodInfo = command.getMethodInfo();
 			//override form mode to execute method directly (because this is the only mode supported for a command line interface)
-			methodInfo.setFormMode(FormModeType.executeMethodDirectly);
+			methodInfo.setFormMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
 
 			startExecution(serviceObject, methodInfo, methodParameterValue);
 			
@@ -88,23 +93,62 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 
 	}
 
-	@Override
-	public void showErrorDialog(String title, String message, Throwable throwable) {
-		StringBuffer text = new StringBuffer(message);
-		// add stack trace
-		if (throwable != null) {
-			text.append("\n\n");
-			text.append(ExceptionUtil.getRootCauseStackTrace(throwable));
-		}
-
-		// display error
-		System.out.println(title + ": " + text);
-	}
 
 	@Override
 	public void showInfoMessage(String message) {
 		// display message
 		System.out.println(message);
+	}
+	
+	@Override
+	public void showDialog(DialogType dialogType, String title, String message,
+			List<Item> items) {
+		LanguageProvider languageProvider=Introspect.getLanguageProvider();
+		StringBuilder txt=new StringBuilder(dialogType.toString());
+		txt.append(" - ");
+		txt.append(title);
+		txt.append("\n");
+		txt.append(message);
+		txt.append("\n");
+		System.out.println(txt.toString());
+		
+		StringBuilder options=new StringBuilder(dialogType.toString());
+		options.append(languageProvider.getText("Options: "));
+		for (int index=0;index<items.size();index++) {
+			options.append(index+1);
+			options.append("=");
+			options.append(items.get(index).getText());
+			if (index==items.size()-1) {
+				//last option
+				options.append("? ");	
+			} else {
+				options.append(", ");
+			}
+			
+		}
+		System.out.print(options.toString());
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int input=-1;
+		while (input<1 || input>items.size()) {
+			try {
+				String inputString = br.readLine();
+				input=Integer.valueOf(inputString);
+			} catch (Exception e) {
+			}
+			if (input<1 || input>items.size() ) {
+				System.out.println(languageProvider.getText("Invalid input."));
+				System.out.print(options.toString());
+			}
+		}
+		
+		Item selectedItem = items.get(input);
+		Action action = selectedItem.getAction();
+		if (action!=null) {
+			action.run();
+		}
+		
+				
 	}
 
 	@Override
@@ -143,7 +187,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 	}
 
 	@Override
-	public CommandLineView createFormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, FormModeType executionMode) {
+	public CommandLineView createFormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, boolean formIsReadOnly) {
 		return new FormView(methodInfo, domainObject);
 	}
 
@@ -165,6 +209,8 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 			Introspect.getUserInterfaceProvider().showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
 		}
 	}
+
+	
 
 
 }

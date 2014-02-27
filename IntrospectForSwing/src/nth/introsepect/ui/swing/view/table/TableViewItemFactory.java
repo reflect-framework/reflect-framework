@@ -7,7 +7,7 @@ import nth.introspect.Introspect;
 import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.FilterBuilder;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
@@ -43,7 +43,8 @@ public class TableViewItemFactory {
 			Object view = viewContainer.getView(index);
 			if (view instanceof FormView) {
 				FormView formView = (FormView) view;
-				if (formView.getFormMode() == FormModeType.editParameterThenExecuteMethodOrCancel) {
+				if (!formView.isFormReadOnly()) {
+					//form is in edit mode
 					PropertyMethodOwnerItem propertyMethodOwnerItem = new PropertyMethodOwnerItem(formView,domainClassValueModel);
 					items.add(propertyMethodOwnerItem);
 				}

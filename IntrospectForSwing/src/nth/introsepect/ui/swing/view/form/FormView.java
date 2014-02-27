@@ -18,7 +18,7 @@ import nth.introsepect.ui.swing.view.SwingView;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
@@ -33,22 +33,20 @@ public class FormView extends SwingView implements nth.introspect.provider.useri
 	private final MethodInfo methodInfo;
 	private final Object serviceObject;
 	private BufferedDomainValueModel domainValueModel;
-	private final FormModeType formMode;
-	// private final Object domainObject;
 	private final Object methodParameterValue;
+	private boolean formIsReadonly;
 
-	public FormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, FormModeType formMode) {
+	public FormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, boolean formIsReadonly) {
 		this.serviceObject = serviceObject;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
+		this.formIsReadonly = formIsReadonly;
 		// this.domainObject = domainObject;
-		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
 		DomainProvider domainProvider = Introspect.getDomainProvider();
 		List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(domainObject.getClass());
 
-		boolean formIsReadonly = formMode != FormModeType.editParameterThenExecuteMethodOrCancel;
 		domainValueModel = new BufferedDomainValueModel(domainObject, formIsReadonly);
 
 		PropertyGrid propertyGrid = new PropertyGrid();
@@ -67,19 +65,13 @@ public class FormView extends SwingView implements nth.introspect.provider.useri
 		buttonBar.setAlignmentX(JToolBar.CENTER_ALIGNMENT);
 		buttonBar.add(Box.createHorizontalGlue());
 
-		switch (formMode) {
-		case executeMethodAfterConformation:
-		case showParameterThenExecuteMethodOrCancel:
-		case editParameterThenExecuteMethodOrCancel:
+		if (formIsReadonly) {
+			//read only mode
+			buttonBar.add(createCloseButton());
+		} else {
+			//in edit mode
 			buttonBar.add(createOkButton());
 			buttonBar.add(createCancelButton());
-			break;
-		case executeMethodDirectly:
-			// FormView should not be used anyway so do nothing
-			break;
-		case showParameterThenClose:
-			buttonBar.add(createCloseButton());
-			break;
 		}
 
 		buttonBar.add(Box.createHorizontalGlue());
@@ -116,9 +108,6 @@ public class FormView extends SwingView implements nth.introspect.provider.useri
 		return methodInfo.getIconURI(serviceObject);
 	}
 
-	public FormModeType getFormMode() {
-		return formMode;
-	}
 
 	@Override
 	public ReadOnlyValueModel getDomainValueModel() {
@@ -138,5 +127,10 @@ public class FormView extends SwingView implements nth.introspect.provider.useri
 	@Override
 	public Object getServiceObject() {
 		return serviceObject;
+	}
+
+	@Override
+	public boolean isFormReadOnly() {
+		return formIsReadonly;
 	}
 }

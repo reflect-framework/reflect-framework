@@ -7,7 +7,7 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.view.FormView;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
@@ -20,7 +20,7 @@ public class FormOkItem extends MethodItem {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				if (formView.getFormMode()==FormModeType.editParameterThenExecuteMethodOrCancel) {
+				if (!formView.isFormReadOnly()) {
 					domainValueModel.commit();
 				}
 				UserInterfaceProvider<?> userinterfacePort = Introspect.getUserInterfaceProvider();

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
-import nth.introspect.provider.domain.info.valuemodel.annotations.FormMode;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.provider.domain.info.valuemodel.annotations.ExecutionMode;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.provider.userinterface.DownloadStream;
 /**
@@ -59,15 +59,16 @@ public class TestService {
 		return new Test();
 	}
 
-	@FormMode(FormModeType.showParameterThenClose)
-	public void viewTest(Test test) {
+	@ExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
+	public Test viewTest(Test test) {
+		return test;
 	}
 
-	@FormMode(FormModeType.editParameterThenExecuteMethodOrCancel)
+	@ExecutionMode(ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL)
 	public void modifyTest(Test test) {
 	}
 
-	@FormMode(FormModeType.showParameterThenExecuteMethodOrCancel)
+	@ExecutionMode(ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION)
 	public void deleteTest(Test test) {
 		tests.remove(test);
 	}

@@ -2,7 +2,7 @@ package nth.introspect.ui.item.method;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.type.MethodParameterType;
 import nth.introspect.provider.domain.info.type.TypeCategory;
@@ -79,8 +79,7 @@ public class PropertyMethodItem extends MethodItem {
 	 */
 	@Override
 	public boolean isVisible() {
-		return FormModeType.editParameterThenExecuteMethodOrCancel == formView
-				.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+		return !formView.isFormReadOnly() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
 	}
 	
 

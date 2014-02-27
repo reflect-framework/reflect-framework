@@ -9,7 +9,7 @@ import nth.introspect.filter.Filter;
 import nth.introspect.filter.LogicFilter;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.provider.domain.info.method.filter.NoParameterOrParameterFactoryFilter;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
@@ -159,8 +159,7 @@ public class ItemFactory {
 			View view = (View) viewContainer.getView(index);
 			if (view instanceof FormView) {
 				FormView formView = (FormView) view;
-				FormModeType formMode = formView.getFormMode();
-				if (FormModeType.editParameterThenExecuteMethodOrCancel == formMode) {
+				if (!formView.isFormReadOnly()) {
 					PropertyMethodOwnerItem item = new PropertyMethodOwnerItem(
 							formView, paramaterModel, propertyInfo);
 					items.add(item);

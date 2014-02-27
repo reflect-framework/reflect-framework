@@ -10,7 +10,7 @@ import com.sun.security.auth.callback.DialogCallbackHandler;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.FormModeType;
+import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.provider.language.LanguageProvider;
@@ -20,7 +20,9 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.ui.item.dialog.DialogCancelItem;
+import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
+import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.util.TitleUtil;
 
@@ -42,19 +44,17 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 	public void startExecution(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
 		try {
-			FormModeType executionMode = methodInfo.getFormMode();
+			ExecutionModeType executionMode = methodInfo.getExecutionMode();
 			switch (executionMode) {
-			case showParameterThenClose:
-			case showParameterThenExecuteMethodOrCancel:
-			case editParameterThenExecuteMethodOrCancel:
+			case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
 				createAndShowParameterForm(methodOwner, methodInfo,
-						methodParameterValue, executionMode);
+						methodParameterValue, false);
 				break;
-			case executeMethodAfterConformation:
+			case EXECUTE_METHOD_AFTER_CONFORMATION:
 				createAndShowConformationDialog(methodOwner, methodInfo,
 						methodParameterValue);
 				break;
-			case executeMethodDirectly:
+			case EXECUTE_METHOD_DIRECTLY:
 				excuteMethod(methodOwner, methodInfo, methodParameterValue);
 				break;
 			}
@@ -69,7 +69,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 
 	private void createAndShowParameterForm(Object methodOwner,
 			MethodInfo methodInfo, Object methodParameterValue,
-			FormModeType executionMode) throws InstantiationException,
+			boolean formIsReadonly) throws InstantiationException,
 			IllegalAccessException {
 		Object domainObject = methodParameterValue;
 		if (methodInfo.hasParameterFactory()) {
@@ -77,7 +77,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 					.createMethodParameter(methodOwner);
 		}
 		T formView = createFormView(methodOwner, methodInfo,
-				methodParameterValue, domainObject, executionMode);
+				methodParameterValue, domainObject, formIsReadonly);
 		getViewContainer().addView(formView);
 	}
 
@@ -209,7 +209,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			Object domainObject = methodReturnValue;
 			T formView = createFormView(serviceObject, methodInfo,
 					methodParameterValue, domainObject,
-					FormModeType.showParameterThenClose);
+					true);
 			getViewContainer().addView(formView);
 			break;
 		case COLLECTION_TYPE:
@@ -277,12 +277,12 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 	 * @param methodInfo
 	 * @param methodParameterValue
 	 * @param domainObject
-	 * @param executionMode
+	 * @param formIsReadonly
 	 * @return
 	 */
 	public abstract T createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
-			Object domainObject, FormModeType executionMode);
+			Object domainObject, boolean formIsReadonly); 
 
 	public abstract T createTableView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
@@ -294,4 +294,17 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 
 	// TODO public abstract T createMenuView();
 
+	@Override
+	public void showErrorDialog(String title, String message,
+			Throwable throwable) {
+
+		List<Item> items = new ArrayList<Item>();
+		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(title,
+				message, throwable);
+		items.add(showStackTraceItem);
+		DialogCloseItem closeItem = new DialogCloseItem();
+		items.add(closeItem);
+
+		showDialog(DialogType.ERROR, title, message, items);
+	}
 }
