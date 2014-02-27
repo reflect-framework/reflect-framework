@@ -210,7 +210,7 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			Object domainObject = methodReturnValue;
 			T formView = createFormView(serviceObject, methodInfo,
 					methodParameterValue, domainObject,
-					FormMode.EDIT_MODE);
+					FormMode.READ_ONLY_MODE);
 			getViewContainer().addView(formView);
 			break;
 		case COLLECTION_TYPE:
