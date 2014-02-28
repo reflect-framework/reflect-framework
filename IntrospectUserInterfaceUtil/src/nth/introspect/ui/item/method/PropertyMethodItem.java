@@ -72,7 +72,11 @@ public class PropertyMethodItem extends MethodItem {
 
 	@Override
 	public boolean isEnabled() {
-		return propertyMethodInfo.isEnabled(propertyOwnerModel.getValue());
+		boolean methodIsEnabled = propertyMethodInfo.isEnabled(propertyOwnerModel.getValue());
+		boolean hasNoParameter=propertyMethodInfo.getParameterType().getTypeCategory()==TypeCategory.NONE;
+		boolean hasParameterFactory = propertyMethodInfo.hasParameterFactory();
+		boolean canGetParameterValue = parameterValueModel.canGetValue() ;//TODO check for type as well?
+		return methodIsEnabled && ( hasNoParameter || hasParameterFactory || canGetParameterValue);
 	}
 	
 	/**
