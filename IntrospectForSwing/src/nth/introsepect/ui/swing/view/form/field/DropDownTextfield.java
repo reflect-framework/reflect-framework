@@ -42,7 +42,7 @@ public class DropDownTextfield extends JPanel {
 		return new Dimension(width, height);
 	}
 
-	private JTextField createTextField() {
+	public JTextField createTextField() {
 		JTextField textField = new JTextField();
 		textField.setBorder(BorderFactory.createEmptyBorder(1,2,1,1));
 		return textField;
@@ -55,7 +55,7 @@ public class DropDownTextfield extends JPanel {
 		}
 	}
 
-	private JButton createDropDownButton() {
+	public JButton createDropDownButton() {
 		final Icon icon1 = IconFactory
 				.create(IntrospectImage.BUTTON_DROPDOWN_1);
 		final Icon icon2 = IconFactory
@@ -67,13 +67,6 @@ public class DropDownTextfield extends JPanel {
 			@Override
 			public void setEnabled(boolean b) {
 				setIcon(isEnabled() ? icon1 : icon4);
-				// FIXME drop down button
-				// is invisible when
-				// clicked on when field
-				// is disabled. Button
-				// needs to remain
-				// active when field is
-				// disabled!
 				super.setEnabled(b);
 			}
 		};

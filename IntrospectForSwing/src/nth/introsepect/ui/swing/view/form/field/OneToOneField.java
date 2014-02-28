@@ -6,7 +6,22 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.DocumentFilter.FilterBypass;
+import javax.swing.text.Element;
+import javax.swing.text.PlainDocument;
+import javax.swing.text.Position;
+import javax.swing.text.Segment;
 
 import nth.introsepect.ui.swing.item.popupmenu.PopupMenu;
 import nth.introspect.Introspect;
@@ -23,17 +38,16 @@ public class OneToOneField extends DropDownTextfield implements Refreshable {
 
 	private static final long serialVersionUID = -567238728222479488L;
 	private final PropertyValueModel propertyValueModel;
-	private final  FormView formView;
+	private final FormView formView;
+	private boolean allowTextChange;
 
-	public OneToOneField(FormView formView, PropertyValueModel propertyValueModel) {
+	public OneToOneField(FormView formView,
+			PropertyValueModel propertyValueModel) {
 		super();
 		this.formView = formView;
 		this.propertyValueModel = propertyValueModel;
+		this.allowTextChange = false;
 		refresh();
-
-		JButton button = getDropDownButton();
-		button.setAction(createDropDownButtonAction());
-
 	}
 
 	private Action createDropDownButtonAction() {
@@ -43,7 +57,10 @@ public class OneToOneField extends DropDownTextfield implements Refreshable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				List<Item> items = ItemFactory.createFormViewRelationalFieldItems(formView, propertyValueModel, propertyValueModel.getPropertyInfo());
+				List<Item> items = ItemFactory
+						.createFormViewRelationalFieldItems(formView,
+								propertyValueModel,
+								propertyValueModel.getPropertyInfo());
 				PopupMenu popupmenu = new PopupMenu(items);
 				popupmenu.show((Component) e.getSource(), 17, -3);
 			}
@@ -51,14 +68,63 @@ public class OneToOneField extends DropDownTextfield implements Refreshable {
 
 	}
 
+	
+	
+	@Override
+	public JButton createDropDownButton() {
+		JButton button=super.createDropDownButton();
+		button.setAction(createDropDownButtonAction());
+		return button;
+	}
+
+	public JTextField createTextField() {
+		JTextField textField = super.createTextField();
+		AbstractDocument document = (AbstractDocument) textField.getDocument();
+		//add document filter so that the user can't manipulate the textfield, but still acts as a textfield (focusable, cursor, enabled disabled look, etc)
+		document.setDocumentFilter(new DocumentFilter() {
+
+			@Override
+			public void remove(FilterBypass fb, int offset, int length)
+					throws BadLocationException {
+				if (allowTextChange) {
+					super.remove(fb, offset, length);
+				}
+			}
+
+			@Override
+			public void insertString(FilterBypass fb, int offset,
+					String string, AttributeSet attr)
+					throws BadLocationException {
+				if (allowTextChange) {
+					super.insertString(fb, offset, string, attr);
+				}
+			}
+
+			@Override
+			public void replace(FilterBypass fb, int offset, int length,
+					String text, AttributeSet attrs)
+					throws BadLocationException {
+				if (allowTextChange) {
+					super.replace(fb, offset, length, text, attrs);
+				}
+			}
+
+		});
+		;
+		return textField;
+	}
+
 	@Override
 	public void refresh() {
 		// set text
 		DomainProvider domainProvider = Introspect.getDomainProvider();
-		ClassInfo classInfo = domainProvider.getClassInfo(propertyValueModel.getValueType());
+		ClassInfo classInfo = domainProvider.getClassInfo(propertyValueModel
+				.getValueType());
 		Object propertyValue = propertyValueModel.getValue();
 		String title = classInfo.getTitle(propertyValue);
+		allowTextChange = true;
 		getTextField().setText(title);
+		allowTextChange = false;
 		// TODO description?
 		getTextField().setEnabled(propertyValueModel.canSetValue());
 
