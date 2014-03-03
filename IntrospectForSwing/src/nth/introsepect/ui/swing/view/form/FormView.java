@@ -9,6 +9,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 
 import nth.introsepect.ui.swing.item.button.ItemButton;
 import nth.introsepect.ui.swing.properygrid.PropertyGrid;
@@ -29,7 +30,8 @@ import nth.introspect.util.TitleUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 @SuppressWarnings("serial")
-public class FormView extends SwingView implements nth.introspect.ui.view.FormView { // implements ReadOnlyValueModel {
+public class FormView extends SwingView implements
+		nth.introspect.ui.view.FormView { // implements ReadOnlyValueModel {
 
 	private final MethodInfo methodInfo;
 	private final Object serviceObject;
@@ -37,7 +39,8 @@ public class FormView extends SwingView implements nth.introspect.ui.view.FormVi
 	private final Object methodParameterValue;
 	private FormMode formMode;
 
-	public FormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
+	public FormView(Object serviceObject, MethodInfo methodInfo,
+			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.serviceObject = serviceObject;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -45,19 +48,39 @@ public class FormView extends SwingView implements nth.introspect.ui.view.FormVi
 		setLayout(new BorderLayout());
 
 		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(domainObject.getClass());
+		List<PropertyInfo> propertyInfos = domainProvider
+				.getPropertyInfos(domainObject.getClass());
 
 		domainValueModel = new BufferedDomainValueModel(domainObject, formMode);
 
 		PropertyGrid propertyGrid = new PropertyGrid();
 		add(propertyGrid, BorderLayout.CENTER);
+		Component fieldToGetFocus = null;
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyRow propertyRow = new PropertyRow(this, domainValueModel, propertyInfo, formMode);
+			PropertyRow propertyRow = new PropertyRow(this, domainValueModel,
+					propertyInfo, formMode);
+			if (fieldToGetFocus == null && FormMode.EDIT_MODE == formMode
+					&& propertyInfo.isEnabled(domainObject)) {
+				// XXX also check for field visibility?
+				fieldToGetFocus = propertyRow.getField();
+			}
 			propertyGrid.addPropertyRow(propertyRow);
 		}
-		//FIXME: request focus to first enabled field
 
 		add(createButtonBar(), BorderLayout.SOUTH);
+		
+		// set focus to first enabled field
+		if (fieldToGetFocus != null) {
+			final Component field = fieldToGetFocus;
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					field.requestFocus();
+				}
+			});
+			
+		}
+
 	}
 
 	private Component createButtonBar() {
@@ -92,13 +115,15 @@ public class FormView extends SwingView implements nth.introspect.ui.view.FormVi
 	}
 
 	public JButton createOkButton() {
-		FormOkItem okItem = new FormOkItem(this, serviceObject, methodInfo, domainValueModel);
+		FormOkItem okItem = new FormOkItem(this, serviceObject, methodInfo,
+				domainValueModel);
 		return new ItemButton(okItem);
 	}
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(methodInfo, domainValueModel.getValue(), true);
+		return TitleUtil.createTitle(methodInfo, domainValueModel.getValue(),
+				true);
 	}
 
 	@Override
@@ -110,7 +135,6 @@ public class FormView extends SwingView implements nth.introspect.ui.view.FormVi
 	public URI getViewIconURI() {
 		return methodInfo.getIconURI(serviceObject);
 	}
-
 
 	@Override
 	public ReadOnlyValueModel getDomainValueModel() {

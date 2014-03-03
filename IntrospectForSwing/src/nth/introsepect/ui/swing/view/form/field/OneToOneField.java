@@ -2,6 +2,10 @@ package nth.introsepect.ui.swing.view.form.field;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -78,9 +82,65 @@ public class OneToOneField extends DropDownTextfield implements Refreshable {
 	}
 
 	public JTextField createTextField() {
-		JTextField textField = super.createTextField();
-		AbstractDocument document = (AbstractDocument) textField.getDocument();
+		final JTextField textField = super.createTextField();
+		
+		//add key listener to open popup menu
+		textField.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				JButton button = getDropDownButton();
+				Action action = button.getAction();
+				ActionEvent actionEvent=new ActionEvent(button, 0, "showDropDownMenu");
+				action.actionPerformed(actionEvent);
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+		});
+		
+		//add mouse listener to open popup menu
+		textField.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JButton button = getDropDownButton();
+				Action action = button.getAction();
+				ActionEvent actionEvent=new ActionEvent(button, 0, "showDropDownMenu");
+				action.actionPerformed(actionEvent);
+			}
+		});
+		
 		//add document filter so that the user can't manipulate the textfield, but still acts as a textfield (focusable, cursor, enabled disabled look, etc)
+		AbstractDocument document = (AbstractDocument) textField.getDocument();
 		document.setDocumentFilter(new DocumentFilter() {
 
 			@Override
@@ -110,7 +170,6 @@ public class OneToOneField extends DropDownTextfield implements Refreshable {
 			}
 
 		});
-		;
 		return textField;
 	}
 
