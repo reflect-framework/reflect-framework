@@ -12,12 +12,18 @@ public class EnumFormat extends Format {
 	private static final long serialVersionUID = 165765643765L;
 
 	@Override
-	public StringBuffer format(Object enumValue, StringBuffer toAppendTo, FieldPosition pos) {
-		LanguageProvider languageProvider = Introspect.getLanguageProvider();
-		String key = languageProvider.getKey(enumValue);
-		String defaultValue = languageProvider.getDefaultValue(key);
-		String value = languageProvider.getText(key, defaultValue);
-		return toAppendTo.append(value);
+	public StringBuffer format(Object enumValue, StringBuffer toAppendTo,
+			FieldPosition pos) {
+		if (enumValue == null) {
+			return toAppendTo.append("");
+		} else {
+			LanguageProvider languageProvider = Introspect
+					.getLanguageProvider();
+			String key = languageProvider.getKey(enumValue);
+			String defaultValue = languageProvider.getDefaultValue(key);
+			String value = languageProvider.getText(key, defaultValue);
+			return toAppendTo.append(value);
+		}
 	}
 
 	@Override
