@@ -22,7 +22,7 @@ public abstract class ValueType {
 
 		validateTypeCategory(typeCategory, noneSupportedCategories, method);
 
-		typeOrGenericCollectionType = getTypeOrGenericCollectionType(type, typeCategory, method);
+		typeOrGenericCollectionType = getTypeOrGenericCollectionType(this.type, typeCategory, method);
 	}
 
 	private  Class<?> getTypeOrGenericCollectionType(Class<?> type, TypeCategory typeCategory, Method method) {
@@ -34,7 +34,8 @@ public abstract class ValueType {
 				// when it is a collection: get generic type from an annotation at the method
 				Annotation annotation = method.getAnnotation(GenericReturnType.class);
 				Method annotationValueMethod = annotation.getClass().getMethod(VALUE, SIGNATURE);
-				return (Class<?>) annotationValueMethod.invoke(annotation, ARGUMENTS);
+				Class<?> annotatedType = (Class<?>) annotationValueMethod.invoke(annotation, ARGUMENTS);
+				return TypeUtil.getComplexType(annotatedType);
 			} catch (Exception e) {
 				// failed: throw error message
 				StringBuffer message = new StringBuffer();
