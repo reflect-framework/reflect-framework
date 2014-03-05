@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
@@ -129,12 +130,12 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 		}
 		System.out.print(options.toString());
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Scanner reader = new Scanner(System.in);
 		int input=-1;
 		while (input<1 || input>items.size()) {
 			try {
-				String inputString = br.readLine();
-				input=Integer.valueOf(inputString);
+				char c = reader.next().charAt(0);
+				input=Integer.valueOf(""+c);
 			} catch (Exception e) {
 			}
 			if (input<1 || input>items.size() ) {
@@ -143,7 +144,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 			}
 		}
 		
-		Item selectedItem = items.get(input);
+		Item selectedItem = items.get(input-1);
 		Action action = selectedItem.getAction();
 		if (action!=null) {
 			action.run();

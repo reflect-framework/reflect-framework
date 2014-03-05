@@ -18,6 +18,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.util.TypeUtil;
 import nth.introspect.util.xml.transform.DefaultMatcher;
@@ -93,6 +95,7 @@ public class XmlUtil {
 		Element rootElement = document.createElement(INTROSPECT);
 		document.appendChild(rootElement);
 
+		
 		List<Object> marshaledObjects = new ArrayList<Object>();
 		if (object instanceof Collection) {
 			@SuppressWarnings("rawtypes")
@@ -112,6 +115,8 @@ public class XmlUtil {
 		}
 		return document;
 	}
+
+
 
 	private static Element marshal(Document document, Element parentElement, Object objectToMarshal, List<Object> marshaledObjects) {
 		// create an element that represents an object

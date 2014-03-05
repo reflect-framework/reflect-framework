@@ -10,6 +10,7 @@ import nth.introspect.filter.Filter;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.FormOrderComparator;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.provider.domain.info.property.TableVisibleFilter;
 
 public class Command {
 	private String name;
@@ -34,7 +35,7 @@ public class Command {
 		if (parameterClass != null) {
 			
 			//get propertyInfos
-			Filter<PropertyInfo> propertyInfoFilter = null; // TODO only show visible properties;
+			Filter<PropertyInfo> propertyInfoFilter = new TableVisibleFilter();
 			FormOrderComparator propertyInfoComparator = new FormOrderComparator();
 			Class<?> returnClass = methodInfo.getParameterType().getTypeOrGenericCollectionType();
 			List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
