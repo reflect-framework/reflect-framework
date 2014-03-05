@@ -21,7 +21,8 @@ import nth.introspect.valuemodel.ValueModels;
 
 /**
  * Provides information on a bean property.<br>
- * This class is inspired by the PropertyDiscriptor class, which I do not use because it is not implemented by Android
+ * This class is inspired by the PropertyDiscriptor class, which I do not use
+ * because it is not implemented by Android
  * 
  * @author nilsth
  * 
@@ -48,8 +49,11 @@ public class PropertyInfo implements IntrospectionInfo {
 	public static final String FORMAT = "format";
 	public static final String MULTIPLICITY = "multiplicity";
 	// TODO public final String UNIT_OF_MEASUREMENT = "unitOfMeasurement";
-	public final String[] ANNOTATION_NAMES = new String[] {ORDER_IN_FORM, ORDER_IN_TABLE, VISIBLE_IN_FORM, VISIBLE_IN_TABLE, COLUMN_WIDTH,ENABLED, RETURN_CLASS, FORMAT, MULTIPLICITY, FIELD_MODE};
-	public final static String[] METHOD_NAMES = new String[] {VISIBLE_IN_FORM, ENABLED, VALIDATION};
+	public final String[] ANNOTATION_NAMES = new String[] { ORDER_IN_FORM,
+			ORDER_IN_TABLE, VISIBLE_IN_FORM, VISIBLE_IN_TABLE, COLUMN_WIDTH,
+			ENABLED, RETURN_CLASS, FORMAT, MULTIPLICITY, FIELD_MODE };
+	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
+			ENABLED, VALIDATION };
 	public static final String RETURN_CLASS = "returnClass";
 
 	private final String name;
@@ -61,17 +65,22 @@ public class PropertyInfo implements IntrospectionInfo {
 
 	public PropertyInfo(Method readMethod) {
 		if (readMethod.getReturnType() == Void.class) {
-			throw new RuntimeException("Method: " + readMethod.getClass().getCanonicalName() + "." + readMethod.getName() + " is not a getter method");
+			throw new RuntimeException("Method: "
+					+ readMethod.getClass().getCanonicalName() + "."
+					+ readMethod.getName() + " is not a getter method");
 		}
 		if (readMethod.getParameterTypes().length > 0) {
-			throw new RuntimeException("Method: " + readMethod.getClass().getCanonicalName() + "." + readMethod.getName() + " may not contain a parameter");
+			throw new RuntimeException("Method: "
+					+ readMethod.getClass().getCanonicalName() + "."
+					+ readMethod.getName() + " may not contain a parameter");
 		}
 
 		this.name = getName(readMethod);
 		this.namePath = getNamePath(readMethod, name);
-		this.propertyType=new PropertyType(readMethod);
+		this.propertyType = new PropertyType(readMethod);
 		this.readMethod = readMethod;
-		this.writeMethod = getWiteMethod(readMethod, name, propertyType.getType());
+		this.writeMethod = getWiteMethod(readMethod, name,
+				propertyType.getType());
 
 		valueModels = new ValueModels();
 
@@ -79,8 +88,24 @@ public class PropertyInfo implements IntrospectionInfo {
 		valueModels.put(TEXT, new TextValue(this, TEXT));
 		valueModels.put(DESCRIPTION, new TextValue(this, DESCRIPTION));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, TEXT));
-		valueModels.put(ORDER_IN_FORM, new SimpleValue(Integer.MAX_VALUE));// those properties that overwrite the order value come first
-		valueModels.put(ORDER_IN_TABLE, new SimpleValue(Integer.MAX_VALUE));// those properties that overwrite the order value come first
+		valueModels.put(ORDER_IN_FORM, new SimpleValue(Integer.MAX_VALUE));// those
+																			// properties
+																			// that
+																			// overwrite
+																			// the
+																			// order
+																			// value
+																			// come
+																			// first
+		valueModels.put(ORDER_IN_TABLE, new SimpleValue(Integer.MAX_VALUE));// those
+																			// properties
+																			// that
+																			// overwrite
+																			// the
+																			// order
+																			// value
+																			// come
+																			// first
 		valueModels.put(VISIBLE_IN_FORM, new SimpleValue(true));
 		valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(true));
 		valueModels.put(COLUMN_WIDTH, new SimpleValue(COLUMN_WIDTH_DEFAULT));
@@ -88,7 +113,8 @@ public class PropertyInfo implements IntrospectionInfo {
 		valueModels.put(FIELD_MODE, new FieldModeValue(this));
 
 		// create value getters from annotations
-		valueModels.putAll(AnnotationValueModelFactory.create(this, ANNOTATION_NAMES));
+		valueModels.putAll(AnnotationValueModelFactory.create(this,
+				ANNOTATION_NAMES));
 
 		// create method value getters
 		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
@@ -96,38 +122,44 @@ public class PropertyInfo implements IntrospectionInfo {
 		// create xml value getters
 		// TODO valueModels.putAll(XmlValueModelFactory.create( this));
 
-		//override VISIBLE_IN_TABLE (collections may not be visible in a table column)
-		if (TypeCategory.COLLECTION_TYPE== getPropertyType().getTypeCategory()) {
-			valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(false));	
+		// override VISIBLE_IN_TABLE (collections may not be visible in a table
+		// column)
+		if (TypeCategory.COLLECTION_TYPE == getPropertyType().getTypeCategory()) {
+			valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(false));
 		}
-		
-		//override ENABLED (if there is no write method, the property is read only and the property must be disabled)
+
+		// override ENABLED (if there is no write method, the property is read
+		// only and the property must be disabled)
 		if (writeMethod == null) {
 			// there is no write method, so disable property (read only)
 			valueModels.put(ENABLED, new SimpleValue(false));
 		}
 
-		format = FormatFactory.create(getPropertyType().getType(), getFormatPattern());
+		format = new FormatFactory().create(this);
 	}
-	  
+
 	public PropertyType getPropertyType() {
 		return propertyType;
 	}
 
-	private Method getWiteMethod(Method readMethod, String name, Class<?> propertyClass) {
+	private Method getWiteMethod(Method readMethod, String name,
+			Class<?> propertyClass) {
 		Class<?> methodOwner = readMethod.getDeclaringClass();
 		StringBuffer writeMethodName = new StringBuffer();
 		writeMethodName.append(SET_PREFIX);
 		writeMethodName.append(Character.toUpperCase(name.charAt(0)));
 		writeMethodName.append(name.substring(1));
 		try {
-			Method writeMethod = methodOwner.getMethod(writeMethodName.toString(), propertyClass);
+			Method writeMethod = methodOwner.getMethod(
+					writeMethodName.toString(), propertyClass);
 			return writeMethod;
 		} catch (Exception e1) {
 			try {
 				// try to get writeMethod with a simple type parameter
-				Class<?> simplePropertyClass = TypeUtil.getSimpleType(propertyClass);
-				Method writeMethod = methodOwner.getMethod(writeMethodName.toString(), simplePropertyClass);
+				Class<?> simplePropertyClass = TypeUtil
+						.getSimpleType(propertyClass);
+				Method writeMethod = methodOwner.getMethod(
+						writeMethodName.toString(), simplePropertyClass);
 				return writeMethod;
 			} catch (Exception e2) {
 				// No proper write method found: set enabled=false!
@@ -148,16 +180,20 @@ public class PropertyInfo implements IntrospectionInfo {
 		String readMethodName = readMethod.getName();
 		if (readMethodName.startsWith(IS_PREFIX)) {
 			StringBuffer name = new StringBuffer();
-			name.append(Character.toLowerCase(readMethodName.charAt(IS_PREFIX.length())));
+			name.append(Character.toLowerCase(readMethodName.charAt(IS_PREFIX
+					.length())));
 			name.append(readMethodName.substring(IS_PREFIX.length() + 1));
 			return name.toString();
 		} else if (readMethodName.startsWith(GET_PREFIX)) {
 			StringBuffer name = new StringBuffer();
-			name.append(Character.toLowerCase(readMethodName.charAt(GET_PREFIX.length())));
+			name.append(Character.toLowerCase(readMethodName.charAt(GET_PREFIX
+					.length())));
 			name.append(readMethodName.substring(GET_PREFIX.length() + 1));
 			return name.toString();
 		} else {
-			throw new RuntimeException("Method: " + readMethod.getClass().getCanonicalName() + "." + readMethod.getName() + " is not a getter method");
+			throw new RuntimeException("Method: "
+					+ readMethod.getClass().getCanonicalName() + "."
+					+ readMethod.getName() + " is not a getter method");
 		}
 	}
 
@@ -189,7 +225,7 @@ public class PropertyInfo implements IntrospectionInfo {
 	public Integer getOrderInForm() {
 		return valueModels.getIntegerValue(ORDER_IN_FORM);
 	}
-	
+
 	public Integer getOrderInTable() {
 		return valueModels.getIntegerValue(ORDER_IN_TABLE);
 	}
@@ -197,14 +233,15 @@ public class PropertyInfo implements IntrospectionInfo {
 	public int getColumnWidth() {
 		return valueModels.getIntegerValue(COLUMN_WIDTH);
 	}
-	
+
 	public Boolean isVisibleInForm(Object domainObject) {
 		return valueModels.getBooleanValue(VISIBLE_IN_FORM, domainObject);
 	}
 
 	public Boolean isVisibleInTable() {
-		return valueModels.getBooleanValue(VISIBLE_IN_TABLE); 
+		return valueModels.getBooleanValue(VISIBLE_IN_TABLE);
 	}
+
 	public Boolean isEnabled(Object domainObject) {
 		return valueModels.getBooleanValue(ENABLED, domainObject);
 	}
@@ -219,15 +256,19 @@ public class PropertyInfo implements IntrospectionInfo {
 
 	public void setValue(Object domainObject, Object value) {
 		if (!isEnabled(domainObject)) {
-			throw new RuntimeException("Could not set value of property: " + namePath + " when it is disabled or read only");
+			throw new RuntimeException("Could not set value of property: "
+					+ namePath + " when it is disabled or read only");
 		}
 		try {
-			writeMethod.invoke(domainObject, new Object[] {value});
+			writeMethod.invoke(domainObject, new Object[] { value });
 		} catch (Exception e) {
 			if (value == null) {
-				throw new RuntimeException("Could not set value of property: " + namePath + " with value: null", e);
+				throw new RuntimeException("Could not set value of property: "
+						+ namePath + " with value: null", e);
 			} else {
-				throw new RuntimeException("Could not set value of property: " + namePath + " with value: " + value + " of type" + value.getClass().getCanonicalName(), e);
+				throw new RuntimeException("Could not set value of property: "
+						+ namePath + " with value: " + value + " of type"
+						+ value.getClass().getCanonicalName(), e);
 			}
 		}
 	}
@@ -236,11 +277,13 @@ public class PropertyInfo implements IntrospectionInfo {
 		try {
 			return getReadMethod().invoke(introspectedObject, new Object[0]);
 		} catch (Exception e) {
-			throw new RuntimeException("Could not read value of property: " + namePath, e);
+			throw new RuntimeException("Could not read value of property: "
+					+ namePath, e);
 		}
 	}
 
-	// TODO getValueAsText(domainObject), while using formatPattern or enum converter
+	// TODO getValueAsText(domainObject), while using formatPattern or enum
+	// converter
 
 	public ValueModels getValueModels() {
 		return valueModels;
@@ -252,13 +295,13 @@ public class PropertyInfo implements IntrospectionInfo {
 	}
 
 	/**
-	 * @deprecated use getFormatter.setValue() 
+	 * @deprecated use getFormatter.setValue()
 	 * @param domainObject
 	 * @param stringValue
 	 */
 	public void setValueFromString(Object domainObject, String stringValue) {
 		Object value = null;
-		Class<?> propertyClass=propertyType.getType();
+		Class<?> propertyClass = propertyType.getType();
 		if (AtomicInteger.class.isAssignableFrom(propertyClass)) {
 			value = new AtomicInteger(Integer.parseInt(stringValue));
 		} else if (AtomicLong.class.isAssignableFrom(propertyClass)) {
@@ -284,13 +327,15 @@ public class PropertyInfo implements IntrospectionInfo {
 		} else if (Boolean.class.isAssignableFrom(propertyClass)) {
 			value = new Boolean(stringValue);
 		} else {
-			throw new IllegalArgumentException("Property type:" + propertyClass.getSimpleName() + " is not supported for property:" + namePath);
+			throw new IllegalArgumentException("Property type:"
+					+ propertyClass.getSimpleName()
+					+ " is not supported for property:" + namePath);
 		}
 		setValue(domainObject, value);
 	}
 
 	public boolean isReadOnly() {
-		return writeMethod==null;
+		return writeMethod == null;
 	}
 
 	public Format getFormat() {
@@ -299,6 +344,10 @@ public class PropertyInfo implements IntrospectionInfo {
 
 	public String getFormatedValue(Object introspectedObject) {
 		Object value = getValue(introspectedObject);
-		return getFormat().format(value);
+		if (value == null) {
+			return "";
+		} else {
+			return getFormat().format(value);
+		}
 	}
 }

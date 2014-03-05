@@ -17,7 +17,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 
 	public ComboBox(final ReadWriteValueModel readWriteValueModel) {
 		this.readWriteValueModel = readWriteValueModel;
-		
+
 		Class<?> valueType = readWriteValueModel.getValueType();
 		if (valueType.isEnum()) {
 			setRenderer(new ComboBoxRenderer());
@@ -34,13 +34,14 @@ public class ComboBox extends JComboBox implements Refreshable {
 		}
 
 		refresh();
-		
 
 		addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				readWriteValueModel.setValue(getSelectedItem());
+				if (readWriteValueModel.canSetValue()) {
+					readWriteValueModel.setValue(getSelectedItem());
+				}
 			}
 		});
 	}

@@ -1,6 +1,6 @@
 package nth.introspect.valuemodel;
 
-import nth.introspect.provider.domain.format.MethodNotSupportedException;
+import nth.introspect.util.exception.MethodNotSupportedException;
 
 public abstract class IntrospectedValueModelReadOnly implements ReadOnlyValueModel {
 

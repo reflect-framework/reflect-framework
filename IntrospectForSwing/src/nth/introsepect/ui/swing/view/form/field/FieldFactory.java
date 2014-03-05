@@ -2,6 +2,7 @@ package nth.introsepect.ui.swing.view.form.field;
 
 import java.awt.Component;
 
+import nth.introsepect.ui.swing.view.form.field.DateTimeField.DateTimeMode;
 import nth.introspect.provider.domain.info.property.FieldModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
@@ -19,12 +20,18 @@ public class FieldFactory {
 		case PASSWORD:
 			return new PasswordField(propertyValueModel);
 		case TEXT_AREA:
-			return new TextArea(propertyValueModel);
+			return new TextAreaField(propertyValueModel);
 		case CHECK_BOX:
 			return new CheckBox(propertyValueModel);
 		case NUMBER:
 		case CHAR:
 			return new UniverselTextField(propertyValueModel);
+		case TIME:
+			return new DateTimeField(propertyValueModel, DateTimeMode.TIME);
+		case DATE:
+			return new DateTimeField(propertyValueModel, DateTimeMode.DATE);
+		case DATE_TIME:
+			return new DateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
 		case COMBO_BOX:
 			return new ComboBox(propertyValueModel);
 		case ONE_TO_ONE_OR_MANY:

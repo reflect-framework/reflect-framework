@@ -9,13 +9,13 @@ import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.valuemodel.ReadWriteValueModel;
 
 @SuppressWarnings("serial")
-public class TextArea extends JTextArea implements Refreshable {
+public class TextAreaField extends JTextArea implements Refreshable {
 
-	private ReadWriteValueModel readWriteValueModel;
+	private ReadWriteValueModel valueModel;
 
-	public TextArea(final ReadWriteValueModel readWriteValueModel) {
+	public TextAreaField(final ReadWriteValueModel readWriteValueModel) {
 
-		this.readWriteValueModel = readWriteValueModel;
+		this.valueModel = readWriteValueModel;
 		refresh();
 
 		// same font and border as JTextField
@@ -23,20 +23,27 @@ public class TextArea extends JTextArea implements Refreshable {
 		setFont(textFieldExample.getFont());
 		setBorder(textFieldExample.getBorder());
 
-		// TODO implement DomainProvider.addPropertyChangeListener(new addPropertyChangeListener(..
+		// TODO setHeigt (see ManyToOneOrMany)
+
+		// TODO implement DomainProvider.addPropertyChangeListener(new
+		// addPropertyChangeListener(..
 
 		getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				// text has changed, so update the valueModel
-				readWriteValueModel.setValue(getText());
+				if (readWriteValueModel.canSetValue()) {
+					readWriteValueModel.setValue(getText());
+				}
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				// text has changed, so update the valueModel
-				readWriteValueModel.setValue(getText());
+				if (readWriteValueModel.canSetValue()) {
+					readWriteValueModel.setValue(getText());
+				}
 			}
 
 			@Override
@@ -47,7 +54,8 @@ public class TextArea extends JTextArea implements Refreshable {
 
 	@Override
 	public void refresh() {
-		setText((String) readWriteValueModel.getValue());
-		setEnabled(readWriteValueModel.canSetValue());
+		setText((String) valueModel.getValue());
+		setEnabled(valueModel.canSetValue());
 	}
+
 }

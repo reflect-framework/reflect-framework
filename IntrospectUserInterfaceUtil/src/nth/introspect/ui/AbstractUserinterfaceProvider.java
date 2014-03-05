@@ -310,6 +310,8 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 	public void showErrorDialog(String title, String message,
 			Throwable throwable) {
 
+		throwable.printStackTrace(); //to help debugging (stack trace in eclipse console has hyper links to code)
+		
 		List<Item> items = new ArrayList<Item>();
 		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(
 				title, message, throwable);

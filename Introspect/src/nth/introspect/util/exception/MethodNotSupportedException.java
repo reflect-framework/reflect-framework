@@ -1,4 +1,4 @@
-package nth.introspect.provider.domain.format;
+package nth.introspect.util.exception;
 
 public class MethodNotSupportedException extends RuntimeException {
 

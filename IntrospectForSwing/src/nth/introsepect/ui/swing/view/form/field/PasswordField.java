@@ -13,25 +13,29 @@ public class PasswordField extends JPasswordField implements Refreshable {
 	private ReadWriteValueModel readWriteValueModel;
 
 	public PasswordField(final ReadWriteValueModel readWriteValueModel) {
-		
+
 		this.readWriteValueModel = readWriteValueModel;
 		refresh();
-		
-		// TODO implement DomainProvider.addPropertyChangeListener(new addPropertyChangeListener(..
 
-		
+		// TODO implement DomainProvider.addPropertyChangeListener(new
+		// addPropertyChangeListener(..
+
 		getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				// text has changed, so update the valueModel
-				readWriteValueModel.setValue(String.valueOf(getPassword()));
+				if (readWriteValueModel.canSetValue()) {
+					readWriteValueModel.setValue(String.valueOf(getPassword()));
+				}
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				// text has changed, so update the valueModel
-				readWriteValueModel.setValue(String.valueOf(getPassword()));
+				if (readWriteValueModel.canSetValue()) {
+					readWriteValueModel.setValue(String.valueOf(getPassword()));
+				}
 			}
 
 			@Override

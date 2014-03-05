@@ -6,6 +6,7 @@ import java.text.ParsePosition;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.util.exception.MethodNotSupportedException;
 
 public class EnumFormat extends Format {
 

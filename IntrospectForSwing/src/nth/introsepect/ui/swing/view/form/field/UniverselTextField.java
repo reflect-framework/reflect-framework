@@ -11,8 +11,10 @@ import nth.introspect.provider.domain.format.FormatFactory;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
-public class UniverselTextField extends JFormattedTextField implements Refreshable {
-	// TODO refactor to UniversalTextField for char and numbers , using StringConvertert and DocumentFactory
+public class UniverselTextField extends JFormattedTextField implements
+		Refreshable {
+	// TODO refactor to UniversalTextField for char and numbers , using
+	// StringConvertert and DocumentFactory
 
 	private static final long serialVersionUID = 309612468612752404L;
 	private PropertyValueModel valueModel;
@@ -21,13 +23,16 @@ public class UniverselTextField extends JFormattedTextField implements Refreshab
 	public UniverselTextField(final PropertyValueModel valueModel) {
 		super();
 		this.valueModel = valueModel;
-		//create a formatter (we do not pass it to the super class constructor, because the superclass formatter is automatically replaces with a InternationalFormatter
-		formatter = FormatFactory.create(valueModel.getPropertyInfo());
+		// create a formatter (we do not pass it to the super class constructor,
+		// because the superclass formatter is automatically replaces with a
+		// InternationalFormatter
+		formatter = valueModel.getPropertyInfo().getFormat();
 		// restrict the user from entering invalid characters
 		setDocument(DocumentFacory.create(valueModel.getValueType()));
 		refresh();
 
-		// TODO implement DomainProvider.addPropertyChangeListener(new addPropertyChangeListener(..
+		// TODO implement DomainProvider.addPropertyChangeListener(new
+		// addPropertyChangeListener(..
 
 		// send changes back to value model
 		getDocument().addDocumentListener(new DocumentListener() {
@@ -36,7 +41,7 @@ public class UniverselTextField extends JFormattedTextField implements Refreshab
 			public void removeUpdate(DocumentEvent e) {
 				// text has changed, so update the valueModel
 				updateValueModel();
-				
+
 			}
 
 			@Override
@@ -59,12 +64,15 @@ public class UniverselTextField extends JFormattedTextField implements Refreshab
 	}
 
 	private void updateValueModel() {
-		String text = getText();
-		try {
-			Object value = formatter.parseObject(text);
-			valueModel.setValue(value);
-		} catch (ParseException e1) {
-			//Should not happen. The program should prevent the user from entering false values
+		if (valueModel.canSetValue()) {
+			String text = getText();
+			try {
+				Object value = formatter.parseObject(text);
+				valueModel.setValue(value);
+			} catch (ParseException e1) {
+				// Should not happen. The program should prevent the user from
+				// entering false values
+			}
 		}
 	}
 

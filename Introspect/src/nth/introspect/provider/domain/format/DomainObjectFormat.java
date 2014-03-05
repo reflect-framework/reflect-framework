@@ -7,6 +7,7 @@ import java.text.ParsePosition;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.util.exception.MethodNotSupportedException;
 
 public class DomainObjectFormat extends Format {
 

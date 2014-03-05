@@ -16,7 +16,6 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.format.MethodNotSupportedException;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
@@ -34,6 +33,7 @@ import nth.introspect.ui.commandline.view.FormView;
 import nth.introspect.ui.commandline.view.HelpView;
 import nth.introspect.ui.commandline.view.TableView;
 import nth.introspect.ui.view.FormMode;
+import nth.introspect.util.exception.MethodNotSupportedException;
 
 public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvider<CommandLineView> {
 
