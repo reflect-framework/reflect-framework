@@ -19,7 +19,7 @@ public class DateTimeField extends DropDownTextfield implements Refreshable {
 	// public Format
 	// spinner.setEditor(new JSpinner.DateEditor(spinner, "MM/yyyy"));
 
-	//FIXME show popup menu with button
+	//FIXME show datepicker popup with button
 	//FIXME set propertyValueModel when text is changed to a valid date/calendar
 	
 	public DateTimeField(PropertyValueModel propertyValueModel,

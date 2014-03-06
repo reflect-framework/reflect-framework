@@ -28,7 +28,7 @@ public class UniverselTextField extends JFormattedTextField implements
 		// InternationalFormatter
 		formatter = valueModel.getPropertyInfo().getFormat();
 		// restrict the user from entering invalid characters
-		setDocument(DocumentFacory.create(valueModel.getValueType()));
+		setDocument(RegExpDocumentFacory.create(valueModel.getValueType()));
 		refresh();
 
 		// TODO implement DomainProvider.addPropertyChangeListener(new

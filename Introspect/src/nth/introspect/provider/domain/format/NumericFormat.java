@@ -1,12 +1,17 @@
 package nth.introspect.provider.domain.format;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
+import nth.introspect.util.converterfactory.NumberConverterFactory;
 import nth.introspect.util.exception.TypeNotSupportedException;
 
 /**
@@ -46,7 +51,16 @@ public class NumericFormat extends Format {
 		if (number == null) {
 			return null;
 		} else {
-			if (Integer.class.isAssignableFrom(numberType)) {
+			//FIXME implement NumberConverterFactory<Class<? extends Number>, Number> 
+			if (AtomicInteger.class.isAssignableFrom(numberType)) {
+				return new AtomicInteger(number.intValue());
+			} else if (AtomicLong.class.isAssignableFrom(numberType)) {
+				return new AtomicLong(number.longValue());
+			} else if (BigDecimal.class.isAssignableFrom(numberType)) {
+				return new BigDecimal(number.toString());
+			} else if (BigInteger.class.isAssignableFrom(numberType)) {
+				return BigInteger.valueOf(number.longValue());
+			} else if (Integer.class.isAssignableFrom(numberType)) {
 				return number.intValue();
 			} else if (Long.class.isAssignableFrom(numberType)) {
 				return number.longValue();

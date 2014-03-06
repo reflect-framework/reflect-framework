@@ -16,6 +16,7 @@ import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.TypeUtil;
+import nth.introspect.util.converterfactory.ConverterFactory;
 
 public class FormatFactory extends ConverterFactory<Format, PropertyInfo> {
 

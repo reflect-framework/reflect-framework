@@ -1,6 +1,11 @@
 package nth.introspect.domain.test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.provider.domain.info.property.FieldModeType;
 import nth.introspect.provider.domain.info.valuemodel.annotations.FieldMode;
@@ -15,6 +20,10 @@ public class Test {
 	private long myLong;
 	private float myFloat;
 	private double myDouble;
+	private AtomicInteger myAtomicInteger;
+	private AtomicLong myAttomicLong;
+	private BigDecimal myBigDecimal;
+	private BigInteger myBigInteger;
 	private char myChar;
 	private String myText;
 	private String myTextArea;
@@ -22,6 +31,9 @@ public class Test {
 	private Date myDate;
 	private Date myTime;
 	private Date myDateTime;
+	private Calendar myCalendar;
+	
+
 
 	private enum PickOrder {
 		first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth
@@ -162,4 +174,44 @@ public class Test {
 		this.myTest = myTest;
 	}
 
+
+	public Calendar getMyCalendar() {
+		return myCalendar;
+	}
+
+	public void setMyCalendar(Calendar myCalendar) {
+		this.myCalendar = myCalendar;
+	}
+
+	public AtomicInteger getMyAtomicInteger() {
+		return myAtomicInteger;
+	}
+
+	public void setMyAtomicInteger(AtomicInteger myAtomicInteger) {
+		this.myAtomicInteger = myAtomicInteger;
+	}
+
+	public AtomicLong getMyAttomicLong() {
+		return myAttomicLong;
+	}
+
+	public void setMyAttomicLong(AtomicLong myAttomicLong) {
+		this.myAttomicLong = myAttomicLong;
+	}
+
+	public BigDecimal getMyBigDecimal() {
+		return myBigDecimal;
+	}
+
+	public void setMyBigDecimal(BigDecimal myBigDecimal) {
+		this.myBigDecimal = myBigDecimal;
+	}
+
+	public BigInteger getMyBigInteger() {
+		return myBigInteger;
+	}
+
+	public void setMyBigInteger(BigInteger myBigInteger) {
+		this.myBigInteger = myBigInteger;
+	}
 }

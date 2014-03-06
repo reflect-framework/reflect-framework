@@ -7,7 +7,10 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.swing.text.Document;
 
-public class DocumentFacory {
+import nth.introspect.util.converterfactory.ConverterFactory;
+
+public class RegExpDocumentFacory { 	//XXX extend ConverterFactory<T, U> ??? 
+
 
 	private static final String SINGLE_CHAR_REG_EXP = ".";
 	//on char only
@@ -57,7 +60,6 @@ public class DocumentFacory {
 	// )? # end of exponent
 	private static final String FLOAT_REG_EXP = "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$";
 	
-
 	public static Document create(Class<?> valueClass) {
 		if (Character.class.isAssignableFrom(valueClass)) {
 			return new RegExpDocument(SINGLE_CHAR_REG_EXP);
