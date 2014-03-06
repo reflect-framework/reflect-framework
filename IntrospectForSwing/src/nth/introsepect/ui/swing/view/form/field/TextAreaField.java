@@ -1,10 +1,17 @@
 package nth.introsepect.ui.swing.view.form.field;
 
+import java.awt.Color;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.ColorUIResource;
 
+import nth.introsepect.ui.swing.style.ColorUtil;
+import nth.introsepect.ui.swing.style.SwingStyleConstant;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.valuemodel.ReadWriteValueModel;
 
@@ -14,7 +21,6 @@ public class TextAreaField extends JTextArea implements Refreshable {
 	private ReadWriteValueModel valueModel;
 
 	public TextAreaField(final ReadWriteValueModel readWriteValueModel) {
-
 		this.valueModel = readWriteValueModel;
 		refresh();
 
@@ -23,7 +29,8 @@ public class TextAreaField extends JTextArea implements Refreshable {
 		setFont(textFieldExample.getFont());
 		setBorder(textFieldExample.getBorder());
 
-		// TODO setHeigt (see ManyToOneOrMany)
+		// FIXME setHeigt (see ManyToOneOrMany)
+		
 
 		// TODO implement DomainProvider.addPropertyChangeListener(new
 		// addPropertyChangeListener(..
@@ -56,6 +63,17 @@ public class TextAreaField extends JTextArea implements Refreshable {
 	public void refresh() {
 		setText((String) valueModel.getValue());
 		setEnabled(valueModel.canSetValue());
+	}
+	
+	@Override
+	public void setEnabled(boolean enabled) {
+		// Overriding background color behavior (Default background color when disabled is white)
+		super.setEnabled(enabled);
+		if (enabled) {
+			setBackground(ColorUtil.getLightColor());
+		} else {
+			setBackground(ColorUtil.getMiddleColor());
+		}
 	}
 
 }
