@@ -38,14 +38,14 @@ import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormView;
 
 //public class OneToOneField extends DropDownTextField implements Refreshable {
-public class OneToOneField extends DropDownTextfield implements Refreshable {
+public class OneToOneOrManyField extends DropDownTextfield implements Refreshable {
 
 	private static final long serialVersionUID = -567238728222479488L;
 	private final PropertyValueModel propertyValueModel;
 	private final FormView formView;
 	private boolean allowTextChange;
 
-	public OneToOneField(FormView formView,
+	public OneToOneOrManyField(FormView formView,
 			PropertyValueModel propertyValueModel) {
 		super();
 		this.formView = formView;

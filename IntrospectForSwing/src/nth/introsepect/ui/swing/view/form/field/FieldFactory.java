@@ -35,7 +35,7 @@ public class FieldFactory {
 		case COMBO_BOX:
 			return new ComboBox(propertyValueModel);
 		case ONE_TO_ONE_OR_MANY:
-			return new OneToOneField(formView, propertyValueModel);
+			return new OneToOneOrManyField(formView, propertyValueModel);
 		case MANY_TO_ONE_OR_MANY:
 			return new ManyToOneOrManyField(formView, propertyValueModel);
 		default:
