@@ -1,6 +1,7 @@
 package nth.introsepect.ui.swing.view.form.field;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -10,6 +11,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.ColorUIResource;
 
+import nth.introsepect.ui.swing.properygrid.PropertyRow;
 import nth.introsepect.ui.swing.style.ColorUtil;
 import nth.introsepect.ui.swing.style.SwingStyleConstant;
 import nth.introspect.provider.userinterface.Refreshable;
@@ -29,7 +31,8 @@ public class TextAreaField extends JTextArea implements Refreshable {
 		setFont(textFieldExample.getFont());
 		setBorder(textFieldExample.getBorder());
 
-		// FIXME setHeigt (see ManyToOneOrMany)
+		//set preferred height (higher than most fields)
+		setPreferredSize(new Dimension(Integer.MAX_VALUE,PropertyRow.HIGH_FIELD_HEIGHT));
 		
 
 		// TODO implement DomainProvider.addPropertyChangeListener(new

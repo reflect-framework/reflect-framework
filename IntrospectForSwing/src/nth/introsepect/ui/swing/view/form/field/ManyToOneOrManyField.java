@@ -19,6 +19,7 @@ import javax.swing.KeyStroke;
 
 import nth.introsepect.ui.swing.item.menubar.MenuBar;
 import nth.introsepect.ui.swing.item.popupmenu.PopupMenu;
+import nth.introsepect.ui.swing.properygrid.PropertyRow;
 import nth.introsepect.ui.swing.style.ColorUtil;
 import nth.introsepect.ui.swing.view.table.MethodTableModel;
 import nth.introspect.provider.userinterface.Refreshable;
@@ -32,7 +33,6 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 
 	private static final int ROW_HEIGHT = 22;
 	private static final long serialVersionUID = -3143477177672443570L;
-	private static final int TABLE_HEIGHT = 200;
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private PropertyValueModel propertyValueModel;
 	private MethodTableModel tableModel;
@@ -67,8 +67,9 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 	private JScrollPane createTableContainer() {
 		JScrollPane tableContainer = new JScrollPane(table);
 		tableContainer.getViewport().setBackground(ColorUtil.getLightColor());
+		// set preferred height (higher than most fields)
 		tableContainer.setPreferredSize(new Dimension(Integer.MAX_VALUE,
-				TABLE_HEIGHT));// set height
+				PropertyRow.HIGH_FIELD_HEIGHT));
 		tableContainer.addMouseListener(new MouseListener() {
 
 			@Override

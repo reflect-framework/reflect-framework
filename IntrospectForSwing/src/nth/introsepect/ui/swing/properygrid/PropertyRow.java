@@ -33,14 +33,12 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 	private PropertyValueModel propertyValueModel;
 	private BufferedDomainValueModel domainValueModel;
 	private final PropertyInfo propertyInfo;
+	public static final int HIGH_FIELD_HEIGHT = 200;
 
 	public enum FieldWidth {
 		half, full
 	};
 
-	public enum FieldHeight {
-		low, high
-	};
 
 	// public PropertyRow(String propertyName, String propertyDescription,Component field, FieldWidth fieldWidth, FieldHeight fieldHeight, Component validator) {
 	// this(propertyName, propertyDescription,field, fieldWidth, validator);
