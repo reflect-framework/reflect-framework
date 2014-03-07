@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-//TODO remove this class when no longer needed!
+//FIXME remove this class when no longer needed!
 public class DateFieldDialogTest {
 		public static void main(String[] args) {
 			JLabel label = new JLabel("Selected Date:");
@@ -24,7 +24,7 @@ public class DateFieldDialogTest {
 			f.setVisible(true);
 			b.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ae) {
-					text.setText(new DatePicker(f).setPickedDate());
+					text.setText(new DatePickDialog(f).setPickedDate());
 				}
 			});
 		}

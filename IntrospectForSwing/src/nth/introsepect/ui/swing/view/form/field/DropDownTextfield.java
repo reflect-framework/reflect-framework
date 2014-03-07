@@ -11,6 +11,7 @@ import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,10 +19,10 @@ import nth.introsepect.ui.swing.icon.IconFactory;
 import nth.introspect.ui.images.IntrospectImage;
 
 @SuppressWarnings("serial")
-public class DropDownTextfield extends JPanel {
+public class DropDownTextfield<T extends JComponent> extends JPanel {
 
 	private final JButton dropDownButton;
-	private final JTextField textField;
+	private final T textField;
 	private final JTextField TEXT_FIELD_DEFAULT = new JTextField();
 
 	public DropDownTextfield() {
@@ -42,10 +43,10 @@ public class DropDownTextfield extends JPanel {
 		return new Dimension(width, height);
 	}
 
-	public JTextField createTextField() {
+	public T createTextField() {
 		JTextField textField = new JTextField();
 		textField.setBorder(BorderFactory.createEmptyBorder(1,2,1,1));
-		return textField;
+		return (T) textField;
 	}
 
 	protected void fireDropDown() {
@@ -111,7 +112,7 @@ public class DropDownTextfield extends JPanel {
 		return dropDownButton;
 	}
 
-	public JTextField getTextField() {
+	public T getTextField() {
 		return textField;
 	}
 

@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-class DatePicker {
+public class DatePickDialog {
 
 	int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
 	int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
@@ -22,7 +22,7 @@ class DatePicker {
 	JDialog d;
 	JButton[] button = new JButton[49];
 
-	public DatePicker(JFrame parent) {
+	public DatePickDialog(JFrame parent) {
 		d = new JDialog();
 		d.setModal(true);
 		String[] header = {"Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"};
