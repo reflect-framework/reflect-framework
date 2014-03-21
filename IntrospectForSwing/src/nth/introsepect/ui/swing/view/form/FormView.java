@@ -34,16 +34,18 @@ public class FormView extends SwingView implements
 		nth.introspect.ui.view.FormView { // implements ReadOnlyValueModel {
 
 	private final MethodInfo methodInfo;
-	private final Object serviceObject;
-	private BufferedDomainValueModel domainValueModel;
+	private final Object methodOwner;
+	private final BufferedDomainValueModel domainValueModel;
 	private final Object methodParameterValue;
-	private FormMode formMode;
+	private final FormMode formMode;
+	private final Object domainObject;
 
-	public FormView(Object serviceObject, MethodInfo methodInfo,
+	public FormView(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		this.serviceObject = serviceObject;
+		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
+		this.domainObject = domainObject;
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
@@ -115,7 +117,7 @@ public class FormView extends SwingView implements
 	}
 
 	public JButton createOkButton() {
-		FormOkItem okItem = new FormOkItem(this, serviceObject, methodInfo,
+		FormOkItem okItem = new FormOkItem(this, methodOwner, methodInfo,
 				domainValueModel);
 		return new ItemButton(okItem);
 	}
@@ -133,7 +135,7 @@ public class FormView extends SwingView implements
 
 	@Override
 	public URI getViewIconURI() {
-		return methodInfo.getIconURI(serviceObject);
+		return methodInfo.getIconURI(methodOwner);
 	}
 
 	@Override
@@ -152,12 +154,22 @@ public class FormView extends SwingView implements
 	}
 
 	@Override
-	public Object getServiceObject() {
-		return serviceObject;
+	public Object getMethodOwner() {
+		return methodOwner;
 	}
 
 	@Override
 	public FormMode getFormMode() {
 		return formMode;
+	}
+
+	@Override
+	public Object getMethodParameter() {
+		return methodParameterValue;
+	}
+
+	@Override
+	public Object getDomainObject() {
+		return domainObject;
 	}
 }

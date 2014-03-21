@@ -19,12 +19,15 @@ import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
+import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.view.FormMode;
+import nth.introspect.ui.view.FormView;
+import nth.introspect.ui.view.TableView;
 import nth.introspect.util.TitleUtil;
 
 /**
@@ -35,7 +38,7 @@ import nth.introspect.util.TitleUtil;
  *            A user interface specific class (often a component container/
  *            layout) that implements {@link View}
  */
-public abstract class AbstractUserinterfaceProvider<T> implements
+public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		UserInterfaceProvider<T> {
 
 	private static final int PERCENT_0 = 0;
@@ -76,9 +79,8 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 		if (methodInfo.hasParameterFactory()) {
 			domainObject = methodInfo.createMethodParameter(methodOwner);
 		}
-		T formView = createFormView(methodOwner, methodInfo,
-				methodParameterValue, domainObject, formMode);
-		getViewContainer().addView(formView);
+		openFormView(methodOwner, methodInfo, methodParameterValue,
+				domainObject, formMode);
 	}
 
 	private void createAndShowConformationDialog(Object methodOwner,
@@ -221,20 +223,15 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			break;
 		case DOMAIN_TYPE:
 			Object domainObject = methodReturnValue;
-			T formView = createFormView(serviceObject, methodInfo,
-					methodParameterValue, domainObject, FormMode.READ_ONLY_MODE);
-			getViewContainer().addView(formView);
+			openFormView(serviceObject, methodInfo, methodParameterValue,
+					domainObject, FormMode.READ_ONLY_MODE);
 			break;
 		case COLLECTION_TYPE:
 			// TODO case tableModel:
-			T tableView = createTableView(serviceObject, methodInfo,
-					methodParameterValue, methodReturnValue);
-			getViewContainer().addView(tableView);
+			openTableView(serviceObject, methodInfo, methodParameterValue, methodReturnValue);
 			break;
 		case HIERARCHICAL_DOMAIN_TYPE:
-			T treeTableView = createTreeTableView(serviceObject, methodInfo,
-					methodParameterValue, methodReturnValue);
-			getViewContainer().addView(treeTableView);
+			openTreeTableView(serviceObject, methodInfo, methodParameterValue, methodReturnValue);
 			break;
 		case URI_TYPE:
 			URI uri = (URI) methodReturnValue;
@@ -281,6 +278,86 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 
 	}
 
+	public void openFormView(Object methodOwner, MethodInfo methodInfo,
+			Object methodParameterValue, Object domainObject, FormMode formMode) {
+		ViewContainer<T> viewContainer = Introspect.getUserInterfaceProvider()
+				.getViewContainer();
+
+		for (int i = 0; i < viewContainer.getViewCount(); i++) {
+			T view = viewContainer.getView(i);
+			if (view instanceof FormView) {
+				FormView formView = (FormView) view;
+				// identical formView?
+				if (methodOwner == formView.getMethodOwner()
+						&& methodInfo == formView.getMethodInfo()
+						&& methodParameterValue == formView
+								.getMethodParameter()
+						&& domainObject == formView.getDomainObject()
+						&& formMode == formView.getFormMode()) {
+					// activate identical formView
+					viewContainer.setSelectView((T) formView);
+					return;
+				}
+			}
+		}
+		// formView not found so create and show a new formView
+		T formView = createFormView(methodOwner, methodInfo,
+				methodParameterValue, domainObject, formMode);
+		viewContainer.addView(formView);
+	}
+
+	public void openTableView(Object methodOwner, MethodInfo methodInfo,
+			Object methodParameterValue, Object methodReturnValue) {
+		ViewContainer<T> viewContainer = Introspect.getUserInterfaceProvider()
+				.getViewContainer();
+
+		for (int i = 0; i < viewContainer.getViewCount(); i++) {
+			T view = viewContainer.getView(i);
+			if (view instanceof TableView) {
+				TableView tableView = (TableView) view;
+				// identical tableView?
+				if (methodOwner == tableView.getMethodOwner()
+						&& methodInfo == tableView.getMethodInfo()
+						&& methodParameterValue == tableView
+								.getMethodParameter()) {
+					// activate identical tableView
+					viewContainer.setSelectView((T) tableView);
+					return;
+				}
+			}
+		}
+		// tableView not found so create and show a new tableView
+		T tableView = createTableView(methodOwner, methodInfo,
+				methodParameterValue, methodReturnValue);
+		viewContainer.addView(tableView);
+	}
+
+	public void openTreeTableView(Object methodOwner, MethodInfo methodInfo,
+			Object methodParameterValue, Object methodReturnValue) {
+		ViewContainer<T> viewContainer = Introspect.getUserInterfaceProvider()
+				.getViewContainer();
+
+		for (int i = 0; i < viewContainer.getViewCount(); i++) {
+			T view = viewContainer.getView(i);
+			if (view instanceof TableView) {
+				TableView tableView = (TableView) view;
+				// identical tableView?
+				if (methodOwner == tableView.getMethodOwner()
+						&& methodInfo == tableView.getMethodInfo()
+						&& methodParameterValue == tableView
+								.getMethodParameter()) {
+					// activate identical tableView
+					viewContainer.setSelectView((T) tableView);
+					return;
+				}
+			}
+		}
+		// tableView not found so create and show a new tableView
+		T treeTableView = createTreeTableView(methodOwner, methodInfo,
+				methodParameterValue, methodReturnValue);
+		viewContainer.addView(treeTableView);
+	}
+
 	// TODO view factory?
 	/**
 	 * NOTE that the FormOkItem linked to the OK button of the FormView will
@@ -297,12 +374,10 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 			Object domainObject, FormMode formMode);
 
 	public abstract T createTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
-			Object methodReturnValue);
+			MethodInfo methodInfo, Object methodParameterValue, Object methodReturnValue);
 
 	public abstract T createTreeTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
-			Object methodReturnValue);
+			MethodInfo methodInfo, Object methodParameterValue, Object methodReturnValue);
 
 	// TODO public abstract T createMenuView();
 
@@ -310,8 +385,10 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 	public void showErrorDialog(String title, String message,
 			Throwable throwable) {
 
-		throwable.printStackTrace(); //to help debugging (stack trace in eclipse console has hyper links to code)
-		
+		throwable.printStackTrace(); // to help debugging (stack trace in
+										// eclipse console has hyper links to
+										// code)
+
 		List<Item> items = new ArrayList<Item>();
 		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(
 				title, message, throwable);
@@ -321,10 +398,10 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 
 		showDialog(DialogType.ERROR, title, message, items);
 	}
-	
+
 	@Override
 	public void refresh() {
-		//refresh current view
+		// refresh current view
 		getViewContainer().getSelectedView().onViewActivate();
 	}
 

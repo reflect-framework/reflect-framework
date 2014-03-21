@@ -53,7 +53,7 @@ public class ItemFactory {
 		MethodInfo methodInfoToExclude = formView.getMethodInfo();
 		Class<?> domainType = formView.getDomainValueModel().getValueType();
 		Class<?> parameterType = parameterModel.getValueType();
-		Object serviceObject = formView.getServiceObject();
+		Object serviceObject = formView.getMethodOwner();
 
 		// add property methods
 		DomainProvider domainProvider = Introspect.getDomainProvider();
@@ -95,7 +95,7 @@ public class ItemFactory {
 		MethodInfo methodInfoToExclude = tableView.getMethodInfo();
 		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
 		Class<?> parameterType = parameterModel.getValueType();
-		Object serviceObject = tableView.getServiceObject();
+		Object serviceObject = tableView.getMethodOwner();
 
 		// property methods
 		// DomainProvider domainProvider=Introspect.getDomainProvider();

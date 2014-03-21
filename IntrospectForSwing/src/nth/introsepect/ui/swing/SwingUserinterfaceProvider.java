@@ -59,8 +59,6 @@ public class SwingUserinterfaceProvider extends
 		return mainWindow;
 	}
 
-
-
 	@Override
 	public void showInfoMessage(String message) {
 		Toast.makeText(mainWindow, message, Style.NORMAL).display();
@@ -161,10 +159,12 @@ public class SwingUserinterfaceProvider extends
 				defaultOption);
 
 		// execute selected item
-		Item selectedItem = items.get(selectedIndex);
-		Action action = selectedItem.getAction();
-		if (action != null) {
-			action.run();
+		if (selectedIndex != -1) {
+			Item selectedItem = items.get(selectedIndex);
+			Action action = selectedItem.getAction();
+			if (action != null) {
+				action.run();
+			}
 		}
 
 	}

@@ -33,7 +33,7 @@ public class TableView extends SwingView implements
 
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;
-	private final Object serviceObject;
+	private final Object methodOwner;
 	private final MethodInfo methodInfo;
 	private final Object methodParameterValue;
 	private JTable table;
@@ -43,9 +43,9 @@ public class TableView extends SwingView implements
 	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
 
-	public TableView(Object serviceObject, MethodInfo methodInfo,
+	public TableView(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
-		this.serviceObject = serviceObject;
+		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
 
@@ -145,7 +145,7 @@ public class TableView extends SwingView implements
 
 	@Override
 	public URI getViewIconURI() {
-		return methodInfo.getIconURI(serviceObject);
+		return methodInfo.getIconURI(methodOwner);
 	}
 
 	@Override
@@ -235,7 +235,7 @@ public class TableView extends SwingView implements
 				@Override
 				public Object getValue() {
 					try {
-						return methodInfo.invoke(serviceObject,
+						return methodInfo.invoke(methodOwner,
 								methodParameterValue);
 					} catch (Exception e) {
 						UserInterfaceProvider<?> userInterfacePort = Introspect
@@ -269,8 +269,13 @@ public class TableView extends SwingView implements
 	}
 
 	@Override
-	public Object getServiceObject() {
-		return serviceObject;
+	public Object getMethodOwner() {
+		return methodOwner;
+	}
+
+	@Override
+	public Object getMethodParameter() {
+		return methodParameterValue;
 	}
 
 }
