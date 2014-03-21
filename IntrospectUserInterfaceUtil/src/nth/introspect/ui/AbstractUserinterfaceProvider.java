@@ -321,4 +321,11 @@ public abstract class AbstractUserinterfaceProvider<T> implements
 
 		showDialog(DialogType.ERROR, title, message, items);
 	}
+	
+	@Override
+	public void refresh() {
+		//refresh current view
+		getViewContainer().getSelectedView().onViewActivate();
+	}
+
 }
