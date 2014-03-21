@@ -8,7 +8,7 @@ import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 
-public interface UserInterfaceProvider<T> extends Provider{
+public interface UserInterfaceProvider<T> extends Provider, Refreshable{
 
 
 	/**
