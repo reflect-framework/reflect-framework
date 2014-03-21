@@ -161,7 +161,7 @@ public class StringUtil {
 
 	public static String eliphantCaseToNormal(String eliphantCase) {
 		if (eliphantCase.length() > 1) {
-			String reply = eliphantCase.replace("_", " ");
+			String reply = eliphantCase.replace("_", " ").trim();
 			return reply.substring(0, 1).toUpperCase() + reply.substring(1).toLowerCase();
 		}
 		return eliphantCase;
@@ -207,5 +207,15 @@ public class StringUtil {
         }
         return count;
     }
+
+	public static boolean containsCharacter(String stringToSearch, String charactersToFind) {
+		char[] characters = charactersToFind.toCharArray();
+		for (char c : characters) {
+			if (stringToSearch.contains(""+c)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

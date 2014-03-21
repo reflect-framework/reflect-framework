@@ -16,6 +16,7 @@ import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModel
 import nth.introspect.provider.domain.info.valuemodel.impl.FieldModeValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.SimpleValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
+import nth.introspect.util.StringUtil;
 import nth.introspect.util.TypeUtil;
 import nth.introspect.valuemodel.ValueModels;
 
@@ -88,24 +89,11 @@ public class PropertyInfo implements IntrospectionInfo {
 		valueModels.put(TEXT, new TextValue(this, TEXT));
 		valueModels.put(DESCRIPTION, new TextValue(this, DESCRIPTION));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, TEXT));
-		valueModels.put(ORDER_IN_FORM, new SimpleValue(Integer.MAX_VALUE));// those
-																			// properties
-																			// that
-																			// overwrite
-																			// the
-																			// order
-																			// value
-																			// come
-																			// first
-		valueModels.put(ORDER_IN_TABLE, new SimpleValue(Integer.MAX_VALUE));// those
-																			// properties
-																			// that
-																			// overwrite
-																			// the
-																			// order
-																			// value
-																			// come
-																			// first
+
+		// those properties that overwrite the order value come first
+		valueModels.put(ORDER_IN_FORM, new SimpleValue(Integer.MAX_VALUE));
+		// those properties that overwrite the order value come first
+		valueModels.put(ORDER_IN_TABLE, new SimpleValue(Integer.MAX_VALUE));
 		valueModels.put(VISIBLE_IN_FORM, new SimpleValue(true));
 		valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(true));
 		valueModels.put(COLUMN_WIDTH, new SimpleValue(COLUMN_WIDTH_DEFAULT));
@@ -135,6 +123,30 @@ public class PropertyInfo implements IntrospectionInfo {
 			valueModels.put(ENABLED, new SimpleValue(false));
 		}
 
+		// overridde FIELD_MODE for Date and or time depending on format pattern
+		String formatPattern = getFormatPattern();
+		if (formatPattern != null && getFieldMode() == FieldModeType.DATE) {
+			boolean hasDate = false;
+			boolean hasTime = false;
+			if (StringUtil.containsCharacter(formatPattern, "GyYMwWDdFEu")) {
+				hasDate = true;
+			}
+			if (StringUtil.containsCharacter(formatPattern, "aHkKhmsSzZX")) {
+				hasTime = true;
+			}
+			if (hasDate && hasTime) {
+				valueModels.put(FIELD_MODE, new SimpleValue(
+						FieldModeType.DATE_TIME));
+			} else if (hasDate) {
+				valueModels
+						.put(FIELD_MODE, new SimpleValue(FieldModeType.DATE));
+			} else if (hasTime) {
+				valueModels
+						.put(FIELD_MODE, new SimpleValue(FieldModeType.TIME));
+			}
+		}
+
+		//create formater
 		format = new FormatFactory().create(this);
 	}
 

@@ -58,7 +58,12 @@ public abstract class ConverterFactory<T, U> extends
 		// domainObjects
 		if (TypeUtil.isDomainType(type_)) {
 			return createDomainConverter(metadata);
+		} else
+		// collections
+		if (TypeUtil.isColection(type_)) {
+			return createCollectionConverter(metadata);
 		}
+
 		// Not supported
 		throw new TypeNotSupportedException(type_, this.getClass());
 	}
@@ -68,6 +73,8 @@ public abstract class ConverterFactory<T, U> extends
 	public abstract T createCalendarConverter(U metadata);
 
 	public abstract T createCharConverter(U metadata);
+
+	public abstract T createCollectionConverter(U metadata);
 
 	public abstract T createDateConverter(U metadata);
 

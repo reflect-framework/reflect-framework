@@ -6,6 +6,7 @@ import java.text.ParsePosition;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.util.StringUtil;
 import nth.introspect.util.exception.MethodNotSupportedException;
 
 public class EnumFormat extends Format {
@@ -21,7 +22,7 @@ public class EnumFormat extends Format {
 			LanguageProvider languageProvider = Introspect
 					.getLanguageProvider();
 			String key = languageProvider.getKey(enumValue);
-			String defaultValue = languageProvider.getDefaultValue(key);
+			String defaultValue = StringUtil.eliphantCaseToNormal(enumValue.toString());
 			String value = languageProvider.getText(key, defaultValue);
 			return toAppendTo.append(value);
 		}

@@ -1,5 +1,6 @@
 package nth.introspect.provider.domain.info.valuemodel.impl;
 
+import java.text.Format;
 import java.util.List;
 
 import nth.introspect.Introspect;
@@ -30,10 +31,12 @@ public class TitleValue extends IntrospectedValueModelReadOnly {
 			List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getOrderedAndVisiblePropertyInfos(obj.getClass());
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Object propertyValue = propertyInfo.getValue(obj);
+				Format format=propertyInfo.getFormat();
 				 TypeCategory typeCatagory = propertyInfo.getPropertyType().getTypeCategory();
 				if (propertyValue != null && typeCatagory!= TypeCategory.COLLECTION_TYPE) {
 					StringBuffer propertyText = new StringBuffer();
-					propertyText.append(propertyValue);
+					String propertyValueText = format.format(propertyValue);
+					propertyText.append(propertyValueText);
 					if (propertyText.toString().trim().length() > 0) {
 						if (titleBuffer.length() > 0) {
 							titleBuffer.append(TITLE_SEPARATOR);

@@ -71,8 +71,8 @@ public class DateTimeField extends DropDownTextfield<JSpinner> implements
 	public JSpinner createTextField() {
 		JSpinner spinner = new JSpinner();
 		spinner.setBorder(BorderFactory.createEmptyBorder( 0,2,0,1));
-		spinner.setModel(new SpinnerDateModel());
-		spinner.setEditor(new JSpinner.DateEditor(spinner, "MM/yyyy"));
+		spinner.setModel(new SpinnerDateModel()); //FIXME
+		spinner.setEditor(new JSpinner.DateEditor(spinner, "MM/yyyy")); //FIXME
 		// TODO set editor and format according to propertyinfo
 		return spinner;
 	}

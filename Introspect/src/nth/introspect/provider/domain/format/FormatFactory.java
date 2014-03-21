@@ -2,20 +2,12 @@ package nth.introspect.provider.domain.format;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.Format;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.util.TypeUtil;
 import nth.introspect.util.converterfactory.ConverterFactory;
 
 public class FormatFactory extends ConverterFactory<Format, PropertyInfo> {
@@ -183,6 +175,11 @@ public class FormatFactory extends ConverterFactory<Format, PropertyInfo> {
 	@Override
 	public Format createBooleanConverter(PropertyInfo metadata) {
 		return new BooleanFormat();
+	}
+
+	@Override
+	public Format createCollectionConverter(PropertyInfo metadata) {
+		return new NoFormat();
 	}
 
 }

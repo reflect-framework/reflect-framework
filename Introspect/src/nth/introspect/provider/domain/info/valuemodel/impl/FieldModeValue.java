@@ -30,32 +30,13 @@ public class FieldModeValue implements ReadOnlyValueModel {
 			fieldModeType = FieldModeType.DATE;
 		} else if (Calendar.class.isAssignableFrom(type)) {
 			fieldModeType = FieldModeType.DATE;
-		
 		} else if (Enum.class.isAssignableFrom(type)) {
 			fieldModeType = FieldModeType.COMBO_BOX;
 		} else if (Number.class.isAssignableFrom(type)) {
 			fieldModeType = FieldModeType.NUMBER;
 		} else if (Boolean.class.isAssignableFrom(type)) {
 			fieldModeType = FieldModeType.CHECK_BOX;
-		} else if (!type.getCanonicalName().startsWith("java")) {
-			// Class<?> declaringClass =
-			// propertyDescriptor.getReadMethod().getDeclaringClass();
-			// String propertyName=propertyDescriptor.getName();
-			// PropertyInfo propertyProperty =
-			// NakedGuiConfig.getPropertyInfo(declaringClass, propertyName);
-			// MultiplicityType multiplicity = propertyInfo.getMultiplicity();
-			// if (multiplicity==MultiplicityType.ONE_TO_ONE) {
-			// fieldModeType = FieldModeType.ONE_TO_ONE;
-			// } else if (multiplicity==MultiplicityType.ONE_TO_MANY) {
-			// fieldModeType = FieldModeType.ONE_TO_MANY;
-			// } else {
-			// StringBuffer message=new StringBuffer("Property ");
-			// message.append(type.getCanonicalName());
-			// message.append(".");
-			// message.append(propertyDescriptor.getName());
-			// message.append(" must have a Multiplicity annotation with a value ONE_TO_ONE or ONE_TO_MANY.");
-			// throw new RuntimeException(message.toString());
-			// }
+		} else if (TypeUtil.isDomainType(type)) {
 			fieldModeType = FieldModeType.ONE_TO_ONE_OR_MANY;
 		} else if (Collection.class.isAssignableFrom(type)) {
 			fieldModeType = FieldModeType.MANY_TO_ONE_OR_MANY;
