@@ -2,6 +2,9 @@ package nth.introsepect.ui.swing.view.form.field;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -19,11 +22,11 @@ import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
-public class DateTimeField extends DropDownTextfield<JSpinner> implements
-		Refreshable {
+public class DateTimeField extends JSpinner implements Refreshable {
 
 	private static final long serialVersionUID = -7012735672468767713L;
 	private PropertyValueModel propertyValueModel;
+	private DateTimeMode dateTimeMode;
 
 	public enum DateTimeMode {
 		DATE, TIME, DATE_AND_TIME
@@ -40,56 +43,84 @@ public class DateTimeField extends DropDownTextfield<JSpinner> implements
 	public DateTimeField(PropertyValueModel propertyValueModel,
 			DateTimeMode dateTimeMode) {
 		this.propertyValueModel = propertyValueModel;
+		this.dateTimeMode = dateTimeMode;
+		setModel(new SpinnerDateModel());
 	}
 
-	private Action createDropDownButtonAction() {
-		return new AbstractAction() {
+	// private Action createDropDownButtonAction() {
+	// return new AbstractAction() {
+	//
+	// private static final long serialVersionUID = 3204962085027822468L;
+	//
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// Component component = (Component) e.getSource();
+	// JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+	// DatePickDialog dialog = new DatePickDialog(frame);// todo set
+	// // dialog
+	// // location
+	//
+	// }
+	// };
+	//
+	// }
 
-			private static final long serialVersionUID = 3204962085027822468L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Component component = (Component) e.getSource();
-				JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-				DatePickDialog dialog = new DatePickDialog(frame);// todo set
-																	// dialog
-																	// location
-
-			}
-		};
-
-	}
-
-	@Override
-	public JButton createDropDownButton() {
-		JButton button = super.createDropDownButton();
-		button.addActionListener(createDropDownButtonAction());
-		return button;
-	}
-
-	@Override
-	public JSpinner createTextField() {
-		JSpinner spinner = new JSpinner();
-		spinner.setBorder(BorderFactory.createEmptyBorder( 0,2,0,1));
-		spinner.setModel(new SpinnerDateModel()); //FIXME
-		spinner.setEditor(new JSpinner.DateEditor(spinner, "MM/yyyy")); //FIXME
-		// TODO set editor and format according to propertyinfo
-		return spinner;
-	}
+	// @Override
+	// public JButton createDropDownButton() {
+	// JButton button = super.createDropDownButton();
+	// button.addActionListener(createDropDownButtonAction());
+	// return button;
+	// }
 
 	@Override
 	public void refresh() {
-		// set text
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		ClassInfo classInfo = domainProvider.getClassInfo(propertyValueModel
-				.getValueType());
-		Object propertyValue = propertyValueModel.getValue();
-		String title = classInfo.getTitle(propertyValue);
-		// TODO getTextField().setText(title);
-		// TODO date/time format!!!
-		// TODO description?
-		getTextField().setEnabled(propertyValueModel.canSetValue());
 
+		// set text
+		String formatPattern = getFormatPattern();
+		setEditor(new JSpinner.DateEditor(this, formatPattern));
+
+		Object value = propertyValueModel.getValue();
+		if (value != null) {
+			setValue(value);
+		}
+
+		// set enabled
+		setEnabled(propertyValueModel.canSetValue());
+
+	}
+
+	private String getFormatPattern() {
+		String formatPattern = propertyValueModel.getPropertyInfo()
+				.getFormatPattern();
+		if (formatPattern == null) {
+			DateFormat format = null;
+			switch (dateTimeMode) {
+			case DATE:
+				format = SimpleDateFormat
+						.getDateInstance(SimpleDateFormat.MEDIUM);
+				break;
+			case TIME:
+				format = SimpleDateFormat
+						.getTimeInstance(SimpleDateFormat.MEDIUM);
+				break;
+			case DATE_AND_TIME:
+				format = SimpleDateFormat.getDateTimeInstance(
+						SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM);
+				break;
+			default:
+				break;
+			}
+			try {
+				Field patternField = SimpleDateFormat.class
+						.getDeclaredField("pattern");
+				patternField.setAccessible(true);
+				formatPattern = (String) patternField.get(format);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return formatPattern;
 	}
 
 }
