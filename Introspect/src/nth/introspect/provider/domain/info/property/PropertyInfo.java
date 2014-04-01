@@ -7,7 +7,7 @@ import java.text.Format;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.provider.domain.format.FormatFactory;
+import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.type.PropertyType;
 import nth.introspect.provider.domain.info.type.TypeCategory;
@@ -147,7 +147,7 @@ public class PropertyInfo implements IntrospectionInfo {
 		}
 
 		//create formater
-		format = new FormatFactory().create(this);
+		format = new PropertyInfoFormatFactory().create(this);
 	}
 
 	public PropertyType getPropertyType() {

@@ -25,10 +25,10 @@ public class AboutItem extends Item {
 				UserInterfaceProvider<?> userInterfacePort = Introspect.getUserInterfaceProvider();
 				DomainProvider domainProvider = Introspect.getDomainProvider();
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
-				List<MethodInfo> methodInfos = domainProvider.getMethodInfos(AboutItem.class, methodFilter);
+				List<MethodInfo> methodInfos = domainProvider.getMethodInfos(About.class, methodFilter);
 				if (methodInfos.size() == 1) {
 					MethodInfo methodInfo = methodInfos.get(0);
-					userInterfacePort.startExecution(aboutItem, methodInfo, null);
+					userInterfacePort.startExecution(new About(), methodInfo, null);
 				} else {
 					StringBuffer message = new StringBuffer("Could not find ");
 					message.append(ABOUT.toLowerCase());
@@ -40,7 +40,5 @@ public class AboutItem extends Item {
 		});
 	}
 
-	public InfoProvider about() {
-		return Introspect.getInfoProvider();
-	}
+	
 }

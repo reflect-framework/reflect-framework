@@ -2,6 +2,7 @@ package nth.introspect.util.converterfactory;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -52,7 +53,7 @@ public abstract class ConverterFactory<T, U> extends
 			return createCalendarConverter(metadata);
 		} else
 		// URI
-		if (Uri.class.isAssignableFrom(type_)) {
+		if (URI.class.isAssignableFrom(type_)) {
 			return createUriConverter(metadata);
 		} else
 		// domainObjects

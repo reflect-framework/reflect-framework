@@ -228,10 +228,12 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 			break;
 		case COLLECTION_TYPE:
 			// TODO case tableModel:
-			openTableView(serviceObject, methodInfo, methodParameterValue, methodReturnValue);
+			openTableView(serviceObject, methodInfo, methodParameterValue,
+					methodReturnValue);
 			break;
 		case HIERARCHICAL_DOMAIN_TYPE:
-			openTreeTableView(serviceObject, methodInfo, methodParameterValue, methodReturnValue);
+			openTreeTableView(serviceObject, methodInfo, methodParameterValue,
+					methodReturnValue);
 			break;
 		case URI_TYPE:
 			URI uri = (URI) methodReturnValue;
@@ -374,10 +376,12 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 			Object domainObject, FormMode formMode);
 
 	public abstract T createTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue, Object methodReturnValue);
+			MethodInfo methodInfo, Object methodParameterValue,
+			Object methodReturnValue);
 
 	public abstract T createTreeTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue, Object methodReturnValue);
+			MethodInfo methodInfo, Object methodParameterValue,
+			Object methodReturnValue);
 
 	// TODO public abstract T createMenuView();
 
@@ -402,7 +406,10 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 	@Override
 	public void refresh() {
 		// refresh current view
-		getViewContainer().getSelectedView().onViewActivate();
+		View view = getViewContainer().getSelectedView();
+		if (view != null) {
+			view.onViewActivate();
+		}
 	}
 
 }

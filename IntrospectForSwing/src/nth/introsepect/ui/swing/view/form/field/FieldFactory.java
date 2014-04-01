@@ -24,6 +24,7 @@ public class FieldFactory {
 		case CHECK_BOX:
 			return new CheckBox(propertyValueModel);
 		case NUMBER:
+			return new NumericField2(propertyValueModel);
 		case CHAR:
 			return new UniverselTextField(propertyValueModel);
 		case TIME:
