@@ -19,6 +19,11 @@ import nth.introsepect.ui.swing.properygrid.SwingUtil;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
+/**
+ * @deprecated Use {@link NumericField2}. Remove this class when not needed
+ * @author nilsth
+ *
+ */
 public class NumericField extends JFormattedTextField implements Refreshable{
 
 	private static final long serialVersionUID = 2005556164722532623L;
