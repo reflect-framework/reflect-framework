@@ -47,7 +47,7 @@ public class TypeUtil {
 	}
 	
 	public static boolean isDomainType(Class<?> type) {
-		return !isJavaType(type) && !isEnum(type);
+		return  !isJavaType(type) && !isEnum(type);
 	}
 
 	

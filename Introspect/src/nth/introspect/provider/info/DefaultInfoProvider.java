@@ -10,6 +10,7 @@ import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInForm;
+import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInTable;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
@@ -82,6 +83,7 @@ public class DefaultInfoProvider implements InfoProvider {
 	}
 
 	@VisibleInForm(false)
+	@VisibleInTable(false)
 	@Override
 	public Object getApplication() {
 		return application;
