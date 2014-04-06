@@ -1,8 +1,10 @@
 package nth.introspect.util.converterfactory;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -55,7 +57,13 @@ public abstract class ConverterFactory<T, U> extends
 		// URI
 		if (URI.class.isAssignableFrom(type_)) {
 			return createUriConverter(metadata);
-		} else
+		}  else if (URL.class.isAssignableFrom(type_)) {
+			return createUrlConverter(metadata);
+		}		else if (File.class.isAssignableFrom(type_)) {
+			return createFileConverter(metadata);
+		}
+		//TODO URL!!!!	
+			
 		// domainObjects
 		if (TypeUtil.isDomainType(type_)) {
 			return createDomainConverter(metadata);
@@ -68,6 +76,10 @@ public abstract class ConverterFactory<T, U> extends
 		// Not supported
 		throw new TypeNotSupportedException(type_, this.getClass());
 	}
+
+	public abstract T  createFileConverter(U metadata);
+
+	public abstract T createUrlConverter(U metadata) ;
 
 	public abstract T createBooleanConverter(U metadata);
 

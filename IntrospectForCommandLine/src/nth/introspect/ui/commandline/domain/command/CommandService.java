@@ -1,6 +1,8 @@
 package nth.introspect.ui.commandline.domain.command;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -75,6 +77,8 @@ public class CommandService {
 			types.put(Character.class, Character.class.getName());
 			types.put(String.class, "Text");
 			types.put(File.class, "Path");
+			types.put(URI.class, "Uri");
+			types.put(URL.class, "Url");
 			types.put(Date.class, "Date and or Time");
 			//TODO enum!
 		}

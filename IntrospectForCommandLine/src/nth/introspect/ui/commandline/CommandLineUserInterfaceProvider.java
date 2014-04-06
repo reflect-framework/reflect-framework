@@ -63,6 +63,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 			if (command == null) {
 				HelpView helpView = new HelpView("Unknown command", commands);
 				getViewContainer().addView(helpView);
+				System.exit(1);
 
 			}
 

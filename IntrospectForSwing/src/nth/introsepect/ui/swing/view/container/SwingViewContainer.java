@@ -84,6 +84,11 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Swi
 
 	@Override
 	public View getSelectedView() {
+		int index = getSelectedIndex();
+		int tabCount=getTabCount();
+		if (index>=0 && index>=tabCount) {
+			setSelectedIndex(tabCount-1);
+		}
 		return (View) getSelectedComponent();
 	}
 }

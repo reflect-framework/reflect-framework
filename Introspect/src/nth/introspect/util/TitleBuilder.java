@@ -55,7 +55,7 @@ public class TitleBuilder {
 	}
 	
 	public TitleBuilder() {
-		this(null);
+		this(" ");
 	}
 
 	public void append(Object value) {

@@ -44,7 +44,7 @@ public class PropertyInfoFormatFactory extends ConverterFactory<Format, Property
 
 	@Override
 	public Format createUriConverter(PropertyInfo propertyInfo) {
-		return new NoFormat();
+		return new UriFormat();
 	}
 
 	@Override
@@ -141,6 +141,16 @@ public class PropertyInfoFormatFactory extends ConverterFactory<Format, Property
 	@Override
 	public Format createCollectionConverter(PropertyInfo metadata) {
 		return new NoFormat();
+	}
+
+	@Override
+	public Format createFileConverter(PropertyInfo metadata) {
+		return new FileFormat();
+	}
+
+	@Override
+	public Format createUrlConverter(PropertyInfo metadata) {
+		return new UrlFormat();
 	}
 
 }

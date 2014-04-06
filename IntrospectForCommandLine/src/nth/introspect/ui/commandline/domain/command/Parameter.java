@@ -1,9 +1,12 @@
 package nth.introspect.ui.commandline.domain.command;
 
 import java.io.File;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
+import com.sun.org.apache.xml.internal.utils.URI;
 
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 
@@ -39,7 +42,7 @@ public class Parameter {
 
 	public String getUsage() {
 		StringBuffer usage = new StringBuffer();
-		if (type.isAssignableFrom(String.class) || type.isAssignableFrom(File.class) || type.isAssignableFrom(Date.class)){
+		if (type.isAssignableFrom(String.class) || type.isAssignableFrom(File.class) || type.isAssignableFrom(Date.class) || type.isAssignableFrom(URI.class)|| type.isAssignableFrom(URL.class)){
 			usage.append("\"<");
 			usage.append(propertyInfo.getName());
 			usage.append(">\"");

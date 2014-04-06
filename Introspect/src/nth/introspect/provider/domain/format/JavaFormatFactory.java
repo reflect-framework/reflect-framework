@@ -43,7 +43,7 @@ public class JavaFormatFactory extends ConverterFactory<Format, String> {
 
 	@Override
 	public Format createUriConverter(String format) {
-		return new NoFormat();
+		return new UriFormat();
 	}
 
 	@Override
@@ -120,6 +120,18 @@ public class JavaFormatFactory extends ConverterFactory<Format, String> {
 	@Override
 	public Format createCollectionConverter(String format) {
 		return new NoFormat();
+	}
+
+
+	@Override
+	public Format createFileConverter(String metadata) {
+		return new FileFormat();
+	}
+
+
+	@Override
+	public Format createUrlConverter(String metadata) {
+		return new UrlFormat();
 	}
 
 }
