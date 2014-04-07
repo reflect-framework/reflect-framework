@@ -25,7 +25,9 @@ public class UriFormat extends Format {
 	@Override
 	public Object parseObject(String source, ParsePosition pos) {
 		try {
-			return  new URI(source);
+			URI uri= new URI(source);
+			pos.setIndex(source.length());
+			return uri;
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}

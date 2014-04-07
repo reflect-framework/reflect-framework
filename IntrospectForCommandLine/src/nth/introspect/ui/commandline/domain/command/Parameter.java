@@ -2,6 +2,7 @@ package nth.introspect.ui.commandline.domain.command;
 
 import java.io.File;
 import java.net.URL;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -63,32 +64,34 @@ public class Parameter {
 	 * @throws IntrospectCommandLineException
 	 */
 	public void parseArgument(Object parameter, String argument) throws IntrospectCommandLineException {
-		Object value = null;
 		try {
-			if (type.isAssignableFrom(Boolean.class)) {
-				value = Boolean.valueOf(argument);
-			} else if (type.isAssignableFrom(Byte.class)) {
-				value = Byte.valueOf(argument);
-			} else if (type.isAssignableFrom(Short.class)) {
-				value = Short.valueOf(argument);
-			} else if (type.isAssignableFrom(Integer.class)) {
-				value = Integer.valueOf(argument);
-			} else if (type.isAssignableFrom(Long.class)) {
-				value = Long.valueOf(argument);
-			} else if (type.isAssignableFrom(Float.class)) {
-				value = Float.valueOf(argument);
-			} else if (type.isAssignableFrom(Double.class)) {
-				value = Double.valueOf(argument);
-			} else if (type.isAssignableFrom(Character.class)) {
-				value = argument.charAt(0);
-			} else if (type.isAssignableFrom(String.class)) {
-				value = argument;
-			} else if (type.isAssignableFrom(File.class)) {
-				value = new File(argument);
-			} else if (type.isAssignableFrom(Date.class)) {
-				SimpleDateFormat formatter = new SimpleDateFormat();
-				value = formatter.parse(argument);
-			}
+			Format format = propertyInfo.getFormat();
+			Object value = format.parseObject(argument);
+			
+//			if (type.isAssignableFrom(Boolean.class)) {
+//				value = Boolean.valueOf(argument);
+//			} else if (type.isAssignableFrom(Byte.class)) {
+//				value = Byte.valueOf(argument);
+//			} else if (type.isAssignableFrom(Short.class)) {
+//				value = Short.valueOf(argument);
+//			} else if (type.isAssignableFrom(Integer.class)) {
+//				value = Integer.valueOf(argument);
+//			} else if (type.isAssignableFrom(Long.class)) {
+//				value = Long.valueOf(argument);
+//			} else if (type.isAssignableFrom(Float.class)) {
+//				value = Float.valueOf(argument);
+//			} else if (type.isAssignableFrom(Double.class)) {
+//				value = Double.valueOf(argument);
+//			} else if (type.isAssignableFrom(Character.class)) {
+//				value = argument.charAt(0);
+//			} else if (type.isAssignableFrom(String.class)) {
+//				value = argument;
+//			} else if (type.isAssignableFrom(File.class)) {
+//				value = new File(argument);
+//			} else if (type.isAssignableFrom(Date.class)) {
+//				SimpleDateFormat formatter = new SimpleDateFormat();
+//				value = formatter.parse(argument);
+//			}
 			
 			propertyInfo.setValue(parameter, value);
 		} catch (Throwable e) {

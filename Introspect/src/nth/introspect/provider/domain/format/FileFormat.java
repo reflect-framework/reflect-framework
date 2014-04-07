@@ -23,6 +23,7 @@ public class FileFormat extends Format {
 	@Override
 	public Object parseObject(String source, ParsePosition pos) {
 		File file = new File(source);
+		pos.setIndex(source.length());
 		return file;
 	}
 

@@ -27,7 +27,9 @@ public class UrlFormat extends Format {
 	@Override
 	public Object parseObject(String source, ParsePosition pos) {
 		try {
-			return  new URL(source);
+			URL url = new URL(source);
+			pos.setIndex(source.length());;
+			return url;
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
