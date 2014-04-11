@@ -35,7 +35,7 @@ public class Command {
 		if (parameterClass != null) {
 			
 			//get propertyInfos
-			Filter<PropertyInfo> propertyInfoFilter = new TableVisibleFilter();
+			Filter<PropertyInfo> propertyInfoFilter = new CommandLineParameterFilter();
 			FormOrderComparator propertyInfoComparator = new FormOrderComparator();
 			Class<?> returnClass = methodInfo.getParameterType().getTypeOrGenericCollectionType();
 			List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
