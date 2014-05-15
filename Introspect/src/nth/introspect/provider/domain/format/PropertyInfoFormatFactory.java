@@ -33,7 +33,7 @@ public class PropertyInfoFormatFactory extends ConverterFactory<Format, Property
 
 	@Override
 	public Format createStringConverter(PropertyInfo propertyInfo) {
-		return new NoFormat();
+		return new StringFormat();
 	}
 
 	@Override
