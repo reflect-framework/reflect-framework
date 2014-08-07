@@ -44,7 +44,7 @@ public class MainWindow extends JFrame {
 		setDefaultLookAndFeelDecorated(true);
 
 		// Set window parameters
-		setTitle(Introspect.getInfoProvider().getApplicationTitle());
+//TODO		setTitle(Introspect.getVersionProvider().getApplicationTitle());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Create window contents

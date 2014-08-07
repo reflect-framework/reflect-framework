@@ -5,16 +5,16 @@ import java.util.Collection;
 
 import nth.introspect.Introspect;
 import nth.introspect.domain.person.PersonService;
-import nth.introspect.initializator.IntrospectInitializer;
+import nth.introspect.initializer.IntrospectInitializer;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.DefaultDomainProvider;
 import nth.introspect.provider.domain.DomainProvider;
-import nth.introspect.provider.info.InfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.DefaultPathProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
+import nth.introspect.provider.version.VersionProvider;
 import nth.introspect.util.xml.XmlUtil;
 
 public class XmlTest {
@@ -24,7 +24,7 @@ public class XmlTest {
 	 */
 	public static void main(String[] args) {
 
-		IntrospectInitializer initializer = new IntrospectInitializer() {
+		IntrospectInitializer initializer = new IntrospectInitializer(new XmlTest()) {
 
 			@Override
 			public ValidationProvider createValidationProvider() {
@@ -54,12 +54,6 @@ public class XmlTest {
 			}
 
 			@Override
-			public InfoProvider createInfoProvider() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
 			public DomainProvider createDomainProvider() {
 				return new DefaultDomainProvider();
 			}
@@ -70,9 +64,11 @@ public class XmlTest {
 				return null;
 			}
 
+
 			@Override
-			public void addServiceClass(Class<?> serviceClass) {
+			public VersionProvider createVersionProvider() {
 				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 		Introspect.init(initializer);

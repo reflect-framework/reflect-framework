@@ -6,7 +6,6 @@ import nth.introspect.Introspect;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
-import nth.introspect.provider.info.InfoProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.images.IntrospectImage;

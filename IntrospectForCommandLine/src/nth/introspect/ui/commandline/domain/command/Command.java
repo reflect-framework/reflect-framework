@@ -113,7 +113,7 @@ public class Command {
 		try {
 			File jarFile = new File(Command.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 			if ("bin".equals(jarFile.getName())) {//fix debug issue (when not executed from a jar)
-				return Introspect.getInfoProvider().getApplication().getClass().getSimpleName();
+				return Introspect.getVersionProvider().getApplication().getClass().getSimpleName();
 			}
 			return jarFile.getName();
 		} catch (URISyntaxException e) {

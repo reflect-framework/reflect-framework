@@ -8,16 +8,18 @@ import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.item.Item;
 
-public class HierarchicalItem extends Item { 
+public class HierarchicalItem extends Item {
 
 	private List<Item> children = new ArrayList<Item>();
 	private HierarchicalItem parent;
 
 	public HierarchicalItem() {
 	}
-	
+
 	/**
-	 * Constructs a new menu item that can optionally have an icon and a action associated with it. Icon and action can be null, but a caption must be given.
+	 * Constructs a new menu item that can optionally have an icon and a action
+	 * associated with it. Icon and action can be null, but a caption must be
+	 * given.
 	 * 
 	 * @param text
 	 *            The text associated with the action
@@ -25,7 +27,7 @@ public class HierarchicalItem extends Item {
 	 *            The action to be fired
 	 */
 	public HierarchicalItem(String text, URI iconURI, Action action) {
-		
+
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
 		}
@@ -42,12 +44,10 @@ public class HierarchicalItem extends Item {
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		LanguageProvider languagePort=Introspect.getLanguageProvider();
-		String iconName=languagePort.getDefaultValue(text);
+		LanguageProvider languagePort = Introspect.getLanguageProvider();
+		String iconName = languagePort.getDefaultValue(text);
 		setIconURI(Introspect.getPathProvider().getImagePath(iconName));
 	}
-
-
 
 	/**
 	 * Checks if the item has children (if it is a sub-menu).
@@ -59,9 +59,11 @@ public class HierarchicalItem extends Item {
 	}
 
 	/**
-	 * For the containing item. This will return null if the item is in the top-level menu bar.
+	 * For the containing item. This will return null if the item is in the
+	 * top-level menu bar.
 	 * 
-	 * @return The containing {@link nth.introspect.ui.item.HierarchicalItem} , or null if there is none
+	 * @return The containing {@link nth.introspect.ui.item.HierarchicalItem} ,
+	 *         or null if there is none
 	 */
 	public HierarchicalItem getParent() {
 		return parent;
@@ -107,7 +109,9 @@ public class HierarchicalItem extends Item {
 	}
 
 	/**
-	 * Adds a separator to this menu. A separator is a way to visually group items in a menu, to make it easier for users to find what they are looking for in the menu.
+	 * Adds a separator to this menu. A separator is a way to visually group
+	 * items in a menu, to make it easier for users to find what they are
+	 * looking for in the menu.
 	 * 
 	 */
 	public HierarchicalItem addSeparator() {
@@ -116,13 +120,12 @@ public class HierarchicalItem extends Item {
 		return item;
 	}
 
-	
 	public HierarchicalItem addSeparator(int index) {
 		HierarchicalItem item = createSeperator();
 		addItem(index, item);
 		return item;
 	}
-	
+
 	private static HierarchicalItem createSeperator() {
 		HierarchicalItem item = new HierarchicalItem();
 		item.setSeparator(true);
@@ -132,12 +135,12 @@ public class HierarchicalItem extends Item {
 
 	public String getTextPath(String seperator) {
 		String textPath = "";
-		if (parent!=null) {
-			textPath=parent.getTextPath(seperator);
-			textPath+=seperator;
+		if (parent != null) {
+			textPath = parent.getTextPath(seperator);
+			textPath += seperator;
 		}
-		textPath+=getText();
+		textPath += getText();
 		return textPath;
 	}
-	
+
 }
