@@ -1,16 +1,16 @@
 package nth.introspect.container.exception;
 
-import nth.introspect.initializer.IntrospectInitializer;
+import nth.introspect.application.IntrospectApplication;
 
 public class ProviderNotDefined extends IntrospectContainerException {
 
 	private static final long serialVersionUID = -5905046492730652717L;
 	
-	public ProviderNotDefined(IntrospectInitializer application, Class<?> providerType) {
+	public ProviderNotDefined(IntrospectApplication application, Class<?> providerType) {
 		super(createMessage(application, providerType));
 	}
 
-	private static String createMessage(IntrospectInitializer application,
+	private static String createMessage(IntrospectApplication application,
 			Class<?> providerType) {
 		StringBuilder message=new StringBuilder();
 		message.append("The ");

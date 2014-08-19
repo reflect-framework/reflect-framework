@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import nth.introspect.container.IntrospectContainer;
 import nth.introspect.filter.Filter;
 import nth.introspect.filter.FilterUtil;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
@@ -23,21 +24,16 @@ public class DefaultDomainProvider implements DomainProvider {
 	private HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
 	private HashMap<Class<?>, List<MethodInfo>> methodInfosPerClass;
 	private List<PropertyChangeListener> propertyChangeListeners;
+	private final IntrospectContainer introspectContainer;
 
-	public DefaultDomainProvider() {
-		serviceObjects = new ArrayList<Object>();
+	public DefaultDomainProvider(IntrospectContainer introspectContainer) {
+		this.introspectContainer = introspectContainer;
 		classInfos = new HashMap<Class<?>, ClassInfo>();
 		propertyInfosPerClass = new HashMap<Class<?>, List<PropertyInfo>>();
 		methodInfosPerClass = new HashMap<Class<?>, List<MethodInfo>>();
 		propertyChangeListeners = new ArrayList<PropertyChangeListener>();
 	}
 
-	public DefaultDomainProvider(List<Class<?>> serviceClasses) {
-		this();
-		for (Class<?> serviceClass : serviceClasses) {
-			getServiceObject(serviceClass);
-		}
-	}
 
 	@Override
 	public void addPropertyChangeListener(
@@ -140,6 +136,11 @@ public class DefaultDomainProvider implements DomainProvider {
 		return propertyInfos;
 	}
 
+
+/**
+ * @deprecated use {@link IntrospectContainer#getFrontEndServiceObjects()}
+ */
+
 	public Object getServiceObject(Class<?> serviceClass) {
 		Object serviceObject = findServiceObject(serviceClass);
 		if (serviceObject == null) {
@@ -155,8 +156,12 @@ public class DefaultDomainProvider implements DomainProvider {
 		return serviceObject;
 	}
 
+	/**
+	 * @deprecated use {@link IntrospectContainer#getFrontEndServiceObjects()}
+	 */
+
 	public List<Object> getServiceObjects() {
-		return serviceObjects;
+		return introspectContainer.getFrontEndServiceObjects();
 	}
 
 	@Override

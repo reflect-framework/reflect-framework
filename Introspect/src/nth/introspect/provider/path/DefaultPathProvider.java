@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import nth.introspect.Introspect;
+import nth.introspect.application.IntrospectApplication;
 import nth.introspect.provider.path.id.PathID;
 import nth.introspect.util.StringUtil;
 
@@ -24,7 +25,7 @@ public class DefaultPathProvider implements PathProvider {
 	private HashMap<CharSequence, URI> existingImagePaths;
 	private HashMap<CharSequence, URI> noneExistingImagePaths;
 
-	public DefaultPathProvider(Object application) throws URISyntaxException {
+	public DefaultPathProvider(IntrospectApplication application) throws URISyntaxException {
 		this(application.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
 	}
 

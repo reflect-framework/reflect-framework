@@ -1,20 +1,36 @@
 package nth.introspect.swing.demo;
-import nth.introsepect.ui.swing.IntrospectInitializerForSwing;
-import nth.introspect.Introspect;
+import java.util.ArrayList;
+import java.util.List;
+
 import nth.introspect.domain.classdiagram.ClassDiagramService;
 import nth.introspect.domain.test.TestsService;
+import nth.introspect.ui.swing.IntrospectApplicationForSwing;
 
 
-public class IntrospectSwingDemo {
+public class IntrospectSwingDemo extends IntrospectApplicationForSwing {
+
+	public IntrospectSwingDemo(String[] arguments) {
+		super(arguments);
+	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		IntrospectInitializerForSwing initializer=new IntrospectInitializerForSwing(new IntrospectSwingDemo());
-		initializer.registerFrontEndServiceClass(TestsService.class);
-		initializer.registerFrontEndServiceClass(ClassDiagramService.class);
-		Introspect.init(initializer);
+	public static void main(String[] arguments) {
+		new IntrospectSwingDemo(arguments);
+	}
+
+	@Override
+	public List<Class<?>> getFrontEndServiceClasses() {
+		List<Class<?>> frontEndServiceClasses=new ArrayList<Class<?>>();
+		frontEndServiceClasses.add(TestsService.class);
+		frontEndServiceClasses.add(ClassDiagramService.class);
+		return frontEndServiceClasses;
+	}
+
+	@Override
+	public List<Class<?>> getBackEndServiceClasses() {
+		return new ArrayList<Class<?>>();
 	}
 
 }

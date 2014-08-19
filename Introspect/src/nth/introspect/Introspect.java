@@ -1,10 +1,8 @@
 package nth.introspect;
 
+import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.exception.NotInitilializedException;
-import nth.introspect.container.exception.ProviderNotDefined;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
-import nth.introspect.initializer.IntrospectInitializer;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.dataaccess.DataAccessProvider;
@@ -96,14 +94,14 @@ import nth.introspect.provider.version.VersionProvider;
  * static class {@link Introspect}. The Introspect class holds references to
  * several ports with adapters. <br>
  * <h1>Initializing the Introspect framework</h1> The Introspect framework is
- * initialized once by calling {@link Introspect#init(IntrospectInitializer)}
+ * initialized once by calling {@link Introspect#init(IntrospectApplication)}
  * when an application is started.<br>
- * The init parameter {@link IntrospectInitializer} is a class that will
+ * The init parameter {@link IntrospectApplication} is a class that will
  * coordinate the initialization of an application<br>
  * Each application type (command line, Swing, Android, Vaadin, etc..) has its
  * own implementation of IntrospectInitializer to help initializing the
  * framework.<br>
- * See the type hierarchy of {@link IntrospectInitializer} to learn which
+ * See the type hierarchy of {@link IntrospectApplication} to learn which
  * classes can be used and view their java doc to learn how to use them.<br>
  * <br>
  * 
@@ -118,7 +116,8 @@ import nth.introspect.provider.version.VersionProvider;
 // TODO implement IntrospectApplication interface (replace initializer)
 // TODO consider rename Provider to Module
 // TODO consider rename Introspect to Reflect
-// TODO consider if we can replace the service lookups of the providers with constructor injection
+// TODO consider if we can replace the service lookups of the providers with
+// constructor injection
 // TODO update javadoc (or refer to web site)
 public class Introspect {
 
@@ -131,105 +130,114 @@ public class Introspect {
 	private static UserInterfaceProvider<?> userInterfaceProvider;
 	private static VersionProvider versionProvider;
 
-	public static void init(IntrospectInitializer application) {
+	public static void init(IntrospectApplication application) {
 		try {
-			createProviders(application);
+			// createProviders(application);
 
 			introspectContainer = new IntrospectContainer(application);
+			introspectContainer.createInstances();
 
 		} catch (Exception exception) {
 			throw new IntrospectContainerInitializationException(exception);
 		}
 	}
 
-	private static void createProviders(IntrospectInitializer application)
-			throws ProviderNotDefined {
-		authorizationProvider = application.createAuthorizationProvider();
-		if (authorizationProvider == null) {
-			throw new ProviderNotDefined(application,
-					AuthorizationProvider.class);
-		}
-
-		validationProvider = application.createValidationProvider();
-		if (validationProvider == null) {
-			throw new ProviderNotDefined(application, ValidationProvider.class);
-		}
-
-		pathProvider = application.createPathProvider();
-		if (pathProvider == null) {
-			throw new ProviderNotDefined(application, LanguageProvider.class);
-		}
-
-		languageProvider = application.createLanguageProvider();
-		if (languageProvider == null) {
-			throw new ProviderNotDefined(application, LanguageProvider.class);
-		}
-
-		domainProvider = application.createDomainProvider();
-		if (domainProvider == null) {
-			throw new ProviderNotDefined(application, DomainProvider.class);
-		}
-
-		// TODO providers in introspect class are not available until The
-		// container is initialized. This is a problem for userinterface
-		// classes trying to look up an provider
-		userInterfaceProvider = application.createUserInterfaceProvider();
-		if (userInterfaceProvider == null) {
-			throw new ProviderNotDefined(application,
-					UserInterfaceProvider.class);
-		}
-
-		versionProvider = application.createVersionProvider();
-		if (versionProvider == null) {
-			throw new ProviderNotDefined(application, VersionProvider.class);
-		}
-	}
+	// private static void createProviders(IntrospectApplication application)
+	// throws ProviderNotDefined {
+	// authorizationProvider = application.getAuthorizationProviderClass();
+	// if (authorizationProvider == null) {
+	// throw new ProviderNotDefined(application,
+	// AuthorizationProvider.class);
+	// }
+	//
+	// validationProvider = application.getValidationProviderClass();
+	// if (validationProvider == null) {
+	// throw new ProviderNotDefined(application, ValidationProvider.class);
+	// }
+	//
+	// pathProvider = application.getPathProviderClass();
+	// if (pathProvider == null) {
+	// throw new ProviderNotDefined(application, LanguageProvider.class);
+	// }
+	//
+	// languageProvider = application.getLanguageProviderClass();
+	// if (languageProvider == null) {
+	// throw new ProviderNotDefined(application, LanguageProvider.class);
+	// }
+	//
+	// domainProvider = application.createDomainProvider();
+	// if (domainProvider == null) {
+	// throw new ProviderNotDefined(application, DomainProvider.class);
+	// }
+	//
+	// // TODO providers in introspect class are not available until The
+	// // container is initialized. This is a problem for userinterface
+	// // classes trying to look up an provider
+	// userInterfaceProvider = application.createUserInterfaceProvider();
+	// if (userInterfaceProvider == null) {
+	// throw new ProviderNotDefined(application,
+	// UserInterfaceProvider.class);
+	// }
+	//
+	// versionProvider = application.getVersionProviderClass();
+	// if (versionProvider == null) {
+	// throw new ProviderNotDefined(application, VersionProvider.class);
+	// }
+	// }
 
 	public static UserInterfaceProvider<?> getUserInterfaceProvider() {
 		if (userInterfaceProvider == null) {
-			throw new NotInitilializedException();
+			userInterfaceProvider = (UserInterfaceProvider<?>) introspectContainer
+					.get(UserInterfaceProvider.class);
 		}
 		return userInterfaceProvider;
 	}
 
 	public static PathProvider getPathProvider() {
 		if (pathProvider == null) {
-			throw new NotInitilializedException();
+			pathProvider = (PathProvider) introspectContainer
+					.get(PathProvider.class);
+
 		}
 		return pathProvider;
 	}
 
 	public static AuthorizationProvider getAuthorizationProvider() {
 		if (authorizationProvider == null) {
-			throw new NotInitilializedException();
+			authorizationProvider = (AuthorizationProvider) introspectContainer
+					.get(AuthorizationProvider.class);
 		}
 		return authorizationProvider;
 	}
 
 	public static DomainProvider getDomainProvider() {
 		if (domainProvider == null) {
-			throw new NotInitilializedException();
+			domainProvider = (DomainProvider) introspectContainer
+					.get(DomainProvider.class);
 		}
 		return domainProvider;
 	}
 
 	public static LanguageProvider getLanguageProvider() {
 		if (languageProvider == null) {
-			throw new NotInitilializedException();
+			languageProvider = (LanguageProvider) introspectContainer
+					.get(LanguageProvider.class);
 		}
 		return languageProvider;
 	}
 
 	public static VersionProvider getVersionProvider() {
 		if (versionProvider == null) {
-			throw new NotInitilializedException();
+			versionProvider = (VersionProvider) introspectContainer
+					.get(VersionProvider.class);
 		}
 		return versionProvider;
 	}
 
 	public static ValidationProvider getValidationProvider() {
 		if (validationProvider == null) {
-			throw new NotInitilializedException();
+			validationProvider = (ValidationProvider) introspectContainer
+					.get(ValidationProvider.class);
 		}
 		return validationProvider;
 	}

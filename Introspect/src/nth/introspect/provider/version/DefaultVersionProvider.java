@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.application.IntrospectApplication;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
@@ -18,10 +19,10 @@ import nth.introspect.provider.validation.ValidationProvider;
 
 public class DefaultVersionProvider implements VersionProvider {
 
-	private final Object application;
+	private final IntrospectApplication application;
 	private ClassInfo applicationClassInfo;
 
-	public DefaultVersionProvider (Object application) {
+	public DefaultVersionProvider (IntrospectApplication application) {
 		this.application = application;
 		applicationClassInfo=Introspect.getDomainProvider().getClassInfo(application.getClass());
 	}

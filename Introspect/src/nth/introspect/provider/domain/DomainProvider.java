@@ -3,6 +3,7 @@ package nth.introspect.provider.domain;
 import java.util.Comparator;
 import java.util.List;
 
+import nth.introspect.container.IntrospectContainer;
 import nth.introspect.filter.Filter;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
@@ -13,6 +14,9 @@ public interface DomainProvider extends Provider{
 
 	Object getServiceObject(Class<?> serviceClass);
 
+/**
+ * @deprecated use {@link IntrospectContainer#getFrontEndServiceObjects()}
+ */
 	List<Object> getServiceObjects();
 
 	ClassInfo getClassInfo(Class<?> introspectedClass);
