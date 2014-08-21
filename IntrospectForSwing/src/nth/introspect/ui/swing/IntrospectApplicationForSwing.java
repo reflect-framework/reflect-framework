@@ -2,6 +2,8 @@ package nth.introspect.ui.swing;
 
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
+import nth.introspect.provider.about.AboutProvider;
+import nth.introspect.provider.about.DefaultAboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.authorization.DefaultAuthorizationProvider;
 import nth.introspect.provider.domain.DefaultDomainProvider;
@@ -13,8 +15,6 @@ import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.DefaultValidationProvider;
 import nth.introspect.provider.validation.ValidationProvider;
-import nth.introspect.provider.version.DefaultVersionProvider;
-import nth.introspect.provider.version.VersionProvider;
 
 public abstract class IntrospectApplicationForSwing implements
 		IntrospectApplication {
@@ -37,8 +37,8 @@ public abstract class IntrospectApplicationForSwing implements
 	}
 
 	@Override
-	public Class<? extends VersionProvider> getVersionProviderClass() {
-		return DefaultVersionProvider.class;
+	public Class<? extends AboutProvider> getVersionProviderClass() {
+		return DefaultAboutProvider.class;
 	}
 
 	@Override

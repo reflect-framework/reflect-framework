@@ -18,9 +18,6 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
 public final class IntrospectContainer {
 
-	// private static final String INJECT = Inject.class.getSimpleName();
-	// private final Map<Class<?>, Object> objects;
-	// private final List<Object> frontEndServiceObjects;
 	private List<Object> backEndServiceObjects;
 	private List<Object> frontEndServiceObjects;
 	private List<Object> providerObjects;
@@ -49,12 +46,6 @@ public final class IntrospectContainer {
 		try {
 			validateServiceClasses(application);
 
-			backEndServiceObjects = createBackEndServiceObjects(application,
-					allInstances);
-
-			frontEndServiceObjects = createFrontEndServiceObjects(application,
-					allInstances);
-
 			// add IntrospectApplication to instances
 			allInstances.put(IntrospectApplication.class, application);
 
@@ -62,6 +53,13 @@ public final class IntrospectContainer {
 			allInstances.put(this.getClass(), this);
 
 			providerObjects = createProviderObjects(application, allInstances);
+			
+			backEndServiceObjects = createBackEndServiceObjects(application,
+					allInstances);
+
+			frontEndServiceObjects = createFrontEndServiceObjects(application,
+					allInstances);
+
 		} catch (Exception exception) {
 			throw new IntrospectContainerInitializationException(exception);
 		}

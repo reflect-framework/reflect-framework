@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
-import nth.introspect.provider.version.VersionProvider;
 
 /**
  * {@link IntrospectApplication} is used as initialization parameter for the {@link Introspect}.<br>
@@ -38,7 +38,7 @@ public interface IntrospectApplication {
 	
 	public Class<? extends DomainProvider> getDomainProviderClass();
 	
-	public Class<? extends VersionProvider> getVersionProviderClass();
+	public Class<? extends AboutProvider> getVersionProviderClass();
 	
 	public Class<? extends PathProvider> getPathProviderClass();
 	

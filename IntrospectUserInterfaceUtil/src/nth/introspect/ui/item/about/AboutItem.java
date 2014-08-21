@@ -3,6 +3,7 @@ package nth.introspect.ui.item.about;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.DomainProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
@@ -21,18 +22,19 @@ public class AboutItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfacePort = Introspect.getUserInterfaceProvider();
+				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
 				DomainProvider domainProvider = Introspect.getDomainProvider();
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
-				List<MethodInfo> methodInfos = domainProvider.getMethodInfos(About.class, methodFilter);
+				List<MethodInfo> methodInfos = domainProvider.getMethodInfos(AboutProvider.class, methodFilter);
+				AboutProvider aboutProvider=Introspect.getAboutProvider();
 				if (methodInfos.size() == 1) {
 					MethodInfo methodInfo = methodInfos.get(0);
-					userInterfacePort.startExecution(new About(), methodInfo, null);
+					userInterfaceProvider.startExecution(aboutProvider, methodInfo, null);
 				} else {
 					StringBuffer message = new StringBuffer("Could not find ");
 					message.append(ABOUT.toLowerCase());
 					message.append(" method in ");
-					message.append(this.getClass().getCanonicalName());
+					message.append(aboutProvider.getClass().getCanonicalName());
 					throw new RuntimeException(message.toString());
 				}
 			}

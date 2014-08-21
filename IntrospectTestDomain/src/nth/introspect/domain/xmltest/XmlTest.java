@@ -6,6 +6,7 @@ import java.util.Collection;
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.domain.person.PersonService;
+import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.DefaultDomainProvider;
 import nth.introspect.provider.domain.DomainProvider;
@@ -14,7 +15,6 @@ import nth.introspect.provider.path.DefaultPathProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
-import nth.introspect.provider.version.VersionProvider;
 import nth.introspect.util.xml.XmlUtil;
 
 public class XmlTest {

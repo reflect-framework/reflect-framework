@@ -4,6 +4,7 @@ import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.provider.Provider;
+import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.dataaccess.DataAccessProvider;
 import nth.introspect.provider.domain.DomainProvider;
@@ -11,7 +12,6 @@ import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
-import nth.introspect.provider.version.VersionProvider;
 
 /**
  * Introspect is a light weight application framework. It provides a framework
@@ -122,18 +122,16 @@ import nth.introspect.provider.version.VersionProvider;
 public class Introspect {
 
 	private static IntrospectContainer introspectContainer;
-	private static AuthorizationProvider authorizationProvider;
+	//private static AuthorizationProvider authorizationProvider;
 	private static ValidationProvider validationProvider;
 	private static PathProvider pathProvider;
 	private static LanguageProvider languageProvider;
 	private static DomainProvider domainProvider;
 	private static UserInterfaceProvider<?> userInterfaceProvider;
-	private static VersionProvider versionProvider;
+	private static AboutProvider versionProvider;
 
 	public static void init(IntrospectApplication application) {
 		try {
-			// createProviders(application);
-
 			introspectContainer = new IntrospectContainer(application);
 			introspectContainer.createInstances();
 
@@ -141,49 +139,6 @@ public class Introspect {
 			throw new IntrospectContainerInitializationException(exception);
 		}
 	}
-
-	// private static void createProviders(IntrospectApplication application)
-	// throws ProviderNotDefined {
-	// authorizationProvider = application.getAuthorizationProviderClass();
-	// if (authorizationProvider == null) {
-	// throw new ProviderNotDefined(application,
-	// AuthorizationProvider.class);
-	// }
-	//
-	// validationProvider = application.getValidationProviderClass();
-	// if (validationProvider == null) {
-	// throw new ProviderNotDefined(application, ValidationProvider.class);
-	// }
-	//
-	// pathProvider = application.getPathProviderClass();
-	// if (pathProvider == null) {
-	// throw new ProviderNotDefined(application, LanguageProvider.class);
-	// }
-	//
-	// languageProvider = application.getLanguageProviderClass();
-	// if (languageProvider == null) {
-	// throw new ProviderNotDefined(application, LanguageProvider.class);
-	// }
-	//
-	// domainProvider = application.createDomainProvider();
-	// if (domainProvider == null) {
-	// throw new ProviderNotDefined(application, DomainProvider.class);
-	// }
-	//
-	// // TODO providers in introspect class are not available until The
-	// // container is initialized. This is a problem for userinterface
-	// // classes trying to look up an provider
-	// userInterfaceProvider = application.createUserInterfaceProvider();
-	// if (userInterfaceProvider == null) {
-	// throw new ProviderNotDefined(application,
-	// UserInterfaceProvider.class);
-	// }
-	//
-	// versionProvider = application.getVersionProviderClass();
-	// if (versionProvider == null) {
-	// throw new ProviderNotDefined(application, VersionProvider.class);
-	// }
-	// }
 
 	public static UserInterfaceProvider<?> getUserInterfaceProvider() {
 		if (userInterfaceProvider == null) {
@@ -202,13 +157,13 @@ public class Introspect {
 		return pathProvider;
 	}
 
-	public static AuthorizationProvider getAuthorizationProvider() {
-		if (authorizationProvider == null) {
-			authorizationProvider = (AuthorizationProvider) introspectContainer
-					.get(AuthorizationProvider.class);
-		}
-		return authorizationProvider;
-	}
+//	public static AuthorizationProvider getAuthorizationProvider() {
+//		if (authorizationProvider == null) {
+//			authorizationProvider = (AuthorizationProvider) introspectContainer
+//					.get(AuthorizationProvider.class);
+//		}
+//		return authorizationProvider;
+//	}
 
 	public static DomainProvider getDomainProvider() {
 		if (domainProvider == null) {
@@ -226,10 +181,10 @@ public class Introspect {
 		return languageProvider;
 	}
 
-	public static VersionProvider getVersionProvider() {
+	public static AboutProvider getAboutProvider() {
 		if (versionProvider == null) {
-			versionProvider = (VersionProvider) introspectContainer
-					.get(VersionProvider.class);
+			versionProvider = (AboutProvider) introspectContainer
+					.get(AboutProvider.class);
 		}
 		return versionProvider;
 	}
