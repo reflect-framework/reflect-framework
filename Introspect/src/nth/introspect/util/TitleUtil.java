@@ -1,7 +1,7 @@
 package nth.introspect.util;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 
@@ -19,8 +19,8 @@ public class TitleUtil {
 
 		if (methodParameter != null) {
 			// add method parameter value between parentheses
-			DomainProvider domainProvider = Introspect.getDomainProvider();
-			ClassInfo classInfo = domainProvider.getClassInfo(methodParameter.getClass());
+			DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+			ClassInfo classInfo = domainInfoProvider.getClassInfo(methodParameter.getClass());
 			String parameterText = classInfo.getTitle(methodParameter);
 			// shorten if needed
 			if (shortTile && parameterText.length() > 20) {

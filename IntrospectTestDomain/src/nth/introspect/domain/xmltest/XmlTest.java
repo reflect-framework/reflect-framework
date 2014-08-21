@@ -8,8 +8,8 @@ import nth.introspect.application.IntrospectApplication;
 import nth.introspect.domain.person.PersonService;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
-import nth.introspect.provider.domain.DefaultDomainProvider;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DefaultDomainInfoProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.DefaultPathProvider;
 import nth.introspect.provider.path.PathProvider;
@@ -54,8 +54,8 @@ public class XmlTest {
 //			}
 //
 //			@Override
-//			public DomainProvider createDomainProvider() {
-//				return new DefaultDomainProvider();
+//			public domainInfoProvider createdomainInfoProvider() {
+//				return new DefaultdomainInfoProvider();
 //			}
 //
 //			@Override

@@ -35,7 +35,7 @@ public class TextAreaField extends JTextArea implements Refreshable {
 		setPreferredSize(new Dimension(Integer.MAX_VALUE,PropertyRow.HIGH_FIELD_HEIGHT));
 		
 
-		// TODO implement DomainProvider.addPropertyChangeListener(new
+		// TODO implement domainInfoProvider.addPropertyChangeListener(new
 		// addPropertyChangeListener(..
 
 		getDocument().addDocumentListener(new DocumentListener() {

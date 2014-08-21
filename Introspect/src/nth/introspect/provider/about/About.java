@@ -5,7 +5,7 @@ import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.provider.authorization.AuthorizationProvider;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
@@ -26,7 +26,7 @@ public class About extends VersionInfo {
 	public List<VersionInfo> getProviders() {
 		List<VersionInfo> providerInfos = new ArrayList<VersionInfo>();
 		providerInfos.add(getAuthorizationProviderInfo());
-		providerInfos.add(getDomainProviderInfo());
+		providerInfos.add(getDomainInfoProviderInfo());
 		providerInfos.add(getLanguageProviderInfo());
 		providerInfos.add(getPathProviderInfo());
 		providerInfos.add(getValidationProviderInfo());
@@ -45,9 +45,9 @@ public class About extends VersionInfo {
 		return new VersionInfo(authorizationProviderClass);
 	}
 
-	private VersionInfo getDomainProviderInfo() {
-		Class<? extends DomainProvider> domainProviderClass = application.getDomainProviderClass();
-		return new VersionInfo(domainProviderClass);
+	private VersionInfo getDomainInfoProviderInfo() {
+		Class<? extends DomainInfoProvider> domainInfoProviderClass = application.getDomainInfoProviderClass();
+		return new VersionInfo(domainInfoProviderClass);
 	}
 
 	private VersionInfo getLanguageProviderInfo() {

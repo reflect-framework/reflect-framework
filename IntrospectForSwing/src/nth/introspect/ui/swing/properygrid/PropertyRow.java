@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
-import nth.introspect.provider.domain.PropertyChangeListener;
-import nth.introspect.provider.domain.PropertyChangeType;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.provider.domain.info.PropertyChangeListener;
+import nth.introspect.provider.domain.info.PropertyChangeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.swing.view.form.field.FieldFactory;
@@ -53,8 +53,8 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 		
 		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		domainProvider.addPropertyChangeListener(this);//FIXME where is the property change listener beeing unsubscribed?
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		domainInfoProvider.addPropertyChangeListener(this);//FIXME where is the property change listener beeing unsubscribed?
 
 		
 		this.field = FieldFactory.create(formView, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field

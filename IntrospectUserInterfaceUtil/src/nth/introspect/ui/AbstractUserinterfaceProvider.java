@@ -8,7 +8,8 @@ import java.util.List;
 import com.sun.security.auth.callback.DialogCallbackHandler;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.container.IntrospectContainer;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
@@ -248,11 +249,11 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 					String methodName = uriString
 							.substring(positionLastDot + 1);
 					Class<?> serviceClass = Class.forName(serviceClassName);
-					DomainProvider domainAdapter = Introspect
-							.getDomainProvider();
-					Object serviceObject2 = domainAdapter
-							.getServiceObject(serviceClass);
-					List<MethodInfo> methodInfos = domainAdapter
+					DomainInfoProvider domainInfoProvider = Introspect
+							.getDomainInfoProvider();
+					IntrospectContainer introspectContainer=Introspect.getIntrospectContainer();
+					Object serviceObject2 =introspectContainer.get(serviceClass);
+					List<MethodInfo> methodInfos = domainInfoProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
 									methodName));
 					startExecution(serviceObject2, methodInfos.get(0), null);

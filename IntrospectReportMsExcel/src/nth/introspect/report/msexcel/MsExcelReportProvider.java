@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
@@ -75,10 +75,10 @@ public class MsExcelReportProvider extends ReportProvider<Workbook> {
 		Object domainObject = formSection.getIntrospectedObject();
 
 		// add properties as rows
-		DomainProvider domainProvider = Introspect.getDomainProvider();
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(domainObject.getClass(), propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(domainObject.getClass(), propertyInfoFilter, propertyInfoComparator);
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			Row row = sheet.createRow(rowNr++);
 			Cell cell = row.createCell(0);
@@ -128,11 +128,11 @@ public class MsExcelReportProvider extends ReportProvider<Workbook> {
 	public void addTableSection(Workbook workbook, Report report, TableSection tableSection) {
 		Sheet sheet = createSheet(report, tableSection, workbook);
 
-		DomainProvider domainProvider = Introspect.getDomainProvider();
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(tableSection.getIntrospectedObjectType(), propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(tableSection.getIntrospectedObjectType(), propertyInfoFilter, propertyInfoComparator);
 
 		// hide remaining columns
 		for (int c = propertyInfos.size(); c < 256; c++) {

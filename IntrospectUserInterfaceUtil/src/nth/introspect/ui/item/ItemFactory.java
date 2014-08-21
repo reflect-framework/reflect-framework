@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.IntrospectContainer;
 import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.Filter;
 import nth.introspect.filter.LogicFilter;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.LinkedToPropertyFilter;
@@ -33,10 +34,9 @@ public class ItemFactory {
 	public static List<MethodOwnerItem> createMenuViewItems() {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<Object> serviceObjects = domainProvider.getServiceObjects();
+		IntrospectContainer introspectContainer = Introspect.getIntrospectContainer();
 
-		for (Object serviceObject : serviceObjects) {
+		for (Object serviceObject : introspectContainer.getFrontEndServiceObjects()) {
 			MethodOwnerItem item = new MethodOwnerItem(serviceObject,
 					new NoParameterOrParameterFactoryFilter(), null);
 			items.add(item);
@@ -56,7 +56,7 @@ public class ItemFactory {
 		Object serviceObject = formView.getMethodOwner();
 
 		// add property methods
-		DomainProvider domainProvider = Introspect.getDomainProvider();
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
@@ -64,7 +64,7 @@ public class ItemFactory {
 				new NoParameterOrParameterFactoryFilter());
 		filter.or(new ParameterTypeFilter(parameterType));
 		filter.and(new LinkedToPropertyFilter(propertyInfo));
-		List<MethodInfo> methodInfos = domainProvider.getMethodInfos(
+		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(
 				domainType, filter);
 		for (MethodInfo methodInfo : methodInfos) {
 			PropertyMethodItem item = new PropertyMethodItem(formView,
@@ -98,12 +98,12 @@ public class ItemFactory {
 		Object serviceObject = tableView.getMethodOwner();
 
 		// property methods
-		// DomainProvider domainProvider=Introspect.getDomainProvider();
+		// domainInfoProvider domainInfoProvider=Introspect.getdomainInfoProvider();
 		// LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(new
 		// NoParameterOrParameterFactoryFilter());
 		// filter.or(new ParameterTypeFilter(parameterType));
 		// List<MethodInfo> methodInfos =
-		// domainProvider.getMethodInfos(parameterType, filter);
+		// domainInfoProvider.getMethodInfos(parameterType, filter);
 		// for (MethodInfo methodInfo : methodInfos) {
 		// item=new MethodItem(methodOwner, methodInfo,
 		// methodParameterValueModel) TODO methodOwner needs to be a value
@@ -136,8 +136,8 @@ public class ItemFactory {
 		items.add(item);
 
 		// create MethodOwnerItem for other service objects
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<Object> serviceObjects = domainProvider.getServiceObjects();
+		IntrospectContainer introspectContainer = Introspect.getIntrospectContainer();
+		List<Object> serviceObjects = introspectContainer.getFrontEndServiceObjects();
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 

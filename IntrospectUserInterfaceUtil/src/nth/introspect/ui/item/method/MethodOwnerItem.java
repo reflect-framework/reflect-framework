@@ -4,7 +4,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.filter.Filter;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.userinterface.item.Item;
@@ -18,12 +18,12 @@ public class MethodOwnerItem extends HierarchicalItem {
 
 	public MethodOwnerItem(Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		this.methodOwner = methodOwner;
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		methodOwnerInfo = domainProvider.getClassInfo(methodOwner.getClass());
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		methodOwnerInfo = domainInfoProvider.getClassInfo(methodOwner.getClass());
 		
 		setText(methodOwnerInfo.getText());
 		setDescription(methodOwnerInfo.getDescription());
-		List<MethodInfo> methodInfos = domainProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
+		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
 
 		for (MethodInfo methodInfo : methodInfos) {
 			MethodItem methodItem = new MethodItem(methodOwner, methodInfo, methodParameterValueModel);

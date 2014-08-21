@@ -78,7 +78,7 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 		// get column info
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		propertyInfos = Introspect.getDomainProvider().getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 		// Initialize fields
 		this.startPosition = 0;
 		this.items = getItems(startPosition, startPosition + CACHE_SIZE);

@@ -1,4 +1,4 @@
-package nth.introspect.provider.domain;
+package nth.introspect.provider.domain.info;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,16 +18,13 @@ import nth.introspect.provider.domain.info.property.PropertyInfoFactory;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
 
-public class DefaultDomainProvider implements DomainProvider {
-	private List<Object> serviceObjects;
+public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	private HashMap<Class<?>, ClassInfo> classInfos;
 	private HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
 	private HashMap<Class<?>, List<MethodInfo>> methodInfosPerClass;
 	private List<PropertyChangeListener> propertyChangeListeners;
-	private final IntrospectContainer introspectContainer;
 
-	public DefaultDomainProvider(IntrospectContainer introspectContainer) {
-		this.introspectContainer = introspectContainer;
+	public DefaultDomainInfoProvider() {
 		classInfos = new HashMap<Class<?>, ClassInfo>();
 		propertyInfosPerClass = new HashMap<Class<?>, List<PropertyInfo>>();
 		methodInfosPerClass = new HashMap<Class<?>, List<MethodInfo>>();
@@ -41,14 +38,6 @@ public class DefaultDomainProvider implements DomainProvider {
 		propertyChangeListeners.add(propertyChangeListener);
 	}
 
-	public Object findServiceObject(Class<?> serviceClass) {
-		for (Object serviceObject : serviceObjects) {
-			if (serviceObject.getClass() == serviceClass) {
-				return serviceObject;
-			}
-		}
-		return null;
-	}
 
 	public ClassInfo getClassInfo(Class<?> introspectedClass) {
 		if (!classInfos.containsKey(introspectedClass)) {
@@ -137,33 +126,9 @@ public class DefaultDomainProvider implements DomainProvider {
 	}
 
 
-/**
- * @deprecated use {@link IntrospectContainer#getFrontEndServiceObjects()}
- */
-
-	public Object getServiceObject(Class<?> serviceClass) {
-		Object serviceObject = findServiceObject(serviceClass);
-		if (serviceObject == null) {
-			try {
-				serviceObject = serviceClass.newInstance();
-				serviceObjects.add(serviceObject);
-			} catch (Exception e) {
-				// failed. The constructor of the service class probably takes
-				// parameters. Use addServiceObject instead
-				throw new RuntimeException(e);
-			}
-		}
-		return serviceObject;
-	}
-
 	/**
-	 * @deprecated use {@link IntrospectContainer#getFrontEndServiceObjects()}
+	 * TODO move to {@link IntrospectContainer}
 	 */
-
-	public List<Object> getServiceObjects() {
-		return introspectContainer.getFrontEndServiceObjects();
-	}
-
 	@Override
 	public void invokePropertyChangeListeners(Object introspectedObject,
 			String propertyName, PropertyChangeType propertyChangeType) {
@@ -179,6 +144,10 @@ public class DefaultDomainProvider implements DomainProvider {
 			}
 		}
 	}
+
+	/**
+	 * TODO move to {@link IntrospectContainer}
+	 */
 
 	@Override
 	public void removePropertyChangeListener(

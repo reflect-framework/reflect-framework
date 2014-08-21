@@ -3,7 +3,7 @@ package nth.introspect.util;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 
 public class CloneUtil {
@@ -20,10 +20,10 @@ public class CloneUtil {
 	public static Object clone(Object sourceObject, Object destinationObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		Class<?> destinationClass = destinationObject.getClass();
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(sourceClass);
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(sourceClass);
 		for (PropertyInfo sourcePropertyInfo : propertyInfos) {
-			PropertyInfo destinationPropertyInfo = domainProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getName());
+			PropertyInfo destinationPropertyInfo = domainInfoProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getName());
 			if (destinationPropertyInfo.isEnabled(destinationObject)) {
 				Object value = sourcePropertyInfo.getValue(sourceObject);
 				destinationPropertyInfo.setValue(destinationObject, value);

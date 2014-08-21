@@ -5,7 +5,7 @@ import java.text.Format;
 import java.text.ParsePosition;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.util.exception.MethodNotSupportedException;
 
@@ -15,8 +15,8 @@ public class DomainObjectFormat extends Format {
 	private ClassInfo classInfo;
 
 	public DomainObjectFormat(Class<?> domainClass) {
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		classInfo = domainProvider.getClassInfo(domainClass);
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		classInfo = domainInfoProvider.getClassInfo(domainClass);
 	}
 
 	@Override

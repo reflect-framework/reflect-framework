@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
@@ -66,13 +66,13 @@ public class ExportTableToExcelItem extends Item {
 	}
 
 	public void exportToExcel() {
-		DomainProvider domainProvider = Introspect.getDomainProvider();
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		Class<?> valueType = valueModel.getValueType();
 
 		//get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(valueType, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(valueType, propertyInfoFilter, propertyInfoComparator);
 
 		// create workbook and sheet
 		Workbook wb;

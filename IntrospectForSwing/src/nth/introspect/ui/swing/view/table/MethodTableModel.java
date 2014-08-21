@@ -40,7 +40,7 @@ public class MethodTableModel extends AbstractTableModel implements
 		} else {
 			TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 			TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-			propertyInfos = Introspect.getDomainProvider().getPropertyInfos(
+			propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(
 					domainClass, propertyInfoFilter, propertyInfoComparator);
 		}
 		refresh();

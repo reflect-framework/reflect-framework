@@ -31,7 +31,7 @@ public class UniverselTextField extends JFormattedTextField implements
 		setDocument(RegExpDocumentFacory.create(valueModel.getValueType()));
 		refresh();
 
-		// TODO implement DomainProvider.addPropertyChangeListener(new
+		// TODO implement domainInfoProvider.addPropertyChangeListener(new
 		// addPropertyChangeListener(..
 
 		// send changes back to value model

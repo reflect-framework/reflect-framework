@@ -100,7 +100,7 @@ public class DefaultLanguageProvider implements LanguageProvider {
 	 */
 	public Properties getDefaultProperties(Class<?> domainOrServiceClass) {
 		Properties properties = new Properties();
-		for (PropertyInfo propertyInfo : Introspect.getDomainProvider().getPropertyInfos(domainOrServiceClass)) {
+		for (PropertyInfo propertyInfo : Introspect.getDomainInfoProvider().getPropertyInfos(domainOrServiceClass)) {
 			ValueModels valueModels = propertyInfo.getValueModels();
 			for (String name : valueModels.keySet()) {
 				ReadOnlyValueModel valueModel = valueModels.get(name);

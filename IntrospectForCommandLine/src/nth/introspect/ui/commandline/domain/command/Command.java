@@ -38,7 +38,7 @@ public class Command {
 			Filter<PropertyInfo> propertyInfoFilter = new CommandLineParameterFilter();
 			FormOrderComparator propertyInfoComparator = new FormOrderComparator();
 			Class<?> returnClass = methodInfo.getParameterType().getTypeOrGenericCollectionType();
-			List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 			
 			for (PropertyInfo propertyInfo : propertyInfos) {

@@ -28,7 +28,7 @@ import javax.swing.text.Position;
 import javax.swing.text.Segment;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
@@ -176,8 +176,8 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	@Override
 	public void refresh() {
 		// set text
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		ClassInfo classInfo = domainProvider.getClassInfo(propertyValueModel
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		ClassInfo classInfo = domainInfoProvider.getClassInfo(propertyValueModel
 				.getValueType());
 		Object propertyValue = propertyValueModel.getValue();
 		String title = classInfo.getTitle(propertyValue);

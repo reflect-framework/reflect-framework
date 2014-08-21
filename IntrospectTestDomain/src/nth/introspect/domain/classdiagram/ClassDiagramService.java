@@ -9,7 +9,7 @@ import java.util.Set;
 
 import nth.introspect.Introspect;
 import nth.introspect.domain.test.TestsService;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
@@ -73,15 +73,15 @@ public class ClassDiagramService {
 			foundClasses.add(clazz);
 			System.out.println(clazz.getCanonicalName());
 
-			DomainProvider domainProvider = Introspect.getDomainProvider();
+			DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 
-			List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(clazz);
+			List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(clazz);
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Class<?> propertyType = propertyInfo.getPropertyType().getType();
 				getReferencedClasses(propertyType, foundClasses);// recursive call
 			}
 
-			List<MethodInfo> methodInfos = domainProvider.getMethodInfos(clazz);
+			List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(clazz);
 			for (MethodInfo methodInfo : methodInfos) {
 				Class<?> returnType = methodInfo.getReturnType().getTypeOrGenericCollectionType();
 				getReferencedClasses(returnType, foundClasses);// recursive call

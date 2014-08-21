@@ -17,7 +17,7 @@ public class PasswordField extends JPasswordField implements Refreshable {
 		this.readWriteValueModel = readWriteValueModel;
 		refresh();
 
-		// TODO implement DomainProvider.addPropertyChangeListener(new
+		// TODO implement domainInfoProvider.addPropertyChangeListener(new
 		// addPropertyChangeListener(..
 
 		getDocument().addDocumentListener(new DocumentListener() {

@@ -1,9 +1,9 @@
 package nth.introspect.provider.userinterface;
 
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 
 /**
- * @deprecated use {@link DomainProvider#invokePropertyChangeListeners(Object, String, nth.introspect.provider.domain.PropertyChangeType)}
+ * @deprecated use {@link DomainInfoProvider#invokePropertyChangeListeners(Object, String, nth.introspect.provider.domaininfo.PropertyChangeType)}
  * @author nilsth
  *
  */

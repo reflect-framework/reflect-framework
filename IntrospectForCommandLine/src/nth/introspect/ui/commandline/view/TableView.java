@@ -20,7 +20,7 @@ public class TableView extends CommandLineView {
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
 		Class<?> returnClass = methodInfo.getReturnType().getTypeOrGenericCollectionType();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 		table = new Table();
 		

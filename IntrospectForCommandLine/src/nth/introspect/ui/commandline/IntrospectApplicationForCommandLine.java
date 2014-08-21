@@ -5,8 +5,8 @@ import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.about.DefaultAboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.authorization.DefaultAuthorizationProvider;
-import nth.introspect.provider.domain.DefaultDomainProvider;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DefaultDomainInfoProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.DefaultLanguageProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.DefaultPathProvider;
@@ -32,8 +32,8 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 
 
 	@Override
-	public Class<? extends DomainProvider> getDomainProviderClass() {
-		return DefaultDomainProvider.class;
+	public Class<? extends DomainInfoProvider> getDomainInfoProviderClass() {
+		return DefaultDomainInfoProvider.class;
 	}
 
 

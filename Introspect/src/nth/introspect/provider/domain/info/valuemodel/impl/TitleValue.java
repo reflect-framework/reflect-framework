@@ -28,7 +28,7 @@ public class TitleValue extends IntrospectedValueModelReadOnly {
 		if (title == null || title.trim().length() == 0 || title.equals(defaultToStringImplValue)) {
 			// toString method is not overwritten or does not return a value so construct our own title
 			StringBuffer titleBuffer = new StringBuffer();
-			List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getOrderedAndVisiblePropertyInfos(obj.getClass());
+			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getOrderedAndVisiblePropertyInfos(obj.getClass());
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Object propertyValue = propertyInfo.getValue(obj);
 				Format format=propertyInfo.getFormat();

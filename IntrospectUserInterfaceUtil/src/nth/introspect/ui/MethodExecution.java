@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.IntrospectContainer;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.util.TitleUtil;
@@ -62,7 +63,8 @@ public class MethodExecution implements Runnable {
 		}
 
 		Class<?> methodOwnerClass = method.getDeclaringClass();
-		Object serviceObject = Introspect.getDomainProvider().getServiceObject(methodOwnerClass);
+		IntrospectContainer introspectContainer=Introspect.getIntrospectContainer();
+		Object serviceObject = introspectContainer.get(methodOwnerClass);
 		return method.invoke(serviceObject, methodArguments);
 	}
 

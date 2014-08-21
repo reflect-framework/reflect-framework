@@ -35,7 +35,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider()
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider()
 				.getPropertyInfos(domainClass);
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
@@ -46,7 +46,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 				filter.and(new ParameterTypeFilter(parameterClass));
 
 				List<MethodInfo> propertyMethods = Introspect
-						.getDomainProvider()
+						.getDomainInfoProvider()
 						.getMethodInfos(domainClass, filter);
 				for (MethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(

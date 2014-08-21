@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModelFactory;
@@ -49,8 +49,8 @@ public class MethodInfoFactory {
 	}
 
 	public static List<String> getPropertyNames(Class<?> introspectedClass) {
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(introspectedClass);
+		DomainInfoProvider domaininfoProvider = Introspect.getDomainInfoProvider();
+		List<PropertyInfo> propertyInfos = domaininfoProvider.getPropertyInfos(introspectedClass);
 		List<String> propertyNames = new ArrayList<String>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			propertyNames.add(propertyInfo.getName());
@@ -67,7 +67,7 @@ public class MethodInfoFactory {
 				String unwantedMethodName = MethodValueModelFactory.createMethodName(introspectedClass.getSimpleName(), suffix);
 				unwantedMethodNames.add(unwantedMethodName.toString());
 			}
-			List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(introspectedClass);
+			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(introspectedClass);
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				try {
 					String propertyName = propertyInfo.getName();

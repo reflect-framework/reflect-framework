@@ -7,7 +7,7 @@ import nth.introspect.provider.Provider;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.dataaccess.DataAccessProvider;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
@@ -126,7 +126,7 @@ public class Introspect {
 	private static ValidationProvider validationProvider;
 	private static PathProvider pathProvider;
 	private static LanguageProvider languageProvider;
-	private static DomainProvider domainProvider;
+	private static DomainInfoProvider domainInfoProvider;
 	private static UserInterfaceProvider<?> userInterfaceProvider;
 	private static AboutProvider versionProvider;
 
@@ -140,6 +140,7 @@ public class Introspect {
 		}
 	}
 
+	//TODO get rid of this service lookup, use dependency injection instead
 	public static UserInterfaceProvider<?> getUserInterfaceProvider() {
 		if (userInterfaceProvider == null) {
 			userInterfaceProvider = (UserInterfaceProvider<?>) introspectContainer
@@ -148,6 +149,7 @@ public class Introspect {
 		return userInterfaceProvider;
 	}
 
+	//TODO get rid of this service lookup, use dependency injection instead
 	public static PathProvider getPathProvider() {
 		if (pathProvider == null) {
 			pathProvider = (PathProvider) introspectContainer
@@ -165,14 +167,16 @@ public class Introspect {
 //		return authorizationProvider;
 //	}
 
-	public static DomainProvider getDomainProvider() {
-		if (domainProvider == null) {
-			domainProvider = (DomainProvider) introspectContainer
-					.get(DomainProvider.class);
+	//TODO get rid of this service lookup, use dependency injection instead
+	public static DomainInfoProvider getDomainInfoProvider() {
+		if (domainInfoProvider == null) {
+			domainInfoProvider = (DomainInfoProvider) introspectContainer
+					.get(DomainInfoProvider.class);
 		}
-		return domainProvider;
+		return domainInfoProvider;
 	}
 
+	//TODO get rid of this service lookup, use dependency injection instead
 	public static LanguageProvider getLanguageProvider() {
 		if (languageProvider == null) {
 			languageProvider = (LanguageProvider) introspectContainer
@@ -181,6 +185,7 @@ public class Introspect {
 		return languageProvider;
 	}
 
+	//TODO get rid of this service lookup, use dependency injection instead
 	public static AboutProvider getAboutProvider() {
 		if (versionProvider == null) {
 			versionProvider = (AboutProvider) introspectContainer
@@ -189,12 +194,18 @@ public class Introspect {
 		return versionProvider;
 	}
 
+	//TODO get rid of this service lookup, use dependency injection instead
 	public static ValidationProvider getValidationProvider() {
 		if (validationProvider == null) {
 			validationProvider = (ValidationProvider) introspectContainer
 					.get(ValidationProvider.class);
 		}
 		return validationProvider;
+	}
+
+	//TODO get rid of this service lookup, use dependency injection instead
+	 public static IntrospectContainer getIntrospectContainer() {
+		return introspectContainer;
 	}
 
 }

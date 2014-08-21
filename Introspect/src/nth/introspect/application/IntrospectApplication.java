@@ -6,7 +6,7 @@ import java.util.List;
 import nth.introspect.Introspect;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
@@ -36,7 +36,7 @@ public interface IntrospectApplication {
 
 	public Class<? extends UserInterfaceProvider<?>> getUserInterfaceProviderClass();
 	
-	public Class<? extends DomainProvider> getDomainProviderClass();
+	public Class<? extends DomainInfoProvider> getDomainInfoProviderClass();
 	
 	public Class<? extends AboutProvider> getVersionProviderClass();
 	

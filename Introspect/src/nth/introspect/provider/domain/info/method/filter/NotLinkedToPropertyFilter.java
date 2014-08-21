@@ -5,7 +5,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.filter.Filter;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.type.TypeCategory;
@@ -15,8 +15,8 @@ public class NotLinkedToPropertyFilter implements Filter<MethodInfo> {
 	private ArrayList<String> propertyNames;
 
 	public NotLinkedToPropertyFilter(Class<?> domainClass) {
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(domainClass);
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(domainClass);
 		propertyNames = new ArrayList<String>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			propertyNames.add(propertyInfo.getName());

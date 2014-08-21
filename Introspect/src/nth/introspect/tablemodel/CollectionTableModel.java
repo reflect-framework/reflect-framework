@@ -21,7 +21,7 @@ public class CollectionTableModel extends AbstractTableModel implements DomainTa
 		} else {
 			list = new ArrayList<Object>(collection);// convert collection to an array list to safegard the sequance of objects
 		}
-		propertyInfos = Introspect.getDomainProvider().getOrderedAndVisiblePropertyInfos(domainClass);
+		propertyInfos = Introspect.getDomainInfoProvider().getOrderedAndVisiblePropertyInfos(domainClass);
 	}
 
 	@Override

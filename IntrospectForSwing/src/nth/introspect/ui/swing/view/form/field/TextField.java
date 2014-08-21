@@ -43,7 +43,7 @@ public class TextField extends JTextField implements Refreshable {
 
 	@Override
 	public void refresh() {
-		// TODO implement DomainProvider.addPropertyChangeListener(new
+		// TODO implement domainInfoProvider.addPropertyChangeListener(new
 		// addPropertyChangeListener(..
 
 		setText((String) readWriteValueModel.getValue());

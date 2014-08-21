@@ -12,7 +12,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
@@ -49,8 +49,8 @@ public class FormView extends SwingView implements
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<PropertyInfo> propertyInfos = domainProvider
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		List<PropertyInfo> propertyInfos = domainInfoProvider
 				.getPropertyInfos(domainObject.getClass());
 
 		domainValueModel = new BufferedDomainValueModel(domainObject, formMode);

@@ -17,7 +17,7 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.ui.valuemodel.PropertyValueModel;

@@ -15,7 +15,7 @@ import java.util.Map;
 import nth.introspect.Introspect;
 import nth.introspect.provider.dataaccess.Criteria;
 import nth.introspect.provider.dataaccess.DataAccessProvider;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 
 public abstract  class SqlDataAccess implements DataAccessProvider<Object> {
@@ -78,13 +78,13 @@ public abstract  class SqlDataAccess implements DataAccessProvider<Object> {
 		ResultSet resultSet = statement.getResultSet();
 		List<Object> results = new ArrayList<Object>();
 
-		DomainProvider domainProvider = Introspect.getDomainProvider();
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		Map<String, PropertyInfo> propertyInfos = new HashMap<String, PropertyInfo>();
 		ResultSetMetaData meta = resultSet.getMetaData();
 		int numColumns = meta.getColumnCount();
 		for (int columnNr = 1; columnNr < numColumns + 1; columnNr++) {
 			String columnName = meta.getColumnName(columnNr);
-			for (PropertyInfo propertyInfo : domainProvider.getPropertyInfos(domainClass)) {
+			for (PropertyInfo propertyInfo : domainInfoProvider.getPropertyInfos(domainClass)) {
 				if (propertyInfo.getName().equalsIgnoreCase(columnName)) {
 					propertyInfos.put(columnName, propertyInfo);
 					break;

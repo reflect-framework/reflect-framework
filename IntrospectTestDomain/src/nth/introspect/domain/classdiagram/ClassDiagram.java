@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
@@ -43,14 +43,14 @@ public class ClassDiagram {
 		}
 
 		// properties
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-		List<PropertyInfo> propertyInfos = domainProvider.getPropertyInfos(introspectedClass);
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(introspectedClass);
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			getProperties().add(new ClassFeature(propertyInfo));
 		}
 
 		// methods
-		List<MethodInfo> methodInfos = domainProvider.getMethodInfos(introspectedClass);
+		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(introspectedClass);
 		for (MethodInfo methodInfo : methodInfos) {
 			getMethods().add(new ClassFeature(methodInfo));
 		}

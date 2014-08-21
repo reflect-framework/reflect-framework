@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
@@ -84,12 +84,12 @@ public class PdfReportProvider extends ReportProvider<Document> {
 		// add properties as rows
 		Object domainObject = formSection.getIntrospectedObject();
 		Class<?> domainClass = domainObject.getClass();
-		DomainProvider domainProvider = Introspect.getDomainProvider();
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		
 		// get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			// add propertyName
@@ -126,7 +126,7 @@ public class PdfReportProvider extends ReportProvider<Document> {
 		//get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(introspectedClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(introspectedClass, propertyInfoFilter, propertyInfoComparator);
 				
 		// create table
 		PdfPTable pdfTable = new PdfPTable(propertyInfos.size());

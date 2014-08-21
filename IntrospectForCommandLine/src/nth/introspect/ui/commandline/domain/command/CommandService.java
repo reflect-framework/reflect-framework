@@ -10,15 +10,16 @@ import java.util.List;
 import java.util.Map;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.container.IntrospectContainer;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 
 public class CommandService {
 
-	
 	private static Map<Class<?>, String> types;
 
-	public static Command findCommand(List<Command> commands, String[] arguments) throws IntrospectCommandLineException {
+	public static Command findCommand(List<Command> commands, String[] arguments)
+			throws IntrospectCommandLineException {
 		if (arguments.length < 1) {
 			return null;
 		}
@@ -32,10 +33,13 @@ public class CommandService {
 		return null;
 	}
 
-	public static List<Command> getCommands() throws IntrospectCommandLineException {
-		DomainProvider domainProvider = Introspect.getDomainProvider();
-
-		List<Object> serviceObjects = domainProvider.getServiceObjects();
+	public static List<Command> getCommands()
+			throws IntrospectCommandLineException {
+		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		IntrospectContainer introspectContainer = Introspect
+				.getIntrospectContainer();
+		List<Object> serviceObjects = introspectContainer
+				.getFrontEndServiceObjects();
 
 		if (serviceObjects.size() == 0) {
 			throw new IntrospectCommandLineException("No service objects.");
@@ -47,22 +51,24 @@ public class CommandService {
 
 		for (Object serviceObject : serviceObjects) {
 			Class<? extends Object> serviceClass = serviceObject.getClass();
-			
-			List<MethodInfo> methodInfos = domainProvider.getMethodInfos(serviceClass );
+
+			List<MethodInfo> methodInfos = domainInfoProvider
+					.getMethodInfos(serviceClass);
 
 			for (MethodInfo methodInfo : methodInfos) {
-				Command command = new Command(serviceObject, methodInfo, shortCommandName);
+				Command command = new Command(serviceObject, methodInfo,
+						shortCommandName);
 				commands.add(command);
 			}
 		}
 
 		if (commands.size() == 0) {
-			throw new IntrospectCommandLineException("No service objects with public visible methods.");
+			throw new IntrospectCommandLineException(
+					"No service objects with public visible methods.");
 		}
 
 		return commands;
 	}
-
 
 	public static Map<Class<?>, String> getSupportedParameterPropertyTypes() {
 		if (types == null) {
@@ -70,7 +76,8 @@ public class CommandService {
 			types.put(Boolean.class, Boolean.FALSE + ".." + Boolean.TRUE);
 			types.put(Byte.class, Byte.MIN_VALUE + ".." + Byte.MAX_VALUE);
 			types.put(Short.class, Short.MIN_VALUE + ".." + Short.MAX_VALUE);
-			types.put(Integer.class, Integer.MIN_VALUE + ".." + Integer.MAX_VALUE);
+			types.put(Integer.class, Integer.MIN_VALUE + ".."
+					+ Integer.MAX_VALUE);
 			types.put(Long.class, Long.MIN_VALUE + ".." + Long.MAX_VALUE);
 			types.put(Float.class, Float.MIN_VALUE + ".." + Float.MAX_VALUE);
 			types.put(Double.class, Double.MIN_VALUE + ".." + Double.MAX_VALUE);
@@ -80,11 +87,9 @@ public class CommandService {
 			types.put(URI.class, "Uri");
 			types.put(URL.class, "Url");
 			types.put(Date.class, "Date and or Time");
-			//TODO enum!
+			// TODO enum!
 		}
 		return types;
 	}
-
-
 
 }

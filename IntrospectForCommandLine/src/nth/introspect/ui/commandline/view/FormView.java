@@ -24,7 +24,7 @@ public class FormView extends CommandLineView {
 		Filter<PropertyInfo> propertyInfoFilter = null; // TODO only show visible properties;
 		FormOrderComparator propertyInfoComparator = new FormOrderComparator();
 		Class<?> returnClass = methodInfo.getReturnType().getTypeOrGenericCollectionType();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 		// add properties to form
 		for (PropertyInfo propertyInfo : propertyInfos) {

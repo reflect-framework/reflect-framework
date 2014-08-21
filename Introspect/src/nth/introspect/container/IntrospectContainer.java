@@ -18,9 +18,7 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
 public final class IntrospectContainer {
 
-	private List<Object> backEndServiceObjects;
 	private List<Object> frontEndServiceObjects;
-	private List<Object> providerObjects;
 	private final Map<Class<?>, Object> allInstances;
 	private final IntrospectApplication application;
 
@@ -34,9 +32,6 @@ public final class IntrospectContainer {
 	 */
 	public IntrospectContainer(IntrospectApplication application) {
 		this.application = application;
-		backEndServiceObjects = new ArrayList<Object>();
-		frontEndServiceObjects = new ArrayList<Object>();
-		providerObjects = new ArrayList<Object>();
 		allInstances = new HashMap<Class<?>, Object>();
 		// FIXME call createInstances(application) from constructor and remove
 		// "service lookups" of the providers in the Introspect class
@@ -52,13 +47,15 @@ public final class IntrospectContainer {
 			// add IntrospectContainer to instances
 			allInstances.put(this.getClass(), this);
 
-			providerObjects = createProviderObjects(application, allInstances);
+			createProviderObjects(application, allInstances);
 			
-			backEndServiceObjects = createBackEndServiceObjects(application,
+			createBackEndServiceObjects(application,
 					allInstances);
 
 			frontEndServiceObjects = createFrontEndServiceObjects(application,
 					allInstances);
+			
+			createUserInterfaceProviderObject(application, allInstances);
 
 		} catch (Exception exception) {
 			throw new IntrospectContainerInitializationException(exception);
@@ -66,7 +63,13 @@ public final class IntrospectContainer {
 
 	}
 
-	private List<Object> createProviderObjects(
+	/**
+	 * creates the provider objects except the {@link UserInterfaceProvider} because that is created last
+	 * @param application
+	 * @param instantiatedObjects
+	 * @throws IntrospectContainerException
+	 */
+	private void createProviderObjects(
 			IntrospectApplication application,
 			Map<Class<?>, Object> instantiatedObjects)
 			throws IntrospectContainerException {
@@ -76,20 +79,30 @@ public final class IntrospectContainer {
 		providerClasses.add(application.getLanguageProviderClass());
 		providerClasses.add(application.getValidationProviderClass());
 		providerClasses.add(application.getAuthorizationProviderClass());
-		providerClasses.add(application.getDomainProviderClass());
-		providerClasses.add(application.getUserInterfaceProviderClass());
+		providerClasses.add(application.getDomainInfoProviderClass());
 		providerClasses.add(application.getVersionProviderClass());
-		return createInstances(providerClasses, instantiatedObjects);
+		createInstances(providerClasses, instantiatedObjects);
 	}
 
-	private List<Object> createBackEndServiceObjects(
+	private void createUserInterfaceProviderObject(
+			IntrospectApplication application,
+			Map<Class<?>, Object> instantiatedObjects)
+			throws IntrospectContainerException {
+		List<Class<?>> providerClasses = new ArrayList<Class<?>>();
+
+		providerClasses.add(application.getUserInterfaceProviderClass());
+		createInstances(providerClasses, instantiatedObjects);
+	}
+
+	
+	private void createBackEndServiceObjects(
 			IntrospectApplication application,
 			Map<Class<?>, Object> instantiatedObjects)
 			throws IntrospectContainerException {
 		List<Class<?>> backEndServiceClasses = application
 				.getBackEndServiceClasses();
 
-		return createInstances(backEndServiceClasses, instantiatedObjects);
+		createInstances(backEndServiceClasses, instantiatedObjects);
 	}
 
 	private List<Object> createFrontEndServiceObjects(
@@ -150,5 +163,6 @@ public final class IntrospectContainer {
 		throw new RuntimeException("Could not lookup "
 				+ classToFind.getCanonicalName());
 	}
+
 
 }

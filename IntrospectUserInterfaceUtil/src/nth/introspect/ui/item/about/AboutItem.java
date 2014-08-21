@@ -4,7 +4,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
@@ -23,9 +23,9 @@ public class AboutItem extends Item {
 			@Override
 			public void run() {
 				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
-				DomainProvider domainProvider = Introspect.getDomainProvider();
+				DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
-				List<MethodInfo> methodInfos = domainProvider.getMethodInfos(AboutProvider.class, methodFilter);
+				List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(AboutProvider.class, methodFilter);
 				AboutProvider aboutProvider=Introspect.getAboutProvider();
 				if (methodInfos.size() == 1) {
 					MethodInfo methodInfo = methodInfos.get(0);

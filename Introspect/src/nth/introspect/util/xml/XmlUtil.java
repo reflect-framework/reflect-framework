@@ -18,7 +18,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.DomainProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.util.TypeUtil;
@@ -131,7 +131,7 @@ public class XmlUtil {
 			// remember the objects that where marshaled so we do not have to do them twice.
 			marshaledObjects.add(objectToMarshal);
 
-			List<PropertyInfo> properyInfos = Introspect.getDomainProvider().getPropertyInfos(objectToMarshal.getClass());
+			List<PropertyInfo> properyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(objectToMarshal.getClass());
 			for (PropertyInfo propertyInfo : properyInfos) {
 
 				Object propertyValue = propertyInfo.getValue(objectToMarshal);
@@ -225,7 +225,7 @@ public class XmlUtil {
 			unMarshaledObjects.put(id, object);
 
 			// get PropertyInfos
-			List<PropertyInfo> propertyInfos = Introspect.getDomainProvider().getPropertyInfos(object.getClass());
+			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(object.getClass());
 			// get property Elements
 			List<Element> propertyElements = getChildElements(objectElement);
 
