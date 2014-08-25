@@ -1,6 +1,7 @@
 package nth.introspect.container.exception;
 
 import nth.introspect.Introspect;
+import nth.introspect.application.IntrospectApplication;
 
 public class ClassHasNoUsableConstructorException extends
 		IntrospectContainerException {
@@ -15,7 +16,9 @@ public class ClassHasNoUsableConstructorException extends
 		message.append(classToInstantiate.getCanonicalName());
 		message.append(" has no public constructor that can be used by the ");
 		message.append(Introspect.class.getSimpleName());
-		message.append(" Framework");
+		message.append(" Framework. Make sure that the constructor parameter types are all registered in the ");
+		message.append(IntrospectApplication.class.getSimpleName());
+		message.append(" as a serviceClass.");
 		return message.toString();
 	}
 
