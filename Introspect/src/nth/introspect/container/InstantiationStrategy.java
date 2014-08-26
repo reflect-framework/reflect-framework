@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import nth.introspect.container.exception.DependencyLoopException;
 import nth.introspect.container.exception.InstantiateException;
@@ -20,7 +21,7 @@ public class InstantiationStrategy {
 			throws IntrospectContainerException {
 
 		this.instances = instances;
-		List<Class<?>> allowedDependecyClasses = new ArrayList<Class<?>>();
+		DependencyTypeList allowedDependecyClasses = new DependencyTypeList();
 		allowedDependecyClasses.addAll(classesToInstantiate);
 		allowedDependecyClasses.addAll(instances.keySet());
 
@@ -30,7 +31,8 @@ public class InstantiationStrategy {
 			InstantiationInfo instantiationInfo = new InstantiationInfo(
 					classToInstantiate, allowedDependecyClasses);
 
-			int position = positionToInsert(instantiationInfos, instantiationInfo);
+			int position = positionToInsert(instances, instantiationInfos,
+					instantiationInfo);
 			instantiationInfos.add(position, instantiationInfo);
 		}
 
@@ -40,33 +42,41 @@ public class InstantiationStrategy {
 
 	}
 
-	private int positionToInsert(
+	private int positionToInsert(Map<Class<?>, Object> instances,
 			List<InstantiationInfo> instantiationInfos,
 			InstantiationInfo instantiationInfoToInsert) {
-		List<Class<?>> dependenciesToBeFound = new ArrayList<Class<?>>( instantiationInfoToInsert.getDependencyClasses());
+		Set<Class<?>> dependenciesAlReadyInstantiated = instances.keySet();
+		DependencyTypeList dependenciesToBeFound = new DependencyTypeList();
+		dependenciesToBeFound.addAll(instantiationInfoToInsert
+				.getDependencyClasses());
+		dependenciesToBeFound.removeAllParents(dependenciesAlReadyInstantiated);
 		for (InstantiationInfo instantiationInfo : instantiationInfos) {
-			if (dependenciesToBeFound.size()==0) {
-				//all dependencies are already created by preceding instantiation info's, so lets insert it at the current position
+			if (dependenciesToBeFound.size() == 0) {
+				// all dependencies are already created by preceding
+				// instantiation info's, so lets insert it at the current
+				// position
 				return instantiationInfos.indexOf(instantiationInfo);
 			}
 
 			Class<?> type = instantiationInfo.getClassToInstantiate();
-			if (dependenciesToBeFound.contains(type)) {
-				dependenciesToBeFound.remove(type);
+			if (dependenciesToBeFound.containsParent(type)) {
+				dependenciesToBeFound.removeParent(type);
 			}
 		}
-		//if not all of the dependencies where created yet, lets put it at as the last instantiation info, hoping all the the remaining dependencies will be inserted later
+		// if not all of the dependencies where created yet, lets put it at as
+		// the last instantiation info, hoping all the the remaining
+		// dependencies will be inserted later
 		return instantiationInfos.size();
 	}
 
 	private void validate(List<InstantiationInfo> instantiationInfos,
-			Collection<Class<?>> allowedDependecyClasses)
+			DependencyTypeList allowedDependecyClasses)
 			throws DependencyLoopException {
 		for (InstantiationInfo instantiationInfo : instantiationInfos) {
 			List<Class<?>> dependencyClasses = instantiationInfo
 					.getDependencyClasses();
 			for (Class<?> dependencyClass : dependencyClasses) {
-				if (!allowedDependecyClasses.contains(dependencyClass)) {
+				if (!allowedDependecyClasses.containsParent(dependencyClass)) {
 					throw new DependencyLoopException(
 							instantiationInfo.getClassToInstantiate(),
 							dependencyClass);
@@ -76,7 +86,6 @@ public class InstantiationStrategy {
 					.getClassToInstantiate());
 		}
 	}
-
 
 	public List<Object> createInstances() throws InstantiateException {
 		List<Object> createdInstances = new ArrayList<Object>();
@@ -103,8 +112,14 @@ public class InstantiationStrategy {
 			List<Class<?>> parameterClasses) {
 		Object[] parameterValues = new Object[parameterClasses.size()];
 		int index = 0;
+
+		DependencyTypeList dependencyClasses = new DependencyTypeList();
+		dependencyClasses.addAll(instances.keySet());
+
 		for (Class<?> parameterClass : parameterClasses) {
-			Object parameterValue = instances.get(parameterClass);
+			Class<?> dependencyClass = dependencyClasses
+					.getNearestParent(parameterClass);
+			Object parameterValue = instances.get(dependencyClass);
 			parameterValues[index++] = parameterValue;
 		}
 		return parameterValues;

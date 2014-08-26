@@ -3,6 +3,7 @@ package nth.introspect.container;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import nth.introspect.container.exception.ClassHasNoUsableConstructorException;
 
@@ -13,7 +14,7 @@ public class InstantiationInfo {
 	private final List<Class<?>> dependencyClasses;
 
 	public InstantiationInfo(Class<?> classToInstantiate,
-			List<Class<?>> allowedDependecyClasses)
+			DependencyTypeList allowedDependecyClasses)
 			throws ClassHasNoUsableConstructorException {
 		this.classToInstantiate = classToInstantiate;
 		this.bestConstructor = findBestConstructor(classToInstantiate,
@@ -23,7 +24,7 @@ public class InstantiationInfo {
 	}
 
 	private Constructor<?> findBestConstructor(Class<?> classToInstantiate,
-			List<Class<?>> allowedDependecyClasses)
+			DependencyTypeList allowedDependecyClasses)
 			throws ClassHasNoUsableConstructorException {
 		Constructor<?> bestConstructor = null;
 		for (Constructor<?> constructor : classToInstantiate.getConstructors()) {
@@ -40,7 +41,7 @@ public class InstantiationInfo {
 	}
 
 	private boolean isBestConstructor(Constructor<?> bestConstructor,
-			Constructor<?> constructor, List<Class<?>> allowedDependecyClasses) {
+			Constructor<?> constructor, DependencyTypeList allowedDependecyClasses) {
 		return isValidConstructor(constructor, allowedDependecyClasses)
 				&& (bestConstructor == null || hasMoreParameters(constructor,
 						bestConstructor));
@@ -53,19 +54,20 @@ public class InstantiationInfo {
 	}
 
 	private boolean isValidConstructor(Constructor<?> constructor,
-			List<Class<?>> allowedDependecyClasses) {
+			DependencyTypeList allowedDependecyClasses) {
 		Class<?>[] parameterTypes = constructor.getParameterTypes();
 
 		// check is all parameter types are ok
 		for (Class<?> parameterType : parameterTypes) {
-			if (parameterType == getClassToInstantiate()
-					|| !allowedDependecyClasses.contains(parameterType)) {
+			if (parameterType == getClassToInstantiate()// no loops to it self
+					|| !allowedDependecyClasses.containsParent(parameterType)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	
 	public List<Class<?>> getDependencyClasses() {
 		return dependencyClasses;
 	}
@@ -94,16 +96,16 @@ public class InstantiationInfo {
 			boolean isFirst = true;
 			for (Class<?> dependencyClass : dependencyClasses) {
 				if (isFirst) {
-					isFirst=false;
+					isFirst = false;
 				} else {
-					string.append(", ");	
+					string.append(", ");
 				}
 				string.append(dependencyClass.getSimpleName());
 			}
 			string.append(")");
 		}
 		return string.toString();
-		
+
 	}
 
 	public Constructor<?> getConstructor() {

@@ -12,7 +12,7 @@ public class DependencyLoopException extends IntrospectContainerException {
 		StringBuilder message = new StringBuilder();
 		message.append("Detected an dependency loop in class: ");
 		message.append(ownerClass.getCanonicalName());
-		message.append(" for cunstructor parameter of type: ");
+		message.append(" for constructor parameter of type: ");
 		message.append(constructorParameterClass.getCanonicalName());
 		return message.toString();
 	}
