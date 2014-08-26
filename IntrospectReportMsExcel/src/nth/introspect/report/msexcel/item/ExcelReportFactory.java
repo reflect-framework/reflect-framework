@@ -6,22 +6,17 @@ import java.io.File;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
 import nth.introspect.provider.userinterface.DownloadStream;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
-import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.util.TypeUtil;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
@@ -37,47 +32,28 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+
 /**
- * @deprecated Use {@link ExcelReportFactory} instead
+ * Back End Service Object that can be used in the {@link Introspect} Framework to generate excel reports
  * @author nilsth
  *
  */
-public class ExportTableToExcelItem extends Item {
+public class ExcelReportFactory {
+	private DomainInfoProvider domainInfoProvider;
 
-	private final ReadOnlyValueModel valueModel;
-	private final String reportTitle;
-
-	public ExportTableToExcelItem(ReadOnlyValueModel valueModel, String itemText, String reportTitle) {
-		this.valueModel = valueModel;
-		this.reportTitle = reportTitle;
-		setText(itemText);
-		setDescription(itemText);
-		setIconURI(Introspect.getPathProvider().getImagePath("exportToExcel"));
-		setAction(createAction(valueModel));
+	public ExcelReportFactory(DomainInfoProvider domainInfoProvider) {
+		this.domainInfoProvider = domainInfoProvider;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return valueModel.canGetValue();
-	}
 
-	private Action createAction(ReadOnlyValueModel valueModel) {
-		return new Action() {
-			@Override
-			public void run() {
-				exportToExcel();
-			}
-		};
-	}
+	public DownloadStream createReport(Collection<?> domainObjects, Class<?> domainClass, String reportTitle) {
 
-	public void exportToExcel() {
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
-		Class<?> valueType = valueModel.getValueType();
-
-		//get propertyInfos
+		// get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(valueType, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = domainInfoProvider
+				.getPropertyInfos(domainClass, propertyInfoFilter,
+						propertyInfoComparator);
 
 		// create workbook and sheet
 		Workbook wb;
@@ -105,10 +81,12 @@ public class ExportTableToExcelItem extends Item {
 		// set footer
 		Footer footer = sheet.getFooter();
 		// add a fixed export date and time (not a dynamic HeaderFooter.date() )
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
 		Date EXPORT_DATE_TIME = new Date();
 		footer.setLeft(dateFormat.format(EXPORT_DATE_TIME));
-		footer.setRight("Page " + HeaderFooter.page() + " of " + HeaderFooter.numPages());
+		footer.setRight("Page " + HeaderFooter.page() + " of "
+				+ HeaderFooter.numPages());
 
 		// hide remaining columns
 		for (int c = propertyInfos.size(); c < 256; c++) {
@@ -122,7 +100,8 @@ public class ExportTableToExcelItem extends Item {
 		Cell titleCell = row.createCell(0);
 		titleCell.setCellValue(reportTitle);
 		titleCell.setCellStyle(HEADER_TITLE_STYLE);
-		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, propertyInfos.size()));
+		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, propertyInfos
+				.size()));
 
 		// header columns
 		row = sheet.createRow(rowNr++);
@@ -141,18 +120,6 @@ public class ExportTableToExcelItem extends Item {
 		// Freeze header rows
 		sheet.createFreezePane(0, rowNr, 0, rowNr);
 
-		// get domain objects
-		Collection<?> domainObjects = null;
-		Object value = valueModel.getValue();
-		if (value instanceof Collection) {
-			// get selected domain objects
-			domainObjects = (Collection<?>) value;
-		} else {
-			// selected only one row, so create a collection with only one domain object
-			ArrayList<Object> collection = new ArrayList<Object>();
-			collection.add(value);
-			domainObjects = collection;
-		}
 
 		// add domain objects as rows
 		for (Object domainObject : domainObjects) {
@@ -167,8 +134,10 @@ public class ExportTableToExcelItem extends Item {
 				if (cellValue == null) {
 					cell.setCellValue("");
 				} else {
-					if (TypeUtil.isDomainType(cellType) || TypeUtil.isEnum(cellType)) {
-						String formatedValue = propertyInfo.getFormatedValue(domainObject);
+					if (TypeUtil.isDomainType(cellType)
+							|| TypeUtil.isEnum(cellType)) {
+						String formatedValue = propertyInfo
+								.getFormatedValue(domainObject);
 						cell.setCellValue(formatedValue);
 					} else if (String.class.isAssignableFrom(cellType)) {
 						cell.setCellValue(((String) cellValue));
@@ -177,7 +146,8 @@ public class ExportTableToExcelItem extends Item {
 					} else if (Double.class.isAssignableFrom(cellType)) {
 						cell.setCellValue((Double) cellValue);
 					} else if (BigDecimal.class.isAssignableFrom(cellType)) {
-						cell.setCellValue(((BigDecimal) cellValue).doubleValue());
+						cell.setCellValue(((BigDecimal) cellValue)
+								.doubleValue());
 					} else if (Boolean.class.isAssignableFrom(cellType)) {
 						cell.setCellValue((Boolean) cellValue);
 					} else if (Date.class.isAssignableFrom(cellType)) {
@@ -188,7 +158,8 @@ public class ExportTableToExcelItem extends Item {
 						cell.setCellStyle(DATE_STYLE);
 					} else {
 						// TODO hierarchical
-						// if (columnNr == 1 && container instanceof Hierarchical) {
+						// if (columnNr == 1 && container instanceof
+						// Hierarchical) {
 						// // Indent first column (depending on hierarchy level)
 						// Hierarchical hierarchical = (Hierarchical) container;
 						// String indent = "";
@@ -214,25 +185,33 @@ public class ExportTableToExcelItem extends Item {
 		try {
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 			wb.write(buffer);
-			SimpleDateFormat format = new SimpleDateFormat("-yyyy-MM-dd-HH-mm");
-			String fileName = reportTitle + format.format(EXPORT_DATE_TIME) + ".xls";
-			File file = new File(fileName);
-			InputStream inputStream = new ByteArrayInputStream(buffer.toByteArray());
-			DownloadStream downloadStream = new DownloadStream(file, inputStream);
-			UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
-			userInterfaceProvider.downloadFile(downloadStream);
-
+			InputStream inputStream = new ByteArrayInputStream(
+					buffer.toByteArray());
+			String filePath=getFilePath(reportTitle, EXPORT_DATE_TIME);
+			File file=new File(filePath);
+			DownloadStream downloadStream = new DownloadStream(file,
+					inputStream);
+			return downloadStream;
 		} catch (Exception e) {
-			UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
-			userInterfaceProvider.showErrorDialog(reportTitle, "Error creating excel report", e);
+			throw new RuntimeException("Error creating excel report", e);
 		}
 
+	}
+	
+	private String getFilePath(String reportTitle, Date creationDate) {
+		SimpleDateFormat format = new SimpleDateFormat("-yyyy-MM-dd-HH-mm");
+		StringBuilder filePath=new StringBuilder();
+		filePath.append(reportTitle);
+		filePath.append( format.format(creationDate));
+		filePath.append(".xls");
+		return filePath.toString();
 	}
 
 	private CellStyle createDateStyle(Workbook wb) {
 		CreationHelper createHelper = wb.getCreationHelper();
 		CellStyle cellStyle = wb.createCellStyle();
-		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm:ss"));
+		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(
+				"yyyy-MM-dd HH:mm:ss"));
 		return cellStyle;
 	}
 
@@ -263,47 +242,5 @@ public class ExportTableToExcelItem extends Item {
 		style.setBorderLeft(CellStyle.BORDER_THIN);
 		return style;
 	}
-
-	// private String getSortingScript() {
-	// StringBuffer vba = new StringBuffer();
-	// vba.append("Private Sub Worksheet_SelectionChange(ByVal Target As Range)/n");
-	// vba.append("	r = Target.Row/n");
-	// vba.append("	If (r = 2) Then/n");
-	// vba.append("	    columnNr = Target.Column/n");
-	// vba.append("	    firstRowNr = 2/n");
-	// vba.append("	    lastRowNr = Cells(Rows.Count, columnNr).End(xlUp).Row/n");
-	// vba.append("	    If Not AutoFilterMode Then/n");
-	// vba.append("	        Set rng = Target(Cells(1, columnNr), Target(lastRowNr, 1))/n");
-	// vba.append("	    Else/n");
-	// vba.append("	        Set rng = AutoFilter.Range/n");
-	// vba.append("	    End If/n");
-	// vba.append("	    Set rngF = Nothing/n");
-	// vba.append("	    On Error Resume Next/n");
-	// vba.append("	    With rng/n");
-	// vba.append("	       'visible cells in first column of range/n");
-	// vba.append("	       Set rngF = .Offset(1, 0).Resize(.Rows.Count - 1, 1) .SpecialCells(xlCellTypeVisible)/n");
-	// vba.append("	    End With/n");
-	// vba.append("	    On Error GoTo 0/n");
-	// vba.append("	    If rngF Is Nothing Then/n");
-	// vba.append("	         MsgBox \"No visible rows. Please try again.\"/n");
-	// vba.append("	         Exit Sub/n");
-	// vba.append("	    Else/n");
-	// vba.append("	         firstRowNr = rngF(1).Row/n");
-	// vba.append("	    End If/n");
-	// vba.append("	    If Cells(firstRowNr, columnNr).Value < Cells(lastRowNr, columnNr).Value Then/n");
-	// vba.append("	        mySortOrder = xlDescending/n");
-	// vba.append("	    Else/n");
-	// vba.append("	        mySortOrder = xlAscending/n");
-	// vba.append("	    End If/n");
-	// vba.append("	    Cells(firstRowNr, columnNr).Sort key1:=Cells(firstRowNr, columnNr), order1:=mySortOrder, header:=xlYes/n");
-	// vba.append("	    'prevent Select event triggering again when we change the selection below/n");
-	// vba.append("	    Application.EnableEvents = False/n");
-	// vba.append("	    'move the cursor one row down so that the header can be re clicked (triggering a new selectionChanged event)/n");
-	// vba.append("	    Target.Resize(2, 1).Select/n");
-	// vba.append("	    Application.EnableEvents = True/n");
-	// vba.append("	End If/n");
-	// vba.append("End Sub/n");
-	// return vba.toString();
-	// }
 
 }

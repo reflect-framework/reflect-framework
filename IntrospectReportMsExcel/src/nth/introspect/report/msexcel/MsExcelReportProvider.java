@@ -18,6 +18,7 @@ import nth.introspect.provider.report.Report;
 import nth.introspect.provider.report.ReportProvider;
 import nth.introspect.provider.report.Section;
 import nth.introspect.provider.report.TableSection;
+import nth.introspect.report.msexcel.item.ExcelReportFactory;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
@@ -34,6 +35,11 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+/**
+ * @deprecated TODO merge this class into {@link ExcelReportFactory}
+ * @author nilsth
+ *
+ */
 public class MsExcelReportProvider extends ReportProvider<Workbook> {
 
 	private CellStyle dateStyle;
