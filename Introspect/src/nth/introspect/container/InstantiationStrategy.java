@@ -34,6 +34,7 @@ public class InstantiationStrategy {
 			int position = positionToInsert(instances, instantiationInfos,
 					instantiationInfo);
 			instantiationInfos.add(position, instantiationInfo);
+			System.out.println(instantiationInfos);
 		}
 
 		allowedDependecyClasses.clear();
@@ -42,33 +43,50 @@ public class InstantiationStrategy {
 
 	}
 
+//	private int positionToInsert(Map<Class<?>, Object> instances,
+//			List<InstantiationInfo> instantiationInfos,
+//			InstantiationInfo instantiationInfoToInsert) {
+//		Set<Class<?>> dependenciesAlReadyInstantiated = instances.keySet();
+//		DependencyTypeList dependenciesToBeFound = new DependencyTypeList();
+//		dependenciesToBeFound.addAll(instantiationInfoToInsert
+//				.getDependencyClasses());
+//		dependenciesToBeFound.removeAllParents(dependenciesAlReadyInstantiated);
+//		for (InstantiationInfo instantiationInfo : instantiationInfos) {
+//			if (dependenciesToBeFound.size() == 0) {
+//				// all dependencies are already created by preceding
+//				// instantiation info's, so lets insert it at the current
+//				// position
+//				return instantiationInfos.indexOf(instantiationInfo);
+//			}
+//
+//			Class<?> type = instantiationInfo.getClassToInstantiate();
+//			if (dependenciesToBeFound.containsParent(type)) {
+//				dependenciesToBeFound.removeParent(type);
+//			}
+//		}
+//		// if not all of the dependencies where created yet, lets put it at as
+//		// the last instantiation info, hoping all the the remaining
+//		// dependencies will be inserted later
+//		return instantiationInfos.size();
+//	}
+
+	
 	private int positionToInsert(Map<Class<?>, Object> instances,
 			List<InstantiationInfo> instantiationInfos,
 			InstantiationInfo instantiationInfoToInsert) {
+		
 		Set<Class<?>> dependenciesAlReadyInstantiated = instances.keySet();
 		DependencyTypeList dependenciesToBeFound = new DependencyTypeList();
 		dependenciesToBeFound.addAll(instantiationInfoToInsert
 				.getDependencyClasses());
 		dependenciesToBeFound.removeAllParents(dependenciesAlReadyInstantiated);
 		for (InstantiationInfo instantiationInfo : instantiationInfos) {
-			if (dependenciesToBeFound.size() == 0) {
-				// all dependencies are already created by preceding
-				// instantiation info's, so lets insert it at the current
-				// position
+			if (instantiationInfoToInsert.needsToGoBefore(instantiationInfo)) {
 				return instantiationInfos.indexOf(instantiationInfo);
+			} 		
 			}
-
-			Class<?> type = instantiationInfo.getClassToInstantiate();
-			if (dependenciesToBeFound.containsParent(type)) {
-				dependenciesToBeFound.removeParent(type);
-			}
-		}
-		// if not all of the dependencies where created yet, lets put it at as
-		// the last instantiation info, hoping all the the remaining
-		// dependencies will be inserted later
 		return instantiationInfos.size();
 	}
-
 	private void validate(List<InstantiationInfo> instantiationInfos,
 			DependencyTypeList allowedDependecyClasses)
 			throws DependencyLoopException {

@@ -11,7 +11,7 @@ public class InstantiationInfo {
 
 	private final Class<?> classToInstantiate;
 	private final Constructor<?> bestConstructor;
-	private final List<Class<?>> dependencyClasses;
+	private DependencyTypeList dependencyClasses;
 
 	public InstantiationInfo(Class<?> classToInstantiate,
 			DependencyTypeList allowedDependecyClasses)
@@ -19,8 +19,9 @@ public class InstantiationInfo {
 		this.classToInstantiate = classToInstantiate;
 		this.bestConstructor = findBestConstructor(classToInstantiate,
 				allowedDependecyClasses);
-		this.dependencyClasses = Arrays.asList(bestConstructor
-				.getParameterTypes());
+		this.dependencyClasses = new DependencyTypeList();
+		this.dependencyClasses.addAll(Arrays.asList(bestConstructor
+				.getParameterTypes()));
 	}
 
 	private Constructor<?> findBestConstructor(Class<?> classToInstantiate,
@@ -41,7 +42,8 @@ public class InstantiationInfo {
 	}
 
 	private boolean isBestConstructor(Constructor<?> bestConstructor,
-			Constructor<?> constructor, DependencyTypeList allowedDependecyClasses) {
+			Constructor<?> constructor,
+			DependencyTypeList allowedDependecyClasses) {
 		return isValidConstructor(constructor, allowedDependecyClasses)
 				&& (bestConstructor == null || hasMoreParameters(constructor,
 						bestConstructor));
@@ -67,8 +69,7 @@ public class InstantiationInfo {
 		return true;
 	}
 
-	
-	public List<Class<?>> getDependencyClasses() {
+	public DependencyTypeList getDependencyClasses() {
 		return dependencyClasses;
 	}
 
@@ -112,4 +113,9 @@ public class InstantiationInfo {
 		return bestConstructor;
 	}
 
+	public boolean needsToGoBefore(InstantiationInfo instantiationInfo) {
+		DependencyTypeList dependencyClasses = instantiationInfo.getDependencyClasses();
+		boolean needsToGoBefore = dependencyClasses.containsParent(classToInstantiate);
+		return needsToGoBefore;
+	}
 }

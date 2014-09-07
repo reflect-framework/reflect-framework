@@ -45,7 +45,7 @@ public class MethodInfo implements IntrospectionInfo {
 	private final String namePath;
 	private final Method method;
 	private final String linkedPropertyName;
-	private final MethodParameterType parameterType; 
+	private MethodParameterType parameterType; 
 	private final MethodReturnType returnType; 
 
 	
