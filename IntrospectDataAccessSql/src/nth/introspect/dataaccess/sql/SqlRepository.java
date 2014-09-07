@@ -18,7 +18,7 @@ import nth.introspect.provider.dataaccess.DataAccessProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 
-public abstract  class SqlDataAccess implements DataAccessProvider<Object> {
+public abstract  class SqlRepository implements DataAccessProvider<Object> {
 	protected Connection connection;
 
 	public abstract SqlDatabaseConfig getSqlDatabaseConfig() ;
@@ -73,6 +73,27 @@ public abstract  class SqlDataAccess implements DataAccessProvider<Object> {
 	// return resultSet.getString(1);
 	// }
 
+	public List<?> getResultList(String sql, DomainObjectFactory domainObjectFactory) throws Exception {
+		Statement statement = executeSQL(sql);
+		ResultSet resultSet = statement.getResultSet();
+		List<Object> domainObjects = new ArrayList<Object>();
+		
+		ResultSetMetaData meta = resultSet.getMetaData();
+		int numColumns = meta.getColumnCount();
+		while (resultSet.next()) {
+			HashMap<String, Object> record = new HashMap<String, Object>();
+			for (int columnNr = 1; columnNr < numColumns + 1; columnNr++) {
+				String columnName = meta.getColumnName(columnNr);
+				Object value = resultSet.getObject(columnNr);
+				record.put(columnName, value);
+			}
+			Object domainObject = domainObjectFactory.createDomainObject(record);
+			domainObjects.add(domainObject);
+		}
+		return domainObjects;
+	}
+	
+	
 	public List<?> getResultList(String sql, Class<?> domainClass) throws Exception {
 		Statement statement = executeSQL(sql);
 		ResultSet resultSet = statement.getResultSet();
