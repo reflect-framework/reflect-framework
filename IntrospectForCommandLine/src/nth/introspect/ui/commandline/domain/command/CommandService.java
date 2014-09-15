@@ -36,10 +36,7 @@ public class CommandService {
 	public static List<Command> getCommands()
 			throws IntrospectCommandLineException {
 		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
-		IntrospectContainer introspectContainer = Introspect
-				.getIntrospectContainer();
-		List<Object> serviceObjects = introspectContainer
-				.getFrontEndServiceObjects();
+		List<Object> serviceObjects = Introspect.getServiceObjects();
 
 		if (serviceObjects.size() == 0) {
 			throw new IntrospectCommandLineException("No service objects.");

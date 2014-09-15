@@ -8,7 +8,7 @@ import nth.introspect.container.IntrospectContainer;
 
 /**
  * @deprecated Use a BackendServiceClass instead. See
- *             {@link IntrospectApplication#getBackEndServiceClasses()} on how
+ *             {@link IntrospectApplication#getInfrastructureClasses()} on how
  *             to register back end service classes and see
  *             {@link IntrospectContainer} on how to inject them into the
  *             constructors of FrontendServiceObjects

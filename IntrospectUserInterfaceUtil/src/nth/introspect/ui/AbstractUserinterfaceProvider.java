@@ -5,8 +5,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.security.auth.callback.DialogCallbackHandler;
-
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
@@ -25,7 +23,6 @@ import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
-import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 import nth.introspect.ui.view.TableView;
@@ -256,7 +253,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 					List<MethodInfo> methodInfos = domainInfoProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
 									methodName));
-					startExecution(serviceObject2, methodInfos.get(0), null);
+					startExecution(serviceObject, methodInfos.get(0), null);
 				} catch (Exception exception) {
 					throw new RuntimeException(
 							"Illegal Introspect URI. Format must be a standard URI like http://www.google.com or of format: Introspect:<service class package>.<service class name>.<service class method>",

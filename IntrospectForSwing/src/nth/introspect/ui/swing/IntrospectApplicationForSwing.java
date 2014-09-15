@@ -2,6 +2,7 @@ package nth.introspect.ui.swing;
 
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
+import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.about.DefaultAboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
@@ -21,9 +22,10 @@ public abstract class IntrospectApplicationForSwing implements
 
 	private final String[] commandLineArguments;
 
-	public IntrospectApplicationForSwing(String[] commandLineArguments) {
+	public IntrospectApplicationForSwing(String[] commandLineArguments)  {
 		this.commandLineArguments = commandLineArguments;
 		Introspect.init(this);
+		Introspect.start();
 	}
 	
 	@Override

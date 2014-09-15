@@ -48,9 +48,9 @@ public interface IntrospectApplication {
 		
 	public Class<? extends ValidationProvider> getValidationProviderClass();
 
-	public List<Class<?>> getFrontEndServiceClasses();
+	public List<Class<?>> getServiceClasses();
 	
-	public List<Class<?>> getBackEndServiceClasses();	
+	public List<Class<?>> getInfrastructureClasses();	
 	
 	
 }

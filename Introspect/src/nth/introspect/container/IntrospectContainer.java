@@ -4,165 +4,108 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.management.RuntimeErrorException;
 
 import nth.introspect.application.IntrospectApplication;
-import nth.introspect.container.exception.DoubleServiceClassException;
+import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.introspect.container.exception.IntrospectContainerException;
-import nth.introspect.container.exception.IntrospectContainerInitializationException;
-import nth.introspect.container.exception.MissingServiceClassException;
-import nth.introspect.container.inject.annotation.Inject;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
-public final class IntrospectContainer {
+public class IntrospectContainer {
 
-	private List<Object> frontEndServiceObjects;
-	private final Map<Class<?>, Object> allInstances;
-	private final IntrospectApplication application;
+	private final String name;
+	private IntrospectContainer innerContainer;
+	private HashMap<Class<?>, Object> typesAndInstances;
 
-	/**
-	 * This constructor will initialize the {@link IntrospectContainer} by
-	 * creating the introspect objects and then inject these objects into each
-	 * other where needed
-	 * 
-	 * @param application
-	 *            that provides the information needed to initialize
-	 */
-	public IntrospectContainer(IntrospectApplication application) {
-		this.application = application;
-		allInstances = new HashMap<Class<?>, Object>();
-		// FIXME call createInstances(application) from constructor and remove
-		// "service lookups" of the providers in the Introspect class
+	public IntrospectContainer(String layerName,
+			IntrospectApplication application) {
+		this(layerName, application, null);
 	}
 
-	public void createInstances() throws IntrospectContainerException {
-		try {
-			validateServiceClasses(application);
+	public IntrospectContainer(String name, IntrospectApplication application,
+			IntrospectContainer lowerLayer) {
+		this.name = name;
+		this.innerContainer = lowerLayer;
+		this.typesAndInstances = new HashMap<Class<?>, Object>();
+	}
 
-			// add IntrospectApplication to instances
-			allInstances.put(IntrospectApplication.class, application);
+	public void add(Object object) {
+		Class<?> type = object.getClass();
+		typesAndInstances.put(type, object);
+	}
 
-			// add IntrospectContainer to instances
-			allInstances.put(this.getClass(), this);
-
-			createProviderObjects(application, allInstances);
-			
-			createBackEndServiceObjects(application,
-					allInstances);
-
-			frontEndServiceObjects = createFrontEndServiceObjects(application,
-					allInstances);
-			
-			createUserInterfaceProviderObject(application, allInstances);
-
-		} catch (Exception exception) {
-			throw new IntrospectContainerInitializationException(exception);
+	public void add(Class<?> type) throws IntrospectContainerException {
+		// TODO verify if type isn't already defined in lower layer
+		List<Class<?>> allClasses = getAllClasses();
+		Class<?> foundClass = NearestParentFinder.findParent(allClasses, type);
+		if (foundClass!=null) {
+			throw new ClassAlreadyRegisteredInContainerException(this, type);
 		}
-
+		typesAndInstances.put(type, null);
 	}
 
-	/**
-	 * creates the provider objects except the {@link UserInterfaceProvider} because that is created last
-	 * @param application
-	 * @param instantiatedObjects
-	 * @throws IntrospectContainerException
-	 */
-	private void createProviderObjects(
-			IntrospectApplication application,
-			Map<Class<?>, Object> instantiatedObjects)
+	public void add(Collection<Class<?>> types)
 			throws IntrospectContainerException {
-		List<Class<?>> providerClasses = new ArrayList<Class<?>>();
-
-		providerClasses.add(application.getPathProviderClass());
-		providerClasses.add(application.getLanguageProviderClass());
-		providerClasses.add(application.getValidationProviderClass());
-		providerClasses.add(application.getAuthorizationProviderClass());
-		providerClasses.add(application.getDomainInfoProviderClass());
-		providerClasses.add(application.getVersionProviderClass());
-		createInstances(providerClasses, instantiatedObjects);
-	}
-
-	private void createUserInterfaceProviderObject(
-			IntrospectApplication application,
-			Map<Class<?>, Object> instantiatedObjects)
-			throws IntrospectContainerException {
-		List<Class<?>> providerClasses = new ArrayList<Class<?>>();
-
-		providerClasses.add(application.getUserInterfaceProviderClass());
-		createInstances(providerClasses, instantiatedObjects);
+		for (Class<?> type : types) {
+			add(type);
+		}
 	}
 
 	
-	private void createBackEndServiceObjects(
-			IntrospectApplication application,
-			Map<Class<?>, Object> instantiatedObjects)
-			throws IntrospectContainerException {
-		List<Class<?>> backEndServiceClasses = application
-				.getBackEndServiceClasses();
 
-		createInstances(backEndServiceClasses, instantiatedObjects);
-	}
+	public Object get(Class<?> type) throws IntrospectContainerException {
+		List<Class<?>> classesWaitingToBeInstantiated=new ArrayList<Class<?>>(); 
+		return get(type, classesWaitingToBeInstantiated);
+	}	
+	
+	public Object get(Class<?> type,List<Class<?>> classesWaitingToBeInstantiated) throws IntrospectContainerException {
 
-	private List<Object> createFrontEndServiceObjects(
-			IntrospectApplication application,
-			Map<Class<?>, Object> instantiatedObjects)
-			throws IntrospectContainerException {
-		List<Class<?>> frontEndServiceClasses = application
-				.getFrontEndServiceClasses();
-
-		return createInstances(frontEndServiceClasses, instantiatedObjects);
-	}
-
-	private List<Object> createInstances(List<Class<?>> classesToInstantiate,
-			Map<Class<?>, Object> instances)
-			throws IntrospectContainerException {
-
-		InstantiationStrategy instantiationStrategy = new InstantiationStrategy(
-				classesToInstantiate, instances);
-		return instantiationStrategy.createInstances();
-	}
-
-	private void validateServiceClasses(IntrospectApplication application)
-			throws DoubleServiceClassException, MissingServiceClassException {
-		List<Class<?>> frontEndServiceClasses = application
-				.getFrontEndServiceClasses();
-		if (frontEndServiceClasses == null
-				|| frontEndServiceClasses.size() == 0) {
-			throw new MissingServiceClassException(application.getClass());
-		}
-
-		List<Class<?>> backEndServiceClasses = application
-				.getBackEndServiceClasses();
-
-		if (backEndServiceClasses != null) {
-			for (Class<?> backEndServiceClass : backEndServiceClasses) {
-				if (frontEndServiceClasses.contains(backEndServiceClass)) {
-					throw new DoubleServiceClassException(backEndServiceClass);
-				}
+		if (type.isAssignableFrom(IntrospectContainer.class)) {
+			// Reflect containers can be hierarchical.
+			// That is why we here return the outer container, instead of
+			// getting the value from innerContainers.
+			return this;
+		} else if (innerContainer != null) {
+			// Try to get the object from one of the inner containers.
+			Object object = innerContainer.get(type, classesWaitingToBeInstantiated);
+			if (object != null) {
+				return object;
 			}
 		}
-	}
 
-	public List<Object> getFrontEndServiceObjects() {
-		return frontEndServiceObjects;
-	}
-
-	// FIXME: get rid of this public method after removing the "service lookup"
-	// methods in the Introspect class
-	public Object get(Class<?> classToFind) {
-		if (allInstances.containsKey(classToFind)) {
-			return allInstances.get(classToFind);
-		}
-		for (Class<?> instanceClass : allInstances.keySet()) {
-			if (classToFind.isAssignableFrom(instanceClass)) {
-				return allInstances.get(instanceClass);
+		// is the requested type supported by this container?
+		Class<?> foundType = NearestParentFinder.findParent(
+				typesAndInstances.keySet(), type);
+		if (foundType == null) {
+			return null;
+		} else {
+			Object storedObject = typesAndInstances.get(foundType);
+			if (storedObject ==null) {
+				classesWaitingToBeInstantiated.add(foundType);
+				InstanceFactory instanceFactory = new InstanceFactory(foundType, this);
+				Object newObject = instanceFactory.createInstance(classesWaitingToBeInstantiated);
+				typesAndInstances.put(type, newObject);
+				classesWaitingToBeInstantiated.remove(foundType);
+				System.out.println(name + " created: " + type.getCanonicalName());
+				return newObject;
+			} else {
+				System.out.println(name + " from cache: "
+						+ type.getCanonicalName());
+				return storedObject;
 			}
 		}
-		throw new RuntimeException("Could not lookup "
-				+ classToFind.getCanonicalName());
+
 	}
 
+	public List<Class<?>> getAllClasses() {
+		List<Class<?>> allClasses = new ArrayList<Class<?>>();
+		if (innerContainer != null) {
+			allClasses.addAll(innerContainer.getAllClasses());
+		}
+		allClasses.addAll(typesAndInstances.keySet());
+		return allClasses;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 }

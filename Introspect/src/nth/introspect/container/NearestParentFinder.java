@@ -1,29 +1,20 @@
 package nth.introspect.container;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.Collection;
 
-public class DependencyTypeList extends ArrayList<Class<?>> {
-
-	private static final long serialVersionUID = 3039699067340695883L;
-
-	public boolean containsParent(Class<?> classToFind) {
-		Class<?> foundClass = getNearestParent( classToFind);
-		return foundClass != null;
-	}
-
-	public Class<?> getNearestParent(Class<?> classToFind) {
-		if (contains(classToFind)) {
+public class NearestParentFinder {
+	public  static  Class<?> findParent(Collection<Class<?>> classes, Class<?> classToFind) {
+		if (classes.contains(classToFind)) {
 			return classToFind;
 		}
 
 		Class<?> nearestRelative = null;
 		int generationsOfNearestRelative = Integer.MAX_VALUE;
-		for (Class<?> currentClass : this) {
+		for (Class<?> aClass : classes) {
 			int generations = getNumberOfGenerationsInbetween(classToFind,
-					currentClass);
+					aClass);
 			if (generations < generationsOfNearestRelative) {
-				nearestRelative = currentClass;
+				nearestRelative = aClass;
 				generationsOfNearestRelative = generations;
 			}
 		}
@@ -33,7 +24,7 @@ public class DependencyTypeList extends ArrayList<Class<?>> {
 		return nearestRelative;
 	}
 
-	private int getNumberOfGenerationsInbetween(Class<?> parent, Class<?> child) {
+	private static int getNumberOfGenerationsInbetween(Class<?> parent, Class<?> child) {
 		if (parent.isAssignableFrom(child)) {
 			int numberOfGenerationsInBetween = 0;
 			Class<?> current = child;
@@ -57,16 +48,10 @@ public class DependencyTypeList extends ArrayList<Class<?>> {
 			return Integer.MAX_VALUE;
 		}
 	}
-
-	public void removeParent(Class<?> type) {
-		Class<?> nearestParent = getNearestParent(type);
-		remove(nearestParent);
+	
+	public static boolean containsParent(Collection<Class<?>> classes,Class<?> classToFind) {
+		Class<?> foundClass = findParent(classes, classToFind);
+		return foundClass != null;
 	}
-
-	public void removeAllParents(Set<Class<?>> parents) {
-		for (Class<?> parent : parents) {
-			removeParent(parent);
-		}
-	}
-
+	
 }

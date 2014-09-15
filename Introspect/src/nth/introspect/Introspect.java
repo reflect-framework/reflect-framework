@@ -1,11 +1,20 @@
 package nth.introspect;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
+import nth.introspect.container.exception.MissingServiceClassException;
+import nth.introspect.container.exception.ProviderNotDefined;
+import nth.introspect.definition.DomainLayer;
+import nth.introspect.definition.InfrastructureLayer;
+import nth.introspect.definition.ServiceLayer;
+import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.dataaccess.DataAccessProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
@@ -115,32 +124,156 @@ import nth.introspect.provider.validation.ValidationProvider;
 // TODO implement IntrospectContainer with constructor type injection
 // TODO implement IntrospectApplication interface (replace initializer)
 // TODO consider rename Provider to Module
-// TODO consider rename Introspect to Reflect
+// TODO consider rename Introspect to Reflect and ReflectFramework
 // TODO consider if we can replace the service lookups of the providers with
 // constructor injection
 // TODO update javadoc (or refer to web site)
 public class Introspect {
 
 	private static IntrospectContainer introspectContainer;
-	//private static AuthorizationProvider authorizationProvider;
+	// private static AuthorizationProvider authorizationProvider;
 	private static ValidationProvider validationProvider;
 	private static PathProvider pathProvider;
 	private static LanguageProvider languageProvider;
 	private static DomainInfoProvider domainInfoProvider;
 	private static UserInterfaceProvider<?> userInterfaceProvider;
 	private static AboutProvider versionProvider;
+	private static IntrospectApplication application;
 
 	public static void init(IntrospectApplication application) {
+		Introspect.application = application;
 		try {
-			introspectContainer = new IntrospectContainer(application);
-			introspectContainer.createInstances();
+			IntrospectContainer infrastructureContainer = createInfrastructureContainer(application);
+
+			IntrospectContainer domainContainer = createDomainContainer(
+					application, infrastructureContainer);
+
+			IntrospectContainer serviceContainer = createServiceContainer(
+					application, domainContainer);
+
+			IntrospectContainer userInterfaceContainer = createUserInterfaceContainer(
+					application, serviceContainer);
+
+			introspectContainer = userInterfaceContainer;
+
+			// introspectContainer = new IntrospectContainer(application);
+			// introspectContainer.createInstances();
 
 		} catch (Exception exception) {
 			throw new IntrospectContainerInitializationException(exception);
 		}
 	}
 
-	//TODO get rid of this service lookup, use dependency injection instead
+	/**
+	 * Starts the application by getting/ creating the UserInterfaceProvider
+	 * from the reflect container
+	 * 
+	 * @throws IntrospectContainerException
+	 */
+	public static void start() {
+			introspectContainer.get(UserInterfaceProvider.class);
+	}
+
+	public static List<Object> getServiceObjects() {
+		List<Object> serviceObjects = new ArrayList<Object>();
+		List<Class<?>> serviceClasses = application.getServiceClasses();
+		for (Class<?> serviceClass : serviceClasses) {
+			Object serviceObject = introspectContainer.get(serviceClass);
+			serviceObjects.add(serviceObject);
+		}
+		return serviceObjects;
+	}
+
+	/**
+	 * @param application
+	 * @param serviceContainer
+	 *            {@link ReflectContainer} for the lower {@link ServiceLayer}
+	 * @return a {@link ReflectContainer} for the {@link UserInterfaceLayer}
+	 * @throws IntrospectContainerException
+	 */
+
+	private static IntrospectContainer createUserInterfaceContainer(
+			IntrospectApplication application,
+			IntrospectContainer serviceContainer)
+			throws IntrospectContainerException {
+		String layerName = UserInterfaceLayer.class.getSimpleName();
+		IntrospectContainer userInterfaceContainer = new IntrospectContainer(
+				layerName, application, serviceContainer);
+		// add userInterface provider class
+		userInterfaceContainer.add(application.getUserInterfaceProviderClass());
+		return userInterfaceContainer;
+	}
+
+	/**
+	 * @param application
+	 * @param domainContainer
+	 *            {@link ReflectContainer} for the lower {@link DomainLayer}
+	 * @return a {@link ReflectContainer} for the {@link ServiceLayer}
+	 * @throws IntrospectContainerException
+	 */
+
+	private static IntrospectContainer createServiceContainer(
+			IntrospectApplication application,
+			IntrospectContainer domainContainer)
+			throws IntrospectContainerException {
+		String layerName = ServiceLayer.class.getSimpleName();
+		IntrospectContainer serviceContainer = new IntrospectContainer(
+				layerName, application, domainContainer);
+		// add all service classes
+		List<Class<?>> serviceClasses = application.getServiceClasses();
+		if (serviceClasses.size()==0) {
+			throw new MissingServiceClassException(application);  
+		}
+		serviceContainer.add(serviceClasses);
+		return serviceContainer;
+	}
+
+	/**
+	 * @param application
+	 * @param infrastructureContainer
+	 *            {@link ReflectContainer} for the lower
+	 *            {@link InfrastructureLayer}
+	 * @return a {@link ReflectContainer} for the {@link DomainLayer}
+	 */
+
+	private static IntrospectContainer createDomainContainer(
+			IntrospectApplication application,
+			IntrospectContainer infrastructureContainer) {
+		String layerName = DomainLayer.class.getSimpleName();
+		IntrospectContainer domainContainer = new IntrospectContainer(
+				layerName, application, infrastructureContainer);
+		return domainContainer;
+	}
+
+	/**
+	 * @param application
+	 * @return a {@link ReflectContainer} for the {@link InfrastructureLayer}
+	 * @throws IntrospectContainerException
+	 */
+	private static IntrospectContainer createInfrastructureContainer(
+			IntrospectApplication application)
+			throws IntrospectContainerException {
+		String layerName = InfrastructureLayer.class.getSimpleName();
+		IntrospectContainer infrastructureContainer = new IntrospectContainer(
+				layerName, application);
+		infrastructureContainer.add(application);
+		// add provider classes
+		
+		//TODO throw new ProviderNotDefined(application, providerType); application.get...providerclass returns null
+		
+		infrastructureContainer.add(application.getPathProviderClass());
+		infrastructureContainer.add(application.getLanguageProviderClass());
+		infrastructureContainer.add(application.getValidationProviderClass());
+		infrastructureContainer
+				.add(application.getAuthorizationProviderClass());
+		infrastructureContainer.add(application.getDomainInfoProviderClass());
+		infrastructureContainer.add(application.getVersionProviderClass());
+		// add infrastructure classes
+		infrastructureContainer.add(application.getInfrastructureClasses());
+		return infrastructureContainer;
+	}
+
+	// TODO get rid of this service lookup, use dependency injection instead
 	public static UserInterfaceProvider<?> getUserInterfaceProvider() {
 		if (userInterfaceProvider == null) {
 			userInterfaceProvider = (UserInterfaceProvider<?>) introspectContainer
@@ -149,7 +282,7 @@ public class Introspect {
 		return userInterfaceProvider;
 	}
 
-	//TODO get rid of this service lookup, use dependency injection instead
+	// TODO get rid of this service lookup, use dependency injection instead
 	public static PathProvider getPathProvider() {
 		if (pathProvider == null) {
 			pathProvider = (PathProvider) introspectContainer
@@ -159,15 +292,15 @@ public class Introspect {
 		return pathProvider;
 	}
 
-//	public static AuthorizationProvider getAuthorizationProvider() {
-//		if (authorizationProvider == null) {
-//			authorizationProvider = (AuthorizationProvider) introspectContainer
-//					.get(AuthorizationProvider.class);
-//		}
-//		return authorizationProvider;
-//	}
+	// public static AuthorizationProvider getAuthorizationProvider() {
+	// if (authorizationProvider == null) {
+	// authorizationProvider = (AuthorizationProvider) introspectContainer
+	// .get(AuthorizationProvider.class);
+	// }
+	// return authorizationProvider;
+	// }
 
-	//TODO get rid of this service lookup, use dependency injection instead
+	// TODO get rid of this service lookup, use dependency injection instead
 	public static DomainInfoProvider getDomainInfoProvider() {
 		if (domainInfoProvider == null) {
 			domainInfoProvider = (DomainInfoProvider) introspectContainer
@@ -176,7 +309,7 @@ public class Introspect {
 		return domainInfoProvider;
 	}
 
-	//TODO get rid of this service lookup, use dependency injection instead
+	// TODO get rid of this service lookup, use dependency injection instead
 	public static LanguageProvider getLanguageProvider() {
 		if (languageProvider == null) {
 			languageProvider = (LanguageProvider) introspectContainer
@@ -185,7 +318,7 @@ public class Introspect {
 		return languageProvider;
 	}
 
-	//TODO get rid of this service lookup, use dependency injection instead
+	// TODO get rid of this service lookup, use dependency injection instead
 	public static AboutProvider getAboutProvider() {
 		if (versionProvider == null) {
 			versionProvider = (AboutProvider) introspectContainer
@@ -194,7 +327,7 @@ public class Introspect {
 		return versionProvider;
 	}
 
-	//TODO get rid of this service lookup, use dependency injection instead
+	// TODO get rid of this service lookup, use dependency injection instead
 	public static ValidationProvider getValidationProvider() {
 		if (validationProvider == null) {
 			validationProvider = (ValidationProvider) introspectContainer
@@ -203,9 +336,10 @@ public class Introspect {
 		return validationProvider;
 	}
 
-	//TODO get rid of this service lookup, use dependency injection instead
-	 public static IntrospectContainer getIntrospectContainer() {
+	// TODO get rid of this service lookup, use dependency injection instead
+	public static IntrospectContainer getIntrospectContainer() {
 		return introspectContainer;
 	}
+
 
 }

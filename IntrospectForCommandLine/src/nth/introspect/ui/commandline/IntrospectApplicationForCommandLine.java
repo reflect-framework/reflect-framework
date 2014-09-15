@@ -2,6 +2,7 @@ package nth.introspect.ui.commandline;
 
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
+import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.about.DefaultAboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
@@ -21,9 +22,10 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 	private final String[] commandLineArguments;
 
 	
-	public IntrospectApplicationForCommandLine(String[] commandLineArguments) {
+	public IntrospectApplicationForCommandLine(String[] commandLineArguments)  {
 		this.commandLineArguments = commandLineArguments;
 		Introspect.init(this);
+		Introspect.start();
 	}
 
 

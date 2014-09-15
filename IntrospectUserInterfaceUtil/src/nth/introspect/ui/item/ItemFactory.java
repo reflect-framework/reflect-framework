@@ -34,9 +34,9 @@ public class ItemFactory {
 	public static List<MethodOwnerItem> createMenuViewItems() {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
-		IntrospectContainer introspectContainer = Introspect.getIntrospectContainer();
+		List<Object> serviceObjects = Introspect.getServiceObjects();
 
-		for (Object serviceObject : introspectContainer.getFrontEndServiceObjects()) {
+		for (Object serviceObject : serviceObjects) {
 			MethodOwnerItem item = new MethodOwnerItem(serviceObject,
 					new NoParameterOrParameterFactoryFilter(), null);
 			items.add(item);
@@ -136,8 +136,7 @@ public class ItemFactory {
 		items.add(item);
 
 		// create MethodOwnerItem for other service objects
-		IntrospectContainer introspectContainer = Introspect.getIntrospectContainer();
-		List<Object> serviceObjects = introspectContainer.getFrontEndServiceObjects();
+		List<Object> serviceObjects = Introspect.getServiceObjects();
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 

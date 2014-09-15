@@ -10,7 +10,7 @@ import nth.introspect.provider.Provider;
  * <li><a href="http://en.wikipedia.org/wiki/Persistence_layer">Persistence layer</a></li>
  * <li>Logging Layer</a></li>
  * <li>Networking Layer</li>
- * <li>And other services which are required to support a particular business layer</li> 
+ * <li>And other services which are required to support the {@link ServiceLayer} or {@link DomainLayer}</li> 
  * </ul>
  * Objects in this layer provide generic technical capabilities to support the higher layers (see {@link IntrospectArchitecture})<br>
  * This layer holds two types of objects:
