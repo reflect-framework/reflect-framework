@@ -41,7 +41,12 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
+	private final IntrospectContainer introspectContainer;
 
+	public AbstractUserinterfaceProvider(IntrospectContainer introspectContainer) {
+		this.introspectContainer = introspectContainer;
+	}
+	
 	@Override
 	public void startExecution(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
@@ -248,7 +253,6 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 					Class<?> serviceClass = Class.forName(serviceClassName);
 					DomainInfoProvider domainInfoProvider = Introspect
 							.getDomainInfoProvider();
-					IntrospectContainer introspectContainer=Introspect.getIntrospectContainer();
 					Object serviceObject2 =introspectContainer.get(serviceClass);
 					List<MethodInfo> methodInfos = domainInfoProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(

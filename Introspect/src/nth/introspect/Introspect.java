@@ -336,10 +336,4 @@ public class Introspect {
 		return validationProvider;
 	}
 
-	// TODO get rid of this service lookup, use dependency injection instead
-	public static IntrospectContainer getIntrospectContainer() {
-		return introspectContainer;
-	}
-
-
 }

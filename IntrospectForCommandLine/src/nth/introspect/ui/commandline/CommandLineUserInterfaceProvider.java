@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
+import nth.introspect.container.IntrospectContainer;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
@@ -40,7 +41,8 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 
 	private final CommandLineViewContainer viewContainer;
 
-	public CommandLineUserInterfaceProvider(IntrospectApplication application) {
+	public CommandLineUserInterfaceProvider(IntrospectApplication application, IntrospectContainer introspectContainer) {
+		super(introspectContainer);
 		viewContainer = new CommandLineViewContainer();
 		IntrospectApplicationForCommandLine commandLineApplication = (IntrospectApplicationForCommandLine) application;
 		String[] commandLineArguments = commandLineApplication.getCommandLineArguments();

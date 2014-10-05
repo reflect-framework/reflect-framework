@@ -97,6 +97,7 @@ public class IntrospectContainer {
 
 	public List<Class<?>> getAllClasses() {
 		List<Class<?>> allClasses = new ArrayList<Class<?>>();
+		allClasses.add(IntrospectContainer.class);
 		if (innerContainer != null) {
 			allClasses.addAll(innerContainer.getAllClasses());
 		}
