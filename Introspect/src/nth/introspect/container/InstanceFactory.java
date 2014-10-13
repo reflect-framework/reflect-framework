@@ -30,9 +30,9 @@ public class InstanceFactory {
 	}
 
 	private Constructor<?> findBestConstructor(Class<?> classToInstantiate,
-			IntrospectContainer introspectContainer2) throws ClassHasNoUsableConstructorException
+			IntrospectContainer introspectContainer) throws ClassHasNoUsableConstructorException
 			 {
-		List<Class<?>> allowedDependencyClasses = introspectContainer2
+		List<Class<?>> allowedDependencyClasses = introspectContainer
 				.getAllClasses();
 		Constructor<?> bestConstructor = null;
 		for (Constructor<?> constructor : classToInstantiate.getConstructors()) {
@@ -162,7 +162,7 @@ public class InstanceFactory {
 		Object[] constructorParameterValues = new Object[constructorParameterTypes.length];
 		for (int index=0;index<constructorParameterTypes.length;index++) {
 			Class<?> constructorParameterType = constructorParameterTypes[index];
-			Object constructorParameterValue = introspectContainer.get(constructorParameterType, classesWaitingToBeInstantiated);//TODO prevent dependencyLoop
+			Object constructorParameterValue = introspectContainer.get(constructorParameterType, classesWaitingToBeInstantiated);
 			constructorParameterValues[index]=constructorParameterValue;
 		}
 		return constructorParameterValues;

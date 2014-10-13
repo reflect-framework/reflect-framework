@@ -11,6 +11,7 @@ import java.util.Map;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 
@@ -33,10 +34,10 @@ public class CommandService {
 		return null;
 	}
 
-	public static List<Command> getCommands()
+	public static List<Command> getCommands(IntrospectOuterContainer outerContainer)
 			throws IntrospectCommandLineException {
 		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
-		List<Object> serviceObjects = Introspect.getServiceObjects();
+		List<Object> serviceObjects = outerContainer.getServiceObjects();
 
 		if (serviceObjects.size() == 0) {
 			throw new IntrospectCommandLineException("No service objects.");

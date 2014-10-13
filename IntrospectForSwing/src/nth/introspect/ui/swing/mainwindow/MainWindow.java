@@ -18,6 +18,8 @@ import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import nth.introspect.Introspect;
+import nth.introspect.application.IntrospectApplication;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.swing.icon.IconFactory;
@@ -34,8 +36,10 @@ public class MainWindow extends JFrame {
 	private MenuTabPanel menuTabPanel;
 	private SwingViewContainer contentTabPanel;
 	private JButton menuButton;
+	private final IntrospectOuterContainer introspectOuterContainer;
 
-	public MainWindow(Object application) {
+	public MainWindow(IntrospectApplication application, IntrospectOuterContainer introspectOuterContainer) {
+		this.introspectOuterContainer = introspectOuterContainer;
 		// Set style
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -160,7 +164,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private MenuTabPanel createMenuTabPanel() {
-		return new MenuTabPanel();
+		return new MenuTabPanel(introspectOuterContainer);
 	}
 
 	public void hideMenu() {

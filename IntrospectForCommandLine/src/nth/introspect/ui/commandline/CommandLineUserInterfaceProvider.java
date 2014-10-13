@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
@@ -41,12 +42,12 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 
 	private final CommandLineViewContainer viewContainer;
 
-	public CommandLineUserInterfaceProvider(IntrospectApplication application, IntrospectContainer introspectContainer) {
-		super(introspectContainer);
+	public CommandLineUserInterfaceProvider(IntrospectApplication application, IntrospectOuterContainer introspectOuterContainer) {
+		super(introspectOuterContainer);
 		viewContainer = new CommandLineViewContainer();
 		IntrospectApplicationForCommandLine commandLineApplication = (IntrospectApplicationForCommandLine) application;
 		String[] commandLineArguments = commandLineApplication.getCommandLineArguments();
-		startExecution(commandLineArguments);
+		startExecution(commandLineArguments, introspectOuterContainer);
 	}
 
 	@Override
@@ -59,10 +60,10 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 		// Not supported yet
 	}
 
-	private void startExecution(String[] arguments) {
+	private void startExecution(String[] arguments, IntrospectOuterContainer introspectOuterContainer) {
 		try {
 
-			List<Command> commands = CommandService.getCommands();
+			List<Command> commands = CommandService.getCommands(introspectOuterContainer);
 
 			Command command = CommandService.findCommand(commands, arguments);
 			if (command == null) {

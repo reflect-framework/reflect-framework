@@ -5,10 +5,10 @@ import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.container.exception.MissingServiceClassException;
-import nth.introspect.container.exception.ProviderNotDefined;
 import nth.introspect.definition.DomainLayer;
 import nth.introspect.definition.InfrastructureLayer;
 import nth.introspect.definition.ServiceLayer;
@@ -174,15 +174,6 @@ public class Introspect {
 			introspectContainer.get(UserInterfaceProvider.class);
 	}
 
-	public static List<Object> getServiceObjects() {
-		List<Object> serviceObjects = new ArrayList<Object>();
-		List<Class<?>> serviceClasses = application.getServiceClasses();
-		for (Class<?> serviceClass : serviceClasses) {
-			Object serviceObject = introspectContainer.get(serviceClass);
-			serviceObjects.add(serviceObject);
-		}
-		return serviceObjects;
-	}
 
 	/**
 	 * @param application
@@ -197,7 +188,7 @@ public class Introspect {
 			IntrospectContainer serviceContainer)
 			throws IntrospectContainerException {
 		String layerName = UserInterfaceLayer.class.getSimpleName();
-		IntrospectContainer userInterfaceContainer = new IntrospectContainer(
+		IntrospectOuterContainer userInterfaceContainer = new IntrospectOuterContainer(
 				layerName, application, serviceContainer);
 		// add userInterface provider class
 		userInterfaceContainer.add(application.getUserInterfaceProviderClass());
@@ -218,7 +209,7 @@ public class Introspect {
 			throws IntrospectContainerException {
 		String layerName = ServiceLayer.class.getSimpleName();
 		IntrospectContainer serviceContainer = new IntrospectContainer(
-				layerName, application, domainContainer);
+				layerName, domainContainer);
 		// add all service classes
 		List<Class<?>> serviceClasses = application.getServiceClasses();
 		if (serviceClasses.size()==0) {
@@ -241,7 +232,7 @@ public class Introspect {
 			IntrospectContainer infrastructureContainer) {
 		String layerName = DomainLayer.class.getSimpleName();
 		IntrospectContainer domainContainer = new IntrospectContainer(
-				layerName, application, infrastructureContainer);
+				layerName, infrastructureContainer);
 		return domainContainer;
 	}
 
@@ -255,7 +246,7 @@ public class Introspect {
 			throws IntrospectContainerException {
 		String layerName = InfrastructureLayer.class.getSimpleName();
 		IntrospectContainer infrastructureContainer = new IntrospectContainer(
-				layerName, application);
+				layerName);
 		infrastructureContainer.add(application);
 		// add provider classes
 		

@@ -2,6 +2,7 @@ package nth.introspect.ui.swing.view.form.field;
 
 import java.awt.Component;
 
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.domain.info.property.FieldModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.swing.view.form.field.DateTimeField.DateTimeMode;

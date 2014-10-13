@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
@@ -42,9 +43,11 @@ public class TableView extends SwingView implements
 	private PopupMenu menuPopUp;
 	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
+	private final IntrospectOuterContainer introspectOuterContainer;
 
-	public TableView(Object methodOwner, MethodInfo methodInfo,
+	public TableView(IntrospectOuterContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
+		this.introspectOuterContainer = introspectOuterContainer;
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -276,6 +279,11 @@ public class TableView extends SwingView implements
 	@Override
 	public Object getMethodParameter() {
 		return methodParameterValue;
+	}
+
+	@Override
+	public IntrospectOuterContainer getIntrospectOuterContainer() {
+		return introspectOuterContainer;
 	}
 
 }

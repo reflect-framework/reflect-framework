@@ -3,8 +3,10 @@ package nth.introspect.ui.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.Filter;
 import nth.introspect.filter.LogicFilter;
@@ -31,10 +33,10 @@ import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class ItemFactory {
 
-	public static List<MethodOwnerItem> createMenuViewItems() {
+	public static List<MethodOwnerItem> createMenuViewItems(IntrospectOuterContainer introspectOuterContainer) {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
-		List<Object> serviceObjects = Introspect.getServiceObjects();
+		List<Object> serviceObjects = introspectOuterContainer.getServiceObjects();
 
 		for (Object serviceObject : serviceObjects) {
 			MethodOwnerItem item = new MethodOwnerItem(serviceObject,
@@ -81,7 +83,8 @@ public class ItemFactory {
 				parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
-		items.addAll(createServiceObjectItems(serviceObject, parameterModel,
+		IntrospectOuterContainer introspectOuterContainer=formView.getIntrospectOuterContainer();
+		items.addAll(createServiceObjectItems(introspectOuterContainer, serviceObject, parameterModel,
 				filter));
 
 		return items;
@@ -118,13 +121,14 @@ public class ItemFactory {
 		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
 				new ParameterTypeFilter(domainType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
-		items.addAll(createServiceObjectItems(serviceObject, parameterModel,
+		IntrospectOuterContainer introspectOuterContainer=tableView.getIntrospectOuterContainer();
+		items.addAll(createServiceObjectItems(introspectOuterContainer , serviceObject, parameterModel,
 				filter));
 
 		return items;
 	}
 
-	private static List<MethodOwnerItem> createServiceObjectItems(
+	private static List<MethodOwnerItem> createServiceObjectItems(IntrospectOuterContainer introspectOuterContainer,
 			Object serviceObjectToStartWith, ReadOnlyValueModel parameterModel,
 			Filter<MethodInfo> filter) {
 
@@ -136,7 +140,7 @@ public class ItemFactory {
 		items.add(item);
 
 		// create MethodOwnerItem for other service objects
-		List<Object> serviceObjects = Introspect.getServiceObjects();
+		List<Object> serviceObjects = introspectOuterContainer.getServiceObjects();
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.ItemFactory;
@@ -23,8 +24,8 @@ public class MenuView extends SwingView {
 
 	private ItemAccordion itemAccordion;
 
-	public MenuView() {
-		List<MethodOwnerItem> menuItems = ItemFactory.createMenuViewItems();
+	public MenuView(IntrospectOuterContainer introspectOuterContainer ) {
+		List<MethodOwnerItem> menuItems = ItemFactory.createMenuViewItems(introspectOuterContainer);
 
 		setLayout(new BorderLayout());
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
@@ -41,10 +42,10 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
-	private final IntrospectContainer introspectContainer;
+	private final IntrospectOuterContainer introspectOuterContainer;
 
-	public AbstractUserinterfaceProvider(IntrospectContainer introspectContainer) {
-		this.introspectContainer = introspectContainer;
+	public AbstractUserinterfaceProvider(IntrospectOuterContainer introspectOuterContainer) {
+		this.introspectOuterContainer = introspectOuterContainer;
 	}
 	
 	@Override
@@ -253,7 +254,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 					Class<?> serviceClass = Class.forName(serviceClassName);
 					DomainInfoProvider domainInfoProvider = Introspect
 							.getDomainInfoProvider();
-					Object serviceObject2 =introspectContainer.get(serviceClass);
+					Object serviceObject2 =getIntrospectOuterContainer().get(serviceClass);
 					List<MethodInfo> methodInfos = domainInfoProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
 									methodName));
@@ -413,5 +414,10 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 			view.onViewActivate();
 		}
 	}
+
+	public IntrospectOuterContainer getIntrospectOuterContainer() {
+		return introspectOuterContainer;
+	}
+
 
 }

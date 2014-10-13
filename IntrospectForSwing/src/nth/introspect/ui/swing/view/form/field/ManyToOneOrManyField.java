@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
@@ -211,7 +212,7 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 		// update table
 		tableModel.refresh();
 		// update menus
-		List<Item> menuItems = ItemFactory.createFormViewRelationalFieldItems(
+		List<Item> menuItems = ItemFactory.createFormViewRelationalFieldItems( 
 				formView, getSelectedRowModel(),
 				propertyValueModel.getPropertyInfo());
 		// Do not have to refresh the menu, because it is refreshed when opened,

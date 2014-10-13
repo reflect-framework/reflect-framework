@@ -8,6 +8,7 @@ import java.util.List;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.introspect.container.exception.IntrospectContainerException;
+import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
 public class IntrospectContainer {
 
@@ -15,12 +16,11 @@ public class IntrospectContainer {
 	private IntrospectContainer innerContainer;
 	private HashMap<Class<?>, Object> typesAndInstances;
 
-	public IntrospectContainer(String layerName,
-			IntrospectApplication application) {
-		this(layerName, application, null);
+	public IntrospectContainer(String layerName) {
+		this(layerName, null);
 	}
 
-	public IntrospectContainer(String name, IntrospectApplication application,
+	public IntrospectContainer(String name, 
 			IntrospectContainer lowerLayer) {
 		this.name = name;
 		this.innerContainer = lowerLayer;
@@ -58,7 +58,7 @@ public class IntrospectContainer {
 	
 	public Object get(Class<?> type,List<Class<?>> classesWaitingToBeInstantiated) throws IntrospectContainerException {
 
-		if (type.isAssignableFrom(IntrospectContainer.class)) {
+		if (IntrospectContainer.class.isAssignableFrom(type)) {
 			// Reflect containers can be hierarchical.
 			// That is why we here return the outer container, instead of
 			// getting the value from innerContainers.

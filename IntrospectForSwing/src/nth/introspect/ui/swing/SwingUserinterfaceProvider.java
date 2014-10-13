@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.userinterface.DialogType;
@@ -40,9 +41,9 @@ public class SwingUserinterfaceProvider extends
 
 	private MainWindow mainWindow;
 
-	public SwingUserinterfaceProvider(IntrospectApplication application, IntrospectContainer introspectContainer) {
-		super(introspectContainer);
-		mainWindow = new MainWindow(application);
+	public SwingUserinterfaceProvider(IntrospectApplication application, IntrospectOuterContainer introspectOuterContainer) {
+		super(introspectOuterContainer);
+		mainWindow = new MainWindow(application, introspectOuterContainer);
 	}
 
 	@Override
@@ -106,7 +107,7 @@ public class SwingUserinterfaceProvider extends
 	public SwingView createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(serviceObject, methodInfo, methodParameterValue,
+		return new FormView(getIntrospectOuterContainer(), serviceObject, methodInfo, methodParameterValue,
 				domainObject, formMode);
 	}
 
@@ -114,7 +115,7 @@ public class SwingUserinterfaceProvider extends
 	public SwingView createTableView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new TableView(serviceObject, methodInfo, methodParameterValue);
+		return new TableView(getIntrospectOuterContainer(), serviceObject, methodInfo, methodParameterValue);
 	}
 
 	@Override

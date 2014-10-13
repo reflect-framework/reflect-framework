@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
+import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.Introspect;
+import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
@@ -39,9 +41,11 @@ public class FormView extends SwingView implements
 	private final Object methodParameterValue;
 	private final FormMode formMode;
 	private final Object domainObject;
+	private final IntrospectOuterContainer introspectOuterContainer;
 
-	public FormView(Object methodOwner, MethodInfo methodInfo,
+	public FormView(IntrospectOuterContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
+		this.introspectOuterContainer = introspectOuterContainer;
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -171,5 +175,10 @@ public class FormView extends SwingView implements
 	@Override
 	public Object getDomainObject() {
 		return domainObject;
+	}
+
+	@Override
+	public IntrospectOuterContainer getIntrospectOuterContainer() {
+		return introspectOuterContainer;
 	}
 }
