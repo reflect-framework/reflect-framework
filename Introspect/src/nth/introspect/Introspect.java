@@ -121,12 +121,9 @@ import nth.introspect.provider.validation.ValidationProvider;
  *         >The clean architecture</a>
  */
 
-// TODO implement IntrospectContainer with constructor type injection
-// TODO implement IntrospectApplication interface (replace initializer)
-// TODO consider rename Provider to Module
-// TODO consider rename Introspect to Reflect and ReflectFramework
-// TODO consider if we can replace the service lookups of the providers with
-// constructor injection
+//TODO remove the need for static lookups
+// TODO Introspect as object with IntrospectApplication as constructor parameter (replace initializer and start methods)
+// TODO rename Introspect to Reflect and ReflectFramework
 // TODO update javadoc (or refer to web site)
 public class Introspect {
 
@@ -156,8 +153,6 @@ public class Introspect {
 
 			introspectContainer = userInterfaceContainer;
 
-			// introspectContainer = new IntrospectContainer(application);
-			// introspectContainer.createInstances();
 
 		} catch (Exception exception) {
 			throw new IntrospectContainerInitializationException(exception);
