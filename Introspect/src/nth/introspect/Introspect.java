@@ -128,17 +128,13 @@ import nth.introspect.provider.validation.ValidationProvider;
 public class Introspect {
 
 	private static IntrospectContainer introspectContainer;
-	// private static AuthorizationProvider authorizationProvider;
-	private static ValidationProvider validationProvider;
+//	private static ValidationProvider validationProvider;
 	private static PathProvider pathProvider;
 	private static LanguageProvider languageProvider;
 	private static DomainInfoProvider domainInfoProvider;
 	private static UserInterfaceProvider<?> userInterfaceProvider;
-	private static AboutProvider versionProvider;
-	private static IntrospectApplication application;
 
 	public static void init(IntrospectApplication application) {
-		Introspect.application = application;
 		try {
 			IntrospectContainer infrastructureContainer = createInfrastructureContainer(application);
 
@@ -304,22 +300,6 @@ public class Introspect {
 		return languageProvider;
 	}
 
-//	// TODO get rid of this service lookup, use dependency injection instead
-//	public static AboutProvider getAboutProvider() {
-//		if (versionProvider == null) {
-//			versionProvider = (AboutProvider) introspectContainer
-//					.get(AboutProvider.class);
-//		}
-//		return versionProvider;
-//	}
 
-	// TODO get rid of this service lookup, use dependency injection instead
-	public static ValidationProvider getValidationProvider() {
-		if (validationProvider == null) {
-			validationProvider = (ValidationProvider) introspectContainer
-					.get(ValidationProvider.class);
-		}
-		return validationProvider;
-	}
 
 }
