@@ -6,7 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectReportMsExcel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectReportPDF"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectTestDomain"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/InnoForceDomain"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectForSwing"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
