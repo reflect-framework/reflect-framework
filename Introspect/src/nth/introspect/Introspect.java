@@ -304,14 +304,14 @@ public class Introspect {
 		return languageProvider;
 	}
 
-	// TODO get rid of this service lookup, use dependency injection instead
-	public static AboutProvider getAboutProvider() {
-		if (versionProvider == null) {
-			versionProvider = (AboutProvider) introspectContainer
-					.get(AboutProvider.class);
-		}
-		return versionProvider;
-	}
+//	// TODO get rid of this service lookup, use dependency injection instead
+//	public static AboutProvider getAboutProvider() {
+//		if (versionProvider == null) {
+//			versionProvider = (AboutProvider) introspectContainer
+//					.get(AboutProvider.class);
+//		}
+//		return versionProvider;
+//	}
 
 	// TODO get rid of this service lookup, use dependency injection instead
 	public static ValidationProvider getValidationProvider() {

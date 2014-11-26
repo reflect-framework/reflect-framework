@@ -2,12 +2,16 @@ package nth.introspect.ui.swing.mainwindow;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.net.URI;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -20,6 +24,9 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.provider.about.AboutProvider;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.swing.icon.IconFactory;
@@ -38,17 +45,25 @@ public class MainWindow extends JFrame {
 	private JButton menuButton;
 	private final IntrospectOuterContainer introspectOuterContainer;
 
-	public MainWindow(IntrospectApplication application, IntrospectOuterContainer introspectOuterContainer) {
+	public MainWindow(IntrospectApplication application,
+			IntrospectOuterContainer introspectOuterContainer) {
 		this.introspectOuterContainer = introspectOuterContainer;
 		// Set style
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			UIManager
+					.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception e) {
 		}
 		setDefaultLookAndFeelDecorated(true);
 
 		// Set window parameters
-//TODO		setTitle(Introspect.getVersionProvider().getApplicationTitle());
+		DomainInfoProvider domainInfoProvider = introspectOuterContainer
+				.getDomainInfoProvider();
+		ClassInfo applicationInfo = domainInfoProvider.getClassInfo(application
+				.getClass());
+		
+		setTitle(application, applicationInfo);
+		setIcon(application, applicationInfo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Create window contents
@@ -58,10 +73,12 @@ public class MainWindow extends JFrame {
 		getContentPane().add(splitPanel, BorderLayout.CENTER);
 
 		menuButton = createMenuButton();
-		JButton aboutButton = createAboutButton();
+		JButton aboutButton = createAboutButton(introspectOuterContainer
+				.getAboutProvider());
 		JButton findButton = createFindButton(menuTabPanel);
 		JButton tabButton = createTabButton(menuTabPanel);
-		JToolBar toolbar = createToolBar(aboutButton, menuButton, findButton, tabButton);
+		JToolBar toolbar = createToolBar(aboutButton, menuButton, findButton,
+				tabButton);
 		getContentPane().add(toolbar, BorderLayout.NORTH);
 
 		// Display the window.
@@ -71,10 +88,27 @@ public class MainWindow extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
-	private JToolBar createToolBar(JButton aboutButton, JButton menuButton, JButton findButton, JButton tabButton) {
+	private void setIcon(IntrospectApplication application,
+			ClassInfo applicationInfo) {
+		try {
+			URI iconUri = applicationInfo.getIconURI(application);
+			Image image = Toolkit.getDefaultToolkit().getImage(iconUri.toURL());
+			setIconImage(image);
+		} catch (Exception exception) {
+		}
+	}
+
+	private void setTitle(IntrospectApplication application,
+			ClassInfo applicationInfo) {
+		String title = applicationInfo.getName();//TODO replace with getTitle is better but throws exception
+		setTitle(title);
+	}
+
+	private JToolBar createToolBar(JButton aboutButton, JButton menuButton,
+			JButton findButton, JButton tabButton) {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-		toolBar.add(Box.createHorizontalGlue());// alight right
+		toolBar.add(Box.createHorizontalGlue());// align right
 		toolBar.add(aboutButton);
 		toolBar.add(menuButton);
 		toolBar.add(findButton);
@@ -82,8 +116,8 @@ public class MainWindow extends JFrame {
 		return toolBar;
 	}
 
-	private JButton createAboutButton() {
-		AboutItem aboutItem = new AboutItem();
+	private JButton createAboutButton(AboutProvider aboutProvider) {
+		AboutItem aboutItem = new AboutItem(aboutProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;
@@ -91,7 +125,8 @@ public class MainWindow extends JFrame {
 
 	/**
 	 * Creates a button to show or hide the menu.<br>
-	 * The icon and tool tip will be set by the {@link #showMenu()} and {@link MainWindow#hideMenu()} methods
+	 * The icon and tool tip will be set by the {@link #showMenu()} and
+	 * {@link MainWindow#hideMenu()} methods
 	 * 
 	 * @return a button to show or hide the menu
 	 */
@@ -108,7 +143,9 @@ public class MainWindow extends JFrame {
 				}
 			}
 		};
-		button.registerKeyboardAction(action, KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		button.registerKeyboardAction(action,
+				KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
 		button.setAction(action);
 		return button;
 	}
@@ -123,9 +160,13 @@ public class MainWindow extends JFrame {
 			}
 		};
 		button.setAction(action);
-		button.registerKeyboardAction(action, KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(Introspect.getLanguageProvider().getText("Find Menu Item (F3)"));
-		button.setIcon(IconFactory.create(IntrospectImage.EDIT_FIND, SwingStyleConstant.ICON_SIZE));
+		button.registerKeyboardAction(action,
+				KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
+		button.setToolTipText(Introspect.getLanguageProvider().getText(
+				"Find Menu Item (F3)"));
+		button.setIcon(IconFactory.create(IntrospectImage.EDIT_FIND,
+				SwingStyleConstant.ICON_SIZE));
 		return button;
 	}
 
@@ -137,7 +178,8 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int selectedTabIndex = getViewContainer().getSelectedIndex();
 				if (selectedTabIndex >= 0) {
-					Component selectedTabHeader = getViewContainer().getTabComponentAt(selectedTabIndex);
+					Component selectedTabHeader = getViewContainer()
+							.getTabComponentAt(selectedTabIndex);
 					if (selectedTabHeader instanceof TabHeader) {
 						TabHeader tabHeader = (TabHeader) selectedTabHeader;
 						tabHeader.showPopupMenu(10, 10);
@@ -146,14 +188,20 @@ public class MainWindow extends JFrame {
 			}
 		};
 		button.setAction(action);
-		button.registerKeyboardAction(action, KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(Introspect.getLanguageProvider().getText("Show Tabs Menu (F4)"));
-		button.setIcon(IconFactory.create(IntrospectImage.TABS, SwingStyleConstant.ICON_SIZE));
+		button.registerKeyboardAction(action,
+				KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
+		button.setToolTipText(Introspect.getLanguageProvider().getText(
+				"Show Tabs Menu (F4)"));
+		button.setIcon(IconFactory.create(IntrospectImage.TABS,
+				SwingStyleConstant.ICON_SIZE));
 		return button;
 	}
 
-	private JSplitPane createSplitPanel(Component menuTabPanel, Component contentTabPanel) {
-		JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuTabPanel, contentTabPanel);
+	private JSplitPane createSplitPanel(Component menuTabPanel,
+			Component contentTabPanel) {
+		JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				menuTabPanel, contentTabPanel);
 		splitPanel.setResizeWeight(0.25);
 		return splitPanel;
 	}
@@ -173,8 +221,10 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(false);
 		// set menu button
-		menuButton.setToolTipText(Introspect.getLanguageProvider().getText("Show Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_SHOW, SwingStyleConstant.ICON_SIZE));
+		menuButton.setToolTipText(Introspect.getLanguageProvider().getText(
+				"Show Menu (F2)"));
+		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_SHOW,
+				SwingStyleConstant.ICON_SIZE));
 	}
 
 	public void showMenu() {
@@ -183,8 +233,10 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(true);
 		// hide menu button
-		menuButton.setToolTipText(Introspect.getLanguageProvider().getText("Hide Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_HIDE, SwingStyleConstant.ICON_SIZE));
+		menuButton.setToolTipText(Introspect.getLanguageProvider().getText(
+				"Hide Menu (F2)"));
+		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_HIDE,
+				SwingStyleConstant.ICON_SIZE));
 	}
 
 	public boolean isMenuVisible() {

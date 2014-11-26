@@ -1,5 +1,6 @@
 package nth.introspect.provider.path;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import nth.introspect.util.StringUtil;
 
 public class DefaultPathProvider implements PathProvider {
 
+	private static final String BIN_FOLDER = "BIN";
+	private static final String JAR_EXTENTION = ".JAR";
 	private static final String PNG = ".png";
 	private static final String CONFIG_SUB_PATH = "configs";
 	private static final String DOCUMENT_SUB_PATH = "documents";
@@ -25,18 +28,36 @@ public class DefaultPathProvider implements PathProvider {
 	private HashMap<CharSequence, URI> existingImagePaths;
 	private HashMap<CharSequence, URI> noneExistingImagePaths;
 
-	public DefaultPathProvider(IntrospectApplication application) throws URISyntaxException {
-		this(application.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+	public DefaultPathProvider(IntrospectApplication application)
+			throws URISyntaxException {
+		this(createRootPath(application));
+	}
+
+	private static URI createRootPath(IntrospectApplication application)
+			throws URISyntaxException {
+		URI rootPathUri = application.getClass().getProtectionDomain()
+				.getCodeSource().getLocation().toURI();
+		File rootPath = new File(rootPathUri);
+		if (rootPath.getName().toUpperCase().contains(JAR_EXTENTION)) {
+			rootPath = rootPath.getParentFile();
+		} else if (rootPath.getName().toUpperCase().equals(BIN_FOLDER)) {
+			rootPath = rootPath.getParentFile();
+			rootPath=new File(rootPath.getAbsolutePath()+"/dist");
+		}
+		
+		return rootPath.toURI();
 	}
 
 	public DefaultPathProvider(URI rootPath) throws URISyntaxException {
 		this(rootPath, CONFIG_SUB_PATH, DOCUMENT_SUB_PATH, IMAGE_SUB_PATH);
 	}
 
-	public DefaultPathProvider(URI rootPath, String configSubPath, String documentSubPath, String imageSubPath) throws URISyntaxException {
+	public DefaultPathProvider(URI rootPath, String configSubPath,
+			String documentSubPath, String imageSubPath)
+			throws URISyntaxException {
 		this.rootPath = rootPath;
-		//this.configPath = createURI(rootPath, configSubPath);
-		this.configPath =rootPath;
+		// this.configPath = createURI(rootPath, configSubPath);
+		this.configPath = rootPath;
 		configPaths = new HashMap<String, URI>();
 		this.documenPath = createURI(rootPath, documentSubPath);
 		documentPaths = new HashMap<String, URI>();
@@ -45,7 +66,8 @@ public class DefaultPathProvider implements PathProvider {
 		noneExistingImagePaths = new HashMap<CharSequence, URI>();
 	}
 
-	public DefaultPathProvider(URI rootPath, URI configPath, URI documenPath, URI imagePath) {
+	public DefaultPathProvider(URI rootPath, URI configPath, URI documenPath,
+			URI imagePath) {
 		this.rootPath = rootPath;
 		this.configPath = configPath;
 		configPaths = new HashMap<String, URI>();
@@ -74,9 +96,9 @@ public class DefaultPathProvider implements PathProvider {
 				path = createURI(configPath, relativePath);
 			} catch (URISyntaxException e) {
 			}
-			//if (uriExists(path)) {
-				configPaths.put(relativePath, path);
-			//}
+			// if (uriExists(path)) {
+			configPaths.put(relativePath, path);
+			// }
 		}
 		return configPaths.get(relativePath);
 	}
@@ -108,7 +130,8 @@ public class DefaultPathProvider implements PathProvider {
 
 	@Override
 	public URI getImagePath(CharSequence identifier) {
-		if (identifier == null || noneExistingImagePaths.containsKey(identifier)) {
+		if (identifier == null
+				|| noneExistingImagePaths.containsKey(identifier)) {
 			return null;
 		}
 		if (existingImagePaths.containsKey(identifier)) {
@@ -121,7 +144,7 @@ public class DefaultPathProvider implements PathProvider {
 				uri = pathID.getPath();
 
 				// absolute path
-				if (uri!=null &&  !uriExists(uri)) {
+				if (uri != null && !uriExists(uri)) {
 					// absolute path with PNG extension
 					uri = new URI(uri.toString() + PNG);
 				}
@@ -137,7 +160,8 @@ public class DefaultPathProvider implements PathProvider {
 				}
 				if (!uriExists(uri)) {
 					// unified relativePath
-					relativePath = StringUtil.convertToCamelCase(relativePath, false);
+					relativePath = StringUtil.convertToCamelCase(relativePath,
+							false);
 					uri = createURI(imagePath, relativePath);
 				}
 				if (!uriExists(uri)) {
@@ -156,7 +180,8 @@ public class DefaultPathProvider implements PathProvider {
 		}
 	}
 
-	private URI createURI(URI rootPath, String pathAppendix) throws URISyntaxException {
+	private URI createURI(URI rootPath, String pathAppendix)
+			throws URISyntaxException {
 		String scheme = rootPath.getScheme();
 		String userInfo = rootPath.getUserInfo();
 		String host = rootPath.getHost();
