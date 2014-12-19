@@ -31,7 +31,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	private ValidationProvider validationProvider;
 
 	public UserInterfaceContainer(IntrospectApplication application) {
-		super(IntrospectContainer.class.getName(), new ServiceContainer(application));
+		super( new ServiceContainer(application));
 		this.application = application;
 		add(application.getUserInterfaceProviderClass());
 	}

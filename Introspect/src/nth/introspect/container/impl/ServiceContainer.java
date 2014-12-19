@@ -16,8 +16,7 @@ import nth.introspect.definition.ServiceLayer;
 public class ServiceContainer extends IntrospectContainer {
 
 	public ServiceContainer(IntrospectApplication application) {
-		super(ServiceContainer.class.getSimpleName(), new DomainContainer(
-				application));
+		super(new DomainContainer(application));
 
 		// add all service classes
 		List<Class<?>> serviceClasses = application.getServiceClasses();

@@ -12,17 +12,14 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
 public abstract class IntrospectContainer {
 
-	private final String name;
-	private IntrospectContainer innerContainer;
-	private HashMap<Class<?>, Object> typesAndInstances;
+	private final IntrospectContainer innerContainer;
+	private final HashMap<Class<?>, Object> typesAndInstances;
 
-	public IntrospectContainer(String layerName) {
-		this(layerName, null);
+	public IntrospectContainer() {
+		this( null);
 	}
 
-	public IntrospectContainer(String name, 
-			IntrospectContainer innerContainer) {
-		this.name = name;
+	public IntrospectContainer(IntrospectContainer innerContainer) {
 		this.innerContainer = innerContainer;
 		this.typesAndInstances = new HashMap<Class<?>, Object>();
 	}
@@ -105,7 +102,7 @@ public abstract class IntrospectContainer {
 	}
 
 	public String getName() {
-		return name;
+		return this.getClass().getSimpleName();
 	}
 
 }

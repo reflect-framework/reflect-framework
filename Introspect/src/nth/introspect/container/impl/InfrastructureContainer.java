@@ -12,8 +12,7 @@ import nth.introspect.definition.InfrastructureLayer;
 public class InfrastructureContainer extends IntrospectContainer {
 
 	public InfrastructureContainer(IntrospectApplication application) {
-		super(InfrastructureContainer.class.getSimpleName(),
-				new ProviderContainer(application));
+		super(new ProviderContainer(application));
 
 		add(application.getInfrastructureClasses());
 	}

@@ -12,7 +12,7 @@ import nth.introspect.definition.ProviderLayer;
 public class ProviderContainer extends IntrospectContainer {
 
 	public ProviderContainer(IntrospectApplication application) {
-		super(ProviderContainer.class.getSimpleName());
+		super();
 		
 		add(application);
 		

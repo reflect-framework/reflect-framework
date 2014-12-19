@@ -12,7 +12,7 @@ import nth.introspect.definition.DomainLayer;
 public class DomainContainer extends IntrospectContainer {
 	
 	public DomainContainer(IntrospectApplication application) {
-		super(DomainContainer.class.getSimpleName(), new InfrastructureContainer(application));
+		super(new InfrastructureContainer(application));
 	}
 
 }
