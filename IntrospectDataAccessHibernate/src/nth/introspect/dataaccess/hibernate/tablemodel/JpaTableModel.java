@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
 import nth.introspect.Introspect;
 import nth.introspect.dataaccess.hibernate.HibernateDataAccess;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
@@ -40,7 +41,7 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 	 * @param ejbQlSelect
 	 *            a Enterprise Java Bean Query Language expression without order clause! (i.e. select c from Customer c where ...)
 	 */
-	public JpaTableModel(HibernateDataAccess<?> dataAccessObject, Class<?> domainClass, String ejbQlSelect) {
+	public JpaTableModel(DomainInfoProvider domainInfoProvider, HibernateDataAccess<?> dataAccessObject, Class<?> domainClass, String ejbQlSelect) {
 		// get persistanceUnit (the ugly way, because normally its shielded from other classes like this one)
 		try {
 			Field field = dataAccessObject.getClass().getField("persistenceUnit");
@@ -78,7 +79,7 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 		// get column info
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		propertyInfos = domainInfoProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 		// Initialize fields
 		this.startPosition = 0;
 		this.items = getItems(startPosition, startPosition + CACHE_SIZE);

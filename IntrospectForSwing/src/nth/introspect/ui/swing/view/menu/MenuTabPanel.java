@@ -1,7 +1,7 @@
 package nth.introspect.ui.swing.view.menu;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.ui.swing.SwingUserinterfaceProvider;
 import nth.introspect.ui.swing.mainwindow.MainWindow;
 import nth.introspect.ui.swing.view.container.SwingViewContainer;
@@ -11,7 +11,7 @@ public class MenuTabPanel extends SwingViewContainer {
 	private static final long serialVersionUID = -3050106464316936346L;
 	private MenuView menuView;
 
-	public MenuTabPanel(IntrospectOuterContainer introspectouterContainer) {
+	public MenuTabPanel(UserInterfaceContainer introspectouterContainer) {
 		menuView = new MenuView(introspectouterContainer);
 		addView( menuView);
 	}

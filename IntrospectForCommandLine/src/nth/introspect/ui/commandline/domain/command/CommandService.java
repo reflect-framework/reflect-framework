@@ -11,7 +11,7 @@ import java.util.Map;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 
@@ -34,9 +34,9 @@ public class CommandService {
 		return null;
 	}
 
-	public static List<Command> getCommands(IntrospectOuterContainer outerContainer)
+	public static List<Command> getCommands(UserInterfaceContainer outerContainer)
 			throws IntrospectCommandLineException {
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider = outerContainer.getDomainInfoProvider();
 		List<Object> serviceObjects = outerContainer.getServiceObjects();
 
 		if (serviceObjects.size() == 0) {
@@ -54,7 +54,7 @@ public class CommandService {
 					.getMethodInfos(serviceClass);
 
 			for (MethodInfo methodInfo : methodInfos) {
-				Command command = new Command(serviceObject, methodInfo,
+				Command command = new Command(domainInfoProvider, serviceObject, methodInfo,
 						shortCommandName);
 				commands.add(command);
 			}

@@ -10,6 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.format.JavaFormatFactory;
 import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
@@ -30,7 +31,7 @@ public class MethodTableModel extends AbstractTableModel implements
 	private final ReadOnlyValueModel valueModel;
 	private Format format;
 
-	public MethodTableModel(ReadOnlyValueModel valueModel) {
+	public MethodTableModel(DomainInfoProvider domainInfoProvider, ReadOnlyValueModel valueModel) {
 		this.valueModel = valueModel;
 		Class<?> domainClass = valueModel.getValueType();
 
@@ -40,7 +41,7 @@ public class MethodTableModel extends AbstractTableModel implements
 		} else {
 			TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 			TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-			propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(
+			propertyInfos = domainInfoProvider.getPropertyInfos(
 					domainClass, propertyInfoFilter, propertyInfoComparator);
 		}
 		refresh();

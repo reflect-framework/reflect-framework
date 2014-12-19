@@ -32,7 +32,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class PdfReportProvider extends ReportProvider<Document> {
+public class PdfReportFactory extends ReportProvider<Document> {
 
 	private static final float HEADER_HEIGHT = 10;
 	private static final float FOOTER_HEIGHT = 20;
@@ -40,7 +40,12 @@ public class PdfReportProvider extends ReportProvider<Document> {
 	private static Font SMALL_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.NORMAL);
 	private static Font SMALL_FONT_BOLD = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
 	private ByteArrayOutputStream buffer;
+	private final DomainInfoProvider domainInfoProvider;
 
+	public PdfReportFactory( DomainInfoProvider domainInfoProvider) {
+		this.domainInfoProvider = domainInfoProvider;
+	}
+	
 	@Override
 	public Document createDocument(Report report) {
 		Document document = new Document();
@@ -84,12 +89,11 @@ public class PdfReportProvider extends ReportProvider<Document> {
 		// add properties as rows
 		Object domainObject = formSection.getIntrospectedObject();
 		Class<?> domainClass = domainObject.getClass();
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		
 		// get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			// add propertyName
@@ -126,7 +130,7 @@ public class PdfReportProvider extends ReportProvider<Document> {
 		//get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(introspectedClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(introspectedClass, propertyInfoFilter, propertyInfoComparator);
 				
 		// create table
 		PdfPTable pdfTable = new PdfPTable(propertyInfos.size());

@@ -1,5 +1,6 @@
 package nth.introspect.ui.valuemodel;
 
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.CloneUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
@@ -10,13 +11,15 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	private final Object domainObject;
 	private Object domainObjectCopy;
 	private boolean comitted;
-	private FormMode formMode;
+	private final FormMode formMode;
+	private final DomainInfoProvider domainInfoProvider;
 
-	public BufferedDomainValueModel(Object domainObject, FormMode formMode) {
+	public BufferedDomainValueModel(DomainInfoProvider domainInfoProvider, Object domainObject, FormMode formMode) {
+		this.domainInfoProvider = domainInfoProvider;
 		this.domainObject = domainObject;
 		this.formMode = formMode;
 		if (FormMode.EDIT_MODE==formMode) {
-			this.domainObjectCopy = CloneUtil.clone(domainObject); //Do not deep clone! Properties with a value object(s) (such as Customer) need to be the actual object and may not contain cloned objects! 
+			this.domainObjectCopy = CloneUtil.clone(domainInfoProvider, domainObject); //Do not deep clone! Properties with a value object(s) (such as Customer) need to be the actual object and may not contain cloned objects! 
 		}
 		comitted=false;
 	}
@@ -41,7 +44,7 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	 */
 	public void commit() {
 		//copy all property values of domainObjectCopy to domainObject
-		CloneUtil.clone(domainObjectCopy, domainObject);
+		CloneUtil.clone(domainInfoProvider, domainObjectCopy, domainObject);
 		//set committed flag
 		comitted=true;
 	}

@@ -7,7 +7,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
@@ -42,10 +42,12 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
-	private final IntrospectOuterContainer introspectOuterContainer;
+	private final UserInterfaceContainer introspectOuterContainer;
+	private final DomainInfoProvider domainInfoProvider;
 
-	public AbstractUserinterfaceProvider(IntrospectOuterContainer introspectOuterContainer) {
+	public AbstractUserinterfaceProvider(UserInterfaceContainer introspectOuterContainer) {
 		this.introspectOuterContainer = introspectOuterContainer;
+		this.domainInfoProvider = introspectOuterContainer.getDomainInfoProvider();
 	}
 	
 	@Override
@@ -67,7 +69,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 				break;
 			}
 		} catch (Exception exception) {
-			String title = TitleUtil.createTitle(methodInfo,
+			String title = TitleUtil.createTitle(domainInfoProvider, methodInfo,
 					methodParameterValue, true);
 			String message = Introspect.getLanguageProvider().getText(
 					"Failed to execute.");
@@ -102,7 +104,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		String title = languageProvider.getText("Confirmation");
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to: "));
-		message.append(TitleUtil.createTitle(methodInfo, methodParameterValue,
+		message.append(TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue,
 				false));
 		message.append("?");
 
@@ -119,7 +121,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		// executed (if invalid: throw exception)
 
 		// show ProgressDialog
-		String title = TitleUtil.createTitle(methodInfo, methodParameterValue,
+		String title = TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue,
 				true);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
@@ -199,7 +201,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 							.showMethodReturnValue(serviceObject, methodInfo,
 									methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
-					String title = TitleUtil.createTitle(methodInfo,
+					String title = TitleUtil.createTitle(domainInfoProvider, methodInfo,
 							methodParameterValue, true);
 					String message = Introspect.getLanguageProvider().getText(
 							"Failed to execute.");
@@ -216,7 +218,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 	public void showMethodReturnValue(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		String title = TitleUtil.createTitle(methodInfo, methodParameterValue,
+		String title = TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue,
 				true);
 		switch (methodInfo.getReturnType().getTypeCategory()) {
 		case NONE:// void
@@ -252,8 +254,6 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 					String methodName = uriString
 							.substring(positionLastDot + 1);
 					Class<?> serviceClass = Class.forName(serviceClassName);
-					DomainInfoProvider domainInfoProvider = Introspect
-							.getDomainInfoProvider();
 					Object serviceObject2 =getIntrospectOuterContainer().get(serviceClass);
 					List<MethodInfo> methodInfos = domainInfoProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
@@ -415,7 +415,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		}
 	}
 
-	public IntrospectOuterContainer getIntrospectOuterContainer() {
+	public UserInterfaceContainer getIntrospectOuterContainer() {
 		return introspectOuterContainer;
 	}
 

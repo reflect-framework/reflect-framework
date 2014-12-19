@@ -6,7 +6,7 @@ import java.util.List;
 import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.Filter;
 import nth.introspect.filter.LogicFilter;
@@ -33,13 +33,13 @@ import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class ItemFactory {
 
-	public static List<MethodOwnerItem> createMenuViewItems(IntrospectOuterContainer introspectOuterContainer) {
+	public static List<MethodOwnerItem> createMenuViewItems(UserInterfaceContainer introspectOuterContainer) {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
 		List<Object> serviceObjects = introspectOuterContainer.getServiceObjects();
 
 		for (Object serviceObject : serviceObjects) {
-			MethodOwnerItem item = new MethodOwnerItem(serviceObject,
+			MethodOwnerItem item = new MethodOwnerItem(introspectOuterContainer, serviceObject,
 					new NoParameterOrParameterFactoryFilter(), null);
 			items.add(item);
 		}
@@ -58,7 +58,7 @@ public class ItemFactory {
 		Object serviceObject = formView.getMethodOwner();
 
 		// add property methods
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider = formView.getIntrospectOuterContainer().getDomainInfoProvider();
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
@@ -83,7 +83,7 @@ public class ItemFactory {
 				parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
-		IntrospectOuterContainer introspectOuterContainer=formView.getIntrospectOuterContainer();
+		UserInterfaceContainer introspectOuterContainer=formView.getIntrospectOuterContainer();
 		items.addAll(createServiceObjectItems(introspectOuterContainer, serviceObject, parameterModel,
 				filter));
 
@@ -121,21 +121,21 @@ public class ItemFactory {
 		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
 				new ParameterTypeFilter(domainType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
-		IntrospectOuterContainer introspectOuterContainer=tableView.getIntrospectOuterContainer();
+		UserInterfaceContainer introspectOuterContainer=tableView.getIntrospectOuterContainer();
 		items.addAll(createServiceObjectItems(introspectOuterContainer , serviceObject, parameterModel,
 				filter));
 
 		return items;
 	}
 
-	private static List<MethodOwnerItem> createServiceObjectItems(IntrospectOuterContainer introspectOuterContainer,
+	private static List<MethodOwnerItem> createServiceObjectItems(UserInterfaceContainer introspectOuterContainer,
 			Object serviceObjectToStartWith, ReadOnlyValueModel parameterModel,
 			Filter<MethodInfo> filter) {
 
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
 		// create MethodOwnerItem for first service object
-		MethodOwnerItem item = new MethodOwnerItem(serviceObjectToStartWith,
+		MethodOwnerItem item = new MethodOwnerItem(introspectOuterContainer, serviceObjectToStartWith,
 				filter, parameterModel);
 		items.add(item);
 
@@ -144,7 +144,7 @@ public class ItemFactory {
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 
-				item = new MethodOwnerItem(serviceObject, filter,
+				item = new MethodOwnerItem(introspectOuterContainer,serviceObject, filter,
 						parameterModel);
 				items.add(item);
 			}

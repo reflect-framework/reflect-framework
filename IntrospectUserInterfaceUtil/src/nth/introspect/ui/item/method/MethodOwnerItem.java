@@ -3,6 +3,7 @@ package nth.introspect.ui.item.method;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.filter.Filter;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
@@ -16,9 +17,9 @@ public class MethodOwnerItem extends HierarchicalItem {
 	private ClassInfo methodOwnerInfo;
 	private final Object methodOwner;
 
-	public MethodOwnerItem(Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
+	public MethodOwnerItem(UserInterfaceContainer introspectOuterContainer, Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		this.methodOwner = methodOwner;
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider = introspectOuterContainer.getDomainInfoProvider();
 		methodOwnerInfo = domainInfoProvider.getClassInfo(methodOwner.getClass());
 		
 		setText(methodOwnerInfo.getText());

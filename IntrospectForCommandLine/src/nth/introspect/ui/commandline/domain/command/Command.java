@@ -7,6 +7,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.filter.Filter;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.FormOrderComparator;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
@@ -18,17 +19,17 @@ public class Command {
 	private MethodInfo methodInfo;
 	private List<Parameter> parameters;
 
-	public Command(Object serviceObject, MethodInfo methodInfo, boolean shortCommand) throws IntrospectCommandLineException {
+	public Command(DomainInfoProvider domainInfoProvider, Object serviceObject, MethodInfo methodInfo, boolean shortCommand) throws IntrospectCommandLineException {
 		this.serviceObject = serviceObject;
 		this.methodInfo = methodInfo;
 		// name
 		this.name = createName(serviceObject, methodInfo, shortCommand);
 		// parameters
-		parameters = createParameters(methodInfo);
+		parameters = createParameters(domainInfoProvider, methodInfo);
 
 	}
 
-	private List<Parameter> createParameters(MethodInfo methodInfo) throws IntrospectCommandLineException {
+	private List<Parameter> createParameters(DomainInfoProvider domainInfoProvider, MethodInfo methodInfo) throws IntrospectCommandLineException {
 		List<Parameter> parameters = new ArrayList<Parameter>();
 		Class<?> parameterClass = methodInfo.getParameterType().getType();
 
@@ -38,7 +39,7 @@ public class Command {
 			Filter<PropertyInfo> propertyInfoFilter = new CommandLineParameterFilter();
 			FormOrderComparator propertyInfoComparator = new FormOrderComparator();
 			Class<?> returnClass = methodInfo.getParameterType().getTypeOrGenericCollectionType();
-			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+			List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 			
 			for (PropertyInfo propertyInfo : propertyInfos) {

@@ -21,8 +21,10 @@ import nth.introspect.util.TypeUtil;
 public class ClassDiagramService {
 
 	private final List<Class<?>> serviceClasses;
+	private final DomainInfoProvider domainInfoProvider;
 
-	public ClassDiagramService() {
+	public ClassDiagramService(DomainInfoProvider domainInfoProvider ) {
+		this.domainInfoProvider = domainInfoProvider;
 		serviceClasses = new ArrayList<Class<?>>();
 		serviceClasses.add(Introspect.class);
 		serviceClasses.add(TestsService.class);
@@ -46,7 +48,7 @@ public class ClassDiagramService {
 		int maxValue = serviceClasses.size();
 		for (Class<?> serviceClass : serviceClasses) {
 			userInterfacePort.showProgressDialog("Finding classes", index, maxValue);
-			getReferencedClasses(serviceClass, foundClasses);
+			getReferencedClasses(domainInfoProvider, serviceClass, foundClasses);
 			index++;
 		}
 
@@ -68,26 +70,25 @@ public class ClassDiagramService {
 		return classFeatures;
 	}
 
-	private void getReferencedClasses(Class<? extends Object> clazz, Set<Class<?>> foundClasses) {
+	private void getReferencedClasses(DomainInfoProvider domainInfoProvider, Class<? extends Object> clazz, Set<Class<?>> foundClasses) {
 		if (clazz != null && !foundClasses.contains(clazz) && !TypeUtil.isJavaType(clazz) && !TypeUtil.isVoidType(clazz)) {
 			foundClasses.add(clazz);
 			System.out.println(clazz.getCanonicalName());
 
-			DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 
 			List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(clazz);
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Class<?> propertyType = propertyInfo.getPropertyType().getType();
-				getReferencedClasses(propertyType, foundClasses);// recursive call
+				getReferencedClasses(domainInfoProvider, propertyType, foundClasses);// recursive call
 			}
 
 			List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(clazz);
 			for (MethodInfo methodInfo : methodInfos) {
 				Class<?> returnType = methodInfo.getReturnType().getTypeOrGenericCollectionType();
-				getReferencedClasses(returnType, foundClasses);// recursive call
+				getReferencedClasses(domainInfoProvider, returnType, foundClasses);// recursive call
 
 				Class<?> parameterType = methodInfo.getParameterType().getTypeOrGenericCollectionType();
-				getReferencedClasses(parameterType, foundClasses);// recursive call
+				getReferencedClasses(domainInfoProvider, parameterType, foundClasses);// recursive call
 			}
 		}
 	}
@@ -105,7 +106,7 @@ public class ClassDiagramService {
 			// a method without a return value (void) or without a parameter does not have a type!
 			throw new RuntimeException(classFeature.toString() + " does not have a type reference.");
 		} else {
-			ClassDiagram classDiagram = new ClassDiagram(introspectedClass);
+			ClassDiagram classDiagram = new ClassDiagram(domainInfoProvider, introspectedClass);
 			return classDiagram;
 		}
 	}

@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
@@ -22,8 +23,10 @@ public class DefaultLanguageProvider implements LanguageProvider {
 	private ResourceBundleClassLoader resourceBundleClassLoader;
 	private Locale defaultLocale = Locale.ENGLISH;// TODO move to constructor?
 	private final String LANGUAGE_FILE_COMMENTS;
+	private final DomainInfoProvider domainInfoProvider;
 
-	public DefaultLanguageProvider() {
+	public DefaultLanguageProvider(DomainInfoProvider domainInfoProvider) {
+		this.domainInfoProvider = domainInfoProvider;
 		resourceBundleClassLoader = new ResourceBundleClassLoader();
 		LANGUAGE_FILE_COMMENTS = getLanguageFileComments();
 	}
@@ -100,7 +103,7 @@ public class DefaultLanguageProvider implements LanguageProvider {
 	 */
 	public Properties getDefaultProperties(Class<?> domainOrServiceClass) {
 		Properties properties = new Properties();
-		for (PropertyInfo propertyInfo : Introspect.getDomainInfoProvider().getPropertyInfos(domainOrServiceClass)) {
+		for (PropertyInfo propertyInfo : domainInfoProvider.getPropertyInfos(domainOrServiceClass)) {
 			ValueModels valueModels = propertyInfo.getValueModels();
 			for (String name : valueModels.keySet()) {
 				ReadOnlyValueModel valueModel = valueModels.get(name);

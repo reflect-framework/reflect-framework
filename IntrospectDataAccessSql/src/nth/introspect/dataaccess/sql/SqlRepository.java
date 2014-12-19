@@ -94,12 +94,11 @@ public abstract  class SqlRepository implements DataAccessProvider<Object> {
 	}
 	
 	
-	public List<?> getResultList(String sql, Class<?> domainClass) throws Exception {
+	public List<?> getResultList(DomainInfoProvider domainInfoProvider, String sql, Class<?> domainClass) throws Exception {
 		Statement statement = executeSQL(sql);
 		ResultSet resultSet = statement.getResultSet();
 		List<Object> results = new ArrayList<Object>();
 
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		Map<String, PropertyInfo> propertyInfos = new HashMap<String, PropertyInfo>();
 		ResultSetMetaData meta = resultSet.getMetaData();
 		int numColumns = meta.getColumnCount();

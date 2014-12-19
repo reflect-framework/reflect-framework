@@ -1,5 +1,6 @@
 package nth.introspect.provider.domain.info.method;
 
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,14 +14,14 @@ import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModel
 import nth.introspect.util.StringUtil;
 
 public class MethodInfoFactory {
-
-	public static List<MethodInfo> create(Class<?> introspectedClass) {
+	
+	public static List<MethodInfo> create(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass) {
 		ArrayList<MethodInfo> methodInfos = new ArrayList<MethodInfo>();
 		try {
-			List<String> propertyNames = getPropertyNames(introspectedClass);
+			List<String> propertyNames = getPropertyNames(domainInfoProvider, introspectedClass);
 
 			Method[] methods = introspectedClass.getMethods();
-			List<String> unwantedMethodNames = getUnwantedMethodNames(introspectedClass);
+			List<String> unwantedMethodNames = getUnwantedMethodNames(domainInfoProvider, introspectedClass);
 			for (Method method : methods) {
 				if (!unwantedMethodNames.contains(method.getName())) {
 					String linkedPropertyName = findLinkedPropertyName(method, propertyNames);
@@ -48,9 +49,8 @@ public class MethodInfoFactory {
 		return linkedPropertyName;
 	}
 
-	public static List<String> getPropertyNames(Class<?> introspectedClass) {
-		DomainInfoProvider domaininfoProvider = Introspect.getDomainInfoProvider();
-		List<PropertyInfo> propertyInfos = domaininfoProvider.getPropertyInfos(introspectedClass);
+	public static List<String> getPropertyNames(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass ) {
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(introspectedClass);
 		List<String> propertyNames = new ArrayList<String>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			propertyNames.add(propertyInfo.getName());
@@ -58,7 +58,7 @@ public class MethodInfoFactory {
 		return propertyNames;
 	}
 
-	private static List<String> getUnwantedMethodNames(Class<?> introspectedClass) {
+	private static List<String> getUnwantedMethodNames(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass) {
 		ArrayList<String> unwantedMethodNames = new ArrayList<String>();
 		// add property read method names
 		try {
@@ -67,7 +67,7 @@ public class MethodInfoFactory {
 				String unwantedMethodName = MethodValueModelFactory.createMethodName(introspectedClass.getSimpleName(), suffix);
 				unwantedMethodNames.add(unwantedMethodName.toString());
 			}
-			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(introspectedClass);
+			List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(introspectedClass);
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				try {
 					String propertyName = propertyInfo.getName();

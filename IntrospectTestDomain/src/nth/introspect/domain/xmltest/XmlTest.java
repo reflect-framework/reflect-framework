@@ -15,7 +15,7 @@ import nth.introspect.provider.path.DefaultPathProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
-import nth.introspect.util.xml.XmlUtil;
+import nth.introspect.util.xml.XmlConverter;
 
 public class XmlTest {
 
@@ -75,10 +75,10 @@ public class XmlTest {
 //
 //		PersonService personService=new PersonService();
 //		try {
-//			String xml = XmlUtil.marshal(personService.allPersons(), true);
+//			String xml = XmlConverter.marshal(personService.allPersons(), true);
 //			System.out.println(xml);
 //			
-//			Collection<?> objects = XmlUtil.unmarshal(xml);//TODO does not work with new approach
+//			Collection<?> objects = XmlConverter.unmarshal(xml);//TODO does not work with new approach
 //			System.out.println(objects);
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block

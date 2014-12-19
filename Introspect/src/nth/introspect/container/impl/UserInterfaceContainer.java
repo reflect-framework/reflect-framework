@@ -1,9 +1,11 @@
-package nth.introspect.container;
+package nth.introspect.container.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
+import nth.introspect.container.IntrospectContainer;
+import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
@@ -12,7 +14,12 @@ import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
-public class IntrospectOuterContainer extends IntrospectContainer {
+/**
+ * See {@link UserInterfaceLayer}
+ * @author nilsth
+ *
+ */
+public class UserInterfaceContainer extends IntrospectContainer {
 
 	private LanguageProvider languageProvider;
 	private AuthorizationProvider authorizationProvider;
@@ -23,11 +30,10 @@ public class IntrospectOuterContainer extends IntrospectContainer {
 	private AboutProvider aboutProvider;
 	private ValidationProvider validationProvider;
 
-	public IntrospectOuterContainer(String layerName,
-			IntrospectApplication application,
-			IntrospectContainer innerContainer) {
-		super(layerName, innerContainer);
+	public UserInterfaceContainer(IntrospectApplication application) {
+		super(IntrospectContainer.class.getName(), new ServiceContainer(application));
 		this.application = application;
+		add(application.getUserInterfaceProviderClass());
 	}
 
 	public List<Object> getServiceObjects() {
@@ -44,7 +50,7 @@ public class IntrospectOuterContainer extends IntrospectContainer {
 	public List<Class<?>> getAllClasses() {
 		List<Class<?>> allClasses = super.getAllClasses();
 		allClasses.remove(IntrospectContainer.class);
-		allClasses.add(IntrospectOuterContainer.class);
+		allClasses.add(UserInterfaceContainer.class);
 		return allClasses;
 	}
 

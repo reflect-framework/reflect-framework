@@ -14,8 +14,7 @@ public class DomainObjectFormat extends Format {
 	private static final long serialVersionUID = -6884382558884383775L;
 	private ClassInfo classInfo;
 
-	public DomainObjectFormat(Class<?> domainClass) {
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+	public DomainObjectFormat(DomainInfoProvider domainInfoProvider, Class<?> domainClass) {
 		classInfo = domainInfoProvider.getClassInfo(domainClass);
 	}
 

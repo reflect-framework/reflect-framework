@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.type.PropertyType;
 import nth.introspect.provider.domain.info.type.TypeCategory;
@@ -64,7 +65,7 @@ public class PropertyInfo implements IntrospectionInfo {
 	private final PropertyType propertyType;
 	private Format format;
 
-	public PropertyInfo(Method readMethod) {
+	public PropertyInfo(DomainInfoProvider domainInfoProvider, Method readMethod) {
 		if (readMethod.getReturnType() == Void.class) {
 			throw new RuntimeException("Method: "
 					+ readMethod.getClass().getCanonicalName() + "."
@@ -147,7 +148,7 @@ public class PropertyInfo implements IntrospectionInfo {
 		}
 
 		//create formater
-		format = new PropertyInfoFormatFactory().create(this);
+		format = new PropertyInfoFormatFactory(domainInfoProvider).create(this);
 	}
 
 	public PropertyType getPropertyType() {

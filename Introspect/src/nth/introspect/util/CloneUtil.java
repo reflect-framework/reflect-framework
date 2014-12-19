@@ -17,10 +17,9 @@ public class CloneUtil {
 	 *            object that will receive the property values of the sourceObject
 	 * @return the destinationObject with the property values of the sourceObject
 	 */
-	public static Object clone(Object sourceObject, Object destinationObject) {
+	public static Object clone(DomainInfoProvider domainInfoProvider, Object sourceObject, Object destinationObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		Class<?> destinationClass = destinationObject.getClass();
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(sourceClass);
 		for (PropertyInfo sourcePropertyInfo : propertyInfos) {
 			PropertyInfo destinationPropertyInfo = domainInfoProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getName());
@@ -38,14 +37,15 @@ public class CloneUtil {
 	 * 
 	 * @param sourceObject
 	 *            object to be instantiated and copied
+	 * @param domainInfoProvider 
 	 * @return the instantiated with the property values of the sourceObject
 	 */
 
-	public static Object clone(Object sourceObject) {
+	public static Object clone( DomainInfoProvider domainInfoProvider, Object sourceObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		try {
 			Object destinationObject = sourceClass.newInstance();
-			return clone(sourceObject, destinationObject);
+			return clone(domainInfoProvider, sourceObject, destinationObject);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

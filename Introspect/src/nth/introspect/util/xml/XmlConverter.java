@@ -30,19 +30,26 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class XmlUtil {
+import com.sun.xml.internal.ws.util.xml.XmlUtil;
+
+public class XmlConverter {
 
 	private static final String INTROSPECT = Introspect.class.getSimpleName();
 	private static final String ID = "id";
 	private static DefaultMatcher XML_TRANSFORM_MATCHER = new DefaultMatcher(null);
+	private final DomainInfoProvider domainInfoProvider;
 
+	public XmlConverter(DomainInfoProvider domainInfoProvider) {
+		this.domainInfoProvider = domainInfoProvider;
+	}
+	
 	/**
 	 * Parses a XML string to a Document Object Model (DOM)<br>
 	 * See http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
 	 * 
 	 * @throws Exception
 	 */
-	public static Document parse(String xml) throws Exception {
+	public  Document parse(String xml) throws Exception {
 		InputStream inputStream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -60,7 +67,7 @@ public class XmlUtil {
 	 * 
 	 * @throws Exception
 	 */
-	public static String print(Document document, boolean indent) throws Exception {
+	public  String print(Document document, boolean indent) throws Exception {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		if (indent) {
@@ -80,12 +87,12 @@ public class XmlUtil {
 		return sb.toString();
 	}
 
-	public static String marshal(Object object, boolean indent) throws Exception {
+	public  String marshal(Object object, boolean indent) throws Exception {
 		Document document = marshal(object);
 		return print(document, indent);
 	}
 
-	public static Document marshal(Object object) throws Exception {
+	public  Document marshal(Object object) throws Exception {
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -118,7 +125,7 @@ public class XmlUtil {
 
 
 
-	private static Element marshal(Document document, Element parentElement, Object objectToMarshal, List<Object> marshaledObjects) {
+	private  Element marshal( Document document, Element parentElement, Object objectToMarshal, List<Object> marshaledObjects) {
 		// create an element that represents an object
 		Element objectElement = document.createElement(objectToMarshal.getClass().getCanonicalName());
 		objectElement.setAttribute(ID, Integer.toString(objectToMarshal.hashCode()));
@@ -131,7 +138,7 @@ public class XmlUtil {
 			// remember the objects that where marshaled so we do not have to do them twice.
 			marshaledObjects.add(objectToMarshal);
 
-			List<PropertyInfo> properyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(objectToMarshal.getClass());
+			List<PropertyInfo> properyInfos = domainInfoProvider.getPropertyInfos(objectToMarshal.getClass());
 			for (PropertyInfo propertyInfo : properyInfos) {
 
 				Object propertyValue = propertyInfo.getValue(objectToMarshal);
@@ -164,12 +171,12 @@ public class XmlUtil {
 
 	}
 
-	public static Collection<?> unmarshal(String xml) throws Exception {
+	public  Collection<?> unmarshal(String xml) throws Exception {
 		Document document = parse(xml);
 		return unmarshal(document, false);
 	}
 
-	public static Object unmarshalFirst(String xml) throws Exception {
+	public  Object unmarshalFirst(String xml) throws Exception {
 		Document document = parse(xml);
 		Collection<?> collection = unmarshal(document, true);
 		if (collection.isEmpty()) {
@@ -179,7 +186,7 @@ public class XmlUtil {
 		}
 	}
 
-	public static Collection<?> unmarshal(Document document, boolean firstObjectOnly) throws Exception {
+	public  Collection<?> unmarshal(Document document, boolean firstObjectOnly) throws Exception {
 		// get root element
 		List<Object> rootObjects = new ArrayList<Object>();
 		Map<String, Object> unMarshaledObjects = new HashMap<String, Object>();
@@ -211,7 +218,7 @@ public class XmlUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	private static Object unmarshalObject(Element objectElement, Map<String, Object> unMarshaledObjects) throws Exception {
+	private  Object unmarshalObject(Element objectElement, Map<String, Object> unMarshaledObjects) throws Exception {
 		String id = objectElement.getAttribute(ID);
 		// see if we already un-marshaled the object
 		Object object = unMarshaledObjects.get(id);
@@ -225,7 +232,7 @@ public class XmlUtil {
 			unMarshaledObjects.put(id, object);
 
 			// get PropertyInfos
-			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(object.getClass());
+			List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(object.getClass());
 			// get property Elements
 			List<Element> propertyElements = getChildElements(objectElement);
 
@@ -241,7 +248,7 @@ public class XmlUtil {
 		return object;
 	}
 
-	private static Object unMarshalProperty(PropertyInfo propertyInfo, List<Element> propertyElements, Map<String, Object> unMarshaledObjects) throws Exception {
+	private  Object unMarshalProperty(PropertyInfo propertyInfo, List<Element> propertyElements, Map<String, Object> unMarshaledObjects) throws Exception {
 		Element propertyElement = findFirstElement(propertyElements, propertyInfo.getName());
 		Object propertyValue = null;
 		if (propertyElement != null) {
@@ -262,7 +269,7 @@ public class XmlUtil {
 		return propertyValue;
 	}
 
-	public static Object unMarshalPropertyOfCollectionType(Map<String, Object> unMarshaledObjects, Element propertyElement, Object propertyValue, Class<?> propertyType) throws Exception {
+	public  Object unMarshalPropertyOfCollectionType(Map<String, Object> unMarshaledObjects, Element propertyElement, Object propertyValue, Class<?> propertyType) throws Exception {
 		List<Element> collectionElements = getChildElements(propertyElement);
 		if (List.class.isAssignableFrom(propertyType)) {
 			// create a new list
@@ -283,7 +290,7 @@ public class XmlUtil {
 		return propertyValue;
 	}
 
-	public static Object unMarshalPropertyOfDomainType(Element propertyElement, Map<String, Object> unMarshaledObjects) throws Exception {
+	public  Object unMarshalPropertyOfDomainType(Element propertyElement, Map<String, Object> unMarshaledObjects) throws Exception {
 		List<Element> domainObjectElements = getChildElements(propertyElement);
 		Object propertyValue = null;
 		if (domainObjectElements.size() == 1) {// size must be 0 or 1
@@ -294,7 +301,7 @@ public class XmlUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Object unMarshalPropertyOfJavaType(Node propertyElement, PropertyInfo propertyInfo) {
+	private  Object unMarshalPropertyOfJavaType(Node propertyElement, PropertyInfo propertyInfo) {
 		String value = propertyElement.getTextContent();
 
 		// unify type to complex type
@@ -313,7 +320,7 @@ public class XmlUtil {
 				message.append(" for property: ");
 				message.append(propertyInfo.getNamePath());
 				message.append(" is not supported in ");
-				message.append(XmlUtil.class.getCanonicalName());
+				message.append(XmlConverter.class.getCanonicalName());
 				throw new RuntimeException(message.toString());
 			} else {
 				StringBuffer message = new StringBuffer("Error converting type: ");
@@ -321,7 +328,7 @@ public class XmlUtil {
 				message.append(" for property: ");
 				message.append(propertyInfo.getNamePath());
 				message.append("  in ");
-				message.append(XmlUtil.class.getCanonicalName());
+				message.append(XmlConverter.class.getCanonicalName());
 				throw new RuntimeException(message.toString());
 			}
 		}
@@ -329,7 +336,7 @@ public class XmlUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static String printElementValue(Class<?> type, Object value) {
+	private  String printElementValue(Class<?> type, Object value) {
 		// unify type to complex type
 		type = TypeUtil.getComplexType(type);
 		// get xml transformer and transform value
@@ -342,19 +349,19 @@ public class XmlUtil {
 				StringBuffer message = new StringBuffer("Type: ");
 				message.append(type.getCanonicalName());
 				message.append(" is not supported in ");
-				message.append(XmlUtil.class.getCanonicalName());
+				message.append(XmlConverter.class.getCanonicalName());
 				throw new RuntimeException(message.toString());
 			} else {
 				StringBuffer message = new StringBuffer("Error converting type: ");
 				message.append(type.getCanonicalName());
 				message.append("  in ");
-				message.append(XmlUtil.class.getCanonicalName());
+				message.append(XmlConverter.class.getCanonicalName());
 				throw new RuntimeException(message.toString());
 			}
 		}
 	}
 
-	private static Element findFirstElement(List<Element> elements, String tagNameToFind) {
+	private  Element findFirstElement(List<Element> elements, String tagNameToFind) {
 		for (Element element : elements) {
 			if (element.getTagName().equals(tagNameToFind)) {
 				return element;
@@ -363,7 +370,7 @@ public class XmlUtil {
 		return null;// not found
 	}
 
-	private static List<Element> getChildElements(Element parentElement) {
+	private  List<Element> getChildElements(Element parentElement) {
 		List<Element> childElements = new ArrayList<Element>();
 		NodeList propertyNodes = parentElement.getChildNodes();
 		for (int index = 0; index < propertyNodes.getLength(); index++) {

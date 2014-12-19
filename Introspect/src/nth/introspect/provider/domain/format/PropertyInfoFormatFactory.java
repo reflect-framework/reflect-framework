@@ -7,11 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.util.converterfactory.ConverterFactory;
 
 public class PropertyInfoFormatFactory extends ConverterFactory<Format, PropertyInfo> {
 
+	private DomainInfoProvider domainInfoProvider;
+
+	public PropertyInfoFormatFactory(DomainInfoProvider domainInfoProvider) {
+		this.domainInfoProvider = domainInfoProvider;
+	}
+	
 	/**
 	 * This method should only called by {@link PropertyInfo} so that the format
 	 * cashed!!!
@@ -37,9 +44,9 @@ public class PropertyInfoFormatFactory extends ConverterFactory<Format, Property
 	}
 
 	@Override
-	public Format createDomainConverter(PropertyInfo propertyInfo) {
+	public Format createDomainConverter( PropertyInfo propertyInfo) {
 		Class<?> propertyType = propertyInfo.getPropertyType().getType();
-		return new DomainObjectFormat(propertyType);
+		return new DomainObjectFormat(domainInfoProvider, propertyType);
 	}
 
 	@Override

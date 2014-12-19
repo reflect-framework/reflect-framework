@@ -18,7 +18,8 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
@@ -43,9 +44,10 @@ public class TableView extends SwingView implements
 	private PopupMenu menuPopUp;
 	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
-	private final IntrospectOuterContainer introspectOuterContainer;
+	private final UserInterfaceContainer introspectOuterContainer;
+	private final DomainInfoProvider domainInfoProvider;
 
-	public TableView(IntrospectOuterContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
+	public TableView(UserInterfaceContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
 		this.introspectOuterContainer = introspectOuterContainer;
 		this.methodOwner = methodOwner;
@@ -54,7 +56,8 @@ public class TableView extends SwingView implements
 
 		setLayout(new BorderLayout());
 
-		tableModel = new MethodTableModel(getAllRowsModel());
+		domainInfoProvider= introspectOuterContainer.getDomainInfoProvider();
+		tableModel = new MethodTableModel(domainInfoProvider, getAllRowsModel());
 		table = createTable(tableModel);
 		JScrollPane tableContainer = new JScrollPane(table);
 		tableContainer.getViewport().setBackground(table.getBackground());
@@ -138,12 +141,12 @@ public class TableView extends SwingView implements
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(methodInfo, methodParameterValue, true);
+		return TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue, true);
 	}
 
 	@Override
 	public String getViewDescription() {
-		return TitleUtil.createTitle(methodInfo, methodParameterValue, false);
+		return TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue, false);
 	}
 
 	@Override
@@ -282,7 +285,7 @@ public class TableView extends SwingView implements
 	}
 
 	@Override
-	public IntrospectOuterContainer getIntrospectOuterContainer() {
+	public UserInterfaceContainer getIntrospectOuterContainer() {
 		return introspectOuterContainer;
 	}
 

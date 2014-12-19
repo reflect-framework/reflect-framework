@@ -23,7 +23,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
@@ -43,10 +43,10 @@ public class MainWindow extends JFrame {
 	private MenuTabPanel menuTabPanel;
 	private SwingViewContainer contentTabPanel;
 	private JButton menuButton;
-	private final IntrospectOuterContainer introspectOuterContainer;
+	private final UserInterfaceContainer introspectOuterContainer;
 
 	public MainWindow(IntrospectApplication application,
-			IntrospectOuterContainer introspectOuterContainer) {
+			UserInterfaceContainer introspectOuterContainer) {
 		this.introspectOuterContainer = introspectOuterContainer;
 		// Set style
 		try {
@@ -73,8 +73,7 @@ public class MainWindow extends JFrame {
 		getContentPane().add(splitPanel, BorderLayout.CENTER);
 
 		menuButton = createMenuButton();
-		JButton aboutButton = createAboutButton(introspectOuterContainer
-				.getAboutProvider());
+		JButton aboutButton = createAboutButton();
 		JButton findButton = createFindButton(menuTabPanel);
 		JButton tabButton = createTabButton(menuTabPanel);
 		JToolBar toolbar = createToolBar(aboutButton, menuButton, findButton,
@@ -116,8 +115,8 @@ public class MainWindow extends JFrame {
 		return toolBar;
 	}
 
-	private JButton createAboutButton(AboutProvider aboutProvider) {
-		AboutItem aboutItem = new AboutItem(aboutProvider);
+	private JButton createAboutButton() {
+		AboutItem aboutItem = new AboutItem(introspectOuterContainer);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;

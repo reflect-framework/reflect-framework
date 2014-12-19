@@ -5,10 +5,10 @@ import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.IntrospectOuterContainer;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.container.exception.MissingServiceClassException;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.definition.DomainLayer;
 import nth.introspect.definition.InfrastructureLayer;
 import nth.introspect.definition.ServiceLayer;
@@ -121,35 +121,22 @@ import nth.introspect.provider.validation.ValidationProvider;
  *         >The clean architecture</a>
  */
 
-//TODO remove the need for static lookups
-// TODO Introspect as object with IntrospectApplication as constructor parameter (replace initializer and start methods)
+// TODO remove the need for static lookups
+// TODO Introspect as object with IntrospectApplication as constructor parameter
+// (replace initializer and start methods)
 // TODO rename Introspect to Reflect and ReflectFramework
 // TODO update javadoc (or refer to web site)
 public class Introspect {
 
 	private static IntrospectContainer introspectContainer;
-//	private static ValidationProvider validationProvider;
 	private static PathProvider pathProvider;
 	private static LanguageProvider languageProvider;
-	private static DomainInfoProvider domainInfoProvider;
+	// private static DomainInfoProvider domainInfoProvider;
 	private static UserInterfaceProvider<?> userInterfaceProvider;
 
 	public static void init(IntrospectApplication application) {
 		try {
-			IntrospectContainer infrastructureContainer = createInfrastructureContainer(application);
-
-			IntrospectContainer domainContainer = createDomainContainer(
-					application, infrastructureContainer);
-
-			IntrospectContainer serviceContainer = createServiceContainer(
-					application, domainContainer);
-
-			IntrospectContainer userInterfaceContainer = createUserInterfaceContainer(
-					application, serviceContainer);
-
-			introspectContainer = userInterfaceContainer;
-
-
+			introspectContainer = new UserInterfaceContainer(application);
 		} catch (Exception exception) {
 			throw new IntrospectContainerInitializationException(exception);
 		}
@@ -162,97 +149,14 @@ public class Introspect {
 	 * @throws IntrospectContainerException
 	 */
 	public static void start() {
-			introspectContainer.get(UserInterfaceProvider.class);
-	}
+		// TODO remove init method and add following lines
+		// try {
+		// introspectContainer = new UserInterfaceContainer(application);
+		// } catch (Exception exception) {
+		// throw new IntrospectContainerInitializationException(exception);
+		// }
 
-
-	/**
-	 * @param application
-	 * @param serviceContainer
-	 *            {@link ReflectContainer} for the lower {@link ServiceLayer}
-	 * @return a {@link ReflectContainer} for the {@link UserInterfaceLayer}
-	 * @throws IntrospectContainerException
-	 */
-
-	private static IntrospectContainer createUserInterfaceContainer(
-			IntrospectApplication application,
-			IntrospectContainer serviceContainer)
-			throws IntrospectContainerException {
-		String layerName = UserInterfaceLayer.class.getSimpleName();
-		IntrospectOuterContainer userInterfaceContainer = new IntrospectOuterContainer(
-				layerName, application, serviceContainer);
-		// add userInterface provider class
-		userInterfaceContainer.add(application.getUserInterfaceProviderClass());
-		return userInterfaceContainer;
-	}
-
-	/**
-	 * @param application
-	 * @param domainContainer
-	 *            {@link ReflectContainer} for the lower {@link DomainLayer}
-	 * @return a {@link ReflectContainer} for the {@link ServiceLayer}
-	 * @throws IntrospectContainerException
-	 */
-
-	private static IntrospectContainer createServiceContainer(
-			IntrospectApplication application,
-			IntrospectContainer domainContainer)
-			throws IntrospectContainerException {
-		String layerName = ServiceLayer.class.getSimpleName();
-		IntrospectContainer serviceContainer = new IntrospectContainer(
-				layerName, domainContainer);
-		// add all service classes
-		List<Class<?>> serviceClasses = application.getServiceClasses();
-		if (serviceClasses.size()==0) {
-			throw new MissingServiceClassException(application);  
-		}
-		serviceContainer.add(serviceClasses);
-		return serviceContainer;
-	}
-
-	/**
-	 * @param application
-	 * @param infrastructureContainer
-	 *            {@link ReflectContainer} for the lower
-	 *            {@link InfrastructureLayer}
-	 * @return a {@link ReflectContainer} for the {@link DomainLayer}
-	 */
-
-	private static IntrospectContainer createDomainContainer(
-			IntrospectApplication application,
-			IntrospectContainer infrastructureContainer) {
-		String layerName = DomainLayer.class.getSimpleName();
-		IntrospectContainer domainContainer = new IntrospectContainer(
-				layerName, infrastructureContainer);
-		return domainContainer;
-	}
-
-	/**
-	 * @param application
-	 * @return a {@link ReflectContainer} for the {@link InfrastructureLayer}
-	 * @throws IntrospectContainerException
-	 */
-	private static IntrospectContainer createInfrastructureContainer(
-			IntrospectApplication application)
-			throws IntrospectContainerException {
-		String layerName = InfrastructureLayer.class.getSimpleName();
-		IntrospectContainer infrastructureContainer = new IntrospectContainer(
-				layerName);
-		infrastructureContainer.add(application);
-		// add provider classes
-		
-		//TODO throw new ProviderNotDefined(application, providerType); application.get...providerclass returns null
-		
-		infrastructureContainer.add(application.getPathProviderClass());
-		infrastructureContainer.add(application.getLanguageProviderClass());
-		infrastructureContainer.add(application.getValidationProviderClass());
-		infrastructureContainer
-				.add(application.getAuthorizationProviderClass());
-		infrastructureContainer.add(application.getDomainInfoProviderClass());
-		infrastructureContainer.add(application.getVersionProviderClass());
-		// add infrastructure classes
-		infrastructureContainer.add(application.getInfrastructureClasses());
-		return infrastructureContainer;
+		introspectContainer.get(UserInterfaceProvider.class);
 	}
 
 	// TODO get rid of this service lookup, use dependency injection instead
@@ -274,23 +178,6 @@ public class Introspect {
 		return pathProvider;
 	}
 
-	// public static AuthorizationProvider getAuthorizationProvider() {
-	// if (authorizationProvider == null) {
-	// authorizationProvider = (AuthorizationProvider) introspectContainer
-	// .get(AuthorizationProvider.class);
-	// }
-	// return authorizationProvider;
-	// }
-
-	// TODO get rid of this service lookup, use dependency injection instead
-	public static DomainInfoProvider getDomainInfoProvider() {
-		if (domainInfoProvider == null) {
-			domainInfoProvider = (DomainInfoProvider) introspectContainer
-					.get(DomainInfoProvider.class);
-		}
-		return domainInfoProvider;
-	}
-
 	// TODO get rid of this service lookup, use dependency injection instead
 	public static LanguageProvider getLanguageProvider() {
 		if (languageProvider == null) {
@@ -299,7 +186,5 @@ public class Introspect {
 		}
 		return languageProvider;
 	}
-
-
 
 }

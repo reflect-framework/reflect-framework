@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
 
 import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.Introspect;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
@@ -41,9 +41,10 @@ public class FormView extends SwingView implements
 	private final Object methodParameterValue;
 	private final FormMode formMode;
 	private final Object domainObject;
-	private final IntrospectOuterContainer introspectOuterContainer;
+	private final UserInterfaceContainer introspectOuterContainer;
+	private final DomainInfoProvider domainInfoProvider;
 
-	public FormView(IntrospectOuterContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
+	public FormView(UserInterfaceContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.introspectOuterContainer = introspectOuterContainer;
 		this.methodOwner = methodOwner;
@@ -53,11 +54,11 @@ public class FormView extends SwingView implements
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		domainInfoProvider=introspectOuterContainer.getDomainInfoProvider();
 		List<PropertyInfo> propertyInfos = domainInfoProvider
 				.getPropertyInfos(domainObject.getClass());
 
-		domainValueModel = new BufferedDomainValueModel(domainObject, formMode);
+		domainValueModel = new BufferedDomainValueModel(domainInfoProvider, domainObject, formMode);
 
 		PropertyGrid propertyGrid = new PropertyGrid();
 		add(propertyGrid, BorderLayout.CENTER);
@@ -128,7 +129,7 @@ public class FormView extends SwingView implements
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(methodInfo, domainValueModel.getValue(),
+		return TitleUtil.createTitle(domainInfoProvider, methodInfo, domainValueModel.getValue(),
 				true);
 	}
 
@@ -178,7 +179,7 @@ public class FormView extends SwingView implements
 	}
 
 	@Override
-	public IntrospectOuterContainer getIntrospectOuterContainer() {
+	public UserInterfaceContainer getIntrospectOuterContainer() {
 		return introspectOuterContainer;
 	}
 }

@@ -17,7 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
@@ -52,7 +53,8 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 
 		setLayout(new BorderLayout());
 
-		tableModel = new MethodTableModel(propertyValueModel);
+		DomainInfoProvider domainInfoProvider=formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		tableModel = new MethodTableModel(domainInfoProvider, propertyValueModel);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
 

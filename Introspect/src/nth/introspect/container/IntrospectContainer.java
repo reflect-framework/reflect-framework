@@ -10,7 +10,7 @@ import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerExcep
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
-public class IntrospectContainer {
+public abstract class IntrospectContainer {
 
 	private final String name;
 	private IntrospectContainer innerContainer;
@@ -21,9 +21,9 @@ public class IntrospectContainer {
 	}
 
 	public IntrospectContainer(String name, 
-			IntrospectContainer lowerLayer) {
+			IntrospectContainer innerContainer) {
 		this.name = name;
-		this.innerContainer = lowerLayer;
+		this.innerContainer = innerContainer;
 		this.typesAndInstances = new HashMap<Class<?>, Object>();
 	}
 
@@ -84,11 +84,10 @@ public class IntrospectContainer {
 				Object newObject = instanceFactory.createInstance(classesWaitingToBeInstantiated);
 				typesAndInstances.put(type, newObject);
 				classesWaitingToBeInstantiated.remove(foundType);
-				System.out.println(name + " created: " + type.getCanonicalName());
+				//TODO IntrospectLog.debug(name + " created: " + type.getCanonicalName());
 				return newObject;
 			} else {
-				System.out.println(name + " from cache: "
-						+ type.getCanonicalName());
+				//TODO IntrospectLog.debug(name + " from cache: "+ type.getCanonicalName());
 				return storedObject;
 			}
 		}

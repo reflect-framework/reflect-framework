@@ -42,7 +42,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public ClassInfo getClassInfo(Class<?> introspectedClass) {
 		if (!classInfos.containsKey(introspectedClass)) {
 			classInfos.put(introspectedClass,
-					ClassInfoFactory.create(introspectedClass));
+					ClassInfoFactory.create(this, introspectedClass));
 		}
 		return classInfos.get(introspectedClass);
 	}
@@ -55,7 +55,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public List<MethodInfo> getMethodInfos(Class<?> introspectedClass) {
 		if (!methodInfosPerClass.containsKey(introspectedClass)) {
 			methodInfosPerClass.put(introspectedClass,
-					MethodInfoFactory.create(introspectedClass));
+					MethodInfoFactory.create(this, introspectedClass));
 		}
 		return methodInfosPerClass.get(introspectedClass);
 	}
@@ -106,7 +106,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public List<PropertyInfo> getPropertyInfos(Class<?> introspectedClass) {
 		if (!propertyInfosPerClass.containsKey(introspectedClass)) {
 			propertyInfosPerClass.put(introspectedClass,
-					PropertyInfoFactory.create(introspectedClass));
+					PropertyInfoFactory.create(this, introspectedClass));
 		}
 		return propertyInfosPerClass.get(introspectedClass);
 	}

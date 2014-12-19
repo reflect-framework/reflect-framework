@@ -24,7 +24,7 @@ public class ClassDiagram {
 		methods = new ArrayList<ClassFeature>();
 	}
 
-	public ClassDiagram(Class<?> introspectedClass) {
+	public ClassDiagram(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass) {
 		this();// initialize lists
 
 		// name
@@ -43,7 +43,6 @@ public class ClassDiagram {
 		}
 
 		// properties
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(introspectedClass);
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			getProperties().add(new ClassFeature(propertyInfo));

@@ -5,6 +5,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.filter.LogicFilter;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
@@ -35,8 +36,8 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider()
-				.getPropertyInfos(domainClass);
+		DomainInfoProvider domainInfoProvider=formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(domainClass);
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
 			if (otherPropertyInfo != propertyInfo) {
@@ -45,9 +46,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 						new LinkedToPropertyFilter(otherPropertyInfo));
 				filter.and(new ParameterTypeFilter(parameterClass));
 
-				List<MethodInfo> propertyMethods = Introspect
-						.getDomainInfoProvider()
-						.getMethodInfos(domainClass, filter);
+				List<MethodInfo> propertyMethods = domainInfoProvider.getMethodInfos(domainClass, filter);
 				for (MethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
 							formView, otherPropertyInfo, propertyMethodInfo,

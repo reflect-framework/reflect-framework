@@ -3,6 +3,7 @@ package nth.introspect.provider.domain.info.classinfo;
 import java.net.URI;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.provider.domain.info.valuemodel.impl.SimpleValue;
@@ -33,7 +34,7 @@ public class ClassInfo implements IntrospectionInfo {
 	private final String namePath;
 	private final Class<?> introspectedClass;
 
-	public ClassInfo(Class<?> introspectedClass) {
+	public ClassInfo(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass) {
 		this.name = introspectedClass.getSimpleName();
 		this.namePath = introspectedClass.getCanonicalName();
 		this.introspectedClass = introspectedClass;
@@ -46,7 +47,7 @@ public class ClassInfo implements IntrospectionInfo {
 		// valueModels.put(ICON, new IconValue(this));
 		valueModels.put(ICON, new SimpleValue(new ClassIconID(introspectedClass)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
-		valueModels.put(TITLE, new TitleValue());
+		valueModels.put(TITLE, new TitleValue(domainInfoProvider));
 
 		// create value getters from annotations
 		// TODO when needed valueModels.putAll(AnnotationValueModelFactory.create(this, ANNOTATION_NAMES));

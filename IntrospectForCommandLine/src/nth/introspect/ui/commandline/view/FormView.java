@@ -2,8 +2,8 @@ package nth.introspect.ui.commandline.view;
 
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.filter.Filter;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.FormOrderComparator;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
@@ -14,7 +14,7 @@ public class FormView extends CommandLineView {
 
 	private Table table;
 
-	public FormView(MethodInfo methodInfo, Object domainObject) {
+	public FormView(DomainInfoProvider domainInfoProvider, MethodInfo methodInfo, Object domainObject) {
 		table = new Table();
 		// empty row
 		Row row = table.addRow();
@@ -24,7 +24,7 @@ public class FormView extends CommandLineView {
 		Filter<PropertyInfo> propertyInfoFilter = null; // TODO only show visible properties;
 		FormOrderComparator propertyInfoComparator = new FormOrderComparator();
 		Class<?> returnClass = methodInfo.getReturnType().getTypeOrGenericCollectionType();
-		List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 		// add properties to form
 		for (PropertyInfo propertyInfo : propertyInfos) {

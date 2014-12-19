@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.userinterface.DialogType;
@@ -41,7 +41,7 @@ public class SwingUserinterfaceProvider extends
 
 	private MainWindow mainWindow;
 
-	public SwingUserinterfaceProvider(IntrospectApplication application, IntrospectOuterContainer introspectOuterContainer) {
+	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer introspectOuterContainer) {
 		super(introspectOuterContainer);
 		mainWindow = new MainWindow(application, introspectOuterContainer);
 	}

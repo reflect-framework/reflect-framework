@@ -12,12 +12,7 @@ import nth.introspect.provider.Provider;
  * <li>Networking Layer</li>
  * <li>And other services which are required to support the {@link ServiceLayer} or {@link DomainLayer}</li> 
  * </ul>
- * Objects in this layer provide generic technical capabilities to support the higher layers (see {@link IntrospectArchitecture})<br>
- * This layer holds two types of objects:
- * <ul>
- * <li>{@link InfrastructureObject}s</li>
- * <li>{@link Provider}s</li>
- * </ul>
+ * This layer contains {@link InfrastructureObject} objects that provide generic technical capabilities to support the higher layers (see {@link IntrospectArchitecture})<br>
  * 
  * Note that this layer is the bottom layer, which means that objects in the upper layers may know the objects in this layer but not visa versa! See {@link IntrospectArchitecture}
  * @author Nils ten Hoeve

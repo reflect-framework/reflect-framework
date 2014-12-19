@@ -1,6 +1,6 @@
 package nth.introspect.ui.view;
 
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public interface TableView extends MethodView{
@@ -9,6 +9,6 @@ public interface TableView extends MethodView{
 
 	public ReadOnlyValueModel getAllRowsModel();
 
-	public IntrospectOuterContainer getIntrospectOuterContainer();
+	public UserInterfaceContainer getIntrospectOuterContainer();
 
 }

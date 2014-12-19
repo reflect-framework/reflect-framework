@@ -1,6 +1,6 @@
 package nth.introspect.ui.view;
 
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public interface FormView extends MethodView {
@@ -11,6 +11,6 @@ public interface FormView extends MethodView {
 
 	public Object getDomainObject();
 	
-	public IntrospectOuterContainer getIntrospectOuterContainer();
+	public UserInterfaceContainer getIntrospectOuterContainer();
 
 }

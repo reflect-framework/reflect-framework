@@ -1,6 +1,7 @@
 package nth.introspect.ui.item.method;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
@@ -64,7 +65,8 @@ public class PropertyMethodItem extends MethodItem {
 		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.getParameterType().getTypeCategory()!=TypeCategory.NONE ) {
 			parameterValue = parameterValueModel.getValue();
 		}
-		text.append(TitleUtil.createTitle(propertyMethodInfo,
+		DomainInfoProvider domainInfoProvider=formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		text.append(TitleUtil.createTitle(domainInfoProvider,propertyMethodInfo,
 				parameterValue, false));
 		return text.toString();
 	}

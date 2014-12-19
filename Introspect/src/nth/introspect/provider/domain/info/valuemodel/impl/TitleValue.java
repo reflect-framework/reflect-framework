@@ -4,6 +4,7 @@ import java.text.Format;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.util.StringUtil;
@@ -12,7 +13,12 @@ import nth.introspect.valuemodel.IntrospectedValueModelReadOnly;
 public class TitleValue extends IntrospectedValueModelReadOnly {
 
 	private static final String TITLE_SEPARATOR = ", ";
+	private DomainInfoProvider domainInfoProvider;
 
+	public TitleValue(DomainInfoProvider domainInfoProvider) {
+		this.domainInfoProvider = domainInfoProvider;
+	}
+	
 	public Object getValue(Object obj) {
 		if (obj.getClass().isEnum()) {
 			String enumValue = obj.toString();
@@ -28,7 +34,7 @@ public class TitleValue extends IntrospectedValueModelReadOnly {
 		if (title == null || title.trim().length() == 0 || title.equals(defaultToStringImplValue)) {
 			// toString method is not overwritten or does not return a value so construct our own title
 			StringBuffer titleBuffer = new StringBuffer();
-			List<PropertyInfo> propertyInfos = Introspect.getDomainInfoProvider().getOrderedAndVisiblePropertyInfos(obj.getClass());
+			List<PropertyInfo> propertyInfos = domainInfoProvider.getOrderedAndVisiblePropertyInfos(obj.getClass());
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Object propertyValue = propertyInfo.getValue(obj);
 				Format format=propertyInfo.getFormat();

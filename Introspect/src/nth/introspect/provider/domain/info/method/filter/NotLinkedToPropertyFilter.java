@@ -14,8 +14,7 @@ public class NotLinkedToPropertyFilter implements Filter<MethodInfo> {
 
 	private ArrayList<String> propertyNames;
 
-	public NotLinkedToPropertyFilter(Class<?> domainClass) {
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+	public NotLinkedToPropertyFilter(DomainInfoProvider domainInfoProvider, Class<?> domainClass) {
 		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(domainClass);
 		propertyNames = new ArrayList<String>();
 		for (PropertyInfo propertyInfo : propertyInfos) {

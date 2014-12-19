@@ -7,7 +7,7 @@ import nth.introspect.provider.domain.info.method.MethodInfo;
 
 public class TitleUtil {
 
-	public static String createTitle(MethodInfo methodInfo, Object methodParameter, boolean shortTile) {
+	public static String createTitle(DomainInfoProvider domainInfoProvider, MethodInfo methodInfo, Object methodParameter, boolean shortTile) {
 		StringBuffer title = new StringBuffer();
 		String methodText = methodInfo.getText();
 		if (methodText != null) {
@@ -19,7 +19,6 @@ public class TitleUtil {
 
 		if (methodParameter != null) {
 			// add method parameter value between parentheses
-			DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
 			ClassInfo classInfo = domainInfoProvider.getClassInfo(methodParameter.getClass());
 			String parameterText = classInfo.getTitle(methodParameter);
 			// shorten if needed

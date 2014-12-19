@@ -15,10 +15,13 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
+import com.sun.org.apache.xalan.internal.xsltc.cmdline.getopt.GetOpt;
+
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.IntrospectOuterContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
@@ -42,7 +45,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 
 	private final CommandLineViewContainer viewContainer;
 
-	public CommandLineUserInterfaceProvider(IntrospectApplication application, IntrospectOuterContainer introspectOuterContainer) {
+	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer introspectOuterContainer) {
 		super(introspectOuterContainer);
 		viewContainer = new CommandLineViewContainer();
 		IntrospectApplicationForCommandLine commandLineApplication = (IntrospectApplicationForCommandLine) application;
@@ -60,7 +63,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 		// Not supported yet
 	}
 
-	private void startExecution(String[] arguments, IntrospectOuterContainer introspectOuterContainer) {
+	private void startExecution(String[] arguments, UserInterfaceContainer introspectOuterContainer) {
 		try {
 
 			List<Command> commands = CommandService.getCommands(introspectOuterContainer);
@@ -197,12 +200,12 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 
 	@Override
 	public CommandLineView createFormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new FormView(methodInfo, domainObject);
+		return new FormView(getIntrospectOuterContainer().getDomainInfoProvider(), methodInfo, domainObject);
 	}
 
 	@Override
 	public CommandLineView createTableView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object methodReturnValue) {
-		return new TableView(methodInfo, (Collection<?>) methodReturnValue);
+		return new TableView(getIntrospectOuterContainer().getDomainInfoProvider(), methodInfo, (Collection<?>) methodReturnValue);
 	}
 
 	@Override

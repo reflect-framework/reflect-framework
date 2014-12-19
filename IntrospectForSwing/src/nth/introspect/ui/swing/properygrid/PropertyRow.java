@@ -40,11 +40,6 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 	};
 
 
-	// public PropertyRow(String propertyName, String propertyDescription,Component field, FieldWidth fieldWidth, FieldHeight fieldHeight, Component validator) {
-	// this(propertyName, propertyDescription,field, fieldWidth, validator);
-	// int height=(FieldHeight.low.equals(fieldHeight)) ? PropertyGridLayout.DEFAULT_LOW_FIELD_HEIGHT : PropertyGridLayout.DEFAULT_HIGH_FIELD_HEIGHT;
-	// getField().setPreferredSize(new Dimension(Integer.MAX_VALUE,height));
-	// }
 
 	public PropertyRow(FormView formView, BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
 		this.domainValueModel = domainValueModel;
@@ -53,7 +48,7 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 		
 		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		
-		DomainInfoProvider domainInfoProvider = Introspect.getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider = formView.getIntrospectOuterContainer().getDomainInfoProvider();
 		domainInfoProvider.addPropertyChangeListener(this);//FIXME where is the property change listener beeing unsubscribed?
 
 		
