@@ -8,6 +8,7 @@ import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
@@ -48,6 +49,8 @@ public interface IntrospectApplication {
 		
 	public Class<? extends ValidationProvider> getValidationProviderClass();
 
+	public Class<? extends NotificationProvider> getNotificationProviderClass();
+	
 	public List<Class<?>> getServiceClasses();
 	
 	public List<Class<?>> getInfrastructureClasses();	

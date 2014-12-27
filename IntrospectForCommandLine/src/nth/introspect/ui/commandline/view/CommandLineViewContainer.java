@@ -12,7 +12,7 @@ public class CommandLineViewContainer implements ViewContainer<CommandLineView> 
 	}
 
 	@Override
-	public void setSelectView(CommandLineView view) {
+	public void setSelectedView(CommandLineView view) {
 		throw new MethodNotSupportedException();
 	}
 

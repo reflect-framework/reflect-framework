@@ -156,16 +156,8 @@ public class Introspect {
 		// throw new IntrospectContainerInitializationException(exception);
 		// }
 
-		introspectContainer.get(UserInterfaceProvider.class);
-	}
-
-	// TODO get rid of this service lookup, use dependency injection instead
-	public static UserInterfaceProvider<?> getUserInterfaceProvider() {
-		if (userInterfaceProvider == null) {
-			userInterfaceProvider = (UserInterfaceProvider<?>) introspectContainer
-					.get(UserInterfaceProvider.class);
-		}
-		return userInterfaceProvider;
+		userInterfaceProvider= (UserInterfaceProvider<?>) introspectContainer.get(UserInterfaceProvider.class);
+		userInterfaceProvider.start();
 	}
 
 	// TODO get rid of this service lookup, use dependency injection instead

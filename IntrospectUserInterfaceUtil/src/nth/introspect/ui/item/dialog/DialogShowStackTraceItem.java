@@ -12,20 +12,15 @@ import nth.introspect.util.ExceptionUtil;
 //TODO move to UserinterfaceUtil project
 public class DialogShowStackTraceItem extends Item {
 
-	private String title;
-	private String message;
-	private Throwable throwable;
 
-	public DialogShowStackTraceItem(String title, String message, Throwable throwable) {
-		this.title = title;
-		this.message = message;
-		this.throwable = throwable;
+	public DialogShowStackTraceItem(UserInterfaceProvider<?> userInterfaceProvider, String title, String message, Throwable throwable) {
 		setText("Show stack trace");
 		setDescription("Show more details on error");
-		setAction(createAction());
+		Action action=createAction(userInterfaceProvider,title,message,throwable);
+		setAction(action);
 	}
 
-	private Action createAction() {
+	private Action createAction(final UserInterfaceProvider<?> userInterfaceProvider, final String title, final String message, final Throwable throwable) {
 		return new Action() {
 
 			@Override
@@ -42,9 +37,6 @@ public class DialogShowStackTraceItem extends Item {
 				List<Item> items = new ArrayList<Item>();
 				items.add(dialogCloseItem);
 
-				setAction(createAction());
-				UserInterfaceProvider<?> userInterfaceProvider = Introspect
-						.getUserInterfaceProvider();
 				userInterfaceProvider.showDialog(DialogType.ERROR, title,
 						messageWithStackTrace.toString(), items);
 			}

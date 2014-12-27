@@ -16,7 +16,7 @@ import nth.introspect.ui.swing.style.SwingStyleConstant;
 import nth.introspect.ui.swing.view.SwingView;
 
 @SuppressWarnings("serial")
-public class SwingViewContainer extends JTabbedPane implements ViewContainer<SwingView> {
+public class SwingViewContainer extends JTabbedPane implements ViewContainer<View> {
 	public SwingViewContainer() {
 		setTabLayoutPolicy(WRAP_TAB_LAYOUT);
 		addChangeListener(createTabChangeListener());
@@ -57,13 +57,13 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Swi
 	}
 
 	@Override
-	public void setSelectView(SwingView view) {
+	public void setSelectedView(View view) {
 		view.onViewActivate();
 		setSelectedComponent((Component) view);
 	}
 
 	@Override
-	public void addView(SwingView view) {
+	public void addView(View view) {
 		String title = view.getViewTitle();
 		String description = view.getViewDescription();
 		URI iconURI = view.getViewIconURI();
@@ -73,7 +73,7 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Swi
 	}
 
 	@Override
-	public void removeView(SwingView view) {
+	public void removeView(View view) {
 		remove((Component) view);
 	}
 

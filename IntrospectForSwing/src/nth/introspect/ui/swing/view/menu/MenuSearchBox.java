@@ -27,8 +27,8 @@ public class MenuSearchBox extends JComboBox {
 		setModel(model);
 		setRenderer(new MenuSearchBoxRenderer());
 		// set the model as the item listener also
-		LanguageProvider languagePort=Introspect.getLanguageProvider();
-		new TextPrompt(languagePort.getText("Search Menu (F3)"),(JTextComponent) getEditor().getEditorComponent());
+		LanguageProvider languageProvider=Introspect.getLanguageProvider();
+		new TextPrompt(languageProvider.getText("Search Menu (F3)"),(JTextComponent) getEditor().getEditorComponent());
 	}
 
 	public void onSelectionChanged(HierarchicalItem selectedItem) {

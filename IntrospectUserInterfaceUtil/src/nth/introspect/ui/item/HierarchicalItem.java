@@ -44,8 +44,8 @@ public class HierarchicalItem extends Item {
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		LanguageProvider languagePort = Introspect.getLanguageProvider();
-		String iconName = languagePort.getDefaultValue(text);
+		LanguageProvider languageProvider = Introspect.getLanguageProvider();
+		String iconName = languageProvider.getDefaultValue(text);
 		setIconURI(Introspect.getPathProvider().getImagePath(iconName));
 	}
 

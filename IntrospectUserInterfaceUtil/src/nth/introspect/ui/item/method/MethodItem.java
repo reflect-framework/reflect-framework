@@ -21,7 +21,7 @@ public class MethodItem extends Item {
 	 * @param methodOwner
 	 * @param methodInfo
 	 */
-	public MethodItem(final Object methodOwner, final MethodInfo methodInfo, final ReadOnlyValueModel methodParameterValueModel) {
+	public MethodItem(final UserInterfaceProvider<?> userInterfaceProvider, final Object methodOwner, final MethodInfo methodInfo, final ReadOnlyValueModel methodParameterValueModel) {
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValueModel = methodParameterValueModel;
@@ -30,7 +30,6 @@ public class MethodItem extends Item {
 			@Override
 			public void run() {
 				Object methodParameterValue = (methodParameterValueModel == null) ? null : methodParameterValueModel.getValue();
-				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
 				userInterfaceProvider.startExecution(methodOwner, methodInfo, methodParameterValue);
 			}
 

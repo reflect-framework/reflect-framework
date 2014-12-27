@@ -33,13 +33,13 @@ import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class ItemFactory {
 
-	public static List<MethodOwnerItem> createMenuViewItems(UserInterfaceContainer introspectOuterContainer) {
+	public static List<MethodOwnerItem> createMenuViewItems(UserInterfaceContainer userInterfaceContainer) {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
-		List<Object> serviceObjects = introspectOuterContainer.getServiceObjects();
+		List<Object> serviceObjects = userInterfaceContainer.getServiceObjects();
 
 		for (Object serviceObject : serviceObjects) {
-			MethodOwnerItem item = new MethodOwnerItem(introspectOuterContainer, serviceObject,
+			MethodOwnerItem item = new MethodOwnerItem(userInterfaceContainer, serviceObject,
 					new NoParameterOrParameterFactoryFilter(), null);
 			items.add(item);
 		}
@@ -58,7 +58,7 @@ public class ItemFactory {
 		Object serviceObject = formView.getMethodOwner();
 
 		// add property methods
-		DomainInfoProvider domainInfoProvider = formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider = formView.getuserInterfaceContainer().getDomainInfoProvider();
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
@@ -76,15 +76,16 @@ public class ItemFactory {
 			items.add(item);
 		}
 
-		items.addAll(createPropertyOwnerItems(parameterModel, propertyInfo));
+		ViewContainer viewContainer = formView.getuserInterfaceContainer().getUserInterfaceProvider().getViewContainer();
+		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, propertyInfo));
 
 		// service object methods
 		filter = new LogicFilter<MethodInfo>(new ParameterTypeFilter(
 				parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
-		UserInterfaceContainer introspectOuterContainer=formView.getIntrospectOuterContainer();
-		items.addAll(createServiceObjectItems(introspectOuterContainer, serviceObject, parameterModel,
+		UserInterfaceContainer userInterfaceContainer=formView.getuserInterfaceContainer();
+		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
 
 		return items;
@@ -114,37 +115,38 @@ public class ItemFactory {
 		// items.add(item)
 		// }
 
-		items.addAll(createPropertyOwnerItems(parameterModel, null));
+		ViewContainer viewContainer = tableView.getuserInterfaceContainer().getUserInterfaceProvider().getViewContainer();
+		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
 
 		// create filter for service object items
 		Class<?> domainType = parameterModel.getValueType();
 		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
 				new ParameterTypeFilter(domainType));
 		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
-		UserInterfaceContainer introspectOuterContainer=tableView.getIntrospectOuterContainer();
-		items.addAll(createServiceObjectItems(introspectOuterContainer , serviceObject, parameterModel,
+		UserInterfaceContainer userInterfaceContainer=tableView.getuserInterfaceContainer();
+		items.addAll(createServiceObjectItems(userInterfaceContainer , serviceObject, parameterModel,
 				filter));
 
 		return items;
 	}
 
-	private static List<MethodOwnerItem> createServiceObjectItems(UserInterfaceContainer introspectOuterContainer,
+	private static List<MethodOwnerItem> createServiceObjectItems(UserInterfaceContainer userInterfaceContainer,
 			Object serviceObjectToStartWith, ReadOnlyValueModel parameterModel,
 			Filter<MethodInfo> filter) {
 
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
 		// create MethodOwnerItem for first service object
-		MethodOwnerItem item = new MethodOwnerItem(introspectOuterContainer, serviceObjectToStartWith,
+		MethodOwnerItem item = new MethodOwnerItem(userInterfaceContainer, serviceObjectToStartWith,
 				filter, parameterModel);
 		items.add(item);
 
 		// create MethodOwnerItem for other service objects
-		List<Object> serviceObjects = introspectOuterContainer.getServiceObjects();
+		List<Object> serviceObjects = userInterfaceContainer.getServiceObjects();
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 
-				item = new MethodOwnerItem(introspectOuterContainer,serviceObject, filter,
+				item = new MethodOwnerItem(userInterfaceContainer,serviceObject, filter,
 						parameterModel);
 				items.add(item);
 			}
@@ -152,13 +154,10 @@ public class ItemFactory {
 		return items;
 	}
 
-	private static List<Item> createPropertyOwnerItems(
+	private static List<Item> createPropertyOwnerItems(ViewContainer<View> viewContainer,
 			ReadOnlyValueModel paramaterModel, PropertyInfo propertyInfo) {
 		List<Item> items = new ArrayList<Item>();
 
-		UserInterfaceProvider<?> userInterfaceProvider = Introspect
-				.getUserInterfaceProvider();
-		ViewContainer viewContainer = userInterfaceProvider.getViewContainer();
 		for (int index = 0; index < viewContainer.getViewCount(); index++) {
 			View view = (View) viewContainer.getView(index);
 			if (view instanceof FormView) {

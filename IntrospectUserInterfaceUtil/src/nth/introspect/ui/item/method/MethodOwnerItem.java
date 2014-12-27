@@ -8,6 +8,7 @@ import nth.introspect.filter.Filter;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
@@ -17,17 +18,18 @@ public class MethodOwnerItem extends HierarchicalItem {
 	private ClassInfo methodOwnerInfo;
 	private final Object methodOwner;
 
-	public MethodOwnerItem(UserInterfaceContainer introspectOuterContainer, Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
+	public MethodOwnerItem( UserInterfaceContainer userInterfaceContainer, Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		this.methodOwner = methodOwner;
-		DomainInfoProvider domainInfoProvider = introspectOuterContainer.getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider = userInterfaceContainer.getDomainInfoProvider();
 		methodOwnerInfo = domainInfoProvider.getClassInfo(methodOwner.getClass());
 		
 		setText(methodOwnerInfo.getText());
 		setDescription(methodOwnerInfo.getDescription());
 		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
 
+		UserInterfaceProvider<?> userInterfaceProvider=userInterfaceContainer.getUserInterfaceProvider();
 		for (MethodInfo methodInfo : methodInfos) {
-			MethodItem methodItem = new MethodItem(methodOwner, methodInfo, methodParameterValueModel);
+			MethodItem methodItem = new MethodItem(userInterfaceProvider, methodOwner, methodInfo, methodParameterValueModel);
 			addItem(methodItem);
 		}
 	}

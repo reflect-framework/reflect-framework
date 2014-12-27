@@ -12,8 +12,8 @@ public class CloseAllTabsItem extends Item {
 	private final ViewContainer<View> viewContainer;
 
 	@SuppressWarnings("unchecked")
-	public CloseAllTabsItem() {
-		viewContainer=Introspect.getUserInterfaceProvider().getViewContainer();
+	public CloseAllTabsItem(final ViewContainer<View> viewContainer) {
+		this.viewContainer=viewContainer;
 		setText(CLOSE_ALL_TABS);
 		setDescription(CLOSE_ALL_TABS);
 		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.TABS_CLOSE_ALL));

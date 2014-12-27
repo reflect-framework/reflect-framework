@@ -14,6 +14,7 @@ import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.notification.Task;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
@@ -40,14 +41,31 @@ import nth.introspect.util.TitleUtil;
 public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		UserInterfaceProvider<T> {
 
+	@Override
+	public void onTaskChange(Task task) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRefresh() {
+		refresh();
+	}
+
+	@Override
+	public void onNewMessage(String title, String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
-	private final UserInterfaceContainer introspectOuterContainer;
+	private final UserInterfaceContainer userInterfaceContainer;
 	private final DomainInfoProvider domainInfoProvider;
 
-	public AbstractUserinterfaceProvider(UserInterfaceContainer introspectOuterContainer) {
-		this.introspectOuterContainer = introspectOuterContainer;
-		this.domainInfoProvider = introspectOuterContainer.getDomainInfoProvider();
+	public AbstractUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer) {
+		this.userInterfaceContainer = userInterfaceContainer;
+		this.domainInfoProvider = userInterfaceContainer.getDomainInfoProvider();
 	}
 	
 	@Override
@@ -93,7 +111,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 			MethodInfo methodInfo, Object methodParameterValue) {
 		// create the dialog items/ buttons
 		List<Item> items = new ArrayList<Item>();
-		DialogMethodItem methodExecuteItem = new DialogMethodItem(methodOwner,
+		DialogMethodItem methodExecuteItem = new DialogMethodItem(this, methodOwner,
 				methodInfo, methodParameterValue);
 		items.add(methodExecuteItem);
 		DialogCancelItem cancelItem = new DialogCancelItem();
@@ -187,18 +205,14 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 								methodArguments);
 					}
 
-					UserInterfaceProvider<?> userInterfaceProvider = Introspect
-							.getUserInterfaceProvider();
 					// update current view (calling a method on a object is most
 					// likely to change its state
-					View selectedView = userInterfaceProvider
-							.getViewContainer().getSelectedView();
+					View selectedView = getViewContainer().getSelectedView();
 					if (selectedView != null) {
 						selectedView.onViewActivate();
 					}
 					// show method result
-					userInterfaceProvider
-							.showMethodReturnValue(serviceObject, methodInfo,
+					showMethodReturnValue(serviceObject, methodInfo,
 									methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
 					String title = TitleUtil.createTitle(domainInfoProvider, methodInfo,
@@ -254,7 +268,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 					String methodName = uriString
 							.substring(positionLastDot + 1);
 					Class<?> serviceClass = Class.forName(serviceClassName);
-					Object serviceObject2 =getIntrospectOuterContainer().get(serviceClass);
+					Object serviceObject2 =userInterfaceContainer.get(serviceClass);
 					List<MethodInfo> methodInfos = domainInfoProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
 									methodName));
@@ -285,8 +299,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 
 	public void openFormView(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		ViewContainer<T> viewContainer = Introspect.getUserInterfaceProvider()
-				.getViewContainer();
+		ViewContainer<T> viewContainer = getViewContainer();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
 			T view = viewContainer.getView(i);
@@ -300,7 +313,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 						&& domainObject == formView.getDomainObject()
 						&& formMode == formView.getFormMode()) {
 					// activate identical formView
-					viewContainer.setSelectView((T) formView);
+					viewContainer.setSelectedView((T) formView);
 					return;
 				}
 			}
@@ -313,8 +326,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 
 	public void openTableView(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		ViewContainer<T> viewContainer = Introspect.getUserInterfaceProvider()
-				.getViewContainer();
+		ViewContainer<T> viewContainer = getViewContainer();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
 			T view = viewContainer.getView(i);
@@ -326,7 +338,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 						&& methodParameterValue == tableView
 								.getMethodParameter()) {
 					// activate identical tableView
-					viewContainer.setSelectView((T) tableView);
+					viewContainer.setSelectedView((T) tableView);
 					return;
 				}
 			}
@@ -339,8 +351,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 
 	public void openTreeTableView(Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		ViewContainer<T> viewContainer = Introspect.getUserInterfaceProvider()
-				.getViewContainer();
+		ViewContainer<T> viewContainer = getViewContainer();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
 			T view = viewContainer.getView(i);
@@ -352,7 +363,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 						&& methodParameterValue == tableView
 								.getMethodParameter()) {
 					// activate identical tableView
-					viewContainer.setSelectView((T) tableView);
+					viewContainer.setSelectedView((T) tableView);
 					return;
 				}
 			}
@@ -397,7 +408,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 										// code)
 
 		List<Item> items = new ArrayList<Item>();
-		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(
+		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(this,
 				title, message, throwable);
 		items.add(showStackTraceItem);
 		DialogCloseItem closeItem = new DialogCloseItem();
@@ -415,9 +426,10 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		}
 	}
 
-	public UserInterfaceContainer getIntrospectOuterContainer() {
-		return introspectOuterContainer;
+	//TODO we might want to remove this: We want the UserInterfaceContainer to know the UserInterfaceProvider. Not visa versa
+	public UserInterfaceContainer getUserInterfaceContainer() {
+		return userInterfaceContainer;
 	}
-
+	
 
 }

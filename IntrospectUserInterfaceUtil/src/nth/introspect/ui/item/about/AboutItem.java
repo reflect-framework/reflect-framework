@@ -15,7 +15,7 @@ import nth.introspect.ui.images.IntrospectImage;
 public class AboutItem extends Item {
 	private static final String ABOUT = "About";
 
-	public AboutItem(final UserInterfaceContainer introspectOuterContainer) {
+	public AboutItem(final UserInterfaceContainer userInterfaceContainer) {
 		setText(ABOUT);
 		setDescription(ABOUT);
 		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.BUTTON_ROUND_ABOUT));
@@ -23,11 +23,11 @@ public class AboutItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
-				DomainInfoProvider domainInfoProvider = introspectOuterContainer.getDomainInfoProvider();
+				UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer.getUserInterfaceProvider();
+				DomainInfoProvider domainInfoProvider = userInterfaceContainer.getDomainInfoProvider();
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
 				List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(AboutProvider.class, methodFilter);
-				AboutProvider aboutProvider = introspectOuterContainer.getAboutProvider();
+				AboutProvider aboutProvider = userInterfaceContainer.getAboutProvider();
 				if (methodInfos.size() == 1) {
 					MethodInfo methodInfo = methodInfos.get(0);
 					userInterfaceProvider.startExecution(aboutProvider, methodInfo, null);

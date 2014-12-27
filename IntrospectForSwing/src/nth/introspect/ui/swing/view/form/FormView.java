@@ -18,6 +18,7 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
 import nth.introspect.ui.item.tab.CloseThisTabItem;
@@ -41,12 +42,12 @@ public class FormView extends SwingView implements
 	private final Object methodParameterValue;
 	private final FormMode formMode;
 	private final Object domainObject;
-	private final UserInterfaceContainer introspectOuterContainer;
+	private final UserInterfaceContainer userInterfaceContainer;
 	private final DomainInfoProvider domainInfoProvider;
 
-	public FormView(UserInterfaceContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
+	public FormView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		this.introspectOuterContainer = introspectOuterContainer;
+		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -54,7 +55,7 @@ public class FormView extends SwingView implements
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
-		domainInfoProvider=introspectOuterContainer.getDomainInfoProvider();
+		domainInfoProvider=userInterfaceContainer.getDomainInfoProvider();
 		List<PropertyInfo> propertyInfos = domainInfoProvider
 				.getPropertyInfos(domainObject.getClass());
 
@@ -112,17 +113,20 @@ public class FormView extends SwingView implements
 	}
 
 	public JButton createCloseButton() {
-		CloseThisTabItem closeItem = new CloseThisTabItem(this);
+		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
+		CloseThisTabItem closeItem = new CloseThisTabItem(viewContainer, this);
 		return new ItemButton(closeItem);
 	}
 
 	public JButton createCancelButton() {
-		CancelItem cancelItem = new CancelItem(this);
+		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
+		CancelItem cancelItem = new CancelItem(viewContainer, this);
 		return new ItemButton(cancelItem);
 	}
 
 	public JButton createOkButton() {
-		FormOkItem okItem = new FormOkItem(this, methodOwner, methodInfo,
+		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
+		FormOkItem okItem = new FormOkItem( this, methodOwner, methodInfo,
 				domainValueModel);
 		return new ItemButton(okItem);
 	}
@@ -179,7 +183,7 @@ public class FormView extends SwingView implements
 	}
 
 	@Override
-	public UserInterfaceContainer getIntrospectOuterContainer() {
-		return introspectOuterContainer;
+	public UserInterfaceContainer getuserInterfaceContainer() {
+		return userInterfaceContainer;
 	}
 }

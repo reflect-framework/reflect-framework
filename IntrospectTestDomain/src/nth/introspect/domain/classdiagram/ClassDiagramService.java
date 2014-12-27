@@ -23,7 +23,7 @@ public class ClassDiagramService {
 	private final List<Class<?>> serviceClasses;
 	private final DomainInfoProvider domainInfoProvider;
 
-	public ClassDiagramService(DomainInfoProvider domainInfoProvider ) {
+	public ClassDiagramService( DomainInfoProvider domainInfoProvider ) {
 		this.domainInfoProvider = domainInfoProvider;
 		serviceClasses = new ArrayList<Class<?>>();
 		serviceClasses.add(Introspect.class);
@@ -43,11 +43,10 @@ public class ClassDiagramService {
 	public List<ClassFeature> allClasses() {
 		Set<Class<?>> foundClasses = new HashSet<Class<?>>();
 
-		UserInterfaceProvider<?> userInterfacePort = Introspect.getUserInterfaceProvider();
 		int index = 0;
 		int maxValue = serviceClasses.size();
 		for (Class<?> serviceClass : serviceClasses) {
-			userInterfacePort.showProgressDialog("Finding classes", index, maxValue);
+//			userInterfaceProvider.showProgressDialog("Finding classes", index, maxValue);
 			getReferencedClasses(domainInfoProvider, serviceClass, foundClasses);
 			index++;
 		}
@@ -65,7 +64,7 @@ public class ClassDiagramService {
 			}
 		});
 
-		userInterfacePort.showProgressDialog("Finding classes", maxValue, maxValue);
+//		userInterfaceProvider.showProgressDialog("Finding classes", maxValue, maxValue);
 
 		return classFeatures;
 	}

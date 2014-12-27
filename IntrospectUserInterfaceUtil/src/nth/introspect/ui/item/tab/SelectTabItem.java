@@ -11,14 +11,12 @@ public class SelectTabItem extends Item {
 
 	private final View view;
 
-	public SelectTabItem(final View view) {
-		@SuppressWarnings("unchecked")
-		final ViewContainer<View> viewContainer = Introspect.getUserInterfaceProvider().getViewContainer();
+	public SelectTabItem(final ViewContainer<View> viewContainer ,  final View view) {
 		this.view = view;
 		setAction(new Action() {
 			@Override
 			public void run() {
-				viewContainer.setSelectView(view);
+				viewContainer.setSelectedView(view);
 			}
 		});
 	}

@@ -27,6 +27,7 @@ import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.swing.icon.IconFactory;
@@ -43,11 +44,11 @@ public class MainWindow extends JFrame {
 	private MenuTabPanel menuTabPanel;
 	private SwingViewContainer contentTabPanel;
 	private JButton menuButton;
-	private final UserInterfaceContainer introspectOuterContainer;
+	private final UserInterfaceContainer userInterfaceContainer;
 
 	public MainWindow(IntrospectApplication application,
-			UserInterfaceContainer introspectOuterContainer) {
-		this.introspectOuterContainer = introspectOuterContainer;
+			UserInterfaceContainer userInterfaceContainer) {
+		this.userInterfaceContainer = userInterfaceContainer;
 		// Set style
 		try {
 			UIManager
@@ -57,11 +58,11 @@ public class MainWindow extends JFrame {
 		setDefaultLookAndFeelDecorated(true);
 
 		// Set window parameters
-		DomainInfoProvider domainInfoProvider = introspectOuterContainer
+		DomainInfoProvider domainInfoProvider = userInterfaceContainer
 				.getDomainInfoProvider();
 		ClassInfo applicationInfo = domainInfoProvider.getClassInfo(application
 				.getClass());
-		
+
 		setTitle(application, applicationInfo);
 		setIcon(application, applicationInfo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,7 +100,9 @@ public class MainWindow extends JFrame {
 
 	private void setTitle(IntrospectApplication application,
 			ClassInfo applicationInfo) {
-		String title = applicationInfo.getName();//TODO replace with getTitle is better but throws exception
+		String title = applicationInfo.getName();// TODO replace with getTitle
+													// is better but throws
+													// exception
 		setTitle(title);
 	}
 
@@ -116,7 +119,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JButton createAboutButton() {
-		AboutItem aboutItem = new AboutItem(introspectOuterContainer);
+		AboutItem aboutItem = new AboutItem(userInterfaceContainer);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;
@@ -211,7 +214,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private MenuTabPanel createMenuTabPanel() {
-		return new MenuTabPanel(introspectOuterContainer);
+		return new MenuTabPanel(userInterfaceContainer);
 	}
 
 	public void hideMenu() {

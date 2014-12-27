@@ -13,22 +13,21 @@ import nth.introspect.ui.item.SeparatorItem;
 
 public class TabsItem extends HierarchicalItem {
 
-	public TabsItem(View view) {
+	public TabsItem(ViewContainer<View> viewContainer, View view) {
 		setText("Tabs");
 		setDescription("Tabs menu");
 		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.TABS));
 
 		@SuppressWarnings("unchecked")
-		ViewContainer<View> viewContainer = Introspect.getUserInterfaceProvider().getViewContainer();
 		List<Item> children = new ArrayList<Item>();
-		children.add(new CloseThisTabItem(view));
-		children.add(new CloseOtherTabsItem(view));
-		children.add(new CloseAllTabsItem());
+		children.add(new CloseThisTabItem(viewContainer, view));
+		children.add(new CloseOtherTabsItem(viewContainer,view));
+		children.add(new CloseAllTabsItem(viewContainer));
 		if (viewContainer.getViewCount() > 1) {
 			children.add(new SeparatorItem());
 			for (int i = 0; i < viewContainer.getViewCount(); i++) {
 				view = viewContainer.getView(i);
-				children.add(new SelectTabItem(view));
+				children.add(new SelectTabItem(viewContainer,view));
 			}
 		}
 

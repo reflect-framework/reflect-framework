@@ -24,8 +24,8 @@ public class MenuView extends SwingView {
 
 	private ItemAccordion itemAccordion;
 
-	public MenuView(UserInterfaceContainer introspectOuterContainer ) {
-		List<MethodOwnerItem> menuItems = ItemFactory.createMenuViewItems(introspectOuterContainer);
+	public MenuView(UserInterfaceContainer userInterfaceContainer ) {
+		List<MethodOwnerItem> menuItems = ItemFactory.createMenuViewItems(userInterfaceContainer);
 
 		setLayout(new BorderLayout());
 
@@ -48,14 +48,14 @@ public class MenuView extends SwingView {
 
 	@Override
 	public String getViewTitle() {
-		LanguageProvider languagePort = Introspect.getLanguageProvider();
-		return languagePort.getText("Menu");
+		LanguageProvider languageProvider = Introspect.getLanguageProvider();
+		return languageProvider.getText("Menu");
 	}
 
 	@Override
 	public String getViewDescription() {
-		LanguageProvider languagePort = Introspect.getLanguageProvider();
-		return languagePort.getText("Menu");
+		LanguageProvider languageProvider = Introspect.getLanguageProvider();
+		return languageProvider.getText("Menu");
 	}
 
 	@Override

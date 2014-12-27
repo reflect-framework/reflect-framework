@@ -44,19 +44,19 @@ public class TableView extends SwingView implements
 	private PopupMenu menuPopUp;
 	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
-	private final UserInterfaceContainer introspectOuterContainer;
+	private final UserInterfaceContainer userInterfaceContainer;
 	private final DomainInfoProvider domainInfoProvider;
 
-	public TableView(UserInterfaceContainer introspectOuterContainer, Object methodOwner, MethodInfo methodInfo,
+	public TableView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
-		this.introspectOuterContainer = introspectOuterContainer;
+		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
 
 		setLayout(new BorderLayout());
 
-		domainInfoProvider= introspectOuterContainer.getDomainInfoProvider();
+		domainInfoProvider= userInterfaceContainer.getDomainInfoProvider();
 		tableModel = new MethodTableModel(domainInfoProvider, getAllRowsModel());
 		table = createTable(tableModel);
 		JScrollPane tableContainer = new JScrollPane(table);
@@ -244,9 +244,8 @@ public class TableView extends SwingView implements
 						return methodInfo.invoke(methodOwner,
 								methodParameterValue);
 					} catch (Exception e) {
-						UserInterfaceProvider<?> userInterfacePort = Introspect
-								.getUserInterfaceProvider();
-						userInterfacePort.showErrorDialog(getViewTitle(),
+						UserInterfaceProvider<?> userInterfaceProvider = getuserInterfaceContainer().getUserInterfaceProvider();
+						userInterfaceProvider.showErrorDialog(getViewTitle(),
 								"Error getting table values.", e);
 						return null;
 					}
@@ -285,8 +284,8 @@ public class TableView extends SwingView implements
 	}
 
 	@Override
-	public UserInterfaceContainer getIntrospectOuterContainer() {
-		return introspectOuterContainer;
+	public UserInterfaceContainer getuserInterfaceContainer() {
+		return userInterfaceContainer;
 	}
 
 }

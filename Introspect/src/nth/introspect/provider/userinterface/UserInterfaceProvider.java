@@ -6,6 +6,7 @@ import java.util.List;
 import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.provider.notification.NotificationListener;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 
@@ -38,7 +39,7 @@ import nth.introspect.provider.userinterface.view.ViewContainer;
  * 
  * @param <T>
  */
-public interface UserInterfaceProvider<T> extends Provider, Refreshable, UserInterfaceLayer {
+public interface UserInterfaceProvider<T> extends Provider, Refreshable, NotificationListener, UserInterfaceLayer {
 
 	/**
 	 * Provides simple feedback about an operation in a small popup. It only
@@ -114,5 +115,7 @@ public interface UserInterfaceProvider<T> extends Provider, Refreshable, UserInt
 
 	void showMethodReturnValue(Object serviceObject, MethodInfo methodInfo,
 			Object methodParameterValue, Object methodReturnValue);
+
+	void start();
 
 }

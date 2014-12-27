@@ -177,7 +177,7 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	@Override
 	public void refresh() {
 		// set text
-		UserInterfaceContainer outerContainer = formView.getIntrospectOuterContainer();
+		UserInterfaceContainer outerContainer = formView.getuserInterfaceContainer();
 		DomainInfoProvider domainInfoProvider = outerContainer.getDomainInfoProvider();
 		ClassInfo classInfo = domainInfoProvider.getClassInfo(propertyValueModel
 				.getValueType());

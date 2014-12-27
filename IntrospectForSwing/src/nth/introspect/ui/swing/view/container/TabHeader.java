@@ -24,6 +24,7 @@ import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
+import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.tab.TabsItem;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
 
@@ -128,8 +129,8 @@ public class TabHeader extends JPanel {
 		public TabButton() {
 			int size = 18;
 			setPreferredSize(new Dimension(size, size));
-			LanguageProvider languagePort = Introspect.getLanguageProvider();
-			setToolTipText(languagePort.getText("Close this tab"));
+			LanguageProvider languageProvider = Introspect.getLanguageProvider();
+			setToolTipText(languageProvider.getText("Close this tab"));
 			// Make the button looks the same for all Laf's
 			setUI(new BasicButtonUI());
 			// Make it transparent
@@ -175,7 +176,7 @@ public class TabHeader extends JPanel {
 	}
 
 	public void showPopupMenu(int x, int y) {
-		TabsItem tabsItem=new TabsItem((View)tab);
+		TabsItem tabsItem=new TabsItem(swingViewContainer, (View)tab);
 		List<Item> items = tabsItem.getChildren();
 		PopupMenu popupMenu = new PopupMenu(items);
 		popupMenu.show(this, x, y);

@@ -19,7 +19,7 @@ public class DialogMethodItem extends Item {
 	 * @param methodOwner
 	 * @param methodInfo
 	 */
-	public DialogMethodItem(final Object methodOwner, final MethodInfo methodInfo, final Object methodParameterValue) {
+	public DialogMethodItem(final UserInterfaceProvider<?> userInterfaceProvider , final Object methodOwner, final MethodInfo methodInfo, final Object methodParameterValue) {
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -27,7 +27,6 @@ public class DialogMethodItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfaceProvider = Introspect.getUserInterfaceProvider();
 				userInterfaceProvider.excuteMethod(methodOwner, methodInfo, methodParameterValue);
 				//TODO refresh form!!!!
 			}

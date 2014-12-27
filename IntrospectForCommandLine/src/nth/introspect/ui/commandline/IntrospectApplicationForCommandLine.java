@@ -11,6 +11,8 @@ import nth.introspect.provider.domain.info.DefaultDomainInfoProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.DefaultLanguageProvider;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.notification.DefaultNotificationProvider;
+import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.DefaultPathProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
@@ -67,6 +69,12 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 	@Override
 	public Class<? extends ValidationProvider> getValidationProviderClass() {
 		return DefaultValidationProvider.class;
+	}
+
+	
+	@Override
+	public Class<? extends NotificationProvider> getNotificationProviderClass() {
+		return DefaultNotificationProvider.class;
 	}
 
 

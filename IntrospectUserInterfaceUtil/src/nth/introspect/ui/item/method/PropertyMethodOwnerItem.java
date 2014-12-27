@@ -36,7 +36,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		DomainInfoProvider domainInfoProvider=formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider=formView.getuserInterfaceContainer().getDomainInfoProvider();
 		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(domainClass);
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 

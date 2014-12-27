@@ -142,6 +142,7 @@ public class InstanceFactory {
 		try {
 			object = bestConstructor.newInstance(constructorParameterValues);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new nth.introspect.container.exception.InstantiationException(introspectContainer, bestConstructor, e);
 		}
 		return object;

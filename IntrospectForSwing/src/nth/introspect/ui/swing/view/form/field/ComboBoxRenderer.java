@@ -20,11 +20,11 @@ public class ComboBoxRenderer extends DefaultListCellRenderer {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);		
 		
 		if (value!=null && value.getClass().isEnum()) {
-			LanguageProvider languagePort = Introspect.getLanguageProvider();
+			LanguageProvider languageProvider = Introspect.getLanguageProvider();
 			//set item text
-			String key = languagePort.getKey(value);
-			String defaultValue = languagePort.getDefaultValue(key);
-			String text = languagePort.getText(key, defaultValue);
+			String key = languageProvider.getKey(value);
+			String defaultValue = languageProvider.getDefaultValue(key);
+			String text = languageProvider.getText(key, defaultValue);
 			setText(text);
 			//TODO? setToolTipText();
 			

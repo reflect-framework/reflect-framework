@@ -22,6 +22,7 @@ public class ProviderContainer extends IntrospectContainer {
 		add(application.getLanguageProviderClass());
 		add(application.getValidationProviderClass());
 		add(application.getAuthorizationProviderClass());
+		add(application.getNotificationProviderClass());
 		add(application.getDomainInfoProviderClass());
 		add(application.getVersionProviderClass());
 	}

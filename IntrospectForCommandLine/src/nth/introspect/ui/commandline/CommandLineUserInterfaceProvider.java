@@ -27,6 +27,7 @@ import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
+import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.item.Item.Action;
 import nth.introspect.ui.AbstractUserinterfaceProvider;
@@ -43,14 +44,12 @@ import nth.introspect.util.exception.MethodNotSupportedException;
 
 public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvider<CommandLineView> {
 
-	private final CommandLineViewContainer viewContainer;
+	private CommandLineViewContainer viewContainer;
+	private final  IntrospectApplication application;
 
-	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer introspectOuterContainer) {
-		super(introspectOuterContainer);
-		viewContainer = new CommandLineViewContainer();
-		IntrospectApplicationForCommandLine commandLineApplication = (IntrospectApplicationForCommandLine) application;
-		String[] commandLineArguments = commandLineApplication.getCommandLineArguments();
-		startExecution(commandLineArguments, introspectOuterContainer);
+	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer) {
+		super(userInterfaceContainer);
+		this.application = application;
 	}
 
 	@Override
@@ -63,10 +62,15 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 		// Not supported yet
 	}
 
-	private void startExecution(String[] arguments, UserInterfaceContainer introspectOuterContainer) {
+	@Override
+	public void start() {
 		try {
+			viewContainer = new CommandLineViewContainer();
+			IntrospectApplicationForCommandLine commandLineApplication = (IntrospectApplicationForCommandLine) application;
+			String[] arguments = commandLineApplication.getCommandLineArguments();
 
-			List<Command> commands = CommandService.getCommands(introspectOuterContainer);
+			
+			List<Command> commands = CommandService.getCommands(getUserInterfaceContainer());
 
 			Command command = CommandService.findCommand(commands, arguments);
 			if (command == null) {
@@ -200,12 +204,12 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 
 	@Override
 	public CommandLineView createFormView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new FormView(getIntrospectOuterContainer().getDomainInfoProvider(), methodInfo, domainObject);
+		return new FormView(getUserInterfaceContainer().getDomainInfoProvider(), methodInfo, domainObject);
 	}
 
 	@Override
 	public CommandLineView createTableView(Object serviceObject, MethodInfo methodInfo, Object methodParameterValue, Object methodReturnValue) {
-		return new TableView(getIntrospectOuterContainer().getDomainInfoProvider(), methodInfo, (Collection<?>) methodReturnValue);
+		return new TableView(getUserInterfaceContainer().getDomainInfoProvider(), methodInfo, (Collection<?>) methodReturnValue);
 	}
 
 	@Override
@@ -218,7 +222,7 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 		try {
 			Desktop.getDesktop().browse(uri);
 		} catch (IOException exception) {
-			Introspect.getUserInterfaceProvider().showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
+			showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
 		}
 	}
 

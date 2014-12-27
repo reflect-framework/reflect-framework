@@ -15,7 +15,7 @@ public class CloseThisTabItem extends Item {
 
 	private static final String CLOSE_THIS_TAB = "Close this tab";
 
-	public CloseThisTabItem( final View tabToClose ) {
+	public CloseThisTabItem(final ViewContainer<View> viewContainer ,final View tabToClose ) {
 		
 		setText(CLOSE_THIS_TAB);
 		setDescription(CLOSE_THIS_TAB);
@@ -24,7 +24,6 @@ public class CloseThisTabItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				ViewContainer<View> viewContainer = Introspect.getUserInterfaceProvider().getViewContainer();
 				viewContainer.removeView(tabToClose);
 			}
 		});

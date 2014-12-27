@@ -53,7 +53,7 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 
 		setLayout(new BorderLayout());
 
-		DomainInfoProvider domainInfoProvider=formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider=formView.getuserInterfaceContainer().getDomainInfoProvider();
 		tableModel = new MethodTableModel(domainInfoProvider, propertyValueModel);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();

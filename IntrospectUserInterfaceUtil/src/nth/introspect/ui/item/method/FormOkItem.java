@@ -15,8 +15,9 @@ import nth.introspect.ui.view.FormView;
 
 public class FormOkItem extends MethodItem {
 
-	public FormOkItem(final FormView formView, final Object methodOwner, final MethodInfo methodInfo, final BufferedDomainValueModel domainValueModel) {
-		super (methodOwner, methodInfo, domainValueModel);
+	public FormOkItem( final FormView formView, final Object methodOwner, final MethodInfo methodInfo, final BufferedDomainValueModel domainValueModel) {
+		super (formView.getuserInterfaceContainer().getUserInterfaceProvider(), methodOwner, methodInfo, domainValueModel);
+		final UserInterfaceProvider<?> userInterfaceProvider = formView.getuserInterfaceContainer().getUserInterfaceProvider();
 		setHotKey(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.CTRL_MASK));
 		setAction(new Action() {
 			@Override
@@ -24,9 +25,8 @@ public class FormOkItem extends MethodItem {
 				if (FormMode.EDIT_MODE== formView.getFormMode()) {
 					domainValueModel.commit();
 				}
-				UserInterfaceProvider<?> userinterfacePort = Introspect.getUserInterfaceProvider();
-				userinterfacePort.excuteMethod(methodOwner, methodInfo, domainValueModel.getValue());
-				userinterfacePort.getViewContainer().removeView(formView);
+				userInterfaceProvider.excuteMethod(methodOwner, methodInfo, domainValueModel.getValue());
+				userInterfaceProvider.getViewContainer().removeView(formView);
 			}
 
 		});

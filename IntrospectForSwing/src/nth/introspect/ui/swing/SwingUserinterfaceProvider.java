@@ -40,12 +40,18 @@ public class SwingUserinterfaceProvider extends
 		AbstractUserinterfaceProvider<SwingView> {
 
 	private MainWindow mainWindow;
+	private IntrospectApplication application;
 
-	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer introspectOuterContainer) {
-		super(introspectOuterContainer);
-		mainWindow = new MainWindow(application, introspectOuterContainer);
+	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer) {
+		super(userInterfaceContainer);
+		this.application = application;
 	}
 
+	@Override
+	public void start() {
+		mainWindow = new MainWindow(application, getUserInterfaceContainer());
+	}
+	
 	@Override
 	public void showProgressDialog(String taskDescription, int currentValue,
 			int maxValue) {
@@ -107,7 +113,7 @@ public class SwingUserinterfaceProvider extends
 	public SwingView createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(getIntrospectOuterContainer(), serviceObject, methodInfo, methodParameterValue,
+		return new FormView(getUserInterfaceContainer(), serviceObject, methodInfo, methodParameterValue,
 				domainObject, formMode);
 	}
 
@@ -115,7 +121,7 @@ public class SwingUserinterfaceProvider extends
 	public SwingView createTableView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new TableView(getIntrospectOuterContainer(), serviceObject, methodInfo, methodParameterValue);
+		return new TableView(getUserInterfaceContainer(), serviceObject, methodInfo, methodParameterValue);
 	}
 
 	@Override
@@ -131,7 +137,7 @@ public class SwingUserinterfaceProvider extends
 		try {
 			Desktop.getDesktop().browse(uri);
 		} catch (IOException exception) {
-			Introspect.getUserInterfaceProvider().showErrorDialog("Error",
+			showErrorDialog("Error",
 					"Error browsing URI: " + uri.toString(), exception);
 		}
 	}

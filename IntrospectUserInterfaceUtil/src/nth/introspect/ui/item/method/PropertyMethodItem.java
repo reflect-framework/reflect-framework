@@ -26,7 +26,7 @@ public class PropertyMethodItem extends MethodItem {
 	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo,
 			MethodInfo propertyMethodInfo,
 			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
-		super(formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
+		super(formView.getuserInterfaceContainer().getUserInterfaceProvider(),  formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
 		this.formView = formView;
 		this.showPropertyName = showPropertyName;
 		this.propertyOwnerModel = formView.getDomainValueModel();
@@ -41,12 +41,11 @@ public class PropertyMethodItem extends MethodItem {
 
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfaceProvider = Introspect
-						.getUserInterfaceProvider();
+				UserInterfaceProvider<?> userInterfaceProvider = formView.getuserInterfaceContainer().getUserInterfaceProvider();
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				
- 				userInterfaceProvider.getViewContainer().setSelectView(formView);
+ 				userInterfaceProvider.getViewContainer().setSelectedView(formView);
 				userInterfaceProvider.startExecution(propertyOwner, propertyMethodInfo, methodParameter);
 			}
 		};
@@ -65,7 +64,7 @@ public class PropertyMethodItem extends MethodItem {
 		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.getParameterType().getTypeCategory()!=TypeCategory.NONE ) {
 			parameterValue = parameterValueModel.getValue();
 		}
-		DomainInfoProvider domainInfoProvider=formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider=formView.getuserInterfaceContainer().getDomainInfoProvider();
 		text.append(TitleUtil.createTitle(domainInfoProvider,propertyMethodInfo,
 				parameterValue, false));
 		return text.toString();

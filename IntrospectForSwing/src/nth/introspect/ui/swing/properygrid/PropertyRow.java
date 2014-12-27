@@ -48,7 +48,7 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 		
 		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		
-		DomainInfoProvider domainInfoProvider = formView.getIntrospectOuterContainer().getDomainInfoProvider();
+		DomainInfoProvider domainInfoProvider = formView.getuserInterfaceContainer().getDomainInfoProvider();
 		domainInfoProvider.addPropertyChangeListener(this);//FIXME where is the property change listener beeing unsubscribed?
 
 		
