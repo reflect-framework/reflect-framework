@@ -18,7 +18,7 @@ public class MenuSearchBox extends JComboBox {
 
 	private final ItemAccordion itemAccordion;
 
-	public MenuSearchBox(ItemAccordion itemAccordion, List<MethodOwnerItem> menuItems) {
+	public MenuSearchBox(ItemAccordion itemAccordion, List<MethodOwnerItem> menuItems, LanguageProvider languageProvider) {
 		this.itemAccordion = itemAccordion;
 		setEditable(true);
 		// create the model
@@ -27,7 +27,6 @@ public class MenuSearchBox extends JComboBox {
 		setModel(model);
 		setRenderer(new MenuSearchBoxRenderer());
 		// set the model as the item listener also
-		LanguageProvider languageProvider=Introspect.getLanguageProvider();
 		new TextPrompt(languageProvider.getText("Search Menu (F3)"),(JTextComponent) getEditor().getEditorComponent());
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Component;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.property.FieldModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.ui.swing.view.form.field.DateTimeField.DateTimeMode;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormView;
@@ -35,7 +36,8 @@ public class FieldFactory {
 		case DATE_TIME:
 			return new DateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
 		case COMBO_BOX:
-			return new ComboBox(propertyValueModel);
+			LanguageProvider languageProvider=formView.getuserInterfaceContainer().getLanguageProvider();
+			return new ComboBox(propertyValueModel, languageProvider);
 		case ONE_TO_ONE_OR_MANY:
 			return new OneToOneOrManyField(formView, propertyValueModel);
 		case MANY_TO_ONE_OR_MANY:

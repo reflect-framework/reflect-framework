@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.filter.Filter;
 import nth.introspect.filter.FilterUtil;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
@@ -17,14 +18,17 @@ import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfoFactory;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
+import nth.introspect.provider.language.LanguageProvider;
 
 public class DefaultDomainInfoProvider implements DomainInfoProvider {
-	private HashMap<Class<?>, ClassInfo> classInfos;
-	private HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
-	private HashMap<Class<?>, List<MethodInfo>> methodInfosPerClass;
-	private List<PropertyChangeListener> propertyChangeListeners;
+	private final HashMap<Class<?>, ClassInfo> classInfos;
+	private final HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
+	private final HashMap<Class<?>, List<MethodInfo>> methodInfosPerClass;
+	private final List<PropertyChangeListener> propertyChangeListeners;
+	private final LanguageProvider languageProvider;
 
-	public DefaultDomainInfoProvider() {
+	public DefaultDomainInfoProvider( LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
 		classInfos = new HashMap<Class<?>, ClassInfo>();
 		propertyInfosPerClass = new HashMap<Class<?>, List<PropertyInfo>>();
 		methodInfosPerClass = new HashMap<Class<?>, List<MethodInfo>>();
@@ -42,7 +46,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public ClassInfo getClassInfo(Class<?> introspectedClass) {
 		if (!classInfos.containsKey(introspectedClass)) {
 			classInfos.put(introspectedClass,
-					ClassInfoFactory.create(this, introspectedClass));
+					ClassInfoFactory.create(this, languageProvider, introspectedClass));
 		}
 		return classInfos.get(introspectedClass);
 	}
@@ -55,7 +59,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public List<MethodInfo> getMethodInfos(Class<?> introspectedClass) {
 		if (!methodInfosPerClass.containsKey(introspectedClass)) {
 			methodInfosPerClass.put(introspectedClass,
-					MethodInfoFactory.create(this, introspectedClass));
+					MethodInfoFactory.create(this, languageProvider, introspectedClass));
 		}
 		return methodInfosPerClass.get(introspectedClass);
 	}
@@ -106,7 +110,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public List<PropertyInfo> getPropertyInfos(Class<?> introspectedClass) {
 		if (!propertyInfosPerClass.containsKey(introspectedClass)) {
 			propertyInfosPerClass.put(introspectedClass,
-					PropertyInfoFactory.create(this, introspectedClass));
+					PropertyInfoFactory.create(this, languageProvider, introspectedClass));
 		}
 		return propertyInfosPerClass.get(introspectedClass);
 	}

@@ -4,19 +4,23 @@ import java.text.Format;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.type.TypeCategory;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.StringUtil;
 import nth.introspect.valuemodel.IntrospectedValueModelReadOnly;
 
 public class TitleValue extends IntrospectedValueModelReadOnly {
 
 	private static final String TITLE_SEPARATOR = ", ";
-	private DomainInfoProvider domainInfoProvider;
+	private final DomainInfoProvider domainInfoProvider;
+	private final LanguageProvider languageProvider;
 
-	public TitleValue(DomainInfoProvider domainInfoProvider) {
+	public TitleValue(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider) {
 		this.domainInfoProvider = domainInfoProvider;
+		this.languageProvider = languageProvider;
 	}
 	
 	public Object getValue(Object obj) {
@@ -25,7 +29,7 @@ public class TitleValue extends IntrospectedValueModelReadOnly {
 			Class<? extends Object> enumClass = obj.getClass();
 			String key = enumClass.getCanonicalName() + "." + enumValue;
 			String defaultText = StringUtil.convertToNormalCase(obj.toString());
-			return Introspect.getLanguageProvider().getText(key, defaultText);
+			return languageProvider.getText(key, defaultText);
 		}
 
 		// get title from toString implementation

@@ -17,6 +17,7 @@ import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModel
 import nth.introspect.provider.domain.info.valuemodel.impl.FieldModeValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.SimpleValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.StringUtil;
 import nth.introspect.util.TypeUtil;
 import nth.introspect.valuemodel.ValueModels;
@@ -65,7 +66,7 @@ public class PropertyInfo implements IntrospectionInfo {
 	private final PropertyType propertyType;
 	private Format format;
 
-	public PropertyInfo(DomainInfoProvider domainInfoProvider, Method readMethod) {
+	public PropertyInfo(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider,  Method readMethod) {
 		if (readMethod.getReturnType() == Void.class) {
 			throw new RuntimeException("Method: "
 					+ readMethod.getClass().getCanonicalName() + "."
@@ -87,8 +88,8 @@ public class PropertyInfo implements IntrospectionInfo {
 		valueModels = new ValueModels();
 
 		// create default value getters
-		valueModels.put(TEXT, new TextValue(this, TEXT));
-		valueModels.put(DESCRIPTION, new TextValue(this, DESCRIPTION));
+		valueModels.put(TEXT, new TextValue(this,languageProvider,  TEXT));
+		valueModels.put(DESCRIPTION, new TextValue(this,languageProvider, DESCRIPTION));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, TEXT));
 
 		// those properties that overwrite the order value come first
@@ -148,7 +149,8 @@ public class PropertyInfo implements IntrospectionInfo {
 		}
 
 		//create formater
-		format = new PropertyInfoFormatFactory(domainInfoProvider).create(this);
+		PropertyInfoFormatFactory propertyInfoFormatFactory = new PropertyInfoFormatFactory(domainInfoProvider, languageProvider);
+		format = propertyInfoFormatFactory.create(this);
 	}
 
 	public PropertyType getPropertyType() {

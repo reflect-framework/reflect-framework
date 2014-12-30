@@ -8,10 +8,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.converterfactory.ConverterFactory;
 import nth.introspect.util.exception.MethodNotSupportedException;
 
 public class JavaFormatFactory extends ConverterFactory<Format, String> {
+
+	private final LanguageProvider languageProvider;
+
+	public JavaFormatFactory(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
+	}
+
 
 	/**
 	 * Creates a formatter for a java type (Sting, Integer, boolean, etc)
@@ -58,7 +66,7 @@ public class JavaFormatFactory extends ConverterFactory<Format, String> {
 
 	@Override
 	public Format createEnumConverter(String format) {
-		return new EnumFormat();
+		return new EnumFormat(languageProvider);
 	}
 
 	@Override

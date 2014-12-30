@@ -62,10 +62,12 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 	private static final int PERCENT_100 = 100;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final DomainInfoProvider domainInfoProvider;
+	private LanguageProvider languageProvider;
 
-	public AbstractUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer) {
+	public AbstractUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.domainInfoProvider = userInterfaceContainer.getDomainInfoProvider();
+		this.domainInfoProvider = domainInfoProvider;
+		this.languageProvider = languageProvider;
 	}
 	
 	@Override
@@ -89,7 +91,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		} catch (Exception exception) {
 			String title = TitleUtil.createTitle(domainInfoProvider, methodInfo,
 					methodParameterValue, true);
-			String message = Introspect.getLanguageProvider().getText(
+			String message = languageProvider.getText(
 					"Failed to execute.");
 			showErrorDialog(title, message, exception);
 		}
@@ -111,14 +113,13 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 			MethodInfo methodInfo, Object methodParameterValue) {
 		// create the dialog items/ buttons
 		List<Item> items = new ArrayList<Item>();
-		DialogMethodItem methodExecuteItem = new DialogMethodItem(this, methodOwner,
+		DialogMethodItem methodExecuteItem = new DialogMethodItem(userInterfaceContainer,  methodOwner,
 				methodInfo, methodParameterValue);
 		items.add(methodExecuteItem);
-		DialogCancelItem cancelItem = new DialogCancelItem();
+		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
 		items.add(cancelItem);
 
 		// create the confirmation title and message
-		LanguageProvider languageProvider = Introspect.getLanguageProvider();
 		String title = languageProvider.getText("Confirmation");
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to: "));
@@ -148,7 +149,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 			startMethodExecutionThread(serviceObject, methodInfo,
 					methodParameterValue);
 		} catch (Exception exception) {
-			String message = Introspect.getLanguageProvider().getText(
+			String message = languageProvider.getText(
 					"Failed to execute.");
 			showErrorDialog(title, message, exception);
 		}
@@ -217,7 +218,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 				} catch (Exception exception) {
 					String title = TitleUtil.createTitle(domainInfoProvider, methodInfo,
 							methodParameterValue, true);
-					String message = Introspect.getLanguageProvider().getText(
+					String message = languageProvider.getText(
 							"Failed to execute.");
 					showErrorDialog(title, message, exception);
 				}
@@ -237,7 +238,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		switch (methodInfo.getReturnType().getTypeCategory()) {
 		case NONE:// void
 			StringBuffer message = new StringBuffer(methodInfo.getText());
-			message.append(Introspect.getLanguageProvider().getText(
+			message.append(languageProvider.getText(
 					" was successfully executed"));
 			showInfoMessage(message.toString());
 			break;
@@ -288,7 +289,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 		case JAVA_TYPE:
 			message = new StringBuffer(title);
 			message.append(": ");
-			message.append(Introspect.getLanguageProvider().getText(
+			message.append(languageProvider.getText(
 					"Result is: "));
 			message.append(methodReturnValue.toString());
 			showInfoMessage(message.toString());
@@ -408,10 +409,10 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 										// code)
 
 		List<Item> items = new ArrayList<Item>();
-		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(this,
+		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(userInterfaceContainer,
 				title, message, throwable);
 		items.add(showStackTraceItem);
-		DialogCloseItem closeItem = new DialogCloseItem();
+		DialogCloseItem closeItem = new DialogCloseItem(languageProvider);
 		items.add(closeItem);
 
 		showDialog(DialogType.ERROR, title, message, items);

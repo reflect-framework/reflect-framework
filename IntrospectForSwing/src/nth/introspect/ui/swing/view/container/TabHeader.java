@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
@@ -29,19 +30,21 @@ import nth.introspect.ui.item.tab.TabsItem;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
 
 /**
- * Component to be used as tabComponent; Contains a JLabel to show the text and a JButton to close the tab it belongs to
+ * Component to be used as tabComponent; Contains a JLabel to show the text and
+ * a JButton to close the tab it belongs to
  */
 @SuppressWarnings("serial")
 public class TabHeader extends JPanel {
 	private final SwingViewContainer swingViewContainer;
 	private final Component tab;
+	public final LanguageProvider languageProvider;
 
-	public TabHeader(SwingViewContainer swingViewContainer, final Component tab, final String title, final String description, final Icon icon) {
+	public TabHeader( ViewContainer<?> viewContainer,LanguageProvider languageProvider,
+			final Component tab, final String title, final String description,
+			final Icon icon) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
-
-		if (swingViewContainer == null) {
-			throw new NullPointerException("SwingViewContainer is null");
-		}
+		this.languageProvider = languageProvider;
+		this.swingViewContainer = (SwingViewContainer) viewContainer;
 
 		if (tab == null) {
 			throw new NullPointerException("View is null");
@@ -49,7 +52,6 @@ public class TabHeader extends JPanel {
 
 		addMouseListener(createMouseListener());
 
-		this.swingViewContainer = swingViewContainer;
 		this.tab = tab;
 
 		setOpaque(false);
@@ -129,7 +131,6 @@ public class TabHeader extends JPanel {
 		public TabButton() {
 			int size = 18;
 			setPreferredSize(new Dimension(size, size));
-			LanguageProvider languageProvider = Introspect.getLanguageProvider();
 			setToolTipText(languageProvider.getText("Close this tab"));
 			// Make the button looks the same for all Laf's
 			setUI(new BasicButtonUI());
@@ -165,18 +166,22 @@ public class TabHeader extends JPanel {
 			}
 			g2.setStroke(new BasicStroke(2));
 			g2.setColor(Color.BLACK);
-			if (getModel().isRollover()) {// TODO hide all buttons unless mouse hovers or is active tab
+			if (getModel().isRollover()) {// TODO hide all buttons unless mouse
+											// hovers or is active tab
 				g2.setColor(Color.MAGENTA);
 			}
 			int delta = 6;
-			g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight() - delta - 1);
-			g2.drawLine(getWidth() - delta - 1, delta, delta, getHeight() - delta - 1);
+			g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight()
+					- delta - 1);
+			g2.drawLine(getWidth() - delta - 1, delta, delta, getHeight()
+					- delta - 1);
 			g2.dispose();
 		}
 	}
 
 	public void showPopupMenu(int x, int y) {
-		TabsItem tabsItem=new TabsItem(swingViewContainer, (View)tab);
+		TabsItem tabsItem = new TabsItem(languageProvider, swingViewContainer,
+				(View) tab);
 		List<Item> items = tabsItem.getChildren();
 		PopupMenu popupMenu = new PopupMenu(items);
 		popupMenu.show(this, x, y);

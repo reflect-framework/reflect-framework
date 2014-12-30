@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.valuemodel.ReadWriteValueModel;
@@ -21,17 +22,18 @@ public class ComboBox extends JComboBox implements Refreshable {
 
 	private ReadWriteValueModel readWriteValueModel;
 
-	public ComboBox(final PropertyValueModel propertyValueModel) {
+	public ComboBox(final PropertyValueModel propertyValueModel,
+			LanguageProvider languageProvider) {
 		this.readWriteValueModel = propertyValueModel;
 
 		Class<?> valueType = propertyValueModel.getValueType();
 		if (valueType.isEnum()) {
-			setRenderer(new ComboBoxRenderer());
+			setRenderer(new ComboBoxRenderer(languageProvider));
 
 			// add menu items per enumeration value
 
 			Format format = propertyValueModel.getPropertyInfo().getFormat();
-			
+
 			Vector<Object> listValues = new Vector<Object>();
 			listValues.add(null);
 			Object[] enumValues = valueType.getEnumConstants();
@@ -62,14 +64,14 @@ public class ComboBox extends JComboBox implements Refreshable {
 			public Component getListCellRendererComponent(JList list,
 					Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
-				
-				super.getListCellRendererComponent(list, value, index, isSelected,
-						cellHasFocus);
-				
+
+				super.getListCellRendererComponent(list, value, index,
+						isSelected, cellHasFocus);
+
 				String text = format.format(value);
 				setText(text);
-				
-				return this; 
+
+				return this;
 			}
 
 		};

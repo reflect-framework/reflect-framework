@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.net.URI;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.type.MethodParameterType;
 import nth.introspect.provider.domain.info.type.MethodReturnType;
@@ -13,6 +14,7 @@ import nth.introspect.provider.domain.info.valuemodel.factories.AnnotationValueM
 import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.provider.domain.info.valuemodel.impl.SimpleValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.id.MethodIconID;
 import nth.introspect.valuemodel.ValueModels;
 
@@ -54,11 +56,11 @@ public class MethodInfo implements IntrospectionInfo {
 		EXECUTE_METHOD_DIRECTLY, EXECUTE_METHOD_AFTER_CONFORMATION, EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL 
 	}
 
-	public MethodInfo(Method method) {
-		this(method, null);
+	public MethodInfo(LanguageProvider languageProvider, Method method) {
+		this(languageProvider, method, null);
 	}
 
-	public MethodInfo(Method method, String linkedPropertyName) {
+	public MethodInfo(LanguageProvider languageProvider, Method method, String linkedPropertyName) {
 		this.method = method;
 		this.linkedPropertyName = linkedPropertyName;
 		this.name = method.getName();
@@ -70,8 +72,9 @@ public class MethodInfo implements IntrospectionInfo {
 		String regExpToRemoveFromDefaultValue = linkedPropertyName == null ? null : "^" + linkedPropertyName;
 
 		// create default value getters
-		valueModels.put(TEXT, new TextValue(this, TEXT, regExpToRemoveFromDefaultValue));
-		valueModels.put(DESCRIPTION, new TextValue(this, DESCRIPTION, regExpToRemoveFromDefaultValue));
+		
+		valueModels.put(TEXT, new TextValue(this,languageProvider, TEXT, regExpToRemoveFromDefaultValue));
+		valueModels.put(DESCRIPTION, new TextValue(this,languageProvider, DESCRIPTION, regExpToRemoveFromDefaultValue));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, NAME));
 		// valueModels.put(ICON, new IconValue(this));
 		valueModels.put(ICON, new SimpleValue(new MethodIconID(method)));

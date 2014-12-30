@@ -25,6 +25,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	public PropertyMethodOwnerItem(FormView formView,
 			ReadOnlyValueModel parameterValueModel,
 			PropertyInfo propertyToExclude) {
+		super(formView.getuserInterfaceContainer().getLanguageProvider());
 		this.formView = formView;
 		pupulateChildren(formView, parameterValueModel, propertyToExclude);
 	}

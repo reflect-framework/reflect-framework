@@ -26,7 +26,7 @@ public class PropertyMethodItem extends MethodItem {
 	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo,
 			MethodInfo propertyMethodInfo,
 			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
-		super(formView.getuserInterfaceContainer().getUserInterfaceProvider(),  formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
+		super(formView.getuserInterfaceContainer(),  formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
 		this.formView = formView;
 		this.showPropertyName = showPropertyName;
 		this.propertyOwnerModel = formView.getDomainValueModel();

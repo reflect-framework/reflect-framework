@@ -30,8 +30,8 @@ public class InstanceFactory {
 	}
 
 	private Constructor<?> findBestConstructor(Class<?> classToInstantiate,
-			IntrospectContainer introspectContainer) throws ClassHasNoUsableConstructorException
-			 {
+			IntrospectContainer introspectContainer)
+			throws ClassHasNoUsableConstructorException {
 		List<Class<?>> allowedDependencyClasses = introspectContainer
 				.getAllClasses();
 		Constructor<?> bestConstructor = null;
@@ -128,43 +128,55 @@ public class InstanceFactory {
 		return needsToGoBefore;
 	}
 
-	public Object createInstance(List<Class<?>> classesWaitingToBeInstantiated) throws IntrospectContainerException {
-		
+	public Object createInstance(List<Class<?>> classesWaitingToBeInstantiated)
+			throws IntrospectContainerException {
+
 		Class<?>[] constructorParameterTypes = bestConstructor
 				.getParameterTypes();
-		
-		checkForLoopedDependency(constructorParameterTypes, classesWaitingToBeInstantiated);
-		
+
+		checkForLoopedDependency(constructorParameterTypes,
+				classesWaitingToBeInstantiated);
+
 		Object[] constructorParameterValues = getConstructorParameterValues(
-				 introspectContainer, constructorParameterTypes, classesWaitingToBeInstantiated);
-		
+				introspectContainer, constructorParameterTypes,
+				classesWaitingToBeInstantiated);
+
 		Object object;
 		try {
 			object = bestConstructor.newInstance(constructorParameterValues);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new nth.introspect.container.exception.InstantiationException(introspectContainer, bestConstructor, e);
+			throw new nth.introspect.container.exception.InstantiationException(
+					introspectContainer, bestConstructor, e);
 		}
 		return object;
 	}
 
 	private void checkForLoopedDependency(Class<?>[] constructorParameterTypes,
 			List<Class<?>> classesWaitingToBeInstantiated) {
-		for (Class<?> constructorParameterType : constructorParameterTypes) {
-			if (classesWaitingToBeInstantiated.contains(constructorParameterType)) {
-				throw new DependencyLoopException(classToInstantiate, constructorParameterType);
+		for (Class<?> classWaitingToBeInstantiated : classesWaitingToBeInstantiated) {
+			for (Class<?> constructorParameterType : constructorParameterTypes) {
+				if (constructorParameterType
+						.isAssignableFrom(classWaitingToBeInstantiated)) {
+					throw new DependencyLoopException(classToInstantiate,
+							constructorParameterType);
+				}
 			}
 		}
-		
+
 	}
 
 	private Object[] getConstructorParameterValues(
-			IntrospectContainer introspectContainer, Class<?>[] constructorParameterTypes, List<Class<?>> classesWaitingToBeInstantiated) throws IntrospectContainerException {
+			IntrospectContainer introspectContainer,
+			Class<?>[] constructorParameterTypes,
+			List<Class<?>> classesWaitingToBeInstantiated)
+			throws IntrospectContainerException {
 		Object[] constructorParameterValues = new Object[constructorParameterTypes.length];
-		for (int index=0;index<constructorParameterTypes.length;index++) {
+		for (int index = 0; index < constructorParameterTypes.length; index++) {
 			Class<?> constructorParameterType = constructorParameterTypes[index];
-			Object constructorParameterValue = introspectContainer.get(constructorParameterType, classesWaitingToBeInstantiated);
-			constructorParameterValues[index]=constructorParameterValue;
+			Object constructorParameterValue = introspectContainer.get(
+					constructorParameterType, classesWaitingToBeInstantiated);
+			constructorParameterValues[index] = constructorParameterValue;
 		}
 		return constructorParameterValues;
 	}

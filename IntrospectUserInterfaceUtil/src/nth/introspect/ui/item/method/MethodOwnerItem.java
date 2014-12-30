@@ -19,6 +19,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 	private final Object methodOwner;
 
 	public MethodOwnerItem( UserInterfaceContainer userInterfaceContainer, Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
+		super(userInterfaceContainer.getLanguageProvider());
 		this.methodOwner = methodOwner;
 		DomainInfoProvider domainInfoProvider = userInterfaceContainer.getDomainInfoProvider();
 		methodOwnerInfo = domainInfoProvider.getClassInfo(methodOwner.getClass());
@@ -29,7 +30,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 
 		UserInterfaceProvider<?> userInterfaceProvider=userInterfaceContainer.getUserInterfaceProvider();
 		for (MethodInfo methodInfo : methodInfos) {
-			MethodItem methodItem = new MethodItem(userInterfaceProvider, methodOwner, methodInfo, methodParameterValueModel);
+			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner, methodInfo, methodParameterValueModel);
 			addItem(methodItem);
 		}
 	}

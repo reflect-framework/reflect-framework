@@ -19,6 +19,7 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
@@ -54,7 +55,8 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 		setLayout(new BorderLayout());
 
 		DomainInfoProvider domainInfoProvider=formView.getuserInterfaceContainer().getDomainInfoProvider();
-		tableModel = new MethodTableModel(domainInfoProvider, propertyValueModel);
+		LanguageProvider languageProvider=formView.getuserInterfaceContainer().getLanguageProvider();
+		tableModel = new MethodTableModel(domainInfoProvider, languageProvider, propertyValueModel);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
 

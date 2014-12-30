@@ -8,10 +8,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
 
+
 public class StringConverter {
 
+	
+	
 	@SuppressWarnings("rawtypes")
-	public static  String from(Object value) {
+	public static  String from(Object value, LanguageProvider languageProvider) {
 		if (value == null) {
 			return null;
 		}
@@ -39,15 +42,14 @@ public class StringConverter {
 		} else if (Short.class.isAssignableFrom(valueClass)) {
 			return fromShort((Short)value);
 		} else if (value.getClass().isEnum()) {
-			return fromEnum((Enum)value);
+			return fromEnum((Enum)value, languageProvider);
 		} else {
 			throw new RuntimeException("String conversion from type:" + valueClass.getCanonicalName() + " is not suported");
 		}
 	}
 	
 
-	private static String fromEnum(Object value) {
-		LanguageProvider languageProvider = Introspect.getLanguageProvider();
+	private static String fromEnum(Object value, LanguageProvider languageProvider) {
 		String key = languageProvider.getKey(value);
 		String defaultValue = languageProvider.getDefaultValue(key);
 		return  languageProvider.getText(key, defaultValue);

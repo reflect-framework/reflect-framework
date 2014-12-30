@@ -31,12 +31,12 @@ public class MethodTableModel extends AbstractTableModel implements
 	private final ReadOnlyValueModel valueModel;
 	private Format format;
 
-	public MethodTableModel(DomainInfoProvider domainInfoProvider, ReadOnlyValueModel valueModel) {
+	public MethodTableModel(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
 		this.valueModel = valueModel;
 		Class<?> domainClass = valueModel.getValueType();
 
 		if (TypeUtil.isJavaType(domainClass)) {
-			JavaFormatFactory formatFactory = new JavaFormatFactory();
+			JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
 			format = formatFactory.create(domainClass);
 		} else {
 			TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();

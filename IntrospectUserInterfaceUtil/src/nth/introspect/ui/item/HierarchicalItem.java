@@ -13,7 +13,8 @@ public class HierarchicalItem extends Item {
 	private List<Item> children = new ArrayList<Item>();
 	private HierarchicalItem parent;
 
-	public HierarchicalItem() {
+	public HierarchicalItem(LanguageProvider languageProvider) {
+		super(languageProvider);
 	}
 
 	/**
@@ -26,8 +27,8 @@ public class HierarchicalItem extends Item {
 	 * @param action
 	 *            The action to be fired
 	 */
-	public HierarchicalItem(String text, URI iconURI, Action action) {
-
+	public HierarchicalItem(LanguageProvider languageProvider, String text, URI iconURI, Action action) {
+super(languageProvider);
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
 		}
@@ -37,14 +38,14 @@ public class HierarchicalItem extends Item {
 		setAction(action);
 	}
 
-	public HierarchicalItem(String text, Action action) {
+	public HierarchicalItem(LanguageProvider languageProvider, String text, Action action) {
+		super(languageProvider);
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
 		}
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		LanguageProvider languageProvider = Introspect.getLanguageProvider();
 		String iconName = languageProvider.getDefaultValue(text);
 		setIconURI(Introspect.getPathProvider().getImagePath(iconName));
 	}
@@ -127,7 +128,7 @@ public class HierarchicalItem extends Item {
 	}
 
 	private static HierarchicalItem createSeperator() {
-		HierarchicalItem item = new HierarchicalItem();
+		HierarchicalItem item = new HierarchicalItem(null);
 		item.setSeparator(true);
 		item.setText("");
 		return item;

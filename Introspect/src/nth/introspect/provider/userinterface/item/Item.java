@@ -19,8 +19,10 @@ public class Item {
 	private String description;
 	private boolean isSeparator = false;
 	private KeyStroke hotKey;
+	private final LanguageProvider languageProvider;
 
-	public Item() {
+	public Item(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
 	}
 
 	/**
@@ -33,8 +35,9 @@ public class Item {
 	 * @param action
 	 *            The action to be fired
 	 */
-	public Item(String text, URI iconURI, Action action) {
+	public Item(LanguageProvider languageProvider, String text, URI iconURI, Action action) {
 
+		this.languageProvider = languageProvider;
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
 		}
@@ -48,14 +51,14 @@ public class Item {
 		this.iconURI = iconURI;
 	}
 
-	public Item(String text, Action action) {
+	public Item(LanguageProvider languageProvider, String text, Action action) {
+		this.languageProvider = languageProvider;
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
 		}
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		LanguageProvider languageProvider = Introspect.getLanguageProvider();
 		String iconName = languageProvider.getDefaultValue(text);
 		setIconURI(Introspect.getPathProvider().getImagePath(iconName));
 	}
@@ -79,7 +82,7 @@ public class Item {
 	}
 
 	public String getText() {
-		return Introspect.getLanguageProvider().getText(text);
+		return languageProvider.getText(text);
 	}
 
 	public boolean isEnabled() {
@@ -95,7 +98,7 @@ public class Item {
 		if (description == null || description.trim().length() == 0) {
 			descText = getText();
 		} else {
-			descText = Introspect.getLanguageProvider().getText(description);
+			descText = languageProvider.getText(description);
 		}
 		return getDescriptionWithHotKey(descText);
 	}

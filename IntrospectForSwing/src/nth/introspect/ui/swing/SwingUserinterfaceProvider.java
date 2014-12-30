@@ -18,8 +18,10 @@ import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.item.Item;
@@ -42,8 +44,8 @@ public class SwingUserinterfaceProvider extends
 	private MainWindow mainWindow;
 	private IntrospectApplication application;
 
-	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer) {
-		super(userInterfaceContainer);
+	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,LanguageProvider languageProvider ) {
+		super(userInterfaceContainer, domainInfoProvider, languageProvider);
 		this.application = application;
 	}
 

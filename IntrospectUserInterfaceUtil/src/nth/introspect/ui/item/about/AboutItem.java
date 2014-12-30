@@ -2,6 +2,7 @@ package nth.introspect.ui.item.about;
 
 import java.util.List;
 
+import sun.launcher.resources.launcher;
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.about.AboutProvider;
@@ -16,6 +17,7 @@ public class AboutItem extends Item {
 	private static final String ABOUT = "About";
 
 	public AboutItem(final UserInterfaceContainer userInterfaceContainer) {
+		super(userInterfaceContainer.getLanguageProvider());
 		setText(ABOUT);
 		setDescription(ABOUT);
 		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.BUTTON_ROUND_ABOUT));

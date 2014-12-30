@@ -5,15 +5,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.provider.language.LanguageProvider;
 
 public class PropertyInfoFactory {
 
-	public static List<PropertyInfo> create(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass) {
+	public static List<PropertyInfo> create(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
 		ArrayList<PropertyInfo> propertyInfos = new ArrayList<PropertyInfo>();
 		List<Method> getterMethods = getGetterMethods(introspectedClass);
 		for (Method method : getterMethods) {
-			PropertyInfo propertyInfo = new PropertyInfo(domainInfoProvider, method);
+			PropertyInfo propertyInfo = new PropertyInfo(domainInfoProvider, languageProvider, method);
 			propertyInfos.add(propertyInfo);
 		}
 

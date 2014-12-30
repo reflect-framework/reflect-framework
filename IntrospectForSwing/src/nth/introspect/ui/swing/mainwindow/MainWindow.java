@@ -27,6 +27,7 @@ import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
@@ -45,10 +46,12 @@ public class MainWindow extends JFrame {
 	private SwingViewContainer contentTabPanel;
 	private JButton menuButton;
 	private final UserInterfaceContainer userInterfaceContainer;
+	private final LanguageProvider languageProvider;
 
 	public MainWindow(IntrospectApplication application,
 			UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer = userInterfaceContainer;
+		this.languageProvider=userInterfaceContainer.getLanguageProvider();
 		// Set style
 		try {
 			UIManager
@@ -165,7 +168,7 @@ public class MainWindow extends JFrame {
 		button.registerKeyboardAction(action,
 				KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(Introspect.getLanguageProvider().getText(
+		button.setToolTipText(languageProvider.getText(
 				"Find Menu Item (F3)"));
 		button.setIcon(IconFactory.create(IntrospectImage.EDIT_FIND,
 				SwingStyleConstant.ICON_SIZE));
@@ -193,7 +196,7 @@ public class MainWindow extends JFrame {
 		button.registerKeyboardAction(action,
 				KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(Introspect.getLanguageProvider().getText(
+		button.setToolTipText(languageProvider.getText(
 				"Show Tabs Menu (F4)"));
 		button.setIcon(IconFactory.create(IntrospectImage.TABS,
 				SwingStyleConstant.ICON_SIZE));
@@ -209,7 +212,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private SwingViewContainer createContentTabPanel() {
-		SwingViewContainer swingViewContainer = new SwingViewContainer();
+		SwingViewContainer swingViewContainer = new SwingViewContainer(userInterfaceContainer);
 		return swingViewContainer;
 	}
 
@@ -223,7 +226,7 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(false);
 		// set menu button
-		menuButton.setToolTipText(Introspect.getLanguageProvider().getText(
+		menuButton.setToolTipText(languageProvider.getText(
 				"Show Menu (F2)"));
 		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_SHOW,
 				SwingStyleConstant.ICON_SIZE));
@@ -235,7 +238,7 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(true);
 		// hide menu button
-		menuButton.setToolTipText(Introspect.getLanguageProvider().getText(
+		menuButton.setToolTipText(languageProvider.getText(
 				"Hide Menu (F2)"));
 		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_HIDE,
 				SwingStyleConstant.ICON_SIZE));

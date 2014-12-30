@@ -15,12 +15,17 @@ import nth.introspect.ui.swing.icon.IconFactory;
 @SuppressWarnings("serial")
 public class ComboBoxRenderer extends DefaultListCellRenderer {
 
+	private final LanguageProvider languageProvider;
+	
+	public ComboBoxRenderer(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
+	}
+
 	@Override
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+	public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);		
 		
 		if (value!=null && value.getClass().isEnum()) {
-			LanguageProvider languageProvider = Introspect.getLanguageProvider();
 			//set item text
 			String key = languageProvider.getKey(value);
 			String defaultValue = languageProvider.getDefaultValue(key);

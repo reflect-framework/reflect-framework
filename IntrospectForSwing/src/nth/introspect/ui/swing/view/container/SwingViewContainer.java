@@ -9,6 +9,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.swing.icon.IconFactory;
@@ -17,7 +19,10 @@ import nth.introspect.ui.swing.view.SwingView;
 
 @SuppressWarnings("serial")
 public class SwingViewContainer extends JTabbedPane implements ViewContainer<View> {
-	public SwingViewContainer() {
+	private final UserInterfaceContainer userInterfaceContainer;
+
+	public SwingViewContainer(UserInterfaceContainer userInterfaceContainer) {
+		this.userInterfaceContainer = userInterfaceContainer;
 		setTabLayoutPolicy(WRAP_TAB_LAYOUT);
 		addChangeListener(createTabChangeListener());
 	}
@@ -44,7 +49,8 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Vie
 	@Override
 	public void insertTab(String title, Icon icon, Component component, String description, int index) {
 		super.insertTab(title, icon, component, description, index);
-		setTabComponentAt(index, new TabHeader(this, component, title, description, icon));
+		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		setTabComponentAt(index, new TabHeader(this,  languageProvider, component, title, description, icon));
 		setSelectedIndex(index);
 	}
 

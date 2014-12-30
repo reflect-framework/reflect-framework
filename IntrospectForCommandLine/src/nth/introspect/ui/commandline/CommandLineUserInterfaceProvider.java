@@ -46,10 +46,12 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 
 	private CommandLineViewContainer viewContainer;
 	private final  IntrospectApplication application;
+	private LanguageProvider languageProvider;
 
-	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer) {
-		super(userInterfaceContainer);
+	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider) {
+		super(userInterfaceContainer, domainInfoProvider, languageProvider);
 		this.application = application;
+		this.languageProvider = languageProvider;
 	}
 
 	@Override
@@ -119,7 +121,6 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 	@Override
 	public void showDialog(DialogType dialogType, String title, String message,
 			List<Item> items) {
-		LanguageProvider languageProvider=Introspect.getLanguageProvider();
 		StringBuilder txt=new StringBuilder(dialogType.toString());
 		txt.append(" - ");
 		txt.append(title);

@@ -18,6 +18,7 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
@@ -114,13 +115,15 @@ public class FormView extends SwingView implements
 
 	public JButton createCloseButton() {
 		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
-		CloseThisTabItem closeItem = new CloseThisTabItem(viewContainer, this);
+		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider, viewContainer, this);
 		return new ItemButton(closeItem);
 	}
 
 	public JButton createCancelButton() {
 		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
-		CancelItem cancelItem = new CancelItem(viewContainer, this);
+		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer, this);
 		return new ItemButton(cancelItem);
 	}
 

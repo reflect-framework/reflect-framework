@@ -1,7 +1,9 @@
 package nth.introspect.provider.domain.info.valuemodel.impl;
 
+import sun.launcher.resources.launcher;
 import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.StringUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
@@ -9,12 +11,14 @@ public class TextValue implements ReadOnlyValueModel {
 
 	private String defaultValue;
 	private final String key;
+	private final LanguageProvider languageProvider;
 
-	public TextValue(IntrospectionInfo introspectInfo, String suffix) {
-		this(introspectInfo, suffix, null);
+	public TextValue(IntrospectionInfo introspectInfo, LanguageProvider languageProvider, String suffix) {
+		this(introspectInfo,  languageProvider, suffix, null);
 	}
 
-	public TextValue(IntrospectionInfo introspectInfo, String suffix, String regexpToRemoveFromDefaultText) {
+	public TextValue(IntrospectionInfo introspectInfo, LanguageProvider languageProvider, String suffix, String regexpToRemoveFromDefaultText) {
+		this.languageProvider = languageProvider;
 		defaultValue = introspectInfo.getName();
 		if (regexpToRemoveFromDefaultText != null) {
 			defaultValue=defaultValue.replaceAll(regexpToRemoveFromDefaultText, "");
@@ -37,7 +41,7 @@ public class TextValue implements ReadOnlyValueModel {
 
 	public Object getValue() {
 		// try to get value from resource file with key
-		return Introspect.getLanguageProvider().getText(key, defaultValue);
+		return languageProvider.getText(key, defaultValue);
 	}
 
 	@Override

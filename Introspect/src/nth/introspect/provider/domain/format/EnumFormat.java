@@ -12,6 +12,12 @@ import nth.introspect.util.exception.MethodNotSupportedException;
 public class EnumFormat extends Format {
 
 	private static final long serialVersionUID = 165765643765L;
+	private final LanguageProvider languageProvider;
+	
+	
+	public EnumFormat(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
+	}
 
 	@Override
 	public StringBuffer format(Object enumValue, StringBuffer toAppendTo,
@@ -19,8 +25,6 @@ public class EnumFormat extends Format {
 		if (enumValue == null) {
 			return toAppendTo.append("");
 		} else {
-			LanguageProvider languageProvider = Introspect
-					.getLanguageProvider();
 			String key = languageProvider.getKey(enumValue);
 			String defaultValue = StringUtil.eliphantCaseToNormal(enumValue.toString());
 			String value = languageProvider.getText(key, defaultValue);

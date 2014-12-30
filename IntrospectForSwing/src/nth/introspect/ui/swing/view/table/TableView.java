@@ -21,6 +21,7 @@ import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
@@ -57,7 +58,8 @@ public class TableView extends SwingView implements
 		setLayout(new BorderLayout());
 
 		domainInfoProvider= userInterfaceContainer.getDomainInfoProvider();
-		tableModel = new MethodTableModel(domainInfoProvider, getAllRowsModel());
+		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		tableModel = new MethodTableModel(domainInfoProvider, languageProvider, getAllRowsModel());
 		table = createTable(tableModel);
 		JScrollPane tableContainer = new JScrollPane(table);
 		tableContainer.getViewport().setBackground(table.getBackground());

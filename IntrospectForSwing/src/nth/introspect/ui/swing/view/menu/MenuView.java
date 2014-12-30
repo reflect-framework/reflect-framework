@@ -24,6 +24,8 @@ public class MenuView extends SwingView {
 
 	private ItemAccordion itemAccordion;
 
+	private LanguageProvider languageProvider;
+
 	public MenuView(UserInterfaceContainer userInterfaceContainer ) {
 		List<MethodOwnerItem> menuItems = ItemFactory.createMenuViewItems(userInterfaceContainer);
 
@@ -32,14 +34,15 @@ public class MenuView extends SwingView {
 		itemAccordion=new ItemAccordion(menuItems);
 		add(itemAccordion,BorderLayout.CENTER);
 		
-		searchBox = createSearchBox(itemAccordion, menuItems);
+		languageProvider = userInterfaceContainer.getLanguageProvider();
+		searchBox = createSearchBox(itemAccordion, menuItems, languageProvider);
 		add(searchBox, BorderLayout.NORTH);
 	}
 
 
 
-	private JComboBox createSearchBox(ItemAccordion itemAccordion, List<MethodOwnerItem> menuItems) {
-		return new MenuSearchBox(itemAccordion, menuItems);
+	private JComboBox createSearchBox(ItemAccordion itemAccordion, List<MethodOwnerItem> menuItems, LanguageProvider languageProvider) {
+		return new MenuSearchBox(itemAccordion, menuItems, languageProvider);
 	}
 
 	public Component getSearchField() {
@@ -48,13 +51,11 @@ public class MenuView extends SwingView {
 
 	@Override
 	public String getViewTitle() {
-		LanguageProvider languageProvider = Introspect.getLanguageProvider();
 		return languageProvider.getText("Menu");
 	}
 
 	@Override
 	public String getViewDescription() {
-		LanguageProvider languageProvider = Introspect.getLanguageProvider();
 		return languageProvider.getText("Menu");
 	}
 

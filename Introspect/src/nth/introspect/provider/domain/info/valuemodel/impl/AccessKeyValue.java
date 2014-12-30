@@ -1,11 +1,12 @@
 package nth.introspect.provider.domain.info.valuemodel.impl;
 
 import nth.introspect.provider.domain.info.IntrospectionInfo;
+import nth.introspect.provider.language.LanguageProvider;
 
 public class AccessKeyValue extends TextValue {
 
-	public AccessKeyValue(IntrospectionInfo introspectionInfo, String name) {
-		super(introspectionInfo, name);
+	public AccessKeyValue(IntrospectionInfo introspectionInfo, LanguageProvider languageProvider, String name) {
+		super(introspectionInfo, languageProvider, name);
 	}
 	
 	@Override

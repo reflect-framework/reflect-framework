@@ -21,68 +21,12 @@ public class DefaultLanguageProvider implements LanguageProvider {
 	private static final String PREFIX_LANGUAGE_FILE = "language";
 	private static final String DOT = ".";
 	private ResourceBundleClassLoader resourceBundleClassLoader;
-	private Locale defaultLocale = Locale.ENGLISH;// TODO move to constructor?
-	private final String LANGUAGE_FILE_COMMENTS;
-	private final DomainInfoProvider domainInfoProvider;
+	private Locale defaultLocale;
 
-	public DefaultLanguageProvider(DomainInfoProvider domainInfoProvider) {
-		this.domainInfoProvider = domainInfoProvider;
+	public DefaultLanguageProvider() {
+		defaultLocale = Locale.ENGLISH;
 		resourceBundleClassLoader = new ResourceBundleClassLoader();
-		LANGUAGE_FILE_COMMENTS = getLanguageFileComments();
 	}
-
-	// TODO remove the following lines when not needed
-	// **
-	// * This method can be used to create or update a language configuration file to support multiple language. Follow the following procedure:<br>
-	// * - call this method for each new or existing language file and dor each domain and service class <br>
-	// * - open this file and translate the texts that are marked with the a * behind the = sign to the required language.<br>
-	// *
-	// * @param locale
-	// * The locale is used to determain the property file
-	// * @param domainOrServiceClass
-	// * a source of default information to merge into a language property file.
-	// */
-	// public void mergePropertyFile(Locale locale, Class<?> domainOrServiceClass) throws IOException {
-	// File languageFile = getLanguageFile(locale);
-	// mergePropertyFile(languageFile, domainOrServiceClass);
-	// }
-
-	// /**
-	// * This method can be used to create or update a language configuration file to support multiple language. Follow the following procedure:<br>
-	// * - call this method for each new or existing language file and dor each domain and service class <br>
-	// * - open this file and translate the texts that are marked with the a * behind the = sign to the required language.<br>
-	// *
-	// * @param propertiesFile
-	// * name and path of the new or to be merged properties file. The file name is normaly language_X.properties (replace X with the country code)<br>
-	// * @param domainOrServiceClass
-	// * a source of default information to merge into a language property file.
-	// */
-	// public void mergePropertyFile(File propertiesFile, Class<?> domainOrServiceClass) throws IOException {
-	// // read existing properties
-	// SortedProperties properties = new SortedProperties();
-	// try {
-	// properties.load(new FileInputStream(propertiesFile));
-	// } catch (FileNotFoundException e) {
-	// // File did not exist, maybe we have to create a new file. No big deal.
-	// }
-	// // get default properties
-	// Properties defaultProperties = getDefaultProperties(domainOrServiceClass);
-	// // if the propertyFile in none english then mark new properties with a * to indicate that these still need to be translated
-	// String mark = "";
-	// if (!propertiesFile.getName().contains("_en")) {
-	// mark = "*";
-	// }
-	// // merge properies
-	// for (Object key : defaultProperties.keySet()) {
-	// if (!properties.containsKey(key)) {
-	// properties.put(key, mark + defaultProperties.get(key));
-	// }
-	// }
-	// // create set of rules for property file
-	// String MESSAGE = getLanguageFileComments();
-	// // store modified language file
-	// properties.store(new FileOutputStream(propertiesFile), MESSAGE.toString());
-	// }
 
 	private String getLanguageFileComments() {
 		StringBuffer MESSAGE = new StringBuffer();
@@ -93,27 +37,6 @@ public class DefaultLanguageProvider implements LanguageProvider {
 		MESSAGE.append("#- Prevent that the modified texts after the = character contain much more characters then the original texts. Use abbreviations to shorten the text when required.\n");
 		MESSAGE.append("#- Use unicode for special characters. In example: replace the ö character in löschen with \\u00F6. so: clear=l\\u00F6schen");
 		return MESSAGE.toString();
-	}
-
-	/**
-	 * This method collects the default texts that can be used to create a language configuration file to support multi language.
-	 * 
-	 * @param domainOrServiceClass
-	 *            a source of default information to merge into a language property file.
-	 */
-	public Properties getDefaultProperties(Class<?> domainOrServiceClass) {
-		Properties properties = new Properties();
-		for (PropertyInfo propertyInfo : domainInfoProvider.getPropertyInfos(domainOrServiceClass)) {
-			ValueModels valueModels = propertyInfo.getValueModels();
-			for (String name : valueModels.keySet()) {
-				ReadOnlyValueModel valueModel = valueModels.get(name);
-				if (valueModel instanceof TextValue) {
-					TextValue textValueModel = (TextValue) valueModel;
-					properties.put(textValueModel.getKey(), textValueModel.getDefaultValue());
-				}
-			}
-		}
-		return properties;
 	}
 
 	@Override
@@ -166,7 +89,8 @@ public class DefaultLanguageProvider implements LanguageProvider {
 		}
 		// try to get text
 		try {
-			ResourceBundle resourceBundle = ResourceBundle.getBundle(PREFIX_LANGUAGE_FILE, locale, resourceBundleClassLoader);
+			ResourceBundle resourceBundle = ResourceBundle.getBundle(
+					PREFIX_LANGUAGE_FILE, locale, resourceBundleClassLoader);
 			text = resourceBundle.getString(key);
 		} catch (Throwable e) {
 		}
@@ -185,20 +109,23 @@ public class DefaultLanguageProvider implements LanguageProvider {
 		}
 	}
 
-	public void appendToLanguageFile(Locale locale, String key, String defaultValue) {
+	public void appendToLanguageFile(Locale locale, String key,
+			String defaultValue) {
 		File file = getLanguageFile(locale);
 		SortedProperties properties = new SortedProperties();
 		try {
 			properties.load(new FileInputStream(file));
 		} catch (Exception e) {
-			// File did not exist. We will create a new file when needed. No big deal.
+			// File did not exist. We will create a new file when needed. No big
+			// deal.
 		}
 		// add property
 		properties.put(key, defaultValue);
 
 		// store modified language file
 		try {
-			properties.store(new FileOutputStream(file), LANGUAGE_FILE_COMMENTS);
+			properties
+					.store(new FileOutputStream(file), getLanguageFileComments());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -215,7 +142,8 @@ public class DefaultLanguageProvider implements LanguageProvider {
 		resourceName.append("_");
 		resourceName.append(locale.getLanguage());
 		resourceName.append(".properties");
-		URL propertyFileURL = resourceBundleClassLoader.findResource(resourceName.toString());
+		URL propertyFileURL = resourceBundleClassLoader
+				.findResource(resourceName.toString());
 		return new File(propertyFileURL.getFile());
 	}
 

@@ -14,7 +14,7 @@ public class MenuTabPanel extends SwingViewContainer {
 	private UserInterfaceContainer userInterfaceContainer;
 
 	public MenuTabPanel(UserInterfaceContainer userInterfaceContainer) {
-		
+		super(userInterfaceContainer);
 		this.userInterfaceContainer = userInterfaceContainer;
 		menuView = new MenuView(userInterfaceContainer);
 		addView(menuView);

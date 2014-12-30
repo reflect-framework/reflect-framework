@@ -3,6 +3,7 @@ package nth.introspect.ui.item.dialog;
 import java.net.URI;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
@@ -19,11 +20,12 @@ public class DialogMethodItem extends Item {
 	 * @param methodOwner
 	 * @param methodInfo
 	 */
-	public DialogMethodItem(final UserInterfaceProvider<?> userInterfaceProvider , final Object methodOwner, final MethodInfo methodInfo, final Object methodParameterValue) {
+	public DialogMethodItem(UserInterfaceContainer userInterfaceContainer , final Object methodOwner, final MethodInfo methodInfo, final Object methodParameterValue) {
+		super(userInterfaceContainer.getLanguageProvider());
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
-
+final UserInterfaceProvider<?> userInterfaceProvider=userInterfaceContainer.getUserInterfaceProvider();
 		setAction(new Action() {
 			@Override
 			public void run() {

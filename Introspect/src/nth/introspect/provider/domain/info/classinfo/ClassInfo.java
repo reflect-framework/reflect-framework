@@ -3,12 +3,14 @@ package nth.introspect.provider.domain.info.classinfo;
 import java.net.URI;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.provider.domain.info.valuemodel.impl.SimpleValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TitleValue;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.id.ClassIconID;
 import nth.introspect.valuemodel.ValueModels;
 
@@ -34,7 +36,7 @@ public class ClassInfo implements IntrospectionInfo {
 	private final String namePath;
 	private final Class<?> introspectedClass;
 
-	public ClassInfo(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass) {
+	public ClassInfo(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
 		this.name = introspectedClass.getSimpleName();
 		this.namePath = introspectedClass.getCanonicalName();
 		this.introspectedClass = introspectedClass;
@@ -42,12 +44,12 @@ public class ClassInfo implements IntrospectionInfo {
 		valueModels = new ValueModels();
 
 		// create default value getters
-		valueModels.put(TEXT, new TextValue(this, TEXT, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
-		valueModels.put(DESCRIPTION, new TextValue(this, DESCRIPTION, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
+		valueModels.put(TEXT, new TextValue(this, languageProvider,  TEXT, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
+		valueModels.put(DESCRIPTION, new TextValue(this, languageProvider, DESCRIPTION, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
 		// valueModels.put(ICON, new IconValue(this));
 		valueModels.put(ICON, new SimpleValue(new ClassIconID(introspectedClass)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
-		valueModels.put(TITLE, new TitleValue(domainInfoProvider));
+		valueModels.put(TITLE, new TitleValue(domainInfoProvider, languageProvider));
 
 		// create value getters from annotations
 		// TODO when needed valueModels.putAll(AnnotationValueModelFactory.create(this, ANNOTATION_NAMES));

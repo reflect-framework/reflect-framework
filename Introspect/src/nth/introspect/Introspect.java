@@ -128,15 +128,13 @@ import nth.introspect.provider.validation.ValidationProvider;
 // TODO update javadoc (or refer to web site)
 public class Introspect {
 
-	private static IntrospectContainer introspectContainer;
+	private static UserInterfaceContainer userInterfaceContainer;
 	private static PathProvider pathProvider;
-	private static LanguageProvider languageProvider;
-	// private static DomainInfoProvider domainInfoProvider;
 	private static UserInterfaceProvider<?> userInterfaceProvider;
 
 	public static void init(IntrospectApplication application) {
 		try {
-			introspectContainer = new UserInterfaceContainer(application);
+			userInterfaceContainer = new UserInterfaceContainer(application);
 		} catch (Exception exception) {
 			throw new IntrospectContainerInitializationException(exception);
 		}
@@ -151,32 +149,23 @@ public class Introspect {
 	public static void start() {
 		// TODO remove init method and add following lines
 		// try {
-		// introspectContainer = new UserInterfaceContainer(application);
+		// userInterfaceContainer = new UserInterfaceContainer(application);
 		// } catch (Exception exception) {
 		// throw new IntrospectContainerInitializationException(exception);
 		// }
 
-		userInterfaceProvider= (UserInterfaceProvider<?>) introspectContainer.get(UserInterfaceProvider.class);
+		userInterfaceProvider= userInterfaceContainer.getUserInterfaceProvider();
 		userInterfaceProvider.start();
 	}
 
 	// TODO get rid of this service lookup, use dependency injection instead
 	public static PathProvider getPathProvider() {
 		if (pathProvider == null) {
-			pathProvider = (PathProvider) introspectContainer
+			pathProvider = (PathProvider) userInterfaceContainer
 					.get(PathProvider.class);
 
 		}
 		return pathProvider;
-	}
-
-	// TODO get rid of this service lookup, use dependency injection instead
-	public static LanguageProvider getLanguageProvider() {
-		if (languageProvider == null) {
-			languageProvider = (LanguageProvider) introspectContainer
-					.get(LanguageProvider.class);
-		}
-		return languageProvider;
 	}
 
 }
