@@ -8,8 +8,6 @@ import java.awt.event.FocusListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import nth.introspect.Introspect;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.PropertyChangeListener;
 import nth.introspect.provider.domain.info.PropertyChangeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
@@ -47,10 +45,6 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 		// create value model to bind domainObject and SWING field
 		
 		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
-		
-		DomainInfoProvider domainInfoProvider = formView.getuserInterfaceContainer().getDomainInfoProvider();
-		domainInfoProvider.addPropertyChangeListener(this);//FIXME where is the property change listener beeing unsubscribed?
-
 		
 		this.field = FieldFactory.create(formView, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field
 		if (field instanceof ManyToOneOrManyField || field instanceof TextAreaField) {//TODO get field width from a Field interface?

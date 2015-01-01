@@ -32,21 +32,5 @@ public interface DomainInfoProvider extends Provider {
 	List<MethodInfo> getMethodInfos(Class<?> introspectedClass,
 			Filter<MethodInfo> methodInfoFilter);
 
-	/**
-	 * TODO move to {@link IntrospectContainer}
-	 */
-	void addPropertyChangeListener(PropertyChangeListener propertyChangeListener);
-
-	/**
-	 * TODO move to {@link IntrospectContainer}
-	 */
-	void removePropertyChangeListener(
-			PropertyChangeListener propertyChangeListener);
-
-	/**
-	 * TODO move to {@link IntrospectContainer}
-	 */
-	void invokePropertyChangeListeners(Object introspectedObject,
-			String propertyName, PropertyChangeType propertyChangeType);
 
 }

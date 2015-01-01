@@ -24,7 +24,6 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	private final HashMap<Class<?>, ClassInfo> classInfos;
 	private final HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
 	private final HashMap<Class<?>, List<MethodInfo>> methodInfosPerClass;
-	private final List<PropertyChangeListener> propertyChangeListeners;
 	private final LanguageProvider languageProvider;
 
 	public DefaultDomainInfoProvider( LanguageProvider languageProvider) {
@@ -32,14 +31,6 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 		classInfos = new HashMap<Class<?>, ClassInfo>();
 		propertyInfosPerClass = new HashMap<Class<?>, List<PropertyInfo>>();
 		methodInfosPerClass = new HashMap<Class<?>, List<MethodInfo>>();
-		propertyChangeListeners = new ArrayList<PropertyChangeListener>();
-	}
-
-
-	@Override
-	public void addPropertyChangeListener(
-			PropertyChangeListener propertyChangeListener) {
-		propertyChangeListeners.add(propertyChangeListener);
 	}
 
 
@@ -130,33 +121,5 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	}
 
 
-	/**
-	 * TODO move to {@link IntrospectContainer}
-	 */
-	@Override
-	public void invokePropertyChangeListeners(Object introspectedObject,
-			String propertyName, PropertyChangeType propertyChangeType) {
-		if (introspectedObject == null) {
-			throw new NullPointerException();
-		}
-		PropertyInfo propertyInfo = getPropertyInfo(
-				introspectedObject.getClass(), propertyName);
-		for (PropertyChangeListener propertyChangeListener : propertyChangeListeners) {
-			if (propertyChangeListener.getIntrospectedObject() == introspectedObject
-					&& propertyChangeListener.getPropertyInfo() == propertyInfo) {
-				propertyChangeListener.propertyChanged(propertyChangeType);
-			}
-		}
-	}
-
-	/**
-	 * TODO move to {@link IntrospectContainer}
-	 */
-
-	@Override
-	public void removePropertyChangeListener(
-			PropertyChangeListener propertyChangeListener) {
-		propertyChangeListeners.remove(propertyChangeListener);
-	}
 
 }
