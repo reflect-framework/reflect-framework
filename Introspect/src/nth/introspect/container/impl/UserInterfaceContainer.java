@@ -22,13 +22,10 @@ import nth.introspect.provider.validation.ValidationProvider;
 public class UserInterfaceContainer extends IntrospectContainer {
 
 	private LanguageProvider languageProvider;
-	private AuthorizationProvider authorizationProvider;
-	private PathProvider pathProvider;
 	private final IntrospectApplication application;
 	private UserInterfaceProvider<?> userInterfaceProvider;
 	private DomainInfoProvider domainInfoProvider;
 	private AboutProvider aboutProvider;
-	private ValidationProvider validationProvider;
 
 	public UserInterfaceContainer(IntrospectApplication application) {
 		super( new ServiceContainer(application));
@@ -56,7 +53,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 
 	/**
 	 * Convenient method to get the {@link UserInterfaceProvider}
-	 * 
+	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
 	 * @return {@link UserInterfaceProvider}
 	 */
 	public UserInterfaceProvider<?> getUserInterfaceProvider() {
@@ -66,33 +63,10 @@ public class UserInterfaceContainer extends IntrospectContainer {
 		return userInterfaceProvider;
 	}
 
-	/**
-	 * Convenient method to get the {@link PathProvider}
-	 * 
-	 * @return {@link PathProvider}
-	 */
-	public PathProvider getPathProvider() {
-		if (pathProvider == null) {
-			pathProvider = (PathProvider) get(PathProvider.class);
-		}
-		return pathProvider;
-	}
-
-	/**
-	 * Convenient method to get the {@link AuthorizationProvider}
-	 * 
-	 * @return {@link AuthorizationProvider}
-	 */
-	public AuthorizationProvider getAuthorizationProvider() {
-		if (authorizationProvider == null) {
-			authorizationProvider = (AuthorizationProvider) get(AuthorizationProvider.class);
-		}
-		return authorizationProvider;
-	}
 
 	/**
 	 * Convenient method to get the {@link DomainInfoProvider}
-	 * 
+	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
 	 * @return {@link DomainInfoProvider}
 	 */
 	public DomainInfoProvider getDomainInfoProvider() {
@@ -104,7 +78,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 
 	/**
 	 * Convenient method to get the {@link LanguageProvider}
-	 * 
+	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
 	 * @return {@link LanguageProvider}
 	 */
 	public LanguageProvider getLanguageProvider() {
@@ -116,7 +90,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 
 	/**
 	 * Convenient method to get the {@link AboutProvider}
-	 * 
+	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
 	 * @return {@link AboutProvider}
 	 */
 	public AboutProvider getAboutProvider() {
@@ -126,16 +100,5 @@ public class UserInterfaceContainer extends IntrospectContainer {
 		return aboutProvider;
 	}
 
-	/**
-	 * Convenient method to get the {@link ValidationProvider}
-	 * 
-	 * @return {@link ValidationProvider}
-	 */
-	public ValidationProvider getValidationProvider() {
-		if (validationProvider == null) {
-			validationProvider = (ValidationProvider) get(ValidationProvider.class);
-		}
-		return validationProvider;
-	}
 
 }
