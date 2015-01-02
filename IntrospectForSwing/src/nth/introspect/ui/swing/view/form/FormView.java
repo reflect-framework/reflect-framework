@@ -60,7 +60,7 @@ public class FormView extends SwingView implements
 		List<PropertyInfo> propertyInfos = domainInfoProvider
 				.getPropertyInfos(domainObject.getClass());
 
-		domainValueModel = new BufferedDomainValueModel(domainInfoProvider, domainObject, formMode);
+		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, domainInfoProvider, domainObject, formMode);
 
 		PropertyGrid propertyGrid = new PropertyGrid();
 		add(propertyGrid, BorderLayout.CENTER);

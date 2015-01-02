@@ -91,13 +91,20 @@ public abstract class IntrospectContainer {
 
 	}
 
+	/**
+	 * 
+	 * @return all classes that are supported by this container and all its inner containers
+	 */
 	public List<Class<?>> getAllClasses() {
 		List<Class<?>> allClasses = new ArrayList<Class<?>>();
-		allClasses.add(IntrospectContainer.class);
+		//add this container
+		allClasses.add(this.getClass());
+		//add all supported classes known by this container
+		allClasses.addAll(typesAndInstances.keySet());
+		//add all supported classes of all inner containers
 		if (innerContainer != null) {
 			allClasses.addAll(innerContainer.getAllClasses());
 		}
-		allClasses.addAll(typesAndInstances.keySet());
 		return allClasses;
 	}
 

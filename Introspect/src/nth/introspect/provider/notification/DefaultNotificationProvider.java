@@ -15,7 +15,7 @@ public class DefaultNotificationProvider implements NotificationProvider {
 	}
 
 	@Override
-	public void add(NotificationListener notificationListener) {
+	public void addListener(NotificationListener notificationListener) {
 		notificationListeners.add(notificationListener);
 	}
 

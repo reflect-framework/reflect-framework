@@ -1,8 +1,12 @@
 package nth.introspect.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.InstanceFactory;
+import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.impl.InfrastructureContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 
@@ -41,10 +45,12 @@ public class CloneUtil {
 	 * @return the instantiated with the property values of the sourceObject
 	 */
 
-	public static Object clone( DomainInfoProvider domainInfoProvider, Object sourceObject) {
+	public static Object clone(IntrospectContainer introspectContainer,  DomainInfoProvider domainInfoProvider, Object sourceObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		try {
-			Object destinationObject = sourceClass.newInstance();
+			InstanceFactory instanceFactory=new InstanceFactory(sourceClass, introspectContainer);
+			List<Class<?>> classesWaitingToBeInstantiated=new ArrayList<Class<?>>();
+			Object destinationObject = instanceFactory.createInstance(classesWaitingToBeInstantiated);
 			return clone(domainInfoProvider, sourceObject, destinationObject);
 		} catch (Exception e) {
 			throw new RuntimeException(e);

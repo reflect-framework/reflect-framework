@@ -18,7 +18,7 @@ public class ClassHasNoUsableConstructorException extends
 		message.append(Introspect.class.getSimpleName());
 		message.append(" Framework. Make sure that the constructor parameter types are all registered in the ");
 		message.append(IntrospectApplication.class.getSimpleName());
-		message.append(" as a serviceClass.");
+		message.append(".getServiceClasses() or .getInfrastructureClasses() methods");
 		return message.toString();
 	}
 

@@ -14,6 +14,7 @@ import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.notification.Task;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
@@ -64,10 +65,11 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 	private final DomainInfoProvider domainInfoProvider;
 	private LanguageProvider languageProvider;
 
-	public AbstractUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider) {
+	public AbstractUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.domainInfoProvider = domainInfoProvider;
 		this.languageProvider = languageProvider;
+		notificationProvider.addListener(this);
 	}
 	
 	@Override

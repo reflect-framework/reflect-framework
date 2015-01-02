@@ -7,7 +7,7 @@ import nth.introspect.provider.Provider;
 
 public interface NotificationProvider extends Provider {
 
-	public void add(NotificationListener notificationListener);
+	public void addListener(NotificationListener notificationListener);
 	
 	public void remove(NotificationListener notificationListener);
 	

@@ -25,6 +25,7 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
@@ -48,8 +49,8 @@ public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvi
 	private final  IntrospectApplication application;
 	private LanguageProvider languageProvider;
 
-	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider) {
-		super(userInterfaceContainer, domainInfoProvider, languageProvider);
+	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
+		super(userInterfaceContainer, domainInfoProvider, languageProvider, notificationProvider);
 		this.application = application;
 		this.languageProvider = languageProvider;
 	}

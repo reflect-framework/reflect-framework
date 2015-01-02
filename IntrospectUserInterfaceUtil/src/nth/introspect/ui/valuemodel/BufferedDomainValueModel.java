@@ -1,5 +1,6 @@
 package nth.introspect.ui.valuemodel;
 
+import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.CloneUtil;
@@ -14,12 +15,12 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	private final FormMode formMode;
 	private final DomainInfoProvider domainInfoProvider;
 
-	public BufferedDomainValueModel(DomainInfoProvider domainInfoProvider, Object domainObject, FormMode formMode) {
+	public BufferedDomainValueModel(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, Object domainObject, FormMode formMode) {
 		this.domainInfoProvider = domainInfoProvider;
 		this.domainObject = domainObject;
 		this.formMode = formMode;
 		if (FormMode.EDIT_MODE==formMode) {
-			this.domainObjectCopy = CloneUtil.clone(domainInfoProvider, domainObject); //Do not deep clone! Properties with a value object(s) (such as Customer) need to be the actual object and may not contain cloned objects! 
+			this.domainObjectCopy = CloneUtil.clone(userInterfaceContainer, domainInfoProvider, domainObject); //Do not deep clone! Properties with a value object(s) (such as Customer) need to be the actual object and may not contain cloned objects! 
 		}
 		comitted=false;
 	}

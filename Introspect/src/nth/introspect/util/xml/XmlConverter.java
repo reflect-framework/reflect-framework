@@ -18,6 +18,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.InstanceFactory;
+import nth.introspect.container.impl.InfrastructureContainer;
+import nth.introspect.container.impl.ProviderContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
@@ -38,9 +41,11 @@ public class XmlConverter {
 	private static final String ID = "id";
 	private static DefaultMatcher XML_TRANSFORM_MATCHER = new DefaultMatcher(null);
 	private final DomainInfoProvider domainInfoProvider;
+	private final InfrastructureContainer providerContainer;
 
-	public XmlConverter(DomainInfoProvider domainInfoProvider) {
+	public XmlConverter(DomainInfoProvider domainInfoProvider, InfrastructureContainer providerContainer) {
 		this.domainInfoProvider = domainInfoProvider;
+		this.providerContainer = providerContainer;
 	}
 	
 	/**
@@ -225,8 +230,10 @@ public class XmlConverter {
 		if (object == null) {
 			// not yet un-marshaled, so create the object
 			String className = objectElement.getTagName();
-			Class<?> clazz = Class.forName(className);
-			object = clazz.newInstance();
+			Class<?> classToInstantiate = Class.forName(className);
+			InstanceFactory instanceFactory=new InstanceFactory(classToInstantiate, providerContainer);
+			List<Class<?>> classesWaitingToBeInstantiated=new ArrayList<Class<?>>();
+			object = instanceFactory.createInstance(classesWaitingToBeInstantiated);
 
 			// cash the object so we can reference to it if needed
 			unMarshaledObjects.put(id, object);
