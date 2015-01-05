@@ -6,13 +6,14 @@ import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.property.FieldModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.ui.swing.view.form.field.DateTimeField.DateTimeMode;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormView;
 
 public class FieldFactory {
 
-	public static Component create(FormView formView, PropertyValueModel propertyValueModel) {
+	public static Component create(FormView formView, PathProvider pathProvider, PropertyValueModel propertyValueModel) {
 		// TODO how do we make sure that all fields implement refreshable?
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
 		FieldModeType fieldMode = propertyInfo.getFieldMode();
@@ -37,9 +38,9 @@ public class FieldFactory {
 			return new DateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
 		case COMBO_BOX:
 			LanguageProvider languageProvider=formView.getuserInterfaceContainer().getLanguageProvider();
-			return new ComboBox(propertyValueModel, languageProvider);
+			return new ComboBox(propertyValueModel, pathProvider, languageProvider);
 		case ONE_TO_ONE_OR_MANY:
-			return new OneToOneOrManyField(formView, propertyValueModel);
+			return new OneToOneOrManyField(formView, pathProvider, propertyValueModel);
 		case MANY_TO_ONE_OR_MANY:
 			return new ManyToOneOrManyField(formView, propertyValueModel);
 		default:

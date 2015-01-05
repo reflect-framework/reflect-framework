@@ -19,6 +19,7 @@ import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
@@ -45,10 +46,12 @@ public class FormView extends SwingView implements
 	private final Object domainObject;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final DomainInfoProvider domainInfoProvider;
+	private final PathProvider pathProvider;
 
-	public FormView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, MethodInfo methodInfo,
+	public FormView(UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.userInterfaceContainer = userInterfaceContainer;
+		this.pathProvider = pathProvider;
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -66,7 +69,7 @@ public class FormView extends SwingView implements
 		add(propertyGrid, BorderLayout.CENTER);
 		Component fieldToGetFocus = null;
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyRow propertyRow = new PropertyRow(this, domainValueModel,
+			PropertyRow propertyRow = new PropertyRow(this, pathProvider, domainValueModel,
 					propertyInfo, formMode);
 			if (fieldToGetFocus == null && FormMode.EDIT_MODE == formMode
 					&& propertyInfo.isEnabled(domainObject)) {
@@ -116,14 +119,14 @@ public class FormView extends SwingView implements
 	public JButton createCloseButton() {
 		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
 		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
-		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider, viewContainer, this);
+		CloseThisTabItem closeItem = new CloseThisTabItem(pathProvider, languageProvider, viewContainer, this);
 		return new ItemButton(closeItem);
 	}
 
 	public JButton createCancelButton() {
 		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
 		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
-		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer, this);
+		CancelItem cancelItem = new CancelItem(pathProvider, languageProvider, viewContainer, this);
 		return new ItemButton(cancelItem);
 	}
 

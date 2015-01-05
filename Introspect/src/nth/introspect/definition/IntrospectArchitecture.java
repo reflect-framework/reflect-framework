@@ -42,6 +42,7 @@ package nth.introspect.definition;
  * <li>{@link ServiceLayer}</li>
  * <li>{@link DomainLayer}</li>
  * <li>{@link InfrastructureLayer}</li>
+ * <li>{@link ProviderLayer}</li>
  * </ul>
  * 
  * @author Nils ten Hoeve

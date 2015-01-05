@@ -25,8 +25,7 @@ public abstract class IntrospectApplicationForSwing implements
 
 	public IntrospectApplicationForSwing(String[] commandLineArguments)  {
 		this.commandLineArguments = commandLineArguments;
-		Introspect.init(this);
-		Introspect.start();
+		Introspect.start(this);
 	}
 	
 	@Override

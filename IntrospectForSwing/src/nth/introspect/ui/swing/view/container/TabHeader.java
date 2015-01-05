@@ -23,6 +23,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
@@ -38,11 +39,13 @@ public class TabHeader extends JPanel {
 	private final SwingViewContainer swingViewContainer;
 	private final Component tab;
 	public final LanguageProvider languageProvider;
+	private final PathProvider pathProvider;
 
-	public TabHeader( ViewContainer<?> viewContainer,LanguageProvider languageProvider,
+	public TabHeader( ViewContainer<?> viewContainer,PathProvider pathProvider, LanguageProvider languageProvider,
 			final Component tab, final String title, final String description,
 			final Icon icon) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		this.pathProvider = pathProvider;
 		this.languageProvider = languageProvider;
 		this.swingViewContainer = (SwingViewContainer) viewContainer;
 
@@ -180,7 +183,7 @@ public class TabHeader extends JPanel {
 	}
 
 	public void showPopupMenu(int x, int y) {
-		TabsItem tabsItem = new TabsItem(languageProvider, swingViewContainer,
+		TabsItem tabsItem = new TabsItem(pathProvider, languageProvider, swingViewContainer,
 				(View) tab);
 		List<Item> items = tabsItem.getChildren();
 		PopupMenu popupMenu = new PopupMenu(items);

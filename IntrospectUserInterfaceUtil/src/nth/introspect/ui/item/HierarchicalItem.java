@@ -6,6 +6,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.item.Item;
 
 public class HierarchicalItem extends Item {
@@ -27,8 +28,9 @@ public class HierarchicalItem extends Item {
 	 * @param action
 	 *            The action to be fired
 	 */
-	public HierarchicalItem(LanguageProvider languageProvider, String text, URI iconURI, Action action) {
-super(languageProvider);
+	public HierarchicalItem(LanguageProvider languageProvider, String text,
+			URI iconURI, Action action) {
+		super(languageProvider);
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
 		}
@@ -38,7 +40,8 @@ super(languageProvider);
 		setAction(action);
 	}
 
-	public HierarchicalItem(LanguageProvider languageProvider, String text, Action action) {
+	public HierarchicalItem(PathProvider pathProvider, LanguageProvider languageProvider, String text,
+			Action action) {
 		super(languageProvider);
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
@@ -47,7 +50,7 @@ super(languageProvider);
 		setDescription(text);
 		setAction(action);
 		String iconName = languageProvider.getDefaultValue(text);
-		setIconURI(Introspect.getPathProvider().getImagePath(iconName));
+		setIconURI(pathProvider.getImagePath(iconName));
 	}
 
 	/**

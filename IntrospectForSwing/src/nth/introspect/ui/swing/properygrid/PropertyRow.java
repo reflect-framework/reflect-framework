@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import nth.introspect.provider.domain.info.PropertyChangeListener;
 import nth.introspect.provider.domain.info.PropertyChangeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.swing.view.form.field.FieldFactory;
 import nth.introspect.ui.swing.view.form.field.ManyToOneOrManyField;
@@ -39,14 +40,14 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 
 
 
-	public PropertyRow(FormView formView, BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
+	public PropertyRow(FormView formView, PathProvider pathProvider,BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
 		this.domainValueModel = domainValueModel;
 		this.propertyInfo = propertyInfo;
 		// create value model to bind domainObject and SWING field
 		
 		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		
-		this.field = FieldFactory.create(formView, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field
+		this.field = FieldFactory.create(formView, pathProvider, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field
 		if (field instanceof ManyToOneOrManyField || field instanceof TextAreaField) {//TODO get field width from a Field interface?
 			this.fieldWidth = FieldWidth.full;
 		} else {

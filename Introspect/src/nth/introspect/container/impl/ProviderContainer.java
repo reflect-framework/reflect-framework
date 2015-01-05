@@ -5,7 +5,7 @@ import nth.introspect.container.IntrospectContainer;
 import nth.introspect.definition.ProviderLayer;
 
 /**
- * See {@link ProviderLayer}
+ * This {@link IntrospectContainer} represents the {@link ProviderLayer}
  * @author nilsth
  *
  */

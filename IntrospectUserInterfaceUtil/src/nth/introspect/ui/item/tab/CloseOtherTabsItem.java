@@ -2,6 +2,7 @@ package nth.introspect.ui.item.tab;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
@@ -13,12 +14,12 @@ public class CloseOtherTabsItem extends Item {
 	private final ViewContainer<View> viewContainer;
 
 	@SuppressWarnings("unchecked")
-	public CloseOtherTabsItem(LanguageProvider languageProvider, final ViewContainer<View> viewContainer, final View tabNotToBeClosed ) {
+	public CloseOtherTabsItem(PathProvider pathProvider, LanguageProvider languageProvider, final ViewContainer<View> viewContainer, final View tabNotToBeClosed ) {
 		super(languageProvider);
 		this.viewContainer=viewContainer;
 		setText(CLOSE_OTHER_TABS);
 		setDescription(CLOSE_OTHER_TABS);
-		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.TABS_CLOSE_OTHERS));
+		setIconURI(pathProvider.getImagePath(IntrospectImage.TABS_CLOSE_OTHERS));
 		setAction(new Action() {
 			@Override
 			public void run() {

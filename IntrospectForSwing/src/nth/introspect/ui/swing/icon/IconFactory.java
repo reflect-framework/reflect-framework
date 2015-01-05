@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import nth.introspect.Introspect;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.ui.images.IntrospectImagePathIdentifier;
 
 public class IconFactory {
@@ -56,19 +57,19 @@ public class IconFactory {
 		return icon;
 	}
 
-	public static Icon create(IntrospectImagePathIdentifier identifier) {
+	public static Icon create(PathProvider pathProvider, IntrospectImagePathIdentifier identifier) {
 		if (identifier == null) {
 			return null;
 		}
-		URI iconURI = Introspect.getPathProvider().getImagePath(identifier);
+		URI iconURI = pathProvider.getImagePath(identifier);
 		return create(iconURI);
 	}
 
-	public static Icon create(IntrospectImagePathIdentifier identifier, int maxSize) {
+	public static Icon create(PathProvider pathProvider, IntrospectImagePathIdentifier identifier, int maxSize) {
 		if (identifier == null) {
 			return null;
 		}
-		URI iconURI = Introspect.getPathProvider().getImagePath(identifier);
+		URI iconURI = pathProvider.getImagePath(identifier);
 		return create(iconURI, maxSize);
 	}
 

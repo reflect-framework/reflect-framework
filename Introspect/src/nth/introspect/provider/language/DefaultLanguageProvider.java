@@ -13,6 +13,7 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.util.StringUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 import nth.introspect.valuemodel.ValueModels;
@@ -23,9 +24,9 @@ public class DefaultLanguageProvider implements LanguageProvider {
 	private ResourceBundleClassLoader resourceBundleClassLoader;
 	private Locale defaultLocale;
 
-	public DefaultLanguageProvider() {
+	public DefaultLanguageProvider(PathProvider pathProvider) {
 		defaultLocale = Locale.ENGLISH;
-		resourceBundleClassLoader = new ResourceBundleClassLoader();
+		resourceBundleClassLoader = new ResourceBundleClassLoader(pathProvider);
 	}
 
 	private String getLanguageFileComments() {

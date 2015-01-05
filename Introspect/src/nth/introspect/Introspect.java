@@ -128,44 +128,30 @@ import nth.introspect.provider.validation.ValidationProvider;
 // TODO update javadoc (or refer to web site)
 public class Introspect {
 
-	private static UserInterfaceContainer userInterfaceContainer;
-	private static PathProvider pathProvider;
-	private static UserInterfaceProvider<?> userInterfaceProvider;
-
-	public static void init(IntrospectApplication application) {
-		try {
-			userInterfaceContainer = new UserInterfaceContainer(application);
-		} catch (Exception exception) {
-			throw new IntrospectContainerInitializationException(exception);
-		}
-	}
 
 	/**
+	 * Creates all {@link IntrospectContainer}'s (each {@link Lay}
 	 * Starts the application by getting/ creating the UserInterfaceProvider
 	 * from the reflect container
 	 * 
 	 * @throws IntrospectContainerException
 	 */
-	public static void start() {
-		// TODO remove init method and add following lines
-		// try {
-		// userInterfaceContainer = new UserInterfaceContainer(application);
-		// } catch (Exception exception) {
-		// throw new IntrospectContainerInitializationException(exception);
-		// }
-
-		userInterfaceProvider= userInterfaceContainer.getUserInterfaceProvider();
+	public static void start(IntrospectApplication application) {
+		 UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
+		UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer.getUserInterfaceProvider();
 		userInterfaceProvider.start();
 	}
 
-	// TODO get rid of this service lookup, use dependency injection instead
-	public static PathProvider getPathProvider() {
-		if (pathProvider == null) {
-			pathProvider = (PathProvider) userInterfaceContainer
-					.get(PathProvider.class);
-
-		}
-		return pathProvider;
+	private static UserInterfaceContainer createUserInterfaceContainer(
+			IntrospectApplication application) {
+		UserInterfaceContainer userInterfaceContainer;
+		try {
+		 userInterfaceContainer = new UserInterfaceContainer(application);
+		 } catch (Exception exception) {
+		 throw new IntrospectContainerInitializationException(exception);
+		 }
+		return userInterfaceContainer;
 	}
+
 
 }

@@ -7,6 +7,7 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.util.StringUtil;
 
 public class Item {
@@ -51,7 +52,7 @@ public class Item {
 		this.iconURI = iconURI;
 	}
 
-	public Item(LanguageProvider languageProvider, String text, Action action) {
+	public Item(PathProvider pathProvider, LanguageProvider languageProvider, String text, Action action) {
 		this.languageProvider = languageProvider;
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
@@ -60,7 +61,8 @@ public class Item {
 		setDescription(text);
 		setAction(action);
 		String iconName = languageProvider.getDefaultValue(text);
-		setIconURI(Introspect.getPathProvider().getImagePath(iconName));
+		URI iconUri = pathProvider.getImagePath(iconName);
+		setIconURI(iconURI);
 	}
 
 	/**

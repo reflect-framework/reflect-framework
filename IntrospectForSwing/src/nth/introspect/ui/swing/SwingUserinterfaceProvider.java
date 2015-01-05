@@ -23,6 +23,7 @@ import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.notification.NotificationProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.item.Item;
@@ -44,15 +45,17 @@ public class SwingUserinterfaceProvider extends
 
 	private MainWindow mainWindow;
 	private IntrospectApplication application;
+	private PathProvider pathProvider;
 
-	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,LanguageProvider languageProvider , NotificationProvider notificationProvider) {
+	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,PathProvider pathProvider, LanguageProvider languageProvider , NotificationProvider notificationProvider) {
 		super(userInterfaceContainer, domainInfoProvider, languageProvider, notificationProvider);
 		this.application = application;
+		this.pathProvider = pathProvider;
 	}
 
 	@Override
 	public void start() {
-		mainWindow = new MainWindow(application, getUserInterfaceContainer());
+		mainWindow = new MainWindow(application, getUserInterfaceContainer(), pathProvider);
 	}
 	
 	@Override
@@ -116,7 +119,7 @@ public class SwingUserinterfaceProvider extends
 	public SwingView createFormView(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(getUserInterfaceContainer(), serviceObject, methodInfo, methodParameterValue,
+		return new FormView(getUserInterfaceContainer(), pathProvider, serviceObject, methodInfo, methodParameterValue,
 				domainObject, formMode);
 	}
 

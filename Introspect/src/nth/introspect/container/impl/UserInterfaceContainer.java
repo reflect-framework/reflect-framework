@@ -5,6 +5,7 @@ import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.definition.ProviderLayer;
 import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
@@ -15,9 +16,10 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
 /**
- * See {@link UserInterfaceLayer}
+ * This {@link IntrospectContainer} represents the {@link UserInterfaceLayer}
+ * 
  * @author nilsth
- *
+ * 
  */
 public class UserInterfaceContainer extends IntrospectContainer {
 
@@ -28,7 +30,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	private AboutProvider aboutProvider;
 
 	public UserInterfaceContainer(IntrospectApplication application) {
-		super( new ServiceContainer(application));
+		super(new ServiceContainer(application));
 		this.application = application;
 		add(application.getUserInterfaceProviderClass());
 	}
@@ -52,8 +54,10 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	}
 
 	/**
-	 * Convenient method to get the {@link UserInterfaceProvider}
-	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
+	 * Convenient method to get the {@link UserInterfaceProvider} FIXME: remove
+	 * this method (user constructor injection for registered objects in
+	 * container instead)
+	 * 
 	 * @return {@link UserInterfaceProvider}
 	 */
 	public UserInterfaceProvider<?> getUserInterfaceProvider() {
@@ -63,10 +67,11 @@ public class UserInterfaceContainer extends IntrospectContainer {
 		return userInterfaceProvider;
 	}
 
-
 	/**
-	 * Convenient method to get the {@link DomainInfoProvider}
-	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
+	 * Convenient method to get the {@link DomainInfoProvider} FIXME: remove
+	 * this method (user constructor injection for registered objects in
+	 * container instead)
+	 * 
 	 * @return {@link DomainInfoProvider}
 	 */
 	public DomainInfoProvider getDomainInfoProvider() {
@@ -77,8 +82,10 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	}
 
 	/**
-	 * Convenient method to get the {@link LanguageProvider}
-	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
+	 * Convenient method to get the {@link LanguageProvider} FIXME: remove this
+	 * method (user constructor injection for registered objects in container
+	 * instead)
+	 * 
 	 * @return {@link LanguageProvider}
 	 */
 	public LanguageProvider getLanguageProvider() {
@@ -89,8 +96,10 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	}
 
 	/**
-	 * Convenient method to get the {@link AboutProvider}
-	 * FIXME: remove this method (user constructor injection for registered objects in container instead)
+	 * Convenient method to get the {@link AboutProvider} FIXME: remove this
+	 * method (user constructor injection for registered objects in container
+	 * instead)
+	 * 
 	 * @return {@link AboutProvider}
 	 */
 	public AboutProvider getAboutProvider() {
@@ -99,6 +108,5 @@ public class UserInterfaceContainer extends IntrospectContainer {
 		}
 		return aboutProvider;
 	}
-
 
 }

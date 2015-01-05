@@ -5,6 +5,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
@@ -14,17 +15,17 @@ import nth.introspect.ui.item.SeparatorItem;
 
 public class TabsItem extends HierarchicalItem {
 
-	public TabsItem(LanguageProvider languageProvider, ViewContainer<View> viewContainer, View view) {
+	public TabsItem(PathProvider pathProvider, LanguageProvider languageProvider, ViewContainer<View> viewContainer, View view) {
 		super(languageProvider);
 		setText("Tabs");
 		setDescription("Tabs menu");
-		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.TABS));
+		setIconURI(pathProvider.getImagePath(IntrospectImage.TABS));
 
 		@SuppressWarnings("unchecked")
 		List<Item> children = new ArrayList<Item>();
-		children.add(new CloseThisTabItem(languageProvider, viewContainer, view));
-		children.add(new CloseOtherTabsItem(languageProvider,viewContainer,view));
-		children.add(new CloseAllTabsItem(languageProvider,viewContainer));
+		children.add(new CloseThisTabItem(pathProvider, languageProvider, viewContainer, view));
+		children.add(new CloseOtherTabsItem(pathProvider,languageProvider,viewContainer,view));
+		children.add(new CloseAllTabsItem(pathProvider,languageProvider,viewContainer));
 		if (viewContainer.getViewCount() > 1) {
 			children.add(new SeparatorItem());
 			for (int i = 0; i < viewContainer.getViewCount(); i++) {

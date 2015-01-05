@@ -11,6 +11,7 @@ import nth.introspect.provider.domain.info.valuemodel.impl.SimpleValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TitleValue;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.path.id.ClassIconID;
 import nth.introspect.valuemodel.ValueModels;
 
@@ -35,8 +36,10 @@ public class ClassInfo implements IntrospectionInfo {
 	private final String name;
 	private final String namePath;
 	private final Class<?> introspectedClass;
+	private final PathProvider pathProvider;
 
-	public ClassInfo(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
+	public ClassInfo(DomainInfoProvider domainInfoProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
+		this.pathProvider = pathProvider;
 		this.name = introspectedClass.getSimpleName();
 		this.namePath = introspectedClass.getCanonicalName();
 		this.introspectedClass = introspectedClass;
@@ -47,7 +50,7 @@ public class ClassInfo implements IntrospectionInfo {
 		valueModels.put(TEXT, new TextValue(this, languageProvider,  TEXT, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
 		valueModels.put(DESCRIPTION, new TextValue(this, languageProvider, DESCRIPTION, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
 		// valueModels.put(ICON, new IconValue(this));
-		valueModels.put(ICON, new SimpleValue(new ClassIconID(introspectedClass)));
+		valueModels.put(ICON, new SimpleValue(new ClassIconID(pathProvider, introspectedClass)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
 		valueModels.put(TITLE, new TitleValue(domainInfoProvider, languageProvider));
 
@@ -92,7 +95,7 @@ public class ClassInfo implements IntrospectionInfo {
 	}
 
 	public URI getIconURI(Object introspectedObject) {
-		return Introspect.getPathProvider().getImagePath(getIconID(introspectedObject));
+		return pathProvider.getImagePath(getIconID(introspectedObject));
 	}
 
 	public Boolean isVisible(Object domainObject) {

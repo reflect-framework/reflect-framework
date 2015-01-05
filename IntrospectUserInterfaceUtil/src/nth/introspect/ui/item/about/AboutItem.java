@@ -9,6 +9,7 @@ import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.images.IntrospectImage;
@@ -16,11 +17,11 @@ import nth.introspect.ui.images.IntrospectImage;
 public class AboutItem extends Item {
 	private static final String ABOUT = "About";
 
-	public AboutItem(final UserInterfaceContainer userInterfaceContainer) {
+	public AboutItem(final UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider) {
 		super(userInterfaceContainer.getLanguageProvider());
 		setText(ABOUT);
 		setDescription(ABOUT);
-		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.BUTTON_ROUND_ABOUT));
+		setIconURI(pathProvider.getImagePath(IntrospectImage.BUTTON_ROUND_ABOUT));
 		final AboutItem aboutItem = this;
 		setAction(new Action() {
 			@Override

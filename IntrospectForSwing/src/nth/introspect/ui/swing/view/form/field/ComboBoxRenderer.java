@@ -16,8 +16,10 @@ import nth.introspect.ui.swing.icon.IconFactory;
 public class ComboBoxRenderer extends DefaultListCellRenderer {
 
 	private final LanguageProvider languageProvider;
+	private final PathProvider pathProvider;
 	
-	public ComboBoxRenderer(LanguageProvider languageProvider) {
+	public ComboBoxRenderer(PathProvider pathProvider, LanguageProvider languageProvider) {
+		this.pathProvider = pathProvider;
 		this.languageProvider = languageProvider;
 	}
 
@@ -33,9 +35,8 @@ public class ComboBoxRenderer extends DefaultListCellRenderer {
 			setText(text);
 			//TODO? setToolTipText();
 			
-			//set icon
+			//TODO set icon
 			try {
-				PathProvider pathProvider = Introspect.getPathProvider();
 				URI iconURI = pathProvider .getImagePath(key);
 				Icon icon=IconFactory.create(iconURI);
 				setIcon(icon);

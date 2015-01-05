@@ -31,6 +31,7 @@ import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
@@ -46,9 +47,9 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	private final FormView formView;
 	private boolean allowTextChange;
 
-	public OneToOneOrManyField(FormView formView,
+	public OneToOneOrManyField(FormView formView, PathProvider pathProvider,
 			PropertyValueModel propertyValueModel) {
-		super();
+		super(pathProvider);
 		this.formView = formView;
 		this.propertyValueModel = propertyValueModel;
 		this.allowTextChange = false;

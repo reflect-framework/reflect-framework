@@ -28,6 +28,7 @@ import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
@@ -47,10 +48,12 @@ public class MainWindow extends JFrame {
 	private JButton menuButton;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
+	private final PathProvider pathProvider;
 
 	public MainWindow(IntrospectApplication application,
-			UserInterfaceContainer userInterfaceContainer) {
+			UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
+		this.pathProvider = pathProvider;
 		this.languageProvider=userInterfaceContainer.getLanguageProvider();
 		// Set style
 		try {
@@ -122,7 +125,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JButton createAboutButton() {
-		AboutItem aboutItem = new AboutItem(userInterfaceContainer);
+		AboutItem aboutItem = new AboutItem(userInterfaceContainer, pathProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;
@@ -170,7 +173,7 @@ public class MainWindow extends JFrame {
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
 		button.setToolTipText(languageProvider.getText(
 				"Find Menu Item (F3)"));
-		button.setIcon(IconFactory.create(IntrospectImage.EDIT_FIND,
+		button.setIcon(IconFactory.create(pathProvider, IntrospectImage.EDIT_FIND,
 				SwingStyleConstant.ICON_SIZE));
 		return button;
 	}
@@ -198,7 +201,7 @@ public class MainWindow extends JFrame {
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
 		button.setToolTipText(languageProvider.getText(
 				"Show Tabs Menu (F4)"));
-		button.setIcon(IconFactory.create(IntrospectImage.TABS,
+		button.setIcon(IconFactory.create(pathProvider,IntrospectImage.TABS,
 				SwingStyleConstant.ICON_SIZE));
 		return button;
 	}
@@ -212,12 +215,12 @@ public class MainWindow extends JFrame {
 	}
 
 	private SwingViewContainer createContentTabPanel() {
-		SwingViewContainer swingViewContainer = new SwingViewContainer(userInterfaceContainer);
+		SwingViewContainer swingViewContainer = new SwingViewContainer(userInterfaceContainer, pathProvider);
 		return swingViewContainer;
 	}
 
 	private MenuTabPanel createMenuTabPanel() {
-		return new MenuTabPanel(userInterfaceContainer);
+		return new MenuTabPanel(userInterfaceContainer, pathProvider);
 	}
 
 	public void hideMenu() {
@@ -228,7 +231,7 @@ public class MainWindow extends JFrame {
 		// set menu button
 		menuButton.setToolTipText(languageProvider.getText(
 				"Show Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_SHOW,
+		menuButton.setIcon(IconFactory.create(pathProvider,IntrospectImage.MENU_SHOW,
 				SwingStyleConstant.ICON_SIZE));
 	}
 
@@ -240,7 +243,7 @@ public class MainWindow extends JFrame {
 		// hide menu button
 		menuButton.setToolTipText(languageProvider.getText(
 				"Hide Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_HIDE,
+		menuButton.setIcon(IconFactory.create(pathProvider,IntrospectImage.MENU_HIDE,
 				SwingStyleConstant.ICON_SIZE));
 	}
 

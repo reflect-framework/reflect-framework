@@ -26,8 +26,7 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 	
 	public IntrospectApplicationForCommandLine(String[] commandLineArguments)  {
 		this.commandLineArguments = commandLineArguments;
-		Introspect.init(this);
-		Introspect.start();
+		Introspect.start(this);
 	}
 
 

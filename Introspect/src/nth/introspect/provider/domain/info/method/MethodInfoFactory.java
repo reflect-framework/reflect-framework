@@ -13,11 +13,12 @@ import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.util.StringUtil;
 
 public class MethodInfoFactory {
 	
-	public static List<MethodInfo> create(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
+	public static List<MethodInfo> create(DomainInfoProvider domainInfoProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
 		ArrayList<MethodInfo> methodInfos = new ArrayList<MethodInfo>();
 		try {
 			List<String> propertyNames = getPropertyNames(domainInfoProvider, introspectedClass);
@@ -27,7 +28,7 @@ public class MethodInfoFactory {
 			for (Method method : methods) {
 				if (!unwantedMethodNames.contains(method.getName())) {
 					String linkedPropertyName = findLinkedPropertyName(method, propertyNames);
-					MethodInfo methodInfo = new MethodInfo(languageProvider, method, linkedPropertyName);
+					MethodInfo methodInfo = new MethodInfo(pathProvider, languageProvider, method, linkedPropertyName);
 					methodInfos.add(methodInfo);
 				}
 			}

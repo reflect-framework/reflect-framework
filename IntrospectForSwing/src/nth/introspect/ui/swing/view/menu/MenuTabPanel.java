@@ -2,6 +2,7 @@ package nth.introspect.ui.swing.view.menu;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.ui.swing.SwingUserinterfaceProvider;
 import nth.introspect.ui.swing.mainwindow.MainWindow;
@@ -13,10 +14,10 @@ public class MenuTabPanel extends SwingViewContainer {
 	private MenuView menuView;
 	private UserInterfaceContainer userInterfaceContainer;
 
-	public MenuTabPanel(UserInterfaceContainer userInterfaceContainer) {
-		super(userInterfaceContainer);
+	public MenuTabPanel(UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider) {
+		super(userInterfaceContainer, pathProvider);
 		this.userInterfaceContainer = userInterfaceContainer;
-		menuView = new MenuView(userInterfaceContainer);
+		menuView = new MenuView(userInterfaceContainer, pathProvider );
 		addView(menuView);
 	}
 

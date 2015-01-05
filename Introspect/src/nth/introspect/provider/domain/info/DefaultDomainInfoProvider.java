@@ -19,14 +19,17 @@ import nth.introspect.provider.domain.info.property.PropertyInfoFactory;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 
 public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	private final HashMap<Class<?>, ClassInfo> classInfos;
 	private final HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
 	private final HashMap<Class<?>, List<MethodInfo>> methodInfosPerClass;
 	private final LanguageProvider languageProvider;
+	private final PathProvider pathProvider;
 
-	public DefaultDomainInfoProvider( LanguageProvider languageProvider) {
+	public DefaultDomainInfoProvider(PathProvider pathProvider, LanguageProvider languageProvider) {
+		this.pathProvider = pathProvider;
 		this.languageProvider = languageProvider;
 		classInfos = new HashMap<Class<?>, ClassInfo>();
 		propertyInfosPerClass = new HashMap<Class<?>, List<PropertyInfo>>();
@@ -37,7 +40,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public ClassInfo getClassInfo(Class<?> introspectedClass) {
 		if (!classInfos.containsKey(introspectedClass)) {
 			classInfos.put(introspectedClass,
-					ClassInfoFactory.create(this, languageProvider, introspectedClass));
+					ClassInfoFactory.create(this, pathProvider, languageProvider, introspectedClass));
 		}
 		return classInfos.get(introspectedClass);
 	}
@@ -50,7 +53,7 @@ public class DefaultDomainInfoProvider implements DomainInfoProvider {
 	public List<MethodInfo> getMethodInfos(Class<?> introspectedClass) {
 		if (!methodInfosPerClass.containsKey(introspectedClass)) {
 			methodInfosPerClass.put(introspectedClass,
-					MethodInfoFactory.create(this, languageProvider, introspectedClass));
+					MethodInfoFactory.create(this, pathProvider, languageProvider, introspectedClass));
 		}
 		return methodInfosPerClass.get(introspectedClass);
 	}

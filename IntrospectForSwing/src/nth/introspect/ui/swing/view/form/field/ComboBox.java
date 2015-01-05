@@ -13,6 +13,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.valuemodel.ReadWriteValueModel;
@@ -23,12 +24,12 @@ public class ComboBox extends JComboBox implements Refreshable {
 	private ReadWriteValueModel readWriteValueModel;
 
 	public ComboBox(final PropertyValueModel propertyValueModel,
-			LanguageProvider languageProvider) {
+			PathProvider pathProvider, LanguageProvider languageProvider) {
 		this.readWriteValueModel = propertyValueModel;
 
 		Class<?> valueType = propertyValueModel.getValueType();
 		if (valueType.isEnum()) {
-			setRenderer(new ComboBoxRenderer(languageProvider));
+			setRenderer(new ComboBoxRenderer(pathProvider,languageProvider));
 
 			// add menu items per enumeration value
 

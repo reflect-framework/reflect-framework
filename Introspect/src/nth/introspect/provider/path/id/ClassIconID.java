@@ -12,12 +12,9 @@ public class ClassIconID extends PathID {
 	private static final String PNG_EXTENTION = ".png";
 	private URI iconURI;
 	
-	public ClassIconID(Class<?> declaringClass) {
+	public ClassIconID(PathProvider pathProvider, Class<?> declaringClass) {
 		super(declaringClass.getCanonicalName());
-		PathProvider pathProvider=Introspect.getPathProvider();
-		
 		String className = declaringClass.getName();
-		
 		iconURI =getIconURI(declaringClass, className);
 		
 		if (!pathProvider.uriExists(iconURI) && className.toLowerCase().endsWith(SERVICE)) {

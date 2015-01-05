@@ -7,6 +7,7 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
@@ -16,12 +17,12 @@ public class CloseThisTabItem extends Item {
 
 	private static final String CLOSE_THIS_TAB = "Close this tab";
 
-	public CloseThisTabItem(LanguageProvider languageProvider, final ViewContainer<View> viewContainer ,final View tabToClose ) {
+	public CloseThisTabItem(PathProvider pathProvider, LanguageProvider languageProvider, final ViewContainer<View> viewContainer ,final View tabToClose ) {
 		super(languageProvider);
 		setText(CLOSE_THIS_TAB);
 		setDescription(CLOSE_THIS_TAB);
 		setHotKey(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.CTRL_MASK));
-		setIconURI(Introspect.getPathProvider().getImagePath(IntrospectImage.TABS_CLOSE_THIS));
+		setIconURI(pathProvider.getImagePath(IntrospectImage.TABS_CLOSE_THIS));
 		setAction(new Action() {
 			@Override
 			public void run() {

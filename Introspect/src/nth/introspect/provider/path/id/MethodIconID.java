@@ -12,9 +12,8 @@ public class MethodIconID extends PathID {
 	private static final String PNG_EXTENTION = ".png";
 	private URI iconURI;
 
-	public MethodIconID(Method method) {
+	public MethodIconID(PathProvider pathProvider, Method method) {
 		super(method.getDeclaringClass().getCanonicalName() + "." + method.getName());
-		PathProvider pathProvider = Introspect.getPathProvider();
 
 		Class<?> declaringClass = method.getDeclaringClass();
 		String className = declaringClass.getSimpleName();

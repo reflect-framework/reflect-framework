@@ -3,11 +3,13 @@ package nth.introspect.container.impl;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.definition.InfrastructureLayer;
+import nth.introspect.definition.ProviderLayer;
 
 /**
- * See {@link InfrastructureLayer}
+ * This {@link IntrospectContainer} represents the {@link InfrastructureLayer}
+ * 
  * @author nilsth
- *
+ * 
  */
 public class InfrastructureContainer extends IntrospectContainer {
 

@@ -15,6 +15,7 @@ import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModel
 import nth.introspect.provider.domain.info.valuemodel.impl.SimpleValue;
 import nth.introspect.provider.domain.info.valuemodel.impl.TextValue;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.path.id.MethodIconID;
 import nth.introspect.valuemodel.ValueModels;
 
@@ -48,7 +49,8 @@ public class MethodInfo implements IntrospectionInfo {
 	private final Method method;
 	private final String linkedPropertyName;
 	private MethodParameterType parameterType; 
-	private final MethodReturnType returnType; 
+	private final MethodReturnType returnType;
+	private final PathProvider pathProvider; 
 
 	
 	
@@ -56,11 +58,12 @@ public class MethodInfo implements IntrospectionInfo {
 		EXECUTE_METHOD_DIRECTLY, EXECUTE_METHOD_AFTER_CONFORMATION, EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL 
 	}
 
-	public MethodInfo(LanguageProvider languageProvider, Method method) {
-		this(languageProvider, method, null);
+	public MethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method) {
+		this(pathProvider, languageProvider, method, null);
 	}
 
-	public MethodInfo(LanguageProvider languageProvider, Method method, String linkedPropertyName) {
+	public MethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method, String linkedPropertyName) {
+		this.pathProvider = pathProvider;
 		this.method = method;
 		this.linkedPropertyName = linkedPropertyName;
 		this.name = method.getName();
@@ -77,7 +80,7 @@ public class MethodInfo implements IntrospectionInfo {
 		valueModels.put(DESCRIPTION, new TextValue(this,languageProvider, DESCRIPTION, regExpToRemoveFromDefaultValue));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, NAME));
 		// valueModels.put(ICON, new IconValue(this));
-		valueModels.put(ICON, new SimpleValue(new MethodIconID(method)));
+		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider, method)));
 		valueModels.put(ORDER, new SimpleValue(0));
 		valueModels.put(VISIBLE, new SimpleValue(true));
 		valueModels.put(ENABLED, new SimpleValue(true));
@@ -143,7 +146,7 @@ public class MethodInfo implements IntrospectionInfo {
 	}
 
 	public URI getIconURI(Object introspectedObject) {
-		return Introspect.getPathProvider().getImagePath(getIconID(introspectedObject));
+		return pathProvider.getImagePath(getIconID(introspectedObject));
 	}
 
 	public Integer getOrder() {

@@ -8,8 +8,41 @@ import java.util.List;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.introspect.container.exception.IntrospectContainerException;
+import nth.introspect.container.impl.InfrastructureContainer;
+import nth.introspect.container.impl.ServiceContainer;
+import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.definition.DomainLayer;
+import nth.introspect.definition.DomainObject;
+import nth.introspect.definition.InfrastructureLayer;
+import nth.introspect.definition.InfrastructureObject;
+import nth.introspect.definition.IntrospectArchitecture;
+import nth.introspect.definition.ProviderLayer;
+import nth.introspect.definition.ServiceLayer;
+import nth.introspect.definition.ServiceObject;
+import nth.introspect.definition.UserInterfaceLayer;
+import nth.introspect.provider.Provider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
+/**
+ * The {@link IntrospectContainer} is a dependency injection container. It is responsible for:
+ * <ul>
+ * <li>Creating new instances of types that are registered to {@link IntrospectContainer}</li>
+ * <li>Linking dependencies (references to other objects) to these new instances (using constructor injection) </li>
+ * <li>Caching these new instances, if we only need one instance  (like a singleton)</li>
+ * </ul>
+ * 
+ * It is possible to create nested {@link IntrospectContainer}'s. Each container will manage a different group of objects (a container for each layer). This is used to implement the {@link IntrospectArchitecture}: 
+ * <ul>
+ * <li>{@link ProviderLayer}: {@link Provider} object's are managed by a {@link ProviderContainer}.</li>
+ * <li>{@link InfrastructureLayer}: {@link InfrastructureObject}'s are managed by a {@link InfrastructureContainer}. The {@link DomainContainer} knows the {@link ProviderContainer}</li>
+ * <li>{@link DomainLayer}: {@link DomainObject}'s are managed by a {@link DomainContainer}. The {@link DomainContainer} knows the {@link InfrastructureContainer}</li>  
+ * <li>{@link ServiceLayer}: {@link ServiceObject}'s are managed by a {@link ServiceContainer}. The {@link ServiceContainer} knows the {@link DomainContainer}</li>  
+ * <li>{@link UserInterfaceLayer}: {@link UserInterfaceProvider} object is managed by a {@link UserInterfaceContainer}. The {@link UserInterfaceContainer} knows the {@link ServiceContainer}</li>  
+ * </ul>
+ * 
+ * @author nilsth
+ *
+ */
 public abstract class IntrospectContainer {
 
 	private final IntrospectContainer innerContainer;
