@@ -1,5 +1,7 @@
 package nth.introspect.definition;
 
+import nth.introspect.container.IntrospectContainer;
+
 
 /**
  * This interface serves for documentation purposes only. <br>
@@ -44,6 +46,9 @@ package nth.introspect.definition;
  * <li>{@link InfrastructureLayer}</li>
  * <li>{@link ProviderLayer}</li>
  * </ul>
+ * 
+ * Each layer is implemented by a {@link IntrospectContainer}
+ * 
  * 
  * @author Nils ten Hoeve
  * 

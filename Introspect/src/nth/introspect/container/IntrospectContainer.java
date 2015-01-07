@@ -26,7 +26,7 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
 /**
  * The {@link IntrospectContainer} is a dependency injection container. It is responsible for:
  * <ul>
- * <li>Creating new instances of types that are registered to {@link IntrospectContainer}</li>
+ * <li>Creating new instances of types that are registered to a {@link IntrospectContainer}</li>
  * <li>Linking dependencies (references to other objects) to these new instances (using constructor injection) </li>
  * <li>Caching these new instances, if we only need one instance  (like a singleton)</li>
  * </ul>

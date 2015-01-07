@@ -11,7 +11,10 @@ import nth.introspect.container.exception.MissingServiceClassException;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.definition.DomainLayer;
 import nth.introspect.definition.InfrastructureLayer;
+import nth.introspect.definition.InfrastructureObject;
+import nth.introspect.definition.IntrospectArchitecture;
 import nth.introspect.definition.ServiceLayer;
+import nth.introspect.definition.ServiceObject;
 import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.about.AboutProvider;
@@ -52,16 +55,10 @@ import nth.introspect.provider.validation.ValidationProvider;
  * 
  * <li>Provide a good structure for applications:</li>
  * <ul>
- * <li>Separation of concerns by means of the <a
- * href="http://alistair.cockburn.us/Hexagonal+architecture">Ports and
- * Adapters</a> design pattern. In other words: simple interfaces (ports) for
- * different communication purposes (i.e. user interface or database) that can
- * have multiple implementations (adapters).</li>
- * <li>Example1: the {@link UserInterfaceProvider} can have a
- * SwingUserInterfaceProvider or a AndroidUserInterfaceProvider or a
- * SoapUserInterfaceProvider as implementation</li>
- * <li>Example2: the {@link DataAccessProvider} can have a JpaDataAccessProvider
- * or a SqlDataAccessProvider or a Db40DataAccessProvider as implementation</li>
+ * <li>See {@link IntrospectArchitecture}</li>
+ * <li>Use simple interfaces and different implementations where needed (I.E.
+ * see different implementations of {@link Provider} and
+ * {@link UserInterfaceProvider})</li>
  * </ul>
  * 
  * <li>Light weight and modular:</li>
@@ -72,10 +69,10 @@ import nth.introspect.provider.validation.ValidationProvider;
  * </ul>
  * <li>Easy to extend:</li>
  * <ul>
- * <li>Modifying the framework to your own liking (preferably by extending
- * providers)</li>
- * <li>Adding new functionalities by writing your own providers (implementing a
- * port)</li>
+ * <li>Modifying the framework to your own liking (By extending one or more {@link Provider}s
+ * )</li>
+ * <li>Adding your functionalities by writing (or registering existing) {@link ServiceObject}s and
+ * {@link InfrastructureObject}s</li>
  * </ul>
  * </ul> <h1>Separation of concerns</h1> There are many ideas on how an ideal
  * application architecture should look like. They all have the same objective:
@@ -95,63 +92,58 @@ import nth.introspect.provider.validation.ValidationProvider;
  * database, web server or any other external element.</li>
  * </ul>
  * 
- * <h1>Ports and Adapters</h1> The introspect framework achieves separation of
- * concerns by means of the ports and adapters design pattern. For more
- * information see {@link Provider} for more information.
  * 
- * <h1>The Introspect class</h1> The Introspect framework can be accessed by the
- * static class {@link Introspect}. The Introspect class holds references to
- * several ports with adapters. <br>
- * <h1>Initializing the Introspect framework</h1> The Introspect framework is
- * initialized once by calling {@link Introspect#init(IntrospectApplication)}
- * when an application is started.<br>
- * The init parameter {@link IntrospectApplication} is a class that will
- * coordinate the initialization of an application<br>
+ * <h1>The Introspect class</h1> The Introspect framework is initialized with
+ * the {@link Introspect#start(IntrospectApplication)} method. The
+ * {@link IntrospectApplication} parameter is a class that will provide the
+ * information needed to initialize the Introspect Framework<br>
  * Each application type (command line, Swing, Android, Vaadin, etc..) has its
- * own implementation of IntrospectInitializer to help initializing the
+ * own implementation of {@link IntrospectApplication} to help initializing the
  * framework.<br>
  * See the type hierarchy of {@link IntrospectApplication} to learn which
- * classes can be used and view their java doc to learn how to use them.<br>
+ * classes can be used.<br>
  * <br>
  * 
  * @author Nils ten Hoeve
- * @author Some paragraphs where inspired (or almost bluntly copied) from Uncle
- *         Bob Martins article <a href=
- *         "http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html"
- *         >The clean architecture</a>
  */
 
-// TODO remove the need for static lookups
-// TODO Introspect as object with IntrospectApplication as constructor parameter
-// (replace initializer and start methods)
 // TODO rename Introspect to Reflect and ReflectFramework
-// TODO update javadoc (or refer to web site)
 public class Introspect {
 
-
 	/**
-	 * Creates all {@link IntrospectContainer}'s (each {@link Lay}
-	 * Starts the application by getting/ creating the UserInterfaceProvider
-	 * from the reflect container
+	 * Creates all {@link IntrospectContainer}'s and starts the application by
+	 * getting/ creating the {@link UserInterfaceProvider} from the
+	 * {@link UserInterfaceContainer}
 	 * 
 	 * @throws IntrospectContainerException
 	 */
 	public static void start(IntrospectApplication application) {
-		 UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
-		UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer.getUserInterfaceProvider();
+		UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
+		UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer
+				.getUserInterfaceProvider();
 		userInterfaceProvider.start();
 	}
 
+	/**
+	 * Creates the {@link IntrospectContainer}s for the different layers.<br>
+	 * Each {@link IntrospectContainer} represent a layer.<br>
+	 * Each {@link IntrospectContainer} has an inner {@link IntrospectContainer}
+	 * that represent a lower layer (dependencies to lower layer objects only).<br>
+	 * The {@link UserInterfaceContainer} is the outer
+	 * {@link IntrospectContainer} that contains all inner containers.
+	 * 
+	 * @param application
+	 * @return the created {@link UserInterfaceContainer}
+	 */
 	private static UserInterfaceContainer createUserInterfaceContainer(
 			IntrospectApplication application) {
 		UserInterfaceContainer userInterfaceContainer;
 		try {
-		 userInterfaceContainer = new UserInterfaceContainer(application);
-		 } catch (Exception exception) {
-		 throw new IntrospectContainerInitializationException(exception);
-		 }
+			userInterfaceContainer = new UserInterfaceContainer(application);
+		} catch (Exception exception) {
+			throw new IntrospectContainerInitializationException(exception);
+		}
 		return userInterfaceContainer;
 	}
-
 
 }
