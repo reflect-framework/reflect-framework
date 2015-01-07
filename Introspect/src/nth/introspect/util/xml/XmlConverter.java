@@ -20,9 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 import nth.introspect.Introspect;
 import nth.introspect.container.InstanceFactory;
 import nth.introspect.container.impl.InfrastructureContainer;
-import nth.introspect.container.impl.ProviderContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.util.TypeUtil;
 import nth.introspect.util.xml.transform.DefaultMatcher;
@@ -32,8 +30,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.sun.xml.internal.ws.util.xml.XmlUtil;
 
 public class XmlConverter {
 

@@ -4,11 +4,10 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import nth.introspect.container.exception.ClassHasNoUsableConstructorException;
-import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.DependencyLoopException;
+import nth.introspect.container.exception.IntrospectContainerException;
 
 public class InstanceFactory {
 

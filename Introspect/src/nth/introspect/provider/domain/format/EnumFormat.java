@@ -4,7 +4,6 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.StringUtil;
 import nth.introspect.util.exception.MethodNotSupportedException;

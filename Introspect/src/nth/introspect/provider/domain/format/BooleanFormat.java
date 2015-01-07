@@ -4,13 +4,9 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 
-import nth.introspect.Introspect;
-import nth.introspect.provider.language.LanguageProvider;
-
 public class BooleanFormat extends Format {
 
-	
-	
+	private static final long serialVersionUID = 4661147736928871346L;
 	private static final String FALSE = "False";
 	private static final String TRUE = "True";
 

@@ -1,6 +1,5 @@
 package nth.introspect.provider.domain.format;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.FieldPosition;
@@ -9,6 +8,8 @@ import java.text.ParsePosition;
 
 
 public class UriFormat extends Format {
+
+	private static final long serialVersionUID = -2196409302811871198L;
 
 	@Override
 	public StringBuffer format(Object obj, StringBuffer toAppendTo,

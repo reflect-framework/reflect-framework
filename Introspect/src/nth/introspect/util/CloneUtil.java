@@ -3,10 +3,8 @@ package nth.introspect.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.container.InstanceFactory;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.InfrastructureContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 

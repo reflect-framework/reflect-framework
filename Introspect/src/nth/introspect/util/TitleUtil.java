@@ -1,6 +1,5 @@
 package nth.introspect.util;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;

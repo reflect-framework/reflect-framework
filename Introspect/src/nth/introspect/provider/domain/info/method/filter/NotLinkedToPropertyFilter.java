@@ -3,7 +3,6 @@ package nth.introspect.provider.domain.info.method.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.filter.Filter;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;

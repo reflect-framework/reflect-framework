@@ -3,8 +3,6 @@ package nth.introspect.provider.domain.info.valuemodel.impl;
 import java.text.Format;
 import java.util.List;
 
-import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.type.TypeCategory;

@@ -3,7 +3,6 @@ package nth.introspect.provider.path.id;
 import java.lang.reflect.Method;
 import java.net.URI;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.path.PathProvider;
 
 public class MethodIconID extends PathID {

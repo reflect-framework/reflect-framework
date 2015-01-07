@@ -1,14 +1,8 @@
 package nth.introspect.provider.about;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Properties;
 
-import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.valuemodel.annotations.OrderInForm;
 import nth.introspect.provider.domain.info.valuemodel.annotations.OrderInTable;
 import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInForm;

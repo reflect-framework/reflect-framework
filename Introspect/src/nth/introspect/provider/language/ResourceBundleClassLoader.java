@@ -3,7 +3,6 @@ package nth.introspect.provider.language;
 import java.net.URI;
 import java.net.URL;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.path.PathProvider;
 
 public class ResourceBundleClassLoader extends ClassLoader {

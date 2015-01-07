@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.converterfactory.ConverterFactory;
 import nth.introspect.util.exception.MethodNotSupportedException;

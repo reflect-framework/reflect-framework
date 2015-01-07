@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 
 import javax.swing.KeyStroke;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.util.StringUtil;
@@ -62,7 +61,7 @@ public class Item {
 		setAction(action);
 		String iconName = languageProvider.getDefaultValue(text);
 		URI iconUri = pathProvider.getImagePath(iconName);
-		setIconURI(iconURI);
+		setIconURI(iconUri);
 	}
 
 	/**

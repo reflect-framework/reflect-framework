@@ -2,7 +2,6 @@ package nth.introspect.provider.path.id;
 
 import java.net.URI;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.path.PathProvider;
 
 

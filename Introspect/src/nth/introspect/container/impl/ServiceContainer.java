@@ -5,7 +5,6 @@ import java.util.List;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.exception.MissingServiceClassException;
-import nth.introspect.definition.ProviderLayer;
 import nth.introspect.definition.ServiceLayer;
 
 /**

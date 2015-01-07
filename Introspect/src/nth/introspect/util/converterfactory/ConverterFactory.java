@@ -1,18 +1,12 @@
 package nth.introspect.util.converterfactory;
 
 import java.io.File;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.util.TypeUtil;
 import nth.introspect.util.exception.TypeNotSupportedException;
-
-import com.sun.jndi.toolkit.url.Uri;
 
 /**
  * Abstract factory class to help create a converter of type <T> (I.E. a
@@ -24,6 +18,7 @@ import com.sun.jndi.toolkit.url.Uri;
 public abstract class ConverterFactory<T, U> extends
 		NumberConverterFactory<T, U> {
 
+	@SuppressWarnings("unchecked")
 	public T createConverter(Class<?> type_, U metadata) {
 		// boolean
 		if (Boolean.class.isAssignableFrom(type_)) {

@@ -6,12 +6,9 @@ import java.text.DecimalFormat;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.util.converterfactory.NumberConverterFactory;
 import nth.introspect.util.exception.TypeNotSupportedException;
 
 /**

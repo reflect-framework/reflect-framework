@@ -1,9 +1,6 @@
 package nth.introspect.provider.domain.format;
 
-import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.FieldPosition;
 import java.text.Format;
@@ -11,6 +8,8 @@ import java.text.ParsePosition;
 
 
 public class UrlFormat extends Format {
+
+	private static final long serialVersionUID = 4785162820841286233L;
 
 	@Override
 	public StringBuffer format(Object obj, StringBuffer toAppendTo,

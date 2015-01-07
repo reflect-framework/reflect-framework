@@ -3,7 +3,6 @@ package nth.introspect.provider.domain.info;
 import java.util.Comparator;
 import java.util.List;
 
-import nth.introspect.container.IntrospectContainer;
 import nth.introspect.filter.Filter;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;

@@ -1,13 +1,10 @@
 package nth.introspect.provider.domain.info;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.filter.Filter;
 import nth.introspect.filter.FilterUtil;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;

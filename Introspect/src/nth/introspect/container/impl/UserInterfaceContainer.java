@@ -5,15 +5,11 @@ import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.definition.ProviderLayer;
 import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
-import nth.introspect.provider.validation.ValidationProvider;
 
 /**
  * This {@link IntrospectContainer} represents the {@link UserInterfaceLayer}

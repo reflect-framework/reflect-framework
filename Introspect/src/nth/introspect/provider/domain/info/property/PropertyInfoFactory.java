@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 

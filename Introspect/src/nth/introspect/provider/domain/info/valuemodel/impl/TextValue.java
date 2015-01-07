@@ -1,7 +1,5 @@
 package nth.introspect.provider.domain.info.valuemodel.impl;
 
-import sun.launcher.resources.launcher;
-import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.util.StringUtil;

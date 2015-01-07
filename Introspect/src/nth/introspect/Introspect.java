@@ -1,29 +1,15 @@
 package nth.introspect;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
-import nth.introspect.container.exception.MissingServiceClassException;
 import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.definition.DomainLayer;
-import nth.introspect.definition.InfrastructureLayer;
 import nth.introspect.definition.InfrastructureObject;
 import nth.introspect.definition.IntrospectArchitecture;
-import nth.introspect.definition.ServiceLayer;
 import nth.introspect.definition.ServiceObject;
-import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
-import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.dataaccess.DataAccessProvider;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
-import nth.introspect.provider.validation.ValidationProvider;
 
 /**
  * Introspect is a light weight application framework. It provides a framework

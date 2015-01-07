@@ -4,8 +4,6 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 
-import nth.introspect.util.exception.MethodNotSupportedException;
-
 public class StringFormat extends Format {
 
 	private static final long serialVersionUID = 18768767L;

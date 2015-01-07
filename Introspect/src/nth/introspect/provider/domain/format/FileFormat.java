@@ -7,6 +7,8 @@ import java.text.ParsePosition;
 
 public class FileFormat extends Format {
 
+	private static final long serialVersionUID = -8051805805780666828L;
+
 	@Override
 	public StringBuffer format(Object obj, StringBuffer toAppendTo,
 			FieldPosition pos) {

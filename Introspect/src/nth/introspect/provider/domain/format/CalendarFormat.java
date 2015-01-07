@@ -15,6 +15,7 @@ import java.util.Date;
  */
 public class CalendarFormat extends Format {
 
+	private static final long serialVersionUID = 4788700826780335200L;
 	private final SimpleDateFormat simpleDateFormat;
 
 	public CalendarFormat() {

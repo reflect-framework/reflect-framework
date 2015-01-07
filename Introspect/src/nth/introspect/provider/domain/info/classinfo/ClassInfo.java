@@ -2,8 +2,6 @@ package nth.introspect.provider.domain.info.classinfo;
 
 import java.net.URI;
 
-import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.valuemodel.factories.MethodValueModelFactory;

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import nth.introspect.Introspect;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 

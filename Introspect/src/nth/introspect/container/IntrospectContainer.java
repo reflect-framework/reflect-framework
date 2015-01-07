@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.introspect.container.exception.IntrospectContainerException;
+import nth.introspect.container.impl.DomainContainer;
 import nth.introspect.container.impl.InfrastructureContainer;
+import nth.introspect.container.impl.ProviderContainer;
 import nth.introspect.container.impl.ServiceContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.definition.DomainLayer;

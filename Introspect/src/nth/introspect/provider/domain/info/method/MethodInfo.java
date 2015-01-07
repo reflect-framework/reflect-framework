@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
 
-import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.IntrospectionInfo;
 import nth.introspect.provider.domain.info.type.MethodParameterType;
 import nth.introspect.provider.domain.info.type.MethodReturnType;

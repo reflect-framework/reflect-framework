@@ -1,6 +1,5 @@
 package nth.introspect.definition;
 
-import nth.introspect.provider.Provider;
 //TODO synchronize with manual
 /**
  * This interface serves for documentation purposes only. <br><br>

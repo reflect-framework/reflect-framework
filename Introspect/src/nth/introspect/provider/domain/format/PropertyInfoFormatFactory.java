@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.language.LanguageProvider;
