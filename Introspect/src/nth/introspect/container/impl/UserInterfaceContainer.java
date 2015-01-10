@@ -23,7 +23,6 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	private final IntrospectApplication application;
 	private UserInterfaceProvider<?> userInterfaceProvider;
 	private DomainInfoProvider domainInfoProvider;
-	private AboutProvider aboutProvider;
 
 	public UserInterfaceContainer(IntrospectApplication application) {
 		super(new ServiceContainer(application));
@@ -91,18 +90,5 @@ public class UserInterfaceContainer extends IntrospectContainer {
 		return languageProvider;
 	}
 
-	/**
-	 * Convenient method to get the {@link AboutProvider} FIXME: remove this
-	 * method (user constructor injection for registered objects in container
-	 * instead)
-	 * 
-	 * @return {@link AboutProvider}
-	 */
-	public AboutProvider getAboutProvider() {
-		if (aboutProvider == null) {
-			aboutProvider = (AboutProvider) get(AboutProvider.class);
-		}
-		return aboutProvider;
-	}
 
 }

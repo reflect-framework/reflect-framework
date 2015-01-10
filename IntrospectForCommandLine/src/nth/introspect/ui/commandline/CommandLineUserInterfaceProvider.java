@@ -31,7 +31,7 @@ import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.item.Item.Action;
-import nth.introspect.ui.AbstractUserinterfaceProvider;
+import nth.introspect.ui.GraphicalUserinterfaceProvider;
 import nth.introspect.ui.commandline.domain.command.Command;
 import nth.introspect.ui.commandline.domain.command.CommandService;
 import nth.introspect.ui.commandline.domain.command.Parameter;
@@ -43,7 +43,7 @@ import nth.introspect.ui.commandline.view.TableView;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.exception.MethodNotSupportedException;
 
-public class CommandLineUserInterfaceProvider extends AbstractUserinterfaceProvider<CommandLineView> {
+public class CommandLineUserInterfaceProvider extends GraphicalUserinterfaceProvider<CommandLineView> {
 
 	private CommandLineViewContainer viewContainer;
 	private final  IntrospectApplication application;

@@ -18,6 +18,7 @@ import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
@@ -26,9 +27,11 @@ import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.DialogType;
 import nth.introspect.provider.userinterface.DownloadStream;
+import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.item.Item.Action;
-import nth.introspect.ui.AbstractUserinterfaceProvider;
+import nth.introspect.ui.GraphicalUserinterfaceProvider;
+import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.ui.swing.dialog.toast.Toast;
@@ -41,21 +44,23 @@ import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.ExceptionUtil;
 
 public class SwingUserinterfaceProvider extends
-		AbstractUserinterfaceProvider<SwingView> {
+		GraphicalUserinterfaceProvider<SwingView> {
 
 	private MainWindow mainWindow;
 	private IntrospectApplication application;
 	private PathProvider pathProvider;
+	private AboutProvider aboutProvider;
 
-	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,PathProvider pathProvider, LanguageProvider languageProvider , NotificationProvider notificationProvider) {
+	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,PathProvider pathProvider, LanguageProvider languageProvider , NotificationProvider notificationProvider, AboutProvider aboutProvider) {
 		super(userInterfaceContainer, domainInfoProvider, languageProvider, notificationProvider);
 		this.application = application;
 		this.pathProvider = pathProvider;
+		this.aboutProvider = aboutProvider;
 	}
 
 	@Override
 	public void start() {
-		mainWindow = new MainWindow(application, getUserInterfaceContainer(), pathProvider);
+		mainWindow = new MainWindow(application, userInterfaceContainer, this, domainInfoProvider, pathProvider, aboutProvider);
 	}
 	
 	@Override

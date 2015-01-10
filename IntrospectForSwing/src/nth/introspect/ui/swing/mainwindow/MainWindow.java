@@ -49,11 +49,17 @@ public class MainWindow extends JFrame {
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
 	private final PathProvider pathProvider;
+	private final UserInterfaceProvider<?> userInterfaceProvider;
+	private final DomainInfoProvider domainInfoProvider;
+	private final AboutProvider aboutProvider;
 
 	public MainWindow(IntrospectApplication application,
-			UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider) {
+			UserInterfaceContainer userInterfaceContainer, UserInterfaceProvider<?> userInterfaceProvider, DomainInfoProvider domainInfoProvider, PathProvider pathProvider, AboutProvider aboutProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
+		this.userInterfaceProvider = userInterfaceProvider;
+		this.domainInfoProvider = domainInfoProvider;
 		this.pathProvider = pathProvider;
+		this.aboutProvider = aboutProvider;
 		this.languageProvider=userInterfaceContainer.getLanguageProvider();
 		// Set style
 		try {
@@ -64,8 +70,6 @@ public class MainWindow extends JFrame {
 		setDefaultLookAndFeelDecorated(true);
 
 		// Set window parameters
-		DomainInfoProvider domainInfoProvider = userInterfaceContainer
-				.getDomainInfoProvider();
 		ClassInfo applicationInfo = domainInfoProvider.getClassInfo(application
 				.getClass());
 
@@ -125,7 +129,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JButton createAboutButton() {
-		AboutItem aboutItem = new AboutItem(userInterfaceContainer, pathProvider);
+		AboutItem aboutItem = new AboutItem( userInterfaceProvider, domainInfoProvider, languageProvider, aboutProvider, pathProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;

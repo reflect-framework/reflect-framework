@@ -9,6 +9,7 @@ import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
+import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
@@ -17,20 +18,16 @@ import nth.introspect.ui.images.IntrospectImage;
 public class AboutItem extends Item {
 	private static final String ABOUT = "About";
 
-	public AboutItem(final UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider) {
-		super(userInterfaceContainer.getLanguageProvider());
+	public AboutItem(final UserInterfaceProvider<?> userInterfaceProvider, final DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, final AboutProvider aboutProvider, PathProvider pathProvider) {
+		super(languageProvider);
 		setText(ABOUT);
 		setDescription(ABOUT);
 		setIconURI(pathProvider.getImagePath(IntrospectImage.BUTTON_ROUND_ABOUT));
-		final AboutItem aboutItem = this;
 		setAction(new Action() {
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer.getUserInterfaceProvider();
-				DomainInfoProvider domainInfoProvider = userInterfaceContainer.getDomainInfoProvider();
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
 				List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(AboutProvider.class, methodFilter);
-				AboutProvider aboutProvider = userInterfaceContainer.getAboutProvider();
 				if (methodInfos.size() == 1) {
 					MethodInfo methodInfo = methodInfos.get(0);
 					userInterfaceProvider.startExecution(aboutProvider, methodInfo, null);

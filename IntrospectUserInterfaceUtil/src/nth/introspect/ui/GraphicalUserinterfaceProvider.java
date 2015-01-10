@@ -39,7 +39,7 @@ import nth.introspect.util.TitleUtil;
  *            A user interface specific class (often a component container/
  *            layout) that implements {@link View}
  */
-public abstract class AbstractUserinterfaceProvider<T extends View> implements
+public abstract class GraphicalUserinterfaceProvider<T extends View> implements
 		UserInterfaceProvider<T> {
 
 	@Override
@@ -61,11 +61,11 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
-	private final UserInterfaceContainer userInterfaceContainer;
-	private final DomainInfoProvider domainInfoProvider;
+	protected final UserInterfaceContainer userInterfaceContainer;
+	protected final DomainInfoProvider domainInfoProvider;
 	private LanguageProvider languageProvider;
 
-	public AbstractUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
+	public GraphicalUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.domainInfoProvider = domainInfoProvider;
 		this.languageProvider = languageProvider;
@@ -169,7 +169,7 @@ public abstract class AbstractUserinterfaceProvider<T extends View> implements
 	 * - catch errors during the execution of the thread and call
 	 * {@link #showErrorDialog(String, String, Throwable)} if needed<br>
 	 * - invoke
-	 * {@link AbstractUserinterfaceProvider#showMethodReturnValue(Object, MethodInfo, Object, Object)}
+	 * {@link GraphicalUserinterfaceProvider#showMethodReturnValue(Object, MethodInfo, Object, Object)}
 	 * <br>
 	 * <br>
 	 * This method can be overridden if the framework of the user interface
