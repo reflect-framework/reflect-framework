@@ -1,4 +1,4 @@
-package nth.introspect.provider.userinterface;
+package nth.introspect.controller.userinterface;
 
 import java.net.URI;
 import java.util.List;
@@ -11,7 +11,7 @@ import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.ViewContainer;
 
 /**
- * The {@link UserInterfaceProvider} is responsible for displaying and
+ * The {@link UserInterfaceController} is responsible for displaying and
  * controlling the user interface. An user interface could be any type of user
  * interface, in example:
  * <ul>
@@ -39,7 +39,7 @@ import nth.introspect.provider.userinterface.view.ViewContainer;
  * 
  * @param <T>
  */
-public interface UserInterfaceProvider<T> extends Provider, Refreshable, NotificationListener, UserInterfaceLayer {
+public interface UserInterfaceController<T> extends Provider, Refreshable, NotificationListener {
 
 	/**
 	 * Provides simple feedback about an operation in a small popup. It only

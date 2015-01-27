@@ -3,6 +3,7 @@ package nth.introspect.ui.commandline;
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.exception.IntrospectContainerException;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.about.DefaultAboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
@@ -15,7 +16,6 @@ import nth.introspect.provider.notification.DefaultNotificationProvider;
 import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.DefaultPathProvider;
 import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.DefaultValidationProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
@@ -31,8 +31,8 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 
 
 	@Override
-	public Class<? extends UserInterfaceProvider<?>> getUserInterfaceProviderClass() {
-		return CommandLineUserInterfaceProvider.class;
+	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass() {
+		return UserInterfaceControllerForCommandLine.class;
 	}
 
 

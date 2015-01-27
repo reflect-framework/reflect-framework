@@ -21,17 +21,17 @@ import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.DialogType;
+import nth.introspect.controller.userinterface.DownloadStream;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.notification.NotificationProvider;
-import nth.introspect.provider.userinterface.DialogType;
-import nth.introspect.provider.userinterface.DownloadStream;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.item.Item.Action;
-import nth.introspect.ui.GraphicalUserinterfaceProvider;
+import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.commandline.domain.command.Command;
 import nth.introspect.ui.commandline.domain.command.CommandService;
 import nth.introspect.ui.commandline.domain.command.Parameter;
@@ -43,13 +43,13 @@ import nth.introspect.ui.commandline.view.TableView;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.exception.MethodNotSupportedException;
 
-public class CommandLineUserInterfaceProvider extends GraphicalUserinterfaceProvider<CommandLineView> {
+public class UserInterfaceControllerForCommandLine extends GraphicalUserinterfaceController<CommandLineView> {
 
 	private CommandLineViewContainer viewContainer;
 	private final  IntrospectApplication application;
 	private LanguageProvider languageProvider;
 
-	public CommandLineUserInterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
+	public UserInterfaceControllerForCommandLine(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
 		super(userInterfaceContainer, domainInfoProvider, languageProvider, notificationProvider);
 		this.application = application;
 		this.languageProvider = languageProvider;

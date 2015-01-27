@@ -8,6 +8,9 @@ import java.util.List;
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.DialogType;
+import nth.introspect.controller.userinterface.DownloadStream;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
@@ -16,9 +19,6 @@ import nth.introspect.provider.domain.info.type.TypeCategory;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.notification.Task;
-import nth.introspect.provider.userinterface.DialogType;
-import nth.introspect.provider.userinterface.DownloadStream;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
@@ -39,8 +39,8 @@ import nth.introspect.util.TitleUtil;
  *            A user interface specific class (often a component container/
  *            layout) that implements {@link View}
  */
-public abstract class GraphicalUserinterfaceProvider<T extends View> implements
-		UserInterfaceProvider<T> {
+public abstract class GraphicalUserinterfaceController<T extends View> implements
+		UserInterfaceController<T> {
 
 	@Override
 	public void onTaskChange(Task task) {
@@ -65,7 +65,7 @@ public abstract class GraphicalUserinterfaceProvider<T extends View> implements
 	protected final DomainInfoProvider domainInfoProvider;
 	private LanguageProvider languageProvider;
 
-	public GraphicalUserinterfaceProvider(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
+	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.domainInfoProvider = domainInfoProvider;
 		this.languageProvider = languageProvider;
@@ -169,7 +169,7 @@ public abstract class GraphicalUserinterfaceProvider<T extends View> implements
 	 * - catch errors during the execution of the thread and call
 	 * {@link #showErrorDialog(String, String, Throwable)} if needed<br>
 	 * - invoke
-	 * {@link GraphicalUserinterfaceProvider#showMethodReturnValue(Object, MethodInfo, Object, Object)}
+	 * {@link GraphicalUserinterfaceController#showMethodReturnValue(Object, MethodInfo, Object, Object)}
 	 * <br>
 	 * <br>
 	 * This method can be overridden if the framework of the user interface
@@ -429,7 +429,7 @@ public abstract class GraphicalUserinterfaceProvider<T extends View> implements
 		}
 	}
 
-	//TODO we might want to remove this: We want the UserInterfaceContainer to know the UserInterfaceProvider. Not visa versa
+	//TODO we might want to remove this: We want the UserInterfaceContainer to know the UserInterfaceController. Not visa versa
 	public UserInterfaceContainer getUserInterfaceContainer() {
 		return userInterfaceContainer;
 	}

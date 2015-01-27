@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import nth.introspect.Introspect;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.domain.test.TestsService;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
@@ -15,7 +16,6 @@ import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.valuemodel.annotations.ExecutionMode;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.util.TypeUtil;
 
 public class ClassDiagramService {
@@ -46,7 +46,7 @@ public class ClassDiagramService {
 		int index = 0;
 		int maxValue = serviceClasses.size();
 		for (Class<?> serviceClass : serviceClasses) {
-//			userInterfaceProvider.showProgressDialog("Finding classes", index, maxValue);
+//			Task task=notificationProvider.addNewTask("Finding classes", index, maxValue);
 			getReferencedClasses(domainInfoProvider, serviceClass, foundClasses);
 			index++;
 		}
@@ -64,7 +64,7 @@ public class ClassDiagramService {
 			}
 		});
 
-//		userInterfaceProvider.showProgressDialog("Finding classes", maxValue, maxValue);
+//		notificationProvider.remove(task)
 
 		return classFeatures;
 	}

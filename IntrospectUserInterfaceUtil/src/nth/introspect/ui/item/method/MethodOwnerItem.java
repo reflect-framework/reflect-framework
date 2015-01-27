@@ -4,11 +4,11 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.filter.Filter;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
@@ -28,7 +28,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 		setDescription(methodOwnerInfo.getDescription());
 		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
 
-		UserInterfaceProvider<?> userInterfaceProvider=userInterfaceContainer.getUserInterfaceProvider();
+		UserInterfaceController<?> userInterfaceController=userInterfaceContainer.getUserInterfaceController();
 		for (MethodInfo methodInfo : methodInfos) {
 			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner, methodInfo, methodParameterValueModel);
 			addItem(methodItem);

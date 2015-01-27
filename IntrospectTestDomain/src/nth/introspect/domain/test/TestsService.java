@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import nth.introspect.controller.userinterface.DownloadStream;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.valuemodel.annotations.ExecutionMode;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
-import nth.introspect.provider.userinterface.DownloadStream;
 
 public class TestsService {
 	private List<Test> tests;

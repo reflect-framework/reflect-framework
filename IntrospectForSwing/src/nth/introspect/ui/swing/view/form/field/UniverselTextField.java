@@ -7,8 +7,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import nth.introspect.controller.userinterface.Refreshable;
 import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
-import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
 public class UniverselTextField extends JFormattedTextField implements

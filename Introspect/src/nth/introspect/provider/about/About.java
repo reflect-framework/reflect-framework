@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
 public class About extends VersionInfo {
@@ -30,10 +31,16 @@ public class About extends VersionInfo {
 		providerInfos.add(getLanguageProviderInfo());
 		providerInfos.add(getPathProviderInfo());
 		providerInfos.add(getValidationProviderInfo());
-		providerInfos.add(getUserInterfaceProviderInfo());
+		providerInfos.add(getNotificationProviderInfo());
+		providerInfos.add(getUserInterfaceControllerInfo());
 		return providerInfos;
 	}
 
+
+	private VersionInfo getNotificationProviderInfo() {
+		Class<? extends NotificationProvider> notificationProviderClass = application.getNotificationProviderClass();
+		return new VersionInfo(notificationProviderClass);
+	}
 
 	private VersionInfo getValidationProviderInfo() {
 		Class<? extends ValidationProvider> validationProviderClass = application.getValidationProviderClass();
@@ -60,9 +67,9 @@ public class About extends VersionInfo {
 		return new VersionInfo(pathProviderClass);
 	}
 
-	private VersionInfo getUserInterfaceProviderInfo() {
-		Class<? extends UserInterfaceProvider<?>> userInterfaceProviderClass = application.getUserInterfaceProviderClass();
-		return new VersionInfo(userInterfaceProviderClass);
+	private VersionInfo getUserInterfaceControllerInfo() {
+		Class<? extends UserInterfaceController<?>> userInterfaceControllerClass = application.getUserInterfaceControllerClass();
+		return new VersionInfo(userInterfaceControllerClass);
 	}
 
 }

@@ -1,13 +1,13 @@
 package nth.introspect.ui.item.method;
 
 import nth.introspect.Introspect;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.type.MethodParameterType;
 import nth.introspect.provider.domain.info.type.TypeCategory;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
@@ -41,12 +41,12 @@ public class PropertyMethodItem extends MethodItem {
 
 			@Override
 			public void run() {
-				UserInterfaceProvider<?> userInterfaceProvider = formView.getuserInterfaceContainer().getUserInterfaceProvider();
+				UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().getUserInterfaceController();
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				
- 				userInterfaceProvider.getViewContainer().setSelectedView(formView);
-				userInterfaceProvider.startExecution(propertyOwner, propertyMethodInfo, methodParameter);
+ 				userInterfaceController.getViewContainer().setSelectedView(formView);
+				userInterfaceController.startExecution(propertyOwner, propertyMethodInfo, methodParameter);
 			}
 		};
 	}

@@ -5,9 +5,9 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.DialogType;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.userinterface.DialogType;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.util.ExceptionUtil;
 
@@ -19,13 +19,13 @@ public class DialogShowStackTraceItem extends Item {
 		super(userInterfaceContainer.getLanguageProvider());
 		setText("Show stack trace");
 		setDescription("Show more details on error");
-		UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer.getUserInterfaceProvider();
+		UserInterfaceController<?> userInterfaceController = userInterfaceContainer.getUserInterfaceController();
 		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
-		Action action=createAction(userInterfaceProvider,languageProvider, title,message,throwable);
+		Action action=createAction(userInterfaceController,languageProvider, title,message,throwable);
 		setAction(action);
 	}
 
-	private Action createAction(final UserInterfaceProvider<?> userInterfaceProvider, final LanguageProvider languageProvider, final String title, final String message, final Throwable throwable) {
+	private Action createAction(final UserInterfaceController<?> userInterfaceController, final LanguageProvider languageProvider, final String title, final String message, final Throwable throwable) {
 		return new Action() {
 
 			@Override
@@ -42,7 +42,7 @@ public class DialogShowStackTraceItem extends Item {
 				List<Item> items = new ArrayList<Item>();
 				items.add(dialogCloseItem);
 
-				userInterfaceProvider.showDialog(DialogType.ERROR, title,
+				userInterfaceController.showDialog(DialogType.ERROR, title,
 						messageWithStackTrace.toString(), items);
 			}
 		};

@@ -22,10 +22,10 @@ public class IntrospectSwingDemo extends IntrospectApplicationForSwing {
 
 	@Override
 	public List<Class<?>> getServiceClasses() {
-		List<Class<?>> frontEndServiceClasses=new ArrayList<Class<?>>();
-		frontEndServiceClasses.add(TestsService.class);
-		frontEndServiceClasses.add(ClassDiagramService.class);
-		return frontEndServiceClasses;
+		List<Class<?>> serviceClasses=new ArrayList<Class<?>>();
+		serviceClasses.add(TestsService.class);
+		serviceClasses.add(ClassDiagramService.class);
+		return serviceClasses;
 	}
 
 	@Override

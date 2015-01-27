@@ -24,12 +24,12 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.swing.icon.IconFactory;
@@ -49,14 +49,14 @@ public class MainWindow extends JFrame {
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
 	private final PathProvider pathProvider;
-	private final UserInterfaceProvider<?> userInterfaceProvider;
+	private final UserInterfaceController<?> userInterfaceController;
 	private final DomainInfoProvider domainInfoProvider;
 	private final AboutProvider aboutProvider;
 
 	public MainWindow(IntrospectApplication application,
-			UserInterfaceContainer userInterfaceContainer, UserInterfaceProvider<?> userInterfaceProvider, DomainInfoProvider domainInfoProvider, PathProvider pathProvider, AboutProvider aboutProvider) {
+			UserInterfaceContainer userInterfaceContainer, UserInterfaceController<?> userInterfaceController, DomainInfoProvider domainInfoProvider, PathProvider pathProvider, AboutProvider aboutProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.userInterfaceProvider = userInterfaceProvider;
+		this.userInterfaceController = userInterfaceController;
 		this.domainInfoProvider = domainInfoProvider;
 		this.pathProvider = pathProvider;
 		this.aboutProvider = aboutProvider;
@@ -129,7 +129,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private JButton createAboutButton() {
-		AboutItem aboutItem = new AboutItem( userInterfaceProvider, domainInfoProvider, languageProvider, aboutProvider, pathProvider);
+		AboutItem aboutItem = new AboutItem( userInterfaceController, domainInfoProvider, languageProvider, aboutProvider, pathProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;

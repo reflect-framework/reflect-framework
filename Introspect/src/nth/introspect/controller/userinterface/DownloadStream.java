@@ -1,4 +1,4 @@
-package nth.introspect.provider.userinterface;
+package nth.introspect.controller.userinterface;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

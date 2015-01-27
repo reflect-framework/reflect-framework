@@ -5,11 +5,11 @@ import java.util.List;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
 /**
  * This {@link IntrospectContainer} represents the {@link UserInterfaceLayer}
@@ -21,13 +21,13 @@ public class UserInterfaceContainer extends IntrospectContainer {
 
 	private LanguageProvider languageProvider;
 	private final IntrospectApplication application;
-	private UserInterfaceProvider<?> userInterfaceProvider;
+	private UserInterfaceController<?> userInterfaceController;
 	private DomainInfoProvider domainInfoProvider;
 
 	public UserInterfaceContainer(IntrospectApplication application) {
 		super(new ServiceContainer(application));
 		this.application = application;
-		add(application.getUserInterfaceProviderClass());
+		add(application.getUserInterfaceControllerClass());
 	}
 
 	public List<Object> getServiceObjects() {
@@ -49,17 +49,17 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	}
 
 	/**
-	 * Convenient method to get the {@link UserInterfaceProvider} FIXME: remove
+	 * Convenient method to get the {@link UserInterfaceController} FIXME: remove
 	 * this method (user constructor injection for registered objects in
 	 * container instead)
 	 * 
-	 * @return {@link UserInterfaceProvider}
+	 * @return {@link UserInterfaceController}
 	 */
-	public UserInterfaceProvider<?> getUserInterfaceProvider() {
-		if (userInterfaceProvider == null) {
-			userInterfaceProvider = (UserInterfaceProvider<?>) get(UserInterfaceProvider.class);
+	public UserInterfaceController<?> getUserInterfaceController() {
+		if (userInterfaceController == null) {
+			userInterfaceController = (UserInterfaceController<?>) get(UserInterfaceController.class);
 		}
-		return userInterfaceProvider;
+		return userInterfaceController;
 	}
 
 	/**

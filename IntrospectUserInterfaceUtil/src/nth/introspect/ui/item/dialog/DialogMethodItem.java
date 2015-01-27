@@ -4,8 +4,8 @@ import java.net.URI;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 
 public class DialogMethodItem extends Item {
@@ -25,11 +25,11 @@ public class DialogMethodItem extends Item {
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValue = methodParameterValue;
-final UserInterfaceProvider<?> userInterfaceProvider=userInterfaceContainer.getUserInterfaceProvider();
+final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.getUserInterfaceController();
 		setAction(new Action() {
 			@Override
 			public void run() {
-				userInterfaceProvider.excuteMethod(methodOwner, methodInfo, methodParameterValue);
+				userInterfaceController.excuteMethod(methodOwner, methodInfo, methodParameterValue);
 				//TODO refresh form!!!!
 			}
 

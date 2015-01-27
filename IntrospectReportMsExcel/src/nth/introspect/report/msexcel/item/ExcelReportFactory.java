@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.controller.userinterface.DownloadStream;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
@@ -22,7 +23,6 @@ import nth.introspect.provider.report.Report;
 import nth.introspect.provider.report.ReportProvider;
 import nth.introspect.provider.report.Section;
 import nth.introspect.provider.report.TableSection;
-import nth.introspect.provider.userinterface.DownloadStream;
 import nth.introspect.util.TypeUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

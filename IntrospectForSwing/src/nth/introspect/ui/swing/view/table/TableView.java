@@ -19,10 +19,10 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.swing.item.menubar.MenuBar;
@@ -246,8 +246,8 @@ public class TableView extends SwingView implements
 						return methodInfo.invoke(methodOwner,
 								methodParameterValue);
 					} catch (Exception e) {
-						UserInterfaceProvider<?> userInterfaceProvider = getuserInterfaceContainer().getUserInterfaceProvider();
-						userInterfaceProvider.showErrorDialog(getViewTitle(),
+						UserInterfaceController<?> userInterfaceController = getuserInterfaceContainer().getUserInterfaceController();
+						userInterfaceController.showErrorDialog(getViewTitle(),
 								"Error getting table values.", e);
 						return null;
 					}

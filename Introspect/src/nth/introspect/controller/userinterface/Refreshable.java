@@ -1,4 +1,4 @@
-package nth.introspect.provider.userinterface;
+package nth.introspect.controller.userinterface;
 
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 

@@ -3,6 +3,7 @@ package nth.introspect.application;
 import java.util.List;
 
 import nth.introspect.Introspect;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.definition.InfrastructureObject;
 import nth.introspect.definition.ServiceObject;
 import nth.introspect.provider.Provider;
@@ -12,7 +13,6 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
 /**
@@ -36,7 +36,7 @@ import nth.introspect.provider.validation.ValidationProvider;
 
 public interface IntrospectApplication {
 
-	public Class<? extends UserInterfaceProvider<?>> getUserInterfaceProviderClass();
+	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass();
 	
 	public Class<? extends DomainInfoProvider> getDomainInfoProviderClass();
 	

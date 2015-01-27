@@ -5,11 +5,11 @@ import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.definition.InfrastructureObject;
 import nth.introspect.definition.IntrospectArchitecture;
 import nth.introspect.definition.ServiceObject;
 import nth.introspect.provider.Provider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
 /**
  * Introspect is a light weight application framework. It provides a framework
@@ -44,7 +44,7 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
  * <li>See {@link IntrospectArchitecture}</li>
  * <li>Use simple interfaces and different implementations where needed (I.E.
  * see different implementations of {@link Provider} and
- * {@link UserInterfaceProvider})</li>
+ * {@link UserInterfaceController})</li>
  * </ul>
  * 
  * <li>Light weight and modular:</li>
@@ -98,16 +98,16 @@ public class Introspect {
 
 	/**
 	 * Creates all {@link IntrospectContainer}'s and starts the application by
-	 * getting/ creating the {@link UserInterfaceProvider} from the
+	 * getting/ creating the {@link UserInterfaceController} from the
 	 * {@link UserInterfaceContainer}
 	 * 
 	 * @throws IntrospectContainerException
 	 */
 	public static void start(IntrospectApplication application) {
 		UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
-		UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer
-				.getUserInterfaceProvider();
-		userInterfaceProvider.start();
+		UserInterfaceController<?> userInterfaceController = userInterfaceContainer
+				.getUserInterfaceController();
+		userInterfaceController.start();
 	}
 
 	/**

@@ -107,7 +107,7 @@ public class Item {
 	public String getDescriptionWithHotKey(String descText) {
 
 		if (hotKey == null) {// TODO implement boolean
-								// UserinterfaceProvider.isHotKeySupported() and
+								// UserinterfaceController.isHotKeySupported() and
 								// check here
 			return descText;
 		} else {

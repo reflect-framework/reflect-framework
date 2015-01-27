@@ -7,6 +7,7 @@ import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.filter.EqualsFilter;
 import nth.introspect.filter.Filter;
 import nth.introspect.filter.LogicFilter;
@@ -18,7 +19,6 @@ import nth.introspect.provider.domain.info.method.filter.NoParameterOrParameterF
 import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
 import nth.introspect.provider.domain.info.method.filter.ReturnTypeFilter;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.view.View;
 import nth.introspect.provider.userinterface.view.ViewContainer;
@@ -76,7 +76,7 @@ public class ItemFactory {
 			items.add(item);
 		}
 
-		ViewContainer viewContainer = formView.getuserInterfaceContainer().getUserInterfaceProvider().getViewContainer();
+		ViewContainer viewContainer = formView.getuserInterfaceContainer().getUserInterfaceController().getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, propertyInfo));
 
 		// service object methods
@@ -115,7 +115,7 @@ public class ItemFactory {
 		// items.add(item)
 		// }
 
-		ViewContainer viewContainer = tableView.getuserInterfaceContainer().getUserInterfaceProvider().getViewContainer();
+		ViewContainer viewContainer = tableView.getuserInterfaceContainer().getUserInterfaceController().getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
 
 		// create filter for service object items

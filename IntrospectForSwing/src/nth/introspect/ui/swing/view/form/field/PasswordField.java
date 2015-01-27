@@ -4,7 +4,7 @@ import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import nth.introspect.provider.userinterface.Refreshable;
+import nth.introspect.controller.userinterface.Refreshable;
 import nth.introspect.valuemodel.ReadWriteValueModel;
 
 @SuppressWarnings("serial")

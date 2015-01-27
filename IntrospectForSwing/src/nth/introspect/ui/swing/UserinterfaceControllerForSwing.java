@@ -18,6 +18,9 @@ import nth.introspect.Introspect;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.DialogType;
+import nth.introspect.controller.userinterface.DownloadStream;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
@@ -25,12 +28,9 @@ import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.DialogType;
-import nth.introspect.provider.userinterface.DownloadStream;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.provider.userinterface.item.Item.Action;
-import nth.introspect.ui.GraphicalUserinterfaceProvider;
+import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
@@ -43,15 +43,15 @@ import nth.introspect.ui.swing.view.table.TableView;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.ExceptionUtil;
 
-public class SwingUserinterfaceProvider extends
-		GraphicalUserinterfaceProvider<SwingView> {
+public class UserinterfaceControllerForSwing extends
+		GraphicalUserinterfaceController<SwingView> {
 
 	private MainWindow mainWindow;
 	private IntrospectApplication application;
 	private PathProvider pathProvider;
 	private AboutProvider aboutProvider;
 
-	public SwingUserinterfaceProvider(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,PathProvider pathProvider, LanguageProvider languageProvider , NotificationProvider notificationProvider, AboutProvider aboutProvider) {
+	public UserinterfaceControllerForSwing(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,PathProvider pathProvider, LanguageProvider languageProvider , NotificationProvider notificationProvider, AboutProvider aboutProvider) {
 		super(userInterfaceContainer, domainInfoProvider, languageProvider, notificationProvider);
 		this.application = application;
 		this.pathProvider = pathProvider;

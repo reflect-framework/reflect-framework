@@ -2,7 +2,7 @@ package nth.introspect.ui.swing.view.form.field;
 
 import javax.swing.JCheckBox;
 
-import nth.introspect.provider.userinterface.Refreshable;
+import nth.introspect.controller.userinterface.Refreshable;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.valuemodel.ReadWriteValueModel;
 

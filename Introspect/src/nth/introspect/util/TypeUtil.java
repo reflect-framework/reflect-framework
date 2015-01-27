@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Collection;
 
+import nth.introspect.controller.userinterface.DownloadStream;
 import nth.introspect.provider.domain.info.type.TypeCategory;
-import nth.introspect.provider.userinterface.DownloadStream;
 
 public class TypeUtil {
 	public static Class<?> getComplexType(Class<?> type) {

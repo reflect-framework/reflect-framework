@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import nth.introspect.Introspect;
+import nth.introspect.controller.userinterface.Refreshable;
 import nth.introspect.provider.domain.format.JavaFormatFactory;
 import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
@@ -15,7 +16,6 @@ import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.TableOrderComparator;
 import nth.introspect.provider.domain.info.property.TableVisibleFilter;
 import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.userinterface.Refreshable;
 import nth.introspect.tablemodel.DomainTableModel;
 import nth.introspect.util.TypeUtil;
 import nth.introspect.valuemodel.ReadOnlyValueModel;

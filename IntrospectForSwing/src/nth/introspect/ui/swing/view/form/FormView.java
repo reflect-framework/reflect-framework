@@ -117,21 +117,21 @@ public class FormView extends SwingView implements
 	}
 
 	public JButton createCloseButton() {
-		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
+		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceController().getViewContainer();
 		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
 		CloseThisTabItem closeItem = new CloseThisTabItem(pathProvider, languageProvider, viewContainer, this);
 		return new ItemButton(closeItem);
 	}
 
 	public JButton createCancelButton() {
-		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
+		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceController().getViewContainer();
 		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
 		CancelItem cancelItem = new CancelItem(pathProvider, languageProvider, viewContainer, this);
 		return new ItemButton(cancelItem);
 	}
 
 	public JButton createOkButton() {
-		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceProvider().getViewContainer();
+		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceController().getViewContainer();
 		FormOkItem okItem = new FormOkItem( this, methodOwner, methodInfo,
 				domainValueModel);
 		return new ItemButton(okItem);

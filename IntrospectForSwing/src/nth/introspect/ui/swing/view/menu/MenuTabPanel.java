@@ -2,9 +2,9 @@ package nth.introspect.ui.swing.view.menu;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
-import nth.introspect.ui.swing.SwingUserinterfaceProvider;
+import nth.introspect.ui.swing.UserinterfaceControllerForSwing;
 import nth.introspect.ui.swing.mainwindow.MainWindow;
 import nth.introspect.ui.swing.view.container.SwingViewContainer;
 
@@ -28,9 +28,9 @@ public class MenuTabPanel extends SwingViewContainer {
 	 */
 	@Override
 	public void removeTabAt(int index) {
-		SwingUserinterfaceProvider swingUserinterfaceProvider = (SwingUserinterfaceProvider) userInterfaceContainer
-				.getUserInterfaceProvider();
-		MainWindow mainWindow = swingUserinterfaceProvider.getMainWindow();
+		UserinterfaceControllerForSwing swingUserinterfaceController = (UserinterfaceControllerForSwing) userInterfaceContainer
+				.getUserInterfaceController();
+		MainWindow mainWindow = swingUserinterfaceController.getMainWindow();
 		mainWindow.hideMenu();
 	}
 

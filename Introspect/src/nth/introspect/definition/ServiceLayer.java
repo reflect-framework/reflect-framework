@@ -1,5 +1,7 @@
 package nth.introspect.definition;
 
+import nth.introspect.container.impl.ServiceContainer;
+
 //TODO synchronize with manual
 /**
  * This interface serves for documentation purposes only. <br>
@@ -17,6 +19,7 @@ package nth.introspect.definition;
  * in the next layer down. It does not have state reflecting the business
  * situation, but it can have state that reflects the progress of a task for the
  * user or the program.<br><br>
+ * The {@link ServiceLayer} is implemented by the {@link ServiceContainer}<br>
  * Note that this layer is a middle layer: the {@link ServiceObject}s have no knowledge of the {@link UserInterfaceLayer} , the {@link ServiceObject}s may know the objects in the lower layers but not visa versa! See {@link IntrospectArchitecture
   
  * @author Nils ten Hoeve

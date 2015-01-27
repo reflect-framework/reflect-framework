@@ -4,9 +4,9 @@ import java.net.URI;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.type.TypeCategory;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 import nth.introspect.provider.userinterface.item.Item;
 import nth.introspect.valuemodel.ReadOnlyValueModel;
 
@@ -29,14 +29,14 @@ public class MethodItem extends Item {
 		this.methodOwner = methodOwner;
 		this.methodInfo = methodInfo;
 		this.methodParameterValueModel = methodParameterValueModel;
-		final UserInterfaceProvider<?> userInterfaceProvider = userInterfaceContainer
-				.getUserInterfaceProvider();
+		final UserInterfaceController<?> userInterfaceController = userInterfaceContainer
+				.getUserInterfaceController();
 		setAction(new Action() {
 			@Override
 			public void run() {
 				Object methodParameterValue = (methodParameterValueModel == null) ? null
 						: methodParameterValueModel.getValue();
-				userInterfaceProvider.startExecution(methodOwner, methodInfo,
+				userInterfaceController.startExecution(methodOwner, methodInfo,
 						methodParameterValue);
 			}
 

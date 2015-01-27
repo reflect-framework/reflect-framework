@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-import nth.introspect.provider.userinterface.Refreshable;
+import nth.introspect.controller.userinterface.Refreshable;
 
 public class SwingUtil {
 	public static final int GRID_HEIGHT = 20;

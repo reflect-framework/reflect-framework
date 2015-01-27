@@ -12,6 +12,7 @@ import nth.introspect.container.impl.InfrastructureContainer;
 import nth.introspect.container.impl.ProviderContainer;
 import nth.introspect.container.impl.ServiceContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.definition.DomainLayer;
 import nth.introspect.definition.DomainObject;
 import nth.introspect.definition.InfrastructureLayer;
@@ -22,7 +23,6 @@ import nth.introspect.definition.ServiceLayer;
 import nth.introspect.definition.ServiceObject;
 import nth.introspect.definition.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
-import nth.introspect.provider.userinterface.UserInterfaceProvider;
 
 /**
  * The {@link IntrospectContainer} is a dependency injection container. It is responsible for:
@@ -38,7 +38,7 @@ import nth.introspect.provider.userinterface.UserInterfaceProvider;
  * <li>{@link InfrastructureLayer}: {@link InfrastructureObject}'s are managed by a {@link InfrastructureContainer}. The {@link DomainContainer} knows the {@link ProviderContainer}</li>
  * <li>{@link DomainLayer}: {@link DomainObject}'s are managed by a {@link DomainContainer}. The {@link DomainContainer} knows the {@link InfrastructureContainer}</li>  
  * <li>{@link ServiceLayer}: {@link ServiceObject}'s are managed by a {@link ServiceContainer}. The {@link ServiceContainer} knows the {@link DomainContainer}</li>  
- * <li>{@link UserInterfaceLayer}: {@link UserInterfaceProvider} object is managed by a {@link UserInterfaceContainer}. The {@link UserInterfaceContainer} knows the {@link ServiceContainer}</li>  
+ * <li>{@link UserInterfaceLayer}: {@link UserInterfaceController} object is managed by a {@link UserInterfaceContainer}. The {@link UserInterfaceContainer} knows the {@link ServiceContainer}</li>  
  * </ul>
  * 
  * @author nilsth
@@ -65,6 +65,9 @@ public abstract class IntrospectContainer {
 
 	public void add(Class<?> type) throws IntrospectContainerException {
 		// TODO verify if type isn't already defined in lower layer
+		if (type==null) {
+			throw new NullPointerException();
+		}
 		List<Class<?>> allClasses = getAllClasses();
 		Class<?> foundClass = NearestParentFinder.findParent(allClasses, type);
 		if (foundClass!=null) {
