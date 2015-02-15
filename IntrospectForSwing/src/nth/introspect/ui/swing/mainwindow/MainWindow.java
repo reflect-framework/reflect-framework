@@ -54,13 +54,16 @@ public class MainWindow extends JFrame {
 	private final AboutProvider aboutProvider;
 
 	public MainWindow(IntrospectApplication application,
-			UserInterfaceContainer userInterfaceContainer, UserInterfaceController<?> userInterfaceController, DomainInfoProvider domainInfoProvider, PathProvider pathProvider, AboutProvider aboutProvider) {
+			UserInterfaceContainer userInterfaceContainer,
+			UserInterfaceController<?> userInterfaceController,
+			DomainInfoProvider domainInfoProvider, PathProvider pathProvider,
+			AboutProvider aboutProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.userInterfaceController = userInterfaceController;
 		this.domainInfoProvider = domainInfoProvider;
 		this.pathProvider = pathProvider;
 		this.aboutProvider = aboutProvider;
-		this.languageProvider=userInterfaceContainer.getLanguageProvider();
+		this.languageProvider = userInterfaceContainer.getLanguageProvider();
 		// Set style
 		try {
 			UIManager
@@ -110,9 +113,7 @@ public class MainWindow extends JFrame {
 
 	private void setTitle(IntrospectApplication application,
 			ClassInfo applicationInfo) {
-		String title = applicationInfo.getName();// TODO replace with getTitle
-													// is better but throws
-													// exception
+		String title = applicationInfo.getText();
 		setTitle(title);
 	}
 
@@ -129,7 +130,9 @@ public class MainWindow extends JFrame {
 	}
 
 	private JButton createAboutButton() {
-		AboutItem aboutItem = new AboutItem( userInterfaceController, domainInfoProvider, languageProvider, aboutProvider, pathProvider);
+		AboutItem aboutItem = new AboutItem(userInterfaceController,
+				domainInfoProvider, languageProvider, aboutProvider,
+				pathProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;
@@ -175,10 +178,9 @@ public class MainWindow extends JFrame {
 		button.registerKeyboardAction(action,
 				KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(languageProvider.getText(
-				"Find Menu Item (F3)"));
-		button.setIcon(IconFactory.create(pathProvider, IntrospectImage.EDIT_FIND,
-				SwingStyleConstant.ICON_SIZE));
+		button.setToolTipText(languageProvider.getText("Find Menu Item (F3)"));
+		button.setIcon(IconFactory.create(pathProvider,
+				IntrospectImage.EDIT_FIND, SwingStyleConstant.ICON_SIZE));
 		return button;
 	}
 
@@ -203,9 +205,8 @@ public class MainWindow extends JFrame {
 		button.registerKeyboardAction(action,
 				KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(languageProvider.getText(
-				"Show Tabs Menu (F4)"));
-		button.setIcon(IconFactory.create(pathProvider,IntrospectImage.TABS,
+		button.setToolTipText(languageProvider.getText("Show Tabs Menu (F4)"));
+		button.setIcon(IconFactory.create(pathProvider, IntrospectImage.TABS,
 				SwingStyleConstant.ICON_SIZE));
 		return button;
 	}
@@ -219,7 +220,8 @@ public class MainWindow extends JFrame {
 	}
 
 	private SwingViewContainer createContentTabPanel() {
-		SwingViewContainer swingViewContainer = new SwingViewContainer(userInterfaceContainer, pathProvider);
+		SwingViewContainer swingViewContainer = new SwingViewContainer(
+				userInterfaceContainer, pathProvider);
 		return swingViewContainer;
 	}
 
@@ -233,10 +235,9 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(false);
 		// set menu button
-		menuButton.setToolTipText(languageProvider.getText(
-				"Show Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(pathProvider,IntrospectImage.MENU_SHOW,
-				SwingStyleConstant.ICON_SIZE));
+		menuButton.setToolTipText(languageProvider.getText("Show Menu (F2)"));
+		menuButton.setIcon(IconFactory.create(pathProvider,
+				IntrospectImage.MENU_SHOW, SwingStyleConstant.ICON_SIZE));
 	}
 
 	public void showMenu() {
@@ -245,10 +246,9 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(true);
 		// hide menu button
-		menuButton.setToolTipText(languageProvider.getText(
-				"Hide Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(pathProvider,IntrospectImage.MENU_HIDE,
-				SwingStyleConstant.ICON_SIZE));
+		menuButton.setToolTipText(languageProvider.getText("Hide Menu (F2)"));
+		menuButton.setIcon(IconFactory.create(pathProvider,
+				IntrospectImage.MENU_HIDE, SwingStyleConstant.ICON_SIZE));
 	}
 
 	public boolean isMenuVisible() {

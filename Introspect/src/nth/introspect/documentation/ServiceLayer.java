@@ -1,11 +1,9 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 import nth.introspect.container.impl.ServiceContainer;
 
 //TODO synchronize with manual
 /**
- * This interface serves for documentation purposes only. <br>
- * <br>
  * The {@link ServiceLayer} is part if the {@link IntrospectArchitecture}. <br>
  * The {@link ServiceLayer} is also know as application layer.<br>
  * The {@link ServiceLayer} contains {@link ServiceObject}s.<br>
@@ -25,6 +23,6 @@ import nth.introspect.container.impl.ServiceContainer;
  * @author Nils ten Hoeve
  * 
  */
-public interface ServiceLayer {
+public interface ServiceLayer extends Documentation{
 
 }

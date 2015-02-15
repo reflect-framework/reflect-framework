@@ -13,15 +13,15 @@ import nth.introspect.container.impl.ProviderContainer;
 import nth.introspect.container.impl.ServiceContainer;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.definition.DomainLayer;
-import nth.introspect.definition.DomainObject;
-import nth.introspect.definition.InfrastructureLayer;
-import nth.introspect.definition.InfrastructureObject;
-import nth.introspect.definition.IntrospectArchitecture;
-import nth.introspect.definition.ProviderLayer;
-import nth.introspect.definition.ServiceLayer;
-import nth.introspect.definition.ServiceObject;
-import nth.introspect.definition.UserInterfaceLayer;
+import nth.introspect.documentation.DomainLayer;
+import nth.introspect.documentation.DomainObject;
+import nth.introspect.documentation.InfrastructureLayer;
+import nth.introspect.documentation.InfrastructureObject;
+import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.documentation.ProviderLayer;
+import nth.introspect.documentation.ServiceLayer;
+import nth.introspect.documentation.ServiceObject;
+import nth.introspect.documentation.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
 
 /**

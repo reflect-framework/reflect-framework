@@ -1,6 +1,7 @@
 package nth.introspect.provider.path.id;
 
 import java.net.URI;
+import java.net.URL;
 
 import nth.introspect.provider.path.PathProvider;
 
@@ -13,7 +14,7 @@ public class ClassIconID extends PathID {
 	
 	public ClassIconID(PathProvider pathProvider, Class<?> declaringClass) {
 		super(declaringClass.getCanonicalName());
-		String className = declaringClass.getName();
+		String className = declaringClass.getSimpleName();
 		iconURI =getIconURI(declaringClass, className);
 		
 		if (!pathProvider.uriExists(iconURI) && className.toLowerCase().endsWith(SERVICE)) {
@@ -24,7 +25,9 @@ public class ClassIconID extends PathID {
 
 	private URI getIconURI(Class<?> introspectedClass, String name ) {
 		try {
-			return introspectedClass.getResource(name+PNG_EXTENTION).toURI();
+			String fileName=name+PNG_EXTENTION;
+			URL resource = introspectedClass.getResource(fileName);
+			return resource.toURI();
 		} catch (Throwable  e) {
 			return null;
 		}

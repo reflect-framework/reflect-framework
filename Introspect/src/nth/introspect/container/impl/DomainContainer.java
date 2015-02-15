@@ -2,7 +2,7 @@ package nth.introspect.container.impl;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.definition.DomainLayer;
+import nth.introspect.documentation.DomainLayer;
 
 /**
  * This {@link IntrospectContainer} represents the {@link DomainLayer}

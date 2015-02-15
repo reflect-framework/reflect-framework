@@ -1,10 +1,9 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 
 //TODO synchronize with manual
 /**
- * This interface is for documentation purposes only. {@link DomainObject}s do
- * not need to implement any interface or superclass.<br>
+ * {@link DomainObject}s do not need to implement any interface or superclass.<br>
  * <br>
  * {@link DomainObject}s are placed in the {@link DomainLayer}<br>
  * {@link DomainObject}s represent entities; the nouns of the domain. If your
@@ -33,6 +32,6 @@ package nth.introspect.definition;
  * @author Nils ten Hoeve
  * 
  */
-public interface DomainObject {
+public interface DomainObject  extends Documentation{
 
 }

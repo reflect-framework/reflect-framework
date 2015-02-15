@@ -3,13 +3,17 @@ package nth.introspect.container.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.definition.UserInterfaceLayer;
+import nth.introspect.documentation.UserInterfaceLayer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.language.LanguageProvider;
+import nth.introspect.provider.notification.NotificationProvider;
+import nth.introspect.provider.path.PathProvider;
 
 /**
  * This {@link IntrospectContainer} represents the {@link UserInterfaceLayer}
@@ -23,6 +27,10 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	private final IntrospectApplication application;
 	private UserInterfaceController<?> userInterfaceController;
 	private DomainInfoProvider domainInfoProvider;
+	private PathProvider pathProvider;
+	private IntrospectApplication introspectApplication;
+	private NotificationProvider notificationProvider;
+	private ClassInfo introspectApplicationClassInfo;
 
 	public UserInterfaceContainer(IntrospectApplication application) {
 		super(new ServiceContainer(application));
@@ -49,8 +57,8 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	}
 
 	/**
-	 * Convenient method to get the {@link UserInterfaceController} FIXME: remove
-	 * this method (user constructor injection for registered objects in
+	 * Convenient method to get the {@link UserInterfaceController} FIXME:
+	 * remove this method (user constructor injection for registered objects in
 	 * container instead)
 	 * 
 	 * @return {@link UserInterfaceController}
@@ -90,5 +98,35 @@ public class UserInterfaceContainer extends IntrospectContainer {
 		return languageProvider;
 	}
 
+	public PathProvider getPathProvider() {
+		if (pathProvider == null) {
+			pathProvider = (PathProvider) get(PathProvider.class);
+		}
+		return pathProvider;
+	}
+
+	public IntrospectApplication getIntrospectApplication() {
+		if (introspectApplication == null) {
+			introspectApplication = (IntrospectApplication) get(IntrospectApplication.class);
+		}
+		return introspectApplication;
+	}
+
+	public ClassInfo getIntrospectApplicationClassInfo() {
+		if (introspectApplicationClassInfo==null)	{
+			IntrospectApplication application=getIntrospectApplication();
+			DomainInfoProvider domainInfoProvider=getDomainInfoProvider();
+			introspectApplicationClassInfo=domainInfoProvider.getClassInfo(application.getClass());
+		}
+		return introspectApplicationClassInfo;
+	}
+	
+
+	public NotificationProvider getNotificationProvider() {
+		if (notificationProvider==null) {
+			notificationProvider=(NotificationProvider) get(NotificationProvider.class);
+		}
+		return notificationProvider;
+	}
 
 }

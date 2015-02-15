@@ -1,12 +1,8 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 import nth.introspect.container.impl.DomainContainer;
 
-//TODO synchronize with manual
-
 /**
- * This interface serves for documentation purposes only. <br>
- * <br>
  * The {@link DomainLayer} is part if the {@link IntrospectArchitecture}. <br>
  * The {@link DomainLayer} is also know as:
 <ul><li>Business layer</li>
@@ -23,6 +19,6 @@ heart of business software.
  * 
  */
 
-public interface DomainLayer {
+public interface DomainLayer extends Documentation {
 
 }

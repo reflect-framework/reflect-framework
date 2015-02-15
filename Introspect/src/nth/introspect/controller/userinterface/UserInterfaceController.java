@@ -3,7 +3,7 @@ package nth.introspect.controller.userinterface;
 import java.net.URI;
 import java.util.List;
 
-import nth.introspect.definition.UserInterfaceLayer;
+import nth.introspect.documentation.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.notification.NotificationListener;

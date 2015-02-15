@@ -1,11 +1,9 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 import nth.introspect.container.IntrospectContainer;
 
 
 /**
- * This interface serves for documentation purposes only. <br>
- * <br>
  * The Introspect Framework helps you to create a <a
  * href="http://en.wikipedia.org/wiki/Multilayered_architecture" >multi layer
  * architecture</a> for your application. A multi layer architecture has several
@@ -47,13 +45,18 @@ import nth.introspect.container.IntrospectContainer;
  * <li>{@link ProviderLayer}</li>
  * </ul>
  * 
- * Each layer is implemented by a {@link IntrospectContainer}
+ * Each layer is implemented by a {@link IntrospectContainer}<br><br>
+ * 
+ * <image src="IntrospectArchitecture.png"><br><br>
+ * 
+ * Red objects are provided by the Introspect framework<br>
+* Yellow objects need to be written or included by the developer.
  * 
  * 
  * @author Nils ten Hoeve
  * 
  */
 
-public interface IntrospectArchitecture {
+public interface IntrospectArchitecture extends Documentation{
 
 }

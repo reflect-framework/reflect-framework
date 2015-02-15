@@ -6,9 +6,9 @@ public class IntrospectImage {
 	public static final IntrospectImagePathIdentifier EDIT_PASTE = new IntrospectImagePathIdentifier("edit_paste.png");
 	public static final IntrospectImagePathIdentifier EDIT_FIND = new IntrospectImagePathIdentifier("edit_find.png");
 
-	public static final IntrospectImagePathIdentifier MENU_SHOW = new IntrospectImagePathIdentifier("menu_show.png");
-	public static final IntrospectImagePathIdentifier MENU_HIDE = new IntrospectImagePathIdentifier("menu_hide.png");
-
+	public static final IntrospectImagePathIdentifier MENU_OPENED = new IntrospectImagePathIdentifier("menu_opened.png");
+	public static final IntrospectImagePathIdentifier MENU_CLOSED = new IntrospectImagePathIdentifier("menu_closed.png");
+	
 	public static final IntrospectImagePathIdentifier BUTTON_ROUND_ABOUT = new IntrospectImagePathIdentifier("button_round_about.png");// remove about.png???
 	public static final IntrospectImagePathIdentifier BUTTON_ROUND_QUIT = new IntrospectImagePathIdentifier("application_quit.png");
 	public static final IntrospectImagePathIdentifier BUTTON_ROUND_PLUS = new IntrospectImagePathIdentifier("button_round_plus.png");

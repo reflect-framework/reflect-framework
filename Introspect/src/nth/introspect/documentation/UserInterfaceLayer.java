@@ -1,10 +1,8 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.controller.userinterface.UserInterfaceController;
-//TODO synchronize with manual
 /**
- * This interface serves for documentation purposes only. <br><br>
  * The {@link UserInterfaceLayer} is part if the {@link IntrospectArchitecture}. <br>
  * The {@link UserInterfaceLayer} is also know as presentation layer (but that wouldn't really do it justice)
  * The {@link UserInterfaceLayer} contains the {@link UserInterfaceController}, which is responsible for displaying and controlling the user interface<br>
@@ -14,6 +12,6 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * @author Nils ten Hoeve
  * 
  */
-public interface UserInterfaceLayer {
+public interface UserInterfaceLayer extends Documentation{
 
 }

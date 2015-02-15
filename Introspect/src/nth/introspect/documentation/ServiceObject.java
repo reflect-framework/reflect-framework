@@ -1,11 +1,10 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 //TODO synchronize with manual
 import nth.introspect.controller.userinterface.UserInterfaceController;
 
 /**
- * This interface is for documentation purposes only. {@link ServiceObject}s do
- * not need to implement any interface or superclass.<br>
+ * {@link ServiceObject}s do not need to implement any interface or superclass.<br>
  * <br>
  * {@link ServiceObject}s are placed in the {@link ServiceLayer}<br>
  * {@link ServiceObject}s contain methods that basically represent the main menu
@@ -16,6 +15,6 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * @author Nils ten Hoeve
  * 
  */
-public interface ServiceObject {
+public interface ServiceObject extends Documentation {
 
 }

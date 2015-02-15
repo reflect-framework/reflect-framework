@@ -2,7 +2,7 @@ package nth.introspect.container.impl;
 
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.definition.ProviderLayer;
+import nth.introspect.documentation.ProviderLayer;
 
 /**
  * This {@link IntrospectContainer} represents the {@link ProviderLayer}

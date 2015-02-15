@@ -1,10 +1,8 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 import nth.introspect.container.impl.InfrastructureContainer;
 
-//TODO synchronize with manual
 /**
- * This interface serves for documentation purposes only. <br><br>
  * The {@link InfrastructureLayer} is part if the {@link IntrospectArchitecture}. <br>
  * The {@link InfrastructureLayer} is also know as:
  * <ul><li><a href="http://en.wikipedia.org/wiki/Data_access_layer">Data access layer</a></li>
@@ -19,6 +17,6 @@ import nth.introspect.container.impl.InfrastructureContainer;
  * @author Nils ten Hoeve
  * 
  */
-public interface InfrastructureLayer {
+public interface InfrastructureLayer extends Documentation {
 
 }

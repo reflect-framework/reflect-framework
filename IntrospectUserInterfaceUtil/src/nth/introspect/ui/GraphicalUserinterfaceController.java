@@ -63,12 +63,13 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 	private static final int PERCENT_100 = 100;
 	protected final UserInterfaceContainer userInterfaceContainer;
 	protected final DomainInfoProvider domainInfoProvider;
-	private LanguageProvider languageProvider;
+	protected final LanguageProvider languageProvider;
 
-	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
-		this.userInterfaceContainer = userInterfaceContainer;
-		this.domainInfoProvider = domainInfoProvider;
-		this.languageProvider = languageProvider;
+	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
+		this.userInterfaceContainer=userInterfaceContainer;
+		this.domainInfoProvider=userInterfaceContainer.getDomainInfoProvider();
+		this.languageProvider=userInterfaceContainer.getLanguageProvider();
+		NotificationProvider notificationProvider = userInterfaceContainer.getNotificationProvider();
 		notificationProvider.addListener(this);
 	}
 	

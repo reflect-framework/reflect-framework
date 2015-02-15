@@ -4,12 +4,15 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.definition.InfrastructureObject;
-import nth.introspect.definition.ServiceObject;
+import nth.introspect.documentation.InfrastructureObject;
+import nth.introspect.documentation.ServiceObject;
 import nth.introspect.provider.Provider;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInForm;
+import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInTable;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.notification.NotificationProvider;
 import nth.introspect.provider.path.PathProvider;
@@ -33,7 +36,6 @@ import nth.introspect.provider.validation.ValidationProvider;
  */
 
 
-
 public interface IntrospectApplication {
 
 	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass();
@@ -51,10 +53,10 @@ public interface IntrospectApplication {
 	public Class<? extends ValidationProvider> getValidationProviderClass();
 
 	public Class<? extends NotificationProvider> getNotificationProviderClass();
-	
+
 	public List<Class<?>> getServiceClasses();
 	
-	public List<Class<?>> getInfrastructureClasses();	
-	
+	public List<Class<?>> getInfrastructureClasses();
+
 	
 }

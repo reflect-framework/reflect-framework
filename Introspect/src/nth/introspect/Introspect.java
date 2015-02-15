@@ -6,9 +6,9 @@ import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.container.impl.UserInterfaceContainer;
 import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.definition.InfrastructureObject;
-import nth.introspect.definition.IntrospectArchitecture;
-import nth.introspect.definition.ServiceObject;
+import nth.introspect.documentation.InfrastructureObject;
+import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.documentation.ServiceObject;
 import nth.introspect.provider.Provider;
 
 /**

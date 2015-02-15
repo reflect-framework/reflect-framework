@@ -1,11 +1,8 @@
-package nth.introspect.definition;
+package nth.introspect.documentation;
 
 import nth.introspect.Introspect;
 
-//TODO synchronize with manual
-
 /**
- * This interface is for documentation purposes only.
  * {@link InfrastructureObject}s do not need to implement any interface or
  * superclass.<br>
  * <br>
@@ -24,6 +21,6 @@ import nth.introspect.Introspect;
  * @author Nils ten Hoeve
  * 
  */
-public interface InfrastructureObject {
+public interface InfrastructureObject extends Documentation{
 
 }

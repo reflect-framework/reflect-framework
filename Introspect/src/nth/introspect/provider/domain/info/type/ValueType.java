@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.util.AnnotationUtil;
 import nth.introspect.util.TypeUtil;
 
 public abstract class ValueType {
@@ -12,9 +13,6 @@ public abstract class ValueType {
 	private final TypeCategory typeCategory;
 	private final Class<?> typeOrGenericCollectionType;
 
-	private static final String VALUE = "value";
-	private static final Class<?>[] SIGNATURE = new Class[0];
-	private static final Object[] ARGUMENTS = new Object[0];
 
 	public ValueType(Class<?> type, Method method, TypeCategory[] noneSupportedCategories) {
 		this.type = TypeUtil.getComplexType(type);
@@ -32,9 +30,8 @@ public abstract class ValueType {
 		} else {
 			try {
 				// when it is a collection: get generic type from an annotation at the method
-				Annotation annotation = method.getAnnotation(GenericReturnType.class);
-				Method annotationValueMethod = annotation.getClass().getMethod(VALUE, SIGNATURE);
-				Class<?> annotatedType = (Class<?>) annotationValueMethod.invoke(annotation, ARGUMENTS);
+				Annotation annotation = AnnotationUtil.findAnnotation(method, GenericReturnType.class);
+				Class<?> annotatedType=(Class<?>) AnnotationUtil.getAnnotationValue(annotation);
 				return TypeUtil.getComplexType(annotatedType);
 			} catch (Exception e) {
 				// failed: throw error message
@@ -46,7 +43,7 @@ public abstract class ValueType {
 				message.append(" requires a: ");
 				message.append(GenericReturnType.class.getSimpleName());
 				message.append(" annotation to specify the collection type.");
-				throw new RuntimeException(message.toString());
+				throw new RuntimeException(message.toString(),e);
 			}
 		}
 	}
