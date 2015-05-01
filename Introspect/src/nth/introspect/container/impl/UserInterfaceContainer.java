@@ -31,6 +31,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	private IntrospectApplication introspectApplication;
 	private NotificationProvider notificationProvider;
 	private ClassInfo introspectApplicationClassInfo;
+	private AboutProvider aboutProvider;
 
 	public UserInterfaceContainer(IntrospectApplication application) {
 		super(new ServiceContainer(application));
@@ -127,6 +128,13 @@ public class UserInterfaceContainer extends IntrospectContainer {
 			notificationProvider=(NotificationProvider) get(NotificationProvider.class);
 		}
 		return notificationProvider;
+	}
+
+	public AboutProvider getAboutProvider() {
+		if (aboutProvider==null) {
+			aboutProvider=(AboutProvider) get(AboutProvider.class);
+		}
+		return aboutProvider;
 	}
 
 }

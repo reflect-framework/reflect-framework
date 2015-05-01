@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.Format;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -50,13 +51,13 @@ public class PropertyInfo implements IntrospectionInfo {
 	public final static String VALIDATION = "validation";
 	public final static String FIELD_MODE = "fieldMode";
 	public static final String FORMAT = "format";
-	public static final String MULTIPLICITY = "multiplicity";
+	public static final String VALUES = "values";
 	// TODO public final String UNIT_OF_MEASUREMENT = "unitOfMeasurement";
 	public final String[] ANNOTATION_NAMES = new String[] { ORDER_IN_FORM,
 			ORDER_IN_TABLE, VISIBLE_IN_FORM, VISIBLE_IN_TABLE, COLUMN_WIDTH,
-			ENABLED, RETURN_CLASS, FORMAT, MULTIPLICITY, FIELD_MODE };
+			ENABLED, RETURN_CLASS, FORMAT, FIELD_MODE };
 	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
-			ENABLED, VALIDATION };
+			ENABLED, VALIDATION, VALUES };
 	public static final String RETURN_CLASS = "returnClass";
 
 	private final String name;
@@ -146,6 +147,11 @@ public class PropertyInfo implements IntrospectionInfo {
 				valueModels
 						.put(FIELD_MODE, new SimpleValue(FieldModeType.TIME));
 			}
+		}
+		
+		if (valueModels.containsKey(VALUES)) {
+			valueModels
+			.put(FIELD_MODE, new SimpleValue(FieldModeType.COMBO_BOX));			
 		}
 
 		//create formater
@@ -269,6 +275,10 @@ public class PropertyInfo implements IntrospectionInfo {
 		return (FieldModeType) valueModels.getValue(FIELD_MODE);
 	}
 
+	public List<Object> getValues(Object domainObject) {
+		return (List<Object>) valueModels.getValue(VALUES, domainObject);
+	}
+	
 	public void setValue(Object domainObject, Object value) {
 		if (!isEnabled(domainObject)) {
 			throw new RuntimeException("Could not set value of property: "

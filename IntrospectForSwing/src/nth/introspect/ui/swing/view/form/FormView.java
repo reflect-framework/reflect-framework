@@ -69,7 +69,7 @@ public class FormView extends SwingView implements
 		add(propertyGrid, BorderLayout.CENTER);
 		Component fieldToGetFocus = null;
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyRow propertyRow = new PropertyRow(this, pathProvider, domainValueModel,
+			PropertyRow propertyRow = new PropertyRow(this, domainInfoProvider, pathProvider, domainValueModel,
 					propertyInfo, formMode);
 			if (fieldToGetFocus == null && FormMode.EDIT_MODE == formMode
 					&& propertyInfo.isEnabled(domainObject)) {

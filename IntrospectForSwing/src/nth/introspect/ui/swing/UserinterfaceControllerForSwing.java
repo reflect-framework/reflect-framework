@@ -51,11 +51,11 @@ public class UserinterfaceControllerForSwing extends
 	private PathProvider pathProvider;
 	private AboutProvider aboutProvider;
 
-	public UserinterfaceControllerForSwing(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider,PathProvider pathProvider, LanguageProvider languageProvider , NotificationProvider notificationProvider, AboutProvider aboutProvider) {
-		super(userInterfaceContainer, domainInfoProvider, languageProvider, notificationProvider);
+	public UserinterfaceControllerForSwing(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer) {
+		super(userInterfaceContainer);
 		this.application = application;
-		this.pathProvider = pathProvider;
-		this.aboutProvider = aboutProvider;
+		this.pathProvider = userInterfaceContainer.getPathProvider();
+		this.aboutProvider = userInterfaceContainer.getAboutProvider();
 	}
 
 	@Override

@@ -5,32 +5,37 @@ import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 
 /** 
- * <h1>The Introspect Framework</h1>
- * Introspect is a light weight <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a> <a href="http://en.wikipedia.org/wiki/Application_framework">Application Framework</a>. It provides a framework for writing business like applications such as viewing, editing information in forms and tables. If you want to develop a graphical application (i.e a graphical game), than the introspect framework is not of much help.<br><br>
-* With the introspect framework you only need to create domain classes. Introspect provides you the user interface, without writing any user interface code. The Introspect framework has different user interface implementation that you can use: 
+ * 
+ *Introspect is a light weight <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a> <a href="http://en.wikipedia.org/wiki/Application_framework">Application Framework</a>. It provides a framework for writing business like applications for viewing and editing information in forms and tables (not for graphical application such as games)<br><br>
+*With the introspect framework you only need to create domain classes. Introspect provides you the user interface, without writing any user interface code. This means is that the Introspect Framework is ideal to learn programming (e.g. at schools), rapid prototyping or rapid development.<br>
+* <br>
+*  The Introspect framework provides different user interface implementations that you can use for: 
 *<ul>
-*<li>the desktop (based on <a href="http://en.wikipedia.org/wiki/Swing_(Java)">Swing</a>)</li>
-*<li>mobile devices (based on <a href="http://en.wikipedia.org/wiki/Android_(operating_system)">Android</a>)</li>
-*<li>the web (based on <a href="http://en.wikipedia.org/wiki/Vaadin">Vaadin</a>)</li> 
+*<li>The desktop (based on <a href="http://en.wikipedia.org/wiki/Swing_(Java)">Swing</a>)</li>
+*<li>Mobile devices (based on <a href="http://en.wikipedia.org/wiki/Android_(operating_system)">Android</a>)</li>
+*<li>The web (based on <a href="http://en.wikipedia.org/wiki/Vaadin">Vaadin</a>)</li> 
 *<li><a href="http://en.wikipedia.org/wiki/Command-line_interface">Command line</a></li>
-*<li>and others</li>
+*<li>And others</li>
 *</ul>
+*If you want to start coding right now (even if you are a beginner) please go to {@linkplain IntrospectGettingStarted}. If you want to know more about the Introspect Framework continue reading....
 *
 *<h2>Why the Introspect framework was developed</h2>
 *Almost everyday new libraries, frameworks and tools are being released by the developer community, many of which reinvent the wheel.<br><br>
-*This is called the ‘Yet Another Framework Syndrome’ (YAFS), or in more general terms ‘Not Invented Here’ (NIH). While innovation is something we should all welcome, YAFS can lead to confusion and frustration for users because there’s a big risk of it introducing more noise than value.<br><br> 
+*This is called the "Yet Another Framework Syndrome" (YAFS), or in more general terms "Not Invented Here" (NIH). While innovation is something we should all welcome, YAFS can lead to confusion and frustration for users because there's a big risk of it introducing more noise than value.<br><br> 
 * So why did I develop a new framework while there are so many Java application frameworks out there?
 * <h3>Reason 1: Because its fun</h3>
-* Probably the best reason ever (see <a href="http://www.sdn.nl/SDN/Artikelen/tabid/58/view/View/ArticleID/524/Just-because-its-fun.aspx">Dutch article</a>)
-* <h3>Reason 2: Because I wanted to learn</h3>
+* Probably the best reason ever!
+* <h3>Reason 2: Because I wanted to learn</h3> 
 *The journey of developing yet another framework has thought me more than I could have learned implementing an existing framework. Specifically on how other frameworks solved issues that I run into.
 *<h3>Reason 3: Because I wanted to do it better</h3>
 *I love the thoughts behind the <a href="http://nakedobjects.codeplex.com/">Naked Objects Framework</a> (for <a href="http://en.wikipedia.org/wiki/.NET_Framework">.net</a>) and the <a href="http://isis.apache.org/">Apache Isis Framework</a> (for <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>). But looking at the Apache Isis Framework, there are several things I personally dislike which I tried to do better in the Introspect framework. Note that what I dislike does not mean its wrong!
 *<ul>
-*<li>The domain objects and service objects (often repository objects) usually extend a convenience class that contains methods to interact with the framework/ object container. Extending such a class is not mandatory, because you can implement these methods in your objects, but to me this still ignores the principle of "Naked objects" or <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO’s</a> .</li>
+*<li>The <a href="http://en.wikipedia.org/wiki/Business_logic">domain objects</a> and service objects (often repository objects) usually extend a convenience class that contains methods to interact with the Apache Isis framework/ object container. Extending such a class is not mandatory, because you can implement these methods in your objects, but to me this still ignores the principle of "Naked objects" or <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO’s</a> .</li>
 *<li>Apache Isis’s uses (depends on) Maven. Maven has its pros (managing dependencies, and standardizing the build process), but is also famous for its cons (difficult to configure, steep learning curve, etc, etc).</li>
-*<li>I personally dislike the way Apache Isis manages the editing of objects. This is very tightly linked to its persistence framework. I however believe that objects do not necessarily need to be persisted after its been edited. I prefer a different approach: domain objects can be passed to a method as a method parameter. This method parameter can be edited by a user before a method is executed (depending on how the method is annotated. The domain object/ method parameter may then be handled by a {@link ServiceObject} like a persistence service (or not at all).</li>  
+*<li>I personally dislike the way Apache Isis manages the editing of objects. This is very tightly linked to its persistence framework. I however believe that objects do not necessarily need to be persisted after its been edited. I prefer a different approach: domain objects can be passed to a method as a method parameter. This method parameter can be edited by a user before a method is executed (depending on how the method is annotated). The domain object/ method parameter may then be handled by a {@link ServiceObject} like a persistence service (or not at all).</li>  
 *</ul>
+*<h3>Reason 4: I could not find what I needed.</h3>
+*I have not found an framework that provides an out of the box User Interface for both desktop, mobile devices, web interface, command line interface, etc. They are probably out there (Naked Objects and Isis coming close) but I haven't found one (or one that I liked). 
 *<h2>Introspect Core Values</h2>
 *Introspect is designed around the following core values:
 *<h3>Based on the Naked Objects Design Pattern</h3>
@@ -67,7 +72,7 @@ import nth.introspect.container.IntrospectContainer;
 *{@insert IntrospectContainer} 
 *<h2>Initializing the framework</h2>
 *{@insert Introspect} 
-*<h2>The Intraspect Applicaion</h2>
+*<h2>The Introspect Application</h2>
 *{@insert IntrospectApplication} 
  */
 

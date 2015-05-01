@@ -237,7 +237,7 @@ public class MainWindow extends JFrame {
 		// set menu button
 		menuButton.setToolTipText(languageProvider.getText("Show Menu (F2)"));
 		menuButton.setIcon(IconFactory.create(pathProvider,
-				IntrospectImage.MENU_SHOW, SwingStyleConstant.ICON_SIZE));
+				IntrospectImage.MENU_OPENED, SwingStyleConstant.ICON_SIZE));
 	}
 
 	public void showMenu() {
@@ -248,7 +248,7 @@ public class MainWindow extends JFrame {
 		// hide menu button
 		menuButton.setToolTipText(languageProvider.getText("Hide Menu (F2)"));
 		menuButton.setIcon(IconFactory.create(pathProvider,
-				IntrospectImage.MENU_HIDE, SwingStyleConstant.ICON_SIZE));
+				IntrospectImage.MENU_CLOSED, SwingStyleConstant.ICON_SIZE));
 	}
 
 	public boolean isMenuVisible() {

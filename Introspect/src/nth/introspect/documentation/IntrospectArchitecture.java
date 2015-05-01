@@ -52,7 +52,6 @@ import nth.introspect.container.IntrospectContainer;
  * Red objects are provided by the Introspect framework<br>
 * Yellow objects need to be written or included by the developer.
  * 
- * 
  * @author Nils ten Hoeve
  * 
  */

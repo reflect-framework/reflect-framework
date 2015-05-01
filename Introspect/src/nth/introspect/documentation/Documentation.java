@@ -5,7 +5,7 @@ package nth.introspect.documentation;
  * <ul>
  * <li>The documentation is in-line with the code</li>
  * <li>The documentation can be read from the code base</li>
- * <li>The IDE is used as an editor (spelling checker and text completion)</li>
+ * <li>The IDE is used as an editor (with spelling checker and text completion)</li>
  * <li>Basic HTML features can be used</li>
  * <li>References to other code can be used (which is updated during refactoring)</li>
  * </ul>

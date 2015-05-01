@@ -1,21 +1,16 @@
 package nth.introspect.documentation;
 
 
-//TODO synchronize with manual
 /**
- * {@link DomainObject}s do not need to implement any interface or superclass.<br>
- * <br>
- * {@link DomainObject}s are placed in the {@link DomainLayer}<br>
- * {@link DomainObject}s represent entities; the nouns of the domain. If your
+ * Domain objects represent entities; the nouns of the domain. If your
  * application domain is a sales application it’s likely that your domain model
  * contains domain objects such as: customers, products and orders.
  * 
- * {@link DomainObject}s already exist in an application that needs to be
- * re-written, or are created by the developer. They can be created from scratch
- * or generated from a schema (in example from a database schema, XML schema or
- * web service) web service)<br>
+ * Domain objects are created by a developer or are reused from an existing application that needs to be
+ * re-written. They can be created from scratch or generated from a schema (in example from a <a href="http://en.wikipedia.org/wiki/Database_schema">database schema</a>, <a href="http://nl.wikipedia.org/wiki/XML_Schema">XML schema</a> or
+ * <a href="http://en.wikipedia.org/wiki/Web_Services_Description_Language">web service</a>)<br>
  * <br>
- * {@link DomainObject}s contain:
+ * Domain objects contain:
  * <ul>
  * <li><a
  * href="http://en.wikipedia.org/wiki/Property_(programming)">Properties</a>:
@@ -29,7 +24,30 @@ package nth.introspect.documentation;
  * <li>Annotations that define behavior</li>
  * </ul>
  * 
+ * <h3>Naming</h3>
+ * Domain objects names are nouns, such as customer, product and order. They basically describe the things that are in your application domain.
+ * 
+ * <h3>Construction</h3>
+ * The principle of “naked objects” is that any <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">'Plain Old Java Object' (POJO)</a> can function as a domain object. In other words: a domain class does not have to inherit from any special class, nor implement any particular interface, nor have any specific attributes.
+ * 
+ * <h3>Presentation</h3>
+ * An Introspect Interface can display domain objects in 3 ways:<br>
+ * <ul>
+ * <li>TODO picture<br>
+ * As a form</li>
+ * <li>TODO picture<br>
+ * As a field in a form</li>
+ * <li>TODO picture<br>
+ * As a row in a table</li>
+ * <br>
+ * <h2>Properties</h2>
+ * TODO
+ * <h3>Property types</h3>
+ * TODO
+ *<h2>Methods (Actions)</h2> 
+ * TODO
  * @author Nils ten Hoeve
+ * @see DomainLayer
  * 
  */
 public interface DomainObject  extends Documentation{

@@ -2,6 +2,7 @@ package nth.introspect.ui.swing.view.form.field;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import nth.introspect.Introspect;
 import nth.introspect.controller.userinterface.Refreshable;
@@ -40,11 +43,20 @@ public class DateTimeField extends JSpinner implements Refreshable {
 	// FIXME set propertyValueModel when text is changed to a valid
 	// date/calendar
 
-	public DateTimeField(PropertyValueModel propertyValueModel,
+	public DateTimeField(final PropertyValueModel propertyValueModel,
 			DateTimeMode dateTimeMode) {
 		this.propertyValueModel = propertyValueModel;
 		this.dateTimeMode = dateTimeMode;
 		setModel(new SpinnerDateModel());
+		addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if (propertyValueModel.canSetValue()) {
+					propertyValueModel.setValue(getValue());
+				}
+			}
+		});
 	}
 
 	// private Action createDropDownButtonAction() {

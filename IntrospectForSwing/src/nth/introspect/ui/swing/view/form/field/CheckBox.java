@@ -1,26 +1,40 @@
 package nth.introspect.ui.swing.view.form.field;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
 
 import nth.introspect.controller.userinterface.Refreshable;
 import nth.introspect.ui.swing.style.ColorUtil;
+import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.valuemodel.ReadWriteValueModel;
 
 public class CheckBox extends JCheckBox implements Refreshable{
 
 	private static final long serialVersionUID = 3110259883941015708L;
-	private ReadWriteValueModel readWriteValueModel;
+	private ReadWriteValueModel propertyValueModel;
 
-	public CheckBox(ReadWriteValueModel readWriteValueModel) {
+	public CheckBox(final PropertyValueModel propertyValueModel) {
 		
-		this.readWriteValueModel = readWriteValueModel;
+		this.propertyValueModel = propertyValueModel;
 		refresh();
 		setBackground(ColorUtil.getLightColor());
+		
+		addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (propertyValueModel.canSetValue()) {
+					propertyValueModel.setValue(isSelected());
+				}
+			}
+		});
 	}
 
 	@Override
 	public void refresh() {
-		setEnabled(readWriteValueModel.canSetValue());
-		setSelected((Boolean) readWriteValueModel.getValue());
-		}
+		setEnabled(propertyValueModel.canSetValue());
+		setSelected((Boolean) propertyValueModel.getValue());
+	}
 }

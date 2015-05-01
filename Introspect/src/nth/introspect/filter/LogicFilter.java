@@ -1,5 +1,9 @@
 package nth.introspect.filter;
 
+import java.util.Collections;
+
+import nth.introspect.provider.domain.info.property.PropertyInfo;
+
 public class LogicFilter<T> implements Filter<T> {
 
 	private Filter<T> currentFilter;
@@ -32,5 +36,5 @@ public class LogicFilter<T> implements Filter<T> {
 		currentFilter= new OrNotFilter<T>(currentFilter, additionalFilter);
 		return currentFilter;
 	}
-
+	
 }
