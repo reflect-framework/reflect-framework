@@ -45,7 +45,7 @@ import nth.introspect.container.IntrospectContainer;
  * <li>{@link ProviderLayer}</li>
  * </ul>
  * 
- * Each layer is implemented by a {@link IntrospectContainer}<br><br>
+ * Each layer is implemented by an {@link IntrospectContainer}<br><br>
  * 
  * <image src="IntrospectArchitecture.png"><br><br>
  * 

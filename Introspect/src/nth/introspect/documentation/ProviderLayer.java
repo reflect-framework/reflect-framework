@@ -2,7 +2,7 @@ package nth.introspect.documentation;
 
 import nth.introspect.container.impl.ProviderContainer;
 import nth.introspect.provider.Provider;
-//TODO synchronize with manual
+
 /**
  * The {@link ProviderLayer} is part if the {@link IntrospectArchitecture}. <br>
  * 

@@ -14,8 +14,10 @@ import nth.introspect.container.impl.InfrastructureContainer;
  * The {@link InfrastructureLayer} contains {@link InfrastructureObject}'s that provide generic technical capabilities to support the higher layers (see {@link IntrospectArchitecture})<br>
  * The {@link InfrastructureLayer} is implemented by the {@link InfrastructureContainer}<br>
  * Note that this layer is the bottom layer, which means that objects in the upper layers may know the objects in this layer but not visa versa! See {@link IntrospectArchitecture}
- * @author Nils ten Hoeve
  * 
+ * <h2>Infrastructure Objects</h2>
+ * {@insert InfrastructureObject}
+ *
  */
 public interface InfrastructureLayer extends Documentation {
 

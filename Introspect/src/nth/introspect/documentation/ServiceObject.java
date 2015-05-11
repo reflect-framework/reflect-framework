@@ -1,6 +1,5 @@
 package nth.introspect.documentation;
 
-//TODO synchronize with manual
 import nth.introspect.controller.userinterface.UserInterfaceController;
 
 /**
@@ -10,7 +9,7 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * {@link ServiceObject}s contain methods that basically represent the main menu
  * items in {@link UserInterfaceController} <br>
  * {@link ServiceObject}s are normally named to the
- * {@link DomainObject}s that they service (i.e. CustomerService).
+ * {@link DomainObject}s that they service (e.g. CustomerService).
  * 
  * @author Nils ten Hoeve
  * 

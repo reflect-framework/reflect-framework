@@ -2,7 +2,6 @@ package nth.introspect.documentation;
 
 import nth.introspect.container.impl.ServiceContainer;
 
-//TODO synchronize with manual
 /**
  * The {@link ServiceLayer} is part if the {@link IntrospectArchitecture}. <br>
  * The {@link ServiceLayer} is also know as application layer.<br>
@@ -18,8 +17,10 @@ import nth.introspect.container.impl.ServiceContainer;
  * situation, but it can have state that reflects the progress of a task for the
  * user or the program.<br><br>
  * The {@link ServiceLayer} is implemented by the {@link ServiceContainer}<br>
- * Note that this layer is a middle layer: the {@link ServiceObject}s have no knowledge of the {@link UserInterfaceLayer} , the {@link ServiceObject}s may know the objects in the lower layers but not visa versa! See {@link IntrospectArchitecture
-  
+ * Note that this layer is a middle layer: the {@link ServiceObject}s have no knowledge of the {@link UserInterfaceLayer} , the {@link ServiceObject}s may know the objects in the lower layers but not visa versa!
+ * 
+ * <h2>Service Objects</h2>
+ * {@insert ServiceObject}
  * @author Nils ten Hoeve
  * 
  */
