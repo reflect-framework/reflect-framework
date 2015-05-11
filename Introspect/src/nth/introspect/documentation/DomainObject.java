@@ -25,7 +25,7 @@ package nth.introspect.documentation;
  * </ul>
  * 
  * <h3>Naming</h3>
- * Domain objects names are nouns, such as customer, product and order. They basically describe the things that are in your application domain.
+ * Domain objects names are nouns, such as customer, product and order. They basically describe the things that are important in your application.
  * 
  * <h3>Construction</h3>
  * The principle of “naked objects” is that any <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">'Plain Old Java Object' (POJO)</a> can function as a domain object. In other words: a domain class does not have to inherit from any special class, nor implement any particular interface, nor have any specific attributes.
@@ -33,12 +33,10 @@ package nth.introspect.documentation;
  * <h3>Presentation</h3>
  * An Introspect Interface can display domain objects in 3 ways:<br>
  * <ul>
- * <li>TODO picture<br>
- * As a form</li>
- * <li>TODO picture<br>
- * As a field in a form</li>
- * <li>TODO picture<br>
- * As a row in a table</li>
+ * <li>Domain object as form:<br><image src="ObjectAsForm.png"></li>
+ * <li>Domain object as a field in a form:<br><image src="ObjectAsField.png"></li>
+ * <li>Domain object as a row in a table:<br><image src="ObjectAsTable.png"></li>
+ * </ul>
  * <br>
  * <h2>Properties</h2>
  * TODO
