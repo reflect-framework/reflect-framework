@@ -1,5 +1,7 @@
 package nth.introspect.documentation;
 
+import nth.introspect.provider.domain.info.DomainInfoProvider;
+
 
 /**
  * Domain objects represent entities; the nouns of the domain. If your
@@ -39,7 +41,8 @@ package nth.introspect.documentation;
  * </ul>
  * <br>
  * <h2>Properties</h2>
- * TODO
+ * {@insert DomainInfoProvider}
+ * 
  * <h3>Property types</h3>
  * TODO
  *<h2>Methods (Actions)</h2> 
@@ -48,6 +51,7 @@ package nth.introspect.documentation;
  * @see DomainLayer
  * 
  */
+
 public interface DomainObject  extends Documentation{
 
 }

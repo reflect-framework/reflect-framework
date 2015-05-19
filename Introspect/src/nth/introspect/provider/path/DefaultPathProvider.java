@@ -29,12 +29,12 @@ public class DefaultPathProvider implements PathProvider {
 
 	public DefaultPathProvider(IntrospectApplication application)
 			throws URISyntaxException {
-		this(createRootPath(application));
+		this(createRootPath(application.getClass()));
 	}
 
-	private static URI createRootPath(IntrospectApplication application)
+	public static URI createRootPath(Class<? extends IntrospectApplication> applicationClass)
 			throws URISyntaxException {
-		URI rootPathUri = application.getClass().getProtectionDomain()
+		URI rootPathUri = applicationClass.getProtectionDomain()
 				.getCodeSource().getLocation().toURI();
 		File rootPath = new File(rootPathUri);
 		if (rootPath.getName().toUpperCase().contains(JAR_EXTENTION)) {
@@ -75,6 +75,11 @@ public class DefaultPathProvider implements PathProvider {
 		this.imagePath = imagePath;
 		existingImagePaths = new HashMap<CharSequence, URI>();
 		noneExistingImagePaths = new HashMap<CharSequence, URI>();
+	}
+
+	public DefaultPathProvider(
+			Class<? extends IntrospectApplication> applicationClass) throws URISyntaxException {
+		this(createRootPath(applicationClass));
 	}
 
 	@Override
