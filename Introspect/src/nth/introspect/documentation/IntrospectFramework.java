@@ -51,12 +51,12 @@ import nth.introspect.provider.Provider;
  * 
  * <h2>Dependency Injection</h2> 
  * {@insert IntrospectContainer} 
- * 
- * <h2>Initializing the framework</h2> 
- * {@insert Introspect}
- * 
+ *   
  * <h2>The Introspect Application</h2> 
  * {@insert IntrospectApplication}
+ * 
+ * <h2>Starting a new Introspect Project</h2> 
+ * {@insert IntrospectStartingANewProject}
  */
 
 public interface IntrospectFramework extends Documentation {

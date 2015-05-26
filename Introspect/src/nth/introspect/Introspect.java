@@ -12,17 +12,10 @@ import nth.introspect.documentation.ServiceObject;
 import nth.introspect.provider.Provider;
 
 /**
-The Introspect class is responsible for initializing the frame work and creating all its objects. TODO needs some more work....
- * The Introspect framework is initialized with
- * the {@link Introspect#start(IntrospectApplication)} method. The
- * {@link IntrospectApplication} parameter is a class that will provide the
- * information needed to initialize the Introspect Framework<br>
- * Each application type (command line, Swing, Android, Vaadin, etc..) has its
- * own implementation of {@link IntrospectApplication} to help initializing the
- * framework.<br>
- * See the type hierarchy of {@link IntrospectApplication} to learn which
- * classes can be used.<br>
- * <br>
+ * The Introspect class is responsible for initializing the frame work and
+ * creating all its objects. The Introspect framework is initialized with the
+ * {@link Introspect#start(IntrospectApplication)} method which is called from a
+ * class that extends the {@link IntrospectApplication}. <br>
  * 
  * @author Nils ten Hoeve
  */

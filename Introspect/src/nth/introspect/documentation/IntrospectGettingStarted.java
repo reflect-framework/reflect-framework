@@ -32,6 +32,13 @@ TODO Each application type has it’s own “getting started” video.
 (TODO youtube video)
 <h2>Create a restfull XML application</h2> 
 (TODO youtube video)
+<h2>Create multiple application types with the same domain model</h2> 
+(TODO youtube video)
+<h2>Create a JUnit application</h2>
+See IntrospectApplicationForAndroid 
+(TODO youtube video)
+
+
 <h2>Icons</h2> 
 The Introspect user interface supports icons (see section on icons) or see the following tutorial video (TODO youtube video)
 <h2>Language</h2> 

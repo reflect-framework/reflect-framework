@@ -18,6 +18,7 @@ import nth.introspect.documentation.DomainObject;
 import nth.introspect.documentation.InfrastructureLayer;
 import nth.introspect.documentation.InfrastructureObject;
 import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.documentation.ProviderLayer;
 import nth.introspect.documentation.ServiceLayer;
 import nth.introspect.documentation.ServiceObject;
@@ -25,21 +26,58 @@ import nth.introspect.documentation.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
 
 /**
- * The {@link IntrospectContainer} is a dependency injection container. It is responsible for:
+ * <p>
+ * The {@link IntrospectFramework } is a dependency injection framework and
+ * consists of several <a
+ * href="http://en.wikipedia.org/wiki/Dependency_injection">dependency
+ * injection</a> containers called {@link IntrospectContainer}s.
+ * </p>
+ * <p>
+ * Please read <a href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin
+ * Fowler</a>'s easy to read <a
+ * href="http://martinfowler.com/articles/injection.html">article</a> in which
+ * he explains the basics dependency injection.
+ * </p>
+ * <p>
+ * Each {@link IntrospectContainer} is responsible for:
  * <ul>
- * <li>Creating new instances of types that are registered to a {@link IntrospectContainer}</li>
- * <li>Linking dependencies (references to other objects) to these new instances (using constructor injection) </li>
- * <li>Caching these new instances, if we only need one instance  (like a singleton)</li>
+ * <li>Creating new instances of types that are registered to a
+ * {@link IntrospectContainer}</li>
+ * <li>Linking dependencies (references to other objects) to these new instances
+ * (using constructor injection)</li>
+ * <li>Caching these new instances, if we only need one instance (like a
+ * singleton)</li>
  * </ul>
- * 
- * It is possible to create nested {@link IntrospectContainer}'s. Each container will manage a different group of objects (a container for each layer). This is used to implement the {@link IntrospectArchitecture}: 
+ * </p>
+ * <p>
+ * The {@link IntrospectArchitecture} consists of several layers. Each layer has
+ * its own {@link IntrospectContainer} that is responsible for creating new
+ * objects (and cashing them when needed) within that layer and if needed
+ * linking the new objects to other objects within the same layer or objects in
+ * the lower layers:
  * <ul>
- * <li>{@link UserInterfaceLayer}: {@link UserInterfaceController} object is managed by a {@link UserInterfaceContainer}. The {@link UserInterfaceContainer} knows the {@link ServiceContainer}</li>  
- * <li>{@link ServiceLayer}: {@link ServiceObject}'s are managed by a {@link ServiceContainer}. The {@link ServiceContainer} knows the {@link DomainContainer}</li>  
- * <li>{@link DomainLayer}: {@link DomainObject}'s are managed by a {@link DomainContainer}. The {@link DomainContainer} knows the {@link InfrastructureContainer}</li>  
- * <li>{@link InfrastructureLayer}: {@link InfrastructureObject}'s are managed by a {@link InfrastructureContainer}. The {@link DomainContainer} knows the {@link ProviderContainer}</li>
- * <li>{@link ProviderLayer}: {@link Provider} object's are managed by a {@link ProviderContainer}.</li>
+ * <li>{@link UserInterfaceLayer}: {@link UserInterfaceController} object is
+ * managed by a {@link UserInterfaceContainer}. The
+ * {@link UserInterfaceContainer} knows the {@link ServiceContainer}</li>
+ * <li>{@link ServiceLayer}: {@link ServiceObject}'s are managed by a
+ * {@link ServiceContainer}. The {@link ServiceContainer} knows the
+ * {@link DomainContainer}</li>
+ * <li>{@link DomainLayer}: {@link DomainObject}'s are managed by a
+ * {@link DomainContainer}. The {@link DomainContainer} knows the
+ * {@link InfrastructureContainer}</li>
+ * <li>{@link InfrastructureLayer}: {@link InfrastructureObject}'s are managed
+ * by a {@link InfrastructureContainer}. The {@link DomainContainer} knows the
+ * {@link ProviderContainer}</li>
+ * <li>{@link ProviderLayer}: {@link Provider} object's are managed by a
+ * {@link ProviderContainer}.</li>
  * </ul>
+ * </p>
+ * <p>
+ * The {@link IntrospectFramework} favours constructor injection (see <a
+ * href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a>'s easy to
+ * read <a href="http://martinfowler.com/articles/injection.html">article</a>
+ * for the arguments why).
+ * TODO add example
  * 
  * @author nilsth
  * @see IntrospectArchitecture
@@ -50,7 +88,7 @@ public abstract class IntrospectContainer {
 	private final HashMap<Class<?>, Object> typesAndInstances;
 
 	public IntrospectContainer() {
-		this( null);
+		this(null);
 	}
 
 	public IntrospectContainer(IntrospectContainer innerContainer) {
@@ -65,12 +103,12 @@ public abstract class IntrospectContainer {
 
 	public void add(Class<?> type) throws IntrospectContainerException {
 		// TODO verify if type isn't already defined in lower layer
-		if (type==null) {
+		if (type == null) {
 			throw new NullPointerException();
 		}
 		List<Class<?>> allClasses = getAllClasses();
 		Class<?> foundClass = NearestParentFinder.findParent(allClasses, type);
-		if (foundClass!=null) {
+		if (foundClass != null) {
 			throw new ClassAlreadyRegisteredInContainerException(this, type);
 		}
 		typesAndInstances.put(type, null);
@@ -83,14 +121,14 @@ public abstract class IntrospectContainer {
 		}
 	}
 
-	
-
 	public Object get(Class<?> type) throws IntrospectContainerException {
-		List<Class<?>> classesWaitingToBeInstantiated=new ArrayList<Class<?>>(); 
+		List<Class<?>> classesWaitingToBeInstantiated = new ArrayList<Class<?>>();
 		return get(type, classesWaitingToBeInstantiated);
-	}	
-	
-	public Object get(Class<?> type,List<Class<?>> classesWaitingToBeInstantiated) throws IntrospectContainerException {
+	}
+
+	public Object get(Class<?> type,
+			List<Class<?>> classesWaitingToBeInstantiated)
+			throws IntrospectContainerException {
 
 		if (IntrospectContainer.class.isAssignableFrom(type)) {
 			// Reflect containers can be hierarchical.
@@ -99,7 +137,8 @@ public abstract class IntrospectContainer {
 			return this;
 		} else if (innerContainer != null) {
 			// Try to get the object from one of the inner containers.
-			Object object = innerContainer.get(type, classesWaitingToBeInstantiated);
+			Object object = innerContainer.get(type,
+					classesWaitingToBeInstantiated);
 			if (object != null) {
 				return object;
 			}
@@ -112,16 +151,20 @@ public abstract class IntrospectContainer {
 			return null;
 		} else {
 			Object storedObject = typesAndInstances.get(foundType);
-			if (storedObject ==null) {
+			if (storedObject == null) {
 				classesWaitingToBeInstantiated.add(foundType);
-				InstanceFactory instanceFactory = new InstanceFactory(foundType, this);
-				Object newObject = instanceFactory.createInstance(classesWaitingToBeInstantiated);
+				InstanceFactory instanceFactory = new InstanceFactory(
+						foundType, this);
+				Object newObject = instanceFactory
+						.createInstance(classesWaitingToBeInstantiated);
 				typesAndInstances.put(type, newObject);
 				classesWaitingToBeInstantiated.remove(foundType);
-				//TODO IntrospectLog.debug(name + " created: " + type.getCanonicalName());
+				// TODO IntrospectLog.debug(name + " created: " +
+				// type.getCanonicalName());
 				return newObject;
 			} else {
-				//TODO IntrospectLog.debug(name + " from cache: "+ type.getCanonicalName());
+				// TODO IntrospectLog.debug(name + " from cache: "+
+				// type.getCanonicalName());
 				return storedObject;
 			}
 		}
@@ -130,15 +173,16 @@ public abstract class IntrospectContainer {
 
 	/**
 	 * 
-	 * @return all classes that are supported by this container and all its inner containers
+	 * @return all classes that are supported by this container and all its
+	 *         inner containers
 	 */
 	public List<Class<?>> getAllClasses() {
 		List<Class<?>> allClasses = new ArrayList<Class<?>>();
-		//add this container
+		// add this container
 		allClasses.add(this.getClass());
-		//add all supported classes known by this container
+		// add all supported classes known by this container
 		allClasses.addAll(typesAndInstances.keySet());
-		//add all supported classes of all inner containers
+		// add all supported classes of all inner containers
 		if (innerContainer != null) {
 			allClasses.addAll(innerContainer.getAllClasses());
 		}
