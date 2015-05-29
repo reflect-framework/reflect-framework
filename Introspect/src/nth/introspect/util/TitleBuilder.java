@@ -1,6 +1,7 @@
 package nth.introspect.util;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 /**
  * This helper class can be used to create titles for domain objects (in the
@@ -40,6 +41,18 @@ public class TitleBuilder {
 		public String toString() {
 			return seperator;
 		}
+
+		@Override
+		public IntStream chars() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public IntStream codePoints() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 		
 
@@ -54,16 +67,27 @@ public class TitleBuilder {
 		titleValues = new ArrayList<Object>();
 	}
 	
+	/**
+	 * Creates a {@link TitleBuilder} with a space as seperator
+	 */
 	public TitleBuilder() {
 		this(" ");
 	}
 
-	public void append(Object value) {
+	/**
+	 * @return this object, to enable a fluent interface.
+	 */
+	public TitleBuilder append(Object value) {
 		titleValues.add(value);
+		return this;
 	}
 
-	public void appendSeperator(String seperator) {
+	/**
+	 * @return this object, to enable a fluent interface.
+	 */
+	public TitleBuilder appendSeperator(String seperator) {
 		titleValues.add(new Seperator(seperator));
+		return this;
 	}
 
 	public String getTitle() {
