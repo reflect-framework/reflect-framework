@@ -1,5 +1,6 @@
 package nth.introspect.documentation;
 
+import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 
 
@@ -31,7 +32,9 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * 
  * <h3>Construction</h3>
  * The principle of “naked objects” is that any <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">'Plain Old Java Object' (POJO)</a> can function as a domain object. In other words: a domain class does not have to inherit from any special class, nor implement any particular interface, nor have any specific attributes.
- * 
+ * TODO domain objects are created by ....
+ * TODO adding references to {@link InfrastructureObject}s or {@link Provider} objects
+ 
  * <h3>Presentation</h3>
  * An Introspect Interface can display domain objects in 3 ways:<br>
  * <ul>
@@ -41,12 +44,11 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * </ul>
  * <br>
  * <h2>Properties</h2>
- * {@insert DomainInfoProvider}
+ * {@insert DomainObjectProperty}
  * 
- * <h3>Property types</h3>
- * TODO
  *<h2>Methods (Actions)</h2> 
- * TODO
+ * {@insert DomainObjectActionMethod}
+ * 
  * @author Nils ten Hoeve
  * @see DomainLayer
  * 
