@@ -19,6 +19,9 @@ package nth.introspect.documentation;
  * <H1>The UserInterface Layer</H1>
  * {@insert UserInterfaceLayer}
  * 
+ * <H1>Object behavior</h1>
+ * {@insert ObjectBehavior}
+ * 
  * <h1>Getting Started</h1>
  * {@insert IntrospectGettingStarted}
  * 

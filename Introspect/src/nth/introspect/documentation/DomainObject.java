@@ -17,14 +17,9 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <ul>
  * <li><a
  * href="http://en.wikipedia.org/wiki/Property_(programming)">Properties</a>:
- * a special type of class members and are an intermediate between a <a
- * href="http://en.wikipedia.org/wiki/Field_(computer_science)">field</a> and a
- * method. Properties are read and sometimes written.
- * 
- * Introspect properties uses the same naming convention as <a
- * href="http://en.wikipedia.org/wiki/JavaBeans">JavaBeans</a></li>
- * <li>Methods that either represent menu items or define behavior</li>
- * <li>Annotations that define behavior</li>
+ * that represent specific information within a {@link DomainObject}</li>
+ * <li>Methods: that either represent {@link ActionMethod}s or define {@link ObjectBehavior}</li>
+ * <li>Annotations: that define {@link ObjectBehavior}</li>
  * </ul>
  * 
  * <h3>Naming</h3>
@@ -46,8 +41,8 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <h2>Properties</h2>
  * {@insert DomainObjectProperty}
  * 
- *<h2>Methods (Actions)</h2> 
- * {@insert DomainObjectActionMethod}
+ *<h2>Action Methods</h2> 
+ * {@insert ActionMethod}
  * 
  * @author Nils ten Hoeve
  * @see DomainLayer
