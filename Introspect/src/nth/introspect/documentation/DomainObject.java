@@ -33,9 +33,9 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <h3>Presentation</h3>
  * An Introspect Interface can display domain objects in 3 ways:<br>
  * <ul>
- * <li>Domain object as form:<br><image src="ObjectAsForm.png"></li>
- * <li>Domain object as a field in a form:<br><image src="ObjectAsField.png"></li>
- * <li>Domain object as a row in a table:<br><image src="ObjectAsTable.png"></li>
+ * <li>Domain object as form:<br><img src="ObjectAsForm.png"></li>
+ * <li>Domain object as a field in a form:<br><img src="ObjectAsField.png"></li>
+ * <li>Domain object as a row in a table:<br><img src="ObjectAsTable.png"></li>
  * </ul>
  * <br>
  * <h2>Properties</h2>

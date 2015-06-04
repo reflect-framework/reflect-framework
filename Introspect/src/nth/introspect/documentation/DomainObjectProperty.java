@@ -70,13 +70,13 @@ import nth.introspect.util.TitleBuilder;
  * <h3>Getter methods</h3>
  * <ul>
  * <li>A property always has a getter method, to read its value</li>
- * <li>The getter method name starts with is, followed by the property name in <a
- * href="http://en.wikipedia.org/wiki/CamelCase">CamelCase</a> when the property
- * type is a boolean (See the isMale() method in the example above)</li>
  * <li>The getter method name starts with get, followed by the property name in
  * <a href="http://en.wikipedia.org/wiki/CamelCase">CamelCase</a> when the
  * property type is NOT a boolean (See the getGivenName() method in the example
  * above)</li>
+ * <li>The getter method name starts with is, followed by the property name in <a
+ * href="http://en.wikipedia.org/wiki/CamelCase">CamelCase</a> when the property
+ * type IS a boolean (See the isMale() method in the example above)</li>
  * <li>The getter methods are always public (accessible by other objects)</li>
  * </ul>
  * <h3>Setter methods</h3>

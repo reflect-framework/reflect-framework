@@ -47,7 +47,7 @@ import nth.introspect.container.IntrospectContainer;
  * 
  * Each layer is implemented by an {@link IntrospectContainer}<br><br>
  * 
- * <image src="IntrospectArchitecture.png"><br><br>
+ * <img src="IntrospectArchitecture.png"><br><br>
  * 
  * Red objects are provided by the Introspect framework<br>
 * Yellow objects need to be written or included by the developer.

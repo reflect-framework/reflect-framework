@@ -40,7 +40,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	}
 
 	public List<Object> getServiceObjects() {
-		List<Class<?>> serviceClasses = application.getServiceClasses();
+		List<Class<?>> serviceClasses = getApplication().getServiceClasses();
 		List<Object> serviceObjects = new ArrayList<Object>();
 		for (Class<?> serviceClass : serviceClasses) {
 			Object serviceObject = get(serviceClass);
@@ -136,5 +136,11 @@ public class UserInterfaceContainer extends IntrospectContainer {
 		}
 		return aboutProvider;
 	}
+
+	public IntrospectApplication getApplication() {
+		return application;
+	}
+	
+	
 
 }
