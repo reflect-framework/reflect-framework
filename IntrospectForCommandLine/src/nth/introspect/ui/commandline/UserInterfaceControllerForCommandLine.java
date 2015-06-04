@@ -49,10 +49,10 @@ public class UserInterfaceControllerForCommandLine extends GraphicalUserinterfac
 	private final  IntrospectApplication application;
 	private LanguageProvider languageProvider;
 
-	public UserInterfaceControllerForCommandLine(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, NotificationProvider notificationProvider) {
-		super(userInterfaceContainer, domainInfoProvider, languageProvider, notificationProvider);
-		this.application = application;
-		this.languageProvider = languageProvider;
+	public UserInterfaceControllerForCommandLine(UserInterfaceContainer userInterfaceContainer) {
+		super(userInterfaceContainer);
+		this.application = userInterfaceContainer.getApplication();
+		this.languageProvider = userInterfaceContainer.getLanguageProvider();
 	}
 
 	@Override
