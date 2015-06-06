@@ -20,12 +20,10 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * Any method in a {@link DomainObject} or {@link ServiceObject} can be an
  * Action method, provided that it complies with the following:
  * <ul>
- * <li>The method has no parameter or a single parameter (must be a
- * {@link DomainObject} type).</li>
+ * <li>The method has no parameter or a single {@link DomainObject} parameter</li>
  * <li>Its return type (if any) are types recognized by the Introspect framework
- * (see below).</li>
- * <li>The method does not represent a {@link DomainObjectProperty} (getter and
- * setter methods can not be an action method).</li>
+ * (see below)</li>
+ * <li>The method is not a getter method or a setter method (see {@link DomainObjectProperty})</li>
  * <li>The method is public (private methods can not be action methods)</li>
  * <li>The method is NOT static</li>
  * </ul>

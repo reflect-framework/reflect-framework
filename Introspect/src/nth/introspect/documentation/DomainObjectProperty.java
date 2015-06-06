@@ -7,15 +7,9 @@ import nth.introspect.util.TitleBuilder;
  * Domain objects have <a
  * href="http://en.wikipedia.org/wiki/State_(computer_science)">state</a>. This
  * means the domain objects contain information that may change over time. This
- * information is stored in <a
+ * information is managed by <a
  * href="http://en.wikipedia.org/wiki/Property_(programming)">properties</a>.
- * <p>
- * Properties are a special type of class members and are an intermediate
- * between a <a
- * href="http://en.wikipedia.org/wiki/Field_(computer_science)">field</a> and <a
- * href="http://en.wikipedia.org/wiki/Mutator_method">getter and setter
- * methods</a>
- * <p>
+ * </p>
  * Here is an example of a domain class customer that has the following
  * properties:
  * <ul>
@@ -24,13 +18,11 @@ import nth.introspect.util.TitleBuilder;
  * <li>fullName</li>
  * <li>male</li>
  * </ul>
- * Code:
- * </p>
+ * 
  * 
  * <pre>
- * {@code
- * 	public class Customer {
- * 		private String givenName;
+ * public class Customer {
+ *      private String givenName;
  * 		private String familyName;
  * 		private boolean male;
  * 
@@ -62,11 +54,17 @@ import nth.introspect.util.TitleBuilder;
  * 		public void setMale(boolean male) {
  * 			this.male = male;
  * 		}
- * 
- * 	}
+ * }
  * </pre>
  * 
- * Some rules on properties:
+ * <p>
+ * Properties are a special type of class members and are an intermediate
+ * between <a
+ * href="http://en.wikipedia.org/wiki/Mutator_method">getter and setter
+ * methods</a> and a <a
+ * href="http://en.wikipedia.org/wiki/Field_(computer_science)">field</a>. The following 3 chapters will explain this in more detail.
+ * <p>
+ * 
  * <h3>Getter methods</h3>
  * <ul>
  * <li>A property always has a getter method, to read its value</li>
