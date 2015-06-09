@@ -9,6 +9,11 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * The {@link UserInterfaceLayer} is implemented by the {@link UserInterfaceContainer}<br>
  *
  * Note that this layer is the top layer, which means it may know all the objects in the lower layers but not visa versa! See {@link IntrospectArchitecture}
+ * 
+ * <h2>UserInterfaceController</h2>
+ * {@insert UserInterfaceController}
+ * 
+ * 
  * @author Nils ten Hoeve
  * 
  */
