@@ -11,7 +11,7 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * <h3>Action Methods Convention</h3>
  * <p>
  * Any method in a {@link DomainObject} or {@link ServiceObject} can be an
- * Action method, provided that it complies with the following:
+ * Action method, provided that it complies with the following convention:
  * </p>
  * <ul>
  * <li>The method has no parameter or a single {@link DomainObject} parameter</li>
@@ -23,11 +23,16 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * <li>The method is NOT static</li>
  * </ul>
  * 
- * <h3>Action method parameter</h3> An action method either has no parameter or
- * a single parameter (must be a {@link DomainObject} type). If not, the
- * Introspect Framework recognized a method as an Action method. <h3>Action
- * method return value</h3> The {@link UserInterfaceController} renders the
- * output of a method, depending on type of the action method return value:
+ * <h3>Action method parameter</h3>
+ * <p>
+ * An action method either has no parameter or a single {@link DomainObject} as
+ * a parameter. If not, the Introspect Framework will not recognize a method as
+ * an {@link ActionMethod}.
+ * </p>
+ * <h3>Action method return value</h3>
+ * <p>
+ * The {@link UserInterfaceController} renders the output of a method, depending
+ * on type of the action method return value:
  * <ul>
  * <li>No return value (void method): The {@link UserInterfaceController} will
  * display a short message when the method has been executed</li>
@@ -49,6 +54,7 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * <li>A {@link DownloadStream}: The {@link UserInterfaceController} will open a
  * "Save as" dialog" so that the file can be down loaded.</li>
  * </ul>
+ * </p>
  * <h3>Action execution modes</h3> {@link ActionMethod}s can be annotated, so
  * that the {@link UserInterfaceController} know how the {@link ActionMethod}
  * needs to be invoked after the user has clicked on the corresponding menu

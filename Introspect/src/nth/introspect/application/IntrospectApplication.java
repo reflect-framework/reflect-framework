@@ -54,6 +54,8 @@ public interface IntrospectApplication {
 
 	public Class<? extends NotificationProvider> getNotificationProviderClass();
 
+	//TODO implement to add custom views: public List<Class<?>> getUserInterfaceViewClasses();. View must interped methodinfo to indicate is they can view the method result or parameter
+	
 	public List<Class<?>> getServiceClasses();
 	
 	public List<Class<?>> getInfrastructureClasses();

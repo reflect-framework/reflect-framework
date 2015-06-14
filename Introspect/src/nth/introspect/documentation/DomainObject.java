@@ -23,11 +23,10 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <br>
  * Domain objects contain:
  * <ul>
- * <li><a
- * href="http://en.wikipedia.org/wiki/Property_(programming)">Properties</a>:
- * that represent specific information within a {@link DomainObject}</li>
- * <li>Methods: that either represent a {@link DomainObjectActionMethod}s or
- * define {@link ObjectBehavior}</li>
+ * <li>Getter and setter methods (and possible fields): that define <a
+ * href="http://en.wikipedia.org/wiki/Property_(programming)">properties</a></li>
+ * <li>{@link DomainObjectActionMethod}s: that define user actions</li>
+ * <li>Methods: that define {@link ObjectBehavior}</li>
  * <li>Annotations: that define {@link ObjectBehavior}</li>
  * </ul>
  * 
@@ -48,8 +47,8 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <ul>
  * <li>By a {@link ServiceObjectActionMethod} such as
  * CustomerService.createNewCustomer()
- * <li>By a {@link DomainObjectActionMethod}
- * such as ShoppingCart.lineItemCreate(LineItem lineItem)</li>
+ * <li>By a {@link DomainObjectActionMethod} such as
+ * ShoppingCart.lineItemCreate(LineItem lineItem)</li>
  * <li>By a {@link DomainContainer} such as
  * domainContainer.getObject(Customer.class)</li>
  * <li>By a {@link InfrastructureObject} method such as
@@ -73,7 +72,8 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * to:</li>
  * <ul>
  * <li>Add the reference object as a parameter in the constructor and link it to
- * a private field, so that it can be used throughout the class. TODO what happens see above</li>
+ * a private field, so that it can be used throughout the class. TODO what
+ * happens see above</li>
  * <li>Override the {@link IntrospectApplication#getDomainClasses()} method and
  * return a list of {@link DomainObject}s that need to be created using
  * Dependency Injection</li>
