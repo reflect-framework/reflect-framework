@@ -22,7 +22,15 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * <li>The method is public (not private)</li>
  * <li>The method is NOT static</li>
  * </ul>
- * 
+ * <h3>Action method names</h3><p> The name of an {@link ActionMethod} should
+ * describe the action and match the <a
+ * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
+ * Language</a> (in terms understood by both users and developers).
+ *  Keep in mind that the goal of a user is almost never to create, update or
+ * delete objects. Method names like: createPerson, updatePerson and removePerson
+ * should therefore be avoided where possible. Method names like registerNewBirth, registerMarriage,
+ * registerPersonDeceased would be better names.
+ * <p>
  * <h3>Action method parameter</h3>
  * <p>
  * An action method either has no parameter or a single {@link DomainObject} as
@@ -56,7 +64,7 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * </ul>
  * </p>
  * <h3>Action execution modes</h3> {@link ActionMethod}s can be annotated, so
- * that the {@link UserInterfaceController} know how the {@link ActionMethod}
+ * that the {@link UserInterfaceController} knows how the {@link ActionMethod}
  * needs to be invoked after the user has clicked on the corresponding menu
  * item.
  * <ul>

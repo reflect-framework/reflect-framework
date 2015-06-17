@@ -14,18 +14,31 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * {@link ServiceObject}s always have one ore more {@link ActionMethod}s.
  * </p>
  * <ul>
- * <li>These {@link ActionMethod}s are displayed by the {@link UserInterfaceController} as menu options in the main menu or in a form tab
- * that represents the {@link DomainObject}.</li>
- * <li>Examples: an CustomerService object may have an {@link ActionMethod} such as
- * findCustomer(CustomerSearchArgument searchArgument).</li>
+ * <li>These {@link ActionMethod}s are displayed by the
+ * {@link UserInterfaceController} as menu options in the main menu or in a form
+ * tab that represents the {@link DomainObject}.</li>
+ * <li>Examples: an CustomerService object may have an {@link ActionMethod} such
+ * as findCustomer(CustomerSearchArgument searchArgument).</li>
  * </ul>
  * </p>
  * <p>
- * Note that business logic should be placed in {@link DomainObject}s and therefore have no place in {@link ActionMethod}s in service objects! {@link ActionMethod}s in service objects should only give access to  
+ * <a
+ * href="https://en.wikipedia.org/?title=Object-oriented_programming"> Object
+ * Orientated Programming</a> favors to put business logic and the validation
+ * logic into the {@link DomainObject}s (and sometimes
+ * {@link InfrastructureObject}s) as much as possible.
+ * {@link ServiceObjectActionMethod}s should therefore not contain business
+ * logic or validation logic, but delegate the work to collaborations of
+ * {@link DomainObject}s and {@link InfrastructureObject}, in order to prevent
+ * the <a href="http://martinfowler.com/bliki/AnemicDomainModel.html">Anemic
+ * Domain Model</a> - <a
+ * href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>.
  * </p>
  * 
+ * 
+ * 
  * {@insert ActionMethod}
-*/
+ */
 public interface ServiceObjectActionMethod extends Documentation {
 
 }

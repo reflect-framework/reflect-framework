@@ -1,7 +1,6 @@
 package nth.introspect.util;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 
 /**
  * This helper class can be used to create titles for domain objects (in the
@@ -41,21 +40,6 @@ public class TitleBuilder {
 		public String toString() {
 			return seperator;
 		}
-
-		@Override
-		public IntStream chars() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public IntStream codePoints() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		
-
 	}
 
 	

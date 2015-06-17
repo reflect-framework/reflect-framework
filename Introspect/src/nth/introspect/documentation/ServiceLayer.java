@@ -6,18 +6,27 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
 
 /**
  * <p>
- * The {@link ServiceLayer} (sometimes also called application layer) defines
- * what the software is supposed to do. It is called upon by the
- * {@link UserInterfaceController} and redirects the {@link DomainObject}s and
- * {@link InfrastructureObject}s to work out the complicated stuff.
- * </p>
- * {@link ServiceContainer} is an {@link IntrospectContainer} that represents
- * the {@link ServiceLayer} and holds and manages {@link ServiceObject}s.<br>
+ * The {@link ServiceLayer} (sometimes also called <a
+ * href="application layer">application layer</a>) defines what the software is
+ * supposed to do. It is called upon by the {@link UserInterfaceController} and
+ * redirects the {@link DomainObject}s and {@link InfrastructureObject}s to work
+ * out the complicated stuff.
  * </p>
  * <p>
- * Note that this layer is a middle layer: the {@link ServiceObject}s have no
- * knowledge of the {@link UserInterfaceLayer}, the {@link ServiceObject}s know
- * the objects in the lower layers but not visa versa!
+ * The {@link ServiceContainer} is an {@link IntrospectContainer} that
+ * represents the {@link ServiceLayer} and holds and manages
+ * {@link ServiceObject}s.<br>
+ * </p>
+ * <p>
+ * Note that the {@link ServiceLayer} is a middle layer(see
+ * {@link IntrospectArchitecture}):
+ * <ul>
+ * <li>
+ * The {@link ServiceObject}s have NO references to objects in the
+ * {@link UserInterfaceLayer}</li>
+ * <li>The {@link ServiceObject}s may have references to the objects in the
+ * lower {@link DomainLayer}, {@link InfrastructureLayer} and {@link ProviderLayer}, but not visa versa!</li>
+ * </ul>
  * </p>
  * <h2>Service Objects</h2> {@insert ServiceObject}
  * 

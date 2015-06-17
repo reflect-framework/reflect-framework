@@ -1,22 +1,42 @@
 package nth.introspect.documentation;
 
+import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.InfrastructureContainer;
+import nth.introspect.container.impl.ServiceContainer;
 
 /**
- * The {@link InfrastructureLayer} is part if the {@link IntrospectArchitecture}. <br>
- * The {@link InfrastructureLayer} is also know as:
- * <ul><li><a href="http://en.wikipedia.org/wiki/Data_access_layer">Data access layer</a></li>
- * <li><a href="http://en.wikipedia.org/wiki/Persistence_layer">Persistence layer</a></li>
+ * <p>
+ * The {@link InfrastructureLayer} contains {@link InfrastructureObject}'s that
+ * provide generic technical capabilities to support the higher layers.
+ * </p>
+ * <p> The {@link InfrastructureLayer} is also know as:
+ * <ul>
+ * <li><a href="http://en.wikipedia.org/wiki/Data_access_layer">Data access
+ * layer</a></li>
+ * <li><a href="http://en.wikipedia.org/wiki/Persistence_layer">Persistence
+ * layer</a></li>
  * <li>Logging Layer</a></li>
  * <li>Networking Layer</li>
- * <li>And other services which are required to support the {@link ServiceLayer} or {@link DomainLayer}</li> 
+ * <li>And other services which are required to support the {@link ServiceLayer}
+ * or {@link DomainLayer}</li>
  * </ul>
- * The {@link InfrastructureLayer} contains {@link InfrastructureObject}'s that provide generic technical capabilities to support the higher layers (see {@link IntrospectArchitecture})<br>
- * The {@link InfrastructureLayer} is implemented by the {@link InfrastructureContainer}<br>
- * Note that this layer is the bottom layer, which means that objects in the upper layers may know the objects in this layer but not visa versa! See {@link IntrospectArchitecture}
- * 
- * <h2>Infrastructure Objects</h2>
- * {@insert InfrastructureObject}
+ * </p>
+ * <p>
+ * The {@link InfrastructureContainer} is an {@link IntrospectContainer} that
+ * represents the {@link InfrastructureLayer} and holds and manages
+ * {@link InfrastructureObject}s.<br>
+ * </p>
+
+ * Note that the {@link InfrastructureLayer} is a middle layer (see
+ * {@link IntrospectArchitecture}):
+ * <ul>
+ * <li>
+ * The {@link InfrastructureObject}s have NO references to objects in the upper
+ * {@link UserInterfaceLayer}, {@link ServiceLayer} nor {@link DomainLayer}</li>
+ * <li>The {@link InfrastructureObject}s may have references to the objects in
+ * the lower {@link ProviderLayer}, but not visa versa!</li>
+ * </ul>
+ * <h2>Infrastructure Objects</h2> {@insert InfrastructureObject}
  *
  */
 public interface InfrastructureLayer extends Documentation {

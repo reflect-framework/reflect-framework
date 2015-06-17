@@ -4,12 +4,12 @@ import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
 /**
- * This section is concerned with adding to, or modifying, the behaviour of
+ * This section is concerned with adding to, or modifying, the behavior of
  * domain objects and service objects, in order to build a richer application.
  * 
  * Behavior can be added with:
  * <ul>
- * <li>methods that are recognized bin the introspect framework</li>
+ * <li>methods that are recognized bin the Introspect framework</li>
  * <li>methods that are recognized book the Introspect framework</li>
  * </ul>
  * TO-DO RECOGNIZED METHODS (see naked objects doc)

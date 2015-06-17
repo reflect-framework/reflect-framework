@@ -8,22 +8,28 @@ import nth.introspect.container.impl.DomainContainer;
  * situation, and business rules. State that reflects the business situation is
  * controlled and used here.<br>
  * <br>
- * Because there is many debate on the naming within a layered architecture,
- * the domain layer is sometimes also called:
+ * Because there is many debate on the naming within a layered architecture, the
+ * domain layer is sometimes also called:
  * <ul>
- * <li><a href="http://en.wikipedia.org/wiki/Business_logic">Business</a>  layer</li>
- * <li><a href="http://en.wikipedia.org/wiki/Business_logic">Business logic</a> layer</li>
- * <li><a href="http://en.wikipedia.org/wiki/Domain_model">Domain model</a> layer</li>
+ * <li><a href="http://en.wikipedia.org/wiki/Business_logic">Business</a> layer</li>
+ * <li><a href="http://en.wikipedia.org/wiki/Business_logic">Business logic</a>
+ * layer</li>
+ * <li><a href="http://en.wikipedia.org/wiki/Domain_model">Domain model</a>
+ * layer</li>
  * </ul>
  * The domain layer is basically where all the domain objects are. <br>
  * <br>
- * Note that this layer is a middle layer: the {@link DomainObject}s have no
- * knowledge of the objects in the higher layers ({@link UserInterfaceLayer} or
- * {@link ServiceLayer}). The {@link DomainObject}s may know the objects in the
- * lower {@link InfrastructureLayer} but not visa versa!
+ * Note that the {@link DomainLayer} is a middle layer (see
+ * {@link IntrospectArchitecture}):
+ * <ul>
+ * <li>
+ * The {@link DomainObject}s have NO references to objects in the upper
+ * {@link UserInterfaceLayer} nor {@link ServiceLayer}</li>
+ * <li>The {@link DomainObject}s may have references to the objects in the lower
+ * {@link InfrastructureLayer} or {@link ProviderLayer}, but not visa versa!</li>
+ * </ul>
  * 
- * <h2>Domain Objects</h2> 
- * {@insert DomainObject}
+ * <h2>Domain Objects</h2> {@insert DomainObject}
  * 
  * @author Nils ten Hoeve
  * @see IntrospectArchitecture

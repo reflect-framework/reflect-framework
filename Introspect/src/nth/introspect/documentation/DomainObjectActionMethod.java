@@ -39,6 +39,7 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * <li>A Customer object may have {@link ActionMethod} such as
  * adressMoveToNewAddress(Address new Address).</li>
  * </ul>
+ * </li>
  * </ul>
  * </p>
  * {@insert ActionMethod}

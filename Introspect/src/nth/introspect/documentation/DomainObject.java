@@ -9,18 +9,21 @@ import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 
 /**
- * Domain objects represent entities; the nouns of the domain. If your
+ * <p>
+ * {@link DomainObject}s represent entities; the nouns of the domain. If your
  * application domain is a sales application it’s likely that your domain model
- * contains domain objects such as: customers, products and orders. <br>
- * <br>
- * Domain objects are created by a developer or are reused from an existing
+ * contains domain objects such as: customers, products and orders.
+ * </p>
+ * <p>
+ * {@link DomainObject}s are created by a developer or are reused from an existing
  * application that needs to be re-written. They can be created from scratch or
  * generated from a schema (in example from a <a
  * href="http://en.wikipedia.org/wiki/Database_schema">database schema</a>, <a
  * href="http://nl.wikipedia.org/wiki/XML_Schema">XML schema</a> or <a
  * href="http://en.wikipedia.org/wiki/Web_Services_Description_Language">web
- * service</a>)<br>
- * <br>
+ * service</a>)
+ * </p>
+ * 
  * Domain objects contain:
  * <ul>
  * <li>Getter and setter methods (and possible fields): that define <a
@@ -30,9 +33,14 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <li>Annotations: that define {@link ObjectBehavior}</li>
  * </ul>
  * 
- * <h3>Naming</h3> Domain objects names are nouns, such as customer, product and
- * order. They basically describe the things that are important in your
- * application.
+ * <h3>Naming</h3>
+ * <p>
+ * {@link DomainObject}s names are nouns, such as customer, product and order.
+ * They basically describe the things that are important in your application.
+ * {@link DomainObject}s names need to match the <a
+ * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
+ * Language</a> (in terms understood by both users and developers).
+ * </p>
  * 
  * <h3>Construction</h3>
  * <p>
@@ -46,14 +54,14 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * {@link DomainObject}s can be created by different objects e.g.:
  * <ul>
  * <li>By a {@link ServiceObjectActionMethod} such as
- * CustomerService.createNewCustomer()
+ * customerService.createNewCustomer()
  * <li>By a {@link DomainObjectActionMethod} such as
- * ShoppingCart.lineItemCreate(LineItem lineItem)</li>
+ * shoppingCart.lineItemCreate(LineItem lineItem)</li>
  * <li>By a {@link DomainContainer} such as
  * domainContainer.getObject(Customer.class)</li>
  * <li>By a {@link InfrastructureObject} method such as
- * OrderRepository.allOpenOrders() or
- * ShoppingCartFactory.createForCustomer(Customer customer).</li>
+ * orderRepository.allOpenOrders() or
+ * shoppingCartFactory.createForCustomer(Customer customer).</li>
  * </ul>
  * <br>
  * There are 2 ways to create new {@link DomainObject}s:

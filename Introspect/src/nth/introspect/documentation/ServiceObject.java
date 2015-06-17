@@ -8,24 +8,29 @@ import nth.introspect.provider.Provider;
 
 /**
  * <p>
- * {@link ServiceObject}s contain {@link ServiceObjectActionMethod}s that are
- * displayed and invoked by the {@link UserInterfaceController}.
+ * {@link ServiceObject}s contain {@link ServiceObjectActionMethod}s. The
+ * {@link UserInterfaceController} displays these methods as menu items and
+ * invokes these methods once a user clicks on the menu item.
  * {@link ServiceObjectActionMethod}s create or retrieve {@link DomainObject}s
  * where the user does not have an existing {@link DomainObject} to navigate
  * from.
  * </p>
  * <p>
- * The {@link ServiceLayer} needs to be kept thin (see Martin Fowlers article on
+ * {@link ServiceObject}s basically provides the user (via the
+ * {@link UserInterfaceController}) access to {@link DomainObject}s, so that the
+ * user (via the {@link UserInterfaceController}) can work on them.
+ * </p>
+ * <p>
+ * <a href="https://en.wikipedia.org/?title=Object-oriented_programming"> Object
+ * Orientated Programming</a> favors to put business logic and the validation
+ * logic into the {@link DomainObject}s (and sometimes
+ * {@link InfrastructureObject}s) as much as possible.
+ * {@link ServiceObjectActionMethod}s should therefore not contain business
+ * logic or validation logic, but delegate the work to collaborations of
+ * {@link DomainObject}s and {@link InfrastructureObject}, in order to prevent
  * the <a href="http://martinfowler.com/bliki/AnemicDomainModel.html">Anemic
- * Domain Model</a> <a
- * href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>). Therefore
- * {@link ServiceObject}s should not contain business rules/logic or validation
- * rules/logic, but delegate work to collaborations of domain objects in the
- * next layer down. Business logic and validation logic should be placed in
- * {@link DomainObject}s as much as possible. If you put them in other places,
- * such as {@link ServiceObject}s, changes are that the business logic and
- * validation logic will be scattered over different locations, making extending
- * or de-buging code difficult and expensive.
+ * Domain Model</a> - <a
+ * href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>.
  * </p>
  * <p>
  * A web shop example:
@@ -40,12 +45,14 @@ import nth.introspect.provider.Provider;
  * </ul>
  * </p>
  * <p>
- * {@link ServiceObject}s do not have state and therefore do not have properties
- * (no getter and setter methods). To me a {@link ServiceObject} with state is a
- * good indicator of a <a
+ * {@link ServiceObject}s do not need state and do not have properties (no
+ * getter and setter methods), because {@link ServiceObjectActionMethod}s only
+ * delegate the work to collaborations of {@link DomainObject}s and
+ * {@link InfrastructureObject}s. My personal opinion is that a
+ * {@link ServiceObject} with state is a <a
  * href="http://en.wikipedia.org/wiki/Code_smell">code-smell</a>, which you can
  * solve by moving the {@link ServiceObjectActionMethod}s that share state
- * (fields) to an new or existing {@link DomainObject}.
+ * (fields) to an new or existing {@link DomainObject}s.</li>
  * </p>
  * <p>
  * Service objects contain:
@@ -55,6 +62,7 @@ import nth.introspect.provider.Provider;
  * <li>Annotations: that define {@link ObjectBehavior}</li>
  * </ul>
  * </p>
+ * 
  * 
  * 
  * <h3>Naming</h3> {@link ServiceObject}s are normally named to the
