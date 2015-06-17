@@ -22,15 +22,16 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * <li>The method is public (not private)</li>
  * <li>The method is NOT static</li>
  * </ul>
- * <h3>Action method names</h3><p> The name of an {@link ActionMethod} should
- * describe the action and match the <a
- * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
- * Language</a> (in terms understood by both users and developers).
- *  Keep in mind that the goal of a user is almost never to create, update or
- * delete objects. Method names like: createPerson, updatePerson and removePerson
- * should therefore be avoided where possible. Method names like registerNewBirth, registerMarriage,
- * registerPersonDeceased would be better names.
+ * <h3>Action method names</h3>
  * <p>
+ * The name of an {@link ActionMethod} should describe the action and match the
+ * <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
+ * Language</a> (in terms understood by both users and developers). Keep in mind
+ * that the goal of a user is almost never to create, update or delete objects.
+ * Method names like: createPerson, updatePerson and removePerson should
+ * therefore be avoided where possible. Method names like registerNewBirth,
+ * registerMarriage, registerPersonDeceased would be better names.
+ * </p>
  * <h3>Action method parameter</h3>
  * <p>
  * An action method either has no parameter or a single {@link DomainObject} as
@@ -40,7 +41,7 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * <h3>Action method return value</h3>
  * <p>
  * The {@link UserInterfaceController} renders the output of a method, depending
- * on type of the action method return value:
+ * on the type of the action method return value:
  * <ul>
  * <li>No return value (void method): The {@link UserInterfaceController} will
  * display a short message when the method has been executed</li>

@@ -17,7 +17,7 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * <ul>
  * <li>These {@link ActionMethod}s are displayed as menu options in a form tab
  * that represents the {@link DomainObject}.</li>
- * <li>Examples: an ShoppingCar object may have an {@link ActionMethod} such as
+ * <li>Example: an ShoppingCar object may have an {@link ActionMethod} such as
  * checkout().</li>
  * </ul>
  * <h3>Action Methods for Domain Object Properties</h3>
@@ -31,15 +31,14 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * <li>The name of the {@link ActionMethod} for a {@link DomainObjectProperty}
  * must begin with the name of the property, followed with a description of what
  * is does.</li>
- * <li>Examples:
+ * </ul>
+ * Examples:
  * <ul>
  * <li>A ShoppingCar object may have {@link ActionMethod} such as
  * lineItemsAdd(LineItem lineItem) or lineItemsRemove(LineItem lineItem) or
  * lineItemsRemoveAll().</li>
  * <li>A Customer object may have {@link ActionMethod} such as
  * adressMoveToNewAddress(Address new Address).</li>
- * </ul>
- * </li>
  * </ul>
  * </p>
  * {@insert ActionMethod}

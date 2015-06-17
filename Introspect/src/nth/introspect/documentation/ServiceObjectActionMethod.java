@@ -29,7 +29,7 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * {@link InfrastructureObject}s) as much as possible.
  * {@link ServiceObjectActionMethod}s should therefore not contain business
  * logic or validation logic, but delegate the work to collaborations of
- * {@link DomainObject}s and {@link InfrastructureObject}, in order to prevent
+ * {@link DomainObject}s and {@link InfrastructureObject}s, in order to prevent
  * the <a href="http://martinfowler.com/bliki/AnemicDomainModel.html">Anemic
  * Domain Model</a> - <a
  * href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>.
