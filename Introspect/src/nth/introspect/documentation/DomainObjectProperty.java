@@ -118,14 +118,19 @@ import nth.introspect.util.TitleBuilder;
  * in text, which will be validated and formatted according to the value type.
  * Certainly value types may provide alternative mechanisms for user input, such
  * as a calendar-selector for a date field.</li>
- * <li>Reference Property: A 'reference property' is one where the type is
- * another {@link DomainObject}. Reference properties are thus sometimes
+ * <li>Enumeration property: The {@link UserInterfaceController} will display
+ * these types as as a <a
+ * href="http://en.wikipedia.org/wiki/Combo_box">combo-box</a>, containing the
+ * different enumeration values as text.</li>
+ * <li>Reference Property: A 'reference property' or 'entity' is one where the
+ * type is another {@link DomainObject}. Reference properties are thus sometimes
  * referred to as 'associations'. The {@link UserInterfaceController} will
  * display a {@link DomainObject} property as a <a
- * href="http://en.wikipedia.org/wiki/Combo_box">combo-box</a>, containing the
- * referenced object (as an icon and title). The button of the combo-box will
- * open a <a href="http://en.wikipedia.org/wiki/Context_menu">context menu</a>,
- * that contains {@link ActionMethod}s to manipulate the property value.</li>
+ * href="http://en.wikipedia.org/wiki/Text_box">textbox</a>, containing the
+ * referenced object (as an icon and title) and a menu button. The menu button
+ * will open a <a href="http://en.wikipedia.org/wiki/Context_menu">context
+ * menu</a>, that contains {@link ActionMethod}s to manipulate the property
+ * value.</li>
  * <li>Collection Property: A 'collection property' is a property that returns
  * an collection of either value properties (<a href=
  * "http://en.wikipedia.org/wiki/Primitive_data_type#Specific_primitive_data_types"
@@ -137,9 +142,10 @@ import nth.introspect.util.TitleBuilder;
  * you will need to annotate the getter method with a @{@link GenericReturnType}
  * annotation in which you need to define the property type. Collections must be
  * initialized (collection properties should never return null). Collection
- * properties should not contain large collections. If you have a big collection associated with a {@link DomainObject}
- * it is better to return the collection from an {@link ActionMethod} in the {@link DomainObject}, so that
- * the table is displayed on a new tab.</li>
+ * properties should not contain large collections. If you have a big collection
+ * associated with a {@link DomainObject} it is better to return the collection
+ * from an {@link ActionMethod} in the {@link DomainObject}, so that the table
+ * is displayed on a new tab.</li>
  * </ul>
  * 
  * <h3>Property behavior</h3>

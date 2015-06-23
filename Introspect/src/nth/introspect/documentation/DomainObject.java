@@ -15,23 +15,14 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * contains domain objects such as: customers, products and orders.
  * </p>
  * <p>
- * {@link DomainObject}s are created by a developer or are reused from an existing
- * application that needs to be re-written. They can be created from scratch or
- * generated from a schema (in example from a <a
+ * {@link DomainObject}s are created by a developer or are reused from an
+ * existing application that needs to be re-written. They can be created from
+ * scratch or generated from a schema (in example from a <a
  * href="http://en.wikipedia.org/wiki/Database_schema">database schema</a>, <a
  * href="http://nl.wikipedia.org/wiki/XML_Schema">XML schema</a> or <a
  * href="http://en.wikipedia.org/wiki/Web_Services_Description_Language">web
  * service</a>)
  * </p>
- * 
- * Domain objects contain:
- * <ul>
- * <li>Getter and setter methods (and possible fields): that define <a
- * href="http://en.wikipedia.org/wiki/Property_(programming)">properties</a></li>
- * <li>{@link DomainObjectActionMethod}s: that define user actions</li>
- * <li>Methods: that define {@link ObjectBehavior}</li>
- * <li>Annotations: that define {@link ObjectBehavior}</li>
- * </ul>
  * 
  * <h3>Naming</h3>
  * <p>
@@ -92,8 +83,9 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * </ul>
  * </ul>
  * 
- * <h3>Presentation</h3> An {@link UserInterfaceController} can display domain
- * objects in 3 ways:<br>
+ * <h3>Presentation</h3>
+ * <p>
+ * An {@link UserInterfaceController} can display domain objects in 3 ways:<br>
  * <ul>
  * <li>Domain object as form:<br>
  * <img src="ObjectAsForm.png"></li>
@@ -102,7 +94,21 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <li>Domain object as a row in a table:<br>
  * <img src="ObjectAsTable.png"></li>
  * </ul>
- * <br>
+ * </p>
+ * 
+ * <h3>Domain object members</h3>
+ * <p>
+ * Domain objects contain:
+ * <ul>
+ * <li>Getter and setter methods (and possible fields): that define <a
+ * href="http://en.wikipedia.org/wiki/Property_(programming)">properties</a></li>
+ * <li>{@link DomainObjectActionMethod}s: that define user actions</li>
+ * <li>Methods: that define {@link ObjectBehavior}</li>
+ * <li>Annotations: that define {@link ObjectBehavior}</li>
+ * </ul>
+ * These members are discussed in more detail in the following paragraphs.
+ * </p>
+ * 
  * <h2>Properties</h2> {@insert DomainObjectProperty}
  * 
  * <h2>Action Methods</h2> {@insert DomainObjectActionMethod}

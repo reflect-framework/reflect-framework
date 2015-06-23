@@ -16,11 +16,12 @@ public class TitleValue extends IntrospectedValueModelReadOnly {
 	private final DomainInfoProvider domainInfoProvider;
 	private final LanguageProvider languageProvider;
 
-	public TitleValue(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider) {
+	public TitleValue(DomainInfoProvider domainInfoProvider,
+			LanguageProvider languageProvider) {
 		this.domainInfoProvider = domainInfoProvider;
 		this.languageProvider = languageProvider;
 	}
-	
+
 	public Object getValue(Object obj) {
 		if (obj.getClass().isEnum()) {
 			String enumValue = obj.toString();
@@ -30,32 +31,49 @@ public class TitleValue extends IntrospectedValueModelReadOnly {
 			return languageProvider.getText(key, defaultText);
 		}
 
-		// get title from toString implementation
-		String title = obj.toString();
-		String defaultToStringImplValue = obj.getClass().getName() + "@" + Integer.toHexString(obj.hashCode());
-		if (title == null || title.trim().length() == 0 || title.equals(defaultToStringImplValue)) {
-			// toString method is not overwritten or does not return a value so construct our own title
-			StringBuffer titleBuffer = new StringBuffer();
-			List<PropertyInfo> propertyInfos = domainInfoProvider.getOrderedAndVisiblePropertyInfos(obj.getClass());
-			for (PropertyInfo propertyInfo : propertyInfos) {
-				Object propertyValue = propertyInfo.getValue(obj);
-				Format format=propertyInfo.getFormat();
-				 TypeCategory typeCatagory = propertyInfo.getPropertyType().getTypeCategory();
-				if (propertyValue != null && typeCatagory!= TypeCategory.COLLECTION_TYPE) {
-					StringBuffer propertyText = new StringBuffer();
-					String propertyValueText = format.format(propertyValue);
-					propertyText.append(propertyValueText);
-					if (propertyText.toString().trim().length() > 0) {
-						if (titleBuffer.length() > 0) {
-							titleBuffer.append(TITLE_SEPARATOR);
-						}
-						titleBuffer.append(propertyText);
+		boolean toStingValueIsOverwritten = isOverWrittenToStringMethod(obj);
+		if (toStingValueIsOverwritten) {
+			return obj.toString();
+		} else {
+			StringBuffer titleBuffer = createTitle(obj);
+			return titleBuffer.toString();
+		}
+
+	}
+
+	private StringBuffer createTitle(Object obj) {
+		StringBuffer titleBuffer = new StringBuffer();
+		List<PropertyInfo> propertyInfos = domainInfoProvider
+				.getOrderedAndVisiblePropertyInfos(obj.getClass());
+		for (PropertyInfo propertyInfo : propertyInfos) {
+			Object propertyValue = propertyInfo.getValue(obj);
+			Format format = propertyInfo.getFormat();
+			TypeCategory typeCatagory = propertyInfo.getPropertyType()
+					.getTypeCategory();
+			if (propertyValue != null
+					&& typeCatagory != TypeCategory.COLLECTION_TYPE) {
+				StringBuffer propertyText = new StringBuffer();
+				String propertyValueText = format.format(propertyValue);
+				propertyText.append(propertyValueText);
+				if (propertyText.toString().trim().length() > 0) {
+					if (titleBuffer.length() > 0) {
+						titleBuffer.append(TITLE_SEPARATOR);
 					}
+					titleBuffer.append(propertyText);
 				}
 			}
-			title = titleBuffer.toString();
 		}
-		return title;
+		return titleBuffer;
+	}
+
+	private boolean isOverWrittenToStringMethod(Object obj) {
+		String title = obj.toString();
+		String defaultToStringImplValue = obj.getClass().getName() + "@"
+				+ Integer.toHexString(obj.hashCode());
+		boolean toStingValueIsOverwritten = title == null
+				|| title.trim().length() == 0
+				|| title.equals(defaultToStringImplValue);
+		return toStingValueIsOverwritten;
 	}
 
 	@Override

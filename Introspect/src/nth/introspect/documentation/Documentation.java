@@ -10,7 +10,7 @@ package nth.introspect.documentation;
  * <li>References to other code can be used (which is updated during refactoring)</li>
  * </ul>
  * 
- * The Introspect manual uses the JavaDoc int the Introspect projects that
+ * The Introspect manual uses the JavaDoc in the Introspect projects that
  * describes the classes, but also needs additional information. This is done
  * with empty interfaces that contain javadoc that explain a certain subject.
  * These interfaces should extend this interface so that their purpose is clear.

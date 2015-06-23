@@ -15,14 +15,14 @@ import nth.introspect.valuemodel.ValueModels;
 
 /**
  * Provides information on a bean.<br>
- * This class is inspired by the BeanInfo class, which I do not use because it is not implemented by Android
+ * This class is inspired by the BeanInfo class, which can not be use because it is not implemented by Android
  * 
  * @author nilsth
  * 
  */
 public class ClassInfo implements IntrospectionInfo {
 
-	public final static String TEXT = "text";
+	public final static String TEXT = "text";//TODO rename to typeName?
 	public final static String DESCRIPTION = "description";
 	public final static String VISIBLE = "visible";
 	public static final String TITLE = "title";

@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 
 import nth.introspect.provider.Provider;
 
-public abstract class ReportProvider<T> implements Provider {
+public abstract class ReportProvider<T>  {
 
 	public ByteArrayOutputStream createReport(Report report) {
 		T document=createDocument(report);

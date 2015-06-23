@@ -74,7 +74,7 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * <li>@{@link ExecutionMode}(
  * {@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION}): the
  * {@link UserInterfaceController} opens a confirmation dialog. The method is
- * executed after the user has confirmed by the user. The method is NOT executed
+ * executed after the user activates the confirmation button. The method is NOT executed
  * when the user cancels the confirmation dialog.</li>
  * <li>@{@link ExecutionMode}(
  * {@link ExecutionModeType#EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL}): the

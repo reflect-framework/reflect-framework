@@ -2,7 +2,6 @@ package nth.introspect.documentation;
 
 import nth.introspect.container.IntrospectContainer;
 
-
 /**
  * The Introspect Framework helps you to create a <a
  * href="http://en.wikipedia.org/wiki/Multilayered_architecture" >multi layer
@@ -25,18 +24,28 @@ import nth.introspect.container.IntrospectContainer;
  * <li>Inbound external interface modules (eg web service handlers) should not
  * contain business logic.</li>
  * </ul>
+ * <p>
  * These multi layer architecture design principles try to prevent <a
  * href="http://en.wikipedia.org/wiki/Spaghetti_code"> spaghetti code</a>, which
  * is hard to extend, hard to trouble shoot, hard to test, hard to keep <a
  * href="http://en.wikipedia.org/wiki/Software_bug#Etymology">bug</a> free.<br>
- * <br>
+ * </p>
  * 
- * There are many different opinions on how a multi layered architecture should
- * <a href="https://www.google.nl/search?q=layered+architecture&tbm=isch">look
- * like</a>. It really doesn’t matter what it should look like, as long as your
- * multi layered architecture complies with the design principles above. <br>
+ * <p>
+ * There are many different opinions and definitions on the number of layers,
+ * the names of the layers and what each layer should do (see these <a
+ * href="https://www.google.nl/search?q=layered+architecture&tbm=isch"
+ * >examples</a>). It would be nice if everyone would use the same model and
+ * naming. I think that <a href="http://www.herrodius.com/blog/wp-content/uploads/2010/03/LayeredArchitecture.png">the definition of layers</a> from Eric Evans <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven Design approach</a> is the most commonly
+ * used. The most important thing is that your multi layered architecture
+ * complies with the design principles above.
+ * </p>
  * 
- * The {@link IntrospectArchitecture} uses the following layer definition (you are free to use different layers or layer names): 
+ * <p>
+ * The {@link IntrospectArchitecture} uses the following layer definition, which
+ * is pretty close to <a
+ * href="https://en.wikipedia.org/wiki/Domain-driven_design">Eric Evans Domain
+ * Driven Design</a> approach.:
  * <ul>
  * <li>{@link UserInterfaceLayer}</li>
  * <li>{@link ServiceLayer}</li>
@@ -44,18 +53,20 @@ import nth.introspect.container.IntrospectContainer;
  * <li>{@link InfrastructureLayer}</li>
  * <li>{@link ProviderLayer}</li>
  * </ul>
+ * </p>
+ * Each layer is implemented by an {@link IntrospectContainer}<br>
+ * <br>
  * 
- * Each layer is implemented by an {@link IntrospectContainer}<br><br>
- * 
- * <img src="IntrospectArchitecture.png"><br><br>
+ * <img src="IntrospectArchitecture.png"><br>
+ * <br>
  * 
  * Red objects are provided by the Introspect framework<br>
-* Yellow objects need to be written or included by the developer.
+ * Yellow objects need to be written or included by the developer.
  * 
  * @author Nils ten Hoeve
  * 
  */
 
-public interface IntrospectArchitecture extends Documentation{
+public interface IntrospectArchitecture extends Documentation {
 
 }

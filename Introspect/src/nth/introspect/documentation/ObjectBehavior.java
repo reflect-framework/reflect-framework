@@ -30,14 +30,27 @@ import nth.introspect.provider.validation.ValidationProvider;
  * (TODO toString method + example)
  * 
  * (TODO titlebuilder + example)
- * 
+ * <p>
  * For domain objects it makes sence to override the title so that the domain
  * object can be better identified. For example: the default title for a
  * customer object will be “Customer”. It makes since to override the title with
  * the name of the customer, so that the customer object can be better
- * identified in the user interface <h3>Visible In Form</h3> (TODO specific on
- * form)Public properties and methods are visible by default but they can be
- * hidden.
+ * identified in the user interface
+ * </p>
+ * <h3>Description</h3> 
+ * (TODO description what this does) (TODO annotation) (TODO
+ * method)
+ * 
+ * <h3>Icon</h3> (TODO description what this does) (TODO annotation) (TODO
+ * method)
+ * 
+ * <h3>Visible</h3> 
+ * (TODO description what this does) (TODO annotation) (TODO
+ * method)
+ * 
+ * 
+ * <h3>Visible In Form</h3> (TODO specific on form)Public properties and methods
+ * are visible by default but they can be hidden.
  * 
  * Methods that are not public are not visible or access able. (TODO visible
  * annotation) (TODO visible method)
@@ -63,9 +76,6 @@ import nth.introspect.provider.validation.ValidationProvider;
  * does) (TODO annotation) <h3>Parameter Factory</h3> (TODO description what
  * this does) (TODO annotation) (TODO method)
  * 
- * <h3>Icons</h3> (TODO description what this does) (TODO annotation) (TODO
- * method)
- * 
  * <h3>FieldMode</h3> (TODO description what this does) (TODO annotation) (TODO
  * method)
  * 
@@ -78,6 +88,7 @@ import nth.introspect.provider.validation.ValidationProvider;
  * 
  * TODO example
  * 
+ * <h3>Formatting</h3> TODO explain + example
  * 
  * @author nilsth
  *

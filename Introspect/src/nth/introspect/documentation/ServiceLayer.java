@@ -15,7 +15,7 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * <p>
  * The {@link ServiceContainer} is an {@link IntrospectContainer} that
  * represents the {@link ServiceLayer} and holds and manages
- * {@link ServiceObject}s.<br>
+ * {@link ServiceObject}s.
  * </p>
  * <p>
  * Note that the {@link ServiceLayer} is a middle layer(see

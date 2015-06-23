@@ -39,7 +39,7 @@ import nth.introspect.provider.userinterface.view.ViewContainer;
  * 
  * @param <T>
  */
-public interface UserInterfaceController<T> extends Provider, Refreshable, NotificationListener {
+public interface UserInterfaceController<T> extends  Refreshable, NotificationListener {
 
 	/**
 	 * Provides simple feedback about an operation in a small popup. It only
