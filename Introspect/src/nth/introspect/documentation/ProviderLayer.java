@@ -7,7 +7,7 @@ import nth.introspect.provider.Provider;
 
 /**
  * <p>The {@link ProviderLayer} contains {@link Provider} objects that provide generic
- * {@link IntrospectFramework} capabilities to support the higher layers (see
+ * {@link IntrospectFramework} capabilities (<a href="cross cutting concerns">cross cutting concerns</a>) to support the higher layers (see
  * {@link IntrospectArchitecture})</p>
  * <p>The {@link ProviderContainer} is an {@link IntrospectContainer} that
  * represents the {@link ProviderLayer} and holds and manages

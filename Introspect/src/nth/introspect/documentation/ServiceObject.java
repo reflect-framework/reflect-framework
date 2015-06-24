@@ -1,10 +1,16 @@
 package nth.introspect.documentation;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sun.org.apache.xml.internal.security.encryption.Reference;
+
 import nth.introspect.application.IntrospectApplication;
 import nth.introspect.container.impl.DomainContainer;
 import nth.introspect.container.impl.ServiceContainer;
 import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.provider.Provider;
+import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 
 /**
  * Eric Evans explains in his book <a
@@ -20,7 +26,8 @@ import nth.introspect.provider.Provider;
  * These characteristics are discussed in more detail in the following
  * paragraphs.
  * 
- * <h3>Service objects operations relates to a domain concept that is not a natural part of a DomainObject</h3>
+ * <h3>Service objects operations relates to a domain concept that is not a
+ * natural part of a DomainObject</h3>
  * <p>
  * {@link ServiceObject}s contain {@link ServiceObjectActionMethod}s. The
  * {@link UserInterfaceController} displays these methods as menu items and
@@ -97,46 +104,85 @@ import nth.introspect.provider.Provider;
  * service class does not have to inherit from any special class, nor implement
  * any particular interface, nor have any specific attributes.
  * </p>
- *
- * TODO: Service objects need to be registred to the
- * {@link IntrospectApplication#getServiceClasses()} method
+ * <p>
+ * {@link ServiceObject}s are instiantated by the {@link IntrospectFramework},
+ * and therefore need to be registered to the
+ * {@link IntrospectApplication#getServiceClasses()} method.
+ * </p>
+ * In example:
  * 
- * <br>
- * {@link ServiceObject}s are created by the {@link ServiceContainer}. TODO how
- * objects are created with Dependency Injection by the
- * {@link IntrospectFramework}:<br>
+ * <pre>
+ * public class WebShop extends IntrospectApplicationFor... {
+ * 	&#64;Override
+ * 	public List<Class<?>> getServiceClasses() {
+ * 		List<Class<?>> serviceClasses = new ArrayList<>();
+ * 		serviceClasses.add(ProductService.class);
+ * 		serviceClasses.add(ShoppingCartService.class);
+ * 		serviceClasses.add(OrderService.class);
+ * 		return serviceClasses;
+ * 	}
+ * 	// etc...
+ * }
+ * </pre>
+ * <p>
+ * {@link ServiceObject}s can have references to other objects. These reference
+ * objects are injected into the {@link ServiceObject} as constructor parameter
+ * during the creation of the {@link ServiceObject} by the
+ * {@link IntrospectFramework} (by the {@link ServiceContainer}). This
+ * constructor can than be linked to a private final field, so that it can be
+ * used throughout the {@link ServiceObject}.
+ * </p>
+ * In example:
  * 
- * {@link ServiceObject}s can have references to other objects (being other
- * {@link ServiceObject}s, {@link DomainObject}s, {@link InfrastructureObject}s
- * or {@link Provider} objects). In example: TODO: A Customer object needs a
- * references to a ShoppingCartFactory object. The Customer object can therefore
- * be created by the {@link DomainContainer} with Customer customer=(Customer)
- * domainContainer.getObject(Customer.class). The ShopingCart object will
- * automatically be injected as a constructor parameter of the Customer class.
- * In order to create {@link DomainObject}s using dependency injection you need
- * to:</li>
+ * <pre>
+ * public class ProductService {
+ * 
+ * 	private final ProductRepository productRepository;
+ * 
+ * 	public ProductService(ProductRepository productRepository) {
+ * 		this.productRepository = productRepository;
+ * 	}
+ * 
+ * 	&#064;GenericReturnType(Product.class)
+ * 	public List&lt;Product&gt; findProduct(ProductSearchCritiria searchCritiria) {
+ * 		return productRepository.findProduct(searchCritiria);
+ * 	}
+ * 
+ * 	// other action methods...
+ * }
+ * </pre>
+ * <p>
+ * Note that you can only inject reference object types (use constructor
+ * parameters types) that are known to the {@link IntrospectFramework}.
+ * {@link ServiceObject}s can be injected with the following types (see also
+ * {@link IntrospectArchitecture}):
  * <ul>
- * <li>Add the reference object as a parameter in the constructor and link it to
- * a private field, so that it can be used throughout the class. TODO what
- * happens see above</li>
- * <li>Override the {@link IntrospectApplication#getDomainClasses()} method and
- * return a list of {@link DomainObject}s that need to be created using
- * Dependency Injection</li>
- * <li>The object that creates the Customer objects needs to have a reference to
- * the {@link DomainContainer}. A CustomerService object can get a reference to
- * the {@link DomainContainer} when it is created by the
- * {@link ServiceContainer} (which is done by the {@link IntrospectFramework})</li>
- * 
- * TODO Registering the service serves two purposes: • It makes the service's
- * actions available to the user • It instructs the Naked Objects framework to
- * inject that service into any domain object that needs access to it. See
- * Dependency Injection. A service may provide multiple methods any of which may
- * appear as user actions - following the same rules as for actions on a domain
- * object.
+ * <li>The {@link IntrospectApplication} class</li>
+ * <li>Types registered to the {@link IntrospectApplication#getServiceClasses()}
+ * method</li>
+ * <li>Types registered to the {@link IntrospectApplication#getDomainClasses()}
+ * method</li>
+ * <li>Types registered to the
+ * {@link IntrospectApplication#getInfrastructureClasses()} method</li>
+ * <li>The {@link Provider} classes</li>
  * </ul>
- * </ul>
+ * </p>
+ * <p>
+ * Note that it is good practice to link the constructor parameter (reference
+ * object) to a <a
+ * href="https://en.wikibooks.org/wiki/Java_Programming/Keywords/private"
+ * >private</a> <a
+ * href="https://en.wikipedia.org/wiki/Final_(Java)#Final_variables">final</a>
+ * field, so that it is encapsulated and immutable.
+ * </p>
+ * <p>
+ * Note that that if your {@link ServiceObject} needs a lot of references to
+ * other objects (too many constructor parameters), your {@link ServiceObject}
+ * has most likely to many responsibilities, which could be solved by splitting
+ * up a {@link ServiceObject}.
+ * </p>
  * 
- * <h3>Presentation</h3> TODO menu items <br>
+ * <h3>Presentation</h3> TODO main menu's, object menu's, property menu's <br>
  * 
  * <h3>Service object members</h3>
  * <p>

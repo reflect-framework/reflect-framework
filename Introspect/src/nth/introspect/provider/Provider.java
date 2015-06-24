@@ -11,7 +11,7 @@ import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
 /**
- * {@link Provider}s are responsible for different aspects within the
+ * {@link Provider}s are responsible for different <a href="cross cutting concerns">cross cutting concerns</a> within the
  * {@link IntrospectFramework} such as:
  * <ul>
  * <li>Authorization (see {@link AuthorizationProvider})</li>

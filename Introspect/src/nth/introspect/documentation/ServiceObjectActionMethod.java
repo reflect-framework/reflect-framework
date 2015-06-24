@@ -4,10 +4,10 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
 
 /**
  * <p>
- * An action is a method in a {@link DomainObject} or {@link ServiceObject} is
- * displayed by the {@link UserInterfaceController} as a menu item. An Action
- * method is invoked by the {@link UserInterfaceController} when the user clicks
- * on the menu item.
+ * An action is a method in a {@link DomainObject} or {@link ServiceObject} that
+ * is displayed by the {@link UserInterfaceController} as a menu item. An
+ * {@link ActionMethod} is invoked by the {@link UserInterfaceController} when
+ * the user clicks on the menu item.
  * </p>
  * <h3>Action Methods for Service Objects</h3>
  * <p>
@@ -22,8 +22,7 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
  * </ul>
  * </p>
  * <p>
- * <a
- * href="https://en.wikipedia.org/?title=Object-oriented_programming"> Object
+ * <a href="https://en.wikipedia.org/?title=Object-oriented_programming"> Object
  * Orientated Programming</a> favors to put business logic and the validation
  * logic into the {@link DomainObject}s (and sometimes
  * {@link InfrastructureObject}s) as much as possible.

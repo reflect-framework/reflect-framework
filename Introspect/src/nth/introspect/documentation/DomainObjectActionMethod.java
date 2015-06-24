@@ -4,7 +4,7 @@ import nth.introspect.controller.userinterface.UserInterfaceController;
 
 /**
  * <p>
- * An action is a method in a {@link DomainObject} or {@link ServiceObject} is
+ * An action is a method in a {@link DomainObject} or {@link ServiceObject} that is
  * displayed by the {@link UserInterfaceController} as a menu item. An Action
  * method is invoked by the {@link UserInterfaceController} when the user clicks
  * on the menu item.
