@@ -51,11 +51,11 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * message dialog that displays the return value after the method is been
  * executed</li>
  * <li>A {@link DomainObject}: The {@link UserInterfaceController} displays the
- * domain object in a form on a new tab.</li>
+ * {@link DomainObject} in a form on a new tab.</li>
  * <li>A <a
  * href="http://en.wikipedia.org/wiki/Java_collections_framework">collection</a>
  * of {@link DomainObject}s: The {@link UserInterfaceController} displays the
- * domain objects in table on a new tab. Note that you will need to annotate the
+ * {@link DomainObject}s in table on a new tab. Note that you will need to annotate the
  * Action method with a @{@link GenericReturnType} annotation in which you need
  * to define the {@link DomainObject} type.</li>
  * <li>A URI: The {@link UserInterfaceController} displays the contents of the

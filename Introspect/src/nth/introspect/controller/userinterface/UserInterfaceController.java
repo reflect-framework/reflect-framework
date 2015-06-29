@@ -37,7 +37,6 @@ import nth.introspect.provider.userinterface.view.ViewContainer;
  * 
  * @author Nils ten Hoeve
  * 
- * @param <T>
  */
 public interface UserInterfaceController<T> extends  Refreshable, NotificationListener {
 

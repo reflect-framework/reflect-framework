@@ -22,6 +22,7 @@ import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.documentation.ProviderLayer;
 import nth.introspect.documentation.ServiceLayer;
 import nth.introspect.documentation.ServiceObject;
+import nth.introspect.documentation.ServiceObjectActionMethod;
 import nth.introspect.documentation.UserInterfaceLayer;
 import nth.introspect.provider.Provider;
 
@@ -51,10 +52,8 @@ import nth.introspect.provider.Provider;
  * </p>
  * <p>
  * The {@link IntrospectArchitecture} consists of several layers. Each layer has
- * its own {@link IntrospectContainer} that is responsible for creating new
- * objects (and cashing them when needed) within that layer and if needed
- * linking the new objects to other objects within the same layer or objects in
- * the lower layers:
+ * its own {@link IntrospectContainer} that is for managing the objects in the
+ * same layer:
  * <ul>
  * <li>{@link UserInterfaceLayer}: {@link UserInterfaceController} object is
  * managed by a {@link UserInterfaceContainer}. The
@@ -72,12 +71,12 @@ import nth.introspect.provider.Provider;
  * {@link ProviderContainer}.</li>
  * </ul>
  * </p>
+ * 
+ * <h3>Constructor Injection</h3>
  * <p>
- * The {@link IntrospectFramework} favours constructor injection (see <a
- * href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a>'s easy to
- * read <a href="http://martinfowler.com/articles/injection.html">article</a>
- * for the arguments why).
- * TODO add example
+ * {@insert ConstructionInjection}
+ * </p>
+ * 
  * 
  * @author nilsth
  * @see IntrospectArchitecture

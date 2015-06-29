@@ -1,6 +1,8 @@
 package nth.introspect.documentation;
 
+import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.impl.DomainContainer;
+import nth.introspect.container.impl.ServiceContainer;
 
 /**
  * The Domain layer is the hart of any Introspect application. The domain layer
@@ -17,8 +19,10 @@ import nth.introspect.container.impl.DomainContainer;
  * <li><a href="http://en.wikipedia.org/wiki/Domain_model">Domain model</a>
  * layer</li>
  * </ul>
- * The domain layer is basically where all the domain objects are. <br>
- * <br>
+ * <p>
+ * The domain layer is basically where all the domain objects are. The {@link DomainContainer} is an {@link IntrospectContainer} that
+ * that can be used to create and hold {@link DomainObject}'s that need dependency injection.
+ * </p>
  * Note that the {@link DomainLayer} is a middle layer (see
  * {@link IntrospectArchitecture}):
  * <ul>
@@ -29,7 +33,7 @@ import nth.introspect.container.impl.DomainContainer;
  * {@link InfrastructureLayer} or {@link ProviderLayer}, but not visa versa!</li>
  * </ul>
  * 
- * <h2>Domain Objects</h2> {@insert DomainObject}
+ * <h2>{@link DomainObject}s</h2> {@insert DomainObject}
  * 
  * @author Nils ten Hoeve
  * @see IntrospectArchitecture

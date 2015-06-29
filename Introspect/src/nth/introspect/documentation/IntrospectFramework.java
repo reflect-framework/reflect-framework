@@ -34,7 +34,7 @@ import nth.introspect.provider.Provider;
  * <li>And others</li>
  * </ul>
  * If you want to start coding right now (even if you are a beginner) please go
- * to {@linkplain IntrospectGettingStarted}. If you want to know more about the
+ * to {@link IntrospectGettingStarted}. If you want to know more about the
  * Introspect Framework continue reading....
  *
  * <h2>Why the Introspect framework was developed</h2>

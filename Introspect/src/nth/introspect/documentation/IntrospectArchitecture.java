@@ -1,6 +1,7 @@
 package nth.introspect.documentation;
 
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 
 /**
  * The Introspect Framework helps you to create a <a

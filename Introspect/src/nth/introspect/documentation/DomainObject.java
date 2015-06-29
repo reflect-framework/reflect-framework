@@ -12,7 +12,7 @@ import nth.introspect.provider.domain.info.DomainInfoProvider;
  * <p>
  * {@link DomainObject}s represent entities; the nouns of the domain. If your
  * application domain is a sales application it’s likely that your domain model
- * contains domain objects such as: customers, products and orders.
+ * contains {@link DomainObject}s such as: customers, products and orders.
  * </p>
  * <p>
  * {@link DomainObject}s are created by a developer or are reused from an

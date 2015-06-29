@@ -13,6 +13,15 @@ import nth.introspect.provider.Provider;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 
 /**
+ * <p>
+ * The word 'service' implies: <ul>
+ * <li>
+ * There is a client that needs to be served (the user, trough the
+ * {@link UserInterfaceController})</li>
+ * <li>There are activities\ operations (defined as {@link ActionMethod}'s)</li>
+ * <li>An activity\ operation is done with other things ( {@link ActionMethod} parameters and return values should be {@link DomainObject}s)</li>
+ * </ul>
+ * </p>
  * Eric Evans explains in his book <a
  * href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
  * Design</a>, that a good {@link ServiceObject} has three characteristics:
@@ -75,7 +84,7 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>.
  * </p>
  * <p>
- * A web shop example:
+ * <h3>A web shop example</h3>
  * <ul>
  * <li>The {@link UserInterfaceController} class calls the
  * {@link ServiceObjectActionMethod} findProduct(searchCriteria) method on
@@ -88,7 +97,7 @@ import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnT
  * {@link DomainObject}s as a table in a new tab.</li>
  * </ul>
  * </p>
- * 
+ 
  * <h3>Naming</h3>
  * <p>
  * {@link ServiceObject}s are normally named after the {@link DomainObject}s

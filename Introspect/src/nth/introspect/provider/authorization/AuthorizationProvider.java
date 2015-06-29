@@ -33,11 +33,11 @@ import nth.introspect.provider.Provider;
  * example: you could write an implementation that uses:
  * <ul>
  * <li>
- * the {@link DefaultAuthorizationProvider} always returns true on the
- * {@link #userInRole(String)} method</li>
+ * the {@link DefaultAuthorizationProvider} (always returns true on the
+ * {@link #userInRole(String)} method)</li>
  * <li>hard coded authorization</li>
  * <li>file based authorization</li>
- * <li>database authorisation</li>
+ * <li>database authorization</li>
  * <li>web container authorization (e.g. <a
  * href="https://tomcat.apache.org/tomcat-7.0-doc/realm-howto.html">Apache
  * Tomcat Realm</a>)</li>
@@ -75,7 +75,6 @@ import nth.introspect.provider.Provider;
  * </p>
  * 
  * Code example
- * 
  * <pre>
  * public class OrderService {
  * 
