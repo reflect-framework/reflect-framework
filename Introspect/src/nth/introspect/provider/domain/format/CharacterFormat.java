@@ -17,6 +17,7 @@ public class CharacterFormat extends Format {
 		if (source==null || source.length()<1) {
 			return null;
 		}
+		pos.setIndex(1);
 		return source.charAt(0);
 	}
 

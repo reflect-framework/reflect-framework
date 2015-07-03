@@ -174,7 +174,7 @@ public class UserInterfaceControllerForCommandLine extends
 	}
 
 	private File getCommandFile(String[] arguments) {
-		String fileName = arguments[0];
+		String fileName = arguments[0].replace(" ", "%20");
 		URI rootPath = pathProvider.getRootPath();
 		URI filePath = rootPath.resolve(fileName);
 		return new File(filePath);

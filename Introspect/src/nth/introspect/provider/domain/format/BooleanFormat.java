@@ -25,8 +25,10 @@ public class BooleanFormat extends Format {
 			return null;
 		} else {
 			if (source.toLowerCase().trim().equals(TRUE.toLowerCase())) {
+				pos.setIndex(source.length());
 				return true;
 			} else if (source.toLowerCase().trim().equals(FALSE.toLowerCase())) {
+				pos.setIndex(source.length());
 				return false;
 			} else {
 				return null;		
