@@ -1,6 +1,7 @@
 package nth.introspect.documentation;
 
 import nth.introspect.Introspect;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 
 /**
  * <p>
@@ -54,6 +55,11 @@ import nth.introspect.Introspect;
  * </ul>
  * TODO dependency injection (see {@link ServiceObject})
  * </p>
+ * <h3>Infrastructure Object Presentation</h3>
+ * <p>
+ * The methods of infrastructure object are unknown to the
+ * {@link UserInterfaceController} and are not displayed on the <a
+ * href="https://en.wikipedia.org/wiki/User_interface">User Interface</a>.
  * 
  * @author Nils ten Hoeve
  * 

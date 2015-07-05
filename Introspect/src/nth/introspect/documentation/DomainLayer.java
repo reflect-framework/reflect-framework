@@ -33,7 +33,7 @@ import nth.introspect.container.impl.ServiceContainer;
  * {@link InfrastructureLayer} or {@link ProviderLayer}, but not visa versa!</li>
  * </ul>
  * 
- * <h2>{@link DomainObject}s</h2> {@insert DomainObject}
+ * <h2>Domain Objects</h2> {@insert DomainObject}
  * 
  * @author Nils ten Hoeve
  * @see IntrospectArchitecture

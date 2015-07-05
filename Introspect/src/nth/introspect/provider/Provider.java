@@ -1,6 +1,8 @@
 package nth.introspect.provider;
 
 import nth.introspect.application.IntrospectApplication;
+import nth.introspect.container.IntrospectContainer;
+import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
@@ -11,7 +13,8 @@ import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.validation.ValidationProvider;
 
 /**
- * {@link Provider}s are responsible for different <a href="cross cutting concerns">cross cutting concerns</a> within the
+ * {@link Provider}s are responsible for different <a
+ * href="cross cutting concerns">cross cutting concerns</a> within the
  * {@link IntrospectFramework} such as:
  * <ul>
  * <li>Authorization (see {@link AuthorizationProvider})</li>
@@ -29,7 +32,9 @@ import nth.introspect.provider.validation.ValidationProvider;
  * Providers are interfaces and can have multiple implementations (depending on
  * what type of application you are using/writing). Which implementation of each
  * provider needs to be used within an application is defined in the
- * {@link IntrospectApplication} class
+ * {@link IntrospectApplication} class. You are free to implement your own
+ * {@link Provider} implementation and register it by overwriting one of the
+ * {@link IntrospectApplication#get...ProviderClass()} methods
  * </p>
  * <h3>Authorization Provider</h3>
  * <p>
@@ -60,7 +65,19 @@ import nth.introspect.provider.validation.ValidationProvider;
  * {@insert AboutProvider}
  * </p>
  * 
- * 
+ * <h3>Provider Construction</h3>
+ * <p>
+ * {@link Provider}'s are instantiated by the {@link IntrospectFramework} with
+ * the {@link IntrospectContainer}. {@link Provider}'s may have references to
+ * other providers by adding the reference providers as a constructor parameter.
+ * These providers are passed to the constructor as a parameter when the
+ * provider is instantiated.
+ * </p>
+ * <h3>Provider Presentation</h3>
+ * <p>
+ * The methods of {@link Provider} object are unknown to the
+ * {@link UserInterfaceController} and are not displayed on the <a
+ * href="https://en.wikipedia.org/wiki/User_interface">User Interface</a>.
  * 
  * @author Nils ten Hoeve
  */

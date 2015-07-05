@@ -9,8 +9,8 @@ import nth.introspect.provider.validation.ValidationProvider;
  * 
  * Behavior can be added with:
  * <ul>
- * <li>methods that are recognized bin the Introspect framework</li>
- * <li>methods that are recognized book the Introspect framework</li>
+ * <li>methods that are recognized by the {@link IntrospectFramework}</li>
+ * <li>annotations that are recognized by the {@link IntrospectFramework}</li>
  * </ul>
  * TO-DO RECOGNIZED METHODS (see naked objects doc)
  * 

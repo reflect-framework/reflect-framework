@@ -12,8 +12,7 @@ import nth.introspect.provider.userinterface.view.View;
  * The {@link UserInterfaceLayer} is also know as presentation layer (although I
  * think that 'presentation layer' is a poor name, because it is responsible for
  * so much more). The {@link UserInterfaceLayer} contains the
- * {@link UserInterfaceController}, which is responsible for displaying and
- * controlling the user interface<br>
+ * {@link UserInterfaceController}, which is responsible for showing information to the user and processing the information from the user using the objects in the lower layers (see {@link IntrospectArchitecture}).
  * <p>
  * The {@link UserInterfaceContainer} is an {@link IntrospectContainer} that
  * represents the {@link UserInterfaceLayer} and holds and manages the
