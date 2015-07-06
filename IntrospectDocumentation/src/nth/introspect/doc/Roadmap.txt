@@ -1,0 +1,11 @@
+Introspect framework:
+
+Complete documentation
+Rename Introspect to refelect
+Release command Line application (TODO validation)
+Release swing Line application (TODO validation)
+Release android Line application (TODO validation)
+Add autocompletetion support for fields
+Add multiple option support (combobox) for fields (with a method that provides the options as objects)
+Add multiple supports for diffeternt type of data stores (excel, sql, jpa, object, etc)
+
