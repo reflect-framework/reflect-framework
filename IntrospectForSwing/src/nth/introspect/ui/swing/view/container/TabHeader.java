@@ -22,11 +22,11 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer1userinterface.view.View;
+import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.userinterface.item.Item;
-import nth.introspect.layer5provider.userinterface.view.View;
-import nth.introspect.layer5provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.tab.TabsItem;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
 

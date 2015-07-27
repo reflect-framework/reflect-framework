@@ -3,7 +3,7 @@ package nth.introspect.ui.commandline.view;
 import java.net.URI;
 
 import nth.introspect.generic.exception.MethodNotSupportedException;
-import nth.introspect.layer5provider.userinterface.view.View;
+import nth.introspect.layer1userinterface.view.View;
 
 public abstract class CommandLineView implements View {
 

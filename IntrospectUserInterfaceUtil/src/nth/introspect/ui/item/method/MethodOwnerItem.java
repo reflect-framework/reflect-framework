@@ -7,10 +7,10 @@ import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
 
 public class MethodOwnerItem extends HierarchicalItem {

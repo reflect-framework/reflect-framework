@@ -5,8 +5,8 @@ import nth.introspect.container.IntrospectContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer2service.ServiceContainer;
-import nth.introspect.layer5provider.userinterface.view.View;
 
 /**
  * 

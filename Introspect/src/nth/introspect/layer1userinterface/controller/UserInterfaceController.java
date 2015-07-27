@@ -6,11 +6,11 @@ import java.util.List;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
+import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.Provider;
 import nth.introspect.layer5provider.domain.info.method.MethodInfo;
 import nth.introspect.layer5provider.notification.NotificationListener;
-import nth.introspect.layer5provider.userinterface.item.Item;
-import nth.introspect.layer5provider.userinterface.view.ViewContainer;
 
 /**
  * <p>

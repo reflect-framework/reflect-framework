@@ -1,6 +1,6 @@
 package nth.introspect.ui.item;
 
-import nth.introspect.layer5provider.userinterface.item.Item;
+import nth.introspect.layer1userinterface.item.Item;
 
 public class SeparatorItem extends Item {
 

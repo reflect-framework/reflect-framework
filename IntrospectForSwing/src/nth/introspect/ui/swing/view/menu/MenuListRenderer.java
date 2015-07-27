@@ -6,7 +6,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 
-import nth.introspect.layer5provider.userinterface.item.Item;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.swing.icon.IconFactory;
 import nth.introspect.ui.swing.style.SwingStyleConstant;
 

@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.userinterface.view;
+package nth.introspect.layer1userinterface.view;
 
 import java.net.URI;
 

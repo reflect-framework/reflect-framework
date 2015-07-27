@@ -2,7 +2,7 @@ package nth.introspect.ui.swing.item.menu;
 
 import javax.swing.JMenuItem;
 
-import nth.introspect.layer5provider.userinterface.item.Item;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
 
 public class MenuItemFactory {

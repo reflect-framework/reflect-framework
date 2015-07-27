@@ -8,8 +8,8 @@ import nth.introspect.generic.util.ExceptionUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.userinterface.item.Item;
 
 //TODO move to UserinterfaceUtil project
 public class DialogShowStackTraceItem extends Item {

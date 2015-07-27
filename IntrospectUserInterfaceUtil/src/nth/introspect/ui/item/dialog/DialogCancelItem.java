@@ -1,7 +1,7 @@
 package nth.introspect.ui.item.dialog;
 
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.userinterface.item.Item;
 
 //TODO move to UserinterfaceUtil project
 public class DialogCancelItem extends Item {

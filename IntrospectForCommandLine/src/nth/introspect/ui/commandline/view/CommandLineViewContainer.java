@@ -1,8 +1,8 @@
 package nth.introspect.ui.commandline.view;
 
 import nth.introspect.generic.exception.MethodNotSupportedException;
-import nth.introspect.layer5provider.userinterface.view.View;
-import nth.introspect.layer5provider.userinterface.view.ViewContainer;
+import nth.introspect.layer1userinterface.view.View;
+import nth.introspect.layer1userinterface.view.ViewContainer;
 
 public class CommandLineViewContainer implements ViewContainer<CommandLineView> {
 

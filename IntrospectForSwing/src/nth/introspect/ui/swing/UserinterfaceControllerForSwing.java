@@ -22,6 +22,8 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.domain.info.method.MethodInfo;
@@ -29,8 +31,6 @@ import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionMode
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.userinterface.item.Item;
-import nth.introspect.layer5provider.userinterface.item.Item.Action;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
@@ -116,7 +116,7 @@ public class UserinterfaceControllerForSwing extends
 	}
 
 	@Override
-	public nth.introspect.layer5provider.userinterface.view.ViewContainer getViewContainer() {
+	public nth.introspect.layer1userinterface.view.ViewContainer getViewContainer() {
 		return mainWindow.getViewContainer();
 	}
 
