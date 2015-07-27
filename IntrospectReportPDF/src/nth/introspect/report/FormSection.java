@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.report;
+package nth.introspect.report;
 
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 

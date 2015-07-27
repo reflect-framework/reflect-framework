@@ -3,7 +3,6 @@ package nth.introspect.report.msexcel.item;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -15,21 +14,13 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.generic.filter.Filter;
-import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.FormOrderComparator;
 import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
 import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
-import nth.introspect.layer5provider.domain.info.type.PropertyType;
 import nth.introspect.layer5provider.domain.info.type.TypeCategory;
-import nth.introspect.layer5provider.report.FormSection;
-import nth.introspect.layer5provider.report.Report;
-import nth.introspect.layer5provider.report.ReportProvider;
-import nth.introspect.layer5provider.report.Section;
-import nth.introspect.layer5provider.report.TableSection;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
@@ -38,7 +29,6 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Footer;
-import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Row;
@@ -403,18 +393,6 @@ public class ExcelReportFactory {
 		return style;
 	}
 
-	private Sheet createSheet(Report report, Section section, Workbook workbook) {
-		Sheet sheet = workbook.createSheet(section.getSectionName());
-
-		initPageSetup(sheet);
-
-		initHeader(report, section, sheet);
-
-		initFooter(sheet, new Date());
-
-		return sheet;
-	}
-
 	private void initPageSetup(Sheet sheet) {
 		// print and page setup
 		sheet.setPrintGridlines(true);
@@ -428,11 +406,6 @@ public class ExcelReportFactory {
 		printSetup.setFitWidth((short) 1);
 	}
 
-	private void initHeader(Report report, Section section, Sheet sheet) {
-		Header header = sheet.getHeader();
-		header.setLeft(report.getReportName());
-		header.setRight(section.getSectionName());
-	}
 
 	private void initFooter(Sheet sheet, Date exportDateTime) {
 		Footer footer = sheet.getFooter();

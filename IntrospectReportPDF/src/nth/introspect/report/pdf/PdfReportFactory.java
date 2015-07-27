@@ -11,11 +11,11 @@ import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
 import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
-import nth.introspect.layer5provider.report.FormSection;
-import nth.introspect.layer5provider.report.Report;
-import nth.introspect.layer5provider.report.ReportProvider;
-import nth.introspect.layer5provider.report.Section;
-import nth.introspect.layer5provider.report.TableSection;
+import nth.introspect.report.FormSection;
+import nth.introspect.report.Report;
+import nth.introspect.report.ReportProvider;
+import nth.introspect.report.Section;
+import nth.introspect.report.TableSection;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
