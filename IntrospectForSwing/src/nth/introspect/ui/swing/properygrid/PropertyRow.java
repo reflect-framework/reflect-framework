@@ -10,8 +10,6 @@ import javax.swing.JPanel;
 
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.PropertyChangeListener;
-import nth.introspect.layer5provider.reflection.info.PropertyChangeType;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.swing.view.form.field.FieldFactory;
@@ -22,7 +20,7 @@ import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 
-public class PropertyRow extends JPanel implements PropertyChangeListener {
+public class PropertyRow extends JPanel {
 	private static final long serialVersionUID = -1361779111256295050L;
 	private final FieldWidth fieldWidth;
 	private WrapingLabel label;
@@ -124,34 +122,6 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 			validator = new JLabel();
 		}
 		return validator;
-	}
-
-	@Override
-	public void propertyChanged(PropertyChangeType propertyChangeType) {
-		switch (propertyChangeType) {
-		case ENABLED_CHANGED:
-			// TODO field.setEnabled(properyValueModel.isWriteEnabled());
-			break;
-		case VISIBILITY_CHANGED:
-			setVisible(propertyValueModel.isVisible());
-			break;
-		case VALUE_CHANGED:
-			// TODO field.setValue(properyValueModel.getValue());
-			break;
-		default:
-			throw new IllegalArgumentException(propertyChangeType + " is not supported");
-		}
-
-	}
-
-	@Override
-	public Object getIntrospectedObject() {
-		return domainValueModel;
-	}
-
-	@Override
-	public PropertyInfo getPropertyInfo() {
-		return propertyInfo;
 	}
 
 }
