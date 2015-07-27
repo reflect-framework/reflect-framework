@@ -2,7 +2,7 @@ package nth.introspect.ui.images;
 
 import java.net.URI;
 
-import nth.introspect.provider.path.id.PathID;
+import nth.introspect.layer5provider.path.id.PathID;
 
 public class IntrospectImagePathIdentifier extends PathID {
 

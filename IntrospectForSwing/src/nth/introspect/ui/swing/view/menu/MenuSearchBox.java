@@ -6,8 +6,8 @@ import javax.swing.JComboBox;
 import javax.swing.text.JTextComponent;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.userinterface.item.Item.Action;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.userinterface.item.Item.Action;
 import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.swing.accordion.ItemAccordion;

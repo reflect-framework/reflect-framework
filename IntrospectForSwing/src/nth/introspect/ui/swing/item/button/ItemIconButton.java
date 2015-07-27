@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.swing.icon.IconFactory;
 import nth.introspect.ui.swing.style.SwingStyleConstant;
 

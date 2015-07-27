@@ -17,11 +17,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.swing.item.menubar.MenuBar;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
@@ -30,7 +31,6 @@ import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.swing.view.table.MethodTableModel;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormView;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class ManyToOneOrManyField extends JPanel implements Refreshable {
 

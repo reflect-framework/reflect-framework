@@ -7,8 +7,8 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;

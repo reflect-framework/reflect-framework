@@ -1,11 +1,11 @@
 package nth.introspect.documentation;
 
+import nth.introspect.generic.titlebuilder.TitleBuilder;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
-import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
-import nth.introspect.util.TitleBuilder;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
 
 /**
  * Domain objects have <a

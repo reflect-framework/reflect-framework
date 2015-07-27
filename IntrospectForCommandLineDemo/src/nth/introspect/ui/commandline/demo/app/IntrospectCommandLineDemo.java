@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.container.exception.IntrospectContainerException;
-import nth.introspect.provider.notification.DefaultNotificationProvider;
-import nth.introspect.provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.ui.commandline.IntrospectApplicationForCommandLine;
 import nth.introspect.ui.commandline.demo.dom.TestService;
 

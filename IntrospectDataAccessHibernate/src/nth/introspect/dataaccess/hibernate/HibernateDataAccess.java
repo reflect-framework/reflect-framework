@@ -7,8 +7,8 @@ import nth.introspect.dataaccess.hibernate.entity.DeletableEntity;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnitConfiguration;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnitFactory;
-import nth.introspect.provider.dataaccess.Criteria;
-import nth.introspect.provider.dataaccess.DataAccessProvider;
+import nth.introspect.layer5provider.dataaccess.Criteria;
+import nth.introspect.layer5provider.dataaccess.DataAccessProvider;
 
 public abstract class HibernateDataAccess<T> implements DataAccessProvider<T> {
 

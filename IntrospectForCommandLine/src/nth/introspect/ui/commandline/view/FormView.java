@@ -2,11 +2,11 @@ package nth.introspect.ui.commandline.view;
 
 import java.util.List;
 
-import nth.introspect.filter.Filter;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.property.FormOrderComparator;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.generic.filter.Filter;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.property.FormOrderComparator;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.commandline.domain.table.Row;
 import nth.introspect.ui.commandline.domain.table.Table;
 

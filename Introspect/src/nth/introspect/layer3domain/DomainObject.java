@@ -11,7 +11,7 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 
 /**
  * <p>

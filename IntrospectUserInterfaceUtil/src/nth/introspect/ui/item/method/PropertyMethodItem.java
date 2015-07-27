@@ -1,18 +1,18 @@
 package nth.introspect.ui.item.method;
 
 import nth.introspect.Introspect;
+import nth.introspect.generic.util.TitleUtil;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.type.MethodParameterType;
-import nth.introspect.provider.domain.info.type.TypeCategory;
-import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.type.MethodParameterType;
+import nth.introspect.layer5provider.domain.info.type.TypeCategory;
+import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
-import nth.introspect.util.TitleUtil;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class PropertyMethodItem extends MethodItem {
 

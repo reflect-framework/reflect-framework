@@ -13,7 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.ListModel;
 
-import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.swing.icon.IconFactory;

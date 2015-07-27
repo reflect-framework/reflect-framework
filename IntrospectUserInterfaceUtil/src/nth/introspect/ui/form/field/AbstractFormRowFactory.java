@@ -1,7 +1,7 @@
 package nth.introspect.ui.form.field;
 
-import nth.introspect.provider.domain.info.property.FieldModeType;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.property.FieldModeType;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormMode;

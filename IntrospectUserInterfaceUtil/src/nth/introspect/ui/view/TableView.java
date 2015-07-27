@@ -1,7 +1,7 @@
 package nth.introspect.ui.view;
 
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public interface TableView extends MethodView{
 

@@ -17,15 +17,16 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import nth.introspect.IntrospectApplication;
+import nth.introspect.generic.exception.MethodNotSupportedException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.item.Item.Action;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.userinterface.item.Item;
+import nth.introspect.layer5provider.userinterface.item.Item.Action;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.commandline.domain.command.Command;
 import nth.introspect.ui.commandline.domain.command.CommandService;
@@ -37,7 +38,6 @@ import nth.introspect.ui.commandline.view.FormView;
 import nth.introspect.ui.commandline.view.HelpView;
 import nth.introspect.ui.commandline.view.TableView;
 import nth.introspect.ui.view.FormMode;
-import nth.introspect.util.exception.MethodNotSupportedException;
 
 public class UserInterfaceControllerForCommandLine extends
 		GraphicalUserinterfaceController<CommandLineView> {

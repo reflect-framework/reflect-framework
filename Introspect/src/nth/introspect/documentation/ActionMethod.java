@@ -4,10 +4,10 @@ import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.provider.domain.format.DomainObjectFormat;
-import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.provider.domain.info.valuemodel.annotations.ExecutionMode;
-import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.layer5provider.domain.format.DomainObjectFormat;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.ExecutionMode;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
 
 /**
  * <h3>Action Methods Convention</h3>

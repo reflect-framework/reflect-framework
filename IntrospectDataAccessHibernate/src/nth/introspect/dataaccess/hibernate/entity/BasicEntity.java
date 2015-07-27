@@ -5,8 +5,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInForm;
-import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInTable;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.VisibleInForm;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.VisibleInTable;
 
 @MappedSuperclass
 public abstract class BasicEntity {

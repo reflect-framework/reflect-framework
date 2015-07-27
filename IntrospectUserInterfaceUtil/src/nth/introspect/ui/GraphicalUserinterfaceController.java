@@ -7,21 +7,22 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.provider.domain.info.method.filter.MethodNameFilter;
-import nth.introspect.provider.domain.info.type.TypeCategory;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.notification.NotificationProvider;
-import nth.introspect.provider.notification.Task;
-import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.view.View;
-import nth.introspect.provider.userinterface.view.ViewContainer;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.domain.info.method.filter.MethodNameFilter;
+import nth.introspect.layer5provider.domain.info.type.TypeCategory;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.notification.Task;
+import nth.introspect.layer5provider.userinterface.item.Item;
+import nth.introspect.layer5provider.userinterface.view.View;
+import nth.introspect.layer5provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
@@ -29,7 +30,6 @@ import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 import nth.introspect.ui.view.TableView;
-import nth.introspect.util.TitleUtil;
 
 /**
  * 

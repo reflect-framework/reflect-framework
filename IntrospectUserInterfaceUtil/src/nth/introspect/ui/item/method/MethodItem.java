@@ -3,12 +3,12 @@ package nth.introspect.ui.item.method;
 import java.net.URI;
 
 import nth.introspect.Introspect;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.type.TypeCategory;
-import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.type.TypeCategory;
+import nth.introspect.layer5provider.userinterface.item.Item;
 
 public class MethodItem extends Item {
 

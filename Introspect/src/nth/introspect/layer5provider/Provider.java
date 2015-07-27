@@ -4,13 +4,13 @@ import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.authorization.AuthorizationProvider;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.notification.NotificationProvider;
-import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.validation.ValidationProvider;
+import nth.introspect.layer5provider.about.AboutProvider;
+import nth.introspect.layer5provider.authorization.AuthorizationProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
  * {@link Provider}s are responsible for different <a

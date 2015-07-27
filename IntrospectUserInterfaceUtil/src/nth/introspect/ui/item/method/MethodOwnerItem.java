@@ -3,15 +3,15 @@ package nth.introspect.ui.item.method;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.filter.Filter;
+import nth.introspect.generic.filter.Filter;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.classinfo.ClassInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class MethodOwnerItem extends HierarchicalItem {
 

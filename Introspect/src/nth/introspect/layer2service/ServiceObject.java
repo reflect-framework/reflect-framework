@@ -17,7 +17,7 @@ import nth.introspect.layer3domain.DomainContainer;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
-import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
 
 /**
  * <p>

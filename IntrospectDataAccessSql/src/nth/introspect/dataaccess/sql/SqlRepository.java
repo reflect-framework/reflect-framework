@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.dataaccess.Criteria;
-import nth.introspect.provider.dataaccess.DataAccessProvider;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.dataaccess.Criteria;
+import nth.introspect.layer5provider.dataaccess.DataAccessProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 
 public abstract  class SqlRepository implements DataAccessProvider<Object> {
 	protected Connection connection;

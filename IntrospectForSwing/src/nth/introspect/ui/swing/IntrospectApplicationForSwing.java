@@ -3,20 +3,20 @@ package nth.introspect.ui.swing;
 import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.about.DefaultAboutProvider;
-import nth.introspect.provider.authorization.AuthorizationProvider;
-import nth.introspect.provider.authorization.DefaultAuthorizationProvider;
-import nth.introspect.provider.domain.info.DefaultDomainInfoProvider;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.language.DefaultLanguageProvider;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.notification.DefaultNotificationProvider;
-import nth.introspect.provider.notification.NotificationProvider;
-import nth.introspect.provider.path.DefaultPathProvider;
-import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.validation.DefaultValidationProvider;
-import nth.introspect.provider.validation.ValidationProvider;
+import nth.introspect.layer5provider.about.AboutProvider;
+import nth.introspect.layer5provider.about.DefaultAboutProvider;
+import nth.introspect.layer5provider.authorization.AuthorizationProvider;
+import nth.introspect.layer5provider.authorization.DefaultAuthorizationProvider;
+import nth.introspect.layer5provider.domain.info.DefaultDomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.language.DefaultLanguageProvider;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.path.DefaultPathProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.validation.DefaultValidationProvider;
+import nth.introspect.layer5provider.validation.ValidationProvider;
 
 public abstract class IntrospectApplicationForSwing implements
 		IntrospectApplication {

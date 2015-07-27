@@ -10,10 +10,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.view.View;
-import nth.introspect.provider.userinterface.view.ViewContainer;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.userinterface.view.View;
+import nth.introspect.layer5provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.swing.icon.IconFactory;
 import nth.introspect.ui.swing.style.SwingStyleConstant;
 import nth.introspect.ui.swing.view.SwingView;

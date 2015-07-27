@@ -12,8 +12,8 @@ import java.util.Map;
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
 
 public class CommandService {
 

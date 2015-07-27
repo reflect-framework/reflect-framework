@@ -8,17 +8,17 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import nth.introspect.Introspect;
+import nth.introspect.generic.tablemodel.DomainTableModel;
+import nth.introspect.generic.util.TypeUtil;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.provider.domain.format.JavaFormatFactory;
-import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.property.TableOrderComparator;
-import nth.introspect.provider.domain.info.property.TableVisibleFilter;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.tablemodel.DomainTableModel;
-import nth.introspect.util.TypeUtil;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
+import nth.introspect.layer5provider.domain.format.JavaFormatFactory;
+import nth.introspect.layer5provider.domain.format.PropertyInfoFormatFactory;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
+import nth.introspect.layer5provider.language.LanguageProvider;
 
 public class MethodTableModel extends AbstractTableModel implements
 		DomainTableModel, Refreshable {

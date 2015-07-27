@@ -1,10 +1,10 @@
 package nth.introspect.ui.valuemodel;
 
+import nth.introspect.generic.util.CloneUtil;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.ui.view.FormMode;
-import nth.introspect.util.CloneUtil;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class BufferedDomainValueModel implements ReadOnlyValueModel {
 

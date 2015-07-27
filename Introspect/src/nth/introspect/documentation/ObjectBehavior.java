@@ -1,7 +1,7 @@
 package nth.introspect.documentation;
 
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.validation.ValidationProvider;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
  * This section is concerned with adding to, or modifying, the behavior of

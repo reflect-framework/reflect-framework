@@ -13,14 +13,16 @@ import javax.swing.SwingUtilities;
 
 import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.Introspect;
+import nth.introspect.generic.util.TitleUtil;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.view.ViewContainer;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
 import nth.introspect.ui.item.tab.CloseThisTabItem;
@@ -31,8 +33,6 @@ import nth.introspect.ui.swing.properygrid.SwingUtil;
 import nth.introspect.ui.swing.view.SwingView;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.view.FormMode;
-import nth.introspect.util.TitleUtil;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 @SuppressWarnings("serial")
 public class FormView extends SwingView implements

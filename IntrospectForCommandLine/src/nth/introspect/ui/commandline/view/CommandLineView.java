@@ -2,8 +2,8 @@ package nth.introspect.ui.commandline.view;
 
 import java.net.URI;
 
-import nth.introspect.provider.userinterface.view.View;
-import nth.introspect.util.exception.MethodNotSupportedException;
+import nth.introspect.generic.exception.MethodNotSupportedException;
+import nth.introspect.layer5provider.userinterface.view.View;
 
 public abstract class CommandLineView implements View {
 

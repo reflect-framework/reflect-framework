@@ -3,7 +3,7 @@ package nth.introspect.ui.swing.view.menu;
 import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.swing.UserinterfaceControllerForSwing;
 import nth.introspect.ui.swing.mainwindow.MainWindow;
 import nth.introspect.ui.swing.view.container.SwingViewContainer;

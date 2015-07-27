@@ -4,8 +4,8 @@ import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import nth.introspect.generic.valuemodel.ReadWriteValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.valuemodel.ReadWriteValueModel;
 
 @SuppressWarnings("serial")
 public class PasswordField extends JPasswordField implements Refreshable {

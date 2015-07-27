@@ -6,11 +6,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.view.View;
-import nth.introspect.provider.userinterface.view.ViewContainer;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.userinterface.item.Item;
+import nth.introspect.layer5provider.userinterface.view.View;
+import nth.introspect.layer5provider.userinterface.view.ViewContainer;
 import nth.introspect.ui.images.IntrospectImage;
 
 public class CloseThisTabItem extends Item {

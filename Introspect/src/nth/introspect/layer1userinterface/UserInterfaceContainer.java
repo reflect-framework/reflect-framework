@@ -8,12 +8,12 @@ import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
-import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.classinfo.ClassInfo;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.notification.NotificationProvider;
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.about.AboutProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.path.PathProvider;
 
 /**
  * This {@link IntrospectContainer} represents the {@link UserInterfaceLayer}

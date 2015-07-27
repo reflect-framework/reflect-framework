@@ -2,9 +2,9 @@ package nth.introspect.ui.commandline.demo.dom;
 
 import java.util.Date;
 
-import nth.introspect.provider.domain.info.property.FieldModeType;
-import nth.introspect.provider.domain.info.valuemodel.annotations.FieldMode;
-import nth.introspect.provider.domain.info.valuemodel.annotations.Format;
+import nth.introspect.layer5provider.domain.info.property.FieldModeType;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.FieldMode;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.Format;
 /**
  * Note that this class is derived form the Test class in the IntrospectTestDomain project<br>
  * It is simplified so it is suited for the command line user interface (Which is limited in functionality) 

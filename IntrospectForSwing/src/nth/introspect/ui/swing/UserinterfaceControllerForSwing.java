@@ -17,19 +17,20 @@ import javax.swing.JOptionPane;
 import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
+import nth.introspect.generic.util.ExceptionUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.about.AboutProvider;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.notification.NotificationProvider;
-import nth.introspect.provider.path.PathProvider;
-import nth.introspect.provider.userinterface.item.Item;
-import nth.introspect.provider.userinterface.item.Item.Action;
+import nth.introspect.layer5provider.about.AboutProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.userinterface.item.Item;
+import nth.introspect.layer5provider.userinterface.item.Item.Action;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
@@ -41,7 +42,6 @@ import nth.introspect.ui.swing.view.SwingView;
 import nth.introspect.ui.swing.view.form.FormView;
 import nth.introspect.ui.swing.view.table.TableView;
 import nth.introspect.ui.view.FormMode;
-import nth.introspect.util.ExceptionUtil;
 
 public class UserinterfaceControllerForSwing extends
 		GraphicalUserinterfaceController<SwingView> {
@@ -116,7 +116,7 @@ public class UserinterfaceControllerForSwing extends
 	}
 
 	@Override
-	public nth.introspect.provider.userinterface.view.ViewContainer getViewContainer() {
+	public nth.introspect.layer5provider.userinterface.view.ViewContainer getViewContainer() {
 		return mainWindow.getViewContainer();
 	}
 

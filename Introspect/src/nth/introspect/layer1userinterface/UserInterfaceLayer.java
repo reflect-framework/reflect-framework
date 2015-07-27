@@ -6,7 +6,7 @@ import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
-import nth.introspect.provider.userinterface.view.View;
+import nth.introspect.layer5provider.userinterface.view.View;
 
 /**
  * 

@@ -8,8 +8,8 @@ import javax.swing.Icon;
 import javax.swing.JList;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.swing.icon.IconFactory;
 
 @SuppressWarnings("serial")

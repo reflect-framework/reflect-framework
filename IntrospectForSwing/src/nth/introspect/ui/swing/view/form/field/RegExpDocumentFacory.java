@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.swing.text.Document;
 
-import nth.introspect.util.converterfactory.ConverterFactory;
+import nth.introspect.generic.converterfactory.ConverterFactory;
 
 public class RegExpDocumentFacory { 	//XXX extend ConverterFactory<T, U> ??? 
 

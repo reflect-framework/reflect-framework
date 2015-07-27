@@ -4,15 +4,15 @@ import java.net.URI;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.filter.LogicFilter;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.method.filter.LinkedToPropertyFilter;
-import nth.introspect.provider.domain.info.method.filter.ParameterTypeFilter;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
+import nth.introspect.generic.filter.LogicFilter;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.method.filter.LinkedToPropertyFilter;
+import nth.introspect.layer5provider.domain.info.method.filter.ParameterTypeFilter;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.ui.view.FormView;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class PropertyMethodOwnerItem extends HierarchicalItem {
 

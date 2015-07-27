@@ -12,12 +12,12 @@ import javax.swing.table.AbstractTableModel;
 import nth.introspect.Introspect;
 import nth.introspect.dataaccess.hibernate.HibernateDataAccess;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.property.TableOrderComparator;
-import nth.introspect.provider.domain.info.property.TableVisibleFilter;
-import nth.introspect.tablemodel.DomainTableModel;
-import nth.introspect.tablemodel.SortableTableModel;
+import nth.introspect.generic.tablemodel.DomainTableModel;
+import nth.introspect.generic.tablemodel.SortableTableModel;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
 
 public class JpaTableModel extends AbstractTableModel implements DomainTableModel, SortableTableModel {
 

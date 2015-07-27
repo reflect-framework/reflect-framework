@@ -13,15 +13,15 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
+import nth.introspect.generic.util.TitleUtil;
+import nth.introspect.generic.valuemodel.ReadWriteValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.classinfo.ClassInfo;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
-import nth.introspect.util.TitleUtil;
-import nth.introspect.valuemodel.ReadWriteValueModel;
 
 @SuppressWarnings("serial")
 public class ComboBox extends JComboBox implements Refreshable {

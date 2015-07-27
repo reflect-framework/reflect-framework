@@ -21,8 +21,8 @@ import javax.swing.event.ChangeListener;
 
 import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
 public class DateTimeField extends JSpinner implements Refreshable {

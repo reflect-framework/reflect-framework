@@ -7,15 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.property.TableOrderComparator;
-import nth.introspect.provider.domain.info.property.TableVisibleFilter;
-import nth.introspect.provider.report.FormSection;
-import nth.introspect.provider.report.Report;
-import nth.introspect.provider.report.ReportProvider;
-import nth.introspect.provider.report.Section;
-import nth.introspect.provider.report.TableSection;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
+import nth.introspect.layer5provider.report.FormSection;
+import nth.introspect.layer5provider.report.Report;
+import nth.introspect.layer5provider.report.ReportProvider;
+import nth.introspect.layer5provider.report.Section;
+import nth.introspect.layer5provider.report.TableSection;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;

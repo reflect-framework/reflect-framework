@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.filter.Filter;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.property.FormOrderComparator;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.property.TableVisibleFilter;
+import nth.introspect.generic.filter.Filter;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.property.FormOrderComparator;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
 
 public class Command {
 	private String name;

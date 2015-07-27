@@ -18,18 +18,18 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
+import nth.introspect.generic.util.TitleUtil;
+import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.swing.item.menubar.MenuBar;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
 import nth.introspect.ui.swing.view.SwingView;
-import nth.introspect.util.TitleUtil;
-import nth.introspect.valuemodel.ReadOnlyValueModel;
 
 public class TableView extends SwingView implements
 		nth.introspect.ui.view.TableView {

@@ -11,7 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.images.IntrospectImagePathIdentifier;
 
 public class IconFactory {

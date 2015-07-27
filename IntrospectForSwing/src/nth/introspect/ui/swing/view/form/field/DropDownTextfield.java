@@ -15,7 +15,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.swing.icon.IconFactory;
 

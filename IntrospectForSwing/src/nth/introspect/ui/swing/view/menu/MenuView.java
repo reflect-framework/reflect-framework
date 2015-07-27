@@ -9,8 +9,8 @@ import javax.swing.JComboBox;
 
 import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.provider.language.LanguageProvider;
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;

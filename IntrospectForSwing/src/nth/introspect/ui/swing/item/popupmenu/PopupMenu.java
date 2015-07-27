@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import nth.introspect.provider.userinterface.item.Item;
+import nth.introspect.layer5provider.userinterface.item.Item;
 import nth.introspect.ui.swing.item.menu.MenuItemFactory;
 
 /**

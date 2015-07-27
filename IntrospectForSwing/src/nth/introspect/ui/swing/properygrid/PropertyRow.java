@@ -8,11 +8,11 @@ import java.awt.event.FocusListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.PropertyChangeListener;
-import nth.introspect.provider.domain.info.PropertyChangeType;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.path.PathProvider;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.PropertyChangeListener;
+import nth.introspect.layer5provider.domain.info.PropertyChangeType;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.swing.view.form.field.FieldFactory;
 import nth.introspect.ui.swing.view.form.field.ManyToOneOrManyField;

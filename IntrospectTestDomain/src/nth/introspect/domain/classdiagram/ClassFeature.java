@@ -1,9 +1,9 @@
 package nth.introspect.domain.classdiagram;
 
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.type.TypeCategory;
-import nth.introspect.provider.domain.info.valuemodel.annotations.VisibleInTable;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.type.TypeCategory;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.VisibleInTable;
 
 public class ClassFeature {
 

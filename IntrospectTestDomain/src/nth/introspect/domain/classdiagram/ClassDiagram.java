@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.provider.domain.info.DomainInfoProvider;
-import nth.introspect.provider.domain.info.method.MethodInfo;
-import nth.introspect.provider.domain.info.property.PropertyInfo;
-import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
-import nth.introspect.provider.domain.info.valuemodel.annotations.OrderInForm;
+import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.layer5provider.domain.info.valuemodel.annotations.OrderInForm;
 
 public class ClassDiagram {
 
