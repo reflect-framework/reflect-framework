@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
-import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
-import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 import nth.introspect.report.FormSection;
 import nth.introspect.report.Report;
 import nth.introspect.report.ReportProvider;
@@ -40,10 +40,10 @@ public class PdfReportFactory extends ReportProvider<Document> {
 	private static Font SMALL_FONT = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.NORMAL);
 	private static Font SMALL_FONT_BOLD = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
 	private ByteArrayOutputStream buffer;
-	private final DomainInfoProvider domainInfoProvider;
+	private final ReflectionProvider reflectionProvider;
 
-	public PdfReportFactory( DomainInfoProvider domainInfoProvider) {
-		this.domainInfoProvider = domainInfoProvider;
+	public PdfReportFactory( ReflectionProvider reflectionProvider) {
+		this.reflectionProvider = reflectionProvider;
 	}
 	
 	@Override
@@ -93,7 +93,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		// get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			// add propertyName
@@ -130,7 +130,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		//get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(introspectedClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(introspectedClass, propertyInfoFilter, propertyInfoComparator);
 				
 		// create table
 		PdfPTable pdfTable = new PdfPTable(propertyInfos.size());
