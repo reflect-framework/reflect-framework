@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import nth.introspect.filter.Filter;
-import nth.introspect.provider.Provider;
+import nth.introspect.layer5provider.Provider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.property.PropertyInfo;

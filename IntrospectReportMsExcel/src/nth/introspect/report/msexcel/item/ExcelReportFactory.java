@@ -14,9 +14,9 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.controller.userinterface.DownloadStream;
-import nth.introspect.documentation.InfrastructureObject;
 import nth.introspect.filter.Filter;
+import nth.introspect.layer1userinterface.controller.DownloadStream;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.provider.domain.info.property.FormOrderComparator;

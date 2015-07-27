@@ -1,6 +1,6 @@
 package nth.introspect.provider.about;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 
 public class DefaultAboutProvider implements AboutProvider {
 

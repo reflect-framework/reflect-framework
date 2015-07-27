@@ -19,7 +19,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.InstanceFactory;
-import nth.introspect.container.impl.InfrastructureContainer;
+import nth.introspect.layer4infrastructure.InfrastructureContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 import nth.introspect.util.TypeUtil;

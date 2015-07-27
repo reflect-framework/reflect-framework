@@ -7,7 +7,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 

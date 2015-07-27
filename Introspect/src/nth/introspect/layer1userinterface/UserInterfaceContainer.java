@@ -1,13 +1,13 @@
-package nth.introspect.container.impl;
+package nth.introspect.layer1userinterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import sun.awt.geom.AreaOp.IntOp;
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.documentation.UserInterfaceLayer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;

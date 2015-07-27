@@ -1,7 +1,9 @@
-package nth.introspect.documentation;
+package nth.introspect.layer4infrastructure;
 
 import nth.introspect.Introspect;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.documentation.Documentation;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceObject;
 
 /**
  * <p>

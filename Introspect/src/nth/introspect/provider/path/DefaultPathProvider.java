@@ -5,7 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.provider.path.id.PathID;
 import nth.introspect.util.StringUtil;
 

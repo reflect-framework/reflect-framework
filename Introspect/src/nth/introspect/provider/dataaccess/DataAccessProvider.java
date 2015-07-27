@@ -3,7 +3,7 @@ package nth.introspect.provider.dataaccess;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 
 /**

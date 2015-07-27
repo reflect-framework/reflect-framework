@@ -2,7 +2,7 @@ package nth.introspect.provider.language;
 
 import java.util.Locale;
 
-import nth.introspect.provider.Provider;
+import nth.introspect.layer5provider.Provider;
 
 
 public interface LanguageProvider extends Provider {

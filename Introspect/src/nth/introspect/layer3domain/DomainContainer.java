@@ -1,8 +1,8 @@
-package nth.introspect.container.impl;
+package nth.introspect.layer3domain;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.documentation.DomainLayer;
+import nth.introspect.layer4infrastructure.InfrastructureContainer;
 
 /**
  * This {@link IntrospectContainer} represents the {@link DomainLayer}

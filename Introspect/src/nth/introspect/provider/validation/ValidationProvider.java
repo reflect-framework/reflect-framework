@@ -1,6 +1,6 @@
 package nth.introspect.provider.validation;
 
-import nth.introspect.provider.Provider;
+import nth.introspect.layer5provider.Provider;
 import nth.introspect.provider.domain.info.property.PropertyInfo;
 
 //use a JSR-303 implementation where possible! 

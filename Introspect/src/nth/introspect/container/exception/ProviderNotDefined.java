@@ -1,6 +1,6 @@
 package nth.introspect.container.exception;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 
 public class ProviderNotDefined extends IntrospectContainerException {
 

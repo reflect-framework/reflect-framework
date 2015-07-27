@@ -1,8 +1,7 @@
-package nth.introspect.container.impl;
+package nth.introspect.layer5provider;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.documentation.ProviderLayer;
 
 /**
  * This {@link IntrospectContainer} represents the {@link ProviderLayer}

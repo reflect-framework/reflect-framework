@@ -15,12 +15,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import nth.introspect.Introspect;
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.DialogType;
-import nth.introspect.controller.userinterface.DownloadStream;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.DialogType;
+import nth.introspect.layer1userinterface.controller.DownloadStream;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;

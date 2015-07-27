@@ -7,24 +7,24 @@ import java.util.List;
 
 import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.introspect.container.exception.IntrospectContainerException;
-import nth.introspect.container.impl.DomainContainer;
-import nth.introspect.container.impl.InfrastructureContainer;
-import nth.introspect.container.impl.ProviderContainer;
-import nth.introspect.container.impl.ServiceContainer;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.documentation.DomainLayer;
-import nth.introspect.documentation.DomainObject;
-import nth.introspect.documentation.InfrastructureLayer;
-import nth.introspect.documentation.InfrastructureObject;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.documentation.ProviderLayer;
-import nth.introspect.documentation.ServiceLayer;
-import nth.introspect.documentation.ServiceObject;
 import nth.introspect.documentation.ServiceObjectActionMethod;
-import nth.introspect.documentation.UserInterfaceLayer;
-import nth.introspect.provider.Provider;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.UserInterfaceLayer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceContainer;
+import nth.introspect.layer2service.ServiceLayer;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer3domain.DomainContainer;
+import nth.introspect.layer3domain.DomainLayer;
+import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer4infrastructure.InfrastructureContainer;
+import nth.introspect.layer4infrastructure.InfrastructureLayer;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
+import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.ProviderContainer;
+import nth.introspect.layer5provider.ProviderLayer;
 
 /**
  * <p>

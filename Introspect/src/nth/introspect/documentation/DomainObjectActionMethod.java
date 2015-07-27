@@ -1,6 +1,8 @@
 package nth.introspect.documentation;
 
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer3domain.DomainObject;
 
 /**
  * <p>

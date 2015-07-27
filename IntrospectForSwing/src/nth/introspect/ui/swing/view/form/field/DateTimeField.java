@@ -20,7 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import nth.introspect.Introspect;
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.ui.valuemodel.PropertyValueModel;

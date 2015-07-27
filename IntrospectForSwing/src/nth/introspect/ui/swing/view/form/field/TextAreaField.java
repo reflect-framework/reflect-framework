@@ -11,7 +11,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.ColorUIResource;
 
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.ui.swing.properygrid.PropertyRow;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.swing.style.SwingStyleConstant;

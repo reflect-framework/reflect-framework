@@ -1,11 +1,11 @@
-package nth.introspect.container.impl;
+package nth.introspect.layer2service;
 
 import java.util.List;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.exception.MissingServiceClassException;
-import nth.introspect.documentation.ServiceLayer;
+import nth.introspect.layer3domain.DomainContainer;
 
 /**
  * This {@link IntrospectContainer} represents the {@link ServiceLayer}

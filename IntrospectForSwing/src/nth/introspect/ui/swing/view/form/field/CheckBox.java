@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.valuemodel.ReadWriteValueModel;

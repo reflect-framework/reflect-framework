@@ -22,9 +22,9 @@ import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import nth.introspect.Introspect;
-import nth.introspect.application.IntrospectApplication;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.IntrospectApplication;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;

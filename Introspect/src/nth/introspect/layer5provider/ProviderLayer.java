@@ -1,9 +1,10 @@
-package nth.introspect.documentation;
+package nth.introspect.layer5provider;
 
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.ProviderContainer;
-import nth.introspect.container.impl.ServiceContainer;
-import nth.introspect.provider.Provider;
+import nth.introspect.documentation.Documentation;
+import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.layer2service.ServiceContainer;
 
 /**
  * <p>The {@link ProviderLayer} contains {@link Provider} objects that provide generic

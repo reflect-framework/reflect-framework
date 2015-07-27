@@ -1,7 +1,9 @@
 package nth.introspect.documentation;
 
-import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.provider.Provider;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
+import nth.introspect.layer5provider.Provider;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.util.TitleBuilder;
 

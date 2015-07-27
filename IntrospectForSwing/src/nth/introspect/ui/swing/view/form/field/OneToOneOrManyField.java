@@ -28,8 +28,8 @@ import javax.swing.text.Position;
 import javax.swing.text.Segment;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.path.PathProvider;

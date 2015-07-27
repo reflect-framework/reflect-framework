@@ -1,6 +1,8 @@
 package nth.introspect.documentation;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer4infrastructure.InfrastructureLayer;
 
 /**
  * <p>How you create a new Introspect application depends on the type of application type that you want to create.</p>

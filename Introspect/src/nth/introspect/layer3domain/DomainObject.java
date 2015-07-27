@@ -1,11 +1,16 @@
-package nth.introspect.documentation;
+package nth.introspect.layer3domain;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.DomainContainer;
-import nth.introspect.container.impl.ServiceContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.provider.Provider;
+import nth.introspect.documentation.Documentation;
+import nth.introspect.documentation.DomainObjectActionMethod;
+import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.documentation.ObjectBehavior;
+import nth.introspect.documentation.ServiceObjectActionMethod;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceContainer;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
+import nth.introspect.layer5provider.Provider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 
 /**

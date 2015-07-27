@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.item.Item;

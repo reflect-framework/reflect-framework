@@ -3,8 +3,8 @@ package nth.introspect.provider.about;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.application.IntrospectApplication;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.IntrospectApplication;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.valuemodel.annotations.GenericReturnType;

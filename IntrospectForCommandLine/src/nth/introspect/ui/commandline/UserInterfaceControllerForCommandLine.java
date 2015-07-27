@@ -16,10 +16,10 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
-import nth.introspect.application.IntrospectApplication;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.DialogType;
-import nth.introspect.controller.userinterface.DownloadStream;
+import nth.introspect.IntrospectApplication;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.DialogType;
+import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.provider.language.LanguageProvider;

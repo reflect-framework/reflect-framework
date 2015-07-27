@@ -3,9 +3,9 @@ package nth.introspect.ui.item.method;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.filter.Filter;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo;

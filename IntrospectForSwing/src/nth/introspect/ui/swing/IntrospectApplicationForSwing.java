@@ -1,8 +1,8 @@
 package nth.introspect.ui.swing;
 
 import nth.introspect.Introspect;
-import nth.introspect.application.IntrospectApplication;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.IntrospectApplication;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.about.DefaultAboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;

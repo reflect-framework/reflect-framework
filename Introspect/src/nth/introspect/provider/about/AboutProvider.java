@@ -1,6 +1,6 @@
 package nth.introspect.provider.about;
 
-import nth.introspect.provider.Provider;
+import nth.introspect.layer5provider.Provider;
 
 public interface AboutProvider extends Provider {
 

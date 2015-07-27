@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.item.Item;

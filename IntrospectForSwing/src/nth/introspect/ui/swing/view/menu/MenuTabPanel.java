@@ -1,8 +1,8 @@
 package nth.introspect.ui.swing.view.menu;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.ui.swing.UserinterfaceControllerForSwing;
 import nth.introspect.ui.swing.mainwindow.MainWindow;

@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import nth.introspect.Introspect;
-import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.domain.test.TestsService;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.domain.info.method.MethodInfo.ExecutionModeType;
@@ -55,7 +55,6 @@ public class ClassDiagramService {
 		for (Class<?> clazz : foundClasses) {
 			classFeatures.add(new ClassFeature(clazz));
 		}
-		Comparator<? super ClassFeature> s;
 		Collections.sort(classFeatures, new Comparator<ClassFeature>() {
 
 			@Override

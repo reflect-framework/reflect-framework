@@ -1,6 +1,6 @@
 package nth.introspect.ui.valuemodel;
 
-import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.util.CloneUtil;

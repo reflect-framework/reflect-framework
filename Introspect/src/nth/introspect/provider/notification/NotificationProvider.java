@@ -3,7 +3,7 @@ package nth.introspect.provider.notification;
 
 import java.util.List;
 
-import nth.introspect.provider.Provider;
+import nth.introspect.layer5provider.Provider;
 
 public interface NotificationProvider extends Provider {
 

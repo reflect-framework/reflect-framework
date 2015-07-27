@@ -1,8 +1,13 @@
-package nth.introspect.documentation;
+package nth.introspect.layer3domain;
 
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.DomainContainer;
-import nth.introspect.container.impl.ServiceContainer;
+import nth.introspect.documentation.Documentation;
+import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.layer1userinterface.UserInterfaceLayer;
+import nth.introspect.layer2service.ServiceContainer;
+import nth.introspect.layer2service.ServiceLayer;
+import nth.introspect.layer4infrastructure.InfrastructureLayer;
+import nth.introspect.layer5provider.ProviderLayer;
 
 /**
  * The Domain layer is the hart of any Introspect application. The domain layer

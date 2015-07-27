@@ -2,7 +2,7 @@ package nth.introspect.provider.report;
 
 import java.io.ByteArrayOutputStream;
 
-import nth.introspect.provider.Provider;
+import nth.introspect.layer5provider.Provider;
 
 public abstract class ReportProvider<T>  {
 

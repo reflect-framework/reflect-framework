@@ -2,7 +2,7 @@ package nth.introspect.provider.path;
 
 import java.net.URI;
 
-import nth.introspect.provider.Provider;
+import nth.introspect.layer5provider.Provider;
 
 public interface PathProvider extends Provider{
 

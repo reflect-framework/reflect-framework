@@ -18,8 +18,8 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 import nth.introspect.provider.language.LanguageProvider;

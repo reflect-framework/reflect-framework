@@ -16,7 +16,7 @@ import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.ui.swing.properygrid.SwingUtil;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 

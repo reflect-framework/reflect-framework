@@ -1,9 +1,9 @@
-package nth.introspect.provider;
+package nth.introspect.layer5provider;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
 import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;

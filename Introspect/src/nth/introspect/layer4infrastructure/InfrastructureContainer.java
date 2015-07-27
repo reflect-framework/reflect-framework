@@ -1,10 +1,10 @@
-package nth.introspect.container.impl;
+package nth.introspect.layer4infrastructure;
 
 import java.util.List;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.documentation.InfrastructureLayer;
+import nth.introspect.layer5provider.ProviderContainer;
 
 /**
  * This {@link IntrospectContainer} represents the {@link InfrastructureLayer}

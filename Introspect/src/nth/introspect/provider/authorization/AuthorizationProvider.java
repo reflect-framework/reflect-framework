@@ -1,15 +1,15 @@
 package nth.introspect.provider.authorization;
 
-import nth.introspect.application.IntrospectApplication;
-import nth.introspect.container.impl.ServiceContainer;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.ActionMethod;
-import nth.introspect.documentation.DomainObject;
 import nth.introspect.documentation.DomainObjectProperty;
-import nth.introspect.documentation.InfrastructureObject;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.documentation.ObjectBehavior;
-import nth.introspect.documentation.ServiceObject;
-import nth.introspect.provider.Provider;
+import nth.introspect.layer2service.ServiceContainer;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
+import nth.introspect.layer5provider.Provider;
 
 /**
  * <p>

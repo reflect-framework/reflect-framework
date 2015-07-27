@@ -1,10 +1,11 @@
-package nth.introspect.documentation;
+package nth.introspect.layer1userinterface;
 
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.ServiceContainer;
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.documentation.Documentation;
+import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.provider.userinterface.view.View;
 
 /**

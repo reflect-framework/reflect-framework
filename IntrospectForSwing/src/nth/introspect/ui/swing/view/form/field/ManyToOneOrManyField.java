@@ -17,8 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
-import nth.introspect.container.impl.UserInterfaceContainer;
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.userinterface.item.Item;

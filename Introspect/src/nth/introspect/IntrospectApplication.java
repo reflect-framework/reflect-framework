@@ -1,14 +1,13 @@
-package nth.introspect.application;
+package nth.introspect;
 
 import java.util.List;
 
-import nth.introspect.Introspect;
-import nth.introspect.controller.userinterface.UserInterfaceController;
-import nth.introspect.documentation.InfrastructureObject;
 import nth.introspect.documentation.IntrospectGettingStarted;
 import nth.introspect.documentation.ObjectBehavior;
-import nth.introspect.documentation.ServiceObject;
-import nth.introspect.provider.Provider;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
+import nth.introspect.layer5provider.Provider;
 import nth.introspect.provider.about.AboutProvider;
 import nth.introspect.provider.authorization.AuthorizationProvider;
 import nth.introspect.provider.domain.info.DomainInfoProvider;

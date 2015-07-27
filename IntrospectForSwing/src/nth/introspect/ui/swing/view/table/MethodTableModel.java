@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import nth.introspect.Introspect;
-import nth.introspect.controller.userinterface.Refreshable;
+import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.provider.domain.format.JavaFormatFactory;
 import nth.introspect.provider.domain.format.PropertyInfoFormatFactory;
 import nth.introspect.provider.domain.info.DomainInfoProvider;

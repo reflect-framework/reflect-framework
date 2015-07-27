@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.provider.language.LanguageProvider;
 import nth.introspect.provider.path.PathProvider;
 import nth.introspect.provider.userinterface.view.View;

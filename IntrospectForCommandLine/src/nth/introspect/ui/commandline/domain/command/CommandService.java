@@ -11,7 +11,7 @@ import java.util.Map;
 
 import nth.introspect.Introspect;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.provider.domain.info.DomainInfoProvider;
 import nth.introspect.provider.domain.info.method.MethodInfo;
 

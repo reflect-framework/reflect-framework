@@ -1,8 +1,13 @@
-package nth.introspect.documentation;
+package nth.introspect.layer4infrastructure;
 
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.container.impl.InfrastructureContainer;
-import nth.introspect.container.impl.ServiceContainer;
+import nth.introspect.documentation.Documentation;
+import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.layer1userinterface.UserInterfaceLayer;
+import nth.introspect.layer2service.ServiceContainer;
+import nth.introspect.layer2service.ServiceLayer;
+import nth.introspect.layer3domain.DomainLayer;
+import nth.introspect.layer5provider.ProviderLayer;
 
 /**
  * <p>

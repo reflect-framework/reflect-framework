@@ -1,7 +1,12 @@
 package nth.introspect.documentation;
 
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.controller.userinterface.UserInterfaceController;
+import nth.introspect.layer1userinterface.UserInterfaceLayer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceLayer;
+import nth.introspect.layer3domain.DomainLayer;
+import nth.introspect.layer4infrastructure.InfrastructureLayer;
+import nth.introspect.layer5provider.ProviderLayer;
 
 /**
  * The Introspect Framework helps you to create a <a

@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Collection;
 
-import nth.introspect.controller.userinterface.DownloadStream;
+import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.provider.domain.info.type.TypeCategory;
 
 public class TypeUtil {

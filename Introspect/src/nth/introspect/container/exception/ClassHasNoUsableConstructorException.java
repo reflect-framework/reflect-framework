@@ -1,7 +1,7 @@
 package nth.introspect.container.exception;
 
 import nth.introspect.Introspect;
-import nth.introspect.application.IntrospectApplication;
+import nth.introspect.IntrospectApplication;
 
 public class ClassHasNoUsableConstructorException extends
 		IntrospectContainerException {
