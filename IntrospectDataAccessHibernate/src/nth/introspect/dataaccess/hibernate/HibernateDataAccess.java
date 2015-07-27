@@ -7,10 +7,8 @@ import nth.introspect.dataaccess.hibernate.entity.DeletableEntity;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnitConfiguration;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnitFactory;
-import nth.introspect.layer5provider.dataaccess.Criteria;
-import nth.introspect.layer5provider.dataaccess.DataAccessProvider;
 
-public abstract class HibernateDataAccess<T> implements DataAccessProvider<T> {
+public abstract class HibernateDataAccess<T>  {
 
 	private PersistenceUnit persistenceUnit;
 
@@ -20,20 +18,8 @@ public abstract class HibernateDataAccess<T> implements DataAccessProvider<T> {
 
 	public abstract PersistenceUnitConfiguration getPersistenceUnitConfiguration();
 
-	@Override
-	public T getFirst(Criteria critieria) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("This method is not supported yet");
-	}
-
-	@Override
-	public List<T> get(Criteria critieria) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("This method is not supported yet");
-	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<T> getAll() {
 		StringBuffer query = new StringBuffer("select e from ");
 		query.append(getDomainType().getCanonicalName());
@@ -44,7 +30,6 @@ public abstract class HibernateDataAccess<T> implements DataAccessProvider<T> {
 		return (List<T>) persistenceUnit.executeQuery(query.toString());
 	}
 
-	@Override
 	public void set(T entity) {
 		try {
 			persistenceUnit.beginEntityTransaction();
@@ -56,7 +41,6 @@ public abstract class HibernateDataAccess<T> implements DataAccessProvider<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public void delete(T entity) {
 		if (DeletableEntity.class.isAssignableFrom(entity.getClass())) {
 			DeletableEntity deletableEntity = (DeletableEntity) entity;
@@ -74,7 +58,6 @@ public abstract class HibernateDataAccess<T> implements DataAccessProvider<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public Class<T> getDomainType() {
 		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
 		return (Class<T>) parameterizedType.getActualTypeArguments()[0];

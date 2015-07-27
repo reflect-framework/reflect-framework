@@ -12,13 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nth.introspect.Introspect;
-import nth.introspect.layer5provider.dataaccess.Criteria;
-import nth.introspect.layer5provider.dataaccess.DataAccessProvider;
 import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 
-public abstract  class SqlRepository implements DataAccessProvider<Object> {
+public abstract  class SqlRepository  {
 	protected Connection connection;
 
 	public abstract SqlDatabaseConfig getSqlDatabaseConfig() ;
@@ -144,41 +141,6 @@ public abstract  class SqlRepository implements DataAccessProvider<Object> {
 		return results;
 	}
 
-	@Override
-	public Object getFirst(Criteria critieria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Object> get(Criteria critieria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Object> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void set(Object domainObject) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Object domainObject) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Class<?> getDomainType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 }
