@@ -21,8 +21,8 @@ import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.swing.item.menubar.MenuBar;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
@@ -54,9 +54,9 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 
 		setLayout(new BorderLayout());
 
-		DomainInfoProvider domainInfoProvider=formView.getuserInterfaceContainer().getDomainInfoProvider();
+		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().getReflectionProvider();
 		LanguageProvider languageProvider=formView.getuserInterfaceContainer().getLanguageProvider();
-		tableModel = new MethodTableModel(domainInfoProvider, languageProvider, propertyValueModel);
+		tableModel = new MethodTableModel(reflectionProvider, languageProvider, propertyValueModel);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
 

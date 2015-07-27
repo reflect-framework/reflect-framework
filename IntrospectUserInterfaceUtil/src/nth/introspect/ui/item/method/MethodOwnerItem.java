@@ -8,9 +8,9 @@ import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.ui.item.HierarchicalItem;
 
 public class MethodOwnerItem extends HierarchicalItem {
@@ -21,12 +21,12 @@ public class MethodOwnerItem extends HierarchicalItem {
 	public MethodOwnerItem( UserInterfaceContainer userInterfaceContainer, Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		super(userInterfaceContainer.getLanguageProvider());
 		this.methodOwner = methodOwner;
-		DomainInfoProvider domainInfoProvider = userInterfaceContainer.getDomainInfoProvider();
-		methodOwnerInfo = domainInfoProvider.getClassInfo(methodOwner.getClass());
+		ReflectionProvider reflectionProvider = userInterfaceContainer.getReflectionProvider();
+		methodOwnerInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
 		
 		setText(methodOwnerInfo.getText());
 		setDescription(methodOwnerInfo.getDescription());
-		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
+		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
 
 		UserInterfaceController<?> userInterfaceController=userInterfaceContainer.getUserInterfaceController();
 		for (MethodInfo methodInfo : methodInfos) {

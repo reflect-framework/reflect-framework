@@ -26,10 +26,10 @@ import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.about.AboutProvider;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.swing.icon.IconFactory;
@@ -50,17 +50,17 @@ public class MainWindow extends JFrame {
 	private final LanguageProvider languageProvider;
 	private final PathProvider pathProvider;
 	private final UserInterfaceController<?> userInterfaceController;
-	private final DomainInfoProvider domainInfoProvider;
+	private final ReflectionProvider reflectionProvider;
 	private final AboutProvider aboutProvider;
 
 	public MainWindow(IntrospectApplication application,
 			UserInterfaceContainer userInterfaceContainer,
 			UserInterfaceController<?> userInterfaceController,
-			DomainInfoProvider domainInfoProvider, PathProvider pathProvider,
+			ReflectionProvider reflectionProvider, PathProvider pathProvider,
 			AboutProvider aboutProvider) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.userInterfaceController = userInterfaceController;
-		this.domainInfoProvider = domainInfoProvider;
+		this.reflectionProvider = reflectionProvider;
 		this.pathProvider = pathProvider;
 		this.aboutProvider = aboutProvider;
 		this.languageProvider = userInterfaceContainer.getLanguageProvider();
@@ -73,7 +73,7 @@ public class MainWindow extends JFrame {
 		setDefaultLookAndFeelDecorated(true);
 
 		// Set window parameters
-		ClassInfo applicationInfo = domainInfoProvider.getClassInfo(application
+		ClassInfo applicationInfo = reflectionProvider.getClassInfo(application
 				.getClass());
 
 		setTitle(application, applicationInfo);
@@ -131,7 +131,7 @@ public class MainWindow extends JFrame {
 
 	private JButton createAboutButton() {
 		AboutItem aboutItem = new AboutItem(userInterfaceController,
-				domainInfoProvider, languageProvider, aboutProvider,
+				reflectionProvider, languageProvider, aboutProvider,
 				pathProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));

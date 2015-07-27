@@ -23,10 +23,10 @@ import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.commandline.domain.command.Command;
 import nth.introspect.ui.commandline.domain.command.CommandService;
@@ -275,7 +275,7 @@ public class UserInterfaceControllerForCommandLine extends
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
 		return new FormView(
-				getUserInterfaceContainer().getDomainInfoProvider(),
+				getUserInterfaceContainer().getReflectionProvider(),
 				methodInfo, domainObject);
 	}
 
@@ -284,7 +284,7 @@ public class UserInterfaceControllerForCommandLine extends
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
 		return new TableView(getUserInterfaceContainer()
-				.getDomainInfoProvider(), methodInfo,
+				.getReflectionProvider(), methodInfo,
 				(Collection<?>) methodReturnValue);
 	}
 

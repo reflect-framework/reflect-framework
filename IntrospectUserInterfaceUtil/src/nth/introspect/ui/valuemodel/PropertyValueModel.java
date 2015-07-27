@@ -1,7 +1,7 @@
 package nth.introspect.ui.valuemodel;
 
 import nth.introspect.generic.valuemodel.ReadWriteValueModel;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.view.FormMode;
 
 public class PropertyValueModel implements ReadWriteValueModel {

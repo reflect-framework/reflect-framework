@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
-import nth.introspect.layer5provider.domain.info.valuemodel.impl.SimpleValue;
+import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 public class AnnotationUtil {
 

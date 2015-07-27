@@ -4,10 +4,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import nth.introspect.generic.util.StringUtil;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.OrderInForm;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.OrderInTable;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.VisibleInForm;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.VisibleInTable;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.OrderInForm;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.OrderInTable;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInForm;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
 
 public class VersionInfo {
 	private String className;

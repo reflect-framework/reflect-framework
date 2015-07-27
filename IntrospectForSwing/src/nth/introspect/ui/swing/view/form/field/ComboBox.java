@@ -16,11 +16,11 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadWriteValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
@@ -29,7 +29,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 	private ReadWriteValueModel readWriteValueModel;
 
 	public ComboBox(final PropertyValueModel propertyValueModel,
-			DomainInfoProvider domainInfoProvider, PathProvider pathProvider,
+			ReflectionProvider reflectionProvider, PathProvider pathProvider,
 			LanguageProvider languageProvider) {
 		this.readWriteValueModel = propertyValueModel;
 
@@ -37,7 +37,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 		if (valueType.isEnum()) {
 			initForEnums(propertyValueModel, valueType);
 		} else {
-			initForDomainObjects(propertyValueModel, domainInfoProvider);
+			initForDomainObjects(propertyValueModel, reflectionProvider);
 		}
 
 		refresh();
@@ -55,7 +55,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 
 	private void initForDomainObjects(
 			final PropertyValueModel propertyValueModel,
-			DomainInfoProvider domainInfoProvider) {
+			ReflectionProvider reflectionProvider) {
 		Vector<Object> listValues = new Vector<Object>();
 		listValues.add(null);
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
@@ -63,7 +63,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 		List<Object> values = propertyInfo.getValues(domainObject);
 		listValues.addAll(values);
 		setModel(new DefaultComboBoxModel(listValues));
-		setRenderer(createObjectRenderer(domainInfoProvider));
+		setRenderer(createObjectRenderer(reflectionProvider));
 	}
 
 	private void initForEnums(final PropertyValueModel propertyValueModel,
@@ -81,7 +81,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 	}
 
 	private ListCellRenderer createObjectRenderer(
-			final DomainInfoProvider domainInfoProvider) {
+			final ReflectionProvider reflectionProvider) {
 		return new BasicComboBoxRenderer() {
 
 			@Override
@@ -94,7 +94,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 
 				String text = "";
 				if (value != null) {
-					ClassInfo classInfo = domainInfoProvider.getClassInfo(value
+					ClassInfo classInfo = reflectionProvider.getClassInfo(value
 							.getClass());
 					text = classInfo.getTitle(value);
 				}

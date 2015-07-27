@@ -8,14 +8,14 @@ import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.about.DefaultAboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.authorization.DefaultAuthorizationProvider;
-import nth.introspect.layer5provider.domain.info.DefaultDomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.language.DefaultLanguageProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
@@ -37,8 +37,8 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 
 
 	@Override
-	public Class<? extends DomainInfoProvider> getDomainInfoProviderClass() {
-		return DefaultDomainInfoProvider.class;
+	public Class<? extends ReflectionProvider> getReflectionProviderClass() {
+		return DefaultReflectionProvider.class;
 	}
 
 

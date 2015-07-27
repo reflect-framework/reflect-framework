@@ -9,7 +9,7 @@ import java.util.Map;
 
 import com.sun.org.apache.xml.internal.utils.URI;
 
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class Parameter {
 	private final PropertyInfo propertyInfo;

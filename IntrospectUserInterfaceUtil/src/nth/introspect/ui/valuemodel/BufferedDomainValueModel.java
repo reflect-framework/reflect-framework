@@ -3,7 +3,7 @@ package nth.introspect.ui.valuemodel;
 import nth.introspect.generic.util.CloneUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.ui.view.FormMode;
 
 public class BufferedDomainValueModel implements ReadOnlyValueModel {
@@ -13,14 +13,14 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	private Object domainObjectCopy;
 	private boolean comitted;
 	private final FormMode formMode;
-	private final DomainInfoProvider domainInfoProvider;
+	private final ReflectionProvider reflectionProvider;
 
-	public BufferedDomainValueModel(UserInterfaceContainer userInterfaceContainer, DomainInfoProvider domainInfoProvider, Object domainObject, FormMode formMode) {
-		this.domainInfoProvider = domainInfoProvider;
+	public BufferedDomainValueModel(UserInterfaceContainer userInterfaceContainer, ReflectionProvider reflectionProvider, Object domainObject, FormMode formMode) {
+		this.reflectionProvider = reflectionProvider;
 		this.domainObject = domainObject;
 		this.formMode = formMode;
 		if (FormMode.EDIT_MODE==formMode) {
-			this.domainObjectCopy = CloneUtil.clone(userInterfaceContainer, domainInfoProvider, domainObject); //Do not deep clone! Properties with a value object(s) (such as Customer) need to be the actual object and may not contain cloned objects! 
+			this.domainObjectCopy = CloneUtil.clone(userInterfaceContainer, reflectionProvider, domainObject); //Do not deep clone! Properties with a value object(s) (such as Customer) need to be the actual object and may not contain cloned objects! 
 		}
 		comitted=false;
 	}
@@ -45,7 +45,7 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	 */
 	public void commit() {
 		//copy all property values of domainObjectCopy to domainObject
-		CloneUtil.clone(domainInfoProvider, domainObjectCopy, domainObject);
+		CloneUtil.clone(reflectionProvider, domainObjectCopy, domainObject);
 		//set committed flag
 		comitted=true;
 	}

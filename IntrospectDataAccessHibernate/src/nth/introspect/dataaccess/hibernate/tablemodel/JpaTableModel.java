@@ -14,10 +14,10 @@ import nth.introspect.dataaccess.hibernate.HibernateDataAccess;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
 import nth.introspect.generic.tablemodel.DomainTableModel;
 import nth.introspect.generic.tablemodel.SortableTableModel;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
-import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
-import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class JpaTableModel extends AbstractTableModel implements DomainTableModel, SortableTableModel {
 
@@ -41,7 +41,7 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 	 * @param ejbQlSelect
 	 *            a Enterprise Java Bean Query Language expression without order clause! (i.e. select c from Customer c where ...)
 	 */
-	public JpaTableModel(DomainInfoProvider domainInfoProvider, HibernateDataAccess<?> dataAccessObject, Class<?> domainClass, String ejbQlSelect) {
+	public JpaTableModel(ReflectionProvider reflectionProvider, HibernateDataAccess<?> dataAccessObject, Class<?> domainClass, String ejbQlSelect) {
 		// get persistanceUnit (the ugly way, because normally its shielded from other classes like this one)
 		try {
 			Field field = dataAccessObject.getClass().getField("persistenceUnit");
@@ -79,7 +79,7 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 		// get column info
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		propertyInfos = domainInfoProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		propertyInfos = reflectionProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 		// Initialize fields
 		this.startPosition = 0;
 		this.items = getItems(startPosition, startPosition + CACHE_SIZE);

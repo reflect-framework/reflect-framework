@@ -8,11 +8,11 @@ import java.awt.event.FocusListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.PropertyChangeListener;
-import nth.introspect.layer5provider.domain.info.PropertyChangeType;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.PropertyChangeListener;
+import nth.introspect.layer5provider.reflection.info.PropertyChangeType;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.swing.style.ColorUtil;
 import nth.introspect.ui.swing.view.form.field.FieldFactory;
 import nth.introspect.ui.swing.view.form.field.ManyToOneOrManyField;
@@ -41,14 +41,14 @@ public class PropertyRow extends JPanel implements PropertyChangeListener {
 
 
 
-	public PropertyRow(FormView formView, DomainInfoProvider domainInfoProvider, PathProvider pathProvider,BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
+	public PropertyRow(FormView formView, ReflectionProvider reflectionProvider, PathProvider pathProvider,BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
 		this.domainValueModel = domainValueModel;
 		this.propertyInfo = propertyInfo;
 		// create value model to bind domainObject and SWING field
 		
 		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		
-		this.field = FieldFactory.create(formView, domainInfoProvider, pathProvider, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field
+		this.field = FieldFactory.create(formView, reflectionProvider, pathProvider, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field
 		if (field instanceof ManyToOneOrManyField || field instanceof TextAreaField) {//TODO get field width from a Field interface?
 			this.fieldWidth = FieldWidth.full;
 		} else {

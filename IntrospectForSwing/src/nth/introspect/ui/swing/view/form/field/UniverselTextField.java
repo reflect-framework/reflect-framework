@@ -8,7 +8,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.layer5provider.domain.format.PropertyInfoFormatFactory;
+import nth.introspect.layer5provider.reflection.format.PropertyInfoFormatFactory;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
 public class UniverselTextField extends JFormattedTextField implements
@@ -31,7 +31,7 @@ public class UniverselTextField extends JFormattedTextField implements
 		setDocument(RegExpDocumentFacory.create(valueModel.getValueType()));
 		refresh();
 
-		// TODO implement domainInfoProvider.addPropertyChangeListener(new
+		// TODO implement reflectionProvider.addPropertyChangeListener(new
 		// addPropertyChangeListener(..
 
 		// send changes back to value model

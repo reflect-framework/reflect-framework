@@ -15,14 +15,14 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.layer5provider.domain.info.method.filter.MethodNameFilter;
-import nth.introspect.layer5provider.domain.info.type.TypeCategory;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.notification.Task;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.info.method.filter.MethodNameFilter;
+import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
@@ -62,12 +62,12 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
 	protected final UserInterfaceContainer userInterfaceContainer;
-	protected final DomainInfoProvider domainInfoProvider;
+	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;
 
 	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer=userInterfaceContainer;
-		this.domainInfoProvider=userInterfaceContainer.getDomainInfoProvider();
+		this.reflectionProvider=userInterfaceContainer.getReflectionProvider();
 		this.languageProvider=userInterfaceContainer.getLanguageProvider();
 		NotificationProvider notificationProvider = userInterfaceContainer.getNotificationProvider();
 		notificationProvider.addListener(this);
@@ -92,7 +92,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 				break;
 			}
 		} catch (Exception exception) {
-			String title = TitleUtil.createTitle(domainInfoProvider, methodInfo,
+			String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
 					methodParameterValue, true);
 			String message = languageProvider.getText(
 					"Failed to execute.");
@@ -126,7 +126,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 		String title = languageProvider.getText("Confirmation");
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to: "));
-		message.append(TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue,
+		message.append(TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue,
 				false));
 		message.append("?");
 
@@ -143,7 +143,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 		// executed (if invalid: throw exception)
 
 		// show ProgressDialog
-		String title = TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue,
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue,
 				true);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
@@ -219,7 +219,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 					showMethodReturnValue(serviceObject, methodInfo,
 									methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
-					String title = TitleUtil.createTitle(domainInfoProvider, methodInfo,
+					String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
 							methodParameterValue, true);
 					String message = languageProvider.getText(
 							"Failed to execute.");
@@ -236,7 +236,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 	public void showMethodReturnValue(Object serviceObject,
 			MethodInfo methodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		String title = TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue,
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue,
 				true);
 		switch (methodInfo.getReturnType().getTypeCategory()) {
 		case NONE:// void
@@ -273,7 +273,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 							.substring(positionLastDot + 1);
 					Class<?> serviceClass = Class.forName(serviceClassName);
 					Object serviceObject2 =userInterfaceContainer.get(serviceClass);
-					List<MethodInfo> methodInfos = domainInfoProvider
+					List<MethodInfo> methodInfos = reflectionProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
 									methodName));
 					startExecution(serviceObject, methodInfos.get(0), null);

@@ -12,13 +12,13 @@ import nth.introspect.generic.tablemodel.DomainTableModel;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.layer5provider.domain.format.JavaFormatFactory;
-import nth.introspect.layer5provider.domain.format.PropertyInfoFormatFactory;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
-import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
-import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
 import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.format.JavaFormatFactory;
+import nth.introspect.layer5provider.reflection.format.PropertyInfoFormatFactory;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class MethodTableModel extends AbstractTableModel implements
 		DomainTableModel, Refreshable {
@@ -31,7 +31,7 @@ public class MethodTableModel extends AbstractTableModel implements
 	private final ReadOnlyValueModel valueModel;
 	private Format format;
 
-	public MethodTableModel(DomainInfoProvider domainInfoProvider, LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
+	public MethodTableModel(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
 		this.valueModel = valueModel;
 		Class<?> domainClass = valueModel.getValueType();
 
@@ -41,7 +41,7 @@ public class MethodTableModel extends AbstractTableModel implements
 		} else {
 			TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 			TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-			propertyInfos = domainInfoProvider.getPropertyInfos(
+			propertyInfos = reflectionProvider.getPropertyInfos(
 					domainClass, propertyInfoFilter, propertyInfoComparator);
 		}
 		refresh();

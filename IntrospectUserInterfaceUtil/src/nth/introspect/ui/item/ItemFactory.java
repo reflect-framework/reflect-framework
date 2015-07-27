@@ -15,14 +15,14 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.layer5provider.domain.info.method.filter.LinkedToPropertyFilter;
-import nth.introspect.layer5provider.domain.info.method.filter.NoParameterOrParameterFactoryFilter;
-import nth.introspect.layer5provider.domain.info.method.filter.ParameterTypeFilter;
-import nth.introspect.layer5provider.domain.info.method.filter.ReturnTypeFilter;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.info.method.filter.LinkedToPropertyFilter;
+import nth.introspect.layer5provider.reflection.info.method.filter.NoParameterOrParameterFactoryFilter;
+import nth.introspect.layer5provider.reflection.info.method.filter.ParameterTypeFilter;
+import nth.introspect.layer5provider.reflection.info.method.filter.ReturnTypeFilter;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodItem;
@@ -58,7 +58,7 @@ public class ItemFactory {
 		Object serviceObject = formView.getMethodOwner();
 
 		// add property methods
-		DomainInfoProvider domainInfoProvider = formView.getuserInterfaceContainer().getDomainInfoProvider();
+		ReflectionProvider reflectionProvider = formView.getuserInterfaceContainer().getReflectionProvider();
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
@@ -66,7 +66,7 @@ public class ItemFactory {
 				new NoParameterOrParameterFactoryFilter());
 		filter.or(new ParameterTypeFilter(parameterType));
 		filter.and(new LinkedToPropertyFilter(propertyInfo));
-		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(
+		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(
 				domainType, filter);
 		for (MethodInfo methodInfo : methodInfos) {
 			PropertyMethodItem item = new PropertyMethodItem(formView,
@@ -102,12 +102,12 @@ public class ItemFactory {
 		Object serviceObject = tableView.getMethodOwner();
 
 		// property methods
-		// domainInfoProvider domainInfoProvider=Introspect.getdomainInfoProvider();
+		// reflectionProvider reflectionProvider=Introspect.getreflectionProvider();
 		// LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(new
 		// NoParameterOrParameterFactoryFilter());
 		// filter.or(new ParameterTypeFilter(parameterType));
 		// List<MethodInfo> methodInfos =
-		// domainInfoProvider.getMethodInfos(parameterType, filter);
+		// reflectionProvider.getMethodInfos(parameterType, filter);
 		// for (MethodInfo methodInfo : methodInfos) {
 		// item=new MethodItem(methodOwner, methodInfo,
 		// methodParameterValueModel) TODO methodOwner needs to be a value

@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.layer5provider.domain.info.property.FieldModeType;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.FieldMode;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.Format;
+import nth.introspect.layer5provider.reflection.info.property.FieldModeType;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.FieldMode;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Format;
 
 public class Test {
 	private boolean myBoolean;

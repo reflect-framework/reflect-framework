@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public abstract  class SqlRepository  {
 	protected Connection connection;
@@ -91,7 +91,7 @@ public abstract  class SqlRepository  {
 	}
 	
 	
-	public List<?> getResultList(DomainInfoProvider domainInfoProvider, String sql, Class<?> domainClass) throws Exception {
+	public List<?> getResultList(ReflectionProvider reflectionProvider, String sql, Class<?> domainClass) throws Exception {
 		Statement statement = executeSQL(sql);
 		ResultSet resultSet = statement.getResultSet();
 		List<Object> results = new ArrayList<Object>();
@@ -101,7 +101,7 @@ public abstract  class SqlRepository  {
 		int numColumns = meta.getColumnCount();
 		for (int columnNr = 1; columnNr < numColumns + 1; columnNr++) {
 			String columnName = meta.getColumnName(columnNr);
-			for (PropertyInfo propertyInfo : domainInfoProvider.getPropertyInfos(domainClass)) {
+			for (PropertyInfo propertyInfo : reflectionProvider.getPropertyInfos(domainClass)) {
 				if (propertyInfo.getName().equalsIgnoreCase(columnName)) {
 					propertyInfos.put(columnName, propertyInfo);
 					break;

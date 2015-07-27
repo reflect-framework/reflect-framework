@@ -5,7 +5,7 @@ import java.net.URI;
 import java.util.Collection;
 
 import nth.introspect.layer1userinterface.controller.DownloadStream;
-import nth.introspect.layer5provider.domain.info.type.TypeCategory;
+import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 public class TypeUtil {
 	public static Class<?> getComplexType(Class<?> type) {

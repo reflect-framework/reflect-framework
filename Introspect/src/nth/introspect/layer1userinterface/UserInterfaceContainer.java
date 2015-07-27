@@ -8,11 +8,11 @@ import nth.introspect.container.IntrospectContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer5provider.about.AboutProvider;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 /**
  * This {@link IntrospectContainer} represents the {@link UserInterfaceLayer}
@@ -25,7 +25,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	private LanguageProvider languageProvider;
 	private final IntrospectApplication application;
 	private UserInterfaceController<?> userInterfaceController;
-	private DomainInfoProvider domainInfoProvider;
+	private ReflectionProvider reflectionProvider;
 	private PathProvider pathProvider;
 	private IntrospectApplication introspectApplication;
 	private NotificationProvider notificationProvider;
@@ -71,17 +71,17 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	}
 
 	/**
-	 * Convenient method to get the {@link DomainInfoProvider} FIXME: remove
+	 * Convenient method to get the {@link ReflectionProvider} FIXME: remove
 	 * this method (user constructor injection for registered objects in
 	 * container instead)
 	 * 
-	 * @return {@link DomainInfoProvider}
+	 * @return {@link ReflectionProvider}
 	 */
-	public DomainInfoProvider getDomainInfoProvider() {
-		if (domainInfoProvider == null) {
-			domainInfoProvider = (DomainInfoProvider) get(DomainInfoProvider.class);
+	public ReflectionProvider getReflectionProvider() {
+		if (reflectionProvider == null) {
+			reflectionProvider = (ReflectionProvider) get(ReflectionProvider.class);
 		}
-		return domainInfoProvider;
+		return reflectionProvider;
 	}
 
 	/**
@@ -115,8 +115,8 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	public ClassInfo getIntrospectApplicationClassInfo() {
 		if (introspectApplicationClassInfo==null)	{
 			IntrospectApplication application=getIntrospectApplication();
-			DomainInfoProvider domainInfoProvider=getDomainInfoProvider();
-			introspectApplicationClassInfo=domainInfoProvider.getClassInfo(application.getClass());
+			ReflectionProvider reflectionProvider=getReflectionProvider();
+			introspectApplicationClassInfo=reflectionProvider.getClassInfo(application.getClass());
 		}
 		return introspectApplicationClassInfo;
 	}

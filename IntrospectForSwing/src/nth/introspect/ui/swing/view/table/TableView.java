@@ -23,9 +23,9 @@ import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
 import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.swing.item.menubar.MenuBar;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
@@ -46,7 +46,7 @@ public class TableView extends SwingView implements
 	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final DomainInfoProvider domainInfoProvider;
+	private final ReflectionProvider reflectionProvider;
 
 	public TableView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, MethodInfo methodInfo,
 			Object methodParameterValue) {
@@ -57,9 +57,9 @@ public class TableView extends SwingView implements
 
 		setLayout(new BorderLayout());
 
-		domainInfoProvider= userInterfaceContainer.getDomainInfoProvider();
+		reflectionProvider= userInterfaceContainer.getReflectionProvider();
 		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
-		tableModel = new MethodTableModel(domainInfoProvider, languageProvider, getAllRowsModel());
+		tableModel = new MethodTableModel(reflectionProvider, languageProvider, getAllRowsModel());
 		table = createTable(tableModel);
 		JScrollPane tableContainer = new JScrollPane(table);
 		tableContainer.getViewport().setBackground(table.getBackground());
@@ -143,12 +143,12 @@ public class TableView extends SwingView implements
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue, true);
+		return TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue, true);
 	}
 
 	@Override
 	public String getViewDescription() {
-		return TitleUtil.createTitle(domainInfoProvider, methodInfo, methodParameterValue, false);
+		return TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue, false);
 	}
 
 	@Override

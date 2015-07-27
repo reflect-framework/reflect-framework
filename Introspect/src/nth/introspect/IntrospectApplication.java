@@ -11,10 +11,10 @@ import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
@@ -69,7 +69,7 @@ public interface IntrospectApplication {
 
 	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass();
 
-	public Class<? extends DomainInfoProvider> getDomainInfoProviderClass();
+	public Class<? extends ReflectionProvider> getReflectionProviderClass();
 
 	public Class<? extends AboutProvider> getVersionProviderClass();
 

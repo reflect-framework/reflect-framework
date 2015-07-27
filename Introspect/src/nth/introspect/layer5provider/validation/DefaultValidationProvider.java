@@ -1,6 +1,6 @@
 package nth.introspect.layer5provider.validation;
 
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class DefaultValidationProvider implements ValidationProvider {
 

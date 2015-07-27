@@ -1,12 +1,12 @@
 package nth.introspect.generic.util;
 
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 
 public class TitleUtil {
 
-	public static String createTitle(DomainInfoProvider domainInfoProvider, MethodInfo methodInfo, Object methodParameter, boolean shortTile) {
+	public static String createTitle(ReflectionProvider reflectionProvider, MethodInfo methodInfo, Object methodParameter, boolean shortTile) {
 		StringBuffer title = new StringBuffer();
 		String methodText = methodInfo.getText();
 		if (methodText != null) {
@@ -18,7 +18,7 @@ public class TitleUtil {
 
 		if (methodParameter != null) {
 			// add method parameter value between parentheses
-			ClassInfo classInfo = domainInfoProvider.getClassInfo(methodParameter.getClass());
+			ClassInfo classInfo = reflectionProvider.getClassInfo(methodParameter.getClass());
 			String parameterText = classInfo.getTitle(methodParameter);
 			// shorten if needed
 			if (shortTile && parameterText.length() > 20) {

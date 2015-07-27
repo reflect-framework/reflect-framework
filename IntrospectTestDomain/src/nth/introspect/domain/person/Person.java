@@ -3,7 +3,7 @@ package nth.introspect.domain.person;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class Person {
 	private String name;

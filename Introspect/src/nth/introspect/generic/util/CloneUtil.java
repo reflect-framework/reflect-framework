@@ -5,8 +5,8 @@ import java.util.List;
 
 import nth.introspect.container.InstanceFactory;
 import nth.introspect.container.IntrospectContainer;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class CloneUtil {
 
@@ -19,12 +19,12 @@ public class CloneUtil {
 	 *            object that will receive the property values of the sourceObject
 	 * @return the destinationObject with the property values of the sourceObject
 	 */
-	public static Object clone(DomainInfoProvider domainInfoProvider, Object sourceObject, Object destinationObject) {
+	public static Object clone(ReflectionProvider reflectionProvider, Object sourceObject, Object destinationObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		Class<?> destinationClass = destinationObject.getClass();
-		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(sourceClass);
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(sourceClass);
 		for (PropertyInfo sourcePropertyInfo : propertyInfos) {
-			PropertyInfo destinationPropertyInfo = domainInfoProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getName());
+			PropertyInfo destinationPropertyInfo = reflectionProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getName());
 			if (destinationPropertyInfo.isEnabled(destinationObject)) {
 				Object value = sourcePropertyInfo.getValue(sourceObject);
 				destinationPropertyInfo.setValue(destinationObject, value);
@@ -39,17 +39,17 @@ public class CloneUtil {
 	 * 
 	 * @param sourceObject
 	 *            object to be instantiated and copied
-	 * @param domainInfoProvider 
+	 * @param reflectionProvider 
 	 * @return the instantiated with the property values of the sourceObject
 	 */
 
-	public static Object clone(IntrospectContainer introspectContainer,  DomainInfoProvider domainInfoProvider, Object sourceObject) {
+	public static Object clone(IntrospectContainer introspectContainer,  ReflectionProvider reflectionProvider, Object sourceObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		try {
 			InstanceFactory instanceFactory=new InstanceFactory(sourceClass, introspectContainer);
 			List<Class<?>> classesWaitingToBeInstantiated=new ArrayList<Class<?>>();
 			Object destinationObject = instanceFactory.createInstance(classesWaitingToBeInstantiated);
-			return clone(domainInfoProvider, sourceObject, destinationObject);
+			return clone(reflectionProvider, sourceObject, destinationObject);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

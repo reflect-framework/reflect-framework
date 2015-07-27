@@ -1,9 +1,9 @@
 package nth.introspect.layer1userinterface.controller;
 
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
 
 /**
- * @deprecated use {@link DomainInfoProvider#invokePropertyChangeListeners(Object, String, nth.introspect.layer5provider.domaininfo.PropertyChangeType)}
+ * @deprecated use {@link NotificationProvider#refreshUserInterface()
  * @author nilsth
  *
  */

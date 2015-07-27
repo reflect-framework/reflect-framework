@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class CollectionTableModel extends AbstractTableModel implements DomainTableModel {
 
@@ -15,13 +15,13 @@ public class CollectionTableModel extends AbstractTableModel implements DomainTa
 	private List<PropertyInfo> propertyInfos;
 	private List<Object> list;
 
-	public CollectionTableModel(DomainInfoProvider domainInfoProvider, Collection<?> collection, Class<?> domainClass) {
+	public CollectionTableModel(ReflectionProvider reflectionProvider, Collection<?> collection, Class<?> domainClass) {
 		if (collection == null) {
 			list = new ArrayList<Object>();
 		} else {
 			list = new ArrayList<Object>(collection);// convert collection to an array list to safegard the sequance of objects
 		}
-		propertyInfos = domainInfoProvider.getOrderedAndVisiblePropertyInfos(domainClass);
+		propertyInfos = reflectionProvider.getOrderedAndVisiblePropertyInfos(domainClass);
 	}
 
 	@Override

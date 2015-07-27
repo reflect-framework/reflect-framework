@@ -3,8 +3,8 @@ package nth.introspect.dataaccess.hibernate.entity;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.VisibleInForm;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.VisibleInTable;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInForm;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
 
 @MappedSuperclass
 public class VersionedEntity extends BasicEntity {

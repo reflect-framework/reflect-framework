@@ -5,12 +5,12 @@ import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
-import nth.introspect.layer5provider.domain.info.type.MethodParameterType;
-import nth.introspect.layer5provider.domain.info.type.TypeCategory;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
+import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 
@@ -64,8 +64,8 @@ public class PropertyMethodItem extends MethodItem {
 		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.getParameterType().getTypeCategory()!=TypeCategory.NONE ) {
 			parameterValue = parameterValueModel.getValue();
 		}
-		DomainInfoProvider domainInfoProvider=formView.getuserInterfaceContainer().getDomainInfoProvider();
-		text.append(TitleUtil.createTitle(domainInfoProvider,propertyMethodInfo,
+		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().getReflectionProvider();
+		text.append(TitleUtil.createTitle(reflectionProvider,propertyMethodInfo,
 				parameterValue, false));
 		return text.toString();
 	}

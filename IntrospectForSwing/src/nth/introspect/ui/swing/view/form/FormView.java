@@ -17,12 +17,12 @@ import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.view.ViewContainer;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
 import nth.introspect.ui.item.tab.CloseThisTabItem;
@@ -45,7 +45,7 @@ public class FormView extends SwingView implements
 	private final FormMode formMode;
 	private final Object domainObject;
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final DomainInfoProvider domainInfoProvider;
+	private final ReflectionProvider reflectionProvider;
 	private final PathProvider pathProvider;
 
 	public FormView(UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider, Object methodOwner, MethodInfo methodInfo,
@@ -59,17 +59,17 @@ public class FormView extends SwingView implements
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
-		domainInfoProvider=userInterfaceContainer.getDomainInfoProvider();
-		List<PropertyInfo> propertyInfos = domainInfoProvider
+		reflectionProvider=userInterfaceContainer.getReflectionProvider();
+		List<PropertyInfo> propertyInfos = reflectionProvider
 				.getPropertyInfos(domainObject.getClass());
 
-		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, domainInfoProvider, domainObject, formMode);
+		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, reflectionProvider, domainObject, formMode);
 
 		PropertyGrid propertyGrid = new PropertyGrid();
 		add(propertyGrid, BorderLayout.CENTER);
 		Component fieldToGetFocus = null;
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyRow propertyRow = new PropertyRow(this, domainInfoProvider, pathProvider, domainValueModel,
+			PropertyRow propertyRow = new PropertyRow(this, reflectionProvider, pathProvider, domainValueModel,
 					propertyInfo, formMode);
 			if (fieldToGetFocus == null && FormMode.EDIT_MODE == formMode
 					&& propertyInfo.isEnabled(domainObject)) {
@@ -139,7 +139,7 @@ public class FormView extends SwingView implements
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(domainInfoProvider, methodInfo, domainValueModel.getValue(),
+		return TitleUtil.createTitle(reflectionProvider, methodInfo, domainValueModel.getValue(),
 				true);
 	}
 

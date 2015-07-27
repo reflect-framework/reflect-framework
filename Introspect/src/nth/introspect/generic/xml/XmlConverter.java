@@ -23,8 +23,8 @@ import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.xml.transform.DefaultMatcher;
 import nth.introspect.generic.xml.transform.Transform;
 import nth.introspect.layer4infrastructure.InfrastructureContainer;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,11 +36,11 @@ public class XmlConverter {
 	private static final String INTROSPECT = Introspect.class.getSimpleName();
 	private static final String ID = "id";
 	private static DefaultMatcher XML_TRANSFORM_MATCHER = new DefaultMatcher(null);
-	private final DomainInfoProvider domainInfoProvider;
+	private final ReflectionProvider reflectionProvider;
 	private final InfrastructureContainer providerContainer;
 
-	public XmlConverter(DomainInfoProvider domainInfoProvider, InfrastructureContainer providerContainer) {
-		this.domainInfoProvider = domainInfoProvider;
+	public XmlConverter(ReflectionProvider reflectionProvider, InfrastructureContainer providerContainer) {
+		this.reflectionProvider = reflectionProvider;
 		this.providerContainer = providerContainer;
 	}
 	
@@ -139,7 +139,7 @@ public class XmlConverter {
 			// remember the objects that where marshaled so we do not have to do them twice.
 			marshaledObjects.add(objectToMarshal);
 
-			List<PropertyInfo> properyInfos = domainInfoProvider.getPropertyInfos(objectToMarshal.getClass());
+			List<PropertyInfo> properyInfos = reflectionProvider.getPropertyInfos(objectToMarshal.getClass());
 			for (PropertyInfo propertyInfo : properyInfos) {
 
 				Object propertyValue = propertyInfo.getValue(objectToMarshal);
@@ -235,7 +235,7 @@ public class XmlConverter {
 			unMarshaledObjects.put(id, object);
 
 			// get PropertyInfos
-			List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(object.getClass());
+			List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(object.getClass());
 			// get property Elements
 			List<Element> propertyElements = getChildElements(objectElement);
 

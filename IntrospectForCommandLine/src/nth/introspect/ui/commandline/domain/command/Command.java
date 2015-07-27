@@ -7,11 +7,11 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.generic.filter.Filter;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.property.FormOrderComparator;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
-import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.property.FormOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class Command {
 	private String name;
@@ -19,17 +19,17 @@ public class Command {
 	private MethodInfo methodInfo;
 	private List<Parameter> parameters;
 
-	public Command(DomainInfoProvider domainInfoProvider, Object serviceObject, MethodInfo methodInfo, boolean shortCommand) throws IntrospectCommandLineException {
+	public Command(ReflectionProvider reflectionProvider, Object serviceObject, MethodInfo methodInfo, boolean shortCommand) throws IntrospectCommandLineException {
 		this.serviceObject = serviceObject;
 		this.methodInfo = methodInfo;
 		// name
 		this.name = createName(serviceObject, methodInfo, shortCommand);
 		// parameters
-		parameters = createParameters(domainInfoProvider, methodInfo);
+		parameters = createParameters(reflectionProvider, methodInfo);
 
 	}
 
-	private List<Parameter> createParameters(DomainInfoProvider domainInfoProvider, MethodInfo methodInfo) throws IntrospectCommandLineException {
+	private List<Parameter> createParameters(ReflectionProvider reflectionProvider, MethodInfo methodInfo) throws IntrospectCommandLineException {
 		List<Parameter> parameters = new ArrayList<Parameter>();
 		Class<?> parameterClass = methodInfo.getParameterType().getType();
 
@@ -39,7 +39,7 @@ public class Command {
 			Filter<PropertyInfo> propertyInfoFilter = new CommandLineParameterFilter();
 			FormOrderComparator propertyInfoComparator = new FormOrderComparator();
 			Class<?> returnClass = methodInfo.getParameterType().getTypeOrGenericCollectionType();
-			List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+			List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 			
 			for (PropertyInfo propertyInfo : propertyInfos) {

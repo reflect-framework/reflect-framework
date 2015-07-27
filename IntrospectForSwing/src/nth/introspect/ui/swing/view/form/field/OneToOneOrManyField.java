@@ -31,9 +31,9 @@ import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
@@ -179,8 +179,8 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	public void refresh() {
 		// set text
 		UserInterfaceContainer outerContainer = formView.getuserInterfaceContainer();
-		DomainInfoProvider domainInfoProvider = outerContainer.getDomainInfoProvider();
-		ClassInfo classInfo = domainInfoProvider.getClassInfo(propertyValueModel
+		ReflectionProvider reflectionProvider = outerContainer.getReflectionProvider();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(propertyValueModel
 				.getValueType());
 		Object propertyValue = propertyValueModel.getValue();
 		String title = classInfo.getTitle(propertyValue);

@@ -6,11 +6,11 @@ import java.util.List;
 import nth.introspect.Introspect;
 import nth.introspect.generic.filter.LogicFilter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.method.filter.LinkedToPropertyFilter;
-import nth.introspect.layer5provider.domain.info.method.filter.ParameterTypeFilter;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.method.filter.LinkedToPropertyFilter;
+import nth.introspect.layer5provider.reflection.info.method.filter.ParameterTypeFilter;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.ui.view.FormView;
 
@@ -37,8 +37,8 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		DomainInfoProvider domainInfoProvider=formView.getuserInterfaceContainer().getDomainInfoProvider();
-		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(domainClass);
+		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().getReflectionProvider();
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(domainClass);
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
 			if (otherPropertyInfo != propertyInfo) {
@@ -47,7 +47,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 						new LinkedToPropertyFilter(otherPropertyInfo));
 				filter.and(new ParameterTypeFilter(parameterClass));
 
-				List<MethodInfo> propertyMethods = domainInfoProvider.getMethodInfos(domainClass, filter);
+				List<MethodInfo> propertyMethods = reflectionProvider.getMethodInfos(domainClass, filter);
 				for (MethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
 							formView, otherPropertyInfo, propertyMethodInfo,

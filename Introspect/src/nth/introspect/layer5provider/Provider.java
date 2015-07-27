@@ -9,6 +9,7 @@ import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
@@ -21,7 +22,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * <li>Multi language (see {@link LanguageProvider})</li>
  * <li>Notifications (see {@link NotificationProvider})</li>
  * <li>File path information (see {@link PathProvider})</li>
- * <li>Domain object information (see {@link DomainProvider})</li>
+ * <li>Object meta information (see {@link ReflectionProvider})</li>
  * <li>Version information (see {@link AboutProvider})</li>
  * </ul>
  * <p>
@@ -55,9 +56,9 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * <p>
  * {@insert PathProvider}
  * </p>
- * <h3>Domain Provider</h3>
+ * <h3>Reflection Provider</h3>
  * <p>
- * {@insert DomainInfoProvider}
+ * {@insert ReflectionProvider}
  * </p>
  * <h3>About Provider</h3>
  * <p>

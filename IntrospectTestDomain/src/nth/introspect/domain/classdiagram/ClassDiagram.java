@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.OrderInForm;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.OrderInForm;
 
 public class ClassDiagram {
 
@@ -24,7 +24,7 @@ public class ClassDiagram {
 		methods = new ArrayList<ClassFeature>();
 	}
 
-	public ClassDiagram(DomainInfoProvider domainInfoProvider, Class<?> introspectedClass) {
+	public ClassDiagram(ReflectionProvider reflectionProvider, Class<?> introspectedClass) {
 		this();// initialize lists
 
 		// name
@@ -43,13 +43,13 @@ public class ClassDiagram {
 		}
 
 		// properties
-		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(introspectedClass);
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(introspectedClass);
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			getProperties().add(new ClassFeature(propertyInfo));
 		}
 
 		// methods
-		List<MethodInfo> methodInfos = domainInfoProvider.getMethodInfos(introspectedClass);
+		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(introspectedClass);
 		for (MethodInfo methodInfo : methodInfos) {
 			getMethods().add(new ClassFeature(methodInfo));
 		}

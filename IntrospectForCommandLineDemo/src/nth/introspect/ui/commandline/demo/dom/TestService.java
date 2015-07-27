@@ -11,9 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.layer1userinterface.controller.DownloadStream;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.ExecutionMode;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.ExecutionMode;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 /**
  * Note that this class is derived form the TestsService class in the IntrospectTestDomain project<br>
  * It is simplified so it is suited for the command line user interface (Which is limited in functionality) 

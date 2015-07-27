@@ -6,7 +6,7 @@ import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.domain.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 
 public class DialogMethodItem extends Item {
 

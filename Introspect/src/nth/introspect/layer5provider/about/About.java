@@ -6,11 +6,11 @@ import java.util.List;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 public class About extends VersionInfo {
@@ -27,7 +27,7 @@ public class About extends VersionInfo {
 	public List<VersionInfo> getProviders() {
 		List<VersionInfo> providerInfos = new ArrayList<VersionInfo>();
 		providerInfos.add(getAuthorizationProviderInfo());
-		providerInfos.add(getDomainInfoProviderInfo());
+		providerInfos.add(getReflectionProviderInfo());
 		providerInfos.add(getLanguageProviderInfo());
 		providerInfos.add(getPathProviderInfo());
 		providerInfos.add(getValidationProviderInfo());
@@ -52,9 +52,9 @@ public class About extends VersionInfo {
 		return new VersionInfo(authorizationProviderClass);
 	}
 
-	private VersionInfo getDomainInfoProviderInfo() {
-		Class<? extends DomainInfoProvider> domainInfoProviderClass = application.getDomainInfoProviderClass();
-		return new VersionInfo(domainInfoProviderClass);
+	private VersionInfo getReflectionProviderInfo() {
+		Class<? extends ReflectionProvider> reflectionProviderClass = application.getReflectionProviderClass();
+		return new VersionInfo(reflectionProviderClass);
 	}
 
 	private VersionInfo getLanguageProviderInfo() {
