@@ -2,13 +2,19 @@ package nth.introspect.layer5provider.report;
 
 import java.io.ByteArrayOutputStream;
 
-import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
 
-public abstract class ReportProvider<T>  {
+/**
+ * @deprecated There no longer is a {@link ReportProvider}. You can create a {@link InfrastructureObject}
+ * that could create E.G. a PdfReportFactory. These classes do not need to have
+ * a superclass nor implement a an interface. The {@link ReportProvider} is therefore no
+ * longer needed and needs to be removed where possible
+ */
+public abstract class ReportProvider<T> {
 
 	public ByteArrayOutputStream createReport(Report report) {
-		T document=createDocument(report);
-		for (Section section: report.getSections()) {
+		T document = createDocument(report);
+		for (Section section : report.getSections()) {
 			if (section instanceof TableSection) {
 				TableSection tableSection = (TableSection) section;
 				addTableSection(document, report, tableSection);
@@ -16,19 +22,25 @@ public abstract class ReportProvider<T>  {
 				FormSection formSection = (FormSection) section;
 				addFormSection(document, report, formSection);
 			} else {
-				throw new RuntimeException("Report section " + section.getClass().getCanonicalName() + " is not supported for " + this.getClass().getCanonicalName());
+				throw new RuntimeException("Report section "
+						+ section.getClass().getCanonicalName()
+						+ " is not supported for "
+						+ this.getClass().getCanonicalName());
 			}
 		}
-		ByteArrayOutputStream outputStream=createOutputStream(document, report);
+		ByteArrayOutputStream outputStream = createOutputStream(document,
+				report);
 		return outputStream;
 	}
 
+	public abstract T createDocument(Report report);
 
-	public abstract T createDocument(Report report) ;
+	public abstract void addFormSection(T document, Report report,
+			FormSection formSection);
 
-	public abstract void addFormSection(T document, Report report, FormSection formSection);
-	
-	public abstract void addTableSection(T document, Report report, TableSection tableSection);
+	public abstract void addTableSection(T document, Report report,
+			TableSection tableSection);
 
-	public abstract ByteArrayOutputStream createOutputStream(T document, Report report);
+	public abstract ByteArrayOutputStream createOutputStream(T document,
+			Report report);
 }
