@@ -16,11 +16,11 @@ import nth.introspect.Introspect;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
-import nth.introspect.layer5provider.domain.info.property.TableOrderComparator;
-import nth.introspect.layer5provider.domain.info.property.TableVisibleFilter;
-import nth.introspect.layer5provider.domain.info.type.TypeCategory;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
+import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
@@ -44,10 +44,10 @@ import org.apache.poi.ss.util.CellRangeAddress;
  *
  */
 public class ExcelReportFactory {
-	private DomainInfoProvider domainInfoProvider;
+	private ReflectionProvider reflectionProvider;
 
-	public ExcelReportFactory(DomainInfoProvider domainInfoProvider) {
-		this.domainInfoProvider = domainInfoProvider;
+	public ExcelReportFactory(ReflectionProvider reflectionProvider) {
+		this.reflectionProvider = reflectionProvider;
 	}
 
 	public DownloadStream createReport(Object domainObject,
@@ -62,7 +62,7 @@ public class ExcelReportFactory {
 		Date exportDateTime = new Date();
 		initFooter(sheet, exportDateTime);
 
-		List<PropertyInfo> propertyInfos = domainInfoProvider
+		List<PropertyInfo> propertyInfos = reflectionProvider
 				.getOrderedAndVisiblePropertyInfos(domainClass);
 		int maxNumberOfColumns = getMaxNumberOfColumns(propertyInfos);
 
@@ -159,7 +159,7 @@ public class ExcelReportFactory {
 				.getTypeOrGenericCollectionType();
 		Filter<PropertyInfo> propertyInfoFilter = new TableVisibleFilter();
 		Comparator<PropertyInfo> propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(
 				introspectedClass, propertyInfoFilter, propertyInfoComparator);
 
 		createPropertyTableHeader(sheet, row, propertyInfos);
@@ -269,7 +269,7 @@ public class ExcelReportFactory {
 		// get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = domainInfoProvider.getPropertyInfos(
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(
 				domainClass, propertyInfoFilter, propertyInfoComparator);
 		return propertyInfos;
 	}
