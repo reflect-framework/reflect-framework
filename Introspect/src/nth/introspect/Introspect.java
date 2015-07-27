@@ -3,12 +3,8 @@ package nth.introspect;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
-import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer2service.ServiceObject;
-import nth.introspect.layer4infrastructure.InfrastructureObject;
-import nth.introspect.layer5provider.Provider;
 
 /**
  * The Introspect class is responsible for initializing the frame work and

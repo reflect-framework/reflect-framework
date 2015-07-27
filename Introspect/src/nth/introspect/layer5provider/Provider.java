@@ -6,7 +6,6 @@ import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;

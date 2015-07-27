@@ -1,10 +1,5 @@
 package nth.introspect.documentation;
 
-import nth.introspect.Introspect;
-import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer5provider.Provider;
 
 /**
  * Introspect is an <a href="http://en.wikipedia.org/wiki/Open_source">open

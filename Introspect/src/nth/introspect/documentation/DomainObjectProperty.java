@@ -1,6 +1,5 @@
 package nth.introspect.documentation;
 
-import nth.introspect.generic.titlebuilder.TitleBuilder;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;

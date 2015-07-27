@@ -1,7 +1,6 @@
 package nth.introspect.layer3domain;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.DomainObjectActionMethod;
 import nth.introspect.documentation.IntrospectFramework;
@@ -11,7 +10,6 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
-import nth.introspect.layer5provider.domain.info.DomainInfoProvider;
 
 /**
  * <p>

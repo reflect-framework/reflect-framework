@@ -3,7 +3,6 @@ package nth.introspect.layer1userinterface;
 import java.util.ArrayList;
 import java.util.List;
 
-import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.container.IntrospectContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;

@@ -9,7 +9,6 @@ import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerExcep
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.documentation.ServiceObjectActionMethod;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;

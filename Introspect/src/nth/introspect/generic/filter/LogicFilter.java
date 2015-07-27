@@ -1,8 +1,5 @@
 package nth.introspect.generic.filter;
 
-import java.util.Collections;
-
-import nth.introspect.layer5provider.domain.info.property.PropertyInfo;
 
 public class LogicFilter<T> implements Filter<T> {
 

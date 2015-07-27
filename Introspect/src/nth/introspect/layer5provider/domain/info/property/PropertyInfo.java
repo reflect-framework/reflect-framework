@@ -275,6 +275,7 @@ public class PropertyInfo implements IntrospectionInfo {
 		return (FieldModeType) valueModels.getValue(FIELD_MODE);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Object> getValues(Object domainObject) {
 		return (List<Object>) valueModels.getValue(VALUES, domainObject);
 	}

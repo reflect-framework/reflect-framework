@@ -1,10 +1,5 @@
 package nth.introspect.layer2service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.sun.org.apache.xml.internal.security.encryption.Reference;
-
 import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.ActionMethod;
 import nth.introspect.documentation.Documentation;
@@ -13,11 +8,9 @@ import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.documentation.ObjectBehavior;
 import nth.introspect.documentation.ServiceObjectActionMethod;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer3domain.DomainContainer;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
-import nth.introspect.layer5provider.domain.info.valuemodel.annotations.GenericReturnType;
 
 /**
  * <p>

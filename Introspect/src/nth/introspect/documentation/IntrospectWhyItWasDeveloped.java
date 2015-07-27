@@ -1,11 +1,6 @@
 package nth.introspect.documentation;
 
-import nth.introspect.Introspect;
-import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
-import nth.introspect.layer5provider.Provider;
 
 /**
  * 

@@ -4,7 +4,6 @@ import nth.introspect.container.IntrospectContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.layer2service.ServiceContainer;
 
 /**
  * <p>The {@link ProviderLayer} contains {@link Provider} objects that provide generic
