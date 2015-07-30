@@ -7,7 +7,7 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.ClassIconID;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.NamingInfo;
+import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TextValue;
@@ -20,7 +20,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TitleValue;
  * @author nilsth
  * 
  */
-public class ClassInfo implements NamingInfo {
+public class ClassInfo implements NameInfo {
 
 	public final static String TEXT = "text";//TODO rename to typeName?
 	public final static String DESCRIPTION = "description";

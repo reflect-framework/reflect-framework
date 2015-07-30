@@ -1,6 +1,6 @@
 package nth.introspect.layer3domain;
 
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
@@ -9,11 +9,13 @@ import nth.introspect.layer4infrastructure.InfrastructureLayer;
 import nth.introspect.layer5provider.ProviderLayer;
 
 /**
- * The Domain layer is the hart of any Introspect application. The domain layer
- * represents concepts of the business, information about the business
- * situation, and business rules. State that reflects the business situation is
- * controlled and used here.<br>
- * <br>
+ * The Domain layer is the heart of any Introspect application. The domain layer
+ * represents:
+ * <ul>
+ * <li>The concepts of the business</li>
+ * <li>The business rules</li>
+ * <li>The state that reflects the business situation</li>
+ * </ul>
  * Because there is many debate on the naming within a layered architecture, the
  * domain layer is sometimes also called:
  * <ul>
@@ -24,8 +26,10 @@ import nth.introspect.layer5provider.ProviderLayer;
  * layer</li>
  * </ul>
  * <p>
- * The domain layer is basically where all the domain objects are. The {@link DomainContainer} is an {@link IntrospectContainer} that
- * that can be used to create and hold {@link DomainObject}'s that need dependency injection.
+ * The domain layer is basically where all the domain objects are. The
+ * {@link DomainContainer} is an {@link DependencyInjectionContainer} that can
+ * be used to create and hold {@link DomainObject}'s that need dependency
+ * injection.
  * </p>
  * Note that the {@link DomainLayer} is a middle layer (see
  * {@link IntrospectArchitecture}):

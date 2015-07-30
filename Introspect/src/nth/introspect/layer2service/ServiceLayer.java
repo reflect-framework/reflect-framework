@@ -1,6 +1,6 @@
 package nth.introspect.layer2service;
 
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
@@ -15,11 +15,11 @@ import nth.introspect.layer5provider.ProviderLayer;
  * href="application layer">application layer</a>) gives the user access to the
  * {@link DomainObject}s so that the user can work on them.
  * </p>
- * <p>The {@link ServiceContainer} is an {@link IntrospectContainer} that
+ * <p>The {@link ServiceContainer} is an {@link DependencyInjectionContainer} that
  * represents the {@link ServiceLayer} and holds and manages
  * {@link ServiceObject}s. </p>
  * <p>
- * Note that the {@link ServiceLayer} is a middle layer(see
+ * Note that the {@link ServiceLayer} is a middle layer (see
  * {@link IntrospectArchitecture}):
  * <ul>
  * <li>

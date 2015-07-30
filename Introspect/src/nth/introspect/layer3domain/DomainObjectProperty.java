@@ -1,13 +1,16 @@
-package nth.introspect.documentation;
+package nth.introspect.layer3domain;
 
+import nth.introspect.documentation.Documentation;
+import nth.introspect.generic.titlebuilder.TitleBuilder;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
+import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 /**
- * Domain objects have <a
+ * {@link DomainObject}s have <a
  * href="http://en.wikipedia.org/wiki/State_(computer_science)">state</a>. This
  * means the domain objects contain information that may change over time. This
  * information is represented by <a
@@ -18,7 +21,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * <li>givenName</li>
  * <li>familyName</li>
  * <li>fullName</li>
- * <li>male</li>
+ * <li>bonusMember</li>
  * </ul>
  * 
  * 
@@ -26,7 +29,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * public class Customer {
  * 	private String givenName;
  * 	private String familyName;
- * 	private boolean male;
+ * 	private boolean bonusMember;
  * 
  * 	public String getGivenName() {
  * 		return givenName;
@@ -49,12 +52,12 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * 				.toString();
  * 	}
  * 
- * 	public boolean isMale() {
- * 		return male;
+ * 	public boolean isBonusMember() {
+ * 		return bonusMember;
  * 	}
  * 
- * 	public void setMale(boolean male) {
- * 		this.male = male;
+ * 	public void setBonusMember(boolean bonusMember) {
+ * 		this.bonusMember = bonusMember;
  * 	}
  * }
  * </pre>
@@ -64,7 +67,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * between <a href="http://en.wikipedia.org/wiki/Mutator_method">getter and
  * setter methods</a> and a <a
  * href="http://en.wikipedia.org/wiki/Field_(computer_science)">field</a>. The
- * following 3 chapters will explain this in more detail.
+ * following 3 sections will explain this in more detail.
  * <p>
  * 
  * <h3>Getter methods</h3>
@@ -77,7 +80,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * above)</li>
  * <li>The getter method name starts with is, followed by the property name in
  * <a href="http://en.wikipedia.org/wiki/CamelCase">CamelCase</a> when the
- * property type IS a boolean (See the isMale() method in the example above)</li>
+ * property type IS a boolean (See the isBonusMember() method in the example above)</li>
  * <li>The getter methods are always public (accessible by other objects)</li>
  * </ul>
  * <h3>Setter methods</h3>
@@ -112,8 +115,8 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * <ul>
  * <li>Value property: A char, string, boolean, number, date, or other <a href=
  * "http://en.wikipedia.org/wiki/Primitive_data_type#Specific_primitive_data_types"
- * >primitive data type</a>. The {@link UserInterfaceController} will display
- * these types as as a <a
+ * >primitive data types</a>. The {@link UserInterfaceController} will display
+ * these types as a <a
  * href="http://en.wikipedia.org/wiki/Text_box">textbox</a>. Assuming that the
  * user is allowed to modify that property, they may enter the value by typing
  * in text, which will be validated and formatted according to the value type.
@@ -151,10 +154,8 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * 
  * <h3>Property behavior</h3>
  * You can specify certain things about both the behavior and presentation of
- * properties by adding specific attributes or methods. See chapter
+ * properties by adding specific attributes or methods. See section
  * {@link ObjectBehavior}.
- * 
- * @author nilsth
  *
  */
 public interface DomainObjectProperty extends Documentation {

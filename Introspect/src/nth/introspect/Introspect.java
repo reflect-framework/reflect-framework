@@ -1,6 +1,6 @@
 package nth.introspect;
 
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
@@ -19,7 +19,7 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 public class Introspect {
 
 	/**
-	 * Creates all {@link IntrospectContainer}'s and starts the application by
+	 * Creates all {@link DependencyInjectionContainer}'s and starts the application by
 	 * getting/ creating the {@link UserInterfaceController} from the
 	 * {@link UserInterfaceContainer}
 	 * 
@@ -33,12 +33,12 @@ public class Introspect {
 	}
 
 	/**
-	 * Creates the {@link IntrospectContainer}s for the different layers.<br>
-	 * Each {@link IntrospectContainer} represent a layer.<br>
-	 * Each {@link IntrospectContainer} has an inner {@link IntrospectContainer}
+	 * Creates the {@link DependencyInjectionContainer}s for the different layers.<br>
+	 * Each {@link DependencyInjectionContainer} represent a layer.<br>
+	 * Each {@link DependencyInjectionContainer} has an inner {@link DependencyInjectionContainer}
 	 * that represent a lower layer (dependencies to lower layer objects only).<br>
 	 * The {@link UserInterfaceContainer} is the outer
-	 * {@link IntrospectContainer} that contains all inner containers.
+	 * {@link DependencyInjectionContainer} that contains all inner containers.
 	 * 
 	 * @param application
 	 * @return the created {@link UserInterfaceContainer}

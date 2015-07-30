@@ -3,13 +3,34 @@ package nth.introspect.generic.titlebuilder;
 import java.util.ArrayList;
 
 import nth.introspect.generic.util.StringUtil;
+import nth.introspect.layer3domain.DomainObject;
 
 /**
- * This helper class can be used to create titles for domain objects (in the
- * toString method or <className>Title method) <br>
- * TODO consider if we should merge this class with {@link StringUtil} to
- * prevent confusion
+ * <p>
+ * Often a {@link DomainObject} can be identified by a single property. The
+ * toString() method can than simply return this property value to return the
+ * title.
+ * </p>
+ * <p>
+ * In other cases a DomainObject is identified by multiple property values. In
+ * this case it is recommended to use the StringBuilder (see the example above).
+ * The TitleBuilder is an extension of the StringBuilder, but has some
+ * additional functionality such as:
+ * <ul>
+ * <li>The “append” methods will append a separator and a given value. You can
+ * use the default separator (a space) or use an “append” method where you give
+ * the separator as a first parameter followed by the value.</li>
+ * <li>The “contact” methods will append a given value without a separator</li>
+ * <li>Both “append” and “contact” methods will ignore null values or reference
+ * objects that do not have a toString implementation</li>
+ * <li>Both “append” and “contact” methods have methods where you can specify
+ * format values (e.g. date, time and numbers)</li>
+ * </ul>
+ * </p>
  * 
+ * TODO example
+ * 
+ * TODO implement naked object style
  * @author nilsth
  * 
  */
@@ -44,7 +65,6 @@ public class TitleBuilder {
 		}
 	}
 
-	
 	private final ArrayList<Object> titleValues;
 	private final String defaultSeperator;
 
@@ -52,7 +72,7 @@ public class TitleBuilder {
 		this.defaultSeperator = defaultSeperator;
 		titleValues = new ArrayList<Object>();
 	}
-	
+
 	/**
 	 * Creates a {@link TitleBuilder} with a space as seperator
 	 */

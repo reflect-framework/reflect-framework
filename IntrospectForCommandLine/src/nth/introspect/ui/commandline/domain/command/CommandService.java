@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import nth.introspect.Introspect;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;

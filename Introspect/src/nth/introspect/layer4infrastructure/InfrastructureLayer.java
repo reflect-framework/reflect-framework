@@ -1,6 +1,6 @@
 package nth.introspect.layer4infrastructure;
 
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
@@ -26,7 +26,7 @@ import nth.introspect.layer5provider.ProviderLayer;
  * </ul>
  * </p>
  * <p>
- * The {@link InfrastructureContainer} is an {@link IntrospectContainer} that
+ * The {@link InfrastructureContainer} is an {@link DependencyInjectionContainer} that
  * represents the {@link InfrastructureLayer} and holds and manages
  * {@link InfrastructureObject}s.<br>
  * </p>

@@ -21,10 +21,10 @@ import nth.introspect.documentation.IntrospectFramework;
  * parameters:
  * <ul>
  * <li>createGitHubHtmlDocumentation "M:/My Git/Introspect-Framework"
- * "IntrospectDocumentation" "ntenhoeve" "GithuB66^" "M:\My
+ * "IntrospectDocumentationInstructions" "ntenhoeve" "GithuB66^" "M:\My
  * Git\ntenhoeve.github.io"</li>
  * <li>createGitHubWikiDocumentation "M:/My Git/Introspect-Framework"
- * "IntrospectDocumentation" "ntenhoeve" "GithuB66^" "M:\My
+ * "IntrospectDocumentationInstructions" "ntenhoeve" "GithuB66^" "M:\My
  * Git\Introspect-Framework.wiki"</li>
  * </ul>
  * Or run the {@link SoftwareDocumentationGenerator} with the
@@ -54,6 +54,6 @@ import nth.introspect.documentation.IntrospectFramework;
  * @author nilsth
  *
  */
-public interface IntrospectDocumentation {
+public interface IntrospectDocumentationInstructions {
 
 }

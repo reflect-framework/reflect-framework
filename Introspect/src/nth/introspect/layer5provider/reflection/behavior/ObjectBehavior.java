@@ -1,51 +1,43 @@
-package nth.introspect.documentation;
+package nth.introspect.layer5provider.reflection.behavior;
 
+import nth.introspect.IntrospectApplication;
+import nth.introspect.documentation.Documentation;
+import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModelFactory;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
- * This section is concerned with adding to, or modifying, the behavior of
- * domain objects and service objects, in order to build a richer application.
- * 
- * Behavior can be added with:
+ * The {@link IntrospectApplication}, {@link ServiceObject}s and
+ * {@link DomainObject}s can have behavior that defines how the objects act or
+ * how they are displayed. Behavior can be defined with:
  * <ul>
  * <li>methods that are recognized by the {@link IntrospectFramework}</li>
  * <li>annotations that are recognized by the {@link IntrospectFramework}</li>
  * </ul>
- * TO-DO RECOGNIZED METHODS (see naked objects doc)
+ * TODO RECOGNIZED METHODS (see naked objects doc) TODO RECOGNIZED ANNOTATIONS
+ * TODO verify if we missed a chapter by inspecting ClassInfo and MethodInfo and
+ * PropertyInfo
  * 
- * TO-DO RECOGNIZED ANNOTATIONS
- * 
- * (TODO verify if we missed a chapter by inspecting ClassInfo and MethodInfo
- * and PropertyInfo)
- * 
- * <h3>Title</h3> The Application object, domain objects and service objects
- * have a title which is displayed in the user interface. This title defaults to
- * the class name, but you can override the title.
- * 
- * (TODO title annotation + example)
- * 
- * (TODO title method + example)
- * 
- * (TODO toString method + example)
- * 
- * (TODO titlebuilder + example)
+ * <h2>Display Name</h2>
  * <p>
- * For domain objects it makes sence to override the title so that the domain
- * object can be better identified. For example: the default title for a
- * customer object will be “Customer”. It makes since to override the title with
- * the name of the customer, so that the customer object can be better
- * identified in the user interface
+ * {@insert DisplayNameModelFactory}
  * </p>
- * <h3>Description</h3> 
- * (TODO description what this does) (TODO annotation) (TODO
- * method)
- * 
- * <h3>Icon</h3> (TODO description what this does) (TODO annotation) (TODO
- * method)
- * 
- * <h3>Visible</h3> 
- * (TODO description what this does) (TODO annotation) (TODO
+ * <h2>Title</h2> 
+ * <p>
+ * {@insert TitleModelFactory}
+ * </p>
+ * <h2>Description</h2> 
+ * <p>
+ * {@insert DescriptionModelFactory}
+ * </p>
+ * <h2>Icon</h2> 
+ * <p>
+ * {@insert IconModelFactory}
+ * </p>
+ * <h3>Visible</h3> (TODO description what this does) (TODO annotation) (TODO
  * method)
  * 
  * 

@@ -1,6 +1,6 @@
 package nth.introspect.layer1userinterface;
 
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
@@ -12,7 +12,7 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
  * so much more). The {@link UserInterfaceLayer} contains the
  * {@link UserInterfaceController}, which is responsible for showing information to the user and processing the information from the user using the objects in the lower layers (see {@link IntrospectArchitecture}).
  * <p>
- * The {@link UserInterfaceContainer} is an {@link IntrospectContainer} that
+ * The {@link UserInterfaceContainer} is an {@link DependencyInjectionContainer} that
  * represents the {@link UserInterfaceLayer} and holds and manages the
  * {@link UserInterfaceController}.
  * </p>

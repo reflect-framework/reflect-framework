@@ -3,7 +3,7 @@ package nth.introspect.layer5provider.reflection.info.valuemodel.impl;
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.info.NamingInfo;
+import nth.introspect.layer5provider.reflection.info.NameInfo;
 
 public class TextValue implements ReadOnlyValueModel {
 
@@ -11,11 +11,11 @@ public class TextValue implements ReadOnlyValueModel {
 	private final String key;
 	private final LanguageProvider languageProvider;
 
-	public TextValue(NamingInfo introspectInfo, LanguageProvider languageProvider, String suffix) {
+	public TextValue(NameInfo introspectInfo, LanguageProvider languageProvider, String suffix) {
 		this(introspectInfo,  languageProvider, suffix, null);
 	}
 
-	public TextValue(NamingInfo introspectInfo, LanguageProvider languageProvider, String suffix, String regexpToRemoveFromDefaultText) {
+	public TextValue(NameInfo introspectInfo, LanguageProvider languageProvider, String suffix, String regexpToRemoveFromDefaultText) {
 		this.languageProvider = languageProvider;
 		defaultValue = introspectInfo.getName();
 		if (regexpToRemoveFromDefaultText != null) {

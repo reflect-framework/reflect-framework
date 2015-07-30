@@ -1,15 +1,16 @@
 package nth.introspect.layer5provider.authorization;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.documentation.ActionMethod;
-import nth.introspect.documentation.DomainObjectProperty;
+import nth.introspect.container.ConstructionInjection;
 import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.documentation.ObjectBehavior;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
+import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**
  * <p>
@@ -32,9 +33,6 @@ import nth.introspect.layer5provider.Provider;
  * implementations, depending on the authorization mechanism you prefer. In
  * example: you could write an implementation that uses:
  * <ul>
- * <li>
- * the {@link DefaultAuthorizationProvider} (always returns true on the
- * {@link #userInRole(String)} method)</li>
  * <li>hard coded authorization</li>
  * <li>file based authorization</li>
  * <li>database authorization</li>
@@ -63,53 +61,10 @@ import nth.introspect.layer5provider.Provider;
  * 
  * <h3>Using an AuthorizationProvider</h3>
  * <p>
- * You can get a reference to the {@link AuthorizationProvider} by adding a
- * {@link AuthorizationProvider} parameter in the constructor of your
- * {@link ServiceObject}, {@link DomainObject} or {@link InfrastructureObject}.
- * The registered {@link AuthorizationProvider} will than be given to the
- * constructor when the object in which you need it will be instantiated by the
- * {@link IntrospectFramework}. You can then link the constructor parameter to a
- * private field so you can use the {@link AuthorizationProvider} throughout the
- * class. It is often used with behavioral enabled and visible methods (see
- * chapter {@link ObjectBehavior}).
- * </p>
- * 
- * Code example
- * <pre>
- * public class OrderService {
- * 
- * 	private final AuthorizationProvider authorizationProvider;
- * 	private final AuthorizationProvider OrderRepository;
- * 
- * 	public OrderService(AuthorizationProvider authorizationProvider,
- * 			OrderRepository orderRepository) {
- * 		this.authorizationProvider = authorizationProvider;
- * 	}
- * 
- * 	public List&lt;Orders&gt; ordersWaitingForPayment() {
- * 		orderrepository.ordersWaitingForPayment();
- * 	}
- * 
- * 	public boolean ordersWaitingForPaymentVisible() {
- * 		return authorizationProvider.userInRole(UserRoles.SalesManager);
- * 	}
- * }
- * 
- * </pre>
- * 
- * <p>
- * Note that if an user is not authorized to change a
- * {@link DomainObjectProperty} or call an {@link ActionMethod} it is best to
- * hide the method or property instead of disabling it. In general you do not
- * want to confuse users with options that they are not allowed to use anyway.
- * </p>
- * 
- * <p>
- * Note that {@link ServiceObject}s and {@link InfrastructureObject}s are
- * automatically created by the framework. DomainObjects that need dependency
- * injection will need to be created using the {@link ServiceContainer} (see
- * {@link DomainObject} chapter).
- * </p>
+ * The {@link AuthorizationProvider} is used by the @Hidden and @Disabled
+ * annotations (see {@link ObjectBehavior}). If you want to use the
+ * {@link AuthorizationProvider} in your code you need to inject it into your
+ * object (see {@link ConstructionInjection})
  * 
  * @author nilsth
  *

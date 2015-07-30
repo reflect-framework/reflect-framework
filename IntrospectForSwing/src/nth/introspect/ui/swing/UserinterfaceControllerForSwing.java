@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.generic.util.ExceptionUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;

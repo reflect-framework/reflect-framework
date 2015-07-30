@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.container.InstanceFactory;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
@@ -43,7 +43,7 @@ public class CloneUtil {
 	 * @return the instantiated with the property values of the sourceObject
 	 */
 
-	public static Object clone(IntrospectContainer introspectContainer,  ReflectionProvider reflectionProvider, Object sourceObject) {
+	public static Object clone(DependencyInjectionContainer introspectContainer,  ReflectionProvider reflectionProvider, Object sourceObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		try {
 			InstanceFactory instanceFactory=new InstanceFactory(sourceClass, introspectContainer);

@@ -5,7 +5,7 @@ import java.util.List;
 
 import sun.awt.geom.AreaOp.IntOp;
 import nth.introspect.Introspect;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.generic.filter.EqualsFilter;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.LogicFilter;

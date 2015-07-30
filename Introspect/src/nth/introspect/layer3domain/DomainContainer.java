@@ -1,15 +1,15 @@
 package nth.introspect.layer3domain;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer4infrastructure.InfrastructureContainer;
 
 /**
- * This {@link IntrospectContainer} represents the {@link DomainLayer}
+ * This {@link DependencyInjectionContainer} represents the {@link DomainLayer}
  * @author nilsth
  *
  */
-public class DomainContainer extends IntrospectContainer {
+public class DomainContainer extends DependencyInjectionContainer {
 	
 	public DomainContainer(IntrospectApplication application) {
 		super(new InfrastructureContainer(application));

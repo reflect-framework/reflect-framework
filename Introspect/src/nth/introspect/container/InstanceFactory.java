@@ -14,10 +14,10 @@ public class InstanceFactory {
 	private final Class<?> classToInstantiate;
 	private final Constructor<?> bestConstructor;
 	private List<Class<?>> dependencyClasses;
-	private IntrospectContainer introspectContainer;
+	private DependencyInjectionContainer introspectContainer;
 
 	public InstanceFactory(Class<?> classToInstantiate,
-			IntrospectContainer introspectContainer2)
+			DependencyInjectionContainer introspectContainer2)
 			throws IntrospectContainerException {
 		this.classToInstantiate = classToInstantiate;
 		this.introspectContainer = introspectContainer2;
@@ -29,7 +29,7 @@ public class InstanceFactory {
 	}
 
 	private Constructor<?> findBestConstructor(Class<?> classToInstantiate,
-			IntrospectContainer introspectContainer)
+			DependencyInjectionContainer introspectContainer)
 			throws ClassHasNoUsableConstructorException {
 		List<Class<?>> allowedDependencyClasses = introspectContainer
 				.getAllClasses();
@@ -166,7 +166,7 @@ public class InstanceFactory {
 	}
 
 	private Object[] getConstructorParameterValues(
-			IntrospectContainer introspectContainer,
+			DependencyInjectionContainer introspectContainer,
 			Class<?>[] constructorParameterTypes,
 			List<Class<?>> classesWaitingToBeInstantiated)
 			throws IntrospectContainerException {

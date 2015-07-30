@@ -4,7 +4,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
@@ -108,7 +108,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  */
 public class IntrospectApplicationForJUnit implements IntrospectApplication {
 
-	private final IntrospectContainer topContainer;
+	private final DependencyInjectionContainer topContainer;
 	private final List<Class<?>> serviceClasses;
 	private final List<Class<?>> infrastructureClasses;
 	private final Class<? extends IntrospectApplication> introspectApplicationClass;

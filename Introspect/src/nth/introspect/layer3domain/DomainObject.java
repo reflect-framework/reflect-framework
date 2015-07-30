@@ -2,14 +2,13 @@ package nth.introspect.layer3domain;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.Documentation;
-import nth.introspect.documentation.DomainObjectActionMethod;
 import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.documentation.ObjectBehavior;
-import nth.introspect.documentation.ServiceObjectActionMethod;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
+import nth.introspect.layer2service.ServiceObjectActionMethod;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 
 /**
  * <p>
@@ -114,7 +113,10 @@ import nth.introspect.layer5provider.Provider;
  * 
  * <h2>Properties</h2> {@insert DomainObjectProperty}
  * 
- * <h2>Action Methods</h2> {@insert DomainObjectActionMethod}
+ * <h2>Action Methods</h2> 
+ * <p>
+ * Domain objects can contain action methods (see {@link DomainObjectActionMethod} section)
+ * </p>
  * 
  * @author Nils ten Hoeve
  * @see DomainLayer

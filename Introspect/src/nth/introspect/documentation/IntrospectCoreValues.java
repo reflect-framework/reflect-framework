@@ -1,5 +1,6 @@
 package nth.introspect.documentation;
 
+import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
@@ -31,7 +32,8 @@ import nth.introspect.layer5provider.Provider;
  * <li>The user interface should be created 100% automatically from the
  * definition of the domain objects. Introspect uses <a
  * href="http://en.wikipedia.org/wiki/Reflection_(computer_science)"
- * >reflection</a> instead of code generation.</li>
+ * >reflection</a> instead of code generation (hence the name of the
+ * {@link IntrospectFramework}).</li>
  * </ul>
  * <h3>Provide a good structure for applications</h3>
  * <ul>
@@ -45,12 +47,13 @@ import nth.introspect.layer5provider.Provider;
  * href="http://en.wikipedia.org/wiki/Vendor_lock-in">vendor lock-in</a> (not
  * that there is such a thing as an Introspect Framework Vendor, since it is
  * open source). {@link DomainObject}'s, {@link ServiceObject}'s and
- * {@link InfrastructureObject}'s should have no (are almost no) dependencies
+ * {@link InfrastructureObject}'s should have no (or almost no) dependencies
  * with the Introspect Framework so that the Introspect Framework could easily
  * (within a few hours) be replaced with another dependency injection framework
  * (such as <a href="http://en.wikipedia.org/wiki/Spring_Framework">Spring</a>,
  * <a href="http://en.wikipedia.org/wiki/Google_Guice">Guice</a> or <a
- * href="http://picocontainer.codehaus.org/">Pico container</a>) or visa versa.</li>
+ * href="http://picocontainer.codehaus.org/">Pico container</a>, etc...) or visa
+ * versa.</li>
  * <li>The introspect framework exists of a few basic interfaces like
  * {@link UserInterfaceController} and {@link Provider}s that can have multiple
  * different implementations.</li>
@@ -62,22 +65,25 @@ import nth.introspect.layer5provider.Provider;
  * <h3>Simple to configure</h3> The Introspect framework has no configuration
  * files (see <a href=
  * "http://www.martinfowler.com/articles/injection.html#CodeOrConfigurationFiles"
- * >“Code or configuration files”</a> chapter in Martin Fowlers article for the
+ * >“Code or configuration files”</a> section in Martin Fowlers article for the
  * arguments why).<br>
  * <br>
  * There are 3 things that need to be configured:
  * <ul>
  * <li>Which implementations of the {@link UserInterfaceController} and
- * {@link Provider}'s are going to be used by the framework.</li>
+ * {@link Provider}'s are going to be used by the {@link IntrospectApplication}.
+ * </li>
  * <li>Which {@link ServiceObject} classes and {@link InfrastructureObject}
- * classes are going to be used by the framework.</li>
+ * classes are going to be used by the {@link IntrospectApplication}.</li>
  * <li>The {@link Behavior} of {@link DomainObject}'s and {@link ServiceObject}
- * 's (how the domain needs to handled by Introspect framework)</li>
+ * 's (how the domain needs to handled by the {@link IntrospectApplication})</li>
  * </ul>
+ * <p>
  * Furthermore the Introspect framework prefers “Configure by Exception”. This
  * means that the Introspect framework uses reasonable defaults wherever
- * possible. These default values can be overridden by the developer. <h3>No
- * dependencies with tools</h3>
+ * possible. These default values can be overridden by the developer.
+ * </p>
+ * <h3>No dependencies with tools</h3>
  * <ul>
  * <li>No dependencies with an Integrated Development Environment or build tool.
  * </li>

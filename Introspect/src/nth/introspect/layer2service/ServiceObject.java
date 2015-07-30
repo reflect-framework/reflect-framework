@@ -1,25 +1,29 @@
 package nth.introspect.layer2service;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.documentation.ActionMethod;
+import nth.introspect.container.ConstructionInjection;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.documentation.ObjectBehavior;
-import nth.introspect.documentation.ServiceObjectActionMethod;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
+import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**
  * <p>
- * The word 'service' implies: <ul>
+ * The word 'service' implies:
+ * <ul>
  * <li>
- * There is a client that needs to be served (the user, trough the
- * {@link UserInterfaceController})</li>
- * <li>There are activities\ operations (defined as {@link ActionMethod}'s)</li>
- * <li>An activity\ operation is done with other things ( {@link ActionMethod} parameters and return values should be {@link DomainObject}s)</li>
+ * There is a client that needs to be served. For the IntrospectFramework this
+ * is the user, trough the {@link UserInterfaceController}</li>
+ * <li>There are activities\ operations. For the IntrospectFramework these are
+ * defined as {@link ActionMethod}'s</li>
+ * <li>An activity\ operation is done with other things. For the
+ * IntrospectFramework these operations are done with or on {@link DomainObject}
+ * s trough {@link ActionMethod} parameters and return values</li>
  * </ul>
  * </p>
  * Eric Evans explains in his book <a
@@ -54,13 +58,12 @@ import nth.introspect.layer5provider.Provider;
  * 
  * <h3>Service objects are state-less</h3>
  * <p>
- * According to Eric Evans: {@link ServiceObject}s should be state-less.
- * State-less here means that any client can use any instance of the
- * {@link ServiceObject}s without regard to the instance’s individual history.
- * The execution of the service will use information that is accessible
- * globally, and may even change that global information (have side-effects).
- * But it does not hold state of its own that affects its behavior, as most
- * domain objects do.
+ * Quoting Eric Evans: “{@link ServiceObject}s should be state-less. State-less
+ * here means that any client can use any instance of the {@link ServiceObject}s
+ * without regard to the instance’s individual history. The execution of the
+ * service will use information that is accessible globally, and may even change
+ * that global information (have side-effects). But it does not hold state of
+ * its own that affects its behavior, as most domain objects do."
  * </p>
  * <p>
  * {@link ServiceObject}s do not have state and therefore should not have
@@ -68,7 +71,7 @@ import nth.introspect.layer5provider.Provider;
  * {@link ServiceObject} with state is a <a
  * href="http://en.wikipedia.org/wiki/Code_smell">code-smell</a>, which you can
  * solve by moving the {@link ServiceObjectActionMethod}s that share state
- * (fields) to an new or existing {@link DomainObject}s.</li>
+ * (fields) to new or existing {@link DomainObject}s.</li>
  * </p>
  * <h3>Service Objects should be flat</h3>
  * <p>
@@ -78,7 +81,7 @@ import nth.introspect.layer5provider.Provider;
  * {@link InfrastructureObject}s) as much as possible.
  * {@link ServiceObjectActionMethod}s should therefore not contain business
  * logic or validation logic, but delegate the work to collaborations of
- * {@link DomainObject}s and {@link InfrastructureObject}, in order to prevent
+ * {@link DomainObject}s and {@link InfrastructureObject}s, in order to prevent
  * the <a href="http://martinfowler.com/bliki/AnemicDomainModel.html">Anemic
  * Domain Model</a> - <a
  * href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>.
@@ -89,15 +92,15 @@ import nth.introspect.layer5provider.Provider;
  * <li>The {@link UserInterfaceController} class calls the
  * {@link ServiceObjectActionMethod} findProduct(searchCriteria) method on
  * {@link ServiceObject}: ProductService</li>
- * <li>This method will call the findProduct on {@link InfrastructureObject}:
- * ProductRepository</li>
+ * <li>This method will call the findProduct on the {@link InfrastructureObject}
+ * : ProductRepository</li>
  * <li>This method will return a list of {@link DomainObject}s that meet the
  * search criteria</li>
  * <li>The {@link UserInterfaceController} displays the found list of
  * {@link DomainObject}s as a table in a new tab.</li>
  * </ul>
  * </p>
- 
+ * 
  * <h3>Naming</h3>
  * <p>
  * {@link ServiceObject}s are normally named after the {@link DomainObject}s
@@ -134,64 +137,10 @@ import nth.introspect.layer5provider.Provider;
  * }
  * </pre>
  * <p>
- * {@link ServiceObject}s can have references to other objects. These reference
- * objects are injected into the {@link ServiceObject} as constructor parameter
- * during the creation of the {@link ServiceObject} by the
- * {@link IntrospectFramework} (by the {@link ServiceContainer}). This
- * constructor can than be linked to a private final field, so that it can be
- * used throughout the {@link ServiceObject}.
+ * {@link ServiceObject}s can have references to other objects. These objects
+ * are injected into the ServiceObject (see the
+ * {@link ConstructionInjection} section)
  * </p>
- * In example:
- * 
- * <pre>
- * public class ProductService {
- * 
- * 	private final ProductRepository productRepository;
- * 
- * 	public ProductService(ProductRepository productRepository) {
- * 		this.productRepository = productRepository;
- * 	}
- * 
- * 	&#064;GenericReturnType(Product.class)
- * 	public List&lt;Product&gt; findProduct(ProductSearchCritiria searchCritiria) {
- * 		return productRepository.findProduct(searchCritiria);
- * 	}
- * 
- * 	// other action methods...
- * }
- * </pre>
- * <p>
- * Note that you can only inject reference object types (use constructor
- * parameters types) that are known to the {@link IntrospectFramework}.
- * {@link ServiceObject}s can be injected with the following types (see also
- * {@link IntrospectArchitecture}):
- * <ul>
- * <li>The {@link IntrospectApplication} class</li>
- * <li>Types registered to the {@link IntrospectApplication#getServiceClasses()}
- * method</li>
- * <li>Types registered to the {@link IntrospectApplication#getDomainClasses()}
- * method</li>
- * <li>Types registered to the
- * {@link IntrospectApplication#getInfrastructureClasses()} method</li>
- * <li>The {@link Provider} classes</li>
- * </ul>
- * </p>
- * <p>
- * Note that it is good practice to link the constructor parameter (reference
- * object) to a <a
- * href="https://en.wikibooks.org/wiki/Java_Programming/Keywords/private"
- * >private</a> <a
- * href="https://en.wikipedia.org/wiki/Final_(Java)#Final_variables">final</a>
- * field, so that it is encapsulated and immutable.
- * </p>
- * <p>
- * Note that that if your {@link ServiceObject} needs a lot of references to
- * other objects (too many constructor parameters), your {@link ServiceObject}
- * has most likely to many responsibilities, which could be solved by splitting
- * up a {@link ServiceObject}.
- * </p>
- * 
- * <h3>Presentation</h3> TODO main menu's, object menu's, property menu's <br>
  * 
  * <h3>Service object members</h3>
  * <p>
@@ -203,7 +152,10 @@ import nth.introspect.layer5provider.Provider;
  * </ul>
  * These members are discussed in more detail in the following paragraphs.
  * </p>
- * <h2>Action Methods</h2> {@insert ServiceObjectActionMethod}
+ * <h2>Action Methods</h2> 
+<p>
+{@link ServiceObject}s are all about {@link ActionMethod}s that represent the main menu items (see section {@link ServiceObjectActionMethod})
+</p>
  * 
  * @author Nils ten Hoeve
  */

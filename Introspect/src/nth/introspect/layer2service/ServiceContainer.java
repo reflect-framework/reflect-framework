@@ -3,17 +3,17 @@ package nth.introspect.layer2service;
 import java.util.List;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.container.exception.MissingServiceClassException;
 import nth.introspect.layer3domain.DomainContainer;
 
 /**
- * This {@link IntrospectContainer} represents the {@link ServiceLayer}
+ * This {@link DependencyInjectionContainer} represents the {@link ServiceLayer}
  * 
  * @author nilsth
  * 
  */
-public class ServiceContainer extends IntrospectContainer {
+public class ServiceContainer extends DependencyInjectionContainer {
 
 	public ServiceContainer(IntrospectApplication application) {
 		super(new DomainContainer(application));

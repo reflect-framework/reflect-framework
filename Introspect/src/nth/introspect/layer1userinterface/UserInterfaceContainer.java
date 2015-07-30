@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer5provider.about.AboutProvider;
@@ -15,12 +15,12 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 /**
- * This {@link IntrospectContainer} represents the {@link UserInterfaceLayer}
+ * This {@link DependencyInjectionContainer} represents the {@link UserInterfaceLayer}
  * 
  * @author nilsth
  * 
  */
-public class UserInterfaceContainer extends IntrospectContainer {
+public class UserInterfaceContainer extends DependencyInjectionContainer {
 
 	private LanguageProvider languageProvider;
 	private final IntrospectApplication application;
@@ -51,7 +51,7 @@ public class UserInterfaceContainer extends IntrospectContainer {
 	@Override
 	public List<Class<?>> getAllClasses() {
 		List<Class<?>> allClasses = super.getAllClasses();
-		allClasses.remove(IntrospectContainer.class);
+		allClasses.remove(DependencyInjectionContainer.class);
 		allClasses.add(UserInterfaceContainer.class);
 		return allClasses;
 	}

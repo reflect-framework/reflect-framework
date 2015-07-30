@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.reflection.info.NamingInfo;
+import nth.introspect.layer5provider.reflection.info.NameInfo;
 
 public class DefaultLanguageProvider implements LanguageProvider {
 	private static final String PREFIX_LANGUAGE_FILE = "language";
@@ -44,8 +44,8 @@ public class DefaultLanguageProvider implements LanguageProvider {
 
 	@Override
 	public String getKey(Object obj) {
-		if (obj instanceof NamingInfo) {
-			NamingInfo introspectionInfo = (NamingInfo) obj;
+		if (obj instanceof NameInfo) {
+			NameInfo introspectionInfo = (NameInfo) obj;
 			return introspectionInfo.getNamePath();
 		} else if (obj instanceof Class<?>) {
 			Class<?> claz = (Class<?>) obj;

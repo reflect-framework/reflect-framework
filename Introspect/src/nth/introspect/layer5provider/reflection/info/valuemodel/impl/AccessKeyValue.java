@@ -1,11 +1,11 @@
 package nth.introspect.layer5provider.reflection.info.valuemodel.impl;
 
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.info.NamingInfo;
+import nth.introspect.layer5provider.reflection.info.NameInfo;
 
 public class AccessKeyValue extends TextValue {
 
-	public AccessKeyValue(NamingInfo introspectionInfo, LanguageProvider languageProvider, String name) {
+	public AccessKeyValue(NameInfo introspectionInfo, LanguageProvider languageProvider, String name) {
 		super(introspectionInfo, languageProvider, name);
 	}
 	

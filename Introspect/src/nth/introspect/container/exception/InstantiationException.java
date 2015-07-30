@@ -2,15 +2,15 @@ package nth.introspect.container.exception;
 
 import java.lang.reflect.Constructor;
 
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 
 public class InstantiationException extends IntrospectContainerException {
 
-	public InstantiationException(IntrospectContainer introspectContainer, Constructor<?> constructor, Exception exception) {
+	public InstantiationException(DependencyInjectionContainer introspectContainer, Constructor<?> constructor, Exception exception) {
 		super(createMessage(introspectContainer, constructor), exception);
 	}
 
-	private static String createMessage(IntrospectContainer introspectContainer, Constructor<?> constructor) {
+	private static String createMessage(DependencyInjectionContainer introspectContainer, Constructor<?> constructor) {
 		StringBuffer message=new StringBuffer();
 		message.append(introspectContainer.getName());
 		message.append(": Could not create a new instance for ");

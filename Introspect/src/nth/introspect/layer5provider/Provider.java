@@ -1,7 +1,8 @@
 package nth.introspect.layer5provider;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.ConstructionInjection;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.about.AboutProvider;
@@ -14,8 +15,8 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
  * {@link Provider}s are responsible for different <a
- * href="cross cutting concerns">cross cutting concerns</a> within the
- * {@link IntrospectFramework} such as:
+ * href="cross cutting concerns">cross cutting concerns</a> within an 
+ * {@link IntrospectApplication} such as:
  * <ul>
  * <li>Authorization (see {@link AuthorizationProvider})</li>
  * <li>Validation (see {@link ValidationProvider})</li>
@@ -36,48 +37,48 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * {@link Provider} implementation and register it by overwriting one of the
  * {@link IntrospectApplication#get...ProviderClass()} methods
  * </p>
- * <h3>Authorization Provider</h3>
- * <p>
- * {@insert AuthorizationProvider}
- * </p>
- * <h3>Validation Provider</h3>
- * <p>
- * {@insert ValidationProvider}
- * </p>
- * <h3>Language Provider</h3>
- * <p>
- * {@insert LanguageProvider}
- * </p>
- * <h3>Notification Provider</h3>
- * <p>
- * {@insert NotificationProvider}
- * </p>
- * <h3>Path Provider</h3>
- * <p>
- * {@insert PathProvider}
- * </p>
- * <h3>Reflection Provider</h3>
- * <p>
- * {@insert ReflectionProvider}
- * </p>
- * <h3>About Provider</h3>
- * <p>
- * {@insert AboutProvider}
- * </p>
  * 
  * <h3>Provider Construction</h3>
  * <p>
- * {@link Provider}'s are instantiated by the {@link IntrospectFramework} with
- * the {@link IntrospectContainer}. {@link Provider}'s may have references to
- * other providers by adding the reference providers as a constructor parameter.
- * These providers are passed to the constructor as a parameter when the
- * provider is instantiated.
+ * {@link Provider}'s are instantiated by the {@link ProviderContainer} (see
+ * {@link DependencyInjectionContainer}) {@link Provider}Objects can have
+ * references to other {@link Provider}Objects. These objects are injected into
+ * the {@link Provider}Objects (see the {@link ConstructionInjection} section.
  * </p>
  * <h3>Provider Presentation</h3>
  * <p>
- * The methods of {@link Provider} object are unknown to the
- * {@link UserInterfaceController} and are not displayed on the <a
- * href="https://en.wikipedia.org/wiki/User_interface">User Interface</a>.
+ * The methods of {@link Provider}Objects are not displayed by the
+ * {@link UserInterfaceController}.
+ * </p>
+ *   
+ * <h2>Authorization Provider</h2>
+ * <p>
+ * {@insert AuthorizationProvider}
+ * </p>
+ * <h2>Validation Provider</h2>
+ * <p>
+ * {@insert ValidationProvider}
+ * </p>
+ * <h2>Language Provider</h2>
+ * <p>
+ * {@insert LanguageProvider}
+ * </p>
+ * <h2>Notification Provider</h2>
+ * <p>
+ * {@insert NotificationProvider}
+ * </p>
+ * <h2>Path Provider</h2>
+ * <p>
+ * {@insert PathProvider}
+ * </p>
+ * <h2>Reflection Provider</h2>
+ * <p>
+ * {@insert ReflectionProvider}
+ * </p>
+ * <h2>About Provider</h2>
+ * <p>
+ * {@insert AboutProvider}
+ * </p>
  * 
  * @author Nils ten Hoeve
  */

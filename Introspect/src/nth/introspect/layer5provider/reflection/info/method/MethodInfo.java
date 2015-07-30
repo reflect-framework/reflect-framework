@@ -8,7 +8,7 @@ import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.MethodIconID;
-import nth.introspect.layer5provider.reflection.info.NamingInfo;
+import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
@@ -25,7 +25,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TextValue;
  * 
  */
 
-public class MethodInfo implements NamingInfo {
+public class MethodInfo implements NameInfo {
 
 	private ValueModels valueModels;
 	public final static String TEXT = "text";

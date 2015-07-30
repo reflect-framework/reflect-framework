@@ -3,7 +3,6 @@ package nth.introspect;
 import java.util.List;
 
 import nth.introspect.documentation.IntrospectGettingStarted;
-import nth.introspect.documentation.ObjectBehavior;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
@@ -15,6 +14,7 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
@@ -53,14 +53,45 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * framework. See the type hierarchy of {@link IntrospectApplication} to learn
  * which classes can be used and view their java doc to learn how to use them.
  * </p>
+ * 
  * <p>
  * If you create a new application you will be extending one of these classes.
  * You will only need to implement some of the methods mentioned above (at least
  * the {@link IntrospectApplication#getServiceClasses()} method).
  * </p>
+ * 
+ * An example of a desktop application:
+ * 
+ * <pre>
+ * public class AcmeWebShop extends IntrospectApplicationForSwing {
+ * 
+ * 	// constructor not displayed
+ * 
+ * 	// main method
+ * 
+ * 	&#064;Override
+ * 	public List&lt;Class&lt;?&gt;&gt; getServiceClasses() {
+ * 		List&lt;Class&lt;?&gt;&gt; serviceClasses = new ArrayList&lt;Class&lt;?&gt;&gt;();
+ * 		serviceClasses.add(ShoppingCartService.class);
+ * 		serviceClasses.add(ProductService.class);
+ * 		return serviceClasses;
+ * 	}
+ * 
+ * 	&#064;Override
+ * 	public List&lt;Class&lt;?&gt;&gt; getInfrastructureClasses() {
+ * 		List&lt;Class&lt;?&gt;&gt; infrastructureClasses = new ArrayList&lt;Class&lt;?&gt;&gt;();
+ * 		infrastructureClasses.add(ProductRepository.class);
+ * 		infrastructureClasses.add(EmailClient.class);
+ * 		infrastructureClasses.add(PaymentClient.class);
+ * 		return infrastructureClasses;
+ * 	}
+ * 
+ * }
+ * </pre>
  * <p>
- * For examples see the {@link IntrospectGettingStarted} section.
+ * For more (detailed) examples see the {@link IntrospectGettingStarted} section.
  * </p>
+ * 
  * @author nilsth
  * 
  */

@@ -1,14 +1,14 @@
 package nth.introspect.layer5provider;
 
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 
 /**
- * This {@link IntrospectContainer} represents the {@link ProviderLayer}
+ * This {@link DependencyInjectionContainer} represents the {@link ProviderLayer}
  * @author nilsth
  *
  */
-public class ProviderContainer extends IntrospectContainer {
+public class ProviderContainer extends DependencyInjectionContainer {
 
 	public ProviderContainer(IntrospectApplication application) {
 		super();

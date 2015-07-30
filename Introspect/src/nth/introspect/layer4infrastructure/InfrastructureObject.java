@@ -1,6 +1,7 @@
 package nth.introspect.layer4infrastructure;
 
 import nth.introspect.Introspect;
+import nth.introspect.container.ConstructionInjection;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceObject;
@@ -55,7 +56,9 @@ import nth.introspect.layer2service.ServiceObject;
  * <li>or use or extend {@link InfrastructureObject}s from other (open source)
  * projects</li>
  * </ul>
- * TODO dependency injection (see {@link ServiceObject})
+ * {@link InfrastructureObject}s can have references to other objects. These objects are
+ * injected into the InfrastructureObjects (see the {@link ConstructionInjection}
+ * section.)
  * </p>
  * <h3>Infrastructure Object Presentation</h3>
  * <p>

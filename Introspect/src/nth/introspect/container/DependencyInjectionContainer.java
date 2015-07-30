@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import nth.introspect.IntrospectApplication;
 import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.documentation.IntrospectArchitecture;
@@ -27,10 +28,10 @@ import nth.introspect.layer5provider.ProviderLayer;
 
 /**
  * <p>
- * The {@link IntrospectFramework } is a dependency injection framework and
+ * The {@link IntrospectFramework} is a dependency injection framework and
  * consists of several <a
  * href="http://en.wikipedia.org/wiki/Dependency_injection">dependency
- * injection</a> containers called {@link IntrospectContainer}s.
+ * injection containters</a>.
  * </p>
  * <p>
  * Please read <a href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin
@@ -39,10 +40,10 @@ import nth.introspect.layer5provider.ProviderLayer;
  * he explains the basics dependency injection.
  * </p>
  * <p>
- * Each {@link IntrospectContainer} is responsible for:
+ * Each {@link DependencyInjectionContainer} is responsible for:
  * <ul>
  * <li>Creating new instances of types that are registered to a
- * {@link IntrospectContainer}</li>
+ * {@link DependencyInjectionContainer} with the {@link IntrospectApplication}.get...Class() or .get...Classes() methods</li>
  * <li>Linking dependencies (references to other objects) to these new instances
  * (using constructor injection)</li>
  * <li>Caching these new instances, if we only need one instance (like a
@@ -51,7 +52,7 @@ import nth.introspect.layer5provider.ProviderLayer;
  * </p>
  * <p>
  * The {@link IntrospectArchitecture} consists of several layers. Each layer has
- * its own {@link IntrospectContainer} that is for managing the objects in the
+ * its own {@link DependencyInjectionContainer} that is for managing the objects in the
  * same layer:
  * <ul>
  * <li>{@link UserInterfaceLayer}: {@link UserInterfaceController} object is
@@ -72,24 +73,20 @@ import nth.introspect.layer5provider.ProviderLayer;
  * </p>
  * 
  * <h3>Constructor Injection</h3>
- * <p>
  * {@insert ConstructionInjection}
- * </p>
- * 
  * 
  * @author nilsth
- * @see IntrospectArchitecture
  */
-public abstract class IntrospectContainer {
+public abstract class DependencyInjectionContainer {
 
-	private final IntrospectContainer innerContainer;
+	private final DependencyInjectionContainer innerContainer;
 	private final HashMap<Class<?>, Object> typesAndInstances;
 
-	public IntrospectContainer() {
+	public DependencyInjectionContainer() {
 		this(null);
 	}
 
-	public IntrospectContainer(IntrospectContainer innerContainer) {
+	public DependencyInjectionContainer(DependencyInjectionContainer innerContainer) {
 		this.innerContainer = innerContainer;
 		this.typesAndInstances = new HashMap<Class<?>, Object>();
 	}
@@ -128,7 +125,7 @@ public abstract class IntrospectContainer {
 			List<Class<?>> classesWaitingToBeInstantiated)
 			throws IntrospectContainerException {
 
-		if (IntrospectContainer.class.isAssignableFrom(type)) {
+		if (DependencyInjectionContainer.class.isAssignableFrom(type)) {
 			// Reflect containers can be hierarchical.
 			// That is why we here return the outer container, instead of
 			// getting the value from innerContainers.

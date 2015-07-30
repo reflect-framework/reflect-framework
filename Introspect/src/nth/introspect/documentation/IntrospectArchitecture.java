@@ -1,6 +1,6 @@
 package nth.introspect.documentation;
 
-import nth.introspect.container.IntrospectContainer;
+import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
 import nth.introspect.layer2service.ServiceLayer;
 import nth.introspect.layer3domain.DomainLayer;
@@ -32,7 +32,7 @@ import nth.introspect.layer5provider.ProviderLayer;
  * <p>
  * These multi layer architecture design principles try to prevent <a
  * href="http://en.wikipedia.org/wiki/Spaghetti_code"> spaghetti code</a>, which
- * is hard to extend, hard to trouble shoot, hard to test, hard to keep <a
+ * is hard to extend, hard to trouble shoot, hard to test and hard to keep <a
  * href="http://en.wikipedia.org/wiki/Software_bug#Etymology">bug</a> free.<br>
  * </p>
  * 
@@ -41,9 +41,13 @@ import nth.introspect.layer5provider.ProviderLayer;
  * the names of the layers and what each layer should do (see these <a
  * href="https://www.google.nl/search?q=layered+architecture&tbm=isch"
  * >examples</a>). It would be nice if everyone would use the same model and
- * naming. I think that <a href="http://www.herrodius.com/blog/wp-content/uploads/2010/03/LayeredArchitecture.png">the definition of layers</a> from Eric Evans <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven Design approach</a> is the most commonly
- * used. The most important thing is that your multi layered architecture
- * complies with the design principles above.
+ * naming. The <a href=
+ * "http://www.herrodius.com/blog/wp-content/uploads/2010/03/LayeredArchitecture.png"
+ * >definition of layers</a> from Eric Evans <a
+ * href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
+ * Design approach</a> is likely the most commonly used. The most important thing is
+ * that your multi layered architecture complies with the design principles
+ * above.
  * </p>
  * 
  * <p>
@@ -53,13 +57,13 @@ import nth.introspect.layer5provider.ProviderLayer;
  * Driven Design</a> approach.:
  * <ul>
  * <li>{@link UserInterfaceLayer}</li>
- * <li>{@link ServiceLayer}</li>
+ * <li>{@link ServiceLayer} (called "application layer" by Eric Evans)</li>
  * <li>{@link DomainLayer}</li>
  * <li>{@link InfrastructureLayer}</li>
- * <li>{@link ProviderLayer}</li>
+ * <li>{@link ProviderLayer} (extra layer for <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross cutting concerns</a>)</li>
  * </ul>
  * </p>
- * Each layer is implemented by an {@link IntrospectContainer}<br>
+ * Each layer is implemented by an {@link DependencyInjectionContainer}<br>
  * <br>
  * 
  * <img src="IntrospectArchitecture.png"><br>

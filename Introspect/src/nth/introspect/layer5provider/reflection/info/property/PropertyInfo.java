@@ -14,7 +14,7 @@ import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.format.PropertyInfoFormatFactory;
-import nth.introspect.layer5provider.reflection.info.NamingInfo;
+import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.PropertyType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.AnnotationValueModelFactory;
@@ -31,7 +31,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TextValue;
  * @author nilsth
  * 
  */
-public class PropertyInfo implements NamingInfo {
+public class PropertyInfo implements NameInfo {
 	// extends PropertyDescriptor {
 	static final String IS_PREFIX = "is";
 	static final String GET_PREFIX = "get";
