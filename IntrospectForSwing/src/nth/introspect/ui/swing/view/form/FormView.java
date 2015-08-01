@@ -21,7 +21,6 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;

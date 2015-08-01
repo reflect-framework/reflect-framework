@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
 import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
-
 /**
  * <p>
  * If you do not want to use the default icon, you can define an alternative

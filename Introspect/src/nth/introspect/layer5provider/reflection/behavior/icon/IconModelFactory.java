@@ -25,9 +25,11 @@ import nth.introspect.layer3domain.DomainObject;
  * {@insert IconMethodModel}
  * </p>
  * 
+ * 
+ * 
  * @author nilsth
  *
  */
 public class IconModelFactory {
-
+	// TODO
 }

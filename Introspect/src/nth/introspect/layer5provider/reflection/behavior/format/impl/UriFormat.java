@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.reflection.format;
+package nth.introspect.layer5provider.reflection.behavior.format.impl;
 
 import java.net.URI;
 import java.net.URISyntaxException;

@@ -27,8 +27,6 @@ import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
  * {@link LanguageProvider}.
  * </p>
  * <p>
- * TODO IMPLEMENT:
- * 
  * It is recommended that the Description of {@link ServiceObject}s is the
  * plural form of the {@link DomainObject} that the {@link ServiceObject}
  * represents. In example: The displayName of CustomerService is “Customers”.
@@ -42,5 +40,5 @@ import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
  *
  */
 public class DisplayNameDefaultModel {
-
+	// TODO
 }

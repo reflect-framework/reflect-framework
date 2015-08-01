@@ -1,6 +1,6 @@
 package nth.introspect.ui.form.field;
 
-import nth.introspect.layer5provider.reflection.info.property.FieldModeType;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.valuemodel.PropertyValueModel;

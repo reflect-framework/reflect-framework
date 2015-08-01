@@ -6,7 +6,7 @@ import java.util.Date;
 
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
-import nth.introspect.layer5provider.reflection.info.property.FieldModeType;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class FieldModeValue implements ReadOnlyValueModel {

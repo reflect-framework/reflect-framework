@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 import nth.introspect.layer1userinterface.controller.DownloadStream;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.ExecutionMode;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class TestsService {
@@ -70,16 +70,16 @@ public class TestsService {
 
 	}
 
-	@ExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
+	@ExecutionMode(mode = ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
 	public Test viewTest(Test test) {
 		return test;
 	}
 
-	@ExecutionMode(ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL)
+	@ExecutionMode(mode = ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL)
 	public void modifyTest(Test test) {
 	}
 
-	@ExecutionMode(ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION)
+	@ExecutionMode(mode = ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION)
 	public void deleteTest(Test test) {
 		tests.remove(test);
 	}

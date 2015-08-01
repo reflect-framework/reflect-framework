@@ -7,6 +7,7 @@ import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModelFactory;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
@@ -25,62 +26,52 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * <p>
  * {@insert DisplayNameModelFactory}
  * </p>
- * <h2>Title</h2> 
+ * 
+ * <h2>Title</h2>
  * <p>
  * {@insert TitleModelFactory}
  * </p>
- * <h2>Description</h2> 
+ * 
+ * <h2>Description</h2>
  * <p>
  * {@insert DescriptionModelFactory}
  * </p>
- * <h2>Icon</h2> 
+ * 
+ * <h2>Icon</h2>
  * <p>
  * {@insert IconModelFactory}
  * </p>
- * <h3>Visible</h3> (TODO description what this does) (TODO annotation) (TODO
- * method)
  * 
+ * <h2>Hidden</h2>
+ * <p>
+ * {@insert HiddenModelFactory}
+ * </p>
  * 
- * <h3>Visible In Form</h3> (TODO specific on form)Public properties and methods
- * are visible by default but they can be hidden.
+ * <h2>Disabled</h2>
+ * <p>
+ * {@insert DisabledModelFactory}
+ * </p>
  * 
- * Methods that are not public are not visible or access able. (TODO visible
- * annotation) (TODO visible method)
+ * <h2>Order</h2>
+ * <p>
+ * {@insert Order}
+ * </p>
  * 
- * <h3>Visible In Table</h3> (TODO specific on table)Public properties and
- * methods are visible by default but they can be hidden. (TODO properties of
- * type collection are not displayed in a table)
+ * <h2>Format</h2>
+ * <p>
+ * {@insert Format}
+ * </p>
  * 
- * Methods that are not public are not visible or access able. (TODO visible
- * annotation) (TODO visible method) (TODO refer to Authorization Provider)
+ *  <h2>Field Mode</h2>
+ * <p>
+ * {@insert FieldMode}
+ * </p>
  * 
- * <h3>Enabled</h3> Properties and methods are enabled by default but they can
- * be disabled. • Public properties that are disabled are visible to the user
- * but can’t be edited. • Public methods that are disabled are visible to the
- * user but can’t be executed. (TODO annotation) (TODO method) (TODO refer to
- * Authorization Provider)
+ * <h2>Execution Mode</h2>
+ * <p>
+ * {@insert ExecutionMode}
+ * </p>
  * 
- * <h3>Order in Form</h3> (TODO description what this does) (TODO annotation)
- * (TODO method)
- * 
- * <h3>Order in Table</h3> (TODO description what this does) (TODO annotation)
- * (TODO method) <h3>Method Execution Mode</h3> (TODO description what this
- * does) (TODO annotation) <h3>Parameter Factory</h3> (TODO description what
- * this does) (TODO annotation) (TODO method)
- * 
- * <h3>FieldMode</h3> (TODO description what this does) (TODO annotation) (TODO
- * method)
- * 
- * <h3>Validation</h3> Domain objects are validated before a method is executed.
- * There is a separate section on validation (see {@link ValidationProvider})
- * 
- * <h3>MultiLanguage</h3> Sometimes applications need to support multiple
- * languages. There is as separate section on multi language (see
- * {@link LanguageProvider})
- * 
- * TODO example
- * 
- * <h3>Formatting</h3> TODO explain + example
  * 
  * @author nilsth
  *

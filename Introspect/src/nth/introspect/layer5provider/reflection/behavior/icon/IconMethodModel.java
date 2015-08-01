@@ -30,5 +30,5 @@ import nth.introspect.layer3domain.DomainObject;
  *
  */
 public class IconMethodModel {
-
+	// TODO
 }

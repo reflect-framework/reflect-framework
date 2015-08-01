@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.layer5provider.reflection.info.property.FieldModeType;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.FieldMode;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Format;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldMode;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
+import nth.introspect.layer5provider.reflection.behavior.format.Format;
 
 public class Test {
 	private boolean myBoolean;
@@ -48,7 +48,7 @@ public class Test {
 		this.myBoolean = myBoolean;
 	}
 
-	@Format("00")
+	@Format(pattern = "00")
 	public byte getMyByte() {
 		return myByte;
 	}
@@ -113,7 +113,7 @@ public class Test {
 		this.myText = myText;
 	}
 
-	@FieldMode(FieldModeType.TEXT_AREA)
+	@FieldMode(mode = FieldModeType.TEXT_AREA)
 	public String getMyTextArea() {
 		return myTextArea;
 	}
@@ -122,7 +122,7 @@ public class Test {
 		this.myTextArea = myTextArea;
 	}
 
-	@FieldMode(FieldModeType.PASSWORD)
+	@FieldMode(mode = FieldModeType.PASSWORD)
 	public String getMyPassWord() {
 		return myPassWord;
 	}
@@ -139,7 +139,7 @@ public class Test {
 		this.myDate = myDate;
 	}
 
-	@FieldMode(FieldModeType.TIME)
+	@FieldMode(mode = FieldModeType.TIME)
 	public Date getMyTime() {
 		return myTime;
 	}
@@ -148,7 +148,7 @@ public class Test {
 		this.myTime = myTime;
 	}
 
-	@FieldMode(FieldModeType.DATE_TIME)
+	@FieldMode(mode = FieldModeType.DATE_TIME)
 	public Date getMyDateTime() {
 		return myDateTime;
 	}
@@ -165,7 +165,7 @@ public class Test {
 		this.myEnum = myEnum;
 	}
 
-	@FieldMode(FieldModeType.ONE_TO_ONE_OR_MANY)
+	@FieldMode(mode = FieldModeType.ONE_TO_ONE_OR_MANY)
 	public Test getMyTest() {
 		return myTest;
 	}

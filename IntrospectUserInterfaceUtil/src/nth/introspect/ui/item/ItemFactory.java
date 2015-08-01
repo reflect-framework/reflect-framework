@@ -17,7 +17,6 @@ import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.layer5provider.reflection.info.method.filter.NoParameterOrParameterFactoryFilter;
 import nth.introspect.layer5provider.reflection.info.method.filter.ParameterTypeFilter;

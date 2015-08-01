@@ -5,7 +5,7 @@ import java.awt.Component;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.property.FieldModeType;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.swing.view.form.field.DateTimeField.DateTimeMode;
 import nth.introspect.ui.valuemodel.PropertyValueModel;

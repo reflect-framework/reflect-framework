@@ -30,7 +30,6 @@ import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;

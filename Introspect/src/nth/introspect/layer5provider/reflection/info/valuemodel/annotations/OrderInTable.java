@@ -5,6 +5,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import nth.introspect.layer5provider.reflection.behavior.order.Order;
+
+/**
+ * @deprecated: user {@link Order} instead
+ * @author nilsth
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface OrderInTable {

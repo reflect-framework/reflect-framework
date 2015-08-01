@@ -8,6 +8,7 @@ import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.MethodIconID;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
@@ -52,10 +53,6 @@ public class MethodInfo implements NameInfo {
 
 	
 	
-	public enum ExecutionModeType {
-		EXECUTE_METHOD_DIRECTLY, EXECUTE_METHOD_AFTER_CONFORMATION, EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL 
-	}
-
 	public MethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method) {
 		this(pathProvider, languageProvider, method, null);
 	}

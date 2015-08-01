@@ -12,10 +12,10 @@ import nth.introspect.domain.test.TestsService;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.ExecutionMode;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class ClassDiagramService {
@@ -97,7 +97,7 @@ public class ClassDiagramService {
 	// return classDiagram;
 	// }
 
-	@ExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
+	@ExecutionMode(mode = ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
 	public ClassDiagram openClassDiagram(ClassFeature classFeature) {
 		Class<?> introspectedClass = classFeature.getType();
 		if (introspectedClass == null) {
