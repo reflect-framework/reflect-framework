@@ -102,7 +102,7 @@ public abstract  class SqlRepository  {
 		for (int columnNr = 1; columnNr < numColumns + 1; columnNr++) {
 			String columnName = meta.getColumnName(columnNr);
 			for (PropertyInfo propertyInfo : reflectionProvider.getPropertyInfos(domainClass)) {
-				if (propertyInfo.getName().equalsIgnoreCase(columnName)) {
+				if (propertyInfo.getSimpleName().equalsIgnoreCase(columnName)) {
 					propertyInfos.put(columnName, propertyInfo);
 					break;
 				}
@@ -123,7 +123,7 @@ public abstract  class SqlRepository  {
 					// } catch (IllegalArgumentException e) {
 					// throw new RuntimeException("Property type of property: " + domainClass.getCanonicalName()+"."+propertyInfo.getName()+" must be of type"+value.getClass().getCanonicalName());
 				} catch (Exception e) {
-					throw new RuntimeException("Could not set property: " + domainClass.getCanonicalName() + "." + propertyInfo.getName(), e);
+					throw new RuntimeException("Could not set property: " + domainClass.getCanonicalName() + "." + propertyInfo.getSimpleName(), e);
 				}
 			}
 			results.add(domainObject);

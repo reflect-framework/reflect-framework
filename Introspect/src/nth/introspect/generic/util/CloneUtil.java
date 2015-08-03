@@ -24,7 +24,7 @@ public class CloneUtil {
 		Class<?> destinationClass = destinationObject.getClass();
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(sourceClass);
 		for (PropertyInfo sourcePropertyInfo : propertyInfos) {
-			PropertyInfo destinationPropertyInfo = reflectionProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getName());
+			PropertyInfo destinationPropertyInfo = reflectionProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getSimpleName());
 			if (destinationPropertyInfo.isEnabled(destinationObject)) {
 				Object value = sourcePropertyInfo.getValue(sourceObject);
 				destinationPropertyInfo.setValue(destinationObject, value);

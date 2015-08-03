@@ -15,10 +15,10 @@ public interface NameInfo {
 	 *         </ul>
 	 *         </p>
 	 */
-	public String getName();
+	public String getSimpleName();
 
 	/**
-	 * @return a name that uniquely identifies:
+	 * @return a canonicalName name that uniquely identifies:
 	 *         <ul>
 	 *         <li>a {@link Class}:<br>
 	 *         Syntax: &lt;package&gt;.&lt;className&gt;<br>
@@ -31,5 +31,7 @@ public interface NameInfo {
 	 *         E.g.: com.acme.web.shop.Customer.login</li>
 	 *         </ul>
 	 */
-	public String getNamePath();
+	public String getCanonicalName();
+
+
 }

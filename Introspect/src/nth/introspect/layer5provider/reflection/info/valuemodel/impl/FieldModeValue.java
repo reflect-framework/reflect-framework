@@ -19,7 +19,7 @@ public class FieldModeValue implements ReadOnlyValueModel {
 		Class<?> type = propertyInfo.getPropertyType().getType();
 		type = TypeUtil.getComplexType(type);
 		if (String.class.isAssignableFrom(type)) {
-			if (propertyInfo.getName().toLowerCase().contains(PASSWORD)) {
+			if (propertyInfo.getSimpleName().toLowerCase().contains(PASSWORD)) {
 				fieldModeType = FieldModeType.PASSWORD;
 			} else {
 				fieldModeType = FieldModeType.TEXT;

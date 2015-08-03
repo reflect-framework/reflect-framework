@@ -87,7 +87,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		// pdfTable.addCell(cell);
 
 		// add properties as rows
-		Object domainObject = formSection.getIntrospectedObject();
+		Object domainObject = formSection.getDomainObject();
 		Class<?> domainClass = domainObject.getClass();
 		
 		// get propertyInfos
@@ -125,12 +125,12 @@ public class PdfReportFactory extends ReportProvider<Document> {
 	public void addTableSection(Document document, Report report, TableSection tableSection) {
 		addInvisibleChapterForHeader(document, tableSection);
 		
-		Class<?> introspectedClass = tableSection.getIntrospectedObjectType();
+		Class<?> objectClass = tableSection.getDomainObjectClass();
 
 		//get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
 		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(introspectedClass, propertyInfoFilter, propertyInfoComparator);
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(objectClass, propertyInfoFilter, propertyInfoComparator);
 				
 		// create table
 		PdfPTable pdfTable = new PdfPTable(propertyInfos.size());
@@ -156,7 +156,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		}
 
 		// add domain objects as rows
-		for (Object domainObject : tableSection.getIntrospectedObjects()) {
+		for (Object domainObject : tableSection.getObjects()) {
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				// put value in the cell with the right type
 				Object value = propertyInfo.getValue(domainObject);

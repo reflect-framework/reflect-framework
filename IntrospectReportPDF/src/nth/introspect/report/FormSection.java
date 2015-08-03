@@ -11,15 +11,15 @@ import nth.introspect.layer4infrastructure.InfrastructureObject;
 
 public class FormSection extends Section {
 
-	private final Object introspectedObject;
+	private final Object domainObject;
 
-	public FormSection(String name, Object introspectedObject) {
+	public FormSection(String name, Object domainObject) {
 		super(name);
-		this.introspectedObject = introspectedObject;
+		this.domainObject = domainObject;
 	}
 
-	public Object getIntrospectedObject() {
-		return introspectedObject;
+	public Object getDomainObject() {
+		return domainObject;
 	}
 
 

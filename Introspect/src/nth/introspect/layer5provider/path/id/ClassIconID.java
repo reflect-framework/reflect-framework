@@ -23,10 +23,10 @@ public class ClassIconID extends PathID {
 		}
 	}
 
-	private URI getIconURI(Class<?> introspectedClass, String name ) {
+	private URI getIconURI(Class<?> objectClass, String name ) {
 		try {
 			String fileName=name+PNG_EXTENTION;
-			URL resource = introspectedClass.getResource(fileName);
+			URL resource = objectClass.getResource(fileName);
 			return resource.toURI();
 		} catch (Throwable  e) {
 			return null;

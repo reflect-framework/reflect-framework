@@ -121,7 +121,7 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 					}
 					orderClause.append(" ");
 					PropertyInfo propertyInfo = propertyInfos.get(sortKey.getColumn());
-					String columnName = propertyInfo.getName();
+					String columnName = propertyInfo.getSimpleName();
 					orderClause.append(variableName);
 					orderClause.append(".");
 					orderClause.append(columnName);

@@ -23,13 +23,13 @@ public class Parameter {
 
 		types = CommandService.getSupportedParameterPropertyTypes();
 		if (!types.containsKey(type)) {
-			throw new IntrospectCommandLineException("Property type " + type.getCanonicalName() + " is not supported for property " + propertyInfo.getName());
+			throw new IntrospectCommandLineException("Property type " + type.getCanonicalName() + " is not supported for property " + propertyInfo.getSimpleName());
 		}
 
 	}
 
 	public String getName() {
-		return propertyInfo.getName();
+		return propertyInfo.getSimpleName();
 	}
 
 	public String getDescription() {
@@ -45,11 +45,11 @@ public class Parameter {
 		StringBuffer usage = new StringBuffer();
 		if (type.isAssignableFrom(String.class) || type.isAssignableFrom(File.class) || type.isAssignableFrom(Date.class) || type.isAssignableFrom(URI.class)|| type.isAssignableFrom(URL.class)){
 			usage.append("\"<");
-			usage.append(propertyInfo.getName());
+			usage.append(propertyInfo.getSimpleName());
 			usage.append(">\"");
 		} else  {
 			usage.append("<");
-			usage.append(propertyInfo.getName());
+			usage.append(propertyInfo.getSimpleName());
 			usage.append(">");
 		}
 		return usage.toString();
@@ -69,7 +69,7 @@ public class Parameter {
 			Object value = format.parseObject(argument);
 			propertyInfo.setValue(parameter, value);
 		} catch (Throwable e) {
-			throw new IntrospectCommandLineException("Could not parse '" + argument + "' to a '" + type.getName() + "' for property " + propertyInfo.getName());
+			throw new IntrospectCommandLineException("Could not parse '" + argument + "' to a '" + type.getName() + "' for property " + propertyInfo.getSimpleName());
 		}
 	}
 

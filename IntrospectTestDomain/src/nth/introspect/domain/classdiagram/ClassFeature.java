@@ -40,7 +40,7 @@ public class ClassFeature {
 
 	private static String getMethodRepresentation(MethodInfo methodInfo) {
 		StringBuffer representation = new StringBuffer();
-		representation.append(methodInfo.getName());
+		representation.append(methodInfo.getSimpleName());
 		representation.append("(");
 		if (methodInfo.getParameterType().getTypeCategory() != TypeCategory.NONE) {
 			representation.append(methodInfo.getParameterType().toString());
@@ -55,7 +55,7 @@ public class ClassFeature {
 
 	private static String getPropertyRepresentation(PropertyInfo propertyInfo) {
 		StringBuffer representation = new StringBuffer();
-		representation.append(propertyInfo.getName());
+		representation.append(propertyInfo.getSimpleName());
 		representation.append(" ");
 		representation.append(propertyInfo.getPropertyType().toString());
 		if (propertyInfo.isReadOnly()) {

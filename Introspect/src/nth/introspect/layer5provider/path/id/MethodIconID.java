@@ -41,10 +41,10 @@ public class MethodIconID extends PathID {
 		}
 	}
 
-	private URI getIconURI(Class<?> introspectedClass, String name) {
+	private URI getIconURI(Class<?> objectClass, String name) {
 		try {
 			name=name+PNG_EXTENTION;
-			return introspectedClass.getResource(name ).toURI();
+			return objectClass.getResource(name ).toURI();
 		} catch (Throwable e) {
 			return null;
 		}

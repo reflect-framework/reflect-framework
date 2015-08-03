@@ -12,7 +12,7 @@ public class MethodNameFilter implements Filter<MethodInfo> {
 
 	@Override
 	public boolean isMatch(MethodInfo methodInfo) {
-		return methodInfo.getName().equals(name);
+		return methodInfo.getSimpleName().equals(name);
 	}
 
 }

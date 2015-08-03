@@ -10,9 +10,9 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 
 public class PropertyInfoFactory {
 
-	public static List<PropertyInfo> create(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
+	public static List<PropertyInfo> create(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, Class<?> objectClass) {
 		ArrayList<PropertyInfo> propertyInfos = new ArrayList<PropertyInfo>();
-		List<Method> getterMethods = getGetterMethods(introspectedClass);
+		List<Method> getterMethods = getGetterMethods(objectClass);
 		for (Method method : getterMethods) {
 			PropertyInfo propertyInfo = new PropertyInfo(reflectionProvider, languageProvider, method);
 			propertyInfos.add(propertyInfo);
@@ -23,15 +23,15 @@ public class PropertyInfoFactory {
 		return propertyInfos;
 	}
 
-	public static List<Method> getGetterMethods(Class<?> introspectedClass) {
+	public static List<Method> getGetterMethods(Class<?> objectClass) {
 		List<Method> getterMethods = new ArrayList<Method>();
-		Method[] methods = introspectedClass.getMethods();
+		Method[] methods = objectClass.getMethods();
 		for (Method method : methods) {
 			String methodName = method.getName();
 			boolean isGetClass = "getClass".equals(methodName);
 			boolean hasReturnValue = method.getReturnType()!=Void.class;
 			boolean hasNoParameters = method.getParameterTypes().length==0;
-			boolean isEnumGetDeclairingClass=introspectedClass.isEnum() && "getDeclaringClass".equals(methodName);
+			boolean isEnumGetDeclairingClass=objectClass.isEnum() && "getDeclaringClass".equals(methodName);
 			boolean startsWithIs = methodName.startsWith(PropertyInfo.IS_PREFIX);
 			boolean startsWithGet = methodName.startsWith(PropertyInfo.GET_PREFIX);
 			if (!isGetClass && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass &&( startsWithIs || startsWithGet)) {

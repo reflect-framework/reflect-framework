@@ -10,7 +10,7 @@ public class LinkedToPropertyFilter implements Filter<MethodInfo> {
 	private final String propertyName;
 
 	public LinkedToPropertyFilter(PropertyInfo propertyInfo) {
-		propertyName = propertyInfo.getName();
+		propertyName = propertyInfo.getSimpleName();
 	}
 	
 	@Override

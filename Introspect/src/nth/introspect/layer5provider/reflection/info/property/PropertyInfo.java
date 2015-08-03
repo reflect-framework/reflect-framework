@@ -15,6 +15,7 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.PropertyInfoFormatFactory;
+import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.PropertyType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
@@ -42,8 +43,6 @@ public class PropertyInfo implements NameInfo {
 	public final static String TEXT = "text";
 	public final static String DESCRIPTION = "description";
 	public final static String ACCESS_KEY = "accessKey";
-	public final static String ORDER_IN_FORM = "orderInForm";
-	public final static String ORDER_IN_TABLE = "orderInTable";
 	public final static String VISIBLE_IN_TABLE = "visibleInTable";
 	public final static String COLUMN_WIDTH = "columnWidth";
 	public final static int COLUMN_WIDTH_DEFAULT = -1;
@@ -54,19 +53,20 @@ public class PropertyInfo implements NameInfo {
 	public static final String FORMAT = "format";
 	public static final String VALUES = "values";
 	// TODO public final String UNIT_OF_MEASUREMENT = "unitOfMeasurement";
-	public final String[] ANNOTATION_NAMES = new String[] { ORDER_IN_FORM,
-			ORDER_IN_TABLE, VISIBLE_IN_FORM, VISIBLE_IN_TABLE, COLUMN_WIDTH,
+	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, COLUMN_WIDTH,
 			ENABLED, RETURN_CLASS, FORMAT, FIELD_MODE };
 	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
 			ENABLED, VALIDATION, VALUES };
 	public static final String RETURN_CLASS = "returnClass";
 
-	private final String name;
-	private final String namePath;
+	private final String simpleName;
+	private final String canonicalName;
 	private final Method readMethod;
 	private final Method writeMethod;
 	private final PropertyType propertyType;
+	private final double order;
 	private Format format;
+	
 
 	public PropertyInfo(ReflectionProvider reflectionProvider, LanguageProvider languageProvider,  Method readMethod) {
 		if (readMethod.getReturnType() == Void.class) {
@@ -80,13 +80,13 @@ public class PropertyInfo implements NameInfo {
 					+ readMethod.getName() + " may not contain a parameter");
 		}
 
-		this.name = getName(readMethod);
-		this.namePath = getNamePath(readMethod, name);
+		this.simpleName = getSimpleName(readMethod);
+		this.canonicalName = getCanonicalName(readMethod, simpleName);
 		this.propertyType = new PropertyType(readMethod);
 		this.readMethod = readMethod;
-		this.writeMethod = getWiteMethod(readMethod, name,
+		this.writeMethod = getWiteMethod(readMethod, simpleName,
 				propertyType.getType());
-
+		this.order=OrderFactory.getOrder(readMethod);
 		valueModels = new ValueModels();
 
 		// create default value getters
@@ -94,10 +94,6 @@ public class PropertyInfo implements NameInfo {
 		valueModels.put(DESCRIPTION, new TextValue(this,languageProvider, DESCRIPTION));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, TEXT));
 
-		// those properties that overwrite the order value come first
-		valueModels.put(ORDER_IN_FORM, new SimpleValue(Integer.MAX_VALUE));
-		// those properties that overwrite the order value come first
-		valueModels.put(ORDER_IN_TABLE, new SimpleValue(Integer.MAX_VALUE));
 		valueModels.put(VISIBLE_IN_FORM, new SimpleValue(true));
 		valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(true));
 		valueModels.put(COLUMN_WIDTH, new SimpleValue(COLUMN_WIDTH_DEFAULT));
@@ -190,15 +186,15 @@ public class PropertyInfo implements NameInfo {
 		}
 	}
 
-	private String getNamePath(Method readMethod, String name) {
-		StringBuffer namePath = new StringBuffer();
-		namePath.append(readMethod.getDeclaringClass().getCanonicalName());
-		namePath.append(".");
-		namePath.append(name);
-		return namePath.toString();
+	private String getCanonicalName(Method readMethod, String name) {
+		StringBuffer conicalName = new StringBuffer();
+		conicalName.append(readMethod.getDeclaringClass().getCanonicalName());
+		conicalName.append(".");
+		conicalName.append(name);
+		return conicalName.toString();
 	}
 
-	private String getName(Method readMethod) {
+	private String getSimpleName(Method readMethod) {
 		String readMethodName = readMethod.getName();
 		if (readMethodName.startsWith(IS_PREFIX)) {
 			StringBuffer name = new StringBuffer();
@@ -219,13 +215,14 @@ public class PropertyInfo implements NameInfo {
 		}
 	}
 
-	public String getName() {
-		return name;
+	public String getSimpleName() {
+		return simpleName;
 	}
 
+
 	@Override
-	public String getNamePath() {
-		return namePath;
+	public String getCanonicalName() {
+		return canonicalName;
 	}
 
 	public Method getReadMethod() {
@@ -244,12 +241,12 @@ public class PropertyInfo implements NameInfo {
 		return valueModels.getStringValue(DESCRIPTION);
 	}
 
-	public Integer getOrderInForm() {
-		return valueModels.getIntegerValue(ORDER_IN_FORM);
+	public double getOrderInForm() {//TODO merge getOrderInForm getOrderInTable into getOrder (same for comperators)
+		return order;
 	}
 
-	public Integer getOrderInTable() {
-		return valueModels.getIntegerValue(ORDER_IN_TABLE);
+	public double getOrderInTable() {//TODO merge getOrderInForm getOrderInTable into getOrder (same for comperators)
+		return order;
 	}
 
 	public int getColumnWidth() {
@@ -284,28 +281,28 @@ public class PropertyInfo implements NameInfo {
 	public void setValue(Object domainObject, Object value) {
 		if (!isEnabled(domainObject)) {
 			throw new RuntimeException("Could not set value of property: "
-					+ namePath + " when it is disabled or read only");
+					+ canonicalName + " when it is disabled or read only");
 		}
 		try {
 			writeMethod.invoke(domainObject, new Object[] { value });
 		} catch (Exception e) {
 			if (value == null) {
 				throw new RuntimeException("Could not set value of property: "
-						+ namePath + " with value: null", e);
+						+ canonicalName + " with value: null", e);
 			} else {
 				throw new RuntimeException("Could not set value of property: "
-						+ namePath + " with value: " + value + " of type"
+						+ canonicalName + " with value: " + value + " of type"
 						+ value.getClass().getCanonicalName(), e);
 			}
 		}
 	}
 
-	public Object getValue(Object introspectedObject) {
+	public Object getValue(Object obj) {
 		try {
-			return getReadMethod().invoke(introspectedObject, new Object[0]);
+			return getReadMethod().invoke(obj, new Object[0]);
 		} catch (Exception e) {
 			throw new RuntimeException("Could not read value of property: "
-					+ namePath, e);
+					+ canonicalName, e);
 		}
 	}
 
@@ -318,7 +315,7 @@ public class PropertyInfo implements NameInfo {
 
 	@Override
 	public String toString() {
-		return namePath;
+		return canonicalName;
 	}
 
 	/**
@@ -356,7 +353,7 @@ public class PropertyInfo implements NameInfo {
 		} else {
 			throw new IllegalArgumentException("Property type:"
 					+ propertyClass.getSimpleName()
-					+ " is not supported for property:" + namePath);
+					+ " is not supported for property:" + canonicalName);
 		}
 		setValue(domainObject, value);
 	}
@@ -369,8 +366,8 @@ public class PropertyInfo implements NameInfo {
 		return format;
 	}
 
-	public String getFormatedValue(Object introspectedObject) {
-		Object value = getValue(introspectedObject);
+	public String getFormatedValue(Object obj) {
+		Object value = getValue(obj);
 		if (value == null) {
 			return "";
 		} else {

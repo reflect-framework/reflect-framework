@@ -9,6 +9,7 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.MethodIconID;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
@@ -31,7 +32,6 @@ public class MethodInfo implements NameInfo {
 	private ValueModels valueModels;
 	public final static String TEXT = "text";
 	public final static String DESCRIPTION = "description";
-	public final static String ORDER = "order";
 	public final static String VISIBLE = "visible";
 	public final static String ENABLED = "enabled";
 	public final static String ICON = "icon";
@@ -39,17 +39,18 @@ public class MethodInfo implements NameInfo {
 	public final static String PARAMETER_MODIFIER = "parameterModifier";
 	public final static String EXECUTION_MODE = "executionMode";
 	public final static String ACCESS_KEY = "accessKey";
-	public final String[] ANNOTATION_NAMES = new String[] {ICON, ORDER, VISIBLE, ENABLED, RETURN_CLASS, EXECUTION_MODE};
+	public final String[] ANNOTATION_NAMES = new String[] {ICON, VISIBLE, ENABLED, RETURN_CLASS, EXECUTION_MODE};
 	public final static String[] METHOD_NAMES = new String[] {PARAMETER_FACTORY, ICON, VISIBLE, ENABLED};
 	public static final String RETURN_CLASS = "returnClass";
 
-	private final String name;
-	private final String namePath;
+	private final String simpleName;
+	private final String canonicalName;
 	private final Method method;
 	private final String linkedPropertyName;
 	private MethodParameterType parameterType; 
 	private final MethodReturnType returnType;
 	private final PathProvider pathProvider; 
+	private final double order;
 
 	
 	
@@ -61,10 +62,11 @@ public class MethodInfo implements NameInfo {
 		this.pathProvider = pathProvider;
 		this.method = method;
 		this.linkedPropertyName = linkedPropertyName;
-		this.name = method.getName();
-		this.namePath = getNamePath(method);
+		this.simpleName = method.getName();
+		this.canonicalName = getCanonicalName(method);
 		this.returnType = new MethodReturnType(method);
 		this.parameterType = new MethodParameterType(method);
+		this.order=OrderFactory.getOrder(method);
 		this.valueModels = new ValueModels();
 
 		String regExpToRemoveFromDefaultValue = linkedPropertyName == null ? null : "^" + linkedPropertyName;
@@ -76,7 +78,6 @@ public class MethodInfo implements NameInfo {
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, NAME));
 		// valueModels.put(ICON, new IconValue(this));
 		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider, method)));
-		valueModels.put(ORDER, new SimpleValue(0));
 		valueModels.put(VISIBLE, new SimpleValue(true));
 		valueModels.put(ENABLED, new SimpleValue(true));
 		valueModels.put(EXECUTION_MODE, new SimpleValue(ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL));
@@ -99,21 +100,21 @@ public class MethodInfo implements NameInfo {
 
 	}
 
-	private String getNamePath(Method method) {
-		StringBuffer namePath = new StringBuffer();
-		namePath.append(method.getDeclaringClass().getCanonicalName());
-		namePath.append(".");
-		namePath.append(method.getName());
-		return namePath.toString();
+	private String getCanonicalName(Method method) {
+		StringBuffer conicalName = new StringBuffer();
+		conicalName.append(method.getDeclaringClass().getCanonicalName());
+		conicalName.append(".");
+		conicalName.append(method.getName());
+		return conicalName.toString();
 	}
 
 	@Override
-	public String getName() {
-		return name;
+	public String getSimpleName() {
+		return simpleName;
 	}
 
-	public String getNamePath() {
-		return namePath;
+	public String getCanonicalName() {
+		return canonicalName;
 	}
 
 	public Method getMethod() {
@@ -132,20 +133,20 @@ public class MethodInfo implements NameInfo {
 	// return valueModels.getStringValue(ICON, serviceObject);
 	// }
 
-	public CharSequence getIconID(Object introspectedObject) {
-		Object value = valueModels.getValue(ICON, introspectedObject);
+	public CharSequence getIconID(Object obj) {
+		Object value = valueModels.getValue(ICON, obj);
 		if (value == null) {
 			return null;
 		}
 		return (CharSequence) value;
 	}
 
-	public URI getIconURI(Object introspectedObject) {
-		return pathProvider.getImagePath(getIconID(introspectedObject));
+	public URI getIconURI(Object obj) {
+		return pathProvider.getImagePath(getIconID(obj));
 	}
 
-	public Integer getOrder() {
-		return valueModels.getIntegerValue(ORDER);
+	public double getOrder() {
+		return order;
 	}
 
 	public Boolean isVisible(Object serviceObject) {
@@ -177,14 +178,14 @@ public class MethodInfo implements NameInfo {
 		return valueModels.containsKey(PARAMETER_FACTORY);
 	}
 
-	public Object createMethodParameter(Object introspectedObject) throws InstantiationException, IllegalAccessException {
+	public Object createMethodParameter(Object obj) throws InstantiationException, IllegalAccessException {
 		switch (getParameterType().getTypeCategory()) {
 		case NONE:
 			return null;
 		case DOMAIN_TYPE:
 			if (hasParameterFactory()) {
 				// get parameter value from parameter factory method
-				return valueModels.getValue(PARAMETER_FACTORY, introspectedObject);
+				return valueModels.getValue(PARAMETER_FACTORY, obj);
 			} else {
 				// try to create a parameter value from the parameter class
 				Class<?> parameterClass = getParameterType().getType();
@@ -219,7 +220,7 @@ public class MethodInfo implements NameInfo {
 
 	@Override
 	public String toString() {
-		return namePath;
+		return canonicalName;
 	}
 
 	

@@ -34,12 +34,12 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	}
 
 
-	public ClassInfo getClassInfo(Class<?> introspectedClass) {
-		if (!classInfos.containsKey(introspectedClass)) {
-			classInfos.put(introspectedClass,
-					ClassInfoFactory.create(this, pathProvider, languageProvider, introspectedClass));
+	public ClassInfo getClassInfo(Class<?> objectClass) {
+		if (!classInfos.containsKey(objectClass)) {
+			classInfos.put(objectClass,
+					ClassInfoFactory.create(this, pathProvider, languageProvider, objectClass));
 		}
-		return classInfos.get(introspectedClass);
+		return classInfos.get(objectClass);
 	}
 
 	/**
@@ -47,18 +47,18 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	 *         menus in table view and form vieuws should be generated for a
 	 *         given service or domain class.
 	 */
-	public List<MethodInfo> getMethodInfos(Class<?> introspectedClass) {
-		if (!methodInfosPerClass.containsKey(introspectedClass)) {
-			methodInfosPerClass.put(introspectedClass,
-					MethodInfoFactory.create(this, pathProvider, languageProvider, introspectedClass));
+	public List<MethodInfo> getMethodInfos(Class<?> objectClass) {
+		if (!methodInfosPerClass.containsKey(objectClass)) {
+			methodInfosPerClass.put(objectClass,
+					MethodInfoFactory.create(this, pathProvider, languageProvider, objectClass));
 		}
-		return methodInfosPerClass.get(introspectedClass);
+		return methodInfosPerClass.get(objectClass);
 	}
 
 	@Override
-	public List<MethodInfo> getMethodInfos(Class<?> introspectedClass,
+	public List<MethodInfo> getMethodInfos(Class<?> objectClass,
 			Filter<MethodInfo> methodInfoFilter) {
-		List<MethodInfo> methodInfos = getMethodInfos(introspectedClass);
+		List<MethodInfo> methodInfos = getMethodInfos(objectClass);
 		List<MethodInfo> foundMethodInfos = FilterUtil.filter(methodInfos,
 				methodInfoFilter);
 		return foundMethodInfos;
@@ -66,8 +66,8 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 
 	@Override
 	public List<PropertyInfo> getOrderedAndVisiblePropertyInfos(
-			Class<?> introspectedClass) {
-		List<PropertyInfo> propertyInfos = getPropertyInfos(introspectedClass);
+			Class<?> objectClass) {
+		List<PropertyInfo> propertyInfos = getPropertyInfos(objectClass);
 		// only return visible properties
 		FilterUtil.filter(propertyInfos, new TableVisibleFilter());
 		// order properties
@@ -76,18 +76,18 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	}
 
 	@Override
-	public List<PropertyInfo> getOrderedPropertyInfos(Class<?> introspectedClass) {
-		List<PropertyInfo> propertyInfos = getPropertyInfos(introspectedClass);
+	public List<PropertyInfo> getOrderedPropertyInfos(Class<?> objectClass) {
+		List<PropertyInfo> propertyInfos = getPropertyInfos(objectClass);
 		// order properties
 		Collections.sort(propertyInfos, new TableOrderComparator());
 		return propertyInfos;
 	}
 
-	public PropertyInfo getPropertyInfo(Class<?> introspectedClass,
+	public PropertyInfo getPropertyInfo(Class<?> objectClass,
 			String propertyName) {
-		List<PropertyInfo> propertyInfos = getPropertyInfos(introspectedClass);
+		List<PropertyInfo> propertyInfos = getPropertyInfos(objectClass);
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			if (propertyInfo.getName().equals(propertyName)) {
+			if (propertyInfo.getSimpleName().equals(propertyName)) {
 				return propertyInfo;
 			}
 		}
@@ -98,20 +98,20 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	 * @return A collection of PropertyInfos that hold information on how a form
 	 *         view should be generated for a given domain class.
 	 */
-	public List<PropertyInfo> getPropertyInfos(Class<?> introspectedClass) {
-		if (!propertyInfosPerClass.containsKey(introspectedClass)) {
-			propertyInfosPerClass.put(introspectedClass,
-					PropertyInfoFactory.create(this, languageProvider, introspectedClass));
+	public List<PropertyInfo> getPropertyInfos(Class<?> objectClass) {
+		if (!propertyInfosPerClass.containsKey(objectClass)) {
+			propertyInfosPerClass.put(objectClass,
+					PropertyInfoFactory.create(this, languageProvider, objectClass));
 		}
-		return propertyInfosPerClass.get(introspectedClass);
+		return propertyInfosPerClass.get(objectClass);
 	}
 
 	@Override
-	public List<PropertyInfo> getPropertyInfos(Class<?> introspectedClass,
+	public List<PropertyInfo> getPropertyInfos(Class<?> objectClass,
 			Filter<PropertyInfo> propertyInfoFilter,
 			Comparator<PropertyInfo> propertyInfoComparator) {
 
-		List<PropertyInfo> propertyInfos = getPropertyInfos(introspectedClass);
+		List<PropertyInfo> propertyInfos = getPropertyInfos(objectClass);
 
 		propertyInfos = FilterUtil.filter(propertyInfos, propertyInfoFilter);
 

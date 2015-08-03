@@ -24,32 +24,32 @@ public class ClassDiagram {
 		methods = new ArrayList<ClassFeature>();
 	}
 
-	public ClassDiagram(ReflectionProvider reflectionProvider, Class<?> introspectedClass) {
+	public ClassDiagram(ReflectionProvider reflectionProvider, Class<?> objectClass) {
 		this();// initialize lists
 
 		// name
-		setName(new ClassFeature(introspectedClass));
+		setName(new ClassFeature(objectClass));
 
 		// superclass
-		Class<?> superClass = introspectedClass.getSuperclass();
+		Class<?> superClass = objectClass.getSuperclass();
 		if (superClass != null) {
 			setSuperclass(new ClassFeature(superClass));
 		}
 		
 		// interfaces
-		Class<?>[] interfaces = introspectedClass.getInterfaces();
+		Class<?>[] interfaces = objectClass.getInterfaces();
 		for (Class<?> interfaze : interfaces) {
 			getInterfaces().add(new ClassFeature(interfaze));
 		}
 
 		// properties
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(introspectedClass);
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(objectClass);
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			getProperties().add(new ClassFeature(propertyInfo));
 		}
 
 		// methods
-		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(introspectedClass);
+		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(objectClass);
 		for (MethodInfo methodInfo : methodInfos) {
 			getMethods().add(new ClassFeature(methodInfo));
 		}

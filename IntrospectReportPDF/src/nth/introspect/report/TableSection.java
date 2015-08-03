@@ -12,21 +12,21 @@ import nth.introspect.layer4infrastructure.InfrastructureObject;
 public class TableSection extends Section {
 
 
-	private final Collection<?> introspectedObjects;
-	private final Class<?> introspectedObjectType;
+	private final Collection<?> objects;
+	private final Class<?> objectClass;
 
-	public TableSection(String name, Collection<?> introspectedObjects, Class<?> introspectedObjectType) {
+	public TableSection(String name, Collection<?> objects, Class<?> objectClass) {
 		super(name);
-		this.introspectedObjects = introspectedObjects;
-		this.introspectedObjectType = introspectedObjectType;
+		this.objects = objects;
+		this.objectClass = objectClass;
 	}
 
-	public Collection<?> getIntrospectedObjects() {
-		return introspectedObjects;
+	public Collection<?> getObjects() {
+		return objects;
 	}
 
-	public Class<?> getIntrospectedObjectType() {
-		return introspectedObjectType;
+	public Class<?> getDomainObjectClass() {
+		return objectClass;
 	}
 
 	

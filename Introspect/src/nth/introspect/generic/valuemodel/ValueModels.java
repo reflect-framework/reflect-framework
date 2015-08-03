@@ -11,17 +11,17 @@ public class ValueModels extends HashMap<String, ReadOnlyValueModel> {
 		return getValue(key, null);
 	}
 	
-	public Object getValue(String key, Object introspectedObject) {
+	public Object getValue(String key, Object object) {
 		ReadOnlyValueModel valueModel = get(key);
 		if (valueModel == null) {
 			//could not find value model so return null
 			return null;
 		} else if (valueModel instanceof IntrospectedValueModelReadOnly) {
-			if (introspectedObject==null) {
+			if (object==null) {
 				throw new NullPointerException(IntrospectedValueModelReadOnly.class.getSimpleName()+ " requires a service object as a parameter");
 			}
 			IntrospectedValueModelReadOnly introspectedValueModelReadOnly = (IntrospectedValueModelReadOnly) valueModel;
-			return introspectedValueModelReadOnly.getValue(introspectedObject);
+			return introspectedValueModelReadOnly.getValue(object);
 		} else if (valueModel instanceof ReadOnlyValueModel) {
 			ReadOnlyValueModel readOnlyValueModel = (ReadOnlyValueModel) valueModel;
 			return readOnlyValueModel.getValue();

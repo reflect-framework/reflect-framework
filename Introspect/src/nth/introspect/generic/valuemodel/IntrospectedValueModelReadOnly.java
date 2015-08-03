@@ -6,11 +6,11 @@ public abstract class IntrospectedValueModelReadOnly implements ReadOnlyValueMod
 
 	@Override
 	public Object getValue() {
-		throw new MethodNotSupportedException("Use getValue(Object introspectedObject) instead.");
+		throw new MethodNotSupportedException("Use getValue(Object obj) instead.");
 	}
 
 	/**
-	 * @return result depends on introspectedObject
+	 * @return result depends on obj
 	 */
-	public abstract Object getValue(Object introspectedObject);
+	public abstract Object getValue(Object obj);
 }

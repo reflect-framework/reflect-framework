@@ -15,12 +15,19 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * {@link DomainObject}s can have behavior that defines how the objects act or
  * how they are displayed. Behavior can be defined with:
  * <ul>
- * <li>methods that are recognized by the {@link IntrospectFramework}</li>
- * <li>annotations that are recognized by the {@link IntrospectFramework}</li>
+ * <li>{@link BehavioralAnnotation}s</li>
+ * <li>{@link BehavioralMethod}s</li>
  * </ul>
- * TODO RECOGNIZED METHODS (see naked objects doc) TODO RECOGNIZED ANNOTATIONS
- * TODO verify if we missed a chapter by inspecting ClassInfo and MethodInfo and
- * PropertyInfo
+ * 
+ * <h3>Behavioral Annotations</h3>
+ * <p>
+ * {@insert BehavioralAnnotation}
+ * </p>
+ * 
+ * <h3>Behavioral Methods</h3>
+ * <p>
+ * {@insert BehavioralMethod}
+ * </p>
  * 
  * <h2>Display Name</h2>
  * <p>
@@ -62,7 +69,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * {@insert Format}
  * </p>
  * 
- *  <h2>Field Mode</h2>
+ * <h2>Field Mode</h2>
  * <p>
  * {@insert FieldMode}
  * </p>
@@ -72,6 +79,15 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * {@insert ExecutionMode}
  * </p>
  * 
+ * <h2>Parameter Factory</h2>
+ * <p>
+ * {@insert ParameterFactoryModelFactory}
+ * </p>
+ * 
+ * <h2>Validation</h2>
+ * <p>
+ * {@insert ValidationModelFactory}
+ * </p>
  * 
  * @author nilsth
  *

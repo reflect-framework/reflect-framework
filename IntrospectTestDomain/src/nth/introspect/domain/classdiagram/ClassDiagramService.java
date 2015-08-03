@@ -99,12 +99,12 @@ public class ClassDiagramService {
 
 	@ExecutionMode(mode = ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
 	public ClassDiagram openClassDiagram(ClassFeature classFeature) {
-		Class<?> introspectedClass = classFeature.getType();
-		if (introspectedClass == null) {
+		Class<?> objectClass = classFeature.getType();
+		if (objectClass == null) {
 			// a method without a return value (void) or without a parameter does not have a type!
 			throw new RuntimeException(classFeature.toString() + " does not have a type reference.");
 		} else {
-			ClassDiagram classDiagram = new ClassDiagram(reflectionProvider, introspectedClass);
+			ClassDiagram classDiagram = new ClassDiagram(reflectionProvider, objectClass);
 			return classDiagram;
 		}
 	}

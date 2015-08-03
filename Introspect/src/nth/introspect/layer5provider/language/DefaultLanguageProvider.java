@@ -46,7 +46,7 @@ public class DefaultLanguageProvider implements LanguageProvider {
 	public String getKey(Object obj) {
 		if (obj instanceof NameInfo) {
 			NameInfo introspectionInfo = (NameInfo) obj;
-			return introspectionInfo.getNamePath();
+			return introspectionInfo.getCanonicalName();
 		} else if (obj instanceof Class<?>) {
 			Class<?> claz = (Class<?>) obj;
 			return claz.getCanonicalName();

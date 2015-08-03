@@ -15,15 +15,15 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.MethodValue
 public class MethodValueModelFactory {
 
 	public static HashMap<String, ReadOnlyValueModel> create(ClassInfo classInfo, String[] names) {
-		return create(classInfo.getBeanClass(), classInfo.getName(), names);
+		return create(classInfo.getObjectClass(), classInfo.getSimpleName(), names);
 	}
 
 	public static Map<String, ReadOnlyValueModel> create(MethodInfo methodinfo, String[] names) {
-		return create(methodinfo.getMethod().getDeclaringClass(), methodinfo.getName(), names);
+		return create(methodinfo.getMethod().getDeclaringClass(), methodinfo.getSimpleName(), names);
 	}
 	
 	public static HashMap<String, ReadOnlyValueModel> create(PropertyInfo propertyInfo, String[] names) {
-		return create(propertyInfo.getReadMethod().getDeclaringClass(), propertyInfo.getName(), names);
+		return create(propertyInfo.getReadMethod().getDeclaringClass(), propertyInfo.getSimpleName(), names);
 	}
 
 	public static HashMap<String, ReadOnlyValueModel> create(Class<?> serviceOrDomainClass, String methodOrPropertyOrClassName, String[] names) {

@@ -155,12 +155,12 @@ public class ExcelReportFactory {
 	private void addPropertyTable(Sheet sheet, Cell cell,
 			PropertyInfo propertyInfo, Object value) {
 		Row row = cell.getRow();
-		Class<?> introspectedClass = propertyInfo.getPropertyType()
+		Class<?> objectClass = propertyInfo.getPropertyType()
 				.getTypeOrGenericCollectionType();
 		Filter<PropertyInfo> propertyInfoFilter = new TableVisibleFilter();
 		Comparator<PropertyInfo> propertyInfoComparator = new TableOrderComparator();
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(
-				introspectedClass, propertyInfoFilter, propertyInfoComparator);
+				objectClass, propertyInfoFilter, propertyInfoComparator);
 
 		createPropertyTableHeader(sheet, row, propertyInfos);
 
@@ -215,8 +215,8 @@ public class ExcelReportFactory {
 		return maxNumberOfColumns;
 	}
 
-	private int getMaxNumberOfColumns(Class<?> introspectedClass) {
-		List<PropertyInfo> propertyInfos = getPropertyInfosForTable(introspectedClass);
+	private int getMaxNumberOfColumns(Class<?> objectClass) {
+		List<PropertyInfo> propertyInfos = getPropertyInfosForTable(objectClass);
 		return propertyInfos.size();
 	}
 

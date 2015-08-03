@@ -16,13 +16,13 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.factories.Method
 
 public class MethodInfoFactory {
 	
-	public static List<MethodInfo> create(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
+	public static List<MethodInfo> create(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> objectClass) {
 		ArrayList<MethodInfo> methodInfos = new ArrayList<MethodInfo>();
 		try {
-			List<String> propertyNames = getPropertyNames(reflectionProvider, introspectedClass);
+			List<String> propertyNames = getPropertyNames(reflectionProvider, objectClass);
 
-			Method[] methods = introspectedClass.getMethods();
-			List<String> unwantedMethodNames = getUnwantedMethodNames(reflectionProvider, introspectedClass);
+			Method[] methods = objectClass.getMethods();
+			List<String> unwantedMethodNames = getUnwantedMethodNames(reflectionProvider, objectClass);
 			for (Method method : methods) {
 				if (!unwantedMethodNames.contains(method.getName())) {
 					String linkedPropertyName = findLinkedPropertyName(method, propertyNames);
@@ -50,28 +50,28 @@ public class MethodInfoFactory {
 		return linkedPropertyName;
 	}
 
-	public static List<String> getPropertyNames(ReflectionProvider reflectionProvider, Class<?> introspectedClass ) {
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(introspectedClass);
+	public static List<String> getPropertyNames(ReflectionProvider reflectionProvider, Class<?> objectClass ) {
+		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(objectClass);
 		List<String> propertyNames = new ArrayList<String>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			propertyNames.add(propertyInfo.getName());
+			propertyNames.add(propertyInfo.getSimpleName());
 		}
 		return propertyNames;
 	}
 
-	private static List<String> getUnwantedMethodNames(ReflectionProvider reflectionProvider, Class<?> introspectedClass) {
+	private static List<String> getUnwantedMethodNames(ReflectionProvider reflectionProvider, Class<?> objectClass) {
 		ArrayList<String> unwantedMethodNames = new ArrayList<String>();
 		// add property read method names
 		try {
 			unwantedMethodNames.add("getChildren");// children of service object that represent a HtmlNakedTreeNode need to be ignored as action method
 			for (String suffix : ClassInfo.METHOD_NAMES) {
-				String unwantedMethodName = MethodValueModelFactory.createMethodName(introspectedClass.getSimpleName(), suffix);
+				String unwantedMethodName = MethodValueModelFactory.createMethodName(objectClass.getSimpleName(), suffix);
 				unwantedMethodNames.add(unwantedMethodName.toString());
 			}
-			List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(introspectedClass);
+			List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(objectClass);
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				try {
-					String propertyName = propertyInfo.getName();
+					String propertyName = propertyInfo.getSimpleName();
 					unwantedMethodNames.add(propertyInfo.getReadMethod().getName());
 					unwantedMethodNames.add(propertyInfo.getWriteMethod().getName());
 					for (String suffix : PropertyInfo.METHOD_NAMES) {
@@ -85,7 +85,7 @@ public class MethodInfoFactory {
 			// TODO: handle exception
 		}
 		// add method names
-		for (Method method : introspectedClass.getMethods()) {
+		for (Method method : objectClass.getMethods()) {
 			if (method.getDeclaringClass() != Object.class) {
 				for (String suffix : MethodInfo.METHOD_NAMES) {
 					StringBuffer unwantedMethodName = new StringBuffer(method.getName());

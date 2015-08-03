@@ -56,7 +56,7 @@ public class Command {
 			name.append(serviceObject.getClass().getName());
 			name.append(".");
 		}
-		name.append(methodInfo.getName());
+		name.append(methodInfo.getSimpleName());
 		return name.toString();
 	}
 
@@ -127,7 +127,7 @@ public class Command {
 		try {
 			return methodInfo.createMethodParameter(serviceObject);
 		} catch (Exception e) {
-			throw new IntrospectCommandLineException("Could not create a new instance of method parameter: " + methodInfo.getParameterType().getType().getCanonicalName() + " for method: " + methodInfo.getNamePath(), e);
+			throw new IntrospectCommandLineException("Could not create a new instance of method parameter: " + methodInfo.getParameterType().getType().getCanonicalName() + " for method: " + methodInfo.getCanonicalName(), e);
 		}
 	}
 

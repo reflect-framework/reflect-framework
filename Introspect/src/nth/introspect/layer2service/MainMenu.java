@@ -3,6 +3,7 @@ package nth.introspect.layer2service;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectMenu;
+import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**
@@ -13,11 +14,11 @@ import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
  * again using the main toolbar. The main menu provides the user access to the
  * {@link DomainObject}s so that the user can work on them. The {@link MainMenu} contains all
  * {@link ActionMethod}s of {@link ServiceObject}s that either have no method parameter or have
- * an parameterFactory_TODO_LINK.
+ * an {@link ParameterFactory}.
  * </p>
  * <p>
  * {@link ActionMethod}s of {@link ServiceObject}s that take a {@link DomainObject} as a parameter and
- * have no parameterFactory_TODO_LINK are displayed in {@link DomainObjectMenu}s and
+ * have no {@link ParameterFactory} are displayed in {@link DomainObjectMenu}s and
  * propertyMenus.
  * </p>
  * Each {@link ServiceObject} is always displayed as a sub menu

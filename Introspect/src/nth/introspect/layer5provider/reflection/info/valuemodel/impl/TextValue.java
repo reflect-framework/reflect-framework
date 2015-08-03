@@ -17,13 +17,13 @@ public class TextValue implements ReadOnlyValueModel {
 
 	public TextValue(NameInfo introspectInfo, LanguageProvider languageProvider, String suffix, String regexpToRemoveFromDefaultText) {
 		this.languageProvider = languageProvider;
-		defaultValue = introspectInfo.getName();
+		defaultValue = introspectInfo.getSimpleName();
 		if (regexpToRemoveFromDefaultText != null) {
 			defaultValue=defaultValue.replaceAll(regexpToRemoveFromDefaultText, "");
 		}
 		defaultValue = StringUtil.convertToNormalCase(defaultValue);
 		StringBuilder key = new StringBuilder();
-		key.append(introspectInfo.getNamePath());
+		key.append(introspectInfo.getCanonicalName());
 		key.append(".");
 		key.append(suffix);
 		this.key = key.toString();

@@ -17,7 +17,7 @@ public class NotLinkedToPropertyFilter implements Filter<MethodInfo> {
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(domainClass);
 		propertyNames = new ArrayList<String>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			propertyNames.add(propertyInfo.getName());
+			propertyNames.add(propertyInfo.getSimpleName());
 		}
 	}
 
@@ -25,7 +25,7 @@ public class NotLinkedToPropertyFilter implements Filter<MethodInfo> {
 	public boolean isMatch(MethodInfo methodInfo) {
 		if (TypeCategory.NONE == methodInfo.getParameterType().getTypeCategory() || methodInfo.hasParameterFactory()) {
 			for (String propertyName : propertyNames) {
-				if (methodInfo.getName().startsWith(propertyName)) {
+				if (methodInfo.getSimpleName().startsWith(propertyName)) {//TODO endswith
 					return false;
 				}
 			}

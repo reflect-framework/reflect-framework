@@ -30,32 +30,32 @@ import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
  */
 public interface ReflectionProvider extends Provider {
 
-	ClassInfo getClassInfo(Class<?> introspectedClass);
+	ClassInfo getClassInfo(Class<?> objectClass);
 
-	PropertyInfo getPropertyInfo(Class<?> introspectedClass, String propertyName);
+	PropertyInfo getPropertyInfo(Class<?> objectClass, String propertyName);
 
-	List<PropertyInfo> getPropertyInfos(Class<?> introspectedClass);
+	List<PropertyInfo> getPropertyInfos(Class<?> objectClass);
 
-	List<PropertyInfo> getPropertyInfos(Class<?> introspectedClass,
+	List<PropertyInfo> getPropertyInfos(Class<?> objectClass,
 			Filter<PropertyInfo> propertyInfoFilter,
 			Comparator<PropertyInfo> propertyInfoComparator);
 
 	// TODO move to classInfo
 
-	List<PropertyInfo> getOrderedPropertyInfos(Class<?> introspectedClass);
+	List<PropertyInfo> getOrderedPropertyInfos(Class<?> objectClass);
 
 	// TODO move to classInfo
 
 	List<PropertyInfo> getOrderedAndVisiblePropertyInfos(
-			Class<?> introspectedClass);
+			Class<?> objectClass);
 
 	// TODO move to classInfo
 
-	List<MethodInfo> getMethodInfos(Class<?> introspectedClass);
+	List<MethodInfo> getMethodInfos(Class<?> objectClass);
 
 	// TODO move to classInfo
 
-	List<MethodInfo> getMethodInfos(Class<?> introspectedClass,
+	List<MethodInfo> getMethodInfos(Class<?> objectClass,
 			Filter<MethodInfo> methodInfoFilter);
 	// TODO move to classInfo
 }

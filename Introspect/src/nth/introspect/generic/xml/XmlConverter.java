@@ -146,7 +146,7 @@ public class XmlConverter {
 				if (propertyValue != null) {
 					Class<?> propertyType = propertyValue.getClass();
 					// create a property element (if property value !=null)
-					Element propertyElement = document.createElement(propertyInfo.getName());
+					Element propertyElement = document.createElement(propertyInfo.getSimpleName());
 					objectElement.appendChild(propertyElement);
 					if (TypeUtil.isColection(propertyType)) {
 						// is a collection: add elements that reference to domain objects
@@ -252,7 +252,7 @@ public class XmlConverter {
 	}
 
 	private  Object unMarshalProperty(PropertyInfo propertyInfo, List<Element> propertyElements, Map<String, Object> unMarshaledObjects) throws Exception {
-		Element propertyElement = findFirstElement(propertyElements, propertyInfo.getName());
+		Element propertyElement = findFirstElement(propertyElements, propertyInfo.getSimpleName());
 		Object propertyValue = null;
 		if (propertyElement != null) {
 			// get property value from element
@@ -321,7 +321,7 @@ public class XmlConverter {
 				StringBuffer message = new StringBuffer("Type: ");
 				message.append(propertyType.getCanonicalName());
 				message.append(" for property: ");
-				message.append(propertyInfo.getNamePath());
+				message.append(propertyInfo.getCanonicalName());
 				message.append(" is not supported in ");
 				message.append(XmlConverter.class.getCanonicalName());
 				throw new RuntimeException(message.toString());
@@ -329,7 +329,7 @@ public class XmlConverter {
 				StringBuffer message = new StringBuffer("Error converting type: ");
 				message.append(propertyType.getCanonicalName());
 				message.append(" for property: ");
-				message.append(propertyInfo.getNamePath());
+				message.append(propertyInfo.getCanonicalName());
 				message.append("  in ");
 				message.append(XmlConverter.class.getCanonicalName());
 				throw new RuntimeException(message.toString());

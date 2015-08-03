@@ -44,7 +44,7 @@ public class FieldFactory {
 		case MANY_TO_ONE_OR_MANY:
 			return new ManyToOneOrManyField(formView, propertyValueModel);
 		default:
-			throw new RuntimeException("Field mode " + fieldMode.name() + " not supported for property " + propertyInfo.getNamePath());
+			throw new RuntimeException("Field mode " + fieldMode.name() + " not supported for property " + propertyInfo.getCanonicalName());
 		}
 
 	}

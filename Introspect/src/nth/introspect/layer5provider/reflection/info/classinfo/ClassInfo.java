@@ -31,16 +31,16 @@ public class ClassInfo implements NameInfo {
 	private static final String ICON = "icon";
 	private static final String REG_EXP_TO_REMOVE_SERVICE_SUFFIX = "Service$";
 	private ValueModels valueModels;
-	private final String name;
-	private final String namePath;
-	private final Class<?> introspectedClass;
+	private final String simpleName;
+	private final String conicalName;
+	private final Class<?> objectClass;
 	private final PathProvider pathProvider;
 
-	public ClassInfo(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> introspectedClass) {
+	public ClassInfo(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> objectClass)  {
 		this.pathProvider = pathProvider;
-		this.name = introspectedClass.getSimpleName();
-		this.namePath = introspectedClass.getCanonicalName();
-		this.introspectedClass = introspectedClass;
+		this.simpleName = objectClass.getSimpleName();
+		this.conicalName = objectClass.getCanonicalName();
+		this.objectClass = objectClass;
 
 		valueModels = new ValueModels();
 
@@ -48,7 +48,7 @@ public class ClassInfo implements NameInfo {
 		valueModels.put(TEXT, new TextValue(this, languageProvider,  TEXT, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
 		valueModels.put(DESCRIPTION, new TextValue(this, languageProvider, DESCRIPTION, REG_EXP_TO_REMOVE_SERVICE_SUFFIX));
 		// valueModels.put(ICON, new IconValue(this));
-		valueModels.put(ICON, new SimpleValue(new ClassIconID(pathProvider, introspectedClass)));
+		valueModels.put(ICON, new SimpleValue(new ClassIconID(pathProvider, objectClass)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
 		valueModels.put(TITLE, new TitleValue(reflectionProvider, languageProvider));
 
@@ -63,17 +63,17 @@ public class ClassInfo implements NameInfo {
 	}
 
 	@Override
-	public String getName() {
-		return name;
+	public String getSimpleName() {
+		return simpleName;
 	}
 
 	@Override
-	public String getNamePath() {
-		return namePath;
+	public String getCanonicalName() {
+		return conicalName;
 	}
 
-	public Class<?> getBeanClass() {
-		return introspectedClass;
+	public Class<?> getObjectClass() {
+		return objectClass;
 	}
 
 	public String getText() {
@@ -84,16 +84,16 @@ public class ClassInfo implements NameInfo {
 		return valueModels.getStringValue(DESCRIPTION);
 	}
 
-	public CharSequence getIconID(Object introspectedObject) {
-		Object value = valueModels.getValue(ICON, introspectedObject);
+	public CharSequence getIconID(Object obj) {
+		Object value = valueModels.getValue(ICON, obj);
 		if (value == null) {
 			return null;
 		}
 		return (CharSequence) value;
 	}
 
-	public URI getIconURI(Object introspectedObject) {
-		return pathProvider.getImagePath(getIconID(introspectedObject));
+	public URI getIconURI(Object obj) {
+		return pathProvider.getImagePath(getIconID(obj));
 	}
 
 	public Boolean isVisible(Object domainObject) {
@@ -110,7 +110,7 @@ public class ClassInfo implements NameInfo {
 
 	@Override
 	public String toString() {
-		return namePath;
+		return conicalName;
 	}
 
 }
