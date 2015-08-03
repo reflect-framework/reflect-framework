@@ -10,7 +10,6 @@ import java.util.Date;
 
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.reflection.behavior.format.Format;
-import nth.introspect.layer5provider.reflection.behavior.format.impl.PropertyInfoFormatFactory;
 /**
  * <p>
  * Some property types such as {@link Date}, time, {@link Number} can be
@@ -25,7 +24,7 @@ import nth.introspect.layer5provider.reflection.behavior.format.impl.PropertyInf
  * <p>
  * Please see the JavaDoc of the {@link SimpleDateFormat} and
  * {@link DecimalFormat} formatters to learn more about the patterns that can be
- * used. See the {@link PropertyInfoFormatFactory} to learn how the formating
+ * used. See the {@link FormatFactory} to learn how the formating
  * works for the different {@link DomainObjectProperty} types.
  * 
  * </p>

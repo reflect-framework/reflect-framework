@@ -14,7 +14,7 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
-import nth.introspect.layer5provider.reflection.behavior.format.impl.PropertyInfoFormatFactory;
+import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.PropertyType;
@@ -46,10 +46,9 @@ public class PropertyInfo implements NameInfo {
 	public final static String VISIBLE_IN_FORM = "visibleInForm";
 	public final static String ENABLED = "enabled";
 	public final static String VALIDATION = "validation";
-	public static final String FORMAT = "format";
 	public static final String VALUES = "values";
 	// TODO public final String UNIT_OF_MEASUREMENT = "unitOfMeasurement";
-	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, 	ENABLED, RETURN_CLASS, FORMAT };
+	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, 	ENABLED, RETURN_CLASS };
 	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
 			ENABLED, VALIDATION, VALUES };
 	public static final String RETURN_CLASS = "returnClass";
@@ -61,6 +60,7 @@ public class PropertyInfo implements NameInfo {
 	private final PropertyType propertyType;
 	private final double order;
 	private final FieldModeType fieldMode;
+	private final String formatPattern;
 	private Format format;
 	
 
@@ -83,7 +83,10 @@ public class PropertyInfo implements NameInfo {
 		this.setterMethod = getSetterMethod(getterMethod, simpleName,
 				propertyType.getType());
 		this.order=OrderFactory.create(getterMethod);
-		this.fieldMode=FieldModeFactory.create(getterMethod, getFormatPattern());
+		FormatFactory formatFactory = new FormatFactory(reflectionProvider, languageProvider,getterMethod);
+		this.format = formatFactory.getFormat(this);//TODO can we do without this (propertyInfo) parameter?
+		this.formatPattern=formatFactory.getFormatPattern();
+		this.fieldMode=FieldModeFactory.create(getterMethod, formatPattern);
 		valueModels = new ValueModels();
 
 		// create default value getters
@@ -122,9 +125,6 @@ public class PropertyInfo implements NameInfo {
 //			.put(FIELD_MODE, new SimpleValue(FieldModeType.COMBO_BOX));			
 //		}
 
-		//create formater
-		PropertyInfoFormatFactory propertyInfoFormatFactory = new PropertyInfoFormatFactory(reflectionProvider, languageProvider);
-		format = propertyInfoFormatFactory.create(this);
 	}
 
 	public PropertyType getPropertyType() {
@@ -233,7 +233,7 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public String getFormatPattern() {
-		return valueModels.getStringValue(FORMAT);
+		return formatPattern;
 	}
 
 	public FieldModeType getFieldMode() {
