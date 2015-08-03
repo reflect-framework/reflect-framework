@@ -17,7 +17,7 @@ public class OrderFactory {
 	//
 	private static final double ORDER_DEFAULT_VALUE = Double.MAX_VALUE;
 
-	public static double getOrder(Method method) {
+	public static double getOrderSequenceNumber(Method method) {
 		Order order = method.getAnnotation(Order.class);
 		if (order == null) {
 			return ORDER_DEFAULT_VALUE;

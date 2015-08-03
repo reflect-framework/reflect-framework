@@ -86,7 +86,7 @@ public class PropertyInfo implements NameInfo {
 		this.readMethod = readMethod;
 		this.writeMethod = getWiteMethod(readMethod, simpleName,
 				propertyType.getType());
-		this.order=OrderFactory.getOrder(readMethod);
+		this.order=OrderFactory.getOrderSequenceNumber(readMethod);
 		valueModels = new ValueModels();
 
 		// create default value getters

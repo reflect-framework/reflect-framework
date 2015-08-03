@@ -5,10 +5,10 @@ import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 
 /**
- * <a>{@link IntrospectApplication} objects, {@link ServiceObject}s and
+ * <p>{@link IntrospectApplication} objects, {@link ServiceObject}s and
  * {@link DomainObject}s can have icons that are displayed in graphical user
  * interfaces. These icons help the user to quickly identify what they are
- * looking at.</a>
+ * looking at.</p>
  * 
  * <h3>Icon Default</h3>
  * <p>
