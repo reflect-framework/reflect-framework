@@ -47,7 +47,6 @@ public class PropertyInfo implements NameInfo {
 	public final static String ENABLED = "enabled";
 	public final static String VALIDATION = "validation";
 	public static final String VALUES = "values";
-	// TODO public final String UNIT_OF_MEASUREMENT = "unitOfMeasurement";
 	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, 	ENABLED, RETURN_CLASS };
 	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
 			ENABLED, VALIDATION, VALUES };
@@ -65,16 +64,8 @@ public class PropertyInfo implements NameInfo {
 	
 
 	public PropertyInfo(ReflectionProvider reflectionProvider, LanguageProvider languageProvider,  Method getterMethod) {
-		if (getterMethod.getReturnType() == Void.class) {
-			throw new RuntimeException("Method: "
-					+ getterMethod.getClass().getCanonicalName() + "."
-					+ getterMethod.getName() + " is not a getter method");
-		}
-		if (getterMethod.getParameterTypes().length > 0) {
-			throw new RuntimeException("Method: "
-					+ getterMethod.getClass().getCanonicalName() + "."
-					+ getterMethod.getName() + " may not contain a parameter");
-		}
+		checkGetterMethodReturnType(getterMethod);
+		checkGetterMethodHasNoParameter(getterMethod);
 
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(getterMethod, simpleName);
@@ -125,6 +116,22 @@ public class PropertyInfo implements NameInfo {
 //			.put(FIELD_MODE, new SimpleValue(FieldModeType.COMBO_BOX));			
 //		}
 
+	}
+
+	private void checkGetterMethodHasNoParameter(Method getterMethod) {
+		if (getterMethod.getParameterTypes().length > 0) {
+			throw new RuntimeException("Method: "
+					+ getterMethod.getClass().getCanonicalName() + "."
+					+ getterMethod.getName() + " may not contain a parameter");
+		}
+	}
+
+	private void checkGetterMethodReturnType(Method getterMethod) {
+		if (getterMethod.getReturnType() == Void.class) {
+			throw new RuntimeException("Method: "
+					+ getterMethod.getClass().getCanonicalName() + "."
+					+ getterMethod.getName() + " is not a getter method");
+		}
 	}
 
 	public PropertyType getPropertyType() {
