@@ -71,7 +71,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * 
  * <h2>Field Mode</h2>
  * <p>
- * {@insert FieldMode}
+ * {@insert TextFieldMode}
  * </p>
  * 
  * <h2>Execution Mode</h2>

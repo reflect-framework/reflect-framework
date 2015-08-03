@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.generic.util.StringUtil;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.PropertyInfoFormatFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
@@ -21,7 +21,6 @@ import nth.introspect.layer5provider.reflection.info.type.PropertyType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.AnnotationValueModelFactory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.FieldModeValue;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TextValue;
 
@@ -44,49 +43,47 @@ public class PropertyInfo implements NameInfo {
 	public final static String DESCRIPTION = "description";
 	public final static String ACCESS_KEY = "accessKey";
 	public final static String VISIBLE_IN_TABLE = "visibleInTable";
-	public final static String COLUMN_WIDTH = "columnWidth";
-	public final static int COLUMN_WIDTH_DEFAULT = -1;
 	public final static String VISIBLE_IN_FORM = "visibleInForm";
 	public final static String ENABLED = "enabled";
 	public final static String VALIDATION = "validation";
-	public final static String FIELD_MODE = "fieldMode";
 	public static final String FORMAT = "format";
 	public static final String VALUES = "values";
 	// TODO public final String UNIT_OF_MEASUREMENT = "unitOfMeasurement";
-	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, COLUMN_WIDTH,
-			ENABLED, RETURN_CLASS, FORMAT, FIELD_MODE };
+	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, 	ENABLED, RETURN_CLASS, FORMAT };
 	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
 			ENABLED, VALIDATION, VALUES };
 	public static final String RETURN_CLASS = "returnClass";
 
 	private final String simpleName;
 	private final String canonicalName;
-	private final Method readMethod;
-	private final Method writeMethod;
+	private final Method getterMethod;
+	private final Method setterMethod;
 	private final PropertyType propertyType;
 	private final double order;
+	private final FieldModeType fieldMode;
 	private Format format;
 	
 
-	public PropertyInfo(ReflectionProvider reflectionProvider, LanguageProvider languageProvider,  Method readMethod) {
-		if (readMethod.getReturnType() == Void.class) {
+	public PropertyInfo(ReflectionProvider reflectionProvider, LanguageProvider languageProvider,  Method getterMethod) {
+		if (getterMethod.getReturnType() == Void.class) {
 			throw new RuntimeException("Method: "
-					+ readMethod.getClass().getCanonicalName() + "."
-					+ readMethod.getName() + " is not a getter method");
+					+ getterMethod.getClass().getCanonicalName() + "."
+					+ getterMethod.getName() + " is not a getter method");
 		}
-		if (readMethod.getParameterTypes().length > 0) {
+		if (getterMethod.getParameterTypes().length > 0) {
 			throw new RuntimeException("Method: "
-					+ readMethod.getClass().getCanonicalName() + "."
-					+ readMethod.getName() + " may not contain a parameter");
+					+ getterMethod.getClass().getCanonicalName() + "."
+					+ getterMethod.getName() + " may not contain a parameter");
 		}
 
-		this.simpleName = getSimpleName(readMethod);
-		this.canonicalName = getCanonicalName(readMethod, simpleName);
-		this.propertyType = new PropertyType(readMethod);
-		this.readMethod = readMethod;
-		this.writeMethod = getWiteMethod(readMethod, simpleName,
+		this.simpleName = getSimpleName(getterMethod);
+		this.canonicalName = getCanonicalName(getterMethod, simpleName);
+		this.propertyType = new PropertyType(getterMethod);
+		this.getterMethod = getterMethod;
+		this.setterMethod = getSetterMethod(getterMethod, simpleName,
 				propertyType.getType());
-		this.order=OrderFactory.getOrderSequenceNumber(readMethod);
+		this.order=OrderFactory.create(getterMethod);
+		this.fieldMode=FieldModeFactory.create(getterMethod, getFormatPattern());
 		valueModels = new ValueModels();
 
 		// create default value getters
@@ -96,9 +93,7 @@ public class PropertyInfo implements NameInfo {
 
 		valueModels.put(VISIBLE_IN_FORM, new SimpleValue(true));
 		valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(true));
-		valueModels.put(COLUMN_WIDTH, new SimpleValue(COLUMN_WIDTH_DEFAULT));
 		valueModels.put(ENABLED, new SimpleValue(true));
-		valueModels.put(FIELD_MODE, new FieldModeValue(this));
 
 		// create value getters from annotations
 		valueModels.putAll(AnnotationValueModelFactory.create(this,
@@ -106,9 +101,6 @@ public class PropertyInfo implements NameInfo {
 
 		// create method value getters
 		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
-
-		// create xml value getters
-		// TODO valueModels.putAll(XmlValueModelFactory.create( this));
 
 		// override VISIBLE_IN_TABLE (collections may not be visible in a table
 		// column)
@@ -118,38 +110,17 @@ public class PropertyInfo implements NameInfo {
 
 		// override ENABLED (if there is no write method, the property is read
 		// only and the property must be disabled)
-		if (writeMethod == null) {
+		if (setterMethod == null) {
 			// there is no write method, so disable property (read only)
 			valueModels.put(ENABLED, new SimpleValue(false));
 		}
 
-		// overridde FIELD_MODE for Date and or time depending on format pattern
-		String formatPattern = getFormatPattern();
-		if (formatPattern != null && getFieldMode() == FieldModeType.DATE) {
-			boolean hasDate = false;
-			boolean hasTime = false;
-			if (StringUtil.containsCharacter(formatPattern, "GyYMwWDdFEu")) {
-				hasDate = true;
-			}
-			if (StringUtil.containsCharacter(formatPattern, "aHkKhmsSzZX")) {
-				hasTime = true;
-			}
-			if (hasDate && hasTime) {
-				valueModels.put(FIELD_MODE, new SimpleValue(
-						FieldModeType.DATE_TIME));
-			} else if (hasDate) {
-				valueModels
-						.put(FIELD_MODE, new SimpleValue(FieldModeType.DATE));
-			} else if (hasTime) {
-				valueModels
-						.put(FIELD_MODE, new SimpleValue(FieldModeType.TIME));
-			}
-		}
 		
-		if (valueModels.containsKey(VALUES)) {
-			valueModels
-			.put(FIELD_MODE, new SimpleValue(FieldModeType.COMBO_BOX));			
-		}
+		
+//	TODO!!!	if (valueModels.containsKey(VALUES)) {
+//			valueModels
+//			.put(FIELD_MODE, new SimpleValue(FieldModeType.COMBO_BOX));			
+//		}
 
 		//create formater
 		PropertyInfoFormatFactory propertyInfoFormatFactory = new PropertyInfoFormatFactory(reflectionProvider, languageProvider);
@@ -160,27 +131,27 @@ public class PropertyInfo implements NameInfo {
 		return propertyType;
 	}
 
-	private Method getWiteMethod(Method readMethod, String name,
+	private Method getSetterMethod(Method getterMethod, String name,
 			Class<?> propertyClass) {
-		Class<?> methodOwner = readMethod.getDeclaringClass();
-		StringBuffer writeMethodName = new StringBuffer();
-		writeMethodName.append(SET_PREFIX);
-		writeMethodName.append(Character.toUpperCase(name.charAt(0)));
-		writeMethodName.append(name.substring(1));
+		Class<?> methodOwner = getterMethod.getDeclaringClass();
+		StringBuffer getterMethodName = new StringBuffer();
+		getterMethodName.append(SET_PREFIX);
+		getterMethodName.append(Character.toUpperCase(name.charAt(0)));
+		getterMethodName.append(name.substring(1));
 		try {
 			Method writeMethod = methodOwner.getMethod(
-					writeMethodName.toString(), propertyClass);
+					getterMethodName.toString(), propertyClass);
 			return writeMethod;
 		} catch (Exception e1) {
 			try {
-				// try to get writeMethod with a simple type parameter
+				// try to get setterMethod with a simple type parameter
 				Class<?> simplePropertyClass = TypeUtil
 						.getSimpleType(propertyClass);
 				Method writeMethod = methodOwner.getMethod(
-						writeMethodName.toString(), simplePropertyClass);
+						getterMethodName.toString(), simplePropertyClass);
 				return writeMethod;
 			} catch (Exception e2) {
-				// No proper write method found: set enabled=false!
+				// No proper setter method found: set enabled=false!
 				return null;
 			}
 		}
@@ -225,12 +196,12 @@ public class PropertyInfo implements NameInfo {
 		return canonicalName;
 	}
 
-	public Method getReadMethod() {
-		return readMethod;
+	public Method getGetterMethod() {
+		return getterMethod;
 	}
 
-	public Method getWriteMethod() {
-		return writeMethod;
+	public Method getSetterMethod() {
+		return setterMethod;
 	}
 
 	public String getText() {
@@ -247,10 +218,6 @@ public class PropertyInfo implements NameInfo {
 
 	public double getOrderInTable() {//TODO merge getOrderInForm getOrderInTable into getOrder (same for comperators)
 		return order;
-	}
-
-	public int getColumnWidth() {
-		return valueModels.getIntegerValue(COLUMN_WIDTH);
 	}
 
 	public Boolean isVisibleInForm(Object domainObject) {
@@ -270,7 +237,7 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public FieldModeType getFieldMode() {
-		return (FieldModeType) valueModels.getValue(FIELD_MODE);
+		return fieldMode;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -284,7 +251,7 @@ public class PropertyInfo implements NameInfo {
 					+ canonicalName + " when it is disabled or read only");
 		}
 		try {
-			writeMethod.invoke(domainObject, new Object[] { value });
+			setterMethod.invoke(domainObject, new Object[] { value });
 		} catch (Exception e) {
 			if (value == null) {
 				throw new RuntimeException("Could not set value of property: "
@@ -299,7 +266,7 @@ public class PropertyInfo implements NameInfo {
 
 	public Object getValue(Object obj) {
 		try {
-			return getReadMethod().invoke(obj, new Object[0]);
+			return getGetterMethod().invoke(obj, new Object[0]);
 		} catch (Exception e) {
 			throw new RuntimeException("Could not read value of property: "
 					+ canonicalName, e);
@@ -359,7 +326,7 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public boolean isReadOnly() {
-		return writeMethod == null;
+		return setterMethod == null;
 	}
 
 	public Format getFormat() {

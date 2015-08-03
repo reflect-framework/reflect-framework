@@ -2,7 +2,12 @@ package nth.introspect.generic.valuemodel;
 
 import java.util.HashMap;
 
-
+/**
+ * @deprecated
+ * TODO remove class when obsolete
+ * @author nilsth
+ *
+ */
 public class ValueModels extends HashMap<String, ReadOnlyValueModel> {
 
 	private static final long serialVersionUID = 6457902740966267153L;

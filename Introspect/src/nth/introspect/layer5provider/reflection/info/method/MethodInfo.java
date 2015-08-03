@@ -66,7 +66,7 @@ public class MethodInfo implements NameInfo {
 		this.canonicalName = getCanonicalName(method);
 		this.returnType = new MethodReturnType(method);
 		this.parameterType = new MethodParameterType(method);
-		this.order=OrderFactory.getOrderSequenceNumber(method);
+		this.order=OrderFactory.create(method);
 		this.valueModels = new ValueModels();
 
 		String regExpToRemoveFromDefaultValue = linkedPropertyName == null ? null : "^" + linkedPropertyName;

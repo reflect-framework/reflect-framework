@@ -72,8 +72,8 @@ public class MethodInfoFactory {
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				try {
 					String propertyName = propertyInfo.getSimpleName();
-					unwantedMethodNames.add(propertyInfo.getReadMethod().getName());
-					unwantedMethodNames.add(propertyInfo.getWriteMethod().getName());
+					unwantedMethodNames.add(propertyInfo.getGetterMethod().getName());
+					unwantedMethodNames.add(propertyInfo.getSetterMethod().getName());
 					for (String suffix : PropertyInfo.METHOD_NAMES) {
 						String unwantedMethodName = MethodValueModelFactory.createMethodName(propertyName, suffix);
 						unwantedMethodNames.add(unwantedMethodName.toString());

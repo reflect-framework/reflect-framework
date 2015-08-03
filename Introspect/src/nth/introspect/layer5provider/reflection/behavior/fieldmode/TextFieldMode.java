@@ -11,10 +11,10 @@ import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;
 
 /**
- * <p>{@link DomainObject}s are rendered by the user interface layer as fields when a {@link DomainObject} is displayed in a form view. The {@link FormView} will determine in what type of field these {@link DomainObjectProperty}s are displayed (textbox, combobox, etc). In some cases you can select an alternative field type using the {@link FieldMode} annotation. The {@link FieldMode} annotation needs to be put before the getter method of a {@link DomainObjectProperty}. Note that the format can not be changed during runtime.
+ * <p>{@link DomainObject}s are rendered by the user interface layer as fields when a {@link DomainObject} is displayed in a form view. The {@link FormView} will determine in what type of field these {@link DomainObjectProperty}s are displayed (textbox, combobox, etc). When the {@link DomainObjectProperty} is a String, you can select an alternative field type using the {@link TextFieldMode} annotation. The {@link TextFieldMode} annotation needs to be put before the getter method of a {@link DomainObjectProperty}. Note that the format can not be changed during runtime.
 </p>
 <p>
-Syntax: @FieldMode(FieldModeType mode)
+Syntax: @TextFieldMode(FieldModeType mode)
 </p>
 <p>
 Examples of alternative {@link FieldModeType}s:
@@ -30,6 +30,6 @@ Examples of alternative {@link FieldModeType}s:
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface FieldMode {
-	public FieldModeType mode();
+public @interface TextFieldMode {
+	public TextFieldModeType mode();
 }

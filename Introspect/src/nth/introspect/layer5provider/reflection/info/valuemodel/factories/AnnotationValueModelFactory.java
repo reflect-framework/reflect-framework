@@ -20,7 +20,7 @@ public class AnnotationValueModelFactory {
 	private static final Object[] ARGUMENTS = new Object[0];
 	
 	public static HashMap<String, ReadOnlyValueModel> create(PropertyInfo propertyInfo, String[] names) {
-		return create(propertyInfo.getReadMethod(),names);
+		return create(propertyInfo.getGetterMethod(),names);
 	}
 
 	public static Map< String, ReadOnlyValueModel> create(MethodInfo methodInfo, String[] names) {
