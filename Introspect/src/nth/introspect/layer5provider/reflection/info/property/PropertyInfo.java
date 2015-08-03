@@ -84,7 +84,7 @@ public class PropertyInfo implements NameInfo {
 				propertyType.getType());
 		this.order=OrderFactory.create(getterMethod);
 		FormatFactory formatFactory = new FormatFactory(reflectionProvider, languageProvider,getterMethod);
-		this.format = formatFactory.getFormat(this);//TODO can we do without this (propertyInfo) parameter?
+		this.format = formatFactory.getFormat();
 		this.formatPattern=formatFactory.getFormatPattern();
 		this.fieldMode=FieldModeFactory.create(getterMethod, formatPattern);
 		valueModels = new ValueModels();

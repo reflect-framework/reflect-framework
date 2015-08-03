@@ -11,7 +11,7 @@ import nth.introspect.generic.converterfactory.ConverterFactory;
 import nth.introspect.generic.exception.MethodNotSupportedException;
 import nth.introspect.layer5provider.language.LanguageProvider;
 
-public class JavaFormatFactory extends ConverterFactory<Format, String> {
+public class JavaFormatFactory extends ConverterFactory<Format> {
 
 	private final LanguageProvider languageProvider;
 
@@ -29,115 +29,115 @@ public class JavaFormatFactory extends ConverterFactory<Format, String> {
 	 *         string to property
 	 */
 	public Format create(Class<?> type) {
-		return createConverter(type, null);	
+		return createConverter(type);	
 	}
 
 
 	@Override
-	public Format createCharConverter(String format) {
+	public Format createCharConverter() {
 		return new CharacterFormat();
 	}
 
 	@Override
-	public Format createStringConverter(String format) {
+	public Format createStringConverter() {
 		return new NoFormat();
 	}
 
 	@Override
-	public Format createDomainConverter(String format) {
+	public Format createDomainConverter() {
 		throw new MethodNotSupportedException();
 	}
 
 	@Override
-	public Format createUriConverter(String format) {
+	public Format createUriConverter() {
 		return new UriFormat();
 	}
 
 	@Override
-	public Format createCalendarConverter(String format) {
+	public Format createCalendarConverter() {
 			return new CalendarFormat();
 	}
 
 	@Override
-	public Format createDateConverter(String format) {
+	public Format createDateConverter() {
 			return new SimpleDateFormat();
 	}
 
 	@Override
-	public Format createEnumConverter(String format) {
+	public Format createEnumConverter() {
 		return new EnumFormat(languageProvider);
 	}
 
 	@Override
-	public Format createShortConverter(String format) {
-		return new NumericFormat(Short.class, format);
+	public Format createShortConverter() {
+		return new NumericFormat(Short.class, null);
 	}
 
 	@Override
-	public Format createLongConverter(String format) {
-		return new NumericFormat(Long.class, format);
+	public Format createLongConverter() {
+		return new NumericFormat(Long.class, null);
 	}
 
 	@Override
-	public Format createIntegerConverter(String format) {
-		return new NumericFormat(Integer.class, format);
+	public Format createIntegerConverter() {
+		return new NumericFormat(Integer.class, null);
 	}
 
 	@Override
-	public Format createFloatCoverter(String format) {
-		return new NumericFormat(Float.class, format);
+	public Format createFloatCoverter() {
+		return new NumericFormat(Float.class, null);
 	}
 
 	@Override
-	public Format createDoubleConverter(String format) {
-		return new NumericFormat(Double.class, format);
+	public Format createDoubleConverter() {
+		return new NumericFormat(Double.class, null);
 	}
 
 	@Override
-	public Format createByteConverter(String format) {
-		return new NumericFormat(Byte.class, format);
+	public Format createByteConverter() {
+		return new NumericFormat(Byte.class, null);
 	}
 
 	@Override
-	public Format createBigIntegerConverter(String format) {
-		return new NumericFormat(BigInteger.class, format);
+	public Format createBigIntegerConverter() {
+		return new NumericFormat(BigInteger.class, null);
 
 	}
 
 	@Override
-	public Format createBigDecimalConverter(String format) {
-		return new NumericFormat(BigDecimal.class, format);
+	public Format createBigDecimalConverter() {
+		return new NumericFormat(BigDecimal.class, null);
 	}
 
 	@Override
-	public Format createAtomicLongConverter(String format) {
-		return new NumericFormat(AtomicLong.class, format);
+	public Format createAtomicLongConverter() {
+		return new NumericFormat(AtomicLong.class, null);
 	}
 
 	@Override
-	public Format createAtomicIntegerConverter(String format) {
-		return new NumericFormat(AtomicInteger.class, format);
+	public Format createAtomicIntegerConverter() {
+		return new NumericFormat(AtomicInteger.class, null);
 	}
 
 	@Override
-	public Format createBooleanConverter(String format) {
+	public Format createBooleanConverter() {
 		return new BooleanFormat();
 	}
 
 	@Override
-	public Format createCollectionConverter(String format) {
+	public Format createCollectionConverter() {
 		return new NoFormat();
 	}
 
 
 	@Override
-	public Format createFileConverter(String metadata) {
+	public Format createFileConverter() {
 		return new FileFormat();
 	}
 
 
 	@Override
-	public Format createUrlConverter(String metadata) {
+	public Format createUrlConverter() {
 		return new UrlFormat();
 	}
 

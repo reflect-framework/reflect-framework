@@ -30,16 +30,20 @@ import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
  * @author nilsth
  *
  */
-public class FormatFactory extends ConverterFactory<Format, PropertyInfo> {
+public class FormatFactory extends ConverterFactory<Format> {
 
 	private final ReflectionProvider reflectionProvider;
 	private final LanguageProvider languageProvider;
 	private final String formatPattern;
+	private final Method getterMethod;
+	private final Class<?> propertyType;
 	
 	public FormatFactory(ReflectionProvider reflectionProvider,
 			LanguageProvider languageProvider, Method getterMethod) {
 		this.reflectionProvider = reflectionProvider;
 		this.languageProvider = languageProvider;
+		this.getterMethod = getterMethod;
+		this.propertyType=getterMethod.getReturnType();
 		this.formatPattern=createFormatPattern(getterMethod);
 	}
 
@@ -52,35 +56,33 @@ public class FormatFactory extends ConverterFactory<Format, PropertyInfo> {
 	 * @return a format that will format a property to a string or parse from a
 	 *         string to property
 	 */
-	public Format getFormat(PropertyInfo propertyInfo) {
-		Class<?> propertyType = propertyInfo.getPropertyType().getType();
-		return createConverter(propertyType, propertyInfo);	
+	public Format getFormat() {
+		Class<?> propertyType = getterMethod.getReturnType();
+		return createConverter(propertyType);	
 	}
 
 	@Override
-	public Format createCharConverter(PropertyInfo propertyInfo) {
+	public Format createCharConverter() {
 		return new CharacterFormat();
 	}
 
 	@Override
-	public Format createStringConverter(PropertyInfo propertyInfo) {
+	public Format createStringConverter() {
 		return new StringFormat();
 	}
 
 	@Override
-	public Format createDomainConverter( PropertyInfo propertyInfo) {
-		Class<?> propertyType = propertyInfo.getPropertyType().getType();
+	public Format createDomainConverter() {
 		return new DomainObjectFormat(reflectionProvider, propertyType);
 	}
 
 	@Override
-	public Format createUriConverter(PropertyInfo propertyInfo) {
+	public Format createUriConverter() {
 		return new UriFormat();
 	}
 
 	@Override
-	public Format createCalendarConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createCalendarConverter() {
 		if (formatPattern == null || formatPattern.trim().length() == 0) {
 			return new CalendarFormat();
 		} else {
@@ -89,8 +91,7 @@ public class FormatFactory extends ConverterFactory<Format, PropertyInfo> {
 	}
 
 	@Override
-	public Format createDateConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createDateConverter() {
 		if (formatPattern == null || formatPattern.trim().length() == 0) {
 			return new SimpleDateFormat();
 		} else {
@@ -99,88 +100,78 @@ public class FormatFactory extends ConverterFactory<Format, PropertyInfo> {
 	}
 
 	@Override
-	public Format createEnumConverter(PropertyInfo propertyInfo) {
+	public Format createEnumConverter() {
 		return new EnumFormat(languageProvider);
 	}
 
 	@Override
-	public Format createShortConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createShortConverter() {
 		return new NumericFormat(Short.class, formatPattern);
 	}
 
 	@Override
-	public Format createLongConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createLongConverter() {
 		return new NumericFormat(Long.class, formatPattern);
 	}
 
 	@Override
-	public Format createIntegerConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createIntegerConverter() {
 		return new NumericFormat(Integer.class, formatPattern);
 	}
 
 	@Override
-	public Format createFloatCoverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createFloatCoverter() {
 		return new NumericFormat(Float.class, formatPattern);
 	}
 
 	@Override
-	public Format createDoubleConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createDoubleConverter() {
 		return new NumericFormat(Double.class, formatPattern);
 	}
 
 	@Override
-	public Format createByteConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createByteConverter() {
 		return new NumericFormat(Byte.class, formatPattern);
 	}
 
 	@Override
-	public Format createBigIntegerConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createBigIntegerConverter() {
 		return new NumericFormat(BigInteger.class, formatPattern);
 
 	}
 
 	@Override
-	public Format createBigDecimalConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createBigDecimalConverter() {
 		return new NumericFormat(BigDecimal.class, formatPattern);
 	}
 
 	@Override
-	public Format createAtomicLongConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createAtomicLongConverter() {
 		return new NumericFormat(AtomicLong.class, formatPattern);
 	}
 
 	@Override
-	public Format createAtomicIntegerConverter(PropertyInfo propertyInfo) {
-		String formatPattern = propertyInfo.getFormatPattern();
+	public Format createAtomicIntegerConverter() {
 		return new NumericFormat(AtomicInteger.class, formatPattern);
 	}
 
 	@Override
-	public Format createBooleanConverter(PropertyInfo metadata) {
+	public Format createBooleanConverter() {
 		return new BooleanFormat();
 	}
 
 	@Override
-	public Format createCollectionConverter(PropertyInfo metadata) {
+	public Format createCollectionConverter() {
 		return new NoFormat();
 	}
 
 	@Override
-	public Format createFileConverter(PropertyInfo metadata) {
+	public Format createFileConverter() {
 		return new FileFormat();
 	}
 
 	@Override
-	public Format createUrlConverter(PropertyInfo metadata) {
+	public Format createUrlConverter() {
 		return new UrlFormat();
 	}
 	

@@ -15,82 +15,81 @@ import nth.introspect.generic.util.TypeUtil;
  * @author nilsth
  * 
  */
-public abstract class ConverterFactory<T, U> extends
-		NumberConverterFactory<T, U> {
+public abstract class ConverterFactory<T> extends
+		NumberConverterFactory<T> {
 
 	@SuppressWarnings("unchecked")
-	public T createConverter(Class<?> type_, U metadata) {
+	public T createConverter(Class<?> type_) {
 		// boolean
 		if (Boolean.class.isAssignableFrom(type_)) {
-			return createBooleanConverter(metadata);
+			return createBooleanConverter();
 		} else
 
 		// numbers
 
 		if (Number.class.isAssignableFrom(type_)) {
-			return createNumberConverter((Class<? extends Number>) type_,
-					metadata);
+			return createNumberConverter((Class<? extends Number>) type_);
 		} else
 
 		// text
 		if (Character.class.isAssignableFrom(type_)) {
-			return createCharConverter(metadata);
+			return createCharConverter();
 		} else if (String.class.isAssignableFrom(type_)) {
-			return createStringConverter(metadata);
+			return createStringConverter();
 		} else
 
 		// enumeration
 		if (type_.isEnum()) {
-			return createEnumConverter(metadata);
+			return createEnumConverter();
 		} else
 		// date and time
 		if (java.util.Date.class.isAssignableFrom(type_)) {
-			return createDateConverter(metadata);
+			return createDateConverter();
 		} else if (Calendar.class.isAssignableFrom(type_)) {
-			return createCalendarConverter(metadata);
+			return createCalendarConverter();
 		} else
 		// URI
 		if (URI.class.isAssignableFrom(type_)) {
-			return createUriConverter(metadata);
+			return createUriConverter();
 		}  else if (URL.class.isAssignableFrom(type_)) {
-			return createUrlConverter(metadata);
+			return createUrlConverter();
 		}		else if (File.class.isAssignableFrom(type_)) {
-			return createFileConverter(metadata);
+			return createFileConverter();
 		}
 		//TODO URL!!!!	
 			
 		// domainObjects
 		if (TypeUtil.isDomainType(type_)) {
-			return createDomainConverter(metadata);
+			return createDomainConverter();
 		} else
 		// collections
 		if (TypeUtil.isColection(type_)) {
-			return createCollectionConverter(metadata);
+			return createCollectionConverter();
 		}
 
 		// Not supported
 		throw new TypeNotSupportedException(type_, this.getClass());
 	}
 
-	public abstract T  createFileConverter(U metadata);
+	public abstract T  createFileConverter();
 
-	public abstract T createUrlConverter(U metadata) ;
+	public abstract T createUrlConverter() ;
 
-	public abstract T createBooleanConverter(U metadata);
+	public abstract T createBooleanConverter();
 
-	public abstract T createCalendarConverter(U metadata);
+	public abstract T createCalendarConverter();
 
-	public abstract T createCharConverter(U metadata);
+	public abstract T createCharConverter();
 
-	public abstract T createCollectionConverter(U metadata);
+	public abstract T createCollectionConverter();
 
-	public abstract T createDateConverter(U metadata);
+	public abstract T createDateConverter();
 
-	public abstract T createDomainConverter(U metadata);
+	public abstract T createDomainConverter();
 
-	public abstract T createEnumConverter(U metadata);
+	public abstract T createEnumConverter();
 
-	public abstract T createStringConverter(U metadata);
+	public abstract T createStringConverter();
 
-	public abstract T createUriConverter(U metadata);
+	public abstract T createUriConverter();
 }
