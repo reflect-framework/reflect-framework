@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldMode;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.Format;
 
 public class Test {
@@ -113,7 +114,7 @@ public class Test {
 		this.myText = myText;
 	}
 
-	@FieldMode(mode = FieldModeType.TEXT_AREA)
+	@TextFieldMode(mode = TextFieldModeType.TEXT_AREA)
 	public String getMyTextArea() {
 		return myTextArea;
 	}
@@ -122,7 +123,7 @@ public class Test {
 		this.myTextArea = myTextArea;
 	}
 
-	@FieldMode(mode = FieldModeType.PASSWORD)
+	@TextFieldMode(mode = TextFieldModeType.PASSWORD)
 	public String getMyPassWord() {
 		return myPassWord;
 	}
@@ -139,7 +140,7 @@ public class Test {
 		this.myDate = myDate;
 	}
 
-	@FieldMode(mode = FieldModeType.TIME)
+	@Format(pattern="HH:mm:ss")
 	public Date getMyTime() {
 		return myTime;
 	}
@@ -148,7 +149,7 @@ public class Test {
 		this.myTime = myTime;
 	}
 
-	@FieldMode(mode = FieldModeType.DATE_TIME)
+	@Format(pattern="dd-mm-yyyy HH:mm:ss")
 	public Date getMyDateTime() {
 		return myDateTime;
 	}
@@ -165,7 +166,6 @@ public class Test {
 		this.myEnum = myEnum;
 	}
 
-	@FieldMode(mode = FieldModeType.ONE_TO_ONE_OR_MANY)
 	public Test getMyTest() {
 		return myTest;
 	}

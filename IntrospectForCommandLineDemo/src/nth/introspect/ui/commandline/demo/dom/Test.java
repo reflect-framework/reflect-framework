@@ -2,8 +2,9 @@ package nth.introspect.ui.commandline.demo.dom;
 
 import java.util.Date;
 
-import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldMode;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
+import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.Format;
 /**
  * Note that this class is derived form the Test class in the IntrospectTestDomain project<br>
@@ -107,7 +108,7 @@ public class Test {
 		this.myText = myText;
 	}
 
-	@FieldMode(mode = FieldModeType.TEXT_AREA)
+	@TextFieldMode(mode = TextFieldModeType.TEXT_AREA)
 	public String getMyTextArea() {
 		return myTextArea;
 	}
@@ -116,7 +117,7 @@ public class Test {
 		this.myTextArea = myTextArea;
 	}
 
-	@FieldMode(mode = FieldModeType.PASSWORD)
+	@TextFieldMode(mode = TextFieldModeType.PASSWORD)
 	public String getMyPassWord() {
 		return myPassWord;
 	}
@@ -133,7 +134,6 @@ public class Test {
 		this.myDate = myDate;
 	}
 
-	@FieldMode(mode = FieldModeType.TIME)
 	public Date getMyTime() {
 		return myTime;
 	}
@@ -142,7 +142,6 @@ public class Test {
 		this.myTime = myTime;
 	}
 
-	@FieldMode(mode = FieldModeType.DATE_TIME)
 	public Date getMyDateTime() {
 		return myDateTime;
 	}
@@ -159,7 +158,7 @@ public class Test {
 //		this.myEnum = myEnum;
 //	}
 
-//	@FieldMode(FieldModeType.ONE_TO_MANY)
+//	@TextFieldMode(FieldModeType.ONE_TO_MANY)
 //	public Test getMyTest() {
 //		return myTest;
 //	}
