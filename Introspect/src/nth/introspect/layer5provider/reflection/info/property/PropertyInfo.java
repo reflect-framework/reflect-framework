@@ -212,11 +212,7 @@ public class PropertyInfo implements NameInfo {
 		return valueModels.getStringValue(DESCRIPTION);
 	}
 
-	public double getOrderInForm() {//TODO merge getOrderInForm getOrderInTable into getOrder (same for comperators)
-		return order;
-	}
-
-	public double getOrderInTable() {//TODO merge getOrderInForm getOrderInTable into getOrder (same for comperators)
+	public double getOrder() {
 		return order;
 	}
 

@@ -16,7 +16,7 @@ import nth.introspect.generic.tablemodel.DomainTableModel;
 import nth.introspect.generic.tablemodel.SortableTableModel;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class JpaTableModel extends AbstractTableModel implements DomainTableModel, SortableTableModel {
@@ -78,7 +78,7 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 		this.ejbQlCount = ejbQlCount.toString();
 		// get column info
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
+		OrderComparator propertyInfoComparator = new OrderComparator();
 		propertyInfos = reflectionProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 		// Initialize fields
 		this.startPosition = 0;

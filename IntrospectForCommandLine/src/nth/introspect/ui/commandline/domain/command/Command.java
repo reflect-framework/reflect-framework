@@ -5,13 +5,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
-import nth.introspect.layer5provider.reflection.info.property.FormOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class Command {
 	private String name;
@@ -37,7 +35,7 @@ public class Command {
 			
 			//get propertyInfos
 			Filter<PropertyInfo> propertyInfoFilter = new CommandLineParameterFilter();
-			FormOrderComparator propertyInfoComparator = new FormOrderComparator();
+			OrderComparator propertyInfoComparator = new OrderComparator();
 			Class<?> returnClass = methodInfo.getParameterType().getTypeOrGenericCollectionType();
 			List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 

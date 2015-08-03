@@ -17,7 +17,7 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class MethodTableModel extends AbstractTableModel implements
@@ -40,7 +40,7 @@ public class MethodTableModel extends AbstractTableModel implements
 			format = formatFactory.create(domainClass);
 		} else {
 			TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-			TableOrderComparator propertyInfoComparator = new TableOrderComparator();
+			OrderComparator propertyInfoComparator = new OrderComparator();
 			propertyInfos = reflectionProvider.getPropertyInfos(
 					domainClass, propertyInfoFilter, propertyInfoComparator);
 		}

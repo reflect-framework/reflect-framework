@@ -4,8 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import nth.introspect.generic.util.StringUtil;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.OrderInForm;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.OrderInTable;
+import nth.introspect.layer5provider.reflection.behavior.order.Order;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInForm;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
 
@@ -94,7 +93,7 @@ public class VersionInfo {
 //	}
 
 
-	@OrderInTable(2)
+	@Order(sequenceNumber=1)
 	@VisibleInForm(false)
 	public String getClassName() {
 		return className;
@@ -105,7 +104,7 @@ public class VersionInfo {
 	}
 	
 	@VisibleInTable(false)
-	@OrderInForm(2)
+	@Order(sequenceNumber=2)
 	public String getFullClassName() {
 		return fullClassName;
 	}
@@ -114,7 +113,7 @@ public class VersionInfo {
 		this.fullClassName = fullClassName;
 	}
 	
-	@OrderInForm(3)
+	@Order(sequenceNumber=3)
 	@VisibleInTable(false)
 	public String getArchiveTitle() {
 		return archiveTitle;
@@ -124,8 +123,7 @@ public class VersionInfo {
 		this.archiveTitle = title;
 	}
 	
-	@OrderInTable(3)
-	@OrderInForm(4)
+	@Order(sequenceNumber=4)
 	public String getArchiveName() {
 		return archiveName;
 	}
@@ -135,7 +133,7 @@ public class VersionInfo {
 	}
 
 	@VisibleInTable(false)
-	@OrderInForm(5)
+	@Order(sequenceNumber=5)
 	public String getArchivePath() {
 		return archivePath;
 	}
@@ -144,8 +142,7 @@ public class VersionInfo {
 		this.archivePath = archivePath;
 	}
 
-	@OrderInTable(4)
-	@OrderInForm(6)
+	@Order(sequenceNumber=6)
 	public String getArchiveVersion() {
 		return archiveVersion;
 	}
@@ -154,8 +151,7 @@ public class VersionInfo {
 		this.archiveVersion = archiveVersion;
 	}
 
-	@OrderInTable(5)
-	@OrderInForm(7)
+	@Order(sequenceNumber=7)
 	public String getArchiveCreatedBy() {
 		return archiveCreatedBy;
 	}

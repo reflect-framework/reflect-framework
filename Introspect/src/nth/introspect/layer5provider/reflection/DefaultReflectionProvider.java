@@ -15,7 +15,7 @@ import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfoFactory;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactory;
-import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class DefaultReflectionProvider implements ReflectionProvider {
@@ -71,7 +71,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 		// only return visible properties
 		FilterUtil.filter(propertyInfos, new TableVisibleFilter());
 		// order properties
-		Collections.sort(propertyInfos, new TableOrderComparator());
+		Collections.sort(propertyInfos, new OrderComparator());
 		return propertyInfos;
 	}
 
@@ -79,7 +79,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	public List<PropertyInfo> getOrderedPropertyInfos(Class<?> objectClass) {
 		List<PropertyInfo> propertyInfos = getPropertyInfos(objectClass);
 		// order properties
-		Collections.sort(propertyInfos, new TableOrderComparator());
+		Collections.sort(propertyInfos, new OrderComparator());
 		return propertyInfos;
 	}
 

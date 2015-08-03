@@ -3,12 +3,11 @@ package nth.introspect.domain.classdiagram;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.order.Order;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.OrderInForm;
 
 public class ClassDiagram {
 
@@ -55,7 +54,7 @@ public class ClassDiagram {
 		}
 	}
 
-	@OrderInForm(1)
+	@Order(sequenceNumber=1)
 	public ClassFeature getName() {
 		return name;
 	}
@@ -64,7 +63,7 @@ public class ClassDiagram {
 		this.name = name;
 	}
 
-	@OrderInForm(2)
+	@Order(sequenceNumber=2)
 	public ClassFeature getSuperclass() {
 		return superclass;
 	}
@@ -73,19 +72,19 @@ public class ClassDiagram {
 		this.superclass = superclass;
 	}
 
-	@OrderInForm(3)
+	@Order(sequenceNumber=3)
 	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> getInterfaces() {
 		return interfaces;
 	}
 
-	@OrderInForm(4)
+	@Order(sequenceNumber=4)
 	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> getProperties() {
 		return properties;
 	}
 
-	@OrderInForm(5)
+	@Order(sequenceNumber=5)
 	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> getMethods() {
 		return methods;

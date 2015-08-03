@@ -18,8 +18,8 @@ public class PropertyInfoFactory {
 			propertyInfos.add(propertyInfo);
 		}
 
-		// order form properties (note that the formOrder value getter is not dynamic)
-		Collections.sort(propertyInfos, new FormOrderComparator());
+		// order form properties (note that the order is not dynamic)
+		Collections.sort(propertyInfos, new OrderComparator());
 		return propertyInfos;
 	}
 

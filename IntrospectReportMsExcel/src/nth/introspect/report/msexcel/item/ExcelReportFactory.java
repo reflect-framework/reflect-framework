@@ -18,7 +18,7 @@ import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.TableOrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
@@ -158,7 +158,7 @@ public class ExcelReportFactory {
 		Class<?> objectClass = propertyInfo.getPropertyType()
 				.getTypeOrGenericCollectionType();
 		Filter<PropertyInfo> propertyInfoFilter = new TableVisibleFilter();
-		Comparator<PropertyInfo> propertyInfoComparator = new TableOrderComparator();
+		Comparator<PropertyInfo> propertyInfoComparator = new OrderComparator();
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(
 				objectClass, propertyInfoFilter, propertyInfoComparator);
 
@@ -268,7 +268,7 @@ public class ExcelReportFactory {
 	private List<PropertyInfo> getPropertyInfosForTable(Class<?> domainClass) {
 		// get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		TableOrderComparator propertyInfoComparator = new TableOrderComparator();
+		OrderComparator propertyInfoComparator = new OrderComparator();
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(
 				domainClass, propertyInfoFilter, propertyInfoComparator);
 		return propertyInfos;
