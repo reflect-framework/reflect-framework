@@ -60,6 +60,9 @@ public class FieldModeFactory {
 
 	private static FieldModeType getFieldModeTypeForDateTime(
 			String formatPattern) {
+		if (formatPattern==null) {
+			return FieldModeType.DATE_TIME;
+		}
 		boolean hasDate = false;
 		boolean hasTime = false;
 		if (StringUtil.containsCharacter(formatPattern, "GyYMwWDdFEu")) {
