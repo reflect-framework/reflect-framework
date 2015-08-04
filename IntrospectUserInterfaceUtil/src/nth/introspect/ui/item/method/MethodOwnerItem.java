@@ -24,7 +24,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.getReflectionProvider();
 		methodOwnerInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
 		
-		setText(methodOwnerInfo.getText());
+		setText(methodOwnerInfo.getDisplayName());
 		setDescription(methodOwnerInfo.getDescription());
 		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
 

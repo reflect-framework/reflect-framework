@@ -50,7 +50,7 @@ public class MethodItem extends Item {
 
 	@Override
 	public String getText() {
-		return methodInfo.getText();
+		return methodInfo.getDisplayName();
 	}
 
 	@Override

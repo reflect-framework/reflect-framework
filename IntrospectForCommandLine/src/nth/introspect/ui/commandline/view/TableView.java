@@ -34,7 +34,7 @@ public class TableView extends CommandLineView {
 			row = table.addRow();
 			int columnWidth = (Table.MAX_WIDTH_IN_COLS - propertyInfos.size() + 1) / propertyInfos.size();
 			for (PropertyInfo propertyInfo : propertyInfos) {
-				row.addCell(propertyInfo.getText(), columnWidth);
+				row.addCell(propertyInfo.getDisplayName(), columnWidth);
 			}
 			// add line
 			StringBuffer line = new StringBuffer();

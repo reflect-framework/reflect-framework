@@ -81,7 +81,7 @@ public class MethodTableModel extends AbstractTableModel implements
 		}
 		// domain type
 		PropertyInfo propertyInfo = propertyInfos.get(column);
-		return propertyInfo.getText();
+		return propertyInfo.getDisplayName();
 	}
 
 	@Override

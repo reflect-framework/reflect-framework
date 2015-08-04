@@ -8,12 +8,12 @@ public class TitleUtil {
 
 	public static String createTitle(ReflectionProvider reflectionProvider, MethodInfo methodInfo, Object methodParameter, boolean shortTile) {
 		StringBuffer title = new StringBuffer();
-		String methodText = methodInfo.getText();
-		if (methodText != null) {
-			if (shortTile && methodText.length() > 20) {
-				methodText = methodText.substring(0, 17) + "...";
+		String methodDisplayName = methodInfo.getDisplayName();
+		if (methodDisplayName != null) {
+			if (shortTile && methodDisplayName.length() > 20) {
+				methodDisplayName = methodDisplayName.substring(0, 17) + "...";
 			}
-			title.append(methodText);
+			title.append(methodDisplayName);
 		}
 
 		if (methodParameter != null) {

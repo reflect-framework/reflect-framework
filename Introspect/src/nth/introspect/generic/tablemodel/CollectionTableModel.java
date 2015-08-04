@@ -44,7 +44,7 @@ public class CollectionTableModel extends AbstractTableModel implements DomainTa
 	@Override
 	public String getColumnName(int column) {
 		PropertyInfo propertyInfo = propertyInfos.get(column);
-		return propertyInfo.getText();
+		return propertyInfo.getDisplayName();
 	}
 
 	@Override

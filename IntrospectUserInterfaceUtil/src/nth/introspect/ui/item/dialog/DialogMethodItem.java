@@ -44,7 +44,7 @@ final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.
 
 	@Override
 	public String getText() {
-		return methodInfo.getText();
+		return methodInfo.getDisplayName();
 	}
 
 	@Override

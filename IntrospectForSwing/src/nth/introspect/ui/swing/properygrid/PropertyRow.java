@@ -57,7 +57,7 @@ public class PropertyRow extends JPanel {
 		setToolTipText(propertyInfo.getDescription());
 
 		setBackground(ColorUtil.getLightColor());
-		label = new WrapingLabel(propertyInfo.getText());
+		label = new WrapingLabel(propertyInfo.getDisplayName());
 		label.setToolTipText(propertyInfo.getDescription());
 		label.setForeground(ColorUtil.getDark());
 		// label.setDisplayedMnemonic() is set by propertyGrid.addPropertyRow

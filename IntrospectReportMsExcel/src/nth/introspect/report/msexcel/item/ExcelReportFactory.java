@@ -90,7 +90,7 @@ public class ExcelReportFactory {
 				rowNr = sheet.getPhysicalNumberOfRows();
 				Row row = sheet.createRow(rowNr);
 				Cell nameCell = row.createCell(0);
-				nameCell.setCellValue(propertyInfo.getText());
+				nameCell.setCellValue(propertyInfo.getDisplayName());
 				nameCell.setCellStyle(PROPERTY_NAME_STYLE);
 
 				Cell valueCell = row.createCell(1);
@@ -180,7 +180,7 @@ public class ExcelReportFactory {
 		for (PropertyInfo columnInfo : propertyInfos) {
 			cellNr++;
 			cell = row.createCell(cellNr);
-			cell.setCellValue(columnInfo.getText());
+			cell.setCellValue(columnInfo.getDisplayName());
 			cell.setCellStyle(COLUMN_HEADER_STYLE);
 		}
 	}
@@ -301,7 +301,7 @@ public class ExcelReportFactory {
 		Cell cell;
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			cell = row.createCell(columnNr++);
-			String columnHeaderText = propertyInfo.getText();
+			String columnHeaderText = propertyInfo.getDisplayName();
 			cell.setCellValue(columnHeaderText);
 			cell.setCellStyle(HEADER_COLUMNS_STYLE);
 		}

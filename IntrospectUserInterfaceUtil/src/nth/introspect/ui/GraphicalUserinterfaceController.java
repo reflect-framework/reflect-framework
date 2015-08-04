@@ -240,7 +240,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 				true);
 		switch (methodInfo.getReturnType().getTypeCategory()) {
 		case NONE:// void
-			StringBuffer message = new StringBuffer(methodInfo.getText());
+			StringBuffer message = new StringBuffer(methodInfo.getDisplayName());
 			message.append(languageProvider.getText(
 					" was successfully executed"));
 			showInfoMessage(message.toString());

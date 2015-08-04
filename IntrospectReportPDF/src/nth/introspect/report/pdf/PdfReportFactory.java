@@ -97,7 +97,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			// add propertyName
-			String propertyName = propertyInfo.getText();
+			String propertyName = propertyInfo.getDisplayName();
 			PdfPCell cell = new PdfPCell(new Paragraph(propertyName, SMALL_FONT));
 			cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 			pdfTable.addCell(cell);
@@ -147,7 +147,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 
 		// header columns
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			String columnHeaderText = propertyInfo.getText();
+			String columnHeaderText = propertyInfo.getDisplayName();
 			PdfPCell cell = new PdfPCell(new Paragraph(columnHeaderText, SMALL_FONT_BOLD));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			cell.setBackgroundColor(new BaseColor(Color.LIGHT_GRAY));

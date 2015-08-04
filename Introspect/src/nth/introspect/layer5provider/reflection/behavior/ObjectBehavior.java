@@ -6,7 +6,7 @@ import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModelFactory;
+import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
@@ -31,7 +31,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * 
  * <h2>Display Name</h2>
  * <p>
- * {@insert DisplayNameModelFactory}
+ * {@insert DisplayNameModel}
  * </p>
  * 
  * <h2>Title</h2>

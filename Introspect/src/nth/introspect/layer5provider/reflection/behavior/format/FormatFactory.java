@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.generic.converterfactory.ConverterFactory;
+import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.BooleanFormat;
@@ -35,15 +36,13 @@ public class FormatFactory extends ConverterFactory<Format> {
 	private final ReflectionProvider reflectionProvider;
 	private final LanguageProvider languageProvider;
 	private final String formatPattern;
-	private final Method getterMethod;
 	private final Class<?> propertyType;
 	
 	public FormatFactory(ReflectionProvider reflectionProvider,
 			LanguageProvider languageProvider, Method getterMethod) {
 		this.reflectionProvider = reflectionProvider;
 		this.languageProvider = languageProvider;
-		this.getterMethod = getterMethod;
-		this.propertyType=getterMethod.getReturnType();
+		this.propertyType=TypeUtil.getComplexType(getterMethod.getReturnType());
 		this.formatPattern=createFormatPattern(getterMethod);
 	}
 
@@ -57,7 +56,6 @@ public class FormatFactory extends ConverterFactory<Format> {
 	 *         string to property
 	 */
 	public Format getFormat() {
-		Class<?> propertyType = getterMethod.getReturnType();
 		return createConverter(propertyType);	
 	}
 

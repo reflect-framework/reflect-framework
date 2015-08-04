@@ -12,6 +12,8 @@ import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModelFactory;
+import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
@@ -39,7 +41,6 @@ public class PropertyInfo implements NameInfo {
 	private static final String SET_PREFIX = "set";
 
 	private ValueModels valueModels;
-	public final static String TEXT = "text";
 	public final static String DESCRIPTION = "description";
 	public final static String ACCESS_KEY = "accessKey";
 	public final static String VISIBLE_IN_TABLE = "visibleInTable";
@@ -56,11 +57,13 @@ public class PropertyInfo implements NameInfo {
 	private final String canonicalName;
 	private final Method getterMethod;
 	private final Method setterMethod;
+	private final DisplayNameModel displayNameModel;
 	private final PropertyType propertyType;
 	private final double order;
 	private final FieldModeType fieldMode;
 	private final String formatPattern;
 	private Format format;
+
 	
 
 	public PropertyInfo(ReflectionProvider reflectionProvider, LanguageProvider languageProvider,  Method getterMethod) {
@@ -69,6 +72,7 @@ public class PropertyInfo implements NameInfo {
 
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(getterMethod, simpleName);
+		this.displayNameModel=new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
 		this.propertyType = new PropertyType(getterMethod);
 		this.getterMethod = getterMethod;
 		this.setterMethod = getSetterMethod(getterMethod, simpleName,
@@ -81,7 +85,6 @@ public class PropertyInfo implements NameInfo {
 		valueModels = new ValueModels();
 
 		// create default value getters
-		valueModels.put(TEXT, new TextValue(this,languageProvider,  TEXT));
 		valueModels.put(DESCRIPTION, new TextValue(this,languageProvider, DESCRIPTION));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, TEXT));
 
@@ -211,8 +214,8 @@ public class PropertyInfo implements NameInfo {
 		return setterMethod;
 	}
 
-	public String getText() {
-		return valueModels.getStringValue(TEXT);
+	public String getDisplayName() {
+		return displayNameModel.getDisplayName();
 	}
 
 	public String getDescription() {

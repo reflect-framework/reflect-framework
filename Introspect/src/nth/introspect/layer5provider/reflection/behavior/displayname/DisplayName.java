@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * incorrect</li>
  * </ul>
  * <p>
- * In these cases you can use the {@link Description} annotation before the class
+ * In these cases you can use the {@link DisplayName} annotation before the class
  * keyword, before the getter method of a property or before the ActionMethod.
  * </p>
  * TODO EXAMPLE ACMEWebShop

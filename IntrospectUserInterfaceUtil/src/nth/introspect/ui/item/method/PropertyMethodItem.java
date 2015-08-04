@@ -56,7 +56,7 @@ public class PropertyMethodItem extends MethodItem {
 		// text format: propertyName: propertyMethodName
 		StringBuffer text = new StringBuffer();
 		if (showPropertyName) {
-			text.append(propertyInfo.getText());
+			text.append(propertyInfo.getDisplayName());
 			text.append(": ");
 		}
 		Object parameterValue = null;
