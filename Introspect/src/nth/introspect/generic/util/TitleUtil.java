@@ -1,14 +1,14 @@
 package nth.introspect.generic.util;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 
 public class TitleUtil {
 
-	public static String createTitle(ReflectionProvider reflectionProvider, MethodInfo methodInfo, Object methodParameter, boolean shortTile) {
+	public static String createTitle(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo, Object methodParameter, boolean shortTile) {
 		StringBuffer title = new StringBuffer();
-		String methodDisplayName = methodInfo.getDisplayName();
+		String methodDisplayName = actionMethodInfo.getDisplayName();
 		if (methodDisplayName != null) {
 			if (shortTile && methodDisplayName.length() > 20) {
 				methodDisplayName = methodDisplayName.substring(0, 17) + "...";

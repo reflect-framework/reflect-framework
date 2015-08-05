@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.behavior.TextModel;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * <p>

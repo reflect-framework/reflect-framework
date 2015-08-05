@@ -29,7 +29,7 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.about.AboutItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
@@ -121,22 +121,22 @@ public class UserinterfaceControllerForSwing extends
 
 	@Override
 	public SwingView createFormView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(getUserInterfaceContainer(), pathProvider, serviceObject, methodInfo, methodParameterValue,
+		return new FormView(getUserInterfaceContainer(), pathProvider, serviceObject, actionMethodInfo, methodParameterValue,
 				domainObject, formMode);
 	}
 
 	@Override
 	public SwingView createTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new TableView(getUserInterfaceContainer(), serviceObject, methodInfo, methodParameterValue);
+		return new TableView(getUserInterfaceContainer(), serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override
 	public SwingView createTreeTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
 		// TODO Auto-generated method stub
 		return null;

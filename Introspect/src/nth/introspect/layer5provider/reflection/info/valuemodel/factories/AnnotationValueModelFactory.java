@@ -8,7 +8,7 @@ import java.util.Map;
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.generic.valuemodel.ValueModels;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Enabled;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
@@ -23,8 +23,8 @@ public class AnnotationValueModelFactory {
 		return create(propertyInfo.getGetterMethod(),names);
 	}
 
-	public static Map< String, ReadOnlyValueModel> create(MethodInfo methodInfo, String[] names) {
-		return create(methodInfo.getMethod(),names);
+	public static Map< String, ReadOnlyValueModel> create(ActionMethodInfo actionMethodInfo, String[] names) {
+		return create(actionMethodInfo.getMethod(),names);
 	}
 	
 	@SuppressWarnings("unchecked")

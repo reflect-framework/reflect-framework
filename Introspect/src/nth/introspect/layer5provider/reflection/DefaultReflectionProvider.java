@@ -9,11 +9,11 @@ import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfoFactory;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfoFactory;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfoFactory;
-import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactory;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
@@ -21,7 +21,7 @@ import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter
 public class DefaultReflectionProvider implements ReflectionProvider {
 	private final HashMap<Class<?>, ClassInfo> classInfos;
 	private final HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
-	private final HashMap<Class<?>, List<MethodInfo>> methodInfosPerClass;
+	private final HashMap<Class<?>, List<ActionMethodInfo>> methodInfosPerClass;
 	private final LanguageProvider languageProvider;
 	private final PathProvider pathProvider;
 
@@ -30,7 +30,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 		this.languageProvider = languageProvider;
 		classInfos = new HashMap<Class<?>, ClassInfo>();
 		propertyInfosPerClass = new HashMap<Class<?>, List<PropertyInfo>>();
-		methodInfosPerClass = new HashMap<Class<?>, List<MethodInfo>>();
+		methodInfosPerClass = new HashMap<Class<?>, List<ActionMethodInfo>>();
 	}
 
 
@@ -47,19 +47,19 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	 *         menus in table view and form vieuws should be generated for a
 	 *         given service or domain class.
 	 */
-	public List<MethodInfo> getMethodInfos(Class<?> objectClass) {
+	public List<ActionMethodInfo> getMethodInfos(Class<?> objectClass) {
 		if (!methodInfosPerClass.containsKey(objectClass)) {
 			methodInfosPerClass.put(objectClass,
-					MethodInfoFactory.create(this, pathProvider, languageProvider, objectClass));
+					ActionMethodInfoFactory.create(this, pathProvider, languageProvider, objectClass));
 		}
 		return methodInfosPerClass.get(objectClass);
 	}
 
 	@Override
-	public List<MethodInfo> getMethodInfos(Class<?> objectClass,
-			Filter<MethodInfo> methodInfoFilter) {
-		List<MethodInfo> methodInfos = getMethodInfos(objectClass);
-		List<MethodInfo> foundMethodInfos = FilterUtil.filter(methodInfos,
+	public List<ActionMethodInfo> getMethodInfos(Class<?> objectClass,
+			Filter<ActionMethodInfo> methodInfoFilter) {
+		List<ActionMethodInfo> actionMethodInfos = getMethodInfos(objectClass);
+		List<ActionMethodInfo> foundMethodInfos = FilterUtil.filter(actionMethodInfos,
 				methodInfoFilter);
 		return foundMethodInfos;
 	}
@@ -71,7 +71,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 		// only return visible properties
 		FilterUtil.filter(propertyInfos, new TableVisibleFilter());
 		// order properties
-		Collections.sort(propertyInfos, new OrderComparator());
+		Collections.sort(propertyInfos, new PropertyInfoComparator());
 		return propertyInfos;
 	}
 
@@ -79,7 +79,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	public List<PropertyInfo> getOrderedPropertyInfos(Class<?> objectClass) {
 		List<PropertyInfo> propertyInfos = getPropertyInfos(objectClass);
 		// order properties
-		Collections.sort(propertyInfos, new OrderComparator());
+		Collections.sort(propertyInfos, new PropertyInfoComparator());
 		return propertyInfos;
 	}
 

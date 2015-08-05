@@ -1,7 +1,7 @@
 package nth.introspect.layer3domain;
 
 import nth.introspect.documentation.Documentation;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * <p>

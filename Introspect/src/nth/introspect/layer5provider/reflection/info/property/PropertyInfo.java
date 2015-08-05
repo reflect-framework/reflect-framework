@@ -27,7 +27,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
 
 /**
  * Provides information on a bean property.<br>
- * This class is inspired by the PropertyDiscriptor class, which I do not use
+ * This class is inspired by the PropertyDiscriptor class, which can not be used
  * because it is not implemented by Android
  * 
  * @author nilsth

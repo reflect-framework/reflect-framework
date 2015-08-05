@@ -7,15 +7,15 @@ import nth.introspect.container.ConstructionInjection;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
  * The {@link ReflectionProvider} provides information on objects (
  * {@link ClassInfo}), properties ({@link PropertyInfo}) of {@link ActionMethod}
- * ({@link MethodInfo}) using <a
+ * ({@link ActionMethodInfo}) using <a
  * href="https://en.wikipedia.org/wiki/Reflection_(computer_programming)"
  * >reflection</a>. The {@link UserInterfaceController} uses this information to
  * know how the user interface should look like and behave.
@@ -51,11 +51,11 @@ public interface ReflectionProvider extends Provider {
 
 	// TODO move to classInfo
 
-	List<MethodInfo> getMethodInfos(Class<?> objectClass);
+	List<ActionMethodInfo> getMethodInfos(Class<?> objectClass);
 
 	// TODO move to classInfo
 
-	List<MethodInfo> getMethodInfos(Class<?> objectClass,
-			Filter<MethodInfo> methodInfoFilter);
+	List<ActionMethodInfo> getMethodInfos(Class<?> objectClass,
+			Filter<ActionMethodInfo> methodInfoFilter);
 	// TODO move to classInfo
 }

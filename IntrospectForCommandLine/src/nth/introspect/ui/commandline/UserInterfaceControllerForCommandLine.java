@@ -26,7 +26,7 @@ import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.commandline.domain.command.Command;
 import nth.introspect.ui.commandline.domain.command.CommandService;
@@ -156,12 +156,12 @@ public class UserInterfaceControllerForCommandLine extends
 		}
 
 		Object serviceObject = command.getServiceObject();
-		MethodInfo methodInfo = command.getMethodInfo();
+		ActionMethodInfo actionMethodInfo = command.getMethodInfo();
 		// override form mode to execute method directly (because this is
 		// the only mode supported for a command line interface)
-		methodInfo.setFormMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
+		actionMethodInfo.setFormMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
 
-		startExecution(serviceObject, methodInfo, methodParameterValue);
+		startExecution(serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	private boolean isCommandFile(String[] arguments) {
@@ -272,25 +272,25 @@ public class UserInterfaceControllerForCommandLine extends
 
 	@Override
 	public CommandLineView createFormView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
 		return new FormView(
 				getUserInterfaceContainer().getReflectionProvider(),
-				methodInfo, domainObject);
+				actionMethodInfo, domainObject);
 	}
 
 	@Override
 	public CommandLineView createTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
 		return new TableView(getUserInterfaceContainer()
-				.getReflectionProvider(), methodInfo,
+				.getReflectionProvider(), actionMethodInfo,
 				(Collection<?>) methodReturnValue);
 	}
 
 	@Override
 	public CommandLineView createTreeTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
 		throw new MethodNotSupportedException();
 	}

@@ -7,7 +7,7 @@ import nth.introspect.Introspect;
 import nth.introspect.generic.filter.LogicFilter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.layer5provider.reflection.info.method.filter.ParameterTypeFilter;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
@@ -43,12 +43,12 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 
 			if (otherPropertyInfo != propertyInfo) {
 
-				LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
+				LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
 						new LinkedToPropertyFilter(otherPropertyInfo));
 				filter.and(new ParameterTypeFilter(parameterClass));
 
-				List<MethodInfo> propertyMethods = reflectionProvider.getMethodInfos(domainClass, filter);
-				for (MethodInfo propertyMethodInfo : propertyMethods) {
+				List<ActionMethodInfo> propertyMethods = reflectionProvider.getMethodInfos(domainClass, filter);
+				for (ActionMethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
 							formView, otherPropertyInfo, propertyMethodInfo,
 							parameterValueModel, true);

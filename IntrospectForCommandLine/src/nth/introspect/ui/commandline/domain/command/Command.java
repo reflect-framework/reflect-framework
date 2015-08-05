@@ -7,36 +7,36 @@ import java.util.List;
 
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
-import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class Command {
 	private String name;
 	private Object serviceObject;
-	private MethodInfo methodInfo;
+	private ActionMethodInfo actionMethodInfo;
 	private List<Parameter> parameters;
 
-	public Command(ReflectionProvider reflectionProvider, Object serviceObject, MethodInfo methodInfo, boolean shortCommand) throws IntrospectCommandLineException {
+	public Command(ReflectionProvider reflectionProvider, Object serviceObject, ActionMethodInfo actionMethodInfo, boolean shortCommand) throws IntrospectCommandLineException {
 		this.serviceObject = serviceObject;
-		this.methodInfo = methodInfo;
+		this.actionMethodInfo = actionMethodInfo;
 		// name
-		this.name = createName(serviceObject, methodInfo, shortCommand);
+		this.name = createName(serviceObject, actionMethodInfo, shortCommand);
 		// parameters
-		parameters = createParameters(reflectionProvider, methodInfo);
+		parameters = createParameters(reflectionProvider, actionMethodInfo);
 
 	}
 
-	private List<Parameter> createParameters(ReflectionProvider reflectionProvider, MethodInfo methodInfo) throws IntrospectCommandLineException {
+	private List<Parameter> createParameters(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo) throws IntrospectCommandLineException {
 		List<Parameter> parameters = new ArrayList<Parameter>();
-		Class<?> parameterClass = methodInfo.getParameterType().getType();
+		Class<?> parameterClass = actionMethodInfo.getParameterType().getType();
 
 		if (parameterClass != null) {
 			
 			//get propertyInfos
 			Filter<PropertyInfo> propertyInfoFilter = new CommandLineParameterFilter();
-			OrderComparator propertyInfoComparator = new OrderComparator();
-			Class<?> returnClass = methodInfo.getParameterType().getTypeOrGenericCollectionType();
+			PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
+			Class<?> returnClass = actionMethodInfo.getParameterType().getTypeOrGenericCollectionType();
 			List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 			
@@ -48,13 +48,13 @@ public class Command {
 		return parameters;
 	}
 
-	private String createName(Object serviceObject, MethodInfo methodInfo, boolean shortCommand) {
+	private String createName(Object serviceObject, ActionMethodInfo actionMethodInfo, boolean shortCommand) {
 		StringBuffer name = new StringBuffer();
 		if (!shortCommand) {
 			name.append(serviceObject.getClass().getName());
 			name.append(".");
 		}
-		name.append(methodInfo.getSimpleName());
+		name.append(actionMethodInfo.getSimpleName());
 		return name.toString();
 	}
 
@@ -74,12 +74,12 @@ public class Command {
 		this.serviceObject = serviceObject;
 	}
 
-	public MethodInfo getMethodInfo() {
-		return methodInfo;
+	public ActionMethodInfo getMethodInfo() {
+		return actionMethodInfo;
 	}
 
-	public void setMethodInfo(MethodInfo methodInfo) {
-		this.methodInfo = methodInfo;
+	public void setMethodInfo(ActionMethodInfo actionMethodInfo) {
+		this.actionMethodInfo = actionMethodInfo;
 	}
 
 	public List<Parameter> getParameters() {
@@ -123,9 +123,9 @@ public class Command {
 
 	public Object createMethodParameter() throws IntrospectCommandLineException {
 		try {
-			return methodInfo.createMethodParameter(serviceObject);
+			return actionMethodInfo.createMethodParameter(serviceObject);
 		} catch (Exception e) {
-			throw new IntrospectCommandLineException("Could not create a new instance of method parameter: " + methodInfo.getParameterType().getType().getCanonicalName() + " for method: " + methodInfo.getCanonicalName(), e);
+			throw new IntrospectCommandLineException("Could not create a new instance of method parameter: " + actionMethodInfo.getParameterType().getType().getCanonicalName() + " for method: " + actionMethodInfo.getCanonicalName(), e);
 		}
 	}
 

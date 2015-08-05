@@ -3,7 +3,7 @@ package nth.introspect.layer2service;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer3domain.DomainObjectMenu;
 import nth.introspect.layer3domain.DomainObjectPropertyMenu;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * <p>

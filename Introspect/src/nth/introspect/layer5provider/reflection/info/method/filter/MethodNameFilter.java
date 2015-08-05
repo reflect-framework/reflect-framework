@@ -1,9 +1,9 @@
 package nth.introspect.layer5provider.reflection.info.method.filter;
 
 import nth.introspect.generic.filter.Filter;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class MethodNameFilter implements Filter<MethodInfo> {
+public class MethodNameFilter implements Filter<ActionMethodInfo> {
 
 	private final String name;
 	public MethodNameFilter(String name) {
@@ -11,8 +11,8 @@ public class MethodNameFilter implements Filter<MethodInfo> {
 	}
 
 	@Override
-	public boolean isMatch(MethodInfo methodInfo) {
-		return methodInfo.getSimpleName().equals(name);
+	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+		return actionMethodInfo.getSimpleName().equals(name);
 	}
 
 }

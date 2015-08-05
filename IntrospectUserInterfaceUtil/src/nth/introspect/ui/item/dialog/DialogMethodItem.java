@@ -6,30 +6,30 @@ import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 public class DialogMethodItem extends Item {
 
 	private final Object methodOwner;
-	private final MethodInfo methodInfo;
+	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
 
 	/**
-	 * Wraps a {@link MethodInfo} in a {@link Item} by overwriting the getters
+	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the getters
 	 * 
 	 * @param methodOwner
-	 * @param methodInfo
+	 * @param actionMethodInfo
 	 */
-	public DialogMethodItem(UserInterfaceContainer userInterfaceContainer , final Object methodOwner, final MethodInfo methodInfo, final Object methodParameterValue) {
+	public DialogMethodItem(UserInterfaceContainer userInterfaceContainer , final Object methodOwner, final ActionMethodInfo actionMethodInfo, final Object methodParameterValue) {
 		super(userInterfaceContainer.getLanguageProvider());
 		this.methodOwner = methodOwner;
-		this.methodInfo = methodInfo;
+		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
 final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.getUserInterfaceController();
 		setAction(new Action() {
 			@Override
 			public void run() {
-				userInterfaceController.excuteMethod(methodOwner, methodInfo, methodParameterValue);
+				userInterfaceController.excuteMethod(methodOwner, actionMethodInfo, methodParameterValue);
 				//TODO refresh form!!!!
 			}
 
@@ -39,27 +39,27 @@ final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.
 
 	@Override
 	public URI getIconURI() {
-		return methodInfo.getIconURI(methodOwner);
+		return actionMethodInfo.getIconURI(methodOwner);
 	}
 
 	@Override
 	public String getText() {
-		return methodInfo.getDisplayName();
+		return actionMethodInfo.getDisplayName();
 	}
 
 	@Override
 	public boolean isVisible() {
-		return methodInfo.isVisible(methodOwner);
+		return actionMethodInfo.isVisible(methodOwner);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return methodInfo.isEnabled(methodOwner) ;
+		return actionMethodInfo.isEnabled(methodOwner) ;
 	}
 
 	@Override
 	public String getDescription() {
-		return super.getDescriptionWithHotKey( methodInfo.getDescription());
+		return super.getDescriptionWithHotKey( actionMethodInfo.getDescription());
 	}
 
 

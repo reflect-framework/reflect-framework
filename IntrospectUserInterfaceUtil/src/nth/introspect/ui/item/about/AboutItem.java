@@ -8,7 +8,7 @@ import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.filter.MethodNameFilter;
 import nth.introspect.ui.images.IntrospectImage;
 
@@ -24,10 +24,10 @@ public class AboutItem extends Item {
 			@Override
 			public void run() {
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
-				List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(AboutProvider.class, methodFilter);
-				if (methodInfos.size() == 1) {
-					MethodInfo methodInfo = methodInfos.get(0);
-					userInterfaceController.startExecution(aboutProvider, methodInfo, null);
+				List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(AboutProvider.class, methodFilter);
+				if (actionMethodInfos.size() == 1) {
+					ActionMethodInfo actionMethodInfo = actionMethodInfos.get(0);
+					userInterfaceController.startExecution(aboutProvider, actionMethodInfo, null);
 				} else {
 					StringBuffer message = new StringBuffer("Could not find ");
 					message.append(ABOUT.toLowerCase());

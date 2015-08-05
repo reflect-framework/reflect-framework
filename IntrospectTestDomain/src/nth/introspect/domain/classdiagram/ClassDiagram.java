@@ -5,7 +5,7 @@ import java.util.List;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.order.Order;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
@@ -48,9 +48,9 @@ public class ClassDiagram {
 		}
 
 		// methods
-		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(objectClass);
-		for (MethodInfo methodInfo : methodInfos) {
-			getMethods().add(new ClassFeature(methodInfo));
+		List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(objectClass);
+		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
+			getMethods().add(new ClassFeature(actionMethodInfo));
 		}
 	}
 

@@ -9,7 +9,7 @@ import nth.introspect.documentation.IntrospectGettingStarted;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.notification.NotificationListener;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 /**
  * <p>
@@ -151,42 +151,42 @@ public interface UserInterfaceController<T> extends Refreshable,
 	 * 
 	 * @param methodOwner
 	 *            Domain or service object that owns the method
-	 * @param methodInfo
+	 * @param actionMethodInfo
 	 * @param methodParameterValue
 	 */
 
-	public void startExecution(Object methodOwner, MethodInfo methodInfo,
+	public void startExecution(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue);
 
 	/**
 	 * This method is called from
-	 * {@link #startExecution(Object, MethodInfo, Object)} or from the
+	 * {@link #startExecution(Object, ActionMethodInfo, Object)} or from the
 	 * {@link FormOkItem} linked to the OK button <br>
 	 * It needs the check if the method is enabled before the method is executed<br>
 	 * It needs to validate the method parameter value before the method is
 	 * executed
 	 * 
 	 * @param serviceObject
-	 * @param methodInfo
+	 * @param actionMethodInfo
 	 * @param methodParameterValue
 	 */
 
-	void excuteMethod(Object serviceObject, MethodInfo methodInfo,
+	void excuteMethod(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue);
 
 	/**
 	 * This method is called from
-	 * {@link #startMethodExecutionThread(Object, MethodInfo, Object)} when the
+	 * {@link #startMethodExecutionThread(Object, ActionMethodInfo, Object)} when the
 	 * thread is completed.<br>
 	 * It will open a new view or InfoDialog to show the method return value
 	 * 
 	 * @param serviceObject
-	 * @param methodInfo
+	 * @param actionMethodInfo
 	 * @param methodParameterValue
 	 * @param methodReturnValue
 	 */
 
-	void showMethodReturnValue(Object serviceObject, MethodInfo methodInfo,
+	void showMethodReturnValue(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue);
 
 	void start();

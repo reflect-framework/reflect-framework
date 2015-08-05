@@ -9,8 +9,8 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.ui.item.HierarchicalItem;
 
 public class MethodOwnerItem extends HierarchicalItem {
@@ -18,7 +18,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 	private ClassInfo methodOwnerInfo;
 	private final Object methodOwner;
 
-	public MethodOwnerItem( UserInterfaceContainer userInterfaceContainer, Object methodOwner, Filter<MethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
+	public MethodOwnerItem( UserInterfaceContainer userInterfaceContainer, Object methodOwner, Filter<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		super(userInterfaceContainer.getLanguageProvider());
 		this.methodOwner = methodOwner;
 		ReflectionProvider reflectionProvider = userInterfaceContainer.getReflectionProvider();
@@ -26,11 +26,11 @@ public class MethodOwnerItem extends HierarchicalItem {
 		
 		setText(methodOwnerInfo.getDisplayName());
 		setDescription(methodOwnerInfo.getDescription());
-		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
+		List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
 
 		UserInterfaceController<?> userInterfaceController=userInterfaceContainer.getUserInterfaceController();
-		for (MethodInfo methodInfo : methodInfos) {
-			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner, methodInfo, methodParameterValueModel);
+		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
+			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner, actionMethodInfo, methodParameterValueModel);
 			addItem(methodItem);
 		}
 	}

@@ -7,27 +7,27 @@ import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 public class MethodItem extends Item {
 
 	private final Object methodOwner;
-	private final MethodInfo methodInfo;
+	private final ActionMethodInfo actionMethodInfo;
 	private final ReadOnlyValueModel methodParameterValueModel;
 
 	/**
-	 * Wraps a {@link MethodInfo} in a {@link Item} by overwriting the getters
+	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the getters
 	 * 
 	 * @param methodOwner
-	 * @param methodInfo
+	 * @param actionMethodInfo
 	 */
 	public MethodItem(final UserInterfaceContainer userInterfaceContainer,
-			final Object methodOwner, final MethodInfo methodInfo,
+			final Object methodOwner, final ActionMethodInfo actionMethodInfo,
 			final ReadOnlyValueModel methodParameterValueModel) {
 		super(userInterfaceContainer.getLanguageProvider());
 		this.methodOwner = methodOwner;
-		this.methodInfo = methodInfo;
+		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValueModel = methodParameterValueModel;
 		final UserInterfaceController<?> userInterfaceController = userInterfaceContainer
 				.getUserInterfaceController();
@@ -36,7 +36,7 @@ public class MethodItem extends Item {
 			public void run() {
 				Object methodParameterValue = (methodParameterValueModel == null) ? null
 						: methodParameterValueModel.getValue();
-				userInterfaceController.startExecution(methodOwner, methodInfo,
+				userInterfaceController.startExecution(methodOwner, actionMethodInfo,
 						methodParameterValue);
 			}
 
@@ -45,31 +45,31 @@ public class MethodItem extends Item {
 
 	@Override
 	public URI getIconURI() {
-		return methodInfo.getIconURI(methodOwner);
+		return actionMethodInfo.getIconURI(methodOwner);
 	}
 
 	@Override
 	public String getText() {
-		return methodInfo.getDisplayName();
+		return actionMethodInfo.getDisplayName();
 	}
 
 	@Override
 	public boolean isVisible() {
-		return methodInfo.isVisible(methodOwner);
+		return actionMethodInfo.isVisible(methodOwner);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return methodInfo.isEnabled(methodOwner) && (isMethodInvokable());
+		return actionMethodInfo.isEnabled(methodOwner) && (isMethodInvokable());
 	}
 
 	@Override
 	public String getDescription() {
-		return super.getDescriptionWithHotKey(methodInfo.getDescription());
+		return super.getDescriptionWithHotKey(actionMethodInfo.getDescription());
 	}
 
 	private boolean isMethodInvokable() {
-		TypeCategory parameterType = methodInfo.getParameterType()
+		TypeCategory parameterType = actionMethodInfo.getParameterType()
 				.getTypeCategory();
 		switch (parameterType) {
 		case NONE:
@@ -77,7 +77,7 @@ public class MethodItem extends Item {
 		case DOMAIN_TYPE:
 			// return true if the methodParameter not null or when there is a
 			// parameter factory (because we do not need a field value than)
-			return methodInfo.hasParameterFactory()
+			return actionMethodInfo.hasParameterFactory()
 					|| methodParameterValueModel != null
 					&& methodParameterValueModel.getValue() != null;
 		}

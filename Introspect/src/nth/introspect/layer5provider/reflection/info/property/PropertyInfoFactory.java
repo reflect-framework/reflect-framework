@@ -19,7 +19,7 @@ public class PropertyInfoFactory {
 		}
 
 		// order form properties (note that the order is not dynamic)
-		Collections.sort(propertyInfos, new OrderComparator());
+		Collections.sort(propertyInfos, new PropertyInfoComparator());
 		return propertyInfos;
 	}
 

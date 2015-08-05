@@ -1,6 +1,6 @@
 package nth.introspect.domain.classdiagram;
 
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
@@ -23,32 +23,32 @@ public class ClassFeature {
 		this(getPropertyRepresentation(propertyInfo), propertyInfo.getPropertyType().getType());
 	}
 
-	public ClassFeature(MethodInfo methodInfo) {
-		this(getMethodRepresentation(methodInfo), getMethodType(methodInfo));
+	public ClassFeature(ActionMethodInfo actionMethodInfo) {
+		this(getMethodRepresentation(actionMethodInfo), getMethodType(actionMethodInfo));
 	}
 
-	private static Class<?> getMethodType(MethodInfo methodInfo) {
-		Class<?> returnType = methodInfo.getReturnType().getTypeOrGenericCollectionType();
+	private static Class<?> getMethodType(ActionMethodInfo actionMethodInfo) {
+		Class<?> returnType = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
 		if (returnType == Void.TYPE) {
 			// if method is of type void, try to get the type of the parameter
-			Class<?> parameterType = methodInfo.getParameterType().getTypeOrGenericCollectionType();
+			Class<?> parameterType = actionMethodInfo.getParameterType().getTypeOrGenericCollectionType();
 			return parameterType;
 		} else {
 			return returnType;
 		}
 	}
 
-	private static String getMethodRepresentation(MethodInfo methodInfo) {
+	private static String getMethodRepresentation(ActionMethodInfo actionMethodInfo) {
 		StringBuffer representation = new StringBuffer();
-		representation.append(methodInfo.getSimpleName());
+		representation.append(actionMethodInfo.getSimpleName());
 		representation.append("(");
-		if (methodInfo.getParameterType().getTypeCategory() != TypeCategory.NONE) {
-			representation.append(methodInfo.getParameterType().toString());
+		if (actionMethodInfo.getParameterType().getTypeCategory() != TypeCategory.NONE) {
+			representation.append(actionMethodInfo.getParameterType().toString());
 		}
 		representation.append(")");
-		if (methodInfo.getReturnType().getTypeCategory() != TypeCategory.NONE) {
+		if (actionMethodInfo.getReturnType().getTypeCategory() != TypeCategory.NONE) {
 			representation.append(" : ");
-			representation.append(methodInfo.getReturnType().toString());
+			representation.append(actionMethodInfo.getReturnType().toString());
 		}
 		return representation.toString();
 	}

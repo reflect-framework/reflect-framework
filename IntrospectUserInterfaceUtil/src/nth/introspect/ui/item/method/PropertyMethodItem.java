@@ -6,7 +6,7 @@ import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
@@ -17,13 +17,13 @@ public class PropertyMethodItem extends MethodItem {
 
 	private PropertyInfo propertyInfo;
 	private ReadOnlyValueModel propertyOwnerModel;
-	private MethodInfo propertyMethodInfo;
+	private ActionMethodInfo propertyMethodInfo;
 	private ReadOnlyValueModel parameterValueModel;
 	private FormView formView;
 	private boolean showPropertyName;
 
 	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo,
-			MethodInfo propertyMethodInfo,
+			ActionMethodInfo propertyMethodInfo,
 			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
 		super(formView.getuserInterfaceContainer(),  formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
 		this.formView = formView;

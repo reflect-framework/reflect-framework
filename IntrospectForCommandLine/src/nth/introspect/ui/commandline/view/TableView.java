@@ -5,9 +5,9 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 import nth.introspect.ui.commandline.domain.table.Row;
 import nth.introspect.ui.commandline.domain.table.Table;
@@ -16,11 +16,11 @@ public class TableView extends CommandLineView {
 
 	private final Table table;
 
-	public TableView(ReflectionProvider reflectionProvider, MethodInfo methodInfo, Collection<?> collection) {
+	public TableView(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo, Collection<?> collection) {
 		//get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		OrderComparator propertyInfoComparator = new OrderComparator();
-		Class<?> returnClass = methodInfo.getReturnType().getTypeOrGenericCollectionType();
+		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
+		Class<?> returnClass = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
 
 		table = new Table();

@@ -3,7 +3,7 @@ package nth.introspect.layer5provider.reflection.behavior.parameterfactory;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * <p>

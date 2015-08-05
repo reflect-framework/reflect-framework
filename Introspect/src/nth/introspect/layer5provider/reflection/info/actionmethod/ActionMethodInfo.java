@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.reflection.info.method;
+package nth.introspect.layer5provider.reflection.info.actionmethod;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,13 +22,13 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
 
 /**
  * Provides information on a bean method.<br>
- * This class is inspired by the MethodDiscriptor class, which I do not use because it is not implemented by Android
+ * This class is inspired by the MethodDiscriptor class, which is not use because it is not implemented by Android
  * 
  * @author nilsth
  * 
  */
 
-public class MethodInfo implements NameInfo {
+public class ActionMethodInfo implements NameInfo {
 
 	private ValueModels valueModels;
 	public final static String VISIBLE = "visible";
@@ -55,11 +55,11 @@ public class MethodInfo implements NameInfo {
 
 	
 	
-	public MethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method) {
+	public ActionMethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method) {
 		this(pathProvider, languageProvider, method, null);
 	}
 
-	public MethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method, String linkedPropertyName) {
+	public ActionMethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method, String linkedPropertyName) {
 		this.pathProvider = pathProvider;
 		this.method = method;
 		this.linkedPropertyName = linkedPropertyName;

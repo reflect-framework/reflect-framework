@@ -2,7 +2,7 @@ package nth.introspect.layer5provider.reflection.info.property;
 
 import java.util.Comparator;
 
-public class OrderComparator implements Comparator<PropertyInfo> {
+public class PropertyInfoComparator implements Comparator<PropertyInfo> {
 
 	public int compare(PropertyInfo propertyInfo1, PropertyInfo propertyInfo2) {
 		double order1 = propertyInfo1.getOrder();

@@ -1,10 +1,10 @@
 package nth.introspect.layer5provider.reflection.info.method.filter;
 
 import nth.introspect.generic.filter.Filter;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
-public class LinkedToPropertyFilter implements Filter<MethodInfo> {
+public class LinkedToPropertyFilter implements Filter<ActionMethodInfo> {
 
 
 	private final String propertyName;
@@ -14,8 +14,8 @@ public class LinkedToPropertyFilter implements Filter<MethodInfo> {
 	}
 	
 	@Override
-	public boolean isMatch(MethodInfo methodInfo) {
-		String methodPropertyName = methodInfo.getLinkedPropertyName();
+	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+		String methodPropertyName = actionMethodInfo.getLinkedPropertyName();
 		return propertyName.equals( methodPropertyName);
 	}
 

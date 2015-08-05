@@ -2,7 +2,7 @@ package nth.introspect.layer3domain;
 
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer2service.ServiceObject;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 /**
  * TODO PICTURE property context MENU and field table row
  * context menu

@@ -12,7 +12,7 @@ import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.filter.LinkedToPropertyFilter;
 import nth.introspect.layer5provider.reflection.info.method.filter.NoParameterOrParameterFactoryFilter;
 import nth.introspect.layer5provider.reflection.info.method.filter.ParameterTypeFilter;
@@ -46,7 +46,7 @@ public class ItemFactory {
 		List<Item> items = new ArrayList<Item>();
 
 		// get info from form view
-		MethodInfo methodInfoToExclude = formView.getMethodInfo();
+		ActionMethodInfo methodInfoToExclude = formView.getMethodInfo();
 		Class<?> domainType = formView.getDomainValueModel().getValueType();
 		Class<?> parameterType = parameterModel.getValueType();
 		Object serviceObject = formView.getMethodOwner();
@@ -56,15 +56,15 @@ public class ItemFactory {
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
-		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
+		LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
 				new NoParameterOrParameterFactoryFilter());
 		filter.or(new ParameterTypeFilter(parameterType));
 		filter.and(new LinkedToPropertyFilter(propertyInfo));
-		List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(
+		List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(
 				domainType, filter);
-		for (MethodInfo methodInfo : methodInfos) {
+		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			PropertyMethodItem item = new PropertyMethodItem(formView,
-					propertyInfo, methodInfo, parameterModel,false);
+					propertyInfo, actionMethodInfo, parameterModel,false);
 			// MethodItem item = new MethodItem(methodOwner,
 			// methodInfo,parameterModel);
 			items.add(item);
@@ -74,10 +74,10 @@ public class ItemFactory {
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, propertyInfo));
 
 		// service object methods
-		filter = new LogicFilter<MethodInfo>(new ParameterTypeFilter(
+		filter = new LogicFilter<ActionMethodInfo>(new ParameterTypeFilter(
 				parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
-		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
+		filter.andNot(new EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
 		UserInterfaceContainer userInterfaceContainer=formView.getuserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
@@ -90,19 +90,19 @@ public class ItemFactory {
 		List<Item> items = new ArrayList<Item>();
 
 		// get info from table view
-		MethodInfo methodInfoToExclude = tableView.getMethodInfo();
+		ActionMethodInfo methodInfoToExclude = tableView.getMethodInfo();
 		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
 		Class<?> parameterType = parameterModel.getValueType();
 		Object serviceObject = tableView.getMethodOwner();
 
 		// property methods
 		// reflectionProvider reflectionProvider=Introspect.getreflectionProvider();
-		// LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(new
+		// LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(new
 		// NoParameterOrParameterFactoryFilter());
 		// filter.or(new ParameterTypeFilter(parameterType));
-		// List<MethodInfo> methodInfos =
+		// List<ActionMethodInfo> methodInfos =
 		// reflectionProvider.getMethodInfos(parameterType, filter);
-		// for (MethodInfo methodInfo : methodInfos) {
+		// for (ActionMethodInfo methodInfo : methodInfos) {
 		// item=new MethodItem(methodOwner, methodInfo,
 		// methodParameterValueModel) TODO methodOwner needs to be a value
 		// model!!!
@@ -114,9 +114,9 @@ public class ItemFactory {
 
 		// create filter for service object items
 		Class<?> domainType = parameterModel.getValueType();
-		LogicFilter<MethodInfo> filter = new LogicFilter<MethodInfo>(
+		LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
 				new ParameterTypeFilter(domainType));
-		filter.andNot(new EqualsFilter<MethodInfo>(methodInfoToExclude));
+		filter.andNot(new EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
 		UserInterfaceContainer userInterfaceContainer=tableView.getuserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer , serviceObject, parameterModel,
 				filter));
@@ -126,7 +126,7 @@ public class ItemFactory {
 
 	private static List<MethodOwnerItem> createServiceObjectItems(UserInterfaceContainer userInterfaceContainer,
 			Object serviceObjectToStartWith, ReadOnlyValueModel parameterModel,
-			Filter<MethodInfo> filter) {
+			Filter<ActionMethodInfo> filter) {
 
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 

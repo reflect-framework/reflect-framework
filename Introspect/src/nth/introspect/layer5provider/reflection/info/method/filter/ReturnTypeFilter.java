@@ -1,9 +1,9 @@
 package nth.introspect.layer5provider.reflection.info.method.filter;
 
 import nth.introspect.generic.filter.Filter;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class ReturnTypeFilter implements Filter<MethodInfo>{
+public class ReturnTypeFilter implements Filter<ActionMethodInfo>{
 
 	private final Class<?> returnType;
 
@@ -13,8 +13,8 @@ public class ReturnTypeFilter implements Filter<MethodInfo>{
 
 
 	@Override
-	public boolean isMatch(MethodInfo methodInfo) {
-		Class<?> methodReturnClass = methodInfo.getReturnType().getTypeOrGenericCollectionType();
+	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+		Class<?> methodReturnClass = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
 		return methodReturnClass!=null && returnType.isAssignableFrom(methodReturnClass);
 	}
 

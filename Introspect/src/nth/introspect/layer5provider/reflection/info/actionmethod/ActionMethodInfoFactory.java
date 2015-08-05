@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.reflection.info.method;
+package nth.introspect.layer5provider.reflection.info.actionmethod;
 
 
 import java.lang.reflect.Method;
@@ -14,10 +14,10 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
 
-public class MethodInfoFactory {
+public class ActionMethodInfoFactory {
 	
-	public static List<MethodInfo> create(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> objectClass) {
-		ArrayList<MethodInfo> methodInfos = new ArrayList<MethodInfo>();
+	public static List<ActionMethodInfo> create(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> objectClass) {
+		ArrayList<ActionMethodInfo> actionMethodInfos = new ArrayList<ActionMethodInfo>();
 		try {
 			List<String> propertyNames = getPropertyNames(reflectionProvider, objectClass);
 
@@ -26,8 +26,8 @@ public class MethodInfoFactory {
 			for (Method method : methods) {
 				if (!unwantedMethodNames.contains(method.getName())) {
 					String linkedPropertyName = findLinkedPropertyName(method, propertyNames);
-					MethodInfo methodInfo = new MethodInfo(pathProvider, languageProvider, method, linkedPropertyName);
-					methodInfos.add(methodInfo);
+					ActionMethodInfo actionMethodInfo = new ActionMethodInfo(pathProvider, languageProvider, method, linkedPropertyName);
+					actionMethodInfos.add(actionMethodInfo);
 				}
 			}
 		} catch (Exception e) {
@@ -35,8 +35,8 @@ public class MethodInfoFactory {
 			e.printStackTrace();
 		}
 		// order form properties (note that the formOrder value getter is not dynamic)
-		Collections.sort(methodInfos, new MethodInfosOrderComparator());
-		return methodInfos;
+		Collections.sort(actionMethodInfos, new ActionMethodInfoComparator());
+		return actionMethodInfos;
 	}
 
 	private static String findLinkedPropertyName(Method method, List<String> propertyNames) {
@@ -87,7 +87,7 @@ public class MethodInfoFactory {
 		// add method names
 		for (Method method : objectClass.getMethods()) {
 			if (method.getDeclaringClass() != Object.class) {
-				for (String suffix : MethodInfo.METHOD_NAMES) {
+				for (String suffix : ActionMethodInfo.METHOD_NAMES) {
 					StringBuffer unwantedMethodName = new StringBuffer(method.getName());
 					unwantedMethodName.append(StringUtil.firstCharToUpperCase(suffix));
 					unwantedMethodNames.add(unwantedMethodName.toString());

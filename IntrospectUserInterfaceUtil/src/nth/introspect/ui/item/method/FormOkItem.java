@@ -7,15 +7,15 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 
 public class FormOkItem extends MethodItem {
 
-	public FormOkItem( final FormView formView, final Object methodOwner, final MethodInfo methodInfo, final BufferedDomainValueModel domainValueModel) {
-		super (formView.getuserInterfaceContainer(), methodOwner, methodInfo, domainValueModel);
+	public FormOkItem( final FormView formView, final Object methodOwner, final ActionMethodInfo actionMethodInfo, final BufferedDomainValueModel domainValueModel) {
+		super (formView.getuserInterfaceContainer(), methodOwner, actionMethodInfo, domainValueModel);
 		final UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().getUserInterfaceController();
 		setHotKey(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.CTRL_MASK));
 		setAction(new Action() {
@@ -24,7 +24,7 @@ public class FormOkItem extends MethodItem {
 				if (FormMode.EDIT_MODE== formView.getFormMode()) {
 					domainValueModel.commit();
 				}
-				userInterfaceController.excuteMethod(methodOwner, methodInfo, domainValueModel.getValue());
+				userInterfaceController.excuteMethod(methodOwner, actionMethodInfo, domainValueModel.getValue());
 				userInterfaceController.getViewContainer().removeView(formView);
 			}
 

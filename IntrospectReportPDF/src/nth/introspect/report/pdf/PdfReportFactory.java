@@ -9,7 +9,7 @@ import java.util.List;
 import nth.introspect.Introspect;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 import nth.introspect.report.FormSection;
 import nth.introspect.report.Report;
@@ -92,7 +92,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		
 		// get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		OrderComparator propertyInfoComparator = new OrderComparator();
+		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
 
 		for (PropertyInfo propertyInfo : propertyInfos) {
@@ -129,7 +129,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 
 		//get propertyInfos
 		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		OrderComparator propertyInfoComparator = new OrderComparator();
+		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(objectClass, propertyInfoFilter, propertyInfoComparator);
 				
 		// create table

@@ -13,7 +13,7 @@ import nth.introspect.Introspect;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 public class CommandService {
 
@@ -50,11 +50,11 @@ public class CommandService {
 		for (Object serviceObject : serviceObjects) {
 			Class<? extends Object> serviceClass = serviceObject.getClass();
 
-			List<MethodInfo> methodInfos = reflectionProvider
+			List<ActionMethodInfo> actionMethodInfos = reflectionProvider
 					.getMethodInfos(serviceClass);
 
-			for (MethodInfo methodInfo : methodInfos) {
-				Command command = new Command(reflectionProvider, serviceObject, methodInfo,
+			for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
+				Command command = new Command(reflectionProvider, serviceObject, actionMethodInfo,
 						shortCommandName);
 				commands.add(command);
 			}

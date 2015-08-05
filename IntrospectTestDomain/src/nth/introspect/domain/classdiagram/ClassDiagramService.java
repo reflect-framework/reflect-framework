@@ -14,7 +14,7 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
@@ -80,12 +80,12 @@ public class ClassDiagramService {
 				getReferencedClasses(reflectionProvider, propertyType, foundClasses);// recursive call
 			}
 
-			List<MethodInfo> methodInfos = reflectionProvider.getMethodInfos(clazz);
-			for (MethodInfo methodInfo : methodInfos) {
-				Class<?> returnType = methodInfo.getReturnType().getTypeOrGenericCollectionType();
+			List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(clazz);
+			for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
+				Class<?> returnType = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
 				getReferencedClasses(reflectionProvider, returnType, foundClasses);// recursive call
 
-				Class<?> parameterType = methodInfo.getParameterType().getTypeOrGenericCollectionType();
+				Class<?> parameterType = actionMethodInfo.getParameterType().getTypeOrGenericCollectionType();
 				getReferencedClasses(reflectionProvider, parameterType, foundClasses);// recursive call
 			}
 		}

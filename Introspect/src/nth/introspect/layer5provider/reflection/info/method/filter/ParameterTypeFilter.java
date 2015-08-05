@@ -1,9 +1,9 @@
 package nth.introspect.layer5provider.reflection.info.method.filter;
 
 import nth.introspect.generic.filter.Filter;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class ParameterTypeFilter implements Filter<MethodInfo>{
+public class ParameterTypeFilter implements Filter<ActionMethodInfo>{
 
 	private final Class<?> parameterType;
 
@@ -13,8 +13,8 @@ public class ParameterTypeFilter implements Filter<MethodInfo>{
 
 
 	@Override
-	public boolean isMatch(MethodInfo methodInfo) {
-		Class<?> methodParameterClass = methodInfo.getParameterType().getType();
+	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+		Class<?> methodParameterClass = actionMethodInfo.getParameterType().getType();
 		return methodParameterClass!=null && parameterType.isAssignableFrom(methodParameterClass);
 	}
 

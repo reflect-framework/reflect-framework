@@ -25,7 +25,7 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.swing.item.menubar.MenuBar;
 import nth.introspect.ui.swing.item.popupmenu.PopupMenu;
@@ -37,7 +37,7 @@ public class TableView extends SwingView implements
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;
 	private final Object methodOwner;
-	private final MethodInfo methodInfo;
+	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
 	private JTable table;
 	private MethodTableModel tableModel;
@@ -48,11 +48,11 @@ public class TableView extends SwingView implements
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final ReflectionProvider reflectionProvider;
 
-	public TableView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, MethodInfo methodInfo,
+	public TableView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
-		this.methodInfo = methodInfo;
+		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
 
 		setLayout(new BorderLayout());
@@ -143,17 +143,17 @@ public class TableView extends SwingView implements
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue, true);
+		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue, true);
 	}
 
 	@Override
 	public String getViewDescription() {
-		return TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue, false);
+		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue, false);
 	}
 
 	@Override
 	public URI getViewIconURI() {
-		return methodInfo.getIconURI(methodOwner);
+		return actionMethodInfo.getIconURI(methodOwner);
 	}
 
 	@Override
@@ -218,7 +218,7 @@ public class TableView extends SwingView implements
 
 				@Override
 				public Class<?> getValueType() {
-					return methodInfo.getReturnType()
+					return actionMethodInfo.getReturnType()
 							.getTypeOrGenericCollectionType();
 				}
 
@@ -243,7 +243,7 @@ public class TableView extends SwingView implements
 				@Override
 				public Object getValue() {
 					try {
-						return methodInfo.invoke(methodOwner,
+						return actionMethodInfo.invoke(methodOwner,
 								methodParameterValue);
 					} catch (Exception e) {
 						UserInterfaceController<?> userInterfaceController = getuserInterfaceContainer().getUserInterfaceController();
@@ -255,7 +255,7 @@ public class TableView extends SwingView implements
 
 				@Override
 				public Class<?> getValueType() {
-					return methodInfo.getReturnType()
+					return actionMethodInfo.getReturnType()
 							.getTypeOrGenericCollectionType();
 				}
 
@@ -271,8 +271,8 @@ public class TableView extends SwingView implements
 	}
 
 	@Override
-	public MethodInfo getMethodInfo() {
-		return methodInfo;
+	public ActionMethodInfo getMethodInfo() {
+		return actionMethodInfo;
 	}
 
 	@Override

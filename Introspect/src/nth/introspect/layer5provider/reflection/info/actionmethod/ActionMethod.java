@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.reflection.info.method;
+package nth.introspect.layer5provider.reflection.info.actionmethod;
 
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer1userinterface.controller.DownloadStream;

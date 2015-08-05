@@ -5,11 +5,11 @@ import java.util.List;
 
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
-public class NotLinkedToPropertyFilter implements Filter<MethodInfo> {
+public class NotLinkedToPropertyFilter implements Filter<ActionMethodInfo> {
 
 	private ArrayList<String> propertyNames;
 
@@ -22,10 +22,10 @@ public class NotLinkedToPropertyFilter implements Filter<MethodInfo> {
 	}
 
 	@Override
-	public boolean isMatch(MethodInfo methodInfo) {
-		if (TypeCategory.NONE == methodInfo.getParameterType().getTypeCategory() || methodInfo.hasParameterFactory()) {
+	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+		if (TypeCategory.NONE == actionMethodInfo.getParameterType().getTypeCategory() || actionMethodInfo.hasParameterFactory()) {
 			for (String propertyName : propertyNames) {
-				if (methodInfo.getSimpleName().startsWith(propertyName)) {//TODO endswith
+				if (actionMethodInfo.getSimpleName().startsWith(propertyName)) {//TODO endswith
 					return false;
 				}
 			}

@@ -1,6 +1,6 @@
 package nth.introspect.layer5provider.reflection.behavior.executionmode;
 
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 
 

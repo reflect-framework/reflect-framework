@@ -7,8 +7,8 @@ import java.util.Map;
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.generic.valuemodel.ValueModels;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.MethodValue;
 
@@ -18,7 +18,7 @@ public class MethodValueModelFactory {
 		return create(classInfo.getObjectClass(), classInfo.getSimpleName(), names);
 	}
 
-	public static Map<String, ReadOnlyValueModel> create(MethodInfo methodinfo, String[] names) {
+	public static Map<String, ReadOnlyValueModel> create(ActionMethodInfo methodinfo, String[] names) {
 		return create(methodinfo.getMethod().getDeclaringClass(), methodinfo.getSimpleName(), names);
 	}
 	

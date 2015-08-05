@@ -20,7 +20,7 @@ import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
@@ -37,7 +37,7 @@ import nth.introspect.ui.view.FormMode;
 public class FormView extends SwingView implements
 		nth.introspect.ui.view.FormView { // implements ReadOnlyValueModel {
 
-	private final MethodInfo methodInfo;
+	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodOwner;
 	private final BufferedDomainValueModel domainValueModel;
 	private final Object methodParameterValue;
@@ -47,12 +47,12 @@ public class FormView extends SwingView implements
 	private final ReflectionProvider reflectionProvider;
 	private final PathProvider pathProvider;
 
-	public FormView(UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider, Object methodOwner, MethodInfo methodInfo,
+	public FormView(UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.pathProvider = pathProvider;
 		this.methodOwner = methodOwner;
-		this.methodInfo = methodInfo;
+		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
 		this.domainObject = domainObject;
 		this.formMode = formMode;
@@ -131,25 +131,25 @@ public class FormView extends SwingView implements
 
 	public JButton createOkButton() {
 		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceController().getViewContainer();
-		FormOkItem okItem = new FormOkItem( this, methodOwner, methodInfo,
+		FormOkItem okItem = new FormOkItem( this, methodOwner, actionMethodInfo,
 				domainValueModel);
 		return new ItemButton(okItem);
 	}
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(reflectionProvider, methodInfo, domainValueModel.getValue(),
+		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, domainValueModel.getValue(),
 				true);
 	}
 
 	@Override
 	public String getViewDescription() {
-		return methodInfo.getDescription();
+		return actionMethodInfo.getDescription();
 	}
 
 	@Override
 	public URI getViewIconURI() {
-		return methodInfo.getIconURI(methodOwner);
+		return actionMethodInfo.getIconURI(methodOwner);
 	}
 
 	@Override
@@ -163,8 +163,8 @@ public class FormView extends SwingView implements
 	}
 
 	@Override
-	public MethodInfo getMethodInfo() {
-		return methodInfo;
+	public ActionMethodInfo getMethodInfo() {
+		return actionMethodInfo;
 	}
 
 	@Override

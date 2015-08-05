@@ -20,7 +20,7 @@ import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.notification.Task;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.filter.MethodNameFilter;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.ui.item.dialog.DialogCancelItem;
@@ -74,25 +74,25 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 	}
 	
 	@Override
-	public void startExecution(Object methodOwner, MethodInfo methodInfo,
+	public void startExecution(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue) {
 		try {
-			ExecutionModeType executionMode = methodInfo.getExecutionMode();
+			ExecutionModeType executionMode = actionMethodInfo.getExecutionMode();
 			switch (executionMode) {
 			case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
-				createAndShowParameterForm(methodOwner, methodInfo,
+				createAndShowParameterForm(methodOwner, actionMethodInfo,
 						methodParameterValue, FormMode.EDIT_MODE);
 				break;
 			case EXECUTE_METHOD_AFTER_CONFORMATION:
-				createAndShowConformationDialog(methodOwner, methodInfo,
+				createAndShowConformationDialog(methodOwner, actionMethodInfo,
 						methodParameterValue);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
-				excuteMethod(methodOwner, methodInfo, methodParameterValue);
+				excuteMethod(methodOwner, actionMethodInfo, methodParameterValue);
 				break;
 			}
 		} catch (Exception exception) {
-			String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
+			String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
 					methodParameterValue, true);
 			String message = languageProvider.getText(
 					"Failed to execute.");
@@ -101,23 +101,23 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 	}
 
 	private void createAndShowParameterForm(Object methodOwner,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			FormMode formMode) throws InstantiationException,
 			IllegalAccessException {
 		Object domainObject = methodParameterValue;
-		if (methodInfo.hasParameterFactory()) {
-			domainObject = methodInfo.createMethodParameter(methodOwner);
+		if (actionMethodInfo.hasParameterFactory()) {
+			domainObject = actionMethodInfo.createMethodParameter(methodOwner);
 		}
-		openFormView(methodOwner, methodInfo, methodParameterValue,
+		openFormView(methodOwner, actionMethodInfo, methodParameterValue,
 				domainObject, formMode);
 	}
 
 	private void createAndShowConformationDialog(Object methodOwner,
-			MethodInfo methodInfo, Object methodParameterValue) {
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		// create the dialog items/ buttons
 		List<Item> items = new ArrayList<Item>();
 		DialogMethodItem methodExecuteItem = new DialogMethodItem(userInterfaceContainer,  methodOwner,
-				methodInfo, methodParameterValue);
+				actionMethodInfo, methodParameterValue);
 		items.add(methodExecuteItem);
 		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
 		items.add(cancelItem);
@@ -126,7 +126,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 		String title = languageProvider.getText("Confirmation");
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to: "));
-		message.append(TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue,
+		message.append(TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue,
 				false));
 		message.append("?");
 
@@ -135,7 +135,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 	}
 
 	@Override
-	public void excuteMethod(Object serviceObject, MethodInfo methodInfo,
+	public void excuteMethod(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue) {
 		// TODO check if the method is enabled before the method is executed
 		// (otherwise throw exception)
@@ -143,13 +143,13 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 		// executed (if invalid: throw exception)
 
 		// show ProgressDialog
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue,
+		String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue,
 				true);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
 		// start method execution thread
 		try {
-			startMethodExecutionThread(serviceObject, methodInfo,
+			startMethodExecutionThread(serviceObject, actionMethodInfo,
 					methodParameterValue);
 		} catch (Exception exception) {
 			String message = languageProvider.getText(
@@ -160,30 +160,30 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 
 	/**
 	 * This method is called from
-	 * {@link #excuteMethod(Object, MethodInfo, Object)} <br>
+	 * {@link #excuteMethod(Object, ActionMethodInfo, Object)} <br>
 	 * This method must do 3 things<br>
 	 * - invoke Object methodReturnValue=
-	 * {@link MethodInfo#invoke(Object, Object)} in a separate thread (may be
+	 * {@link ActionMethodInfo#invoke(Object, Object)} in a separate thread (may be
 	 * time consuming). This will need to be implemented per user interface
 	 * because threading may need to be differently implemented for each user
 	 * interface framework. <br>
 	 * - catch errors during the execution of the thread and call
 	 * {@link #showErrorDialog(String, String, Throwable)} if needed<br>
 	 * - invoke
-	 * {@link GraphicalUserinterfaceController#showMethodReturnValue(Object, MethodInfo, Object, Object)}
+	 * {@link GraphicalUserinterfaceController#showMethodReturnValue(Object, ActionMethodInfo, Object, Object)}
 	 * <br>
 	 * <br>
 	 * This method can be overridden if the framework of the user interface
 	 * implementation requires a specific threading mechanism (i.e. Android)
 	 * 
 	 * @param serviceObject
-	 * @param methodInfo
+	 * @param actionMethodInfo
 	 * @param methodParameterValue
 	 * 
 	 */
 
 	public void startMethodExecutionThread(final Object serviceObject,
-			final MethodInfo methodInfo, final Object methodParameterValue) {
+			final ActionMethodInfo actionMethodInfo, final Object methodParameterValue) {
 
 		Runnable runnable = new Runnable() {
 
@@ -193,12 +193,12 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 					Object methodReturnValue = null;
 					// skip getting the method return value if it returns a
 					// collection
-					if (methodInfo.getReturnType().getTypeCategory() != TypeCategory.COLLECTION_TYPE
-							&& methodInfo.getReturnType().getTypeCategory() != TypeCategory.HIERARCHICAL_DOMAIN_TYPE) {
+					if (actionMethodInfo.getReturnType().getTypeCategory() != TypeCategory.COLLECTION_TYPE
+							&& actionMethodInfo.getReturnType().getTypeCategory() != TypeCategory.HIERARCHICAL_DOMAIN_TYPE) {
 						// not a collection so get method return value
-						Method method = methodInfo.getMethod();
+						Method method = actionMethodInfo.getMethod();
 						Object[] methodArguments = null;
-						if (TypeCategory.NONE == methodInfo.getParameterType()
+						if (TypeCategory.NONE == actionMethodInfo.getParameterType()
 								.getTypeCategory()) {
 							methodArguments = new Object[0];
 						} else {
@@ -216,10 +216,10 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 						selectedView.onViewActivate();
 					}
 					// show method result
-					showMethodReturnValue(serviceObject, methodInfo,
+					showMethodReturnValue(serviceObject, actionMethodInfo,
 									methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
-					String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
+					String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
 							methodParameterValue, true);
 					String message = languageProvider.getText(
 							"Failed to execute.");
@@ -234,29 +234,29 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 
 	@Override
 	public void showMethodReturnValue(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameterValue,
+		String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue,
 				true);
-		switch (methodInfo.getReturnType().getTypeCategory()) {
+		switch (actionMethodInfo.getReturnType().getTypeCategory()) {
 		case NONE:// void
-			StringBuffer message = new StringBuffer(methodInfo.getDisplayName());
+			StringBuffer message = new StringBuffer(actionMethodInfo.getDisplayName());
 			message.append(languageProvider.getText(
 					" was successfully executed"));
 			showInfoMessage(message.toString());
 			break;
 		case DOMAIN_TYPE:
 			Object domainObject = methodReturnValue;
-			openFormView(serviceObject, methodInfo, methodParameterValue,
+			openFormView(serviceObject, actionMethodInfo, methodParameterValue,
 					domainObject, FormMode.READ_ONLY_MODE);
 			break;
 		case COLLECTION_TYPE:
 			// TODO case tableModel:
-			openTableView(serviceObject, methodInfo, methodParameterValue,
+			openTableView(serviceObject, actionMethodInfo, methodParameterValue,
 					methodReturnValue);
 			break;
 		case HIERARCHICAL_DOMAIN_TYPE:
-			openTreeTableView(serviceObject, methodInfo, methodParameterValue,
+			openTreeTableView(serviceObject, actionMethodInfo, methodParameterValue,
 					methodReturnValue);
 			break;
 		case URI_TYPE:
@@ -273,10 +273,10 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 							.substring(positionLastDot + 1);
 					Class<?> serviceClass = Class.forName(serviceClassName);
 					Object serviceObject2 =userInterfaceContainer.get(serviceClass);
-					List<MethodInfo> methodInfos = reflectionProvider
+					List<ActionMethodInfo> actionMethodInfos = reflectionProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
 									methodName));
-					startExecution(serviceObject, methodInfos.get(0), null);
+					startExecution(serviceObject, actionMethodInfos.get(0), null);
 				} catch (Exception exception) {
 					throw new RuntimeException(
 							"Illegal Introspect URI. Format must be a standard URI like http://www.google.com or of format: Introspect:<service class package>.<service class name>.<service class method>",
@@ -301,7 +301,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 
 	}
 
-	public void openFormView(Object methodOwner, MethodInfo methodInfo,
+	public void openFormView(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		ViewContainer<T> viewContainer = getViewContainer();
 
@@ -311,7 +311,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 				FormView formView = (FormView) view;
 				// identical formView?
 				if (methodOwner == formView.getMethodOwner()
-						&& methodInfo == formView.getMethodInfo()
+						&& actionMethodInfo == formView.getMethodInfo()
 						&& methodParameterValue == formView
 								.getMethodParameter()
 						&& domainObject == formView.getDomainObject()
@@ -323,12 +323,12 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 			}
 		}
 		// formView not found so create and show a new formView
-		T formView = createFormView(methodOwner, methodInfo,
+		T formView = createFormView(methodOwner, actionMethodInfo,
 				methodParameterValue, domainObject, formMode);
 		viewContainer.addView(formView);
 	}
 
-	public void openTableView(Object methodOwner, MethodInfo methodInfo,
+	public void openTableView(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
 		ViewContainer<T> viewContainer = getViewContainer();
 
@@ -338,7 +338,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 				TableView tableView = (TableView) view;
 				// identical tableView?
 				if (methodOwner == tableView.getMethodOwner()
-						&& methodInfo == tableView.getMethodInfo()
+						&& actionMethodInfo == tableView.getMethodInfo()
 						&& methodParameterValue == tableView
 								.getMethodParameter()) {
 					// activate identical tableView
@@ -348,12 +348,12 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 			}
 		}
 		// tableView not found so create and show a new tableView
-		T tableView = createTableView(methodOwner, methodInfo,
+		T tableView = createTableView(methodOwner, actionMethodInfo,
 				methodParameterValue, methodReturnValue);
 		viewContainer.addView(tableView);
 	}
 
-	public void openTreeTableView(Object methodOwner, MethodInfo methodInfo,
+	public void openTreeTableView(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
 		ViewContainer<T> viewContainer = getViewContainer();
 
@@ -363,7 +363,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 				TableView tableView = (TableView) view;
 				// identical tableView?
 				if (methodOwner == tableView.getMethodOwner()
-						&& methodInfo == tableView.getMethodInfo()
+						&& actionMethodInfo == tableView.getMethodInfo()
 						&& methodParameterValue == tableView
 								.getMethodParameter()) {
 					// activate identical tableView
@@ -373,7 +373,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 			}
 		}
 		// tableView not found so create and show a new tableView
-		T treeTableView = createTreeTableView(methodOwner, methodInfo,
+		T treeTableView = createTreeTableView(methodOwner, actionMethodInfo,
 				methodParameterValue, methodReturnValue);
 		viewContainer.addView(treeTableView);
 	}
@@ -381,24 +381,24 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 	// TODO view factory?
 	/**
 	 * NOTE that the FormOkItem linked to the OK button of the FormView will
-	 * need to call {@link #excuteMethod(Object, MethodInfo, Object)};
+	 * need to call {@link #excuteMethod(Object, ActionMethodInfo, Object)};
 	 * 
 	 * @param serviceObject
-	 * @param methodInfo
+	 * @param actionMethodInfo
 	 * @param methodParameterValue
 	 * @param domainObject
 	 * @return
 	 */
 	public abstract T createFormView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode);
 
 	public abstract T createTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue);
 
 	public abstract T createTreeTableView(Object serviceObject,
-			MethodInfo methodInfo, Object methodParameterValue,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue);
 
 	// TODO public abstract T createMenuView();

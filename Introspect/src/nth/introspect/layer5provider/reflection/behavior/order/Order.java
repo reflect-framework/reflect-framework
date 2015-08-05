@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import nth.introspect.layer3domain.DomainObjectProperty;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 /**
  * <p>
  * The order in which the class members ({@link DomainObjectProperty} and
