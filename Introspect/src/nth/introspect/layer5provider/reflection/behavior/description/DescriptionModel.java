@@ -58,13 +58,13 @@ public class DescriptionModel extends TextModel {
 	@Override
 	public String getDefaultTextFromAnnotation(Class<?> objectType) {
 		Description annotation = objectType.getAnnotation(Description.class);
-		return (annotation == null) ? null : annotation.englishName();
+		return (annotation == null) ? null : annotation.englishDescription();
 	}
 
 	@Override
 	public String getDefaultTextFromAnnotation(Method method) {
 		Description annotation = method.getAnnotation(Description.class);
-		return (annotation == null) ? null : annotation.englishName();
+		return (annotation == null) ? null : annotation.englishDescription();
 	}
 
 

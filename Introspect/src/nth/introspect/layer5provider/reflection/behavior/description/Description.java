@@ -25,7 +25,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 public @interface Description {
-	public String englishName();
+	public String englishDescription();
 }
