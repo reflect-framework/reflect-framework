@@ -3,8 +3,8 @@ package nth.introspect.generic.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.container.InstanceFactory;
 import nth.introspect.container.DependencyInjectionContainer;
+import nth.introspect.container.InstanceFactory;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 

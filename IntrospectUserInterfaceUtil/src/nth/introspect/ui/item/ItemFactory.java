@@ -3,15 +3,11 @@ package nth.introspect.ui.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import sun.awt.geom.AreaOp.IntOp;
-import nth.introspect.Introspect;
-import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.generic.filter.EqualsFilter;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.LogicFilter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
@@ -22,7 +18,6 @@ import nth.introspect.layer5provider.reflection.info.method.filter.NoParameterOr
 import nth.introspect.layer5provider.reflection.info.method.filter.ParameterTypeFilter;
 import nth.introspect.layer5provider.reflection.info.method.filter.ReturnTypeFilter;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodItem;
 import nth.introspect.ui.item.method.PropertyMethodOwnerItem;

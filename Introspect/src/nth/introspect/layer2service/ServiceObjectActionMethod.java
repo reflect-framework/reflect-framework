@@ -1,11 +1,8 @@
 package nth.introspect.layer2service;
 
 import nth.introspect.documentation.Documentation;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectMenu;
 import nth.introspect.layer3domain.DomainObjectPropertyMenu;
-import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**

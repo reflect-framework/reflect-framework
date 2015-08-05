@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import nth.introspect.layer3domain.DomainObjectProperty;
-import nth.introspect.layer5provider.reflection.behavior.format.Format;
 /**
  * <p>
  * Some property types such as {@link Date}, time, {@link Number} can be

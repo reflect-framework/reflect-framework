@@ -2,13 +2,8 @@ package nth.introspect.layer5provider.reflection.behavior;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.Documentation;
-import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
  * The {@link IntrospectApplication}, {@link ServiceObject}s and
@@ -41,7 +36,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * 
  * <h2>Description</h2>
  * <p>
- * {@insert DescriptionModelFactory}
+ * {@insert DescriptionModel}
  * </p>
  * 
  * <h2>Icon</h2>

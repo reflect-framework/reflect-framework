@@ -1,6 +1,5 @@
 package nth.introspect.layer5provider.reflection.behavior.title;
 
-import nth.introspect.generic.titlebuilder.TitleBuilder;
 import nth.introspect.layer3domain.DomainObject;
 
 /**

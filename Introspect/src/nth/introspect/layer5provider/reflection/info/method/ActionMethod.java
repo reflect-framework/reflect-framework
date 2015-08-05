@@ -5,7 +5,6 @@ import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.layer3domain.DomainObjectActionMethod;
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;

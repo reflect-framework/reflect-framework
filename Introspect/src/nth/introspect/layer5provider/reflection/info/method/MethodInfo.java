@@ -8,6 +8,7 @@ import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.MethodIconID;
+import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
@@ -18,7 +19,6 @@ import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.AnnotationValueModelFactory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TextValue;
 
 /**
  * Provides information on a bean method.<br>
@@ -31,7 +31,6 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TextValue;
 public class MethodInfo implements NameInfo {
 
 	private ValueModels valueModels;
-	public final static String DESCRIPTION = "description";
 	public final static String VISIBLE = "visible";
 	public final static String ENABLED = "enabled";
 	public final static String ICON = "icon";
@@ -52,6 +51,7 @@ public class MethodInfo implements NameInfo {
 	private final PathProvider pathProvider; 
 	private final double order;
 	private final DisplayNameModel displayNameModel;
+	private final DescriptionModel descriptionModel;
 
 	
 	
@@ -66,6 +66,7 @@ public class MethodInfo implements NameInfo {
 		this.simpleName = method.getName();
 		this.canonicalName = getCanonicalName(method);
 		this.displayNameModel=new DisplayNameModel(languageProvider,method, simpleName, canonicalName, linkedPropertyName);
+		this.descriptionModel=new DescriptionModel(languageProvider,method, simpleName, canonicalName, linkedPropertyName);
 		this.returnType = new MethodReturnType(method);
 		this.parameterType = new MethodParameterType(method);
 		this.order=OrderFactory.create(method);
@@ -74,7 +75,6 @@ public class MethodInfo implements NameInfo {
 		String regExpToRemoveFromDefaultValue = linkedPropertyName == null ? null : "^" + linkedPropertyName;
 
 		// create default value getters
-		valueModels.put(DESCRIPTION, new TextValue(this,languageProvider, DESCRIPTION, regExpToRemoveFromDefaultValue));
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, NAME));
 		// valueModels.put(ICON, new IconValue(this));
 		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider, method)));
@@ -122,16 +122,12 @@ public class MethodInfo implements NameInfo {
 	}
 
 	public String getDisplayName() {
-		return displayNameModel.getDisplayName();
+		return displayNameModel.getText();
 	}
 
 	public String getDescription() {
-		return valueModels.getStringValue(DESCRIPTION);
+		return descriptionModel.getText();
 	}
-
-	// public String getIcon(Object serviceObject) {
-	// return valueModels.getStringValue(ICON, serviceObject);
-	// }
 
 	public CharSequence getIconID(Object obj) {
 		Object value = valueModels.getValue(ICON, obj);

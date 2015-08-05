@@ -13,9 +13,9 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfoFactory;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.MethodInfoFactory;
+import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactory;
-import nth.introspect.layer5provider.reflection.info.property.OrderComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class DefaultReflectionProvider implements ReflectionProvider {

@@ -6,7 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**

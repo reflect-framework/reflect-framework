@@ -3,7 +3,6 @@ package nth.introspect.layer5provider.reflection.behavior.disabled;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectActionMethod;
 import nth.introspect.layer3domain.DomainObjectProperty;
-import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
 import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**

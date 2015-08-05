@@ -1,11 +1,11 @@
 package nth.introspect.layer5provider.reflection.behavior.validation;
 
-import nth.introspect.layer5provider.validation.ValidationProvider;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
+import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
  * <p>

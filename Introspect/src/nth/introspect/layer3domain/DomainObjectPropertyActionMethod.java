@@ -1,10 +1,6 @@
 package nth.introspect.layer3domain;
 
-import javax.swing.text.html.FormView;
-
 import nth.introspect.documentation.Documentation;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**

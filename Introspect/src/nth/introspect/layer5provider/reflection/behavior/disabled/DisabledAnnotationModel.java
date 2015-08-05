@@ -1,6 +1,5 @@
 package nth.introspect.layer5provider.reflection.behavior.disabled;
 
-import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
 
 
 /**

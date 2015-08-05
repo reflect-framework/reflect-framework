@@ -2,15 +2,8 @@ package nth.introspect.layer5provider.authorization;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.container.ConstructionInjection;
-import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.layer2service.ServiceContainer;
-import nth.introspect.layer2service.ServiceObject;
-import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.layer3domain.DomainObjectProperty;
-import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
 import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
-import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 
 /**
  * <p>

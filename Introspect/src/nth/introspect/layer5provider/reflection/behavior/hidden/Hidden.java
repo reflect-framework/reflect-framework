@@ -41,7 +41,7 @@ import nth.introspect.layer5provider.reflection.info.method.ActionMethod;
 public @interface Hidden {
 	public HiddenFor hiddenFor();
 
-	public String exceptForUsers();
+	public String exceptForUsers() default "";
 
-	public String exceptForRoles();
+	public String exceptForRoles() default "";
 }

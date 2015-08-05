@@ -2,9 +2,6 @@ package nth.introspect.ui.item.about;
 
 import java.util.List;
 
-import sun.launcher.resources.launcher;
-import nth.introspect.Introspect;
-import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.about.AboutProvider;

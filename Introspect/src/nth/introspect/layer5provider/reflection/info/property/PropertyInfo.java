@@ -12,7 +12,7 @@ import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModelFactory;
+import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
@@ -24,7 +24,6 @@ import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.AnnotationValueModelFactory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TextValue;
 
 /**
  * Provides information on a bean property.<br>
@@ -41,8 +40,6 @@ public class PropertyInfo implements NameInfo {
 	private static final String SET_PREFIX = "set";
 
 	private ValueModels valueModels;
-	public final static String DESCRIPTION = "description";
-	public final static String ACCESS_KEY = "accessKey";
 	public final static String VISIBLE_IN_TABLE = "visibleInTable";
 	public final static String VISIBLE_IN_FORM = "visibleInForm";
 	public final static String ENABLED = "enabled";
@@ -58,11 +55,13 @@ public class PropertyInfo implements NameInfo {
 	private final Method getterMethod;
 	private final Method setterMethod;
 	private final DisplayNameModel displayNameModel;
+	private final DescriptionModel descriptionModel;
 	private final PropertyType propertyType;
 	private final double order;
 	private final FieldModeType fieldMode;
 	private final String formatPattern;
-	private Format format;
+	private final Format format;
+
 
 	
 
@@ -73,6 +72,7 @@ public class PropertyInfo implements NameInfo {
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(getterMethod, simpleName);
 		this.displayNameModel=new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
+		this.descriptionModel=new DescriptionModel(languageProvider, getterMethod, simpleName, canonicalName);
 		this.propertyType = new PropertyType(getterMethod);
 		this.getterMethod = getterMethod;
 		this.setterMethod = getSetterMethod(getterMethod, simpleName,
@@ -85,8 +85,6 @@ public class PropertyInfo implements NameInfo {
 		valueModels = new ValueModels();
 
 		// create default value getters
-		valueModels.put(DESCRIPTION, new TextValue(this,languageProvider, DESCRIPTION));
-		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, TEXT));
 
 		valueModels.put(VISIBLE_IN_FORM, new SimpleValue(true));
 		valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(true));
@@ -215,11 +213,11 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public String getDisplayName() {
-		return displayNameModel.getDisplayName();
+		return displayNameModel.getText();
 	}
 
 	public String getDescription() {
-		return valueModels.getStringValue(DESCRIPTION);
+		return descriptionModel.getText();
 	}
 
 	public double getOrder() {
@@ -236,10 +234,6 @@ public class PropertyInfo implements NameInfo {
 
 	public Boolean isEnabled(Object domainObject) {
 		return valueModels.getBooleanValue(ENABLED, domainObject);
-	}
-
-	public String getFormatPattern() {
-		return formatPattern;
 	}
 
 	public FieldModeType getFieldMode() {
@@ -282,9 +276,6 @@ public class PropertyInfo implements NameInfo {
 	// TODO getValueAsText(domainObject), while using formatPattern or enum
 	// converter
 
-	public ValueModels getValueModels() {
-		return valueModels;
-	}
 
 	@Override
 	public String toString() {
@@ -335,6 +326,10 @@ public class PropertyInfo implements NameInfo {
 		return setterMethod == null;
 	}
 
+	public String getFormatPattern() {
+		return formatPattern;
+	}
+	
 	public Format getFormat() {
 		return format;
 	}

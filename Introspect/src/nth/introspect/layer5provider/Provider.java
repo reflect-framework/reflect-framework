@@ -3,7 +3,6 @@ package nth.introspect.layer5provider;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.container.ConstructionInjection;
 import nth.introspect.container.DependencyInjectionContainer;
-import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;

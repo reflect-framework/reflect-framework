@@ -8,7 +8,6 @@ import java.util.Date;
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer3domain.DomainObjectProperty;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 /**
  * <p>

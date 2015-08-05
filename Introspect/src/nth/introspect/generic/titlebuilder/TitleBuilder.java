@@ -2,7 +2,6 @@ package nth.introspect.generic.titlebuilder;
 
 import java.util.ArrayList;
 
-import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer3domain.DomainObject;
 
 /**

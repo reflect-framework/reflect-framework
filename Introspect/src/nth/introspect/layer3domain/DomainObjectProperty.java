@@ -1,7 +1,6 @@
 package nth.introspect.layer3domain;
 
 import nth.introspect.documentation.Documentation;
-import nth.introspect.generic.titlebuilder.TitleBuilder;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;

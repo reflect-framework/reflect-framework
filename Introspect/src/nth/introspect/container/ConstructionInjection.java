@@ -4,8 +4,6 @@ import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.layer2service.ServiceObject;
-import nth.introspect.layer5provider.Provider;
 
 /**
  * <p>
