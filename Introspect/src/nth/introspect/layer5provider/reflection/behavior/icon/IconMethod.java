@@ -2,6 +2,7 @@ package nth.introspect.layer5provider.reflection.behavior.icon;
 
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 
 /**
  * <p>Instead of the {@link Icon} annotation you can also define the icon with a
@@ -29,6 +30,16 @@ import nth.introspect.layer3domain.DomainObject;
  * @author nilsth
  *
  */
-public class IconMethodModel {
+public class IconMethod extends BehavioralMethod {
+
+	@Override
+	public String getMethodNameSuffix() {
+		return "Icon";
+	}
+
+	@Override
+	public Class<?> getReturnType() {
+		return String.class;
+	}
 	// TODO
 }

@@ -3,16 +3,19 @@ package nth.introspect.layer5provider.reflection.info.actionmethod;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.List;
 
 import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.MethodIconID;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
@@ -22,7 +25,8 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
 
 /**
  * Provides information on a bean method.<br>
- * This class is inspired by the MethodDiscriptor class, which is not use because it is not implemented by Android
+ * This class is inspired by the MethodDiscriptor class, which is not use
+ * because it is not implemented by Android
  * 
  * @author nilsth
  * 
@@ -38,53 +42,66 @@ public class ActionMethodInfo implements NameInfo {
 	public final static String PARAMETER_MODIFIER = "parameterModifier";
 	public final static String EXECUTION_MODE = "executionMode";
 	public final static String ACCESS_KEY = "accessKey";
-	public final String[] ANNOTATION_NAMES = new String[] {ICON, VISIBLE, ENABLED, RETURN_CLASS, EXECUTION_MODE};
-	public final static String[] METHOD_NAMES = new String[] {PARAMETER_FACTORY, ICON, VISIBLE, ENABLED};
+	public final String[] ANNOTATION_NAMES = new String[] { ICON, VISIBLE,
+			ENABLED, RETURN_CLASS, EXECUTION_MODE };
+	public final static String[] METHOD_NAMES = new String[] {
+			PARAMETER_FACTORY, ICON, VISIBLE, ENABLED };
 	public static final String RETURN_CLASS = "returnClass";
 
 	private final String simpleName;
 	private final String canonicalName;
 	private final Method method;
 	private final String linkedPropertyName;
-	private MethodParameterType parameterType; 
+	private MethodParameterType parameterType;
 	private final MethodReturnType returnType;
-	private final PathProvider pathProvider; 
+	private final PathProvider pathProvider;
 	private final double order;
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
 
-	
-	
-	public ActionMethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method) {
+	public ActionMethodInfo(PathProvider pathProvider,
+			LanguageProvider languageProvider, Method method) {
 		this(pathProvider, languageProvider, method, null);
 	}
 
-	public ActionMethodInfo(PathProvider pathProvider, LanguageProvider languageProvider, Method method, String linkedPropertyName) {
+	public ActionMethodInfo(PathProvider pathProvider,
+			LanguageProvider languageProvider, Method method,
+			String linkedPropertyName) {
 		this.pathProvider = pathProvider;
 		this.method = method;
 		this.linkedPropertyName = linkedPropertyName;
 		this.simpleName = method.getName();
 		this.canonicalName = getCanonicalName(method);
-		this.displayNameModel=new DisplayNameModel(languageProvider,method, simpleName, canonicalName, linkedPropertyName);
-		this.descriptionModel=new DescriptionModel(languageProvider,method, simpleName, canonicalName, linkedPropertyName);
+		this.displayNameModel = new DisplayNameModel(languageProvider, method,
+				simpleName, canonicalName, linkedPropertyName);
+		this.descriptionModel = new DescriptionModel(languageProvider, method,
+				simpleName, canonicalName, linkedPropertyName);
 		this.returnType = new MethodReturnType(method);
 		this.parameterType = new MethodParameterType(method);
-		this.order=OrderFactory.create(method);
+		this.order = OrderFactory.create(method);
 		this.valueModels = new ValueModels();
 
-		String regExpToRemoveFromDefaultValue = linkedPropertyName == null ? null : "^" + linkedPropertyName;
+		String regExpToRemoveFromDefaultValue = linkedPropertyName == null ? null
+				: "^" + linkedPropertyName;
 
 		// create default value getters
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, NAME));
 		// valueModels.put(ICON, new IconValue(this));
-		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider, method)));
+		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider,
+				method)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
 		valueModels.put(ENABLED, new SimpleValue(true));
-		valueModels.put(EXECUTION_MODE, new SimpleValue(ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL));
+		valueModels
+				.put(EXECUTION_MODE,
+						new SimpleValue(
+								ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL));
 
 		// create value getters from annotations
-		// TODO add a value getter for domainclass from EJB annotations (when available) because Introspect cannot determine the generic type of a collection
-		valueModels.putAll(AnnotationValueModelFactory.create(this, ANNOTATION_NAMES));
+		// TODO add a value getter for domainclass from EJB annotations (when
+		// available) because Introspect cannot determine the generic type of a
+		// collection
+		valueModels.putAll(AnnotationValueModelFactory.create(this,
+				ANNOTATION_NAMES));
 
 		// //create method value getters
 		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
@@ -92,10 +109,11 @@ public class ActionMethodInfo implements NameInfo {
 		// create xml value getters
 		// TODO valueModels.putAll(XmlValueModelFactory.create( this));
 
-		
 		// overwrite form mode when necessary
-		if (TypeCategory.NONE== getParameterType().getTypeCategory() && getExecutionMode() != ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION) {
-			valueModels.put(EXECUTION_MODE, new SimpleValue(ExecutionModeType.EXECUTE_METHOD_DIRECTLY));
+		if (TypeCategory.NONE == getParameterType().getTypeCategory()
+				&& getExecutionMode() != ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION) {
+			valueModels.put(EXECUTION_MODE, new SimpleValue(
+					ExecutionModeType.EXECUTE_METHOD_DIRECTLY));
 		}
 
 	}
@@ -158,9 +176,9 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	public void setFormMode(ExecutionModeType formMode) {
-		valueModels.put(EXECUTION_MODE,new SimpleValue(formMode));
+		valueModels.put(EXECUTION_MODE, new SimpleValue(formMode));
 	}
-	
+
 	public MethodParameterType getParameterType() {
 		return parameterType;
 	}
@@ -169,12 +187,12 @@ public class ActionMethodInfo implements NameInfo {
 		return returnType;
 	}
 
-
 	public boolean hasParameterFactory() {
 		return valueModels.containsKey(PARAMETER_FACTORY);
 	}
 
-	public Object createMethodParameter(Object obj) throws InstantiationException, IllegalAccessException {
+	public Object createMethodParameter(Object obj)
+			throws InstantiationException, IllegalAccessException {
 		switch (getParameterType().getTypeCategory()) {
 		case NONE:
 			return null;
@@ -195,14 +213,16 @@ public class ActionMethodInfo implements NameInfo {
 		return null;
 	}
 
-	public Object invoke(Object methodOwner, Object methodParameter) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	public Object invoke(Object methodOwner, Object methodParameter)
+			throws IllegalArgumentException, IllegalAccessException,
+			InvocationTargetException {
 		Object[] arguments = null;
 		switch (getParameterType().getTypeCategory()) {
 		case NONE:
 			arguments = null;
 			break;
 		case DOMAIN_TYPE:
-			arguments = new Object[] {methodParameter};
+			arguments = new Object[] { methodParameter };
 			break;
 		default:
 			break;
@@ -219,6 +239,24 @@ public class ActionMethodInfo implements NameInfo {
 		return canonicalName;
 	}
 
-	
+	public static boolean isActionMethod(Method method, List<PropertyInfo> propertyInfos) {
+		return !isMethodOfObjectClass(method)
+				&& !isGetterOrSetterMethod(method, propertyInfos)
+				&& !BehavioralMethods.isBehavioralMethod(method);
+	}
+
+	private static boolean isGetterOrSetterMethod(Method method,
+			List<PropertyInfo> propertyInfos) {
+		for (PropertyInfo propertyInfo:propertyInfos) {
+			if (method.equals(propertyInfo.getGetterMethod()) || method.equals(propertyInfo.getSetterMethod())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean isMethodOfObjectClass(Method method) {
+		return Object.class==method.getDeclaringClass();
+	}
 
 }

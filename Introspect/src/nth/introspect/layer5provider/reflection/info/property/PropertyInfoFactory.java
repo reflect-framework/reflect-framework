@@ -27,14 +27,7 @@ public class PropertyInfoFactory {
 		List<Method> getterMethods = new ArrayList<Method>();
 		Method[] methods = objectClass.getMethods();
 		for (Method method : methods) {
-			String methodName = method.getName();
-			boolean isGetClass = "getClass".equals(methodName);
-			boolean hasReturnValue = method.getReturnType()!=Void.class;
-			boolean hasNoParameters = method.getParameterTypes().length==0;
-			boolean isEnumGetDeclairingClass=objectClass.isEnum() && "getDeclaringClass".equals(methodName);
-			boolean startsWithIs = methodName.startsWith(PropertyInfo.IS_PREFIX);
-			boolean startsWithGet = methodName.startsWith(PropertyInfo.GET_PREFIX);
-			if (!isGetClass && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass &&( startsWithIs || startsWithGet)) {
+			if (PropertyInfo.isGetterMethod(method)) {
 				getterMethods.add(method);
 			}
 		}

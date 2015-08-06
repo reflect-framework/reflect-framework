@@ -30,13 +30,13 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>Hidden Annotation</h3>
  * <p>
- * {@insert HiddenMethodModel}
+ * {@insert HiddenMethod}
  * </p>
  * 
  * 
  * @author nilsth
  *
  */
-public class HiddenModelFactory {
+public class HiddenModel {
 	// TODO
 }

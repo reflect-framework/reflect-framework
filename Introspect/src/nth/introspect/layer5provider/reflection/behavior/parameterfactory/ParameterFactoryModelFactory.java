@@ -30,7 +30,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>ParameterFactory Method</h3>
  * <p>
- * {@insert ParameterFactoryMethodModel}
+ * {@insert ParameterFactoryMethod}
  * </p>
  * 
  * @author nilsth

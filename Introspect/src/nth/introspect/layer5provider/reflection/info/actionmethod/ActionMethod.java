@@ -6,6 +6,7 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
@@ -42,7 +43,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Gene
  * (see below)</li>
  * <li>The method is not a getter method or a setter method (see
  * {@link DomainObjectProperty})</li>
- * <LI>The method is not a BehaviorMethod_TODO-LINK</li>
+ * <LI>The method is not a {@link BehavioralMethod}</li>
  * <li>The method is public (not private)</li>
  * <li>The method is NOT static</li>
  * </ul>

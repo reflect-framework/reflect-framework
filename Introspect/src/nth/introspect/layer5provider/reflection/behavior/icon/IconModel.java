@@ -22,7 +22,7 @@ import nth.introspect.layer3domain.DomainObject;
  * 
  * <h3>Icon Method</h3>
  * <p>
- * {@insert IconMethodModel}
+ * {@insert IconMethod}
  * </p>
  * 
  * 
@@ -30,6 +30,6 @@ import nth.introspect.layer3domain.DomainObject;
  * @author nilsth
  *
  */
-public class IconModelFactory {
+public class IconModel {
 	// TODO
 }

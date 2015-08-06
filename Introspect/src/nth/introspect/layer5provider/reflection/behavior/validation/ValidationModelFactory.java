@@ -28,28 +28,10 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * </p>
  * <h3>Validation methods</h3>
  * <p>
- * Properties and DomainObjects can also be validated with validation methods
- * located in the domain class so that you can do more complicated validation
- * using code.
+ * {@insert ValidationMethod}
  * </p>
- * <p>
- * ValidationMethods conventions:
- * <ul>
- * <li>Syntax: validate&lt;{@link DomainObjectProperty}Name or
- * businessRuleName&gt;. E.g. for a {@link DomainObjectProperty}:
- * validateStartDate() or for business rule: validateCustommerAlreadyExists()</li>
- * <li>Method may not have a method parameter</li>
- * <li>Method must return a ValidationResult</li>
- * <li>Method must be public</li>
- * <li>Method may not be static</li>
- * <li>May not change the state of the {@link DomainObject}</li>
- * </ul>
- * </p>
- * <p>
  * The following sections will explain the specific ValidationMethods that can
- * be used.
- * </p>
- * <h3>Types of validations</h3>
+ * be used. </p> <h3>Types of validations</h3>
  * <p>
  * There are different types of validation
  * <li>Is the property mandatory?</li>

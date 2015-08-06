@@ -41,9 +41,9 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * {@insert Disabled}
  * </p>
  * 
- * <h3>Disabled Annotation</h3>
+ * <h3>Disabled Method</h3>
  * <p>
- * {@insert DisabledMethodModel}
+ * {@insert DisabledMethod}
  * </p>
  * 
  
@@ -51,6 +51,6 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * @author nilsth
  *
  */
-public class DisabledModelFactory {
+public class DisabledModel {
 
 }

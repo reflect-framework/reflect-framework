@@ -342,4 +342,16 @@ public class PropertyInfo implements NameInfo {
 			return getFormat().format(value);
 		}
 	}
+
+	public static boolean isGetterMethod(Method method) {
+		String methodName=method.getName();
+		boolean isGetClassMethod = "getClass".equals(methodName);
+		boolean hasReturnValue = method.getReturnType()!=Void.class;
+		boolean hasNoParameters = method.getParameterTypes().length==0;
+		boolean isEnumGetDeclairingClass=method.getDeclaringClass().isAssignableFrom(Enum.class) && "getDeclaringClass".equals(methodName);
+		boolean startsWithIs = methodName.startsWith(PropertyInfo.IS_PREFIX);
+		boolean startsWithGet = methodName.startsWith(PropertyInfo.GET_PREFIX);
+		boolean isGetterMethod=!isGetClassMethod && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass &&( startsWithIs || startsWithGet);
+		return isGetterMethod;
+	}
 }

@@ -41,17 +41,17 @@ import nth.introspect.layer3domain.DomainObject;
  * 
  * <h2>Icon</h2>
  * <p>
- * {@insert IconModelFactory}
+ * {@insert IconModel}
  * </p>
  * 
  * <h2>Hidden</h2>
  * <p>
- * {@insert HiddenModelFactory}
+ * {@insert HiddenModel}
  * </p>
  * 
  * <h2>Disabled</h2>
  * <p>
- * {@insert DisabledModelFactory}
+ * {@insert DisabledModel}
  * </p>
  * 
  * <h2>Order</h2>

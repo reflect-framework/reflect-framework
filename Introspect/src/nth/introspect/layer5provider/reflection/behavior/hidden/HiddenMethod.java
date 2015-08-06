@@ -3,6 +3,7 @@ package nth.introspect.layer5provider.reflection.behavior.hidden;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectActionMethod;
 import nth.introspect.layer3domain.DomainObjectProperty;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
@@ -24,6 +25,16 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * @author nilsth
  *
  */
-public class HiddenMethodModel {
+public class HiddenMethod extends BehavioralMethod {
+
+	@Override
+	public String getMethodNameSuffix() {
+		return "Hidden";
+	}
+
+	@Override
+	public Class<?> getReturnType() {
+		return boolean.class;
+	}
 	// TODO
 }
