@@ -9,10 +9,10 @@ import nth.introspect.layer5provider.path.id.ClassIconID;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
+import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TitleValue;
 
 /**
  * Provides information on a bean.<br>
@@ -24,9 +24,8 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.TitleValue;
 public class ClassInfo implements NameInfo {
 
 	public final static String VISIBLE = "visible";
-	public static final String TITLE = "title";
 	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE};
-	public final static String[] METHOD_NAMES = new String[] {VISIBLE, TITLE};
+	public final static String[] METHOD_NAMES = new String[] {VISIBLE};
 	private static final String ICON = "icon";
 	private ValueModels valueModels;
 	private final String simpleName;
@@ -35,6 +34,7 @@ public class ClassInfo implements NameInfo {
 	private final Class<?> objectClass;
 	private final PathProvider pathProvider;
 	private final DisplayNameModel displayNameModel;
+	private final TitleModel titleModel;
 	
 
 	public ClassInfo(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> objectClass)  {
@@ -44,12 +44,12 @@ public class ClassInfo implements NameInfo {
 		this.objectClass = objectClass;
 		this.displayNameModel=new DisplayNameModel(languageProvider,objectClass, simpleName, canonicalName);
 		this.descriptionModel=new DescriptionModel(languageProvider,objectClass, simpleName, canonicalName);
+		this.titleModel=new TitleModel(reflectionProvider);
 		valueModels = new ValueModels();
 
 		// create default value getters
 		valueModels.put(ICON, new SimpleValue(new ClassIconID(pathProvider, objectClass)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
-		valueModels.put(TITLE, new TitleValue(reflectionProvider, languageProvider));
 
 		// create value getters from annotations
 		// TODO when needed valueModels.putAll(AnnotationValueModelFactory.create(this, ANNOTATION_NAMES));
@@ -96,12 +96,8 @@ public class ClassInfo implements NameInfo {
 		return valueModels.getBooleanValue(VISIBLE, domainObject);
 	}
 
-	public String getTitle(Object domainObject) {
-		if (domainObject == null) {
-			return "";
-		} else {
-			return valueModels.getStringValue(TITLE, domainObject);
-		}
+	public String getTitle(Object obj) {
+		return titleModel.getTitle(obj);
 	}
 
 	@Override

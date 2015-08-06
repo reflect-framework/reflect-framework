@@ -31,7 +31,7 @@ import nth.introspect.layer3domain.DomainObject;
  * 
  * <h2>Title</h2>
  * <p>
- * {@insert TitleModelFactory}
+ * {@insert TitleModel}
  * </p>
  * 
  * <h2>Description</h2>

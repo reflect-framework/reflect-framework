@@ -18,6 +18,7 @@ import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeFact
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
+import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.PropertyType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
