@@ -6,11 +6,15 @@ import java.net.URI;
 import java.util.List;
 
 import nth.introspect.generic.valuemodel.ValueModels;
+import nth.introspect.layer5provider.ProviderContainer;
+import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.MethodIconID;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
+import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModel;
+import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
@@ -36,16 +40,15 @@ public class ActionMethodInfo implements NameInfo {
 
 	private ValueModels valueModels;
 	public final static String VISIBLE = "visible";
-	public final static String ENABLED = "enabled";
 	public final static String ICON = "icon";
 	public final static String PARAMETER_FACTORY = "parameterFactory";
 	public final static String PARAMETER_MODIFIER = "parameterModifier";
 	public final static String EXECUTION_MODE = "executionMode";
 	public final static String ACCESS_KEY = "accessKey";
 	public final String[] ANNOTATION_NAMES = new String[] { ICON, VISIBLE,
-			ENABLED, RETURN_CLASS, EXECUTION_MODE };
+			RETURN_CLASS, EXECUTION_MODE };
 	public final static String[] METHOD_NAMES = new String[] {
-			PARAMETER_FACTORY, ICON, VISIBLE, ENABLED };
+			PARAMETER_FACTORY, ICON, VISIBLE };
 	public static final String RETURN_CLASS = "returnClass";
 
 	private final String simpleName;
@@ -54,20 +57,24 @@ public class ActionMethodInfo implements NameInfo {
 	private final String linkedPropertyName;
 	private MethodParameterType parameterType;
 	private final MethodReturnType returnType;
-	private final PathProvider pathProvider;
+	private final PathProvider pathProvider;// get rid of this field (put in
+											// IconModel)
 	private final double order;
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
+	private final DisabledModel disabledModel;
 
-	public ActionMethodInfo(PathProvider pathProvider,
-			LanguageProvider languageProvider, Method method) {
-		this(pathProvider, languageProvider, method, null);
+	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
+		this(providerContainer, method, null);
 	}
 
-	public ActionMethodInfo(PathProvider pathProvider,
-			LanguageProvider languageProvider, Method method,
+	public ActionMethodInfo(ProviderContainer providerContainer, Method method,
 			String linkedPropertyName) {
-		this.pathProvider = pathProvider;
+		LanguageProvider languageProvider = providerContainer
+				.get(LanguageProvider.class);
+		AuthorizationProvider authorizationProvider = providerContainer
+				.get(AuthorizationProvider.class);
+		this.pathProvider = providerContainer.get(PathProvider.class);
 		this.method = method;
 		this.linkedPropertyName = linkedPropertyName;
 		this.simpleName = method.getName();
@@ -79,10 +86,9 @@ public class ActionMethodInfo implements NameInfo {
 		this.returnType = new MethodReturnType(method);
 		this.parameterType = new MethodParameterType(method);
 		this.order = OrderFactory.create(method);
+		this.disabledModel = DisabledModelFactory.create(authorizationProvider,
+				method);
 		this.valueModels = new ValueModels();
-
-		String regExpToRemoveFromDefaultValue = linkedPropertyName == null ? null
-				: "^" + linkedPropertyName;
 
 		// create default value getters
 		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, NAME));
@@ -90,7 +96,6 @@ public class ActionMethodInfo implements NameInfo {
 		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider,
 				method)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
-		valueModels.put(ENABLED, new SimpleValue(true));
 		valueModels
 				.put(EXECUTION_MODE,
 						new SimpleValue(
@@ -167,8 +172,8 @@ public class ActionMethodInfo implements NameInfo {
 		return valueModels.getBooleanValue(VISIBLE, serviceObject);
 	}
 
-	public Boolean isEnabled(Object serviceObject) {
-		return valueModels.getBooleanValue(ENABLED, serviceObject);
+	public Boolean isEnabled(Object obj) {
+		return !disabledModel.isDisabled(obj);
 	}
 
 	public ExecutionModeType getExecutionMode() {
@@ -239,7 +244,8 @@ public class ActionMethodInfo implements NameInfo {
 		return canonicalName;
 	}
 
-	public static boolean isActionMethod(Method method, List<PropertyInfo> propertyInfos) {
+	public static boolean isActionMethod(Method method,
+			List<PropertyInfo> propertyInfos) {
 		return !isMethodOfObjectClass(method)
 				&& !isGetterOrSetterMethod(method, propertyInfos)
 				&& !BehavioralMethods.isBehavioralMethod(method);
@@ -247,8 +253,9 @@ public class ActionMethodInfo implements NameInfo {
 
 	private static boolean isGetterOrSetterMethod(Method method,
 			List<PropertyInfo> propertyInfos) {
-		for (PropertyInfo propertyInfo:propertyInfos) {
-			if (method.equals(propertyInfo.getGetterMethod()) || method.equals(propertyInfo.getSetterMethod())) {
+		for (PropertyInfo propertyInfo : propertyInfos) {
+			if (method.equals(propertyInfo.getGetterMethod())
+					|| method.equals(propertyInfo.getSetterMethod())) {
 				return true;
 			}
 		}
@@ -256,7 +263,7 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	private static boolean isMethodOfObjectClass(Method method) {
-		return Object.class==method.getDeclaringClass();
+		return Object.class == method.getDeclaringClass();
 	}
 
 }

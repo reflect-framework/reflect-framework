@@ -103,7 +103,7 @@ public class DisabledModelFactory {
 		String behavioralMethodName = method.getName().concat(
 				new DisabledMethodModel(null).getBehavioralName());
 		Class<?> methodOwner = method.getDeclaringClass();
-		Class<?> parameterTypes = null;
+		Class<?>[] parameterTypes = new Class<?>[0];
 		try {
 			Method disabledMethod = methodOwner.getMethod(behavioralMethodName,
 					parameterTypes);

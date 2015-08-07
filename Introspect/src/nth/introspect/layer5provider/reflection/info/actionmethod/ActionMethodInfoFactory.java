@@ -19,9 +19,6 @@ public class ActionMethodInfoFactory {
 		ArrayList<ActionMethodInfo> actionMethodInfos = new ArrayList<ActionMethodInfo>();
 		ReflectionProvider reflectionProvider = providerContainer
 				.get(ReflectionProvider.class);
-		PathProvider pathProvider = providerContainer.get(PathProvider.class);
-		LanguageProvider languageProvider = providerContainer
-				.get(LanguageProvider.class);
 		List<PropertyInfo> propertyInfos = reflectionProvider
 				.getPropertyInfos(objectType);
 		Method[] methods = objectType.getMethods();
@@ -32,7 +29,7 @@ public class ActionMethodInfoFactory {
 										// ClassInfo's and PropertyInfo's!!!
 
 				ActionMethodInfo actionMethodInfo = new ActionMethodInfo(
-						pathProvider, languageProvider, method,
+						providerContainer, method,
 						linkedPropertyName);
 				actionMethodInfos.add(actionMethodInfo);
 			}
