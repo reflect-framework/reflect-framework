@@ -16,7 +16,7 @@ public class FormOkItem extends MethodItem {
 
 	public FormOkItem( final FormView formView, final Object methodOwner, final ActionMethodInfo actionMethodInfo, final BufferedDomainValueModel domainValueModel) {
 		super (formView.getuserInterfaceContainer(), methodOwner, actionMethodInfo, domainValueModel);
-		final UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().getUserInterfaceController();
+		final UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().get(UserInterfaceController.class);
 		setHotKey(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.CTRL_MASK));
 		setAction(new Action() {
 			@Override

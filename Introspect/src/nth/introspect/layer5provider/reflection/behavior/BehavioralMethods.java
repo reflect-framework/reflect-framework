@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import nth.introspect.generic.util.StringUtil;
-import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledMethod;
+import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledMethodModel;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenMethod;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconMethod;
 import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryMethod;
@@ -19,7 +19,7 @@ public class BehavioralMethods {
 	public static List<BehavioralMethod> getAll(){
 		List<BehavioralMethod> behavioralMethods=new ArrayList<>();
 		behavioralMethods.add(new HiddenMethod());
-		behavioralMethods.add(new DisabledMethod());
+		behavioralMethods.add(new DisabledMethodModel(null));
 		behavioralMethods.add(new IconMethod());
 		behavioralMethods.add(new ParameterFactoryMethod());
 		behavioralMethods.add(new ValidationMethod());

@@ -21,6 +21,8 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
+import com.sun.corba.se.spi.copyobject.ReflectiveCopyException;
+
 import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
@@ -53,17 +55,13 @@ public class MainWindow extends JFrame {
 	private final ReflectionProvider reflectionProvider;
 	private final AboutProvider aboutProvider;
 
-	public MainWindow(IntrospectApplication application,
-			UserInterfaceContainer userInterfaceContainer,
-			UserInterfaceController<?> userInterfaceController,
-			ReflectionProvider reflectionProvider, PathProvider pathProvider,
-			AboutProvider aboutProvider) {
+	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.userInterfaceController = userInterfaceController;
-		this.reflectionProvider = reflectionProvider;
-		this.pathProvider = pathProvider;
-		this.aboutProvider = aboutProvider;
-		this.languageProvider = userInterfaceContainer.getLanguageProvider();
+		this.userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class);
+		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		this.pathProvider = userInterfaceContainer.get(PathProvider.class);;
+		this.aboutProvider = userInterfaceContainer.get(AboutProvider.class);;
+		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		// Set style
 		try {
 			UIManager
@@ -72,6 +70,7 @@ public class MainWindow extends JFrame {
 		}
 		setDefaultLookAndFeelDecorated(true);
 
+		IntrospectApplication application=userInterfaceContainer.get(IntrospectApplication.class);
 		// Set window parameters
 		ClassInfo applicationInfo = reflectionProvider.getClassInfo(application
 				.getClass());

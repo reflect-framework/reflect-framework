@@ -7,6 +7,8 @@ import java.util.List;
 
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.FilterUtil;
+import nth.introspect.layer5provider.ProviderContainer;
+import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -22,12 +24,11 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	private final HashMap<Class<?>, ClassInfo> classInfos;
 	private final HashMap<Class<?>, List<PropertyInfo>> propertyInfosPerClass;
 	private final HashMap<Class<?>, List<ActionMethodInfo>> methodInfosPerClass;
-	private final LanguageProvider languageProvider;
-	private final PathProvider pathProvider;
+	private final ProviderContainer providerContainer;
 
-	public DefaultReflectionProvider(PathProvider pathProvider, LanguageProvider languageProvider) {
-		this.pathProvider = pathProvider;
-		this.languageProvider = languageProvider;
+	public DefaultReflectionProvider(ProviderContainer providerContainer) {
+		this.providerContainer = providerContainer;
+		
 		classInfos = new HashMap<Class<?>, ClassInfo>();
 		propertyInfosPerClass = new HashMap<Class<?>, List<PropertyInfo>>();
 		methodInfosPerClass = new HashMap<Class<?>, List<ActionMethodInfo>>();
@@ -37,7 +38,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	public ClassInfo getClassInfo(Class<?> objectClass) {
 		if (!classInfos.containsKey(objectClass)) {
 			classInfos.put(objectClass,
-					ClassInfoFactory.create(this, pathProvider, languageProvider, objectClass));
+					ClassInfoFactory.create(providerContainer, objectClass));
 		}
 		return classInfos.get(objectClass);
 	}
@@ -50,7 +51,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	public List<ActionMethodInfo> getMethodInfos(Class<?> objectClass) {
 		if (!methodInfosPerClass.containsKey(objectClass)) {
 			methodInfosPerClass.put(objectClass,
-					ActionMethodInfoFactory.create(this, pathProvider, languageProvider, objectClass));
+					ActionMethodInfoFactory.create(providerContainer, objectClass));
 		}
 		return methodInfosPerClass.get(objectClass);
 	}
@@ -101,7 +102,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 	public List<PropertyInfo> getPropertyInfos(Class<?> objectClass) {
 		if (!propertyInfosPerClass.containsKey(objectClass)) {
 			propertyInfosPerClass.put(objectClass,
-					PropertyInfoFactory.create(this, languageProvider, objectClass));
+					PropertyInfoFactory.create(providerContainer, objectClass));
 		}
 		return propertyInfosPerClass.get(objectClass);
 	}

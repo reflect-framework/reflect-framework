@@ -52,7 +52,7 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Vie
 	@Override
 	public void insertTab(String title, Icon icon, Component component, String description, int index) {
 		super.insertTab(title, icon, component, description, index);
-		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		setTabComponentAt(index, new TabHeader(this,  pathProvider, languageProvider, component, title, description, icon));
 		setSelectedIndex(index);
 	}

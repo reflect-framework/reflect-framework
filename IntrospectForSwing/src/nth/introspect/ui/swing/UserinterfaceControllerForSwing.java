@@ -7,33 +7,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.DependencyInjectionContainer;
-import nth.introspect.generic.util.ExceptionUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.about.AboutProvider;
-import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
-import nth.introspect.ui.item.about.AboutItem;
-import nth.introspect.ui.item.dialog.DialogCloseItem;
-import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.ui.swing.dialog.toast.Toast;
 import nth.introspect.ui.swing.dialog.toast.Toast.Style;
 import nth.introspect.ui.swing.mainwindow.MainWindow;
@@ -46,20 +34,14 @@ public class UserinterfaceControllerForSwing extends
 		GraphicalUserinterfaceController<SwingView> {
 
 	private MainWindow mainWindow;
-	private IntrospectApplication application;
-	private PathProvider pathProvider;
-	private AboutProvider aboutProvider;
 
 	public UserinterfaceControllerForSwing(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-		this.application = application;
-		this.pathProvider = userInterfaceContainer.getPathProvider();
-		this.aboutProvider = userInterfaceContainer.getAboutProvider();
 	}
 
 	@Override
 	public void start() {
-		mainWindow = new MainWindow(application, userInterfaceContainer, this, reflectionProvider, pathProvider, aboutProvider);
+		mainWindow = new MainWindow(userInterfaceContainer);
 	}
 	
 	@Override
@@ -123,7 +105,7 @@ public class UserinterfaceControllerForSwing extends
 	public SwingView createFormView(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(getUserInterfaceContainer(), pathProvider, serviceObject, actionMethodInfo, methodParameterValue,
+		return new FormView(getUserInterfaceContainer(), serviceObject, actionMethodInfo, methodParameterValue,
 				domainObject, formMode);
 	}
 

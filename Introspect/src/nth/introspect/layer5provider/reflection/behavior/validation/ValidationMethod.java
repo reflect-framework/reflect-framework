@@ -31,7 +31,7 @@ import nth.introspect.layer5provider.validation.ValidationResult;
 public class ValidationMethod extends BehavioralMethod {
 
 	@Override
-	public String getMethodNameSuffix() {
+	public String getBehavioralName() {
 		return "Validation";
 	}
 

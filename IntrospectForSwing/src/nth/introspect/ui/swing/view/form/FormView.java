@@ -16,6 +16,7 @@ import nth.introspect.Introspect;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
@@ -47,10 +48,10 @@ public class FormView extends SwingView implements
 	private final ReflectionProvider reflectionProvider;
 	private final PathProvider pathProvider;
 
-	public FormView(UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider, Object methodOwner, ActionMethodInfo actionMethodInfo,
+	public FormView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.pathProvider = pathProvider;
+		this.pathProvider = userInterfaceContainer.get(PathProvider.class);
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -58,7 +59,7 @@ public class FormView extends SwingView implements
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
-		reflectionProvider=userInterfaceContainer.getReflectionProvider();
+		reflectionProvider=userInterfaceContainer.get(ReflectionProvider.class);
 		List<PropertyInfo> propertyInfos = reflectionProvider
 				.getPropertyInfos(domainObject.getClass());
 
@@ -116,21 +117,22 @@ public class FormView extends SwingView implements
 	}
 
 	public JButton createCloseButton() {
-		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceController().getViewContainer();
-		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		UserInterfaceController userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class); 
+		ViewContainer viewContainer = userInterfaceController.getViewContainer();
+		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		CloseThisTabItem closeItem = new CloseThisTabItem(pathProvider, languageProvider, viewContainer, this);
 		return new ItemButton(closeItem);
 	}
 
 	public JButton createCancelButton() {
-		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceController().getViewContainer();
-		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		UserInterfaceController userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class); 
+		ViewContainer viewContainer = userInterfaceController.getViewContainer();
+		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		CancelItem cancelItem = new CancelItem(pathProvider, languageProvider, viewContainer, this);
 		return new ItemButton(cancelItem);
 	}
 
 	public JButton createOkButton() {
-		ViewContainer viewContainer = userInterfaceContainer.getUserInterfaceController().getViewContainer();
 		FormOkItem okItem = new FormOkItem( this, methodOwner, actionMethodInfo,
 				domainValueModel);
 		return new ItemButton(okItem);

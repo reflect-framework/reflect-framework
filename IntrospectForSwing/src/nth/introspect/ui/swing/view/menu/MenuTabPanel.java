@@ -28,8 +28,8 @@ public class MenuTabPanel extends SwingViewContainer {
 	 */
 	@Override
 	public void removeTabAt(int index) {
-		UserinterfaceControllerForSwing swingUserinterfaceController = (UserinterfaceControllerForSwing) userInterfaceContainer
-				.getUserInterfaceController();
+		UserinterfaceControllerForSwing swingUserinterfaceController = userInterfaceContainer
+				.get(UserinterfaceControllerForSwing.class);
 		MainWindow mainWindow = swingUserinterfaceController.getMainWindow();
 		mainWindow.hideMenu();
 	}

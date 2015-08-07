@@ -33,7 +33,7 @@ import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 public class IconMethod extends BehavioralMethod {
 
 	@Override
-	public String getMethodNameSuffix() {
+	public String getBehavioralName() {
 		return "Icon";
 	}
 

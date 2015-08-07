@@ -10,24 +10,13 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.UndoableEditListener;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
-import javax.swing.text.DocumentFilter.FilterBypass;
-import javax.swing.text.Element;
-import javax.swing.text.PlainDocument;
-import javax.swing.text.Position;
-import javax.swing.text.Segment;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.layer1userinterface.item.Item;
@@ -178,8 +167,8 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	@Override
 	public void refresh() {
 		// set text
-		UserInterfaceContainer outerContainer = formView.getuserInterfaceContainer();
-		ReflectionProvider reflectionProvider = outerContainer.getReflectionProvider();
+		UserInterfaceContainer userInterfaceContainer = formView.getuserInterfaceContainer();
+		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		ClassInfo classInfo = reflectionProvider.getClassInfo(propertyValueModel
 				.getValueType());
 		Object propertyValue = propertyValueModel.getValue();

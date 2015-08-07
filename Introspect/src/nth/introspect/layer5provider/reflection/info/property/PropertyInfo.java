@@ -10,9 +10,13 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ValueModels;
+import nth.introspect.layer5provider.ProviderContainer;
+import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
+import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModel;
+import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
@@ -35,7 +39,6 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
  * 
  */
 public class PropertyInfo implements NameInfo {
-	// extends PropertyDescriptor {
 	static final String IS_PREFIX = "is";
 	static final String GET_PREFIX = "get";
 	private static final String SET_PREFIX = "set";
@@ -43,12 +46,11 @@ public class PropertyInfo implements NameInfo {
 	private ValueModels valueModels;
 	public final static String VISIBLE_IN_TABLE = "visibleInTable";
 	public final static String VISIBLE_IN_FORM = "visibleInForm";
-	public final static String ENABLED = "enabled";
 	public final static String VALIDATION = "validation";
 	public static final String VALUES = "values";
-	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, 	ENABLED, RETURN_CLASS };
+	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, 	RETURN_CLASS };
 	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
-			ENABLED, VALIDATION, VALUES };
+			 VALIDATION, VALUES };
 	public static final String RETURN_CLASS = "returnClass";
 
 	private final String simpleName;
@@ -62,14 +64,19 @@ public class PropertyInfo implements NameInfo {
 	private final FieldModeType fieldMode;
 	private final String formatPattern;
 	private final Format format;
+	private final DisabledModel disabledModel;
 
 
 	
 
-	public PropertyInfo(ReflectionProvider reflectionProvider, LanguageProvider languageProvider,  Method getterMethod) {
+	public PropertyInfo(ProviderContainer providerContainer, Method getterMethod) {
 		checkGetterMethodReturnType(getterMethod);
 		checkGetterMethodHasNoParameter(getterMethod);
-
+		
+		ReflectionProvider reflectionProvider=providerContainer.get(ReflectionProvider.class);
+		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
+		AuthorizationProvider authorizationProvider=providerContainer.get(AuthorizationProvider.class);
+		
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(getterMethod, simpleName);
 		this.displayNameModel=new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
@@ -83,13 +90,13 @@ public class PropertyInfo implements NameInfo {
 		this.format = formatFactory.getFormat();
 		this.formatPattern=formatFactory.getFormatPattern();
 		this.fieldMode=FieldModeFactory.create(getterMethod, formatPattern);
+		this.disabledModel=DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		valueModels = new ValueModels();
 
 		// create default value getters
 
 		valueModels.put(VISIBLE_IN_FORM, new SimpleValue(true));
 		valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(true));
-		valueModels.put(ENABLED, new SimpleValue(true));
 
 		// create value getters from annotations
 		valueModels.putAll(AnnotationValueModelFactory.create(this,
@@ -104,14 +111,6 @@ public class PropertyInfo implements NameInfo {
 			valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(false));
 		}
 
-		// override ENABLED (if there is no write method, the property is read
-		// only and the property must be disabled)
-		if (setterMethod == null) {
-			// there is no write method, so disable property (read only)
-			valueModels.put(ENABLED, new SimpleValue(false));
-		}
-
-		
 		
 //	TODO!!!	if (valueModels.containsKey(VALUES)) {
 //			valueModels
@@ -233,8 +232,8 @@ public class PropertyInfo implements NameInfo {
 		return valueModels.getBooleanValue(VISIBLE_IN_TABLE);
 	}
 
-	public Boolean isEnabled(Object domainObject) {
-		return valueModels.getBooleanValue(ENABLED, domainObject);
+	public boolean isEnabled(Object domainObject) {
+		return !disabledModel.isDisabled(domainObject);
 	}
 
 	public FieldModeType getFieldMode() {

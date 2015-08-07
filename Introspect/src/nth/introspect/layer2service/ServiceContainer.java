@@ -1,5 +1,6 @@
 package nth.introspect.layer2service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.IntrospectApplication;
@@ -24,6 +25,17 @@ public class ServiceContainer extends DependencyInjectionContainer {
 			throw new MissingServiceClassException(application);
 		}
 		add(serviceClasses);
+	}
+	
+	public List<Object> getServiceObjects() {
+		IntrospectApplication application = get(IntrospectApplication.class);
+		List<Class<?>> serviceClasses = application.getServiceClasses();
+		List<Object> serviceObjects = new ArrayList<Object>();
+		for (Class<?> serviceClass : serviceClasses) {
+			Object serviceObject = get(serviceClass);
+			serviceObjects.add(serviceObject);
+		}
+		return serviceObjects;
 	}
 
 }

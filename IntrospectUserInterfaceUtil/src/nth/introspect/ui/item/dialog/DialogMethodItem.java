@@ -6,6 +6,7 @@ import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 public class DialogMethodItem extends Item {
@@ -21,11 +22,11 @@ public class DialogMethodItem extends Item {
 	 * @param actionMethodInfo
 	 */
 	public DialogMethodItem(UserInterfaceContainer userInterfaceContainer , final Object methodOwner, final ActionMethodInfo actionMethodInfo, final Object methodParameterValue) {
-		super(userInterfaceContainer.getLanguageProvider());
+		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
-final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.getUserInterfaceController();
+final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.get(UserInterfaceController.class);
 		setAction(new Action() {
 			@Override
 			public void run() {

@@ -16,11 +16,11 @@ public class DialogShowStackTraceItem extends Item {
 
 
 	public DialogShowStackTraceItem( UserInterfaceContainer userInterfaceContainer, String title, String message, Throwable throwable) {
-		super(userInterfaceContainer.getLanguageProvider());
+		super(userInterfaceContainer.get(LanguageProvider.class));
 		setText("Show stack trace");
 		setDescription("Show more details on error");
-		UserInterfaceController<?> userInterfaceController = userInterfaceContainer.getUserInterfaceController();
-		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		UserInterfaceController<?> userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class);
+		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		Action action=createAction(userInterfaceController,languageProvider, title,message,throwable);
 		setAction(action);
 	}

@@ -67,9 +67,9 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 
 	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer=userInterfaceContainer;
-		this.reflectionProvider=userInterfaceContainer.getReflectionProvider();
-		this.languageProvider=userInterfaceContainer.getLanguageProvider();
-		NotificationProvider notificationProvider = userInterfaceContainer.getNotificationProvider();
+		this.reflectionProvider=userInterfaceContainer.get(ReflectionProvider.class);
+		this.languageProvider=userInterfaceContainer.get(LanguageProvider.class);
+		NotificationProvider notificationProvider = userInterfaceContainer.get(NotificationProvider.class);
 		notificationProvider.addListener(this);
 	}
 	

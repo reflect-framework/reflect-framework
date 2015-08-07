@@ -1,8 +1,11 @@
 package nth.introspect.layer5provider.reflection.behavior.disabled;
 
+import java.lang.reflect.Method;
+
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectActionMethod;
 import nth.introspect.layer3domain.DomainObjectProperty;
+import nth.introspect.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
@@ -25,10 +28,17 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * @author nilsth
  *
  */
-public class DisabledMethod extends BehavioralMethod {
+public class DisabledMethodModel extends BehavioralMethod implements DisabledModel {
+
+	private Method disabledMethod;
+
+	public DisabledMethodModel(Method disabledMethod)  {
+		this.disabledMethod = disabledMethod;
+	}
+	
 
 	@Override
-	public String getMethodNameSuffix() {
+	public String getBehavioralName() {
 		return "Disabled";
 	}
 
@@ -36,5 +46,18 @@ public class DisabledMethod extends BehavioralMethod {
 	public Class<?> getReturnType() {
 		return boolean.class;
 	}
+
+	@Override
+	public boolean isDisabled(Object obj) {
+		Object[] arguments = new Object[0];
+		try {
+			return (boolean) disabledMethod.invoke(obj, arguments);
+		} catch (Exception e) {
+			throw new BehaviorMethodInvokeException(disabledMethod);
+		}
+	}
+
+	
+
 
 }

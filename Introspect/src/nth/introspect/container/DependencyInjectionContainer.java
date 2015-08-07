@@ -30,8 +30,8 @@ import nth.introspect.layer5provider.ProviderLayer;
  * <p>
  * The {@link IntrospectFramework} is a dependency injection framework and
  * consists of several <a
- * href="http://en.wikipedia.org/wiki/Dependency_injection">dependency
- * injection containters</a>.
+ * href="http://en.wikipedia.org/wiki/Dependency_injection">dependency injection
+ * containers</a>.
  * </p>
  * <p>
  * Please read <a href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin
@@ -43,7 +43,8 @@ import nth.introspect.layer5provider.ProviderLayer;
  * Each {@link DependencyInjectionContainer} is responsible for:
  * <ul>
  * <li>Creating new instances of types that are registered to a
- * {@link DependencyInjectionContainer} with the {@link IntrospectApplication}.get...Class() or .get...Classes() methods</li>
+ * {@link DependencyInjectionContainer} with the {@link IntrospectApplication}
+ * .get...Class() or .get...Classes() methods</li>
  * <li>Linking dependencies (references to other objects) to these new instances
  * (using constructor injection)</li>
  * <li>Caching these new instances, if we only need one instance (like a
@@ -52,8 +53,8 @@ import nth.introspect.layer5provider.ProviderLayer;
  * </p>
  * <p>
  * The {@link IntrospectArchitecture} consists of several layers. Each layer has
- * its own {@link DependencyInjectionContainer} that is for managing the objects in the
- * same layer:
+ * its own {@link DependencyInjectionContainer} that is for managing the objects
+ * in the same layer:
  * <ul>
  * <li>{@link UserInterfaceLayer}: {@link UserInterfaceController} object is
  * managed by a {@link UserInterfaceContainer}. The
@@ -72,8 +73,7 @@ import nth.introspect.layer5provider.ProviderLayer;
  * </ul>
  * </p>
  * 
- * <h3>Constructor Injection</h3>
- * {@insert ConstructionInjection}
+ * <h3>Constructor Injection</h3> {@insert ConstructionInjection}
  * 
  * @author nilsth
  */
@@ -86,7 +86,8 @@ public abstract class DependencyInjectionContainer {
 		this(null);
 	}
 
-	public DependencyInjectionContainer(DependencyInjectionContainer innerContainer) {
+	public DependencyInjectionContainer(
+			DependencyInjectionContainer innerContainer) {
 		this.innerContainer = innerContainer;
 		this.typesAndInstances = new HashMap<Class<?>, Object>();
 	}
@@ -116,34 +117,38 @@ public abstract class DependencyInjectionContainer {
 		}
 	}
 
-	public Object get(Class<?> type) throws IntrospectContainerException {
+	public <T extends Object> T get(Class<T> type)
+			throws IntrospectContainerException {
 		List<Class<?>> classesWaitingToBeInstantiated = new ArrayList<Class<?>>();
 		return get(type, classesWaitingToBeInstantiated);
 	}
 
-	public Object get(Class<?> type,
+	@SuppressWarnings("unchecked")
+	public <T extends Object> T get(Class<T> type,
 			List<Class<?>> classesWaitingToBeInstantiated)
 			throws IntrospectContainerException {
 
 		if (DependencyInjectionContainer.class.isAssignableFrom(type)) {
-			// Reflect containers can be hierarchical.
-			// That is why we here return the outer container, instead of
-			// getting the value from innerContainers.
-			return this;
+			Class<? extends DependencyInjectionContainer> dependencyInjectionType = (Class<? extends DependencyInjectionContainer>) type;
+			return (T) getDependencyContainer(dependencyInjectionType);
 		} else if (innerContainer != null) {
 			// Try to get the object from one of the inner containers.
 			Object object = innerContainer.get(type,
 					classesWaitingToBeInstantiated);
 			if (object != null) {
-				return object;
+				return (T) object;
 			}
 		}
 
-		// is the requested type supported by this container?
+		return getObjectFromThisContainer(type, classesWaitingToBeInstantiated);
+	}
+
+	private <T> T getObjectFromThisContainer(Class<T> type,
+			List<Class<?>> classesWaitingToBeInstantiated) {
 		Class<?> foundType = NearestParentFinder.findParent(
 				typesAndInstances.keySet(), type);
 		if (foundType == null) {
-			return null;
+			return null; // TODO throw exception?
 		} else {
 			Object storedObject = typesAndInstances.get(foundType);
 			if (storedObject == null) {
@@ -156,12 +161,26 @@ public abstract class DependencyInjectionContainer {
 				classesWaitingToBeInstantiated.remove(foundType);
 				// TODO IntrospectLog.debug(name + " created: " +
 				// type.getCanonicalName());
-				return newObject;
+				return (T) newObject;
 			} else {
 				// TODO IntrospectLog.debug(name + " from cache: "+
 				// type.getCanonicalName());
-				return storedObject;
+				return (T) storedObject;
 			}
+		}
+	}
+
+	private DependencyInjectionContainer getDependencyContainer(
+			Class<? extends DependencyInjectionContainer> type) {
+		if (this.getClass() == type) {
+			return this;
+		} else if (innerContainer == null) {
+			return null;// TODO throw exception???
+		} else if (innerContainer.getClass() == type) {
+			return innerContainer;
+		} else {
+			// dig deeper
+			return innerContainer.getDependencyContainer(type);
 		}
 
 	}

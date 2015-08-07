@@ -12,6 +12,7 @@ import java.util.Map;
 import nth.introspect.Introspect;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -34,10 +35,11 @@ public class CommandService {
 		return null;
 	}
 
-	public static List<Command> getCommands(UserInterfaceContainer outerContainer)
+	public static List<Command> getCommands(UserInterfaceContainer userInterfaceContainer)
 			throws IntrospectCommandLineException {
-		ReflectionProvider reflectionProvider = outerContainer.getReflectionProvider();
-		List<Object> serviceObjects = outerContainer.getServiceObjects();
+		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
+		List<Object> serviceObjects = serviceContainer.getServiceObjects();
 
 		if (serviceObjects.size() == 0) {
 			throw new IntrospectCommandLineException("No service objects.");

@@ -8,9 +8,11 @@ import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.LogicFilter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
+import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.filter.LinkedToPropertyFilter;
@@ -30,7 +32,8 @@ public class ItemFactory {
 	public static List<MethodOwnerItem> createMenuViewItems(UserInterfaceContainer userInterfaceContainer) {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
-		List<Object> serviceObjects = userInterfaceContainer.getServiceObjects();
+		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
+		List<Object> serviceObjects = serviceContainer.getServiceObjects();
 
 		for (Object serviceObject : serviceObjects) {
 			MethodOwnerItem item = new MethodOwnerItem(userInterfaceContainer, serviceObject,
@@ -52,7 +55,7 @@ public class ItemFactory {
 		Object serviceObject = formView.getMethodOwner();
 
 		// add property methods
-		ReflectionProvider reflectionProvider = formView.getuserInterfaceContainer().getReflectionProvider();
+		ReflectionProvider reflectionProvider = formView.getuserInterfaceContainer().get(ReflectionProvider.class);
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
@@ -70,7 +73,7 @@ public class ItemFactory {
 			items.add(item);
 		}
 
-		ViewContainer viewContainer = formView.getuserInterfaceContainer().getUserInterfaceController().getViewContainer();
+		ViewContainer viewContainer = formView.getuserInterfaceContainer().get(UserInterfaceController.class).getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, propertyInfo));
 
 		// service object methods
@@ -109,7 +112,7 @@ public class ItemFactory {
 		// items.add(item)
 		// }
 
-		ViewContainer viewContainer = tableView.getuserInterfaceContainer().getUserInterfaceController().getViewContainer();
+		ViewContainer viewContainer = tableView.getuserInterfaceContainer().get(UserInterfaceController.class).getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
 
 		// create filter for service object items
@@ -136,7 +139,8 @@ public class ItemFactory {
 		items.add(item);
 
 		// create MethodOwnerItem for other service objects
-		List<Object> serviceObjects = userInterfaceContainer.getServiceObjects();
+		ServiceContainer serviceContainer =userInterfaceContainer.get(ServiceContainer.class);
+		List<Object> serviceObjects = serviceContainer.getServiceObjects();
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 

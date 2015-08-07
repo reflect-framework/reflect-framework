@@ -2,6 +2,13 @@ package nth.introspect.layer5provider;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.container.DependencyInjectionContainer;
+import nth.introspect.layer5provider.about.AboutProvider;
+import nth.introspect.layer5provider.authorization.AuthorizationProvider;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 /**
  * This {@link DependencyInjectionContainer} represents the {@link ProviderLayer}
@@ -16,7 +23,6 @@ public class ProviderContainer extends DependencyInjectionContainer {
 		add(application);
 		
 		// add provider classes
-		//TODO throw new ProviderNotDefined(application, providerType); application.get...providerclass returns null
 		add(application.getPathProviderClass());
 		add(application.getLanguageProviderClass());
 		add(application.getValidationProviderClass());
@@ -25,5 +31,7 @@ public class ProviderContainer extends DependencyInjectionContainer {
 		add(application.getReflectionProviderClass());
 		add(application.getVersionProviderClass());
 	}
+
+	
 
 }

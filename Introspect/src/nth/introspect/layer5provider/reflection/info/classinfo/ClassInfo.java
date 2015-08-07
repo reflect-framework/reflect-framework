@@ -3,6 +3,7 @@ package nth.introspect.layer5provider.reflection.info.classinfo;
 import java.net.URI;
 
 import nth.introspect.generic.valuemodel.ValueModels;
+import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.ClassIconID;
@@ -32,13 +33,15 @@ public class ClassInfo implements NameInfo {
 	private final String canonicalName;
 	private final DescriptionModel descriptionModel;
 	private final Class<?> objectClass;
-	private final PathProvider pathProvider;
+	private final PathProvider pathProvider;//TODO remove this field when implemented the IconModel
 	private final DisplayNameModel displayNameModel;
 	private final TitleModel titleModel;
 	
 
-	public ClassInfo(ReflectionProvider reflectionProvider, PathProvider pathProvider, LanguageProvider languageProvider, Class<?> objectClass)  {
-		this.pathProvider = pathProvider;
+	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass)  {
+		LanguageProvider languageProvider=providerContainer.get(LanguageProvider.class);
+		ReflectionProvider reflectionProvider=providerContainer.get(ReflectionProvider.class);
+		this.pathProvider = providerContainer.get(PathProvider.class);
 		this.simpleName = objectClass.getSimpleName();
 		this.canonicalName = objectClass.getCanonicalName();
 		this.objectClass = objectClass;

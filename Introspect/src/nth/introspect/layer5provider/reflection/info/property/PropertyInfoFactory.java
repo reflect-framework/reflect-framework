@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 
 public class PropertyInfoFactory {
 
-	public static List<PropertyInfo> create(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, Class<?> objectClass) {
+	public static List<PropertyInfo> create(ProviderContainer providerContainer, Class<?> objectClass) {
 		ArrayList<PropertyInfo> propertyInfos = new ArrayList<PropertyInfo>();
 		List<Method> getterMethods = getGetterMethods(objectClass);
 		for (Method method : getterMethods) {
-			PropertyInfo propertyInfo = new PropertyInfo(reflectionProvider, languageProvider, method);
+			PropertyInfo propertyInfo = new PropertyInfo(providerContainer, method);
 			propertyInfos.add(propertyInfo);
 		}
 

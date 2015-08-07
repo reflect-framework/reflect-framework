@@ -3,9 +3,9 @@ package nth.introspect.ui.item.method;
 import java.net.URI;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.filter.LogicFilter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
+import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.method.filter.LinkedToPropertyFilter;
@@ -25,7 +25,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	public PropertyMethodOwnerItem(FormView formView,
 			ReadOnlyValueModel parameterValueModel,
 			PropertyInfo propertyToExclude) {
-		super(formView.getuserInterfaceContainer().getLanguageProvider());
+		super(formView.getuserInterfaceContainer().get(LanguageProvider.class));
 		this.formView = formView;
 		pupulateChildren(formView, parameterValueModel, propertyToExclude);
 	}
@@ -37,7 +37,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().getReflectionProvider();
+		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().get(ReflectionProvider.class);
 		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(domainClass);
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 

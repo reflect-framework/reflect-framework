@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URI;
@@ -17,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
@@ -57,8 +55,8 @@ public class TableView extends SwingView implements
 
 		setLayout(new BorderLayout());
 
-		reflectionProvider= userInterfaceContainer.getReflectionProvider();
-		LanguageProvider languageProvider=userInterfaceContainer.getLanguageProvider();
+		reflectionProvider= userInterfaceContainer.get(ReflectionProvider.class);
+		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		tableModel = new MethodTableModel(reflectionProvider, languageProvider, getAllRowsModel());
 		table = createTable(tableModel);
 		JScrollPane tableContainer = new JScrollPane(table);
@@ -246,7 +244,7 @@ public class TableView extends SwingView implements
 						return actionMethodInfo.invoke(methodOwner,
 								methodParameterValue);
 					} catch (Exception e) {
-						UserInterfaceController<?> userInterfaceController = getuserInterfaceContainer().getUserInterfaceController();
+						UserInterfaceController<?> userInterfaceController = getuserInterfaceContainer().get(UserInterfaceController.class);
 						userInterfaceController.showErrorDialog(getViewTitle(),
 								"Error getting table values.", e);
 						return null;

@@ -2,11 +2,11 @@ package nth.introspect.ui.item.method;
 
 import java.net.URI;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
@@ -25,12 +25,12 @@ public class MethodItem extends Item {
 	public MethodItem(final UserInterfaceContainer userInterfaceContainer,
 			final Object methodOwner, final ActionMethodInfo actionMethodInfo,
 			final ReadOnlyValueModel methodParameterValueModel) {
-		super(userInterfaceContainer.getLanguageProvider());
+		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValueModel = methodParameterValueModel;
 		final UserInterfaceController<?> userInterfaceController = userInterfaceContainer
-				.getUserInterfaceController();
+				.get(UserInterfaceController.class);
 		setAction(new Action() {
 			@Override
 			public void run() {

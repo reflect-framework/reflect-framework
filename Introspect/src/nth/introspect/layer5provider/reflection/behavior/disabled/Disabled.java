@@ -16,18 +16,12 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * {@link ActionMethod}.
  * </p>
  * <p>
- * Syntax: @Disabled(exceptForUsers, exceptForRoles)
+ * Syntax: @Disabled(exceptForRoles)
  * </p>
  * <p>
- * Parameters:
- * <ul>
- * <li>ExceptForUsers: optional comma separated string of users names that are
- * allowed to edit the {@link DomainObjectProperty} or invoke
- * {@link ActionMethod}</li>
- * <li>exceptForRoles: optional comma separated string of user roles that are
- * allowed to edit the {@link DomainObjectProperty} or invoke
- * {@link ActionMethod}</li>
- * </ul>
+ * Parameter: {@link #exceptForRoleNames()}: optional comma separated string of
+ * user roles that are allowed to edit the {@link DomainObjectProperty} or
+ * invoke a {@link ActionMethod}
  * </p>
  * TODO EXAMPLE
  * 
@@ -37,7 +31,6 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Disabled {
-	public String exceptForUsers();
 
-	public String exceptForRoles();
+	public String exceptForRoleNames();
 }

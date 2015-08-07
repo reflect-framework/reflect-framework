@@ -37,7 +37,7 @@ public class FieldFactory {
 		case DATE_TIME:
 			return new DateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
 		case COMBO_BOX:
-			LanguageProvider languageProvider=formView.getuserInterfaceContainer().getLanguageProvider();
+			LanguageProvider languageProvider=formView.getuserInterfaceContainer().get(LanguageProvider.class);
 			return new ComboBox(propertyValueModel, reflectionProvider, pathProvider, languageProvider);
 		case ONE_TO_ONE_OR_MANY:
 			return new OneToOneOrManyField(formView, pathProvider, propertyValueModel);

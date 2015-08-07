@@ -54,8 +54,9 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 
 		setLayout(new BorderLayout());
 
-		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().getReflectionProvider();
-		LanguageProvider languageProvider=formView.getuserInterfaceContainer().getLanguageProvider();
+		UserInterfaceContainer userInterfaceContainer= formView.getuserInterfaceContainer();
+		ReflectionProvider reflectionProvider=userInterfaceContainer. get(ReflectionProvider.class);
+		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		tableModel = new MethodTableModel(reflectionProvider, languageProvider, propertyValueModel);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();

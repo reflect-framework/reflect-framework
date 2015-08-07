@@ -2,12 +2,12 @@ package nth.introspect.ui.item.method;
 
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
@@ -19,16 +19,16 @@ public class MethodOwnerItem extends HierarchicalItem {
 	private final Object methodOwner;
 
 	public MethodOwnerItem( UserInterfaceContainer userInterfaceContainer, Object methodOwner, Filter<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
-		super(userInterfaceContainer.getLanguageProvider());
+		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
-		ReflectionProvider reflectionProvider = userInterfaceContainer.getReflectionProvider();
+		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		methodOwnerInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
 		
 		setText(methodOwnerInfo.getDisplayName());
 		setDescription(methodOwnerInfo.getDescription());
 		List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(methodOwner.getClass(), methodFilter);
 
-		UserInterfaceController<?> userInterfaceController=userInterfaceContainer.getUserInterfaceController();
+		UserInterfaceController<?> userInterfaceController=userInterfaceContainer.get(UserInterfaceController.class);
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner, actionMethodInfo, methodParameterValueModel);
 			addItem(methodItem);

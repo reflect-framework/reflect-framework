@@ -34,7 +34,7 @@ public class MenuView extends SwingView {
 		itemAccordion=new ItemAccordion(menuItems);
 		add(itemAccordion,BorderLayout.CENTER);
 		menuIconUri = pathProvider.getImagePath(IntrospectImage.MENU_OPENED);
-		languageProvider = userInterfaceContainer.getLanguageProvider();
+		languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		searchBox = createSearchBox(itemAccordion, menuItems, languageProvider);
 		add(searchBox, BorderLayout.NORTH);
 	}

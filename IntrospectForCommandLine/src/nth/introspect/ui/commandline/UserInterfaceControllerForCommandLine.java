@@ -23,8 +23,10 @@ import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
+import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
@@ -43,16 +45,12 @@ public class UserInterfaceControllerForCommandLine extends
 		GraphicalUserinterfaceController<CommandLineView> {
 
 	private CommandLineViewContainer viewContainer;
-	private final IntrospectApplication application;
-	private final LanguageProvider languageProvider;
-	private final PathProvider pathProvider;
+	private final ProviderContainer providerContainer;
 
 	public UserInterfaceControllerForCommandLine(
 			UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-		this.application = userInterfaceContainer.getApplication();
-		this.languageProvider = userInterfaceContainer.getLanguageProvider();
-		this.pathProvider = userInterfaceContainer.getPathProvider();
+		this.providerContainer = userInterfaceContainer.get(ProviderContainer.class);
 	}
 
 	@Override
@@ -70,7 +68,7 @@ public class UserInterfaceControllerForCommandLine extends
 	public void start() {
 		try {
 			viewContainer = new CommandLineViewContainer();
-			IntrospectApplicationForCommandLine commandLineApplication = (IntrospectApplicationForCommandLine) application;
+			IntrospectApplicationForCommandLine commandLineApplication = providerContainer.get(IntrospectApplicationForCommandLine.class);
 			String[] arguments = commandLineApplication
 					.getCommandLineArguments();
 
@@ -175,7 +173,7 @@ public class UserInterfaceControllerForCommandLine extends
 
 	private File getCommandFile(String[] arguments) {
 		String fileName = arguments[0].replace(" ", "%20");
-		URI rootPath = pathProvider.getRootPath();
+		URI rootPath = providerContainer.get(PathProvider.class).getRootPath();
 		URI filePath = rootPath.resolve(fileName);
 		return new File(filePath);
 	}
@@ -275,7 +273,7 @@ public class UserInterfaceControllerForCommandLine extends
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
 		return new FormView(
-				getUserInterfaceContainer().getReflectionProvider(),
+				providerContainer.get(ReflectionProvider.class),
 				actionMethodInfo, domainObject);
 	}
 
@@ -283,8 +281,8 @@ public class UserInterfaceControllerForCommandLine extends
 	public CommandLineView createTableView(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new TableView(getUserInterfaceContainer()
-				.getReflectionProvider(), actionMethodInfo,
+		return new TableView(
+				providerContainer.get(ReflectionProvider.class), actionMethodInfo,
 				(Collection<?>) methodReturnValue);
 	}
 

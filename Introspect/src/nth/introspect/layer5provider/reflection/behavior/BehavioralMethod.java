@@ -46,15 +46,18 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  */
 public abstract class BehavioralMethod {
 
-	public abstract String getMethodNameSuffix();
+
+	public abstract String getBehavioralName();
 
 	public abstract Class<?> getReturnType();
 
 	public boolean isBehavioralMethod(Method method) {
 		boolean nameEndsWithSuffix = method.getName().endsWith(
-				getMethodNameSuffix());
+				getBehavioralName());
 		boolean returnTypeMatches = getReturnType().isAssignableFrom(
 				method.getReturnType());
 		return nameEndsWithSuffix && returnTypeMatches;
 	}
+	
+
 }

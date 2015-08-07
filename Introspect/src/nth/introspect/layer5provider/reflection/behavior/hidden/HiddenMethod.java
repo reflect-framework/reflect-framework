@@ -28,7 +28,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 public class HiddenMethod extends BehavioralMethod {
 
 	@Override
-	public String getMethodNameSuffix() {
+	public String getBehavioralName() {
 		return "Hidden";
 	}
 

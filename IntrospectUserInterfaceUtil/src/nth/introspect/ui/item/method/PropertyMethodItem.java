@@ -40,7 +40,7 @@ public class PropertyMethodItem extends MethodItem {
 
 			@Override
 			public void run() {
-				UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().getUserInterfaceController();
+				UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().get(UserInterfaceController.class);
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				
@@ -63,7 +63,7 @@ public class PropertyMethodItem extends MethodItem {
 		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.getParameterType().getTypeCategory()!=TypeCategory.NONE ) {
 			parameterValue = parameterValueModel.getValue();
 		}
-		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().getReflectionProvider();
+		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().get(ReflectionProvider.class);
 		text.append(TitleUtil.createTitle(reflectionProvider,propertyMethodInfo,
 				parameterValue, false));
 		return text.toString();
