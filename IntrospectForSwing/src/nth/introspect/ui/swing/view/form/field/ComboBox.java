@@ -60,7 +60,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 		listValues.add(null);
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
 		Object domainObject = propertyValueModel.getDomainObject();
-		List<Object> values = propertyInfo.getValues(domainObject);
+		List<Object> values = propertyInfo.getOptions(domainObject);
 		listValues.addAll(values);
 		setModel(new DefaultComboBoxModel(listValues));
 		setRenderer(createObjectRenderer(reflectionProvider));

@@ -32,5 +32,5 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 @Target(ElementType.METHOD)
 public @interface Disabled {
 
-	public String exceptForRoleNames();
+	public String exceptForRoleNames() default "";
 }

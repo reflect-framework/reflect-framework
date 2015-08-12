@@ -40,7 +40,44 @@ import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
  * <li>or other</li>
  * </ul>
  * 
- * TODO add example of a hard coded {@link AuthorizationProvider}
+ * An example of a basic hard coded validation
+ * 
+ * <pre>
+ * public class AcmeAuthorizationProvider implements AuthorizationProvider {
+ * 
+ * 	private final List&lt;User&gt; users;
+ * 	private User currentUser;
+ * 
+ * 	public AcmeAuthorizationProvider() {
+ * 		users = new ArrayList&lt;&gt;();
+ * 		users.add(new User(&quot;carla&quot;, &quot;pasword1&quot;, &quot;salesmanager&quot;));
+ * 		users.add(new User(&quot;john&quot;, &quot;pasword2&quot;, &quot;customer&quot;));
+ * 	}
+ * 
+ * 	public void login(String userName, String password)
+ * 			throws InvalidNameOrPasswordException {
+ * 		for (User user : users) {
+ * 			if (user.isValid(userName, password)) {
+ * 				currentUser = user;
+ * 				return;
+ * 			}
+ * 		}
+ * 		throw new InvalidNameOrPasswordException();
+ * 	}
+ * 
+ * 	&#064;Override
+ * 	public String getCurrentUserName() {
+ * 		return currentUser == null ? &quot;&quot; : currentUser.getName();
+ * 	}
+ * 
+ * 	&#064;Override
+ * 	public boolean userInRole(String role) {
+ * 		return currentUser == null ? false : currentUser.inRole(role);
+ * 	}
+ * 
+ * }
+ * 
+ * </pre>
  * 
  * <h3>Registering an AuthorizationProvider</h3>
  * <p>

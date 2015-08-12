@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.Format;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -21,6 +22,8 @@ import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayName
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModel;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
@@ -39,19 +42,10 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
  * 
  */
 public class PropertyInfo implements NameInfo {
-	static final String IS_PREFIX = "is";
-	static final String GET_PREFIX = "get";
+	public static final String IS_PREFIX = "is";
+	public static final String GET_PREFIX = "get";
 	private static final String SET_PREFIX = "set";
 
-	private ValueModels valueModels;
-	public final static String VISIBLE_IN_TABLE = "visibleInTable";
-	public final static String VISIBLE_IN_FORM = "visibleInForm";
-	public final static String VALIDATION = "validation";
-	public static final String VALUES = "values";
-	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE_IN_FORM, VISIBLE_IN_TABLE, 	RETURN_CLASS };
-	public final static String[] METHOD_NAMES = new String[] { VISIBLE_IN_FORM,
-			 VALIDATION, VALUES };
-	public static final String RETURN_CLASS = "returnClass";
 
 	private final String simpleName;
 	private final String canonicalName;
@@ -65,6 +59,7 @@ public class PropertyInfo implements NameInfo {
 	private final String formatPattern;
 	private final Format format;
 	private final DisabledModel disabledModel;
+	private final HiddenModel hiddenModel;
 
 
 	
@@ -91,37 +86,12 @@ public class PropertyInfo implements NameInfo {
 		this.formatPattern=formatFactory.getFormatPattern();
 		this.fieldMode=FieldModeFactory.create(getterMethod, formatPattern);
 		this.disabledModel=DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
-		valueModels = new ValueModels();
-
-		// create default value getters
-
-		valueModels.put(VISIBLE_IN_FORM, new SimpleValue(true));
-		valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(true));
-
-		// create value getters from annotations
-		valueModels.putAll(AnnotationValueModelFactory.create(this,
-				ANNOTATION_NAMES));
-
-		// create method value getters
-		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
-
-		// override VISIBLE_IN_TABLE (collections may not be visible in a table
-		// column)
-		if (TypeCategory.COLLECTION_TYPE == getPropertyType().getTypeCategory()) {
-			valueModels.put(VISIBLE_IN_TABLE, new SimpleValue(false));
-		}
-
-		
-//	TODO!!!	if (valueModels.containsKey(VALUES)) {
-//			valueModels
-//			.put(FIELD_MODE, new SimpleValue(FieldModeType.COMBO_BOX));			
-//		}
-
+		this.hiddenModel=HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod, propertyType.getTypeCategory());
 	}
 
 	private void checkGetterMethodHasNoParameter(Method getterMethod) {
 		if (getterMethod.getParameterTypes().length > 0) {
-			throw new RuntimeException("Method: "
+			throw new RuntimeException("Getter method: "
 					+ getterMethod.getClass().getCanonicalName() + "."
 					+ getterMethod.getName() + " may not contain a parameter");
 		}
@@ -129,9 +99,9 @@ public class PropertyInfo implements NameInfo {
 
 	private void checkGetterMethodReturnType(Method getterMethod) {
 		if (getterMethod.getReturnType() == Void.class) {
-			throw new RuntimeException("Method: "
+			throw new RuntimeException("Getter method: "
 					+ getterMethod.getClass().getCanonicalName() + "."
-					+ getterMethod.getName() + " is not a getter method");
+					+ getterMethod.getName() + " must return a value");
 		}
 	}
 
@@ -159,7 +129,6 @@ public class PropertyInfo implements NameInfo {
 						getterMethodName.toString(), simplePropertyClass);
 				return writeMethod;
 			} catch (Exception e2) {
-				// No proper setter method found: set enabled=false!
 				return null;
 			}
 		}
@@ -224,12 +193,12 @@ public class PropertyInfo implements NameInfo {
 		return order;
 	}
 
-	public Boolean isVisibleInForm(Object domainObject) {
-		return valueModels.getBooleanValue(VISIBLE_IN_FORM, domainObject);
+	public Boolean isVisibleInForm(Object obj) {
+		return !hiddenModel.isPropertyHiddenInForm(obj);
 	}
 
 	public Boolean isVisibleInTable() {
-		return valueModels.getBooleanValue(VISIBLE_IN_TABLE);
+		return !hiddenModel.isPropertyHiddenInTable();
 	}
 
 	public boolean isEnabled(Object domainObject) {
@@ -240,11 +209,6 @@ public class PropertyInfo implements NameInfo {
 		return fieldMode;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Object> getValues(Object domainObject) {
-		return (List<Object>) valueModels.getValue(VALUES, domainObject);
-	}
-	
 	public void setValue(Object domainObject, Object value) {
 		if (!isEnabled(domainObject)) {
 			throw new RuntimeException("Could not set value of property: "
@@ -353,5 +317,15 @@ public class PropertyInfo implements NameInfo {
 		boolean startsWithGet = methodName.startsWith(PropertyInfo.GET_PREFIX);
 		boolean isGetterMethod=!isGetClassMethod && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass &&( startsWithIs || startsWithGet);
 		return isGetterMethod;
+	}
+
+	/**
+	 * TODO implement optionsModel (behavioral annotation and behavioral method)
+	 * TODO if optionsModel!=null then fieldModel must return {@link FieldModeType#COMBO_BOX}
+	 * @param domainObject
+	 * @return available option values to choose from
+	 */
+	public List<Object> getOptions(Object domainObject) {
+		return new ArrayList<>();
 	}
 }

@@ -9,4 +9,9 @@ public class ProductRepository {
 		return null;
 	}
 
+	public List<Product> bestSellingProducts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

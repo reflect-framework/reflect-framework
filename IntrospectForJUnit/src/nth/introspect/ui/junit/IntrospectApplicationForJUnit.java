@@ -1,5 +1,6 @@
 package nth.introspect.ui.junit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.Introspect;
@@ -9,12 +10,12 @@ import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
-import nth.introspect.layer2service.ServiceLayer;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureContainer;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.about.DefaultAboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
@@ -23,6 +24,7 @@ import nth.introspect.layer5provider.language.DefaultLanguageProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
+import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
@@ -41,63 +43,49 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * maintain do know the User Interface (see {@link IntrospectArchitecture}). We
  * do not need to test the {@link Introspect} {@link UserInterfaceLayer} if we
  * assume it works as it should.</li>
- * <li>Does not need to have a {@link ServiceLayer}. If you are testing
- * {@link DomainObject}'s or {@link InfrastructureObject}, there is no need for
- * {@link ServiceObject}s</li>
+ * <li>You only need to register the classes that need testing. You register
+ * classes by overriding the get...Class or get...Classes methods in the
+ * {@link IntrospectApplicationForJUnit} class</li>
  * </ul>
  * If you are new to JUnit test I recommend to watch one of the many instruction
  * video's on the Internet. Your IDE most likely supports you with implementing
  * and running JUnit tests (and if not you can probably download a plug-in for
  * it)<br>
  * <br>
- * <h3>Example of a testing a {@link InfrastructureObject} in a JUnit test case</h3>
+ * <h3>Example of a testing a ServiceObject and InfrastructureMockUpObject in a
+ * JUnit test case</h3>
  * 
  * <pre>
- * {@code 
- *  import static org.junit.Assert.*;
- *  ...
- *    
- *  public class ProductRepositoryTest {
+ * public class ProductServiceTest {
  * 
- * 	private ProductRepository productRepository;
+ * 	private ProductService productService;
  * 
- * 	&#064Before
+ * 	&#064;Before
  * 	public void setUp() throws Exception {
- * 		List&lt;Class&lt;?&gt;&gt; infrastuctureClasses = Arrays.asList(ProductRepository.class);
- * 		IntrospectApplicationForJUnit application=new IntrospectApplicationForJUnit(ProductSales.class, infrastuctureClasses);
- * 		productRepository=(ProductRepository) application.get(ProductRepository.class);
- * 		
+ * 		IntrospectApplicationForJUnit application = new IntrospectApplicationForJUnit() {
+ * 
+ * 			&#064;Override
+ * 			public List&lt;Class&lt;?&gt;&gt; getServiceClasses() {
+ * 				return new ClassList(ProductService.class);
+ * 			}
+ * 
+ * 			&#064;Override
+ * 			public List&lt;Class&lt;?&gt;&gt; getInfrastructureClasses() {
+ * 				return new ClassList(ProductRepositoryMockup.class);
+ * 			}
+ * 		};
+ * 		DependencyInjectionContainer container = application.createContainer();
+ * 		productService = container.get(ProductService.class);
  * 	}
  * 
- * 	&#064Test
- * 	public void getProductsTest() throws URISyntaxException, IOException {
- * 		List<Product> products = productRepository.getProducts();
- * 		assertEquals(...}
- * </pre>
- * <h3>Example of a testing a {@link ServiceObject} in a JUnit test case</h3>
- * 
- * <pre>
- * {@code 
- *  import static org.junit.Assert.*;
- *  ...
- *    
- *  public class ProductRepositoryTest {
- * 
- * 	private ProductRepository productRepository;
- * 
- * 	&#064Before
- * 	public void setUp() throws Exception {
- *		List&lt;Class&lt;?&gt;&gt; serviceClasses = Arrays.asList(ProductService.class);		
- *		List&lt;Class&lt;?&gt;&gt; infrastuctureClasses = Arrays.asList(ProductRepositoryMockup.class);
- * 		IntrospectApplicationForJUnit application=new IntrospectApplicationForJUnit(ProductSales.class, serviceClasses, infrastuctureClasses);
- * 		productService=(ProductService) application.get(ProductService.class);
- * 		
- * 	}
- * 
- * 	&#064Test
+ * 	&#064;Test
  * 	public void bestSellingProductsTest() {
- * 		List<Product> products = productService.bestSellingProducts();
- * 		assertEquals(...}
+ * 		List&lt;Product&gt; products = productService.bestSellingProducts();
+ * 		// assert method calls ...
+ * 	}
+ * 
+ * 	// other test methods ...
+ * }
  * </pre>
  * 
  * 
@@ -108,39 +96,23 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  */
 public class IntrospectApplicationForJUnit implements IntrospectApplication {
 
-	private final DependencyInjectionContainer topContainer;
-	private final List<Class<?>> serviceClasses;
-	private final List<Class<?>> infrastructureClasses;
-	private final Class<? extends IntrospectApplication> introspectApplicationClass;
-
-	/**
-	 * Constructur if you only want to test infrastructure classes
-	 * 
-	 * @param introspectApplicationClass
-	 *            needed to set the right path for the pathProvider
-	 * @param infrastructureClasses
-	 */
-	public IntrospectApplicationForJUnit(
-			Class<? extends IntrospectApplication> introspectApplicationClass,
-			List<Class<?>> infrastructureClasses) {
-		this(introspectApplicationClass, null, infrastructureClasses);
-	}
-
-	public IntrospectApplicationForJUnit(
-			Class<? extends IntrospectApplication> introspectApplicationClass,
-			List<Class<?>> serviceClasses, List<Class<?>> infrastructureClasses) {
-		this.introspectApplicationClass = introspectApplicationClass;
-		this.serviceClasses = serviceClasses;
-		this.infrastructureClasses = infrastructureClasses;
-		if (serviceClasses == null || serviceClasses.isEmpty()) {
-			topContainer = new InfrastructureContainer(this);
+	public DependencyInjectionContainer createContainer() {
+		if (hasServiceObjects()) {
+			return new ServiceContainer(this);
+		} else if (hasInfrastructureObjects()) {
+			return new InfrastructureContainer(this);
 		} else {
-			topContainer = new ServiceContainer(this);
+			return new ProviderContainer(this);
 		}
 	}
 
-	public Object get(Class<?> type) {
-		return topContainer.get(type);
+	private boolean hasInfrastructureObjects() {
+		return getInfrastructureClasses() != null
+				&& getInfrastructureClasses().size() > 0;
+	}
+
+	private boolean hasServiceObjects() {
+		return getServiceClasses() != null && getServiceClasses().size() > 0;
 	}
 
 	@Override
@@ -158,9 +130,13 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 		return DefaultAboutProvider.class;
 	}
 
+	/**
+	 * You might want to use the override this method and use the
+	 * {@link DefaultPathProvider#DefaultPathProvider(java.net.URI) constructor}
+	 */
 	@Override
 	public Class<? extends PathProvider> getPathProviderClass() {
-		return PathProviderForJUnit.class;
+		return DefaultPathProvider.class;
 	}
 
 	@Override
@@ -185,16 +161,12 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 
 	@Override
 	public List<Class<?>> getServiceClasses() {
-		return serviceClasses;
+		return new ArrayList<Class<?>>();
 	}
 
 	@Override
 	public List<Class<?>> getInfrastructureClasses() {
-		return infrastructureClasses;
-	}
-
-	public Class<IntrospectApplication> getIntrospectApplicationClass() {
-		return (Class<IntrospectApplication>) introspectApplicationClass;
+		return new ArrayList<Class<?>>();
 	}
 
 }

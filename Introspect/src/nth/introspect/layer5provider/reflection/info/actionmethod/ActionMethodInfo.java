@@ -17,6 +17,8 @@ import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModel;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
@@ -39,16 +41,15 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
 public class ActionMethodInfo implements NameInfo {
 
 	private ValueModels valueModels;
-	public final static String VISIBLE = "visible";
 	public final static String ICON = "icon";
 	public final static String PARAMETER_FACTORY = "parameterFactory";
 	public final static String PARAMETER_MODIFIER = "parameterModifier";
 	public final static String EXECUTION_MODE = "executionMode";
 	public final static String ACCESS_KEY = "accessKey";
-	public final String[] ANNOTATION_NAMES = new String[] { ICON, VISIBLE,
+	public final String[] ANNOTATION_NAMES = new String[] { ICON, 
 			RETURN_CLASS, EXECUTION_MODE };
 	public final static String[] METHOD_NAMES = new String[] {
-			PARAMETER_FACTORY, ICON, VISIBLE };
+			PARAMETER_FACTORY, ICON };
 	public static final String RETURN_CLASS = "returnClass";
 
 	private final String simpleName;
@@ -63,6 +64,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
 	private final DisabledModel disabledModel;
+	private final HiddenModel hiddenModel;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		this(providerContainer, method, null);
@@ -88,6 +90,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.order = OrderFactory.create(method);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider,
 				method);
+		this.hiddenModel=HiddenModelFactory.create(authorizationProvider, method);
 		this.valueModels = new ValueModels();
 
 		// create default value getters
@@ -95,7 +98,6 @@ public class ActionMethodInfo implements NameInfo {
 		// valueModels.put(ICON, new IconValue(this));
 		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider,
 				method)));
-		valueModels.put(VISIBLE, new SimpleValue(true));
 		valueModels
 				.put(EXECUTION_MODE,
 						new SimpleValue(
@@ -168,8 +170,8 @@ public class ActionMethodInfo implements NameInfo {
 		return order;
 	}
 
-	public Boolean isVisible(Object serviceObject) {
-		return valueModels.getBooleanValue(VISIBLE, serviceObject);
+	public Boolean isVisible(Object obj) {
+		return !hiddenModel.isHiddenActionMethod(obj);
 	}
 
 	public Boolean isEnabled(Object obj) {
