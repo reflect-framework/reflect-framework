@@ -18,7 +18,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * by putting the {@link Hidden} annotation before the {@link ActionMethod}.
  * </p>
  * <p>
- * Syntax: @Hidden(propertyHiddenFor, exceptForUsers, exceptForRoles)
+ * Syntax: @Hidden(propertyHiddenFor, exceptForRoles)
  * </p>
  * <p>
  * Parameters:

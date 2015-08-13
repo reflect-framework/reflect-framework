@@ -4,6 +4,8 @@ import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 
 /**
  * The {@link IntrospectApplication}, {@link ServiceObject}s and
@@ -46,12 +48,12 @@ import nth.introspect.layer3domain.DomainObject;
  * 
  * <h2>Hidden</h2>
  * <p>
- * {@insert HiddenModel}
+ * {@insert HiddenModelFactory}
  * </p>
  * 
  * <h2>Disabled</h2>
  * <p>
- * {@insert DisabledModel}
+ * {@insert DisabledModelFactory}
  * </p>
  * 
  * <h2>Order</h2>
