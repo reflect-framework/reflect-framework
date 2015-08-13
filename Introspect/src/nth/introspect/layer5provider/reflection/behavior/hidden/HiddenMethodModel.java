@@ -23,7 +23,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * Note that you can not change the visibility with a ...Hidden method for {@link DomainObjectProperty} in a {@link TableView}!
  * </p>
  * <p>
- * Syntax: public boolean hidden&lt;property name or actionMethodName&gt;()
+ * Syntax: public boolean &lt;property name or actionMethodName&gtHidden;()
  * </p>
  * <p>
  * ReturnValue: a boolean that is true if the {@link DomainObjectProperty} or

@@ -31,14 +31,14 @@ import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFacto
  * {@insert DisplayNameModel}
  * </p>
  * 
- * <h2>Title</h2>
- * <p>
- * {@insert TitleModel}
- * </p>
- * 
  * <h2>Description</h2>
  * <p>
  * {@insert DescriptionModel}
+ * </p>
+ * 
+ * <h2>Title</h2>
+ * <p>
+ * {@insert TitleModel}
  * </p>
  * 
  * <h2>Icon</h2>

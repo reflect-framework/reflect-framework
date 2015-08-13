@@ -18,7 +18,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * {@link DomainObjectProperty} or {@link ActionMethod}.
  * </p>
  * <p>
- * Syntax: public boolean disabled&lt;property name or actionMethodName&gt;()
+ * Syntax: public boolean &lt;property name or actionMethodName&gt;Disabled()
  * </p>
  * <p>
  * ReturnValue: a boolean that is true if the {@link DomainObjectProperty} or
