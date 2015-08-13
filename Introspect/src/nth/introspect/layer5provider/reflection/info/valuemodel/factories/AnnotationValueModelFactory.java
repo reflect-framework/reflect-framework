@@ -10,7 +10,7 @@ import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.Enabled;
+import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 public class AnnotationValueModelFactory {
@@ -30,7 +30,7 @@ public class AnnotationValueModelFactory {
 	@SuppressWarnings("unchecked")
 	public static HashMap<String, ReadOnlyValueModel> create(Method method, String[] names) {
 		ValueModels valueModels = new ValueModels();
-		String packageName = Enabled.class.getPackage().getName();
+		String packageName = GenericReturnType.class.getPackage().getName();
 		for (String name : names) {
 			try {
 				StringBuffer annotationName = new StringBuffer(packageName);

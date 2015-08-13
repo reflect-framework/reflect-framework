@@ -5,15 +5,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInForm;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
+import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
 
 @MappedSuperclass
 public abstract class BasicEntity {
 	private int id;// TODO to superclass
 
-	@VisibleInForm(false)
-	@VisibleInTable(false)
+	@Hidden()
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {

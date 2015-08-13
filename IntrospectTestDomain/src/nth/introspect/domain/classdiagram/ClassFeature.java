@@ -1,9 +1,10 @@
 package nth.introspect.domain.classdiagram;
 
+import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenFor;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
 
 public class ClassFeature {
 
@@ -76,7 +77,7 @@ public class ClassFeature {
 		return representation;
 	}
 
-	@VisibleInTable(false)
+	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
 	public Class<?> getType() {
 		return type;
 	}

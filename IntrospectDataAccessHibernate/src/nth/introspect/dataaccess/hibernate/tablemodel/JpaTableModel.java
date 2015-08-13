@@ -9,7 +9,6 @@ import javax.swing.RowSorter.SortKey;
 import javax.swing.SortOrder;
 import javax.swing.table.AbstractTableModel;
 
-import nth.introspect.Introspect;
 import nth.introspect.dataaccess.hibernate.HibernateDataAccess;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
 import nth.introspect.generic.tablemodel.DomainTableModel;

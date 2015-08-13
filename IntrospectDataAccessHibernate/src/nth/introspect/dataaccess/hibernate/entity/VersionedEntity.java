@@ -3,15 +3,13 @@ package nth.introspect.dataaccess.hibernate.entity;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInForm;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
+import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
 
 @MappedSuperclass
 public class VersionedEntity extends BasicEntity {
 	public Integer version;
 
-	@VisibleInForm(false)
-	@VisibleInTable(false)
+	@Hidden()
 	@Version 
 	public Integer getVersion() {
 		return version;

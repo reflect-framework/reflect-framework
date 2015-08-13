@@ -4,9 +4,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import nth.introspect.generic.util.StringUtil;
+import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenFor;
 import nth.introspect.layer5provider.reflection.behavior.order.Order;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInForm;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.VisibleInTable;
 
 public class VersionInfo {
 	private String className;
@@ -94,7 +94,7 @@ public class VersionInfo {
 
 
 	@Order(sequenceNumber=1)
-	@VisibleInForm(false)
+	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
 	public String getClassName() {
 		return className;
 	}
@@ -103,7 +103,7 @@ public class VersionInfo {
 		this.className = className;
 	}
 	
-	@VisibleInTable(false)
+	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
 	@Order(sequenceNumber=2)
 	public String getFullClassName() {
 		return fullClassName;
@@ -114,7 +114,7 @@ public class VersionInfo {
 	}
 	
 	@Order(sequenceNumber=3)
-	@VisibleInTable(false)
+	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
 	public String getArchiveTitle() {
 		return archiveTitle;
 	}
@@ -132,7 +132,7 @@ public class VersionInfo {
 		this.archiveName = archiveName;
 	}
 
-	@VisibleInTable(false)
+	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
 	@Order(sequenceNumber=5)
 	public String getArchivePath() {
 		return archivePath;
