@@ -21,7 +21,7 @@ import nth.introspect.layer5provider.notification.Task;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.layer5provider.reflection.info.method.filter.MethodNameFilter;
+import nth.introspect.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;

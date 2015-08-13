@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ValueModels;
+import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
@@ -34,7 +35,7 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.factories.Method
 import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 /**
- * Provides information on a bean property.<br>
+ * Provides information on a {@link DomainObject} property.<br>
  * This class is inspired by the PropertyDiscriptor class, which can not be used
  * because it is not implemented by Android
  * 
@@ -135,11 +136,11 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	private String getCanonicalName(Method readMethod, String name) {
-		StringBuffer conicalName = new StringBuffer();
-		conicalName.append(readMethod.getDeclaringClass().getCanonicalName());
-		conicalName.append(".");
-		conicalName.append(name);
-		return conicalName.toString();
+		StringBuffer canonicalName = new StringBuffer();
+		canonicalName.append(readMethod.getDeclaringClass().getCanonicalName());
+		canonicalName.append(".");
+		canonicalName.append(name);
+		return canonicalName.toString();
 	}
 
 	private String getSimpleName(Method readMethod) {
@@ -236,9 +237,6 @@ public class PropertyInfo implements NameInfo {
 					+ canonicalName, e);
 		}
 	}
-
-	// TODO getValueAsText(domainObject), while using formatPattern or enum
-	// converter
 
 
 	@Override

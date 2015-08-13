@@ -9,7 +9,7 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.layer5provider.reflection.info.method.filter.MethodNameFilter;
+import nth.introspect.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.introspect.ui.images.IntrospectImage;
 
 public class AboutItem extends Item {
