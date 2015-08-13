@@ -13,8 +13,11 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * You can disable a {@link DomainObjectProperty} or
  * {@link DomainObjectActionMethod} depending on the {@link DomainObject} state
- * (the value of its properties). If you have a {@link Disabled} annotation and a
- * disabled method, both need to be true in order to hide the
+ * (the value of its properties). 
+ * </p>
+ * <p>
+ * If you have a {@link Disabled} annotation and a
+ * disabled method, only one needs to be true in order to disable the
  * {@link DomainObjectProperty} or {@link ActionMethod}.
  * </p>
  * <p>
