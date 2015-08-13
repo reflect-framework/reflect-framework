@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.reflection.info.method.filter;
+package nth.introspect.layer5provider.reflection.info.actionmethod.filter;
 
 import java.util.ArrayList;
 import java.util.List;
