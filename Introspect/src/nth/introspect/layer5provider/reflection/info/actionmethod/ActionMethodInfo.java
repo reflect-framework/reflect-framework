@@ -11,7 +11,7 @@ import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.id.MethodIconID;
-import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
@@ -20,6 +20,8 @@ import nth.introspect.layer5provider.reflection.behavior.executionmode.Execution
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
+import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModel;
+import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
@@ -42,15 +44,11 @@ public class ActionMethodInfo implements NameInfo {
 
 	private ValueModels valueModels;
 	public final static String ICON = "icon";
-	public final static String PARAMETER_FACTORY = "parameterFactory";
-	public final static String PARAMETER_MODIFIER = "parameterModifier";
 	public final static String EXECUTION_MODE = "executionMode";
-	public final static String ACCESS_KEY = "accessKey";
 	public final String[] ANNOTATION_NAMES = new String[] { ICON, 
-			RETURN_CLASS, EXECUTION_MODE };
+			EXECUTION_MODE };
 	public final static String[] METHOD_NAMES = new String[] {
-			PARAMETER_FACTORY, ICON };
-	public static final String RETURN_CLASS = "returnClass";
+			 ICON };
 
 	private final String simpleName;
 	private final String canonicalName;
@@ -65,6 +63,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final DescriptionModel descriptionModel;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
+	private ParameterFactoryModel parameterFactoryModel;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		this(providerContainer, method, null);
@@ -76,6 +75,7 @@ public class ActionMethodInfo implements NameInfo {
 				.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = providerContainer
 				.get(AuthorizationProvider.class);
+		
 		this.pathProvider = providerContainer.get(PathProvider.class);
 		this.method = method;
 		this.linkedPropertyName = linkedPropertyName;
@@ -91,6 +91,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider,
 				method);
 		this.hiddenModel=HiddenModelFactory.create(authorizationProvider, method);
+		this.parameterFactoryModel=ParameterFactoryModelFactory.create( method, parameterType.getType());
 		this.valueModels = new ValueModels();
 
 		// create default value getters
@@ -195,29 +196,16 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	public boolean hasParameterFactory() {
-		return valueModels.containsKey(PARAMETER_FACTORY);
+		return parameterFactoryModel!=null;
 	}
 
 	public Object createMethodParameter(Object obj)
 			throws InstantiationException, IllegalAccessException {
-		switch (getParameterType().getTypeCategory()) {
-		case NONE:
-			return null;
-		case DOMAIN_TYPE:
-			if (hasParameterFactory()) {
-				// get parameter value from parameter factory method
-				return valueModels.getValue(PARAMETER_FACTORY, obj);
-			} else {
-				// try to create a parameter value from the parameter class
-				Class<?> parameterClass = getParameterType().getType();
-				return parameterClass.newInstance();
-			}
-			// TODO case collectionType
-		default:
-			break;
+		if (hasParameterFactory()) {
+			return parameterFactoryModel.createNewMethodParameter(obj);
+		} else {
+			throw new NoParameterFactoryException(getCanonicalName());
 		}
-
-		return null;
 	}
 
 	public Object invoke(Object methodOwner, Object methodParameter)
@@ -250,7 +238,7 @@ public class ActionMethodInfo implements NameInfo {
 			List<PropertyInfo> propertyInfos) {
 		return !isMethodOfObjectClass(method)
 				&& !isGetterOrSetterMethod(method, propertyInfos)
-				&& !BehavioralMethods.isBehavioralMethod(method);
+				&& !BehavioralMethodFactory.isBehavioralMethod(method);
 	}
 
 	private static boolean isGetterOrSetterMethod(Method method,

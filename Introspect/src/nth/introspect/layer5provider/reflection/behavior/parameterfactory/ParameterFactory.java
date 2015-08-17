@@ -20,6 +20,11 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * parameter when the {@link ActionMethod} is invoked.
  * </p>
  * <p>
+ * Note that the method parameter (a {@link DomainObject}) can only be
+ * instantiated by an {@link ParameterFactory} annotation if it has a public
+ * constructor without parameters. If not use the ...ParameterFactory method.
+ * </p>
+ * <p>
  * Syntax: @ParameterFactory
  * </p>
  * <p>

@@ -6,6 +6,8 @@ import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
+import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryMethodModel;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
@@ -86,40 +88,13 @@ public class HiddenModelFactory {
 	}
 
 	private static HiddenMethodModel createHiddenMethodModel(Method method) {
-		String behavioralMethodName = getBehavioralMethodName(method);
-		Class<?> methodOwner = method.getDeclaringClass();
-		Class<?>[] parameterTypes = new Class<?>[0];
-		try {
-			Method hiddenMethod = methodOwner.getMethod(behavioralMethodName,
-					parameterTypes);
+		Method hiddenMethod = BehavioralMethodFactory.create(method,
+				new HiddenMethodModel(null).getBehavioralName());
+		if (hiddenMethod == null) {
+			return null;
+		} else {
 			return new HiddenMethodModel(hiddenMethod);
-		} catch (Exception e) {
-			return null;// method does not exist
 		}
-	}
-
-	private static String getBehavioralMethodName(Method method) {
-		if (PropertyInfo.isGetterMethod(method)) {
-			return getBehavioralMethodNameForProperty(method);
-		} else {
-			return method.getName().concat(
-					new HiddenMethodModel(null).getBehavioralName());
-		}
-	}
-
-	private static String getBehavioralMethodNameForProperty(Method getterMethod) {
-		String propertyName;
-		String methodName = getterMethod.getName();
-		if (methodName.startsWith(PropertyInfo.IS_PREFIX)) {
-			propertyName = methodName
-					.substring(PropertyInfo.IS_PREFIX.length());
-		} else {
-			propertyName = methodName.substring(PropertyInfo.GET_PREFIX
-					.length());
-		}
-		propertyName=StringUtil.firstCharToLowerCase(propertyName);
-		return propertyName.concat(new HiddenMethodModel(null)
-				.getBehavioralName());
 	}
 
 	public static HiddenModel create(

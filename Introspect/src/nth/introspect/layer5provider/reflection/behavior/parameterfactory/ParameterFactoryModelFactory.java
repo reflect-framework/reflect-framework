@@ -1,8 +1,12 @@
 package nth.introspect.layer5provider.reflection.behavior.parameterfactory;
 
+import java.lang.reflect.Method;
+
 import nth.introspect.layer2service.MainMenu;
 import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer3domain.DomainContainer;
 import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
@@ -30,12 +34,44 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>ParameterFactory Method</h3>
  * <p>
- * {@insert ParameterFactoryMethod}
+ * {@insert ParameterFactoryMethodModel}
  * </p>
  * 
  * @author nilsth
  *
  */
 public class ParameterFactoryModelFactory {
-	// TODO
+	public static ParameterFactoryModel create( Method method, Class<?> methodParameterType) {
+		ParameterFactoryModel methodModel = createMethodModel(method);
+		if (methodModel != null) {
+			return methodModel;
+		}
+
+		ParameterFactoryModel annotationModel = createAnnotationModel( method, methodParameterType);
+		return annotationModel;
+	}
+
+	private static ParameterFactoryModel createAnnotationModel(Method method, Class<?> methodParameterType) {
+		if (hasParameterFactory(method )) {
+			return new ParameterFactoryAnnotationModel(
+					methodParameterType);
+		} else {
+			return null;
+		}
+	}
+
+	private static boolean hasParameterFactory(Method method) {
+		ParameterFactory annotation = method.getAnnotation(ParameterFactory.class);
+		return annotation!=null;
+	}
+
+	private static ParameterFactoryModel createMethodModel(Method method) {
+		Method parameterFactoryMethod = BehavioralMethodFactory.create(method, new ParameterFactoryMethodModel(null).getBehavioralName());
+		if (parameterFactoryMethod==null) {
+			return null;
+		} else {
+			return new ParameterFactoryMethodModel(parameterFactoryMethod);
+		}
+	}
+	
 }
