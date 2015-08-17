@@ -3,10 +3,10 @@ package nth.introspect.junit;
 import nth.introspect.junit.layer5provider.authorization.AcmeAuthorizationProviderTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.disabled.DisabledModelForActionMethodTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.disabled.DisabledModelForPropertiesTest;
+import nth.introspect.junit.layer5provider.reflection.behavior.executionmode.ExecutionModeTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.hidden.HiddenModelForActionMethodTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.hidden.HiddenModelForPropertiesTest;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeTest;
-import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelTest;
+import nth.introspect.junit.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

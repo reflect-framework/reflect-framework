@@ -1,6 +1,7 @@
-package nth.introspect.layer5provider.reflection.behavior.parameterfactory;
+package nth.introspect.junit.layer5provider.reflection.behavior.parameterfactory;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 
 
 public class ParameterFactoryModelTestObject {

@@ -1,6 +1,8 @@
-package nth.introspect.layer5provider.reflection.behavior.executionmode;
+package nth.introspect.junit.layer5provider.reflection.behavior.executionmode;
 
-import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterTestObject;
+import nth.introspect.junit.layer5provider.reflection.behavior.parameterfactory.ParameterTestObject;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 
 public class ExecutionModeTestObject {
 

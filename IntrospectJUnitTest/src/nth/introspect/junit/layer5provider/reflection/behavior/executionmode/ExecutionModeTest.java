@@ -1,4 +1,4 @@
-package nth.introspect.layer5provider.reflection.behavior.executionmode;
+package nth.introspect.junit.layer5provider.reflection.behavior.executionmode;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,6 +6,7 @@ import java.util.List;
 
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 
