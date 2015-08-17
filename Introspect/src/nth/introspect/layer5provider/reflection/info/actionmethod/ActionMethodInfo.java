@@ -16,6 +16,7 @@ import nth.introspect.layer5provider.reflection.behavior.description.Description
 import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
@@ -44,9 +45,8 @@ public class ActionMethodInfo implements NameInfo {
 
 	private ValueModels valueModels;
 	public final static String ICON = "icon";
-	public final static String EXECUTION_MODE = "executionMode";
 	public final String[] ANNOTATION_NAMES = new String[] { ICON, 
-			EXECUTION_MODE };
+			 };
 	public final static String[] METHOD_NAMES = new String[] {
 			 ICON };
 
@@ -63,7 +63,8 @@ public class ActionMethodInfo implements NameInfo {
 	private final DescriptionModel descriptionModel;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
-	private ParameterFactoryModel parameterFactoryModel;
+	private final ParameterFactoryModel parameterFactoryModel;
+	private ExecutionModeType executionMode;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		this(providerContainer, method, null);
@@ -92,17 +93,12 @@ public class ActionMethodInfo implements NameInfo {
 				method);
 		this.hiddenModel=HiddenModelFactory.create(authorizationProvider, method);
 		this.parameterFactoryModel=ParameterFactoryModelFactory.create( method, parameterType.getType());
+		this.executionMode=ExecutionModeFactory.create(method, canonicalName);
 		this.valueModels = new ValueModels();
 
 		// create default value getters
-		// valueModels.put(ACCESS_KEY, new AccessKeyValue(this, NAME));
-		// valueModels.put(ICON, new IconValue(this));
 		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider,
 				method)));
-		valueModels
-				.put(EXECUTION_MODE,
-						new SimpleValue(
-								ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL));
 
 		// create value getters from annotations
 		// TODO add a value getter for domainclass from EJB annotations (when
@@ -114,15 +110,6 @@ public class ActionMethodInfo implements NameInfo {
 		// //create method value getters
 		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
 
-		// create xml value getters
-		// TODO valueModels.putAll(XmlValueModelFactory.create( this));
-
-		// overwrite form mode when necessary
-		if (TypeCategory.NONE == getParameterType().getTypeCategory()
-				&& getExecutionMode() != ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION) {
-			valueModels.put(EXECUTION_MODE, new SimpleValue(
-					ExecutionModeType.EXECUTE_METHOD_DIRECTLY));
-		}
 
 	}
 
@@ -180,11 +167,11 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	public ExecutionModeType getExecutionMode() {
-		return (ExecutionModeType) valueModels.getValue(EXECUTION_MODE);
+		return executionMode;
 	}
 
-	public void setFormMode(ExecutionModeType formMode) {
-		valueModels.put(EXECUTION_MODE, new SimpleValue(formMode));
+	public void setFormMode(ExecutionModeType executionMode) {
+		this.executionMode=executionMode;
 	}
 
 	public MethodParameterType getParameterType() {

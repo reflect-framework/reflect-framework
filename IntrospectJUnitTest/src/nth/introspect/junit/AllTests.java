@@ -5,6 +5,7 @@ import nth.introspect.junit.layer5provider.reflection.behavior.disabled.Disabled
 import nth.introspect.junit.layer5provider.reflection.behavior.disabled.DisabledModelForPropertiesTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.hidden.HiddenModelForActionMethodTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.hidden.HiddenModelForPropertiesTest;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeTest;
 import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelTest;
 
 import org.junit.runner.RunWith;
@@ -16,7 +17,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		DisabledModelForPropertiesTest.class,
 		DisabledModelForActionMethodTest.class,
 		HiddenModelForPropertiesTest.class,
-		HiddenModelForActionMethodTest.class, ParameterFactoryModelTest.class })
+		HiddenModelForActionMethodTest.class, ParameterFactoryModelTest.class,
+		ExecutionModeTest.class })
 public class AllTests {
 
 }

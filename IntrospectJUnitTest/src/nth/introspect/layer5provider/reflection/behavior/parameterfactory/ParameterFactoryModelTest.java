@@ -49,7 +49,7 @@ public class ParameterFactoryModelTest {
 
 	private ActionMethodInfo getActionMethodInfo(String actionMethodName) {
 		List<ActionMethodInfo> actionMethodInfos = reflectionProvider
-				.getMethodInfos(ParameterFactoryModelTestObject.class);
+				.getMethodInfos(obj.getClass());
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			if (actionMethodInfo.getSimpleName().equals(actionMethodName)) {
 				return actionMethodInfo;
