@@ -18,7 +18,8 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
 
 /**
  * Provides information on a bean.<br>
- * This class is inspired by the BeanInfo class, which can not be use because it is not implemented by Android
+ * This class is inspired by the BeanInfo class, which can not be use because it
+ * is not implemented by Android
  * 
  * @author nilsth
  * 
@@ -26,9 +27,8 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
 public class ClassInfo implements NameInfo {
 
 	public final static String VISIBLE = "visible";
-	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE};
-	public final static String[] METHOD_NAMES = new String[] {VISIBLE};
-	private ValueModels valueModels;
+	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE };
+	public final static String[] METHOD_NAMES = new String[] { VISIBLE };
 	private final String simpleName;
 	private final String canonicalName;
 	private final DescriptionModel descriptionModel;
@@ -36,26 +36,23 @@ public class ClassInfo implements NameInfo {
 	private final DisplayNameModel displayNameModel;
 	private final TitleModel titleModel;
 	private final IconModel iconModel;
-	
 
-	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass)  {
-		LanguageProvider languageProvider=providerContainer.get(LanguageProvider.class);
-		ReflectionProvider reflectionProvider=providerContainer.get(ReflectionProvider.class);
+	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
+		LanguageProvider languageProvider = providerContainer
+				.get(LanguageProvider.class);
+		ReflectionProvider reflectionProvider = providerContainer
+				.get(ReflectionProvider.class);
 		PathProvider pathProvider = providerContainer.get(PathProvider.class);
 		this.simpleName = objectClass.getSimpleName();
 		this.canonicalName = objectClass.getCanonicalName();
 		this.objectClass = objectClass;
-		this.displayNameModel=new DisplayNameModel(languageProvider,objectClass, simpleName, canonicalName);
-		this.descriptionModel=new DescriptionModel(languageProvider,objectClass, simpleName, canonicalName);
-		this.titleModel=new TitleModel(reflectionProvider);
-		this.iconModel=IconModelFactory.create(objectClass, pathProvider.getImagePath());
-		valueModels = new ValueModels();
-
-		// create default value getters
-		valueModels.put(VISIBLE, new SimpleValue(true));
-
-		// create method value getters
-		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
+		this.displayNameModel = new DisplayNameModel(languageProvider,
+				objectClass, simpleName, canonicalName);
+		this.descriptionModel = new DescriptionModel(languageProvider,
+				objectClass, simpleName, canonicalName);
+		this.titleModel = new TitleModel(reflectionProvider);
+		this.iconModel = IconModelFactory.create(objectClass,
+				pathProvider.getImagePath());
 	}
 
 	@Override
@@ -80,13 +77,8 @@ public class ClassInfo implements NameInfo {
 		return descriptionModel.getText();
 	}
 
-
 	public URI getIconURI(Object obj) {
 		return iconModel.getURI(obj);
-	}
-
-	public Boolean isVisible(Object domainObject) {
-		return valueModels.getBooleanValue(VISIBLE, domainObject);
 	}
 
 	public String getTitle(Object obj) {

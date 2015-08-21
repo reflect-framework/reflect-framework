@@ -41,7 +41,6 @@ public class PropertyInfo implements NameInfo {
 	public static final String GET_PREFIX = "get";
 	private static final String SET_PREFIX = "set";
 
-
 	private final String simpleName;
 	private final String canonicalName;
 	private final Method getterMethod;
@@ -56,32 +55,37 @@ public class PropertyInfo implements NameInfo {
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 
-
-	
-
 	public PropertyInfo(ProviderContainer providerContainer, Method getterMethod) {
 		checkGetterMethodReturnType(getterMethod);
 		checkGetterMethodHasNoParameter(getterMethod);
-		
-		ReflectionProvider reflectionProvider=providerContainer.get(ReflectionProvider.class);
-		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
-		AuthorizationProvider authorizationProvider=providerContainer.get(AuthorizationProvider.class);
-		
+
+		ReflectionProvider reflectionProvider = providerContainer
+				.get(ReflectionProvider.class);
+		LanguageProvider languageProvider = providerContainer
+				.get(LanguageProvider.class);
+		AuthorizationProvider authorizationProvider = providerContainer
+				.get(AuthorizationProvider.class);
+
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(getterMethod, simpleName);
-		this.displayNameModel=new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
-		this.descriptionModel=new DescriptionModel(languageProvider, getterMethod, simpleName, canonicalName);
+		this.displayNameModel = new DisplayNameModel(languageProvider,
+				getterMethod, simpleName, canonicalName);
+		this.descriptionModel = new DescriptionModel(languageProvider,
+				getterMethod, simpleName, canonicalName);
 		this.propertyType = new PropertyType(getterMethod);
 		this.getterMethod = getterMethod;
 		this.setterMethod = getSetterMethod(getterMethod, simpleName,
 				propertyType.getType());
-		this.order=OrderFactory.create(getterMethod);
-		FormatFactory formatFactory = new FormatFactory(reflectionProvider, languageProvider,getterMethod);
+		this.order = OrderFactory.create(getterMethod);
+		FormatFactory formatFactory = new FormatFactory(reflectionProvider,
+				languageProvider, getterMethod);
 		this.format = formatFactory.getFormat();
-		this.formatPattern=formatFactory.getFormatPattern();
-		this.fieldMode=FieldModeFactory.create(getterMethod, formatPattern);
-		this.disabledModel=DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
-		this.hiddenModel=HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod, propertyType.getTypeCategory());
+		this.formatPattern = formatFactory.getFormatPattern();
+		this.fieldMode = FieldModeFactory.create(getterMethod, formatPattern);
+		this.disabledModel = DisabledModelFactory.create(authorizationProvider,
+				getterMethod, setterMethod);
+		this.hiddenModel = HiddenModelFactory.create(authorizationProvider,
+				getterMethod, setterMethod, propertyType.getTypeCategory());
 	}
 
 	private void checkGetterMethodHasNoParameter(Method getterMethod) {
@@ -162,7 +166,6 @@ public class PropertyInfo implements NameInfo {
 		return simpleName;
 	}
 
-
 	@Override
 	public String getCanonicalName() {
 		return canonicalName;
@@ -232,7 +235,6 @@ public class PropertyInfo implements NameInfo {
 		}
 	}
 
-
 	@Override
 	public String toString() {
 		return canonicalName;
@@ -285,7 +287,7 @@ public class PropertyInfo implements NameInfo {
 	public String getFormatPattern() {
 		return formatPattern;
 	}
-	
+
 	public Format getFormat() {
 		return format;
 	}
@@ -300,20 +302,26 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public static boolean isGetterMethod(Method method) {
-		String methodName=method.getName();
+		String methodName = method.getName();
 		boolean isGetClassMethod = "getClass".equals(methodName);
-		boolean hasReturnValue = method.getReturnType()!=Void.class;
-		boolean hasNoParameters = method.getParameterTypes().length==0;
-		boolean isEnumGetDeclairingClass=method.getDeclaringClass().isAssignableFrom(Enum.class) && "getDeclaringClass".equals(methodName);
+		boolean hasReturnValue = method.getReturnType() != Void.class;
+		boolean hasNoParameters = method.getParameterTypes().length == 0;
+		boolean isEnumGetDeclairingClass = method.getDeclaringClass()
+				.isAssignableFrom(Enum.class)
+				&& "getDeclaringClass".equals(methodName);
 		boolean startsWithIs = methodName.startsWith(PropertyInfo.IS_PREFIX);
 		boolean startsWithGet = methodName.startsWith(PropertyInfo.GET_PREFIX);
-		boolean isGetterMethod=!isGetClassMethod && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass &&( startsWithIs || startsWithGet);
+		boolean isGetterMethod = !isGetClassMethod && hasReturnValue
+				&& hasNoParameters && !isEnumGetDeclairingClass
+				&& (startsWithIs || startsWithGet);
 		return isGetterMethod;
 	}
 
 	/**
 	 * TODO implement optionsModel (behavioral annotation and behavioral method)
-	 * TODO if optionsModel!=null then fieldModel must return {@link FieldModeType#COMBO_BOX}
+	 * TODO if optionsModel!=null then fieldModel must return
+	 * {@link FieldModeType#COMBO_BOX}
+	 * 
 	 * @param domainObject
 	 * @return available option values to choose from
 	 */
