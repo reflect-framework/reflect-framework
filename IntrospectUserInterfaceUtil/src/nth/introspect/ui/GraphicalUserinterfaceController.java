@@ -196,7 +196,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 					if (actionMethodInfo.getReturnType().getTypeCategory() != TypeCategory.COLLECTION_TYPE
 							&& actionMethodInfo.getReturnType().getTypeCategory() != TypeCategory.HIERARCHICAL_DOMAIN_TYPE) {
 						// not a collection so get method return value
-						Method method = actionMethodInfo.getMethod();
+						Method method = actionMethodInfo.getActionMethod();
 						Object[] methodArguments = null;
 						if (TypeCategory.NONE == actionMethodInfo.getParameterType()
 								.getTypeCategory()) {

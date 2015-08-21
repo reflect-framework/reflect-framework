@@ -24,7 +24,7 @@ public class AnnotationValueModelFactory {
 	}
 
 	public static Map< String, ReadOnlyValueModel> create(ActionMethodInfo actionMethodInfo, String[] names) {
-		return create(actionMethodInfo.getMethod(),names);
+		return create(actionMethodInfo.getActionMethod(),names);
 	}
 	
 	@SuppressWarnings("unchecked")

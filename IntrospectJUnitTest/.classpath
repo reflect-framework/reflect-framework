@@ -6,5 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectForJUnit"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectTestDomain"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectUserInterfaceUtil"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

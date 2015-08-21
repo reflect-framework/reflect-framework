@@ -2,7 +2,6 @@ package nth.introspect.layer5provider.reflection.behavior.parameterfactory;
 
 import nth.introspect.layer3domain.DomainContainer;
 import nth.introspect.layer3domain.DomainLayer;
-import nth.introspect.layer3domain.DomainObject;
 
 /**
  * See {@link ParameterFactory} annotation

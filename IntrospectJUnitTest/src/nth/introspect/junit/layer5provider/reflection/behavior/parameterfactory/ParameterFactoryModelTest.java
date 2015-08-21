@@ -1,6 +1,7 @@
 package nth.introspect.junit.layer5provider.reflection.behavior.parameterfactory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 

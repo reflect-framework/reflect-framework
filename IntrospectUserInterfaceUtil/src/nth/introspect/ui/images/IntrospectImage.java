@@ -2,6 +2,9 @@ package nth.introspect.ui.images;
 
 public class IntrospectImage {
 	
+	public static final String PATH= "introspectIconClassResource://nth.introspect.ui.images.IntrospectImage/";
+	public static final String EDIT_COPY2 = PATH+"edit_copy.png";
+	
 	public static final IntrospectImagePathIdentifier EDIT_COPY = new IntrospectImagePathIdentifier("edit_copy.png");
 	public static final IntrospectImagePathIdentifier EDIT_PASTE = new IntrospectImagePathIdentifier("edit_paste.png");
 	public static final IntrospectImagePathIdentifier EDIT_FIND = new IntrospectImagePathIdentifier("edit_find.png");

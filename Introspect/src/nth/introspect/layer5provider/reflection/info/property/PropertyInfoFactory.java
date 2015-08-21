@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import nth.introspect.layer5provider.ProviderContainer;
-import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.ReflectionProvider;
 
 public class PropertyInfoFactory {
 

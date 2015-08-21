@@ -24,9 +24,7 @@ public class DisabledOrModel implements DisabledModel {
 
 	@Override
 	public boolean isDisabled(Object obj) {
-		boolean disabledByAnnotation = disabledAnnotationModel.isDisabled(obj);
-		boolean disabledByMethod = disabledMethodModel.isDisabled(obj);
-		return disabledByAnnotation || disabledByMethod;
+		return  disabledAnnotationModel.isDisabled(obj)|| disabledMethodModel.isDisabled(obj);
 	}
 
 }

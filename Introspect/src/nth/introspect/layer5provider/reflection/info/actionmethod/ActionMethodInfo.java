@@ -5,12 +5,10 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.List;
 
-import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.path.id.MethodIconID;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModel;
@@ -20,6 +18,8 @@ import nth.introspect.layer5provider.reflection.behavior.executionmode.Execution
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconModel;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModel;
 import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelFactory;
@@ -27,15 +27,13 @@ import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.factories.AnnotationValueModelFactory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 /**
- * Provides information on a bean method.<br>
- * This class is inspired by the MethodDiscriptor class, which is not use
- * because it is not implemented by Android
+ * <p>
+ * Provides (reflection) information on a {@link ActionMethod}. This class is inspired
+ * by the MethodDiscriptor class, which is not use because it is not implemented
+ * by Android
+ * </p>
  * 
  * @author nilsth
  * 
@@ -43,28 +41,20 @@ import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue
 
 public class ActionMethodInfo implements NameInfo {
 
-	private ValueModels valueModels;
-	public final static String ICON = "icon";
-	public final String[] ANNOTATION_NAMES = new String[] { ICON, 
-			 };
-	public final static String[] METHOD_NAMES = new String[] {
-			 ICON };
-
 	private final String simpleName;
 	private final String canonicalName;
-	private final Method method;
+	private final Method actionMethod;
 	private final String linkedPropertyName;
-	private MethodParameterType parameterType;
+	private final MethodParameterType parameterType;
 	private final MethodReturnType returnType;
-	private final PathProvider pathProvider;// get rid of this field (put in
-											// IconModel)
 	private final double order;
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 	private final ParameterFactoryModel parameterFactoryModel;
-	private ExecutionModeType executionMode;
+	private ExecutionModeType executionMode; // TODO make final
+	private final IconModel iconModel;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		this(providerContainer, method, null);
@@ -76,9 +66,9 @@ public class ActionMethodInfo implements NameInfo {
 				.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = providerContainer
 				.get(AuthorizationProvider.class);
-		
-		this.pathProvider = providerContainer.get(PathProvider.class);
-		this.method = method;
+
+		PathProvider pathProvider = providerContainer.get(PathProvider.class);
+		this.actionMethod = method;
 		this.linkedPropertyName = linkedPropertyName;
 		this.simpleName = method.getName();
 		this.canonicalName = getCanonicalName(method);
@@ -91,25 +81,13 @@ public class ActionMethodInfo implements NameInfo {
 		this.order = OrderFactory.create(method);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider,
 				method);
-		this.hiddenModel=HiddenModelFactory.create(authorizationProvider, method);
-		this.parameterFactoryModel=ParameterFactoryModelFactory.create( method, parameterType.getType());
-		this.executionMode=ExecutionModeFactory.create(method, canonicalName);
-		this.valueModels = new ValueModels();
-
-		// create default value getters
-		valueModels.put(ICON, new SimpleValue(new MethodIconID(pathProvider,
-				method)));
-
-		// create value getters from annotations
-		// TODO add a value getter for domainclass from EJB annotations (when
-		// available) because Introspect cannot determine the generic type of a
-		// collection
-		valueModels.putAll(AnnotationValueModelFactory.create(this,
-				ANNOTATION_NAMES));
-
-		// //create method value getters
-		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
-
+		this.hiddenModel = HiddenModelFactory.create(authorizationProvider,
+				method);
+		this.parameterFactoryModel = ParameterFactoryModelFactory.create(
+				method, parameterType.getType());
+		this.executionMode = ExecutionModeFactory.create(method, canonicalName);
+		this.iconModel = IconModelFactory.create(method,
+				pathProvider.getImagePath());
 
 	}
 
@@ -130,8 +108,8 @@ public class ActionMethodInfo implements NameInfo {
 		return canonicalName;
 	}
 
-	public Method getMethod() {
-		return method;
+	public Method getActionMethod() {
+		return actionMethod;
 	}
 
 	public String getDisplayName() {
@@ -142,16 +120,8 @@ public class ActionMethodInfo implements NameInfo {
 		return descriptionModel.getText();
 	}
 
-	public CharSequence getIconID(Object obj) {
-		Object value = valueModels.getValue(ICON, obj);
-		if (value == null) {
-			return null;
-		}
-		return (CharSequence) value;
-	}
-
 	public URI getIconURI(Object obj) {
-		return pathProvider.getImagePath(getIconID(obj));
+		return iconModel.getURI(obj);
 	}
 
 	public double getOrder() {
@@ -171,7 +141,7 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	public void setFormMode(ExecutionModeType executionMode) {
-		this.executionMode=executionMode;
+		this.executionMode = executionMode;// TODO make read only
 	}
 
 	public MethodParameterType getParameterType() {
@@ -183,7 +153,7 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	public boolean hasParameterFactory() {
-		return parameterFactoryModel!=null;
+		return parameterFactoryModel != null;
 	}
 
 	public Object createMethodParameter(Object obj)
@@ -209,7 +179,7 @@ public class ActionMethodInfo implements NameInfo {
 		default:
 			break;
 		}
-		return method.invoke(methodOwner, arguments);
+		return actionMethod.invoke(methodOwner, arguments);
 	}
 
 	public String getLinkedPropertyName() {

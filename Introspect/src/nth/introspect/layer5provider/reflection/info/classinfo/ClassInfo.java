@@ -6,10 +6,11 @@ import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.path.id.ClassIconID;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconModel;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
@@ -27,35 +28,31 @@ public class ClassInfo implements NameInfo {
 	public final static String VISIBLE = "visible";
 	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE};
 	public final static String[] METHOD_NAMES = new String[] {VISIBLE};
-	private static final String ICON = "icon";
 	private ValueModels valueModels;
 	private final String simpleName;
 	private final String canonicalName;
 	private final DescriptionModel descriptionModel;
 	private final Class<?> objectClass;
-	private final PathProvider pathProvider;//TODO remove this field when implemented the IconModel
 	private final DisplayNameModel displayNameModel;
 	private final TitleModel titleModel;
+	private final IconModel iconModel;
 	
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass)  {
 		LanguageProvider languageProvider=providerContainer.get(LanguageProvider.class);
 		ReflectionProvider reflectionProvider=providerContainer.get(ReflectionProvider.class);
-		this.pathProvider = providerContainer.get(PathProvider.class);
+		PathProvider pathProvider = providerContainer.get(PathProvider.class);
 		this.simpleName = objectClass.getSimpleName();
 		this.canonicalName = objectClass.getCanonicalName();
 		this.objectClass = objectClass;
 		this.displayNameModel=new DisplayNameModel(languageProvider,objectClass, simpleName, canonicalName);
 		this.descriptionModel=new DescriptionModel(languageProvider,objectClass, simpleName, canonicalName);
 		this.titleModel=new TitleModel(reflectionProvider);
+		this.iconModel=IconModelFactory.create(objectClass, pathProvider.getImagePath());
 		valueModels = new ValueModels();
 
 		// create default value getters
-		valueModels.put(ICON, new SimpleValue(new ClassIconID(pathProvider, objectClass)));
 		valueModels.put(VISIBLE, new SimpleValue(true));
-
-		// create value getters from annotations
-		// TODO when needed valueModels.putAll(AnnotationValueModelFactory.create(this, ANNOTATION_NAMES));
 
 		// create method value getters
 		valueModels.putAll(MethodValueModelFactory.create(this, METHOD_NAMES));
@@ -83,16 +80,9 @@ public class ClassInfo implements NameInfo {
 		return descriptionModel.getText();
 	}
 
-	public CharSequence getIconID(Object obj) {
-		Object value = valueModels.getValue(ICON, obj);
-		if (value == null) {
-			return null;
-		}
-		return (CharSequence) value;
-	}
 
 	public URI getIconURI(Object obj) {
-		return pathProvider.getImagePath(getIconID(obj));
+		return iconModel.getURI(obj);
 	}
 
 	public Boolean isVisible(Object domainObject) {

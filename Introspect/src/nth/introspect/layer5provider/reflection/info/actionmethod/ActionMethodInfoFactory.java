@@ -7,8 +7,6 @@ import java.util.List;
 
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer5provider.ProviderContainer;
-import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 

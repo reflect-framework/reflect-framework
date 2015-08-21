@@ -2,10 +2,7 @@ package nth.introspect.layer5provider.reflection.behavior.executionmode;
 
 import java.lang.reflect.Method;
 
-import nth.introspect.layer5provider.reflection.behavior.order.Order;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 /**
  * <p>

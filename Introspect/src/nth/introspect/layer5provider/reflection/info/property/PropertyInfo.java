@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.introspect.generic.util.TypeUtil;
-import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
@@ -26,13 +25,8 @@ import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
-import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.type.PropertyType;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.factories.AnnotationValueModelFactory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 /**
  * Provides information on a {@link DomainObject} property.<br>

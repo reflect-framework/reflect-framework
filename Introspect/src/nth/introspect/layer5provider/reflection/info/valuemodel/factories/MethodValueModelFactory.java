@@ -19,7 +19,7 @@ public class MethodValueModelFactory {
 	}
 
 	public static Map<String, ReadOnlyValueModel> create(ActionMethodInfo methodinfo, String[] names) {
-		return create(methodinfo.getMethod().getDeclaringClass(), methodinfo.getSimpleName(), names);
+		return create(methodinfo.getActionMethod().getDeclaringClass(), methodinfo.getSimpleName(), names);
 	}
 	
 	public static HashMap<String, ReadOnlyValueModel> create(PropertyInfo propertyInfo, String[] names) {

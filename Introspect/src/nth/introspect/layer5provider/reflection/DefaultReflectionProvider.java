@@ -8,15 +8,12 @@ import java.util.List;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.layer5provider.ProviderContainer;
-import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfoFactory;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfoFactory;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactory;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 

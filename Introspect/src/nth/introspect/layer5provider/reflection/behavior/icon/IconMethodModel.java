@@ -1,16 +1,23 @@
 package nth.introspect.layer5provider.reflection.behavior.icon;
 
+import java.lang.reflect.Method;
+import java.net.URI;
+
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 
 /**
- * <p>Instead of the {@link Icon} annotation you can also define the icon with a
+ * <p>
+ * Instead of the {@link Icon} annotation you can also define the icon with a
  * method recognized by the {@link IntrospectFramework}. This allows you to
  * change the icon dynamically during runtime, based on state (e.g. when the
- * {@link DomainObject} Person is a male or female).</p>
+ * {@link DomainObject} Person is a male or female).
+ * </p>
  * <p>
- * Syntax: public string icon&lt;className or actionMethodName&gt;()</p>
+ * Syntax: public string icon&lt;className or actionMethodName&gt;()
+ * </p>
  * 
  * The return value must be an iconURI, which can be a:
  * <ul>
@@ -30,7 +37,15 @@ import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
  * @author nilsth
  *
  */
-public class IconMethod extends BehavioralMethod {
+public class IconMethodModel extends BehavioralMethod implements IconModel {
+
+	private final Method iconMethod;
+	private final URI imageFolderUri;
+
+	public IconMethodModel(Method iconMethod, URI imageFolderUri) {
+		this.iconMethod = iconMethod;
+		this.imageFolderUri = imageFolderUri;
+	}
 
 	@Override
 	public String getBehavioralName() {
@@ -41,5 +56,20 @@ public class IconMethod extends BehavioralMethod {
 	public Class<?> getReturnType() {
 		return String.class;
 	}
-	// TODO
+
+	@Override
+	public URI getURI(Object obj) {
+		Object[] arguments = new Object[0];
+		try {
+			String iconURI = (String) iconMethod.invoke(obj, arguments);
+			try {
+				URI uri = IconUriFactory.create(iconURI, imageFolderUri);
+				return uri;
+			} catch (Exception exception) {
+				return null;
+			}
+		} catch (Exception e) {
+			throw new BehaviorMethodInvokeException(iconMethod);
+		}
+	}
 }

@@ -2,7 +2,6 @@ package nth.introspect.layer5provider.reflection.behavior;
 
 import java.lang.reflect.Method;
 
-import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;

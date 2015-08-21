@@ -6,6 +6,9 @@ import nth.introspect.junit.layer5provider.reflection.behavior.disabled.Disabled
 import nth.introspect.junit.layer5provider.reflection.behavior.executionmode.ExecutionModeTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.hidden.HiddenModelForActionMethodTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.hidden.HiddenModelForPropertiesTest;
+import nth.introspect.junit.layer5provider.reflection.behavior.icon.IconUriClassResourceTest;
+import nth.introspect.junit.layer5provider.reflection.behavior.icon.foractionmethod.IconModelForActionMethodTest;
+import nth.introspect.junit.layer5provider.reflection.behavior.icon.forclass.IconModelForClassTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelTest;
 
 import org.junit.runner.RunWith;
@@ -18,7 +21,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		DisabledModelForActionMethodTest.class,
 		HiddenModelForPropertiesTest.class,
 		HiddenModelForActionMethodTest.class, ParameterFactoryModelTest.class,
-		ExecutionModeTest.class })
+		ExecutionModeTest.class, IconUriClassResourceTest.class,
+		IconModelForClassTest.class, IconModelForActionMethodTest.class })
 public class AllTests {
 
 }
