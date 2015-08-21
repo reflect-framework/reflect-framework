@@ -5,14 +5,13 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import nth.introspect.Introspect;
-import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.ui.images.IntrospectImagePathIdentifier;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 
 public class IconFactory {
 
@@ -57,20 +56,28 @@ public class IconFactory {
 		return icon;
 	}
 
-	public static Icon create(PathProvider pathProvider, IntrospectImagePathIdentifier identifier) {
-		if (identifier == null) {
+	public static Icon create(String iconUri) {
+		if (iconUri == null) {
 			return null;
 		}
-		URI iconURI = pathProvider.getImagePath(identifier);
-		return create(iconURI);
+		try {
+			URI iconURI = new IconUriClassResource(iconUri).getAbsoluteURI();
+			return create(iconURI);
+		} catch (URISyntaxException e) {
+			return null;
+		}
 	}
 
-	public static Icon create(PathProvider pathProvider, IntrospectImagePathIdentifier identifier, int maxSize) {
-		if (identifier == null) {
+	public static Icon create(String iconUri, int maxSize) {
+		if (iconUri == null) {
 			return null;
 		}
-		URI iconURI = pathProvider.getImagePath(identifier);
-		return create(iconURI, maxSize);
+		try {
+			URI iconURI = new IconUriClassResource(iconUri).getAbsoluteURI();
+			return create(iconURI, maxSize);
+		} catch (URISyntaxException e) {
+			return null;
+		}
 	}
 
 }

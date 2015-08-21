@@ -20,7 +20,6 @@ import javax.swing.text.DocumentFilter;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.item.ItemFactory;
@@ -36,9 +35,8 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	private final FormView formView;
 	private boolean allowTextChange;
 
-	public OneToOneOrManyField(FormView formView, PathProvider pathProvider,
+	public OneToOneOrManyField(FormView formView,
 			PropertyValueModel propertyValueModel) {
-		super(pathProvider);
 		this.formView = formView;
 		this.propertyValueModel = propertyValueModel;
 		this.allowTextChange = false;

@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
@@ -49,8 +48,7 @@ public class HierarchicalItem extends Item {
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		String iconName = languageProvider.getDefaultValue(text);
-		setIconURI(pathProvider.getImagePath(iconName));
+		//TODO setIconURI();
 	}
 
 	/**

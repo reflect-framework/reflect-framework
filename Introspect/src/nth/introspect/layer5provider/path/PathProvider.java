@@ -37,16 +37,8 @@ public interface PathProvider extends Provider {
 
 	URI getConfigPath();
 
-	URI getConfigPath(String relativePath);
-
 	URI getDocumenPath();
 
-	URI getDocumentPath(String relativePath);
-
 	URI getImagePath();
-
-	URI getImagePath(CharSequence identifier);
-
-	boolean uriExists(URI uri);
 
 }

@@ -11,15 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
-import sun.awt.geom.AreaOp.IntOp;
-import nth.introspect.Introspect;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
@@ -46,12 +43,10 @@ public class FormView extends SwingView implements
 	private final Object domainObject;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final ReflectionProvider reflectionProvider;
-	private final PathProvider pathProvider;
 
 	public FormView(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.pathProvider = userInterfaceContainer.get(PathProvider.class);
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -69,7 +64,7 @@ public class FormView extends SwingView implements
 		add(propertyGrid, BorderLayout.CENTER);
 		Component fieldToGetFocus = null;
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyRow propertyRow = new PropertyRow(this, reflectionProvider, pathProvider, domainValueModel,
+			PropertyRow propertyRow = new PropertyRow(this, reflectionProvider, domainValueModel,
 					propertyInfo, formMode);
 			if (fieldToGetFocus == null && FormMode.EDIT_MODE == formMode
 					&& propertyInfo.isEnabled(domainObject)) {
@@ -120,7 +115,7 @@ public class FormView extends SwingView implements
 		UserInterfaceController userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class); 
 		ViewContainer viewContainer = userInterfaceController.getViewContainer();
 		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
-		CloseThisTabItem closeItem = new CloseThisTabItem(pathProvider, languageProvider, viewContainer, this);
+		CloseThisTabItem closeItem = new CloseThisTabItem( languageProvider, viewContainer, this);
 		return new ItemButton(closeItem);
 	}
 
@@ -128,7 +123,7 @@ public class FormView extends SwingView implements
 		UserInterfaceController userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class); 
 		ViewContainer viewContainer = userInterfaceController.getViewContainer();
 		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
-		CancelItem cancelItem = new CancelItem(pathProvider, languageProvider, viewContainer, this);
+		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer, this);
 		return new ItemButton(cancelItem);
 	}
 

@@ -7,14 +7,12 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.tablemodel.DomainTableModel;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;

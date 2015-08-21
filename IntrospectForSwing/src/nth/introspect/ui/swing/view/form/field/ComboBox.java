@@ -13,11 +13,9 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
-import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadWriteValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
@@ -29,7 +27,7 @@ public class ComboBox extends JComboBox implements Refreshable {
 	private ReadWriteValueModel readWriteValueModel;
 
 	public ComboBox(final PropertyValueModel propertyValueModel,
-			ReflectionProvider reflectionProvider, PathProvider pathProvider,
+			ReflectionProvider reflectionProvider, 
 			LanguageProvider languageProvider) {
 		this.readWriteValueModel = propertyValueModel;
 

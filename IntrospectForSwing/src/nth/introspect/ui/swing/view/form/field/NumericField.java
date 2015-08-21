@@ -1,22 +1,10 @@
 package nth.introspect.ui.swing.view.form.field;
 
-import java.text.Format;
-import java.text.ParseException;
-
 import javax.swing.JFormattedTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AbstractDocument.DefaultDocumentEvent;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
 
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.ui.swing.properygrid.SwingUtil;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
 /**

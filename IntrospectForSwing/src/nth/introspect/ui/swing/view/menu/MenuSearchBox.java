@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.text.JTextComponent;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.ui.item.HierarchicalItem;

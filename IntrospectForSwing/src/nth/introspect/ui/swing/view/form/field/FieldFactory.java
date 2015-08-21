@@ -3,7 +3,6 @@ package nth.introspect.ui.swing.view.form.field;
 import java.awt.Component;
 
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
@@ -13,7 +12,7 @@ import nth.introspect.ui.view.FormView;
 
 public class FieldFactory {
 
-	public static Component create(FormView formView, ReflectionProvider reflectionProvider, PathProvider pathProvider, PropertyValueModel propertyValueModel) {
+	public static Component create(FormView formView, ReflectionProvider reflectionProvider,  PropertyValueModel propertyValueModel) {
 		// TODO how do we make sure that all fields implement refreshable?
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
 		FieldModeType fieldMode = propertyInfo.getFieldMode();
@@ -38,9 +37,9 @@ public class FieldFactory {
 			return new DateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
 		case COMBO_BOX:
 			LanguageProvider languageProvider=formView.getuserInterfaceContainer().get(LanguageProvider.class);
-			return new ComboBox(propertyValueModel, reflectionProvider, pathProvider, languageProvider);
+			return new ComboBox(propertyValueModel, reflectionProvider, languageProvider);
 		case ONE_TO_ONE_OR_MANY:
-			return new OneToOneOrManyField(formView, pathProvider, propertyValueModel);
+			return new OneToOneOrManyField(formView,  propertyValueModel);
 		case MANY_TO_ONE_OR_MANY:
 			return new ManyToOneOrManyField(formView, propertyValueModel);
 		default:

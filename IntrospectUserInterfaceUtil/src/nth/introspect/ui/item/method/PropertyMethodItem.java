@@ -1,14 +1,11 @@
 package nth.introspect.ui.item.method;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;

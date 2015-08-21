@@ -2,7 +2,6 @@ package nth.introspect.ui.item.dialog;
 
 import java.net.URI;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;

@@ -18,8 +18,6 @@ import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
-import nth.introspect.layer5provider.about.AboutProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.swing.dialog.toast.Toast;

@@ -7,11 +7,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Box;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -21,9 +21,6 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-import com.sun.corba.se.spi.copyobject.ReflectiveCopyException;
-
-import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
@@ -31,6 +28,7 @@ import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
@@ -57,11 +55,16 @@ public class MainWindow extends JFrame {
 
 	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class);
-		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		this.pathProvider = userInterfaceContainer.get(PathProvider.class);;
-		this.aboutProvider = userInterfaceContainer.get(AboutProvider.class);;
-		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+		this.userInterfaceController = userInterfaceContainer
+				.get(UserInterfaceController.class);
+		this.reflectionProvider = userInterfaceContainer
+				.get(ReflectionProvider.class);
+		this.pathProvider = userInterfaceContainer.get(PathProvider.class);
+		;
+		this.aboutProvider = userInterfaceContainer.get(AboutProvider.class);
+		;
+		this.languageProvider = userInterfaceContainer
+				.get(LanguageProvider.class);
 		// Set style
 		try {
 			UIManager
@@ -70,7 +73,8 @@ public class MainWindow extends JFrame {
 		}
 		setDefaultLookAndFeelDecorated(true);
 
-		IntrospectApplication application=userInterfaceContainer.get(IntrospectApplication.class);
+		IntrospectApplication application = userInterfaceContainer
+				.get(IntrospectApplication.class);
 		// Set window parameters
 		ClassInfo applicationInfo = reflectionProvider.getClassInfo(application
 				.getClass());
@@ -130,8 +134,7 @@ public class MainWindow extends JFrame {
 
 	private JButton createAboutButton() {
 		AboutItem aboutItem = new AboutItem(userInterfaceController,
-				reflectionProvider, languageProvider, aboutProvider,
-				pathProvider);
+				reflectionProvider, languageProvider, aboutProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
 		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;
@@ -178,8 +181,12 @@ public class MainWindow extends JFrame {
 				KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
 		button.setToolTipText(languageProvider.getText("Find Menu Item (F3)"));
-		button.setIcon(IconFactory.create(pathProvider,
-				IntrospectImage.EDIT_FIND, SwingStyleConstant.ICON_SIZE));
+		try {
+			button.setIcon(IconFactory.create(new IconUriClassResource(
+					IntrospectImage.EDIT_FIND).getAbsoluteURI(),
+					SwingStyleConstant.ICON_SIZE));
+		} catch (URISyntaxException e1) {
+		}
 		return button;
 	}
 
@@ -205,7 +212,7 @@ public class MainWindow extends JFrame {
 				KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
 		button.setToolTipText(languageProvider.getText("Show Tabs Menu (F4)"));
-		button.setIcon(IconFactory.create(pathProvider, IntrospectImage.TABS,
+		button.setIcon(IconFactory.create(IntrospectImage.TABS,
 				SwingStyleConstant.ICON_SIZE));
 		return button;
 	}
@@ -220,12 +227,12 @@ public class MainWindow extends JFrame {
 
 	private SwingViewContainer createContentTabPanel() {
 		SwingViewContainer swingViewContainer = new SwingViewContainer(
-				userInterfaceContainer, pathProvider);
+				userInterfaceContainer);
 		return swingViewContainer;
 	}
 
 	private MenuTabPanel createMenuTabPanel() {
-		return new MenuTabPanel(userInterfaceContainer, pathProvider);
+		return new MenuTabPanel(userInterfaceContainer);
 	}
 
 	public void hideMenu() {
@@ -235,8 +242,8 @@ public class MainWindow extends JFrame {
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(false);
 		// set menu button
 		menuButton.setToolTipText(languageProvider.getText("Show Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(pathProvider,
-				IntrospectImage.MENU_OPENED, SwingStyleConstant.ICON_SIZE));
+		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_OPENED,
+				SwingStyleConstant.ICON_SIZE));
 	}
 
 	public void showMenu() {
@@ -246,8 +253,8 @@ public class MainWindow extends JFrame {
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(true);
 		// hide menu button
 		menuButton.setToolTipText(languageProvider.getText("Hide Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(pathProvider,
-				IntrospectImage.MENU_CLOSED, SwingStyleConstant.ICON_SIZE));
+		menuButton.setIcon(IconFactory.create(IntrospectImage.MENU_CLOSED,
+				SwingStyleConstant.ICON_SIZE));
 	}
 
 	public boolean isMenuVisible() {

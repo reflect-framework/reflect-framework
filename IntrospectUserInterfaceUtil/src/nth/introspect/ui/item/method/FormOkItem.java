@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;

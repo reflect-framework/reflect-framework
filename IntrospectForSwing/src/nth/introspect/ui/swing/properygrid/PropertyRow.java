@@ -8,7 +8,6 @@ import java.awt.event.FocusListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.swing.style.ColorUtil;
@@ -39,14 +38,14 @@ public class PropertyRow extends JPanel {
 
 
 
-	public PropertyRow(FormView formView, ReflectionProvider reflectionProvider, PathProvider pathProvider,BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
+	public PropertyRow(FormView formView, ReflectionProvider reflectionProvider, BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
 		this.domainValueModel = domainValueModel;
 		this.propertyInfo = propertyInfo;
 		// create value model to bind domainObject and SWING field
 		
 		propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		
-		this.field = FieldFactory.create(formView, reflectionProvider, pathProvider, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field
+		this.field = FieldFactory.create(formView, reflectionProvider, propertyValueModel);// To be created by a factory class (implementation of IntrospectFormFieldFactory<Field
 		if (field instanceof ManyToOneOrManyField || field instanceof TextAreaField) {//TODO get field width from a Field interface?
 			this.fieldWidth = FieldWidth.full;
 		} else {

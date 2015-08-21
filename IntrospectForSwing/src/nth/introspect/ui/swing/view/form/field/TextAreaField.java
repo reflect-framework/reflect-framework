@@ -1,21 +1,16 @@
 package nth.introspect.ui.swing.view.form.field;
 
-import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.plaf.ColorUIResource;
 
 import nth.introspect.generic.valuemodel.ReadWriteValueModel;
 import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.ui.swing.properygrid.PropertyRow;
 import nth.introspect.ui.swing.style.ColorUtil;
-import nth.introspect.ui.swing.style.SwingStyleConstant;
 
 @SuppressWarnings("serial")
 public class TextAreaField extends JTextArea implements Refreshable {

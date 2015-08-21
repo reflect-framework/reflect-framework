@@ -15,7 +15,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.swing.icon.IconFactory;
 
@@ -25,10 +24,8 @@ public class DropDownTextfield<T extends JComponent> extends JPanel {
 	private final JButton dropDownButton;
 	private final T textField;
 	private final JTextField TEXT_FIELD_DEFAULT = new JTextField();
-	private final PathProvider pathProvider;
 
-	public DropDownTextfield(PathProvider pathProvider) {
-		this.pathProvider = pathProvider;
+	public DropDownTextfield() {
 		setLayout(new BorderLayout());
 		setBorder(TEXT_FIELD_DEFAULT.getBorder());
 
@@ -61,11 +58,11 @@ public class DropDownTextfield<T extends JComponent> extends JPanel {
 
 	public JButton createDropDownButton() {
 		final Icon icon1 = IconFactory
-				.create(pathProvider, IntrospectImage.BUTTON_DROPDOWN_1);
+				.create(IntrospectImage.BUTTON_DROPDOWN_1);
 		final Icon icon2 = IconFactory
-				.create(pathProvider,IntrospectImage.BUTTON_DROPDOWN_2);
+				.create(IntrospectImage.BUTTON_DROPDOWN_2);
 		final Icon icon3 = IconFactory
-				.create(pathProvider,IntrospectImage.BUTTON_DROPDOWN_3);
+				.create(IntrospectImage.BUTTON_DROPDOWN_3);
 		final Icon icon4 = null;// disabled: no icon visible
 		JButton button = new JButton(icon1) {
 			@Override

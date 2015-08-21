@@ -3,14 +3,14 @@ package nth.introspect.ui.swing.view.menu;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.JComboBox;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
@@ -24,16 +24,19 @@ public class MenuView extends SwingView {
 	private JComboBox searchBox;
 	private ItemAccordion itemAccordion;
 	private final LanguageProvider languageProvider;
-	private final URI menuIconUri ;
+	private URI menuIconUri =null;
 
-	public MenuView(UserInterfaceContainer userInterfaceContainer, PathProvider pathProvider) {
+	public MenuView(UserInterfaceContainer userInterfaceContainer) {
 		List<MethodOwnerItem> menuItems = ItemFactory.createMenuViewItems(userInterfaceContainer);
 
 		setLayout(new BorderLayout());
 
 		itemAccordion=new ItemAccordion(menuItems);
 		add(itemAccordion,BorderLayout.CENTER);
-		menuIconUri = pathProvider.getImagePath(IntrospectImage.MENU_OPENED);
+		try {
+			menuIconUri = new IconUriClassResource(IntrospectImage.MENU_OPENED).getAbsoluteURI();
+		} catch (URISyntaxException e) {
+		}
 		languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		searchBox = createSearchBox(itemAccordion, menuItems, languageProvider);
 		add(searchBox, BorderLayout.NORTH);

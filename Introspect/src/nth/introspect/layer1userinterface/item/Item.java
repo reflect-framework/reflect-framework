@@ -59,9 +59,7 @@ public class Item {
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		String iconName = languageProvider.getDefaultValue(text);
-		URI iconUri = pathProvider.getImagePath(iconName);
-		setIconURI(iconUri);
+		//TODO setIconURI(iconUri);???
 	}
 
 	/**

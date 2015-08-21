@@ -1,28 +1,15 @@
 package nth.introspect.ui.swing.view.form.field;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer1userinterface.controller.Refreshable;
-import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
 public class DateTimeField extends JSpinner implements Refreshable {

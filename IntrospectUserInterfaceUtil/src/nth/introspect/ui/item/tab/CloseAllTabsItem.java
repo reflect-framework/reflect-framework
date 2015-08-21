@@ -1,11 +1,12 @@
 package nth.introspect.ui.item.tab;
 
-import nth.introspect.Introspect;
+import java.net.URISyntaxException;
+
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.ui.images.IntrospectImage;
 
 public class CloseAllTabsItem extends Item {
@@ -14,12 +15,17 @@ public class CloseAllTabsItem extends Item {
 	private final ViewContainer<View> viewContainer;
 
 	@SuppressWarnings("unchecked")
-	public CloseAllTabsItem(PathProvider pathProvider, LanguageProvider languageProvider, final ViewContainer<View> viewContainer) {
+	public CloseAllTabsItem(LanguageProvider languageProvider,
+			final ViewContainer<View> viewContainer) {
 		super(languageProvider);
-		this.viewContainer=viewContainer;
+		this.viewContainer = viewContainer;
 		setText(CLOSE_ALL_TABS);
 		setDescription(CLOSE_ALL_TABS);
-		setIconURI(pathProvider.getImagePath(IntrospectImage.TABS_CLOSE_ALL));
+		try {
+			setIconURI(new IconUriClassResource(IntrospectImage.TABS_CLOSE_ALL)
+					.getAbsoluteURI());
+		} catch (URISyntaxException e) {
+		}
 		setAction(new Action() {
 			@Override
 			public void run() {

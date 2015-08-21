@@ -3,7 +3,6 @@ package nth.introspect.ui.item.dialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.util.ExceptionUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;

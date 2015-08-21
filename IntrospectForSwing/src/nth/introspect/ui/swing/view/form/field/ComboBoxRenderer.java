@@ -1,16 +1,12 @@
 package nth.introspect.ui.swing.view.form.field;
 
 import java.awt.Component;
-import java.net.URI;
 
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.Icon;
 import javax.swing.JList;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.ui.swing.icon.IconFactory;
 
 @SuppressWarnings("serial")
 public class ComboBoxRenderer extends DefaultListCellRenderer {
@@ -34,15 +30,7 @@ public class ComboBoxRenderer extends DefaultListCellRenderer {
 			String text = languageProvider.getText(key, defaultValue);
 			setText(text);
 			//TODO? setToolTipText();
-			
 			//TODO set icon
-			try {
-				URI iconURI = pathProvider .getImagePath(key);
-				Icon icon=IconFactory.create(iconURI);
-				setIcon(icon);
-			} catch (Exception e) {
-				//failed
-			}
 
 		}
 		return this;
