@@ -53,7 +53,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 	private final ParameterFactoryModel parameterFactoryModel;
-	private ExecutionModeType executionMode; // TODO make final
+	private final ExecutionModeType executionMode; 
 	private final IconModel iconModel;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
@@ -138,10 +138,6 @@ public class ActionMethodInfo implements NameInfo {
 
 	public ExecutionModeType getExecutionMode() {
 		return executionMode;
-	}
-
-	public void setFormMode(ExecutionModeType executionMode) {
-		this.executionMode = executionMode;// TODO make read only
 	}
 
 	public MethodParameterType getParameterType() {

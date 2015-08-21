@@ -3,7 +3,6 @@ package nth.introspect.ui.commandline.view;
 import java.util.Collection;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;

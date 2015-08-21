@@ -3,13 +3,12 @@ package nth.introspect.ui.commandline.domain.command;
 import java.io.File;
 import java.net.URL;
 import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import com.sun.org.apache.xml.internal.utils.URI;
-
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+
+import com.sun.org.apache.xml.internal.utils.URI;
 
 public class Parameter {
 	private final PropertyInfo propertyInfo;

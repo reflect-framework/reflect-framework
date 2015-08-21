@@ -16,7 +16,6 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
-import nth.introspect.IntrospectApplication;
 import nth.introspect.generic.exception.MethodNotSupportedException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
@@ -24,10 +23,8 @@ import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.ProviderContainer;
-import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.commandline.domain.command.Command;
@@ -155,9 +152,7 @@ public class UserInterfaceControllerForCommandLine extends
 
 		Object serviceObject = command.getServiceObject();
 		ActionMethodInfo actionMethodInfo = command.getMethodInfo();
-		// override form mode to execute method directly (because this is
-		// the only mode supported for a command line interface)
-		actionMethodInfo.setFormMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
+		// NOTE that formMode ExecutionModeType.EXECUTE_METHOD_DIRECTLY is the only mode supported for this user interface
 
 		startExecution(serviceObject, actionMethodInfo, methodParameterValue);
 	}

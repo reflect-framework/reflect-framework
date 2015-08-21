@@ -2,7 +2,6 @@ package nth.introspect.ui.commandline;
 
 import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
-import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.about.DefaultAboutProvider;
