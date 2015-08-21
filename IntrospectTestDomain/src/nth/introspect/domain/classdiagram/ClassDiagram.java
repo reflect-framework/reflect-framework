@@ -7,7 +7,6 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.order.Order;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class ClassDiagram {
 
@@ -73,19 +72,16 @@ public class ClassDiagram {
 	}
 
 	@Order(sequenceNumber=3)
-	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> getInterfaces() {
 		return interfaces;
 	}
 
 	@Order(sequenceNumber=4)
-	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> getProperties() {
 		return properties;
 	}
 
 	@Order(sequenceNumber=5)
-	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> getMethods() {
 		return methods;
 	}

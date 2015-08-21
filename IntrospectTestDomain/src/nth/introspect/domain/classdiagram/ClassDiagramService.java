@@ -10,13 +10,11 @@ import java.util.Set;
 import nth.introspect.Introspect;
 import nth.introspect.domain.test.TestsService;
 import nth.introspect.generic.util.TypeUtil;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class ClassDiagramService {
 
@@ -30,7 +28,6 @@ public class ClassDiagramService {
 		serviceClasses.add(TestsService.class);
 	}
 
-	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> allServiceClasses() {
 		List<ClassFeature> classFeatures = new ArrayList<ClassFeature>();
 		for (Class<?> serviceClass : serviceClasses) {
@@ -39,7 +36,6 @@ public class ClassDiagramService {
 		return classFeatures;
 	}
 
-	@GenericReturnType(ClassFeature.class)
 	public List<ClassFeature> allClasses() {
 		Set<Class<?>> foundClasses = new HashSet<Class<?>>();
 

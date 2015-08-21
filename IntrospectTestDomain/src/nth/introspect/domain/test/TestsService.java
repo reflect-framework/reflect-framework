@@ -13,7 +13,6 @@ import java.util.List;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class TestsService {
 	private List<Test> tests;
@@ -40,7 +39,6 @@ public class TestsService {
 		tests.add(test);
 	}
 
-	@GenericReturnType(Test.class)
 	public List<Test> allTests() {
 		return tests;
 	}

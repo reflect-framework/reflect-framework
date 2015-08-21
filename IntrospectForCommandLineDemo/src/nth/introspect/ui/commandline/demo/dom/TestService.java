@@ -13,7 +13,6 @@ import java.util.List;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 /**
  * Note that this class is derived form the TestsService class in the IntrospectTestDomain project<br>
  * It is simplified so it is suited for the command line user interface (Which is limited in functionality) 
@@ -46,7 +45,6 @@ public class TestService {
 		tests.add(test);
 	}
 
-	@GenericReturnType(Test.class)
 	public List<Test> allTests() {
 		return tests;
 	}

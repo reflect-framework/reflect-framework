@@ -9,7 +9,6 @@ import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 /**
  * <p>

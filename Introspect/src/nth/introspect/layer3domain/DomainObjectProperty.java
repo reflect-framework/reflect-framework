@@ -6,7 +6,6 @@ import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
 import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 /**
  * {@link DomainObject}s have <a

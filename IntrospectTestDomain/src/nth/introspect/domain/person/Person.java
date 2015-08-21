@@ -3,8 +3,6 @@ package nth.introspect.domain.person;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
-
 public class Person {
 	private String name;
 	private GregorianCalendar birtday;
@@ -32,7 +30,6 @@ public class Person {
 		this.spouce = spouce;
 	}
 	
-	@GenericReturnType(Person.class)
 	public List<Person> getChildren() {
 		return children;
 	}

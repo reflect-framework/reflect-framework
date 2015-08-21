@@ -3,7 +3,6 @@ package nth.introspect.junit.layer5provider.reflection.behavior.disabled;
 import java.util.List;
 
 import nth.introspect.layer5provider.reflection.behavior.disabled.Disabled;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class DisabledModelForPropertiesTestObject {
 
@@ -55,7 +54,6 @@ public class DisabledModelForPropertiesTestObject {
 		this.propertyEnabledInRole = propertyEnabledInRole;
 	}
 
-	@GenericReturnType(String.class)
 	public List<String> getPropertyCollection() {
 		return propertyCollection;
 	}

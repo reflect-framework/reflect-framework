@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.layer5provider.reflection.behavior.disabled.Disabled;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class DisabledModelForActionMethodTestObject {
 
@@ -23,11 +22,9 @@ public class DisabledModelForActionMethodTestObject {
 	public void actionMethodEnabledInRole() {
 	}
 
-	@GenericReturnType(String.class)
 	public List<String> actionMethodCollection() {
 		return new ArrayList<>();
 	}
-
 
 	public String actionMethodDisabledMethod() {
 		return "actionMethodDisabledMethod";

@@ -1,11 +1,10 @@
 package nth.introspect.layer5provider.reflection.info.type;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
-import nth.introspect.generic.util.AnnotationUtil;
 import nth.introspect.generic.util.TypeUtil;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public abstract class ValueType {
 
@@ -13,39 +12,34 @@ public abstract class ValueType {
 	private final TypeCategory typeCategory;
 	private final Class<?> typeOrGenericCollectionType;
 
-
-	public ValueType(Class<?> type, Method method, TypeCategory[] noneSupportedCategories) {
+	public ValueType(Class<?> type, Method method,
+			TypeCategory[] noneSupportedCategories) {
 		this.type = TypeUtil.getComplexType(type);
 		typeCategory = TypeUtil.getTypeCategory(type);
 
 		validateTypeCategory(typeCategory, noneSupportedCategories, method);
 
-		typeOrGenericCollectionType = getTypeOrGenericCollectionType(this.type, typeCategory, method);
+		typeOrGenericCollectionType = getTypeOrGenericCollectionType(this.type,
+				typeCategory, method);
 	}
 
-	private  Class<?> getTypeOrGenericCollectionType(Class<?> type, TypeCategory typeCategory, Method method) {
-		// get typeOrGenericCollectionType. 
-		if (type == null || typeCategory != TypeCategory.COLLECTION_TYPE || this.getClass()==MethodParameterType.class) {//Note that ParameterType does not get here because it does not support collections (yet). If so: also implement a GenericParameterType annotation (see GenericReturnType annotation)
+	private Class<?> getTypeOrGenericCollectionType(Class<?> type,
+			TypeCategory typeCategory, Method method) {
+		// get typeOrGenericCollectionType.
+		if (type == null || typeCategory != TypeCategory.COLLECTION_TYPE
+				|| this.getClass() == MethodParameterType.class) {
 			return type;
 		} else {
-			try {
-				// when it is a collection: get generic type from an annotation at the method
-				Annotation annotation = AnnotationUtil.findAnnotation(method, GenericReturnType.class);
-				Class<?> annotatedType=(Class<?>) AnnotationUtil.getAnnotationValue(annotation);
-				return TypeUtil.getComplexType(annotatedType);
-			} catch (Exception e) {
-				// failed: throw error message
-				StringBuffer message = new StringBuffer();
-				message.append("Method: ");
-				message.append(method.getDeclaringClass().getCanonicalName());
-				message.append(".");
-				message.append(method.getName());
-				message.append(" requires a: ");
-				message.append(GenericReturnType.class.getSimpleName());
-				message.append(" annotation to specify the collection type.");
-				throw new RuntimeException(message.toString(),e);
-			}
+			Class<?> genericType = getGenericTypeOfReturnTypeOfCollection(method);
+			return TypeUtil.getComplexType(genericType);
 		}
+	}
+
+	private Class<?> getGenericTypeOfReturnTypeOfCollection(Method method) {
+		Type returnType = method.getGenericReturnType();
+		ParameterizedType pType = (ParameterizedType) returnType;
+		Class<?> genericType = (Class<?>) pType.getActualTypeArguments()[0];
+		return genericType;
 	}
 
 	/**
@@ -56,7 +50,9 @@ public abstract class ValueType {
 	 * @throws RuntimeException
 	 *             if typeCategory matches one of the noneSupportedCategories
 	 */
-	private void validateTypeCategory(TypeCategory typeCategory, TypeCategory[] noneSupportedCategories, Method method) throws RuntimeException {
+	private void validateTypeCategory(TypeCategory typeCategory,
+			TypeCategory[] noneSupportedCategories, Method method)
+			throws RuntimeException {
 		for (TypeCategory noneSupportedCategory : noneSupportedCategories) {
 			if (typeCategory == noneSupportedCategory) {
 				// throw error message

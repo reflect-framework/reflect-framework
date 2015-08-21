@@ -3,7 +3,6 @@ package nth.introspect.ui.commandline.demo.dom;
 import java.util.Date;
 
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
-import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.Format;
 /**

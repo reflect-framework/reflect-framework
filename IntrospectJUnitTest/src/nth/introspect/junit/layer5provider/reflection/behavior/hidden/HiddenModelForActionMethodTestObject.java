@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class HiddenModelForActionMethodTestObject {
 
@@ -23,11 +22,9 @@ public class HiddenModelForActionMethodTestObject {
 	public void actionMethodVisibleInRole() {
 	}
 
-	@GenericReturnType(String.class)
 	public List<String> actionMethodCollection() {
 		return new ArrayList<>();
 	}
-
 
 	public String actionMethodHiddenMethod() {
 		return "actionMethodHiddenMethod";

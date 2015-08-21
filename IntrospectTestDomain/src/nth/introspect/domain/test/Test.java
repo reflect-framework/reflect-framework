@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.introspect.layer5provider.reflection.behavior.format.Format;

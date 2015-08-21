@@ -10,7 +10,6 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 public class About extends VersionInfo {
@@ -23,7 +22,6 @@ public class About extends VersionInfo {
 		this.application = introspectApplication;
 	}
 	
-	@GenericReturnType(VersionInfo.class)
 	public List<VersionInfo> getProviders() {
 		List<VersionInfo> providerInfos = new ArrayList<VersionInfo>();
 		providerInfos.add(getAuthorizationProviderInfo());

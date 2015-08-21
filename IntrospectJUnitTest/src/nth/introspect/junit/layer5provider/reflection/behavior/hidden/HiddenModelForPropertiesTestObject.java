@@ -4,7 +4,6 @@ import java.util.List;
 
 import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenFor;
-import nth.introspect.layer5provider.reflection.info.valuemodel.annotations.GenericReturnType;
 
 public class HiddenModelForPropertiesTestObject {
 
@@ -69,7 +68,6 @@ public class HiddenModelForPropertiesTestObject {
 		this.propertyVisibleInRole = propertyVisibleInRole;
 	}
 
-	@GenericReturnType(String.class)
 	public List<String> getPropertyCollection() {
 		return propertyCollection;
 	}
