@@ -5,9 +5,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
-
 public class AnnotationUtil {
 
 	private static final Class<?>[] SIGNATURE = new Class[0];
@@ -23,22 +20,6 @@ public class AnnotationUtil {
 		return method.isAnnotationPresent(annotationClass);
 	}
 
-	public static ReadOnlyValueModel createValueModel(PropertyDescriptor propertyDescriptor, Class<? extends Annotation> annotationClass, String annotationMethodName) {
-		Object value=getValue(propertyDescriptor.getReadMethod(), annotationClass, annotationMethodName);
-		return new SimpleValue(value);
-	}
-
-	private static Object getValue(Method method, Class<? extends Annotation> annotationClass, String annotationMethodName) {
-		try {
-			Annotation annotation = method.getAnnotation(annotationClass);
-			Class<?>[] signature = new Class[0];
-			Method annotationMethod = annotation.getClass().getMethod(annotationMethodName, signature);
-			Object[] arguments = new Object[0];
-			return annotationMethod.invoke(annotation, arguments);
-		} catch (Exception e) {
-			return null;
-		}
-	}
 
 	/**
 	 * Tries to find a method annotation. It will also look in its interfaces 
