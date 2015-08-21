@@ -2,7 +2,6 @@ package nth.introspect.layer5provider.reflection.info.classinfo;
 
 import java.net.URI;
 
-import nth.introspect.generic.valuemodel.ValueModels;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
@@ -13,8 +12,6 @@ import nth.introspect.layer5provider.reflection.behavior.icon.IconModel;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
-import nth.introspect.layer5provider.reflection.info.valuemodel.factories.MethodValueModelFactory;
-import nth.introspect.layer5provider.reflection.info.valuemodel.impl.SimpleValue;
 
 /**
  * Provides information on a bean.<br>
