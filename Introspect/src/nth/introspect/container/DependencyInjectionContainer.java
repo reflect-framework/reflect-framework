@@ -34,8 +34,8 @@ import nth.introspect.layer5provider.ProviderLayer;
  * containers</a>.
  * </p>
  * <p>
- * Please read <a href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin
- * Fowler</a>'s easy to read <a
+ * If you new to Dependency Injection I recommend reading <a
+ * href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a>'s <a
  * href="http://martinfowler.com/articles/injection.html">article</a> in which
  * he explains the basics dependency injection.
  * </p>

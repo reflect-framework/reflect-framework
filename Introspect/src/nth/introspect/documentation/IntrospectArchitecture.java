@@ -37,11 +37,10 @@ import nth.introspect.layer5provider.ProviderLayer;
  * </p>
  * 
  * <p>
- * There are many different opinions and definitions on the number of layers,
+ * There are many different opinions on the number of layers,
  * the names of the layers and what each layer should do (see these <a
- * href="https://www.google.nl/search?q=layered+architecture&tbm=isch"
- * >examples</a>). It would be nice if everyone would use the same model and
- * naming. The <a href=
+ * href="https://www.google.nl/search?q=layered+software+architecture&tbm=isch"
+ * >examples</a>). The <a href=
  * "http://www.herrodius.com/blog/wp-content/uploads/2010/03/LayeredArchitecture.png"
  * >definition of layers</a> from Eric Evans <a
  * href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven

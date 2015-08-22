@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
-import nth.introspect.generic.titlebuilder.TitleBuilder;
+import nth.introspect.generic.util.TitleBuilder;
 
 import org.junit.Test;
 

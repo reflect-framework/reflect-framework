@@ -119,7 +119,6 @@ import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
  * </p>
  * 
  * @author Nils ten Hoeve
- * @see DomainLayer
  * 
  */
 

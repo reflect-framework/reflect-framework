@@ -1,9 +1,8 @@
-package nth.introspect.generic.titlebuilder;
+package nth.introspect.generic.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.NumericFormat;
 
