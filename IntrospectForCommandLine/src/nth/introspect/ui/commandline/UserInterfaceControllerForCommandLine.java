@@ -25,6 +25,7 @@ import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.commandline.domain.command.Command;
@@ -152,7 +153,7 @@ public class UserInterfaceControllerForCommandLine extends
 
 		Object serviceObject = command.getServiceObject();
 		ActionMethodInfo actionMethodInfo = command.getMethodInfo();
-		// NOTE that formMode ExecutionModeType.EXECUTE_METHOD_DIRECTLY is the only mode supported for this user interface
+		actionMethodInfo.setExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
 
 		startExecution(serviceObject, actionMethodInfo, methodParameterValue);
 	}
