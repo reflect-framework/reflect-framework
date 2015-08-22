@@ -79,9 +79,7 @@ import nth.introspect.layer5provider.reflection.behavior.executionmode.Execution
  * <li>A <a
  * href="http://en.wikipedia.org/wiki/Java_collections_framework">collection</a>
  * of {@link DomainObject}s: The {@link UserInterfaceController} displays the
- * {@link DomainObject}s in table on a new tab. Note that you will need to
- * annotate the Action method with a @{@link GenericReturnType} annotation in
- * which you need to define the {@link DomainObject} type.</li>
+ * {@link DomainObject}s in table on a new tab.</li>
  * <li>A URI: The {@link UserInterfaceController} displays the contents of the
  * URI on a new tab.</li>
  * <li>A {@link DownloadStream}: The {@link UserInterfaceController} will open a

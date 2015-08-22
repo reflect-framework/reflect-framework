@@ -1,5 +1,6 @@
 package nth.introspect.junit;
 
+import nth.introspect.junit.generic.titlebuilder.TitleBuilderTest;
 import nth.introspect.junit.layer5provider.authorization.AcmeAuthorizationProviderTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.disabled.DisabledModelForActionMethodTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.disabled.DisabledModelForPropertiesTest;
@@ -16,13 +17,13 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AcmeAuthorizationProviderTest.class,
+@SuiteClasses({ TitleBuilderTest.class, AcmeAuthorizationProviderTest.class,
 		DisabledModelForPropertiesTest.class,
 		DisabledModelForActionMethodTest.class,
 		HiddenModelForPropertiesTest.class,
 		HiddenModelForActionMethodTest.class, ParameterFactoryModelTest.class,
 		ExecutionModeTest.class, IconUriClassResourceTest.class,
 		IconModelForClassTest.class, IconModelForActionMethodTest.class })
-public class AllTests {
+public class IntrospectAllTests {
 
 }

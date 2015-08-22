@@ -32,7 +32,6 @@ import nth.introspect.documentation.IntrospectFramework;
  * 		this.productRepository = productRepository;
  * 	}
  * 
- * 	&#064;GenericReturnType(Product.class)
  * 	public List&lt;Product&gt; findProduct(ProductSearchCritiria searchCritiria) {
  * 		return productRepository.findProduct(searchCritiria);
  * 	}

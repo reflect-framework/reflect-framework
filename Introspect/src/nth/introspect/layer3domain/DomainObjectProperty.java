@@ -78,7 +78,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * above)</li>
  * <li>The getter method name starts with is, followed by the property name in
  * <a href="http://en.wikipedia.org/wiki/CamelCase">CamelCase</a> when the
- * property type IS a boolean (See the isBonusMember() method in the example above)</li>
+ * property type IS a boolean (See the isBonusMember() method in the example
+ * above)</li>
  * <li>The getter methods are always public (accessible by other objects)</li>
  * </ul>
  * <h3>Setter methods</h3>
@@ -114,12 +115,11 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <li>Value property: A char, string, boolean, number, date, or other <a href=
  * "http://en.wikipedia.org/wiki/Primitive_data_type#Specific_primitive_data_types"
  * >primitive data types</a>. The {@link UserInterfaceController} will display
- * these types as a <a
- * href="http://en.wikipedia.org/wiki/Text_box">textbox</a>. Assuming that the
- * user is allowed to modify that property, they may enter the value by typing
- * in text, which will be validated and formatted according to the value type.
- * Certainly value types may provide alternative mechanisms for user input, such
- * as a calendar-selector for a date field.</li>
+ * these types as a <a href="http://en.wikipedia.org/wiki/Text_box">textbox</a>.
+ * Assuming that the user is allowed to modify that property, they may enter the
+ * value by typing in text, which will be validated and formatted according to
+ * the value type. Certainly value types may provide alternative mechanisms for
+ * user input, such as a calendar-selector for a date field.</li>
  * <li>Enumeration property: The {@link UserInterfaceController} will display
  * these types as as a <a
  * href="http://en.wikipedia.org/wiki/Combo_box">combo-box</a>, containing the
@@ -140,14 +140,12 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * The {@link UserInterfaceController} will display these types as a table. If
  * the user clicks on a row a <a
  * href="http://en.wikipedia.org/wiki/Context_menu">context menu</a> opens,
- * containing {@link ActionMethod}s to manipulate the property value. Note that
- * you will need to annotate the getter method with a @{@link GenericReturnType}
- * annotation in which you need to define the property type. Collections must be
- * initialized (collection properties should never return null). Collection
- * properties should not contain large collections. If you have a big collection
- * associated with a {@link DomainObject} it is better to return the collection
- * from an {@link ActionMethod} in the {@link DomainObject}, so that the table
- * is displayed on a new tab.</li>
+ * containing {@link ActionMethod}s to manipulate the property value.
+ * Collections must be initialized (collection properties should never return
+ * null). Collection properties should not contain large collections. If you
+ * have a big collection associated with a {@link DomainObject} it is better to
+ * return the collection from an {@link ActionMethod} in the
+ * {@link DomainObject}, so that the table is displayed on a new tab.</li>
  * </ul>
  * 
  * <h3>Property behavior</h3>
