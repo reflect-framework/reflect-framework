@@ -6,6 +6,7 @@ import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 
 /**
  * Introspect is designed around the following core values: <h3>Based on the
@@ -75,7 +76,7 @@ import nth.introspect.layer5provider.Provider;
  * </li>
  * <li>Which {@link ServiceObject} classes and {@link InfrastructureObject}
  * classes are going to be used by the {@link IntrospectApplication}.</li>
- * <li>The {@link Behavior} of {@link DomainObject}'s and {@link ServiceObject}
+ * <li>The {@link ObjectBehavior} of {@link DomainObject}'s and {@link ServiceObject}
  * 's (how the domain needs to handled by the {@link IntrospectApplication})</li>
  * </ul>
  * <p>
