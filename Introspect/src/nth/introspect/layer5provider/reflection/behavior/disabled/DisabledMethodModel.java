@@ -10,28 +10,12 @@ import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
- * <p>
- * You can disable a {@link DomainObjectProperty} or
- * {@link DomainObjectActionMethod} depending on the {@link DomainObject} state
- * (the value of its properties). 
- * </p>
- * <p>
- * If you have a {@link Disabled} annotation and a
- * disabled method, only one needs to be true in order to disable the
- * {@link DomainObjectProperty} or {@link ActionMethod}.
- * </p>
- * <p>
- * Syntax: public boolean &lt;property name or actionMethodName&gt;Disabled()
- * </p>
- * <p>
- * ReturnValue: a boolean that is true if the {@link DomainObjectProperty} or
- * {@link ActionMethod} needs to be disabled
- * </p>
+ * Model that returns the value of the {@link DisabledMethod}
  * 
  * @author nilsth
  *
  */
-public class DisabledMethodModel extends BehavioralMethod implements DisabledModel {
+public class DisabledMethodModel  implements DisabledModel {
 
 	private Method disabledMethod;
 
@@ -39,17 +23,6 @@ public class DisabledMethodModel extends BehavioralMethod implements DisabledMod
 		this.disabledMethod = disabledMethod;
 	}
 	
-
-	@Override
-	public String getBehavioralName() {
-		return "Disabled";
-	}
-
-	@Override
-	public Class<?> getReturnType() {
-		return boolean.class;
-	}
-
 	@Override
 	public boolean isDisabled(Object obj) {
 		Object[] arguments = new Object[0];

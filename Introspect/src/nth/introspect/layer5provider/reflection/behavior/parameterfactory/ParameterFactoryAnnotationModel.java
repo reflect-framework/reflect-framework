@@ -4,7 +4,7 @@ import nth.introspect.layer3domain.DomainContainer;
 import nth.introspect.layer3domain.DomainLayer;
 
 /**
- * See {@link ParameterFactory} annotation
+ * Model that returns a value that is created with help of the {@link ParameterFactory} annotation
  * 
  * @author nilsth
  *

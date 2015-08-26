@@ -1,12 +1,16 @@
 package nth.introspect.layer5provider.validation;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.Provider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
  * <p>
@@ -24,8 +28,8 @@ import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
  * <h3>ValidationProvider implementation</h3>
  * <p>
  * There are many validation libraries and frameworks available. The
- * IntrospectFramework complies with the JSR303 by using the TODO!!!! library,
- * combined with its own BehaviouralMethods_TODO_LINK. You are free to implement or extend
+ * IntrospectFramework complies with the JSR303 by using the <a href="http://bval.apache.org/">Apache Bean Validator (BVal)</a> library,
+ * combined with {@link ValidationMethod}s. You are free to implement or extend
  * your own implementation and register it to your {@link IntrospectApplication} by
  * overriding the {@link IntrospectApplication#getValidationProviderClass()} method
  * </p>
@@ -34,8 +38,7 @@ import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
  *
  */
 
-// use a JSR-303 implementation where possible!
 public interface ValidationProvider extends Provider {
-	public ValidationResult validate(PropertyInfo property, Object domainObject,
-			Object propertyValue) ; 
+
+	public Set<ConstraintViolation<Object>> validate(Object domainObject); 
 }

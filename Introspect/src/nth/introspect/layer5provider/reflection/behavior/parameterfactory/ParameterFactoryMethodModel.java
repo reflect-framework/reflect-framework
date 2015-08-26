@@ -10,25 +10,12 @@ import nth.introspect.layer5provider.reflection.behavior.executionmode.Execution
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
- * <p>
- * When adding the {@link ParameterFactory} method (normally located after an
- * {@link ActionMethod}), the {@link UserInterfaceController} will first get a
- * new {@link DomainObject} from the {@link ParameterFactoryMethodModel}. This
- * object can then be edited by the user (depending how the {@link ActionMethod}
- * is annotated, see {@link ExecutionMode}) after which it is passed as method
- * parameter when the {@link ActionMethod} is invoked.
- * </p>
- * <p>
- * Syntax: public&lt;domainObject type&gt;
- * prameterFactory&lt;actionMethodName&gt;()
- * </p>
- * <p>
- * TODO EXAMPLE OF ordersWithinPeriod METHOD
+ * Model that returns the value of a {@link ParameterFactoryMethod}
  * 
  * @author nilsth
  *
  */
-public class ParameterFactoryMethodModel extends BehavioralMethod implements ParameterFactoryModel{
+public class ParameterFactoryMethodModel implements ParameterFactoryModel{
 
 	private final Method parameterFactoryMethod;
 
@@ -36,16 +23,6 @@ public class ParameterFactoryMethodModel extends BehavioralMethod implements Par
 		this.parameterFactoryMethod = parameterFactoryMethod;
 	}
 	
-	@Override
-	public String getBehavioralName() {
-		return "ParameterFactory";
-	}
-
-	@Override
-	public Class<?> getReturnType() {
-		return Object.class;
-	}
-
 	@Override
 	public Object createNewMethodParameter(Object methodOwner) {
 		Object[] arguments = new Object[0];

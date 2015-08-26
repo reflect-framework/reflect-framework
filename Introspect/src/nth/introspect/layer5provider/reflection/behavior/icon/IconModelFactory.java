@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 /**
  * <p>{@link IntrospectApplication} objects, {@link ServiceObject}s and
  * {@link DomainObject}s can have icons that are displayed in graphical user
@@ -26,7 +26,7 @@ import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory
  * 
  * <h3>Icon Method</h3>
  * <p>
- * {@insert IconMethodModel}
+ * {@insert IconMethod}
  * </p>
  * 
  * 
@@ -84,7 +84,7 @@ public class IconModelFactory {
 	}
 
 	private static IconMethodModel createIconMethodModel(Method actionMethod, URI imagePath) {
-		Method iconMethod = BehavioralMethodFactory.create(actionMethod, new IconMethodModel(null, imagePath).getBehavioralName());
+		Method iconMethod = BehavioralMethods.ICON.findFor(actionMethod);
 		if (iconMethod==null) {
 			return null;
 		} else {
@@ -109,7 +109,7 @@ public class IconModelFactory {
 	}
 
 	private static IconMethodModel createIconMethodModel(Class<?> objectClass, URI imagePath) {
-		Method iconMethod = BehavioralMethodFactory.create(objectClass, new IconMethodModel(null, imagePath).getBehavioralName());
+		Method iconMethod = BehavioralMethods.ICON.findFor(objectClass);
 		if (iconMethod==null) {
 			return null;
 		} else {

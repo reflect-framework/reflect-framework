@@ -81,7 +81,7 @@ import nth.introspect.layer3domain.DomainObject;
  * 
  * <h2>Validation</h2>
  * <p>
- * {@insert ValidationModelFactory}
+ * {@insert ValidationMethodFactory}
  * </p>
  * 
  * @author nilsth

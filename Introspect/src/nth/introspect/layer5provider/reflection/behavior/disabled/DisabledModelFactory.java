@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
@@ -47,7 +47,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>Disabled Method</h3>
  * <p>
- * {@insert DisabledMethodModel}
+ * {@insert DisabledMethod}
  * </p>
  * 
  * <h3>Disabled Annotation and Disabled Method</h3>
@@ -102,8 +102,7 @@ public class DisabledModelFactory {
 	}
 
 	private static DisabledMethodModel createDisabledMethodModel(Method method) {
-		Method disabledMethod = BehavioralMethodFactory.create(method,
-				new DisabledMethodModel(null).getBehavioralName());
+		Method disabledMethod = BehavioralMethods.DISABLED.findFor(method);
 		if (disabledMethod == null) {
 			return null;
 		} else {

@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import nth.introspect.layer2service.MainMenu;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
@@ -33,7 +33,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>ParameterFactory Method</h3>
  * <p>
- * {@insert ParameterFactoryMethodModel}
+ * {@insert ParameterFactoryMethod}
  * </p>
  * 
  * @author nilsth
@@ -65,7 +65,7 @@ public class ParameterFactoryModelFactory {
 	}
 
 	private static ParameterFactoryModel createMethodModel(Method method) {
-		Method parameterFactoryMethod = BehavioralMethodFactory.create(method, new ParameterFactoryMethodModel(null).getBehavioralName());
+		Method parameterFactoryMethod = BehavioralMethods.PARAMETER_FACTORY.findFor(method);
 		if (parameterFactoryMethod==null) {
 			return null;
 		} else {

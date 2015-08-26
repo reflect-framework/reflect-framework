@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.reflection.behavior.BehavioralMethodFactory;
+import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
@@ -34,7 +34,7 @@ import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
  * 
  * <h3>Hidden Method</h3>
  * <p>
- * {@insert HiddenMethodModel}
+ * {@insert HiddenMethod}
  * </p>
  * 
  * 
@@ -85,8 +85,7 @@ public class HiddenModelFactory {
 	}
 
 	private static HiddenMethodModel createHiddenMethodModel(Method method) {
-		Method hiddenMethod = BehavioralMethodFactory.create(method,
-				new HiddenMethodModel(null).getBehavioralName());
+		Method hiddenMethod = BehavioralMethods.HIDDEN.findFor(method);
 		if (hiddenMethod == null) {
 			return null;
 		} else {

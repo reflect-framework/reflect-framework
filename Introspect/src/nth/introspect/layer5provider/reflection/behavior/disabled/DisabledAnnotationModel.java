@@ -1,9 +1,10 @@
 package nth.introspect.layer5provider.reflection.behavior.disabled;
 
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
+import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 
 /**
- * See {@link Disabled} annotation
+ Model that returns a value that is created with help of the {@link Disabled} annotation
  * 
  * @author nilsth
  *

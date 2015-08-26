@@ -1,9 +1,11 @@
 package nth.introspect.layer5provider.reflection.behavior.hidden;
 
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
+import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 
 /**
- * See {@link Hidden} annotation
+ * Model that returns a value that is created with help of the {@link Hidden}
+ * annotation
  * 
  * @author nilsth
  *
@@ -23,26 +25,25 @@ public class HiddenAnnotationModel implements HiddenModel {
 		hiddenFor = hiddenAnnotation.propertyHiddenFor();
 	}
 
-	
-	//  hiddenFor			authorized	Hidden_in_form   Hidden_in_form		HiddenActionMethod
-	//  ======================================================================================
-	//  FORMS				false			True			False			false
-	//  TABLES				false			False			True			false
-	//  FORMS_AND_TABLES	false			True			True			false
-	//  FORMS				true			False			False			true
-	//  TABLES				true			False			False			true
-	//  FORMS_AND_TABLES	true			False			False			true
-	
+	// hiddenFor authorized Hidden_in_form Hidden_in_form HiddenActionMethod
+	// ======================================================================================
+	// FORMS false True False false
+	// TABLES false False True false
+	// FORMS_AND_TABLES false True True false
+	// FORMS true False False true
+	// TABLES true False False true
+	// FORMS_AND_TABLES true False False true
+
 	@Override
 	public boolean isPropertyHiddenInForm(Object obj) {
 		boolean isAuthorized = isAuthorized();
 		if (isAuthorized) {
 			return false;
 		}
-		
-		return hiddenFor==HiddenFor.FORMS || hiddenFor==HiddenFor.TABLES_AND_FORMS;
-	}
 
+		return hiddenFor == HiddenFor.FORMS
+				|| hiddenFor == HiddenFor.TABLES_AND_FORMS;
+	}
 
 	@Override
 	public boolean isPropertyHiddenInTable() {
@@ -50,17 +51,16 @@ public class HiddenAnnotationModel implements HiddenModel {
 		if (isAuthorized) {
 			return false;
 		}
-		
-		return hiddenFor==HiddenFor.TABLES|| hiddenFor==HiddenFor.TABLES_AND_FORMS;
-	}
 
+		return hiddenFor == HiddenFor.TABLES
+				|| hiddenFor == HiddenFor.TABLES_AND_FORMS;
+	}
 
 	@Override
 	public boolean isHiddenActionMethod(Object obj) {
 		return !isAuthorized();
 	}
 
-	
 	private boolean isAuthorized() {
 		for (String roleName : roleNames) {
 			if (authorizationProvider.userInRole(roleName)) {
@@ -69,6 +69,5 @@ public class HiddenAnnotationModel implements HiddenModel {
 		}
 		return false;
 	}
-
 
 }

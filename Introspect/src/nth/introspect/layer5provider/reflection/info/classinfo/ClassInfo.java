@@ -1,6 +1,9 @@
 package nth.introspect.layer5provider.reflection.info.classinfo;
 
+import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
@@ -11,7 +14,10 @@ import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayName
 import nth.introspect.layer5provider.reflection.behavior.icon.IconModel;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
+import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactory;
 
 /**
  * Provides information on a bean.<br>
@@ -33,6 +39,7 @@ public class ClassInfo implements NameInfo {
 	private final DisplayNameModel displayNameModel;
 	private final TitleModel titleModel;
 	private final IconModel iconModel;
+	private final List<Method> validationMethods;
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
 		LanguageProvider languageProvider = providerContainer
@@ -50,6 +57,8 @@ public class ClassInfo implements NameInfo {
 		this.titleModel = new TitleModel(reflectionProvider);
 		this.iconModel = IconModelFactory.create(objectClass,
 				pathProvider.getImagePath());
+		List<PropertyInfo> propertyInfos = PropertyInfoFactory.create(providerContainer, objectClass);
+		this.validationMethods=ValidationMethodFactory.create(objectClass);
 	}
 
 	@Override
@@ -85,6 +94,10 @@ public class ClassInfo implements NameInfo {
 	@Override
 	public String toString() {
 		return canonicalName;
+	}
+
+	public List<Method> getAllValidationMethods() {
+		return validationMethods;
 	}
 
 }

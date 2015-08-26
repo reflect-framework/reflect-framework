@@ -7,5 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectTestDomain"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/IntrospectUserInterfaceUtil"/>
+	<classpathentry kind="lib" path="/Introspect/lib/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
