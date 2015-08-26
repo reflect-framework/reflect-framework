@@ -271,7 +271,6 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 					String methodName = uriString
 							.substring(positionLastDot + 1);
 					Class<?> serviceClass = Class.forName(serviceClassName);
-					Object serviceObject2 =userInterfaceContainer.get(serviceClass);
 					List<ActionMethodInfo> actionMethodInfos = reflectionProvider
 							.getMethodInfos(serviceClass, new MethodNameFilter(
 									methodName));
@@ -420,7 +419,6 @@ public abstract class GraphicalUserinterfaceController<T extends View> implement
 		showDialog(DialogType.ERROR, title, message, items);
 	}
 
-	@Override
 	public void refresh() {
 		// refresh current view
 		View view = getViewContainer().getSelectedView();

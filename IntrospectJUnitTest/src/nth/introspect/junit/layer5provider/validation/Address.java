@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import javax.validation.constraints.NotNull;
 
-import nth.introspect.layer5provider.validation.ConstraintViolations;
+import nth.introspect.layer5provider.validation.ValidationViolations;
 
 public class Address {
 
@@ -24,12 +24,12 @@ public class Address {
 	}
 
 
-	public ConstraintViolations addressExistsValidation() {
-		ConstraintViolations constraintViolations = new ConstraintViolations();
+	public ValidationViolations addressExistsValidation() {
+		ValidationViolations validationViolations = new ValidationViolations();
 		if (!GoogleMapsClient.exists(this)) {
-			constraintViolations.add("address does not exist", this);
+			validationViolations.add("address does not exist", this);
 		}
-		return constraintViolations;
+		return validationViolations;
 	}
 	
 	
@@ -58,18 +58,18 @@ public class Address {
 		this.zipCode = zipCode;
 	}
 
-	public ConstraintViolations zipCodeValidation() {
-		ConstraintViolations constraintViolations = new ConstraintViolations();
+	public ValidationViolations zipCodeValidation() {
+		ValidationViolations validationViolations = new ValidationViolations();
 		if (country.getCode() == "NL"
 				&& !zipCode.matches(DUTCH_ZIP_CODE)) {
-			constraintViolations.add(
+			validationViolations.add(
 					"must contain 4 numbers followed by 2 letters", zipCode);
 		} else if (country.getCode() == "FR"
 				&& !zipCode.matches(FRENCH_ZIP_CODE)) {
-			constraintViolations.add("must contain 5 numbers", zipCode);
+			validationViolations.add("must contain 5 numbers", zipCode);
 		}
 		// ETC
-		return constraintViolations;
+		return validationViolations;
 	}
 
 }

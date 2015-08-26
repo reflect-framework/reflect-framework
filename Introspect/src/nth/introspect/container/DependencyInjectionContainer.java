@@ -143,6 +143,7 @@ public abstract class DependencyInjectionContainer {
 		return getObjectFromThisContainer(type, classesWaitingToBeInstantiated);
 	}
 
+	@SuppressWarnings("unchecked")
 	private <T> T getObjectFromThisContainer(Class<T> type,
 			List<Class<?>> classesWaitingToBeInstantiated) {
 		Class<?> foundType = NearestParentFinder.findParent(

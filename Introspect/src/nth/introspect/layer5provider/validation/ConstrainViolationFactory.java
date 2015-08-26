@@ -25,10 +25,10 @@ import org.apache.bval.jsr303.util.PathImpl;
  *
  */
 public class ConstrainViolationFactory {
-	
 
 	public static List<ConstraintViolation<Object>> create(
-			ReflectionProvider reflectionProvider, Object domainObject) {
+			ReflectionProvider reflectionProvider,
+			LanguageProvider languageProvider, Object domainObject) {
 
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainObject
 				.getClass());
@@ -36,10 +36,12 @@ public class ConstrainViolationFactory {
 
 		ArrayList<ConstraintViolation<Object>> constraintViolations = new ArrayList<ConstraintViolation<Object>>();
 		for (Method validationMethod : validationMethods) {
-			List<BasicConstrainViolation> basicConstrainViolations = executeValidationMethod(
+			List<ValidationViolation> validationViolations = executeValidationMethod(
 					validationMethod, domainObject);
-			if (basicConstrainViolations!=null) {
-				constraintViolations.addAll(createConstraintViolations(classInfo, domainObject,basicConstrainViolations ));
+			if (validationViolations != null) {
+				constraintViolations.addAll(createConstraintViolations(
+						languageProvider, classInfo, domainObject,
+						validationViolations));
 			}
 		}
 
@@ -47,47 +49,55 @@ public class ConstrainViolationFactory {
 	}
 
 	private static List<ConstraintViolation<Object>> createConstraintViolations(
-			ClassInfo classInfo, Object domainObject, List<BasicConstrainViolation> basicConstrainViolations) {
-		List<ConstraintViolation<Object>> constraintViolations=new ArrayList<>();
-		for (BasicConstrainViolation basicConstrainViolation : basicConstrainViolations) {
+			LanguageProvider languageProvider, ClassInfo classInfo,
+			Object domainObject, List<ValidationViolation> validationViolations) {
+		List<ConstraintViolation<Object>> constraintViolations = new ArrayList<>();
+		for (ValidationViolation validationViolation : validationViolations) {
 			constraintViolations.add(createConstraintViolations(
-			classInfo, domainObject, basicConstrainViolation));
+					languageProvider, classInfo, domainObject,
+					validationViolation));
 		}
 		return constraintViolations;
 	}
 
 	private static ConstraintViolation<Object> createConstraintViolations(
-			ClassInfo classInfo, Object domainObject,
-			BasicConstrainViolation basicConstrainViolation) {
-		LanguageProvider languageProvider;
-		String messageTemplateKey=basicConstrainViolation.getMessageTemplateKey();
-		String messageTemplateDefault=basicConstrainViolation.getMessageTemplateInEnglish();
-		//TODO String messageTemplate=languageProvider.getText(messageTemplateKey,messageTemplateDefault);
-		String messageTemplate=messageTemplateDefault;
-		Object invalidValue=basicConstrainViolation.getInvalidValue();
-		String message=String.format(messageTemplate, invalidValue);
-		Path path=PathImpl.create(classInfo.getSimpleName());
+			LanguageProvider languageProvider, ClassInfo classInfo,
+			Object domainObject, ValidationViolation validationViolation) {
+		String messageTemplateKey = validationViolation.getMessageTemplateKey();
+		String messageTemplateDefault = validationViolation
+				.getMessageTemplateInEnglish();
+		String messageTemplate = languageProvider.getText(messageTemplateKey,
+				messageTemplateDefault);
+		Object invalidValue = validationViolation.getInvalidValue();
+		String message = String.format(messageTemplate, invalidValue);
+		Path path = PathImpl.create(classInfo.getSimpleName());
+		@SuppressWarnings("unchecked")
 		Class<Object> rootBeanClass = (Class<Object>) domainObject.getClass();
-		ConstraintDescriptor<?> constraintDescriptor=null;
-		ElementType elementType=null;
-		ConstraintViolationImpl constraintViolation = new ConstraintViolationImpl<Object>(messageTemplate, message, domainObject, domainObject, path, domainObject, constraintDescriptor, rootBeanClass, elementType);
+		ConstraintDescriptor<?> constraintDescriptor = null;
+		ElementType elementType = null;
+		ConstraintViolationImpl<Object> constraintViolation = new ConstraintViolationImpl<Object>(
+				messageTemplate, message, domainObject, domainObject, path,
+				domainObject, constraintDescriptor, rootBeanClass, elementType);
 		return constraintViolation;
 	}
 
 	/**
-	 * Class casting should be no problem because the {@link ValidationMethodFactory} should not return methods that do not return the correct type
+	 * Class casting should be no problem because the
+	 * {@link ValidationMethodFactory} should not return methods that do not
+	 * return the correct type
+	 * 
 	 * @param validationMethod
 	 * @param domainObject
-	 * @return
+	 * @return See {@link ValidationViolations}
 	 */
-	@SuppressWarnings("unchecked")
-	private static ConstraintViolations executeValidationMethod(
+	private static ValidationViolations executeValidationMethod(
 			Method validationMethod, Object domainObject) {
 		try {
 			Object[] NO_PARAMETERS = new Object[0];
-			return  (ConstraintViolations) validationMethod.invoke(domainObject, NO_PARAMETERS);
+			return (ValidationViolations) validationMethod.invoke(domainObject,
+					NO_PARAMETERS);
 		} catch (Exception e) {
-			throw new ValidationMethodInvokenationException(validationMethod,e);
+			throw new ValidationMethodInvokenationException(validationMethod, e);
 		}
 	}
 }

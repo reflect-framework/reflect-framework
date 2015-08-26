@@ -11,9 +11,7 @@ import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.validation.ConstraintViolations;
+import nth.introspect.layer5provider.validation.ValidationViolations;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
@@ -54,7 +52,7 @@ public class ValidationMethodFactory {
 	 * 
 	 * @param objectClass
 	 * @return all methods that are {@link ValidationMethod}'s, assuming other
-	 *         methods do not return {@link ConstraintViolations} and method
+	 *         methods do not return {@link ValidationViolations} and method
 	 *         names do not have a "Validation" suffix
 	 */
 	public static List<Method> create(Class<?> objectClass) {

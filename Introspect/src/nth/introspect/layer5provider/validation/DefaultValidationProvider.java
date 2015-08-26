@@ -9,12 +9,14 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 
 public class DefaultValidationProvider implements ValidationProvider {
 
 	private Validator validator;
 	private final ReflectionProvider reflectionProvider;
+	private final LanguageProvider languageProvider;
 
 	// TODO create Unit tetsts, See
 	// http://docs.jboss.org/hibernate/validator/5.2/reference/en-US/html_single/#_validating_constraints
@@ -24,8 +26,9 @@ public class DefaultValidationProvider implements ValidationProvider {
 	// messageKey and invalidValue (ConstraintViolation can be created from this
 	// and info data from felectionProvider)
 
-	public DefaultValidationProvider(ReflectionProvider reflectionProvider) {
+	public DefaultValidationProvider(ReflectionProvider reflectionProvider, LanguageProvider languageProvider) {
 		this.reflectionProvider = reflectionProvider;
+		this.languageProvider = languageProvider;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
@@ -35,7 +38,7 @@ public class DefaultValidationProvider implements ValidationProvider {
 		Set<ConstraintViolation<Object>> constraintViolationsFromJSR303 = validator
 				.validate(domainObject);
 		List<ConstraintViolation<Object>> constraintViolationsFromValidationMethods = ConstrainViolationFactory
-				.create(reflectionProvider, domainObject);
+				.create(reflectionProvider, languageProvider, domainObject);
 		HashSet<ConstraintViolation<Object>> allConstraints = new HashSet<>();
 		allConstraints.addAll(constraintViolationsFromJSR303);
 		allConstraints.addAll(constraintViolationsFromValidationMethods);

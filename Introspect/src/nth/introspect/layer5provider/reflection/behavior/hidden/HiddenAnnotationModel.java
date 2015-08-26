@@ -1,7 +1,6 @@
 package nth.introspect.layer5provider.reflection.behavior.hidden;
 
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 
 /**
  * Model that returns a value that is created with help of the {@link Hidden}

@@ -16,11 +16,12 @@
  */
 package nth.introspect.layer5provider.validation;
 
+import java.io.Serializable;
+import java.lang.annotation.ElementType;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 import javax.validation.metadata.ConstraintDescriptor;
-import java.io.Serializable;
-import java.lang.annotation.ElementType;
 
 /**
  * Description: Describe a constraint validation defect.<br/>

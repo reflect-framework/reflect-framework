@@ -3,29 +3,30 @@ package nth.introspect.layer5provider.validation;
 import javax.validation.ConstraintViolation;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethod;
 
 /**
- * A validation method returns {@link ConstraintViolations}
- * containing messageKey and invalidValue. The ConstrainViolationFactory creates
- * {@link ConstraintViolation}s using the {@link BasicConstrainViolation}
+ * A {@link ValidationMethod} returns {@link ValidationViolations}
+ * containing messageKey and invalidValue. The {@link ConstrainViolationFactory} creates
+ * {@link ConstraintViolation}s using the {@link ValidationViolation}
  * and the meta information from the {@link ReflectionProvider}.
  * 
  * @author nilsth
  *
  */
-public class BasicConstrainViolation {
+public class ValidationViolation {
 
 	private final String messageTemplateInEnglish;
 	private final Object invalidValue;
 
-	public BasicConstrainViolation(String messageTemplateInEnglish, Object invalidValue) {
+	public ValidationViolation(String messageTemplateInEnglish, Object invalidValue) {
 		this.messageTemplateInEnglish = messageTemplateInEnglish;
 		this.invalidValue = invalidValue;
 	}
 
 	private String createKey(String messageTemplateInEnglish) {
 		StringBuilder key=new StringBuilder();
-		key.append("constraint.violation.");
+		key.append("validation.violation.");
 		key.append(messageTemplateInEnglish.replace(" ","_").toLowerCase());
 		return key.toString();
 	}

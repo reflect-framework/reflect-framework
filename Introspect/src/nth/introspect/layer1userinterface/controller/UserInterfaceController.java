@@ -111,7 +111,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * @author Nils ten Hoeve
  * 
  */
-public interface UserInterfaceController<T> extends Refreshable,
+public interface UserInterfaceController<T> extends 
 		NotificationListener {
 
 	/**

@@ -2,12 +2,7 @@ package nth.introspect.layer5provider.reflection.behavior.parameterfactory;
 
 import java.lang.reflect.Method;
 
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
-import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * Model that returns the value of a {@link ParameterFactoryMethod}

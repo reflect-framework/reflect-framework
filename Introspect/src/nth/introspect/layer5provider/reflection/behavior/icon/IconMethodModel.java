@@ -3,10 +3,7 @@ package nth.introspect.layer5provider.reflection.behavior.icon;
 import java.lang.reflect.Method;
 import java.net.URI;
 
-import nth.introspect.documentation.IntrospectFramework;
-import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
-import nth.introspect.layer5provider.reflection.behavior.BehavioralMethod;
 
 /**
  * Model that returns the value of the {@link IconMethod}
