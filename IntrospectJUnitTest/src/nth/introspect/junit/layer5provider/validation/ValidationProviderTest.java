@@ -75,8 +75,7 @@ public class ValidationProviderTest  {
     
     @Test
     public void validationMethodForClass_AddressExists() {
-    	Country country=new Country("the Netherlands", "NL");
-    	Address address=new Address("My Street","1566LL",country);
+    	Address address=new Address("My Street","1566LL",Country.NETHERLANDS);
     	Set<ConstraintViolation<Object>> constraintViolations =
         		validationProvider.validate( address );
     	
@@ -85,8 +84,7 @@ public class ValidationProviderTest  {
     
     @Test
     public void validationMethodForClass_AddressNotExists() {
-    	Country country=new Country("the Netherlands", "NL");
-    	Address address=new Address("bogus","1566LL",country);
+    	Address address=new Address("bogus","1566LL",Country.NETHERLANDS);
     	Set<ConstraintViolation<Object>> constraintViolations =
         		validationProvider.validate( address );
     	
@@ -101,8 +99,7 @@ public class ValidationProviderTest  {
 
     @Test
     public void validationMethodForPropertyClass_GoodZipCode() {
-    	Country country=new Country("the Netherlands", "NL");
-    	Address address=new Address("My Street","1566LL",country);
+    	Address address=new Address("My Street","1566LL",Country.NETHERLANDS);
     	Set<ConstraintViolation<Object>> constraintViolations =
         		validationProvider.validate( address );
     	
@@ -111,8 +108,7 @@ public class ValidationProviderTest  {
 
     @Test
     public void validationMethodForPropertyClass_BadZipCode() {
-    	Country country=new Country("the Netherlands", "NL");
-    	Address address=new Address("My Street","bogus",country);
+    	Address address=new Address("My Street","bogus",Country.NETHERLANDS);
     	Set<ConstraintViolation<Object>> constraintViolations =
         		validationProvider.validate( address );
     	

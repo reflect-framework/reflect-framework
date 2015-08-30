@@ -44,19 +44,23 @@ public class DefaultLanguageProvider implements LanguageProvider {
 
 	@Override
 	public String getKey(Object obj) {
+		String key = null;
 		if (obj instanceof NameInfo) {
 			NameInfo introspectionInfo = (NameInfo) obj;
-			return introspectionInfo.getCanonicalName();
+			key = introspectionInfo.getCanonicalName();
 		} else if (obj instanceof Class<?>) {
 			Class<?> claz = (Class<?>) obj;
-			return claz.getCanonicalName();
-		} else if (obj instanceof String) {
-			String string = (String) obj;
-			StringUtil.convertToCamelCase(string, false);
+			key = claz.getCanonicalName();
 		} else if (obj.getClass().isEnum()) {
-			return obj.getClass().getCanonicalName() + "." + obj.toString();
+			String enumName = ((Enum<?>)obj).name();
+			key = obj.getClass().getCanonicalName() + "." + enumName.toString();
+		} else {
+			key = obj.toString();
 		}
-		return StringUtil.convertToCamelCase(obj.toString(), false);
+		if (!key.matches("[a-zA-Z0-9._]+")) {
+			throw new IllegalKeyFormat(key);
+		}
+		return key;
 	}
 
 	@Override
@@ -118,8 +122,8 @@ public class DefaultLanguageProvider implements LanguageProvider {
 
 		// store modified language file
 		try {
-			properties
-					.store(new FileOutputStream(file), getLanguageFileComments());
+			properties.store(new FileOutputStream(file),
+					getLanguageFileComments());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

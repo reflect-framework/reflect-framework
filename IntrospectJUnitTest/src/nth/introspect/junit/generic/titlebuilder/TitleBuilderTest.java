@@ -18,7 +18,7 @@ public class TitleBuilderTest {
 	private static final String EMPTY_STRING = "";
 	private static final Object NULL_OBJECT = null;
 	private static final Date NULL_DATE = null;
-	private static final String SPACE = " ";
+	private static final String DEFAULT_SEPARATOR = TitleBuilder.DEFAULT_SEPARATOR;
 	private static final Number NULL_NUMBER = null;
 	private static final String NUMBER_FORMAT = "###.##";
 	private static final String FORMATED_NUMBER = "1,46";
@@ -29,7 +29,7 @@ public class TitleBuilderTest {
 	public void titleBuilderEmptyConstructor() {
 		TitleBuilder titleBuilder = new TitleBuilder();
 		String title = titleBuilder.append(1).append("2").toString();
-		assertEquals("1 2", title);
+		assertEquals("1"+DEFAULT_SEPARATOR+"2", title);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class TitleBuilderTest {
 		assertEquals(TEST, titleBuilder.toString());
 		
 		titleBuilder.append(TEST);
-		assertEquals(TEST+SPACE+TEST, titleBuilder.toString());
+		assertEquals(TEST+DEFAULT_SEPARATOR+TEST, titleBuilder.toString());
 
 	}
 
@@ -74,7 +74,7 @@ public class TitleBuilderTest {
 		assertEquals(TEST, titleBuilder.toString());
 
 		titleBuilder.append(this);
-		assertEquals(TEST+SPACE+TEST, titleBuilder.toString());
+		assertEquals(TEST+DEFAULT_SEPARATOR+TEST, titleBuilder.toString());
 
 	}
 
@@ -129,7 +129,7 @@ public class TitleBuilderTest {
 		assertEquals(FORMATED_DATE, titleBuilder.toString());
 
 		titleBuilder.append(date,DATE_FORMAT);
-		assertEquals(FORMATED_DATE+SPACE+FORMATED_DATE, titleBuilder.toString());
+		assertEquals(FORMATED_DATE+DEFAULT_SEPARATOR+FORMATED_DATE, titleBuilder.toString());
 
 	}
 
@@ -165,7 +165,7 @@ public class TitleBuilderTest {
 		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
 
 		titleBuilder.append(number,NUMBER_FORMAT);
-		assertEquals(FORMATED_NUMBER+SPACE+FORMATED_NUMBER, titleBuilder.toString());
+		assertEquals(FORMATED_NUMBER+DEFAULT_SEPARATOR+FORMATED_NUMBER, titleBuilder.toString());
 	}
 
 	@Test
@@ -198,11 +198,11 @@ public class TitleBuilderTest {
 		assertEquals("One", titleBuilder.toString());
 		
 		titleBuilder.append(TitleBuilderTestEnum.TWO);
-		assertEquals("One Two", titleBuilder.toString());
+		assertEquals("One"+DEFAULT_SEPARATOR+"Two", titleBuilder.toString());
 
 		
 		titleBuilder.append(TitleBuilderTestEnum.TWENTY_ONE);
-		assertEquals("One Two Twenty one", titleBuilder.toString());
+		assertEquals("One"+DEFAULT_SEPARATOR+"Two"+DEFAULT_SEPARATOR+"Twenty one", titleBuilder.toString());
 	}
 
 

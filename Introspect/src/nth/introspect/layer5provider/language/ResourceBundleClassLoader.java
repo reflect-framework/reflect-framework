@@ -17,8 +17,8 @@ public class ResourceBundleClassLoader extends ClassLoader {
 	@Override
 	protected URL findResource(String fileName) {
 		try {
-			String path = configPath+fileName;
-			return new URL(path);
+			URL url = configPath.resolve(fileName).toURL();
+			return url;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

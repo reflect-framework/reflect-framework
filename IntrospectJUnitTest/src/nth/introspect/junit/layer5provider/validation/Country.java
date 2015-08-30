@@ -2,22 +2,29 @@ package nth.introspect.junit.layer5provider.validation;
 
 import java.util.Locale;
 
-public class Country {
-	private final String name;
-	private final String code;
+import nth.introspect.generic.util.StringUtil;
 
-	public Country(String name, String code) {
-		this.name = name;
-		this.code = code;
+public enum Country {
+	NETHERLANDS("^[0-9]{4}[a-zA-Z]{2}$",
+			"must contain 4 numbers followed by 2 letters"), FRANCE(
+			"^[0-9]{5}$", "must contain 5 numbers");
+
+	private final String regexpZipCode;
+	private final String validationViolationMessage;
+
+	private Country(String regexpZipCode, String validationViolationMessage) {
+		this.regexpZipCode = regexpZipCode;
+		this.validationViolationMessage = validationViolationMessage;
 	}
 
-	public String getName() {
-		return name;
+	public String getValidationViolationMessage() {
+		return validationViolationMessage;
 	}
 
-	public String getCode() {
-		return code;
+	public boolean isValidZipCode(String zipCode) {
+		return zipCode.matches(regexpZipCode);
 	}
+
 	
 	
 }

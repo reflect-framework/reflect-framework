@@ -18,7 +18,7 @@ import nth.introspect.layer5provider.reflection.behavior.format.impl.NumericForm
  * compared with a StringBuilder, but has some additional functionality such as:
  * <ul>
  * <li>The “append” methods will append a separator and a given value. You can
- * use the default separator (a space) or use an “append” method where you pass
+ * use the default separator (a comma and a space) or use an “append” method where you pass
  * the separator as a first parameter followed by the value.</li>
  * <li>The “contact” methods will append a given value without a separator</li>
  * <li>Both “append” and “contact” methods will ignore null values or reference
@@ -36,12 +36,13 @@ import nth.introspect.layer5provider.reflection.behavior.format.impl.NumericForm
  */
 public class TitleBuilder {
 
-	private static final String SPACE = " ";
+	private static final String COMMA_SPACE_SEPARATOR = ", ";
+	public static final String DEFAULT_SEPARATOR = COMMA_SPACE_SEPARATOR;
 	private final String defaultSeparator;
 	private final StringBuilder titleBuilder;
 
 	public TitleBuilder() {
-		this(SPACE);
+		this(DEFAULT_SEPARATOR);
 	}
 
 	public TitleBuilder(String defaultSeparator) {

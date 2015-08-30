@@ -2,6 +2,8 @@ package nth.introspect.junit;
 
 import nth.introspect.junit.generic.titlebuilder.TitleBuilderTest;
 import nth.introspect.junit.layer5provider.authorization.AcmeAuthorizationProviderTest;
+import nth.introspect.junit.layer5provider.language.LanguageProviderWithoutFileTest;
+import nth.introspect.junit.layer5provider.language.LanguageProviderWithFileTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.disabled.DisabledModelForActionMethodTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.disabled.DisabledModelForPropertiesTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.executionmode.ExecutionModeTest;
@@ -19,6 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TitleBuilderTest.class, AcmeAuthorizationProviderTest.class,
+		LanguageProviderWithoutFileTest.class, LanguageProviderWithFileTest.class,
 		DisabledModelForPropertiesTest.class,
 		DisabledModelForActionMethodTest.class,
 		HiddenModelForPropertiesTest.class,
