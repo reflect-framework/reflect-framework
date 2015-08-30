@@ -67,7 +67,7 @@ public class DefaultReflectionProvider implements ReflectionProvider {
 			Class<?> objectClass) {
 		List<PropertyInfo> propertyInfos = getPropertyInfos(objectClass);
 		// only return visible properties
-		FilterUtil.filter(propertyInfos, new TableVisibleFilter());
+		propertyInfos=FilterUtil.filter(propertyInfos, new TableVisibleFilter());
 		// order properties
 		Collections.sort(propertyInfos, new PropertyInfoComparator());
 		return propertyInfos;

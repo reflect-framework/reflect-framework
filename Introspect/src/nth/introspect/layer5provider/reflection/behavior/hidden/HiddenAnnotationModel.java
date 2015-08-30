@@ -62,8 +62,10 @@ public class HiddenAnnotationModel implements HiddenModel {
 
 	private boolean isAuthorized() {
 		for (String roleName : roleNames) {
-			if (authorizationProvider.userInRole(roleName)) {
-				return true;
+			if (roleName.length() > 0) {
+				if (authorizationProvider.userInRole(roleName)) {
+					return true;
+				}
 			}
 		}
 		return false;
