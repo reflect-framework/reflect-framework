@@ -5,6 +5,7 @@ import java.util.List;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.ui.commandline.domain.table.Row;
@@ -21,10 +22,9 @@ public class FormView extends CommandLineView {
 		row.addCell("", Table.MAX_WIDTH_IN_COLS);
 
 		// get propertyInfos
-		Filter<PropertyInfo> propertyInfoFilter = null; // TODO only show visible properties;
-		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
 		Class<?> returnClass = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 
 		// add properties to form
 		for (PropertyInfo propertyInfo : propertyInfos) {

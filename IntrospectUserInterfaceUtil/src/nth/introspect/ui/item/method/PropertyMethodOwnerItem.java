@@ -10,6 +10,7 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.LinkedToPropertyFilter;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.ui.view.FormView;
@@ -38,7 +39,8 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
 		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().get(ReflectionProvider.class);
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(domainClass);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
 			if (otherPropertyInfo != propertyInfo) {

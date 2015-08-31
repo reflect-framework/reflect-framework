@@ -6,6 +6,7 @@ import java.util.List;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.container.InstanceFactory;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class CloneUtil {
@@ -21,10 +22,11 @@ public class CloneUtil {
 	 */
 	public static Object clone(ReflectionProvider reflectionProvider, Object sourceObject, Object destinationObject) {
 		Class<?> sourceClass = sourceObject.getClass();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(sourceClass);
 		Class<?> destinationClass = destinationObject.getClass();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(sourceClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo sourcePropertyInfo : propertyInfos) {
-			PropertyInfo destinationPropertyInfo = reflectionProvider.getPropertyInfo(destinationClass, sourcePropertyInfo.getSimpleName());
+			PropertyInfo destinationPropertyInfo = classInfo.getPropertyInfo(sourcePropertyInfo.getSimpleName());
 			if (destinationPropertyInfo.isEnabled(destinationObject)) {
 				Object value = sourcePropertyInfo.getValue(sourceObject);
 				destinationPropertyInfo.setValue(destinationObject, value);

@@ -14,6 +14,7 @@ import nth.introspect.junit.layer5provider.reflection.behavior.icon.IconUriClass
 import nth.introspect.junit.layer5provider.reflection.behavior.icon.foractionmethod.IconModelForActionMethodTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.icon.forclass.IconModelForClassTest;
 import nth.introspect.junit.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelTest;
+import nth.introspect.junit.layer5provider.reflection.info.classinfo.ClassInfoTest;
 import nth.introspect.junit.layer5provider.validation.ValidationProviderTest;
 
 import org.junit.runner.RunWith;
@@ -24,6 +25,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ TitleBuilderTest.class, AcmeAuthorizationProviderTest.class,
 		LanguageProviderWithoutFileTest.class, LanguageProviderWithFileTest.class,
 		ReflectionProviderTest.class,
+		ClassInfoTest.class,
 		DisabledModelForPropertiesTest.class,
 		DisabledModelForActionMethodTest.class,
 		HiddenModelForPropertiesTest.class,

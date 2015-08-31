@@ -8,18 +8,15 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import nth.introspect.Introspect;
-import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
-import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -62,8 +59,8 @@ public class ExcelReportFactory {
 		Date exportDateTime = new Date();
 		initFooter(sheet, exportDateTime);
 
-		List<PropertyInfo> propertyInfos = reflectionProvider
-				.getOrderedAndVisiblePropertyInfos(domainClass);
+		ClassInfo classInfo=reflectionProvider.getClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 		int maxNumberOfColumns = getMaxNumberOfColumns(propertyInfos);
 
 		addTitlebar(wb, sheet, reportTitle, maxNumberOfColumns - 1);
@@ -153,14 +150,13 @@ public class ExcelReportFactory {
 	}
 
 	private void addPropertyTable(Sheet sheet, Cell cell,
-			PropertyInfo propertyInfo, Object value) {
+			PropertyInfo propertyInfo, Object value) {//TODO still used????
 		Row row = cell.getRow();
 		Class<?> objectClass = propertyInfo.getPropertyType()
 				.getTypeOrGenericCollectionType();
-		Filter<PropertyInfo> propertyInfoFilter = new TableVisibleFilter();
-		Comparator<PropertyInfo> propertyInfoComparator = new PropertyInfoComparator();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(
-				objectClass, propertyInfoFilter, propertyInfoComparator);
+
+		ClassInfo classInfo=reflectionProvider.getClassInfo(objectClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 
 		createPropertyTableHeader(sheet, row, propertyInfos);
 
@@ -203,9 +199,7 @@ public class ExcelReportFactory {
 			if (TypeCategory.COLLECTION_TYPE == propertyInfo.getPropertyType()
 					.getTypeCategory()) {
 				// property is displayed as a table
-				Class<?> genericType = propertyInfo.getPropertyType()
-						.getTypeOrGenericCollectionType();
-				int numberOfColumns = getMaxNumberOfColumns(genericType);
+				int numberOfColumns = propertyInfos.size();
 				if (numberOfColumns > maxNumberOfColumns) {
 					maxNumberOfColumns = numberOfColumns;
 				}
@@ -215,10 +209,6 @@ public class ExcelReportFactory {
 		return maxNumberOfColumns;
 	}
 
-	private int getMaxNumberOfColumns(Class<?> objectClass) {
-		List<PropertyInfo> propertyInfos = getPropertyInfosForTable(objectClass);
-		return propertyInfos.size();
-	}
 
 	private void addTitlebar(Workbook wb, Sheet sheet, String reportTitle,
 			int maxNumberOfColumns) {
@@ -267,10 +257,8 @@ public class ExcelReportFactory {
 
 	private List<PropertyInfo> getPropertyInfosForTable(Class<?> domainClass) {
 		// get propertyInfos
-		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(
-				domainClass, propertyInfoFilter, propertyInfoComparator);
+		ClassInfo classInfo=reflectionProvider.getClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 		return propertyInfos;
 	}
 

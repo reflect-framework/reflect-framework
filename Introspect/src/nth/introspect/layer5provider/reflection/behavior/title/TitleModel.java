@@ -6,6 +6,7 @@ import java.util.List;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
@@ -70,8 +71,8 @@ public class TitleModel {
 
 	private String createTitle(Object obj) {
 		StringBuffer title = new StringBuffer();
-		List<PropertyInfo> propertyInfos = reflectionProvider
-				.getOrderedAndVisiblePropertyInfos(obj.getClass());
+		ClassInfo classInfo = reflectionProvider.getClassInfo(obj.getClass());
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			Object propertyValue = propertyInfo.getValue(obj);
 			Format format = propertyInfo.getFormat();

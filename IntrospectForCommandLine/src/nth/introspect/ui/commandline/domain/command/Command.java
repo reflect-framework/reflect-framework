@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.generic.filter.Filter;
+import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 
@@ -39,14 +41,12 @@ public class Command {
 		if (parameterClass != null) {
 
 			// get propertyInfos
-			Filter<PropertyInfo> propertyInfoFilter = new CommandLineParameterFilter();
-			PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
 			Class<?> returnClass = actionMethodInfo.getParameterType()
 					.getTypeOrGenericCollectionType();
-			List<PropertyInfo> propertyInfos = reflectionProvider
-					.getPropertyInfos(returnClass, propertyInfoFilter,
-							propertyInfoComparator);
-
+			ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
+			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+			propertyInfos=FilterUtil.filter(propertyInfos, new CommandLineParameterFilter());
+			
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Parameter parameter = new Parameter(propertyInfo);
 				parameters.add(parameter);

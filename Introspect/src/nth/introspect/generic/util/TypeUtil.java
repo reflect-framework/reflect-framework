@@ -3,7 +3,9 @@ package nth.introspect.generic.util;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 
+import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
@@ -48,6 +50,27 @@ public class TypeUtil {
 	
 	public static boolean isDomainType(Class<?> type) {
 		return  !isJavaType(type) && !isEnum(type);
+	}
+
+	public static boolean isDomainType(Class<?> type, IntrospectApplication introspectApplication) {
+		return  !isJavaType(type) && !isEnum(type) && !isIntrospectApplication(type) &&  !isServiceClass(type, introspectApplication) && !isInfrastructureClass(type, introspectApplication);
+	}
+	
+
+	private static boolean isIntrospectApplication(Class<?> type) {
+		return IntrospectApplication.class.isAssignableFrom(type);
+	}
+
+	private static boolean isServiceClass(Class<?> classToFind,
+			IntrospectApplication introspectApplication) {
+		List<Class<?>> serviceClasses = introspectApplication.getServiceClasses();
+		return serviceClasses.contains(classToFind);
+	}
+
+	private static boolean isInfrastructureClass(Class<?> classToFind,
+			IntrospectApplication introspectApplication) {
+		List<Class<?>> infrastructureClasses = introspectApplication.getInfrastructureClasses();
+		return infrastructureClasses.contains(classToFind);
 	}
 
 	

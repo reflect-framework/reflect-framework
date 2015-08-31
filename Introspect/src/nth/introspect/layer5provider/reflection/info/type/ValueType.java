@@ -38,7 +38,11 @@ public abstract class ValueType {
 	private Class<?> getGenericTypeOfReturnTypeOfCollection(Method method) {
 		Type returnType = method.getGenericReturnType();
 		ParameterizedType pType = (ParameterizedType) returnType;
-		Class<?> genericType = (Class<?>) pType.getActualTypeArguments()[0];
+		Type actualType = pType.getActualTypeArguments()[0];
+		if (actualType.toString().equals("java.lang.Class<?>")) {
+			return Class.class;
+		}
+		Class<?> genericType =  (Class<?>) actualType;
 		return genericType;
 	}
 

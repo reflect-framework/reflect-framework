@@ -5,6 +5,7 @@ import java.util.List;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
@@ -17,10 +18,9 @@ public class TableView extends CommandLineView {
 
 	public TableView(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo, Collection<?> collection) {
 		//get propertyInfos
-		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
 		Class<?> returnClass = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(returnClass, propertyInfoFilter, propertyInfoComparator);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 
 		table = new Table();
 		

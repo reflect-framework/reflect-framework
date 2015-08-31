@@ -1,6 +1,5 @@
 package nth.introspect.layer5provider.reflection;
 
-import java.util.Comparator;
 import java.util.List;
 
 import nth.introspect.container.ConstructionInjection;
@@ -32,30 +31,10 @@ public interface ReflectionProvider extends Provider {
 
 	ClassInfo getClassInfo(Class<?> objectClass);
 
-	PropertyInfo getPropertyInfo(Class<?> objectClass, String propertyName);
-
-	List<PropertyInfo> getPropertyInfos(Class<?> objectClass);
-
-	List<PropertyInfo> getPropertyInfos(Class<?> objectClass,
-			Filter<PropertyInfo> propertyInfoFilter,
-			Comparator<PropertyInfo> propertyInfoComparator);
-
 	// TODO move to classInfo
-
-	List<PropertyInfo> getOrderedPropertyInfos(Class<?> objectClass);
-
-	// TODO move to classInfo
-
-	List<PropertyInfo> getOrderedAndVisiblePropertyInfos(
-			Class<?> objectClass);
-
-	// TODO move to classInfo
-
 	List<ActionMethodInfo> getMethodInfos(Class<?> objectClass);
 
 	// TODO move to classInfo
-
 	List<ActionMethodInfo> getMethodInfos(Class<?> objectClass,
 			Filter<ActionMethodInfo> methodInfoFilter);
-	// TODO move to classInfo
 }

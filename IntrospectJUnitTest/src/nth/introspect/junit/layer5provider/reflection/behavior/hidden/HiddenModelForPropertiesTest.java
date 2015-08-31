@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 
@@ -15,8 +16,10 @@ import com.acme.web.shop.provider.authorization.AcmeAuthorizationProvider;
 
 public class HiddenModelForPropertiesTest {
 
-	private ReflectionProvider reflectionProvider;
 	
+		private ClassInfo classInfo;
+
+
 		@Before
 		public void setUp() throws Exception {
 			IntrospectApplicationForJUnit application = new IntrospectApplicationForJUnit() {
@@ -29,13 +32,14 @@ public class HiddenModelForPropertiesTest {
 			DependencyInjectionContainer container = application.createContainer();
 			AcmeAuthorizationProvider authorizationProvider = container.get(AcmeAuthorizationProvider.class);
 			authorizationProvider.login("carla", "password1");
-			reflectionProvider = container.get(ReflectionProvider.class);
+			ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
+			classInfo=reflectionProvider.getClassInfo(HiddenModelForPropertiesTestObject.class);
 		}
 		
 		@Test
 		public void propertyHiddenInTable() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenInTable");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo( "propertyHiddenInTable");
 			assertFalse(propertyInfo.isVisibleInTable());
 			assertTrue(propertyInfo.isVisibleInForm(obj));
 		}
@@ -43,7 +47,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenInForm() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenInForm");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenInForm");
 			assertTrue(propertyInfo.isVisibleInTable());
 			assertFalse(propertyInfo.isVisibleInForm(obj));
 		}
@@ -51,7 +55,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenInFormAndTable() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenInFormAndTable");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenInFormAndTable");
 			assertFalse(propertyInfo.isVisibleInTable());
 			assertFalse(propertyInfo.isVisibleInForm(obj));
 		}
@@ -59,7 +63,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenNotInRole() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenNotInRole");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenNotInRole");
 			assertFalse(propertyInfo.isVisibleInTable());
 			assertFalse(propertyInfo.isVisibleInForm(obj));
 		}
@@ -67,7 +71,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyVisibleInRole() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyVisibleInRole");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyVisibleInRole");
 			assertTrue(propertyInfo.isVisibleInTable());
 			assertTrue(propertyInfo.isVisibleInForm(obj));
 		}
@@ -76,7 +80,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyCollection() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyCollection");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyCollection");
 			assertFalse(propertyInfo.isVisibleInTable());
 			assertTrue(propertyInfo.isVisibleInForm(obj));
 		}
@@ -85,7 +89,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenMethod() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenMethod");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenMethod");
 			assertTrue(propertyInfo.isVisibleInTable());//true: can not be set dynamically
 			assertFalse(propertyInfo.isVisibleInForm(obj));
 		}
@@ -93,7 +97,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyVisibleMethod() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyVisibleMethod");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyVisibleMethod");
 			assertTrue(propertyInfo.isVisibleInTable());//true: can not be set dynamically
 			assertTrue(propertyInfo.isVisibleInForm(obj));
 		}
@@ -101,7 +105,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenInTableHiddenInRole() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenInTableHiddenInRole");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenInTableHiddenInRole");
 			assertFalse(propertyInfo.isVisibleInTable());
 			assertTrue(propertyInfo.isVisibleInForm(obj));
 		}
@@ -110,7 +114,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenInTableVisibleInRole() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenInTableVisibleInRole");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenInTableVisibleInRole");
 			assertTrue(propertyInfo.isVisibleInTable());
 			assertTrue(propertyInfo.isVisibleInForm(obj));
 		}
@@ -119,7 +123,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenInTableHiddenMethod() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenInTableHiddenMethod");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenInTableHiddenMethod");
 			assertFalse(propertyInfo.isVisibleInTable());
 			assertFalse(propertyInfo.isVisibleInForm(obj));
 		}
@@ -128,7 +132,7 @@ public class HiddenModelForPropertiesTest {
 		@Test
 		public void propertyHiddenInTableVisibleMethod() {
 			HiddenModelForPropertiesTestObject obj=new HiddenModelForPropertiesTestObject();
-			PropertyInfo propertyInfo = reflectionProvider.getPropertyInfo(HiddenModelForPropertiesTestObject.class, "propertyHiddenInTableVisibleMethod");
+			PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyHiddenInTableVisibleMethod");
 			assertFalse(propertyInfo.isVisibleInTable());
 			assertTrue(propertyInfo.isVisibleInForm(obj));
 		}

@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.List;
 
+import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
@@ -15,6 +16,9 @@ import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactory;
+import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 /**
  * Provides information on a bean.<br>
@@ -26,9 +30,6 @@ import nth.introspect.layer5provider.reflection.info.NameInfo;
  */
 public class ClassInfo implements NameInfo {
 
-	public final static String VISIBLE = "visible";
-	public final String[] ANNOTATION_NAMES = new String[] { VISIBLE };
-	public final static String[] METHOD_NAMES = new String[] { VISIBLE };
 	private final String simpleName;
 	private final String canonicalName;
 	private final DescriptionModel descriptionModel;
@@ -37,6 +38,7 @@ public class ClassInfo implements NameInfo {
 	private final TitleModel titleModel;
 	private final IconModel iconModel;
 	private final List<Method> validationMethods;
+	private final List<PropertyInfo> propertyInfosSorted;
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
 		LanguageProvider languageProvider = providerContainer
@@ -54,7 +56,9 @@ public class ClassInfo implements NameInfo {
 		this.titleModel = new TitleModel(reflectionProvider);
 		this.iconModel = IconModelFactory.create(objectClass,
 				pathProvider.getImagePath());
-		this.validationMethods=ValidationMethodFactory.create(objectClass);
+		this.validationMethods = ValidationMethodFactory.create(objectClass);
+		this.propertyInfosSorted = PropertyInfoFactory.createSorted(
+				providerContainer, objectClass);
 	}
 
 	@Override
@@ -94,6 +98,25 @@ public class ClassInfo implements NameInfo {
 
 	public List<Method> getAllValidationMethods() {
 		return validationMethods;
+	}
+
+	public List<PropertyInfo> getPropertyInfosSorted() {
+		return propertyInfosSorted;
+	}
+
+	public List<PropertyInfo> getPropertyInfosSortedAnsVisibleInTable() {
+		List<PropertyInfo> sortedPropertyInfosVisibleInTable = FilterUtil
+				.filter(propertyInfosSorted, new TableVisibleFilter());
+		return sortedPropertyInfosVisibleInTable;
+	}
+
+	public PropertyInfo getPropertyInfo(String propertyName) {
+		for (PropertyInfo propertyInfo : propertyInfosSorted) {
+			if (propertyInfo.getSimpleName().equals(propertyName)) {
+				return propertyInfo;
+			}
+		}
+		return null;
 	}
 
 }

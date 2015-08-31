@@ -14,6 +14,7 @@ import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
 import nth.introspect.generic.tablemodel.DomainTableModel;
 import nth.introspect.generic.tablemodel.SortableTableModel;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
@@ -76,9 +77,8 @@ public class JpaTableModel extends AbstractTableModel implements DomainTableMode
 		ejbQlCount.append(fromClause);
 		this.ejbQlCount = ejbQlCount.toString();
 		// get column info
-		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
-		propertyInfos = reflectionProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
+		propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 		// Initialize fields
 		this.startPosition = 0;
 		this.items = getItems(startPosition, startPosition + CACHE_SIZE);

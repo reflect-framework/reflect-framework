@@ -1,7 +1,6 @@
 package nth.introspect.junit.layer5provider.language;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.Locale;
 
@@ -16,7 +15,6 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class LanguageProviderWithFileTest {

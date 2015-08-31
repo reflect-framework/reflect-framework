@@ -1,8 +1,5 @@
 package nth.introspect.junit.layer5provider.validation;
 
-import java.util.Locale;
-
-import nth.introspect.generic.util.StringUtil;
 
 public enum Country {
 	NETHERLANDS("^[0-9]{4}[a-zA-Z]{2}$",

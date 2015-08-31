@@ -8,18 +8,19 @@ import java.util.List;
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class ActionMethodInfoFactory {
 
 	public static List<ActionMethodInfo> create(
-			ProviderContainer providerContainer, Class<?> objectType) {
+			ProviderContainer providerContainer, Class<?> objectClass) {
 		ArrayList<ActionMethodInfo> actionMethodInfos = new ArrayList<ActionMethodInfo>();
 		ReflectionProvider reflectionProvider = providerContainer
 				.get(ReflectionProvider.class);
-		List<PropertyInfo> propertyInfos = reflectionProvider
-				.getPropertyInfos(objectType);
-		Method[] methods = objectType.getMethods();
+		 ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+		Method[] methods = objectClass.getMethods();
 		for (Method method : methods) {
 			if (ActionMethodInfo.isActionMethod(method, propertyInfos)) {
 				String linkedPropertyName = findLinkedPropertyName(method,

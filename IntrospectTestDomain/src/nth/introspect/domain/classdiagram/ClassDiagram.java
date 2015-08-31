@@ -6,6 +6,7 @@ import java.util.List;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.order.Order;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class ClassDiagram {
@@ -41,7 +42,8 @@ public class ClassDiagram {
 		}
 
 		// properties
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(objectClass);
+		ClassInfo classInfo=reflectionProvider.getClassInfo(objectClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			getProperties().add(new ClassFeature(propertyInfo));
 		}

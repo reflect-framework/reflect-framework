@@ -11,8 +11,8 @@ import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.introspect.layer5provider.validation.ValidationViolations;
 import nth.introspect.layer5provider.validation.ValidationProvider;
+import nth.introspect.layer5provider.validation.ValidationViolations;
 
 /**
  * <p>

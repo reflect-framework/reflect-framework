@@ -24,6 +24,7 @@ import nth.introspect.generic.xml.transform.DefaultMatcher;
 import nth.introspect.generic.xml.transform.Transform;
 import nth.introspect.layer4infrastructure.InfrastructureContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 import org.w3c.dom.Document;
@@ -139,7 +140,9 @@ public class XmlConverter {
 			// remember the objects that where marshaled so we do not have to do them twice.
 			marshaledObjects.add(objectToMarshal);
 
-			List<PropertyInfo> properyInfos = reflectionProvider.getPropertyInfos(objectToMarshal.getClass());
+			ClassInfo classInfo = reflectionProvider.getClassInfo(objectToMarshal.getClass());
+			
+			List<PropertyInfo> properyInfos = classInfo.getPropertyInfosSorted();
 			for (PropertyInfo propertyInfo : properyInfos) {
 
 				Object propertyValue = propertyInfo.getValue(objectToMarshal);
@@ -235,7 +238,8 @@ public class XmlConverter {
 			unMarshaledObjects.put(id, object);
 
 			// get PropertyInfos
-			List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(object.getClass());
+			ClassInfo classInfo = reflectionProvider.getClassInfo(object.getClass());
+			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 			// get property Elements
 			List<Element> propertyElements = getChildElements(objectElement);
 

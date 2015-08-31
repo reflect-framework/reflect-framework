@@ -210,7 +210,13 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	private static boolean isMethodOfObjectClass(Method method) {
-		return Object.class == method.getDeclaringClass();
+		String methodName=method.getName();
+		for (Method methodOfObjectClass : Object.class.getMethods()) {
+			if (methodOfObjectClass.getName().equals(methodName)) {
+				return true;
+			}
+		};
+		return false;
 	}
 
 }

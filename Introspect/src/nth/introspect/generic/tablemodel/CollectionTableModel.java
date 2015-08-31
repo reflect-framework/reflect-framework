@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class CollectionTableModel extends AbstractTableModel implements DomainTableModel {
@@ -21,7 +22,8 @@ public class CollectionTableModel extends AbstractTableModel implements DomainTa
 		} else {
 			list = new ArrayList<Object>(collection);// convert collection to an array list to safegard the sequance of objects
 		}
-		propertyInfos = reflectionProvider.getOrderedAndVisiblePropertyInfos(domainClass);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
+		propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 	}
 
 	@Override

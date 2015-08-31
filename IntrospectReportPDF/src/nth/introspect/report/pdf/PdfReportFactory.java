@@ -8,6 +8,7 @@ import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
@@ -91,9 +92,8 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		Class<?> domainClass = domainObject.getClass();
 		
 		// get propertyInfos
-		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(domainClass, propertyInfoFilter, propertyInfoComparator);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			// add propertyName
@@ -128,9 +128,8 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		Class<?> objectClass = tableSection.getDomainObjectClass();
 
 		//get propertyInfos
-		TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-		PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
-		List<PropertyInfo> propertyInfos = reflectionProvider.getPropertyInfos(objectClass, propertyInfoFilter, propertyInfoComparator);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 				
 		// create table
 		PdfPTable pdfTable = new PdfPTable(propertyInfos.size());

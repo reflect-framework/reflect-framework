@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public abstract  class SqlRepository  {
@@ -99,9 +100,10 @@ public abstract  class SqlRepository  {
 		Map<String, PropertyInfo> propertyInfos = new HashMap<String, PropertyInfo>();
 		ResultSetMetaData meta = resultSet.getMetaData();
 		int numColumns = meta.getColumnCount();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
 		for (int columnNr = 1; columnNr < numColumns + 1; columnNr++) {
 			String columnName = meta.getColumnName(columnNr);
-			for (PropertyInfo propertyInfo : reflectionProvider.getPropertyInfos(domainClass)) {
+			for (PropertyInfo propertyInfo : classInfo.getPropertyInfosSorted()) {
 				if (propertyInfo.getSimpleName().equalsIgnoreCase(columnName)) {
 					propertyInfos.put(columnName, propertyInfo);
 					break;

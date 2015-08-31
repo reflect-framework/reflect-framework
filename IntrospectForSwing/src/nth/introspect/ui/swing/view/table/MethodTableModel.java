@@ -14,9 +14,8 @@ import nth.introspect.layer1userinterface.controller.Refreshable;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
-import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 public class MethodTableModel extends AbstractTableModel implements
 		DomainTableModel, Refreshable {
@@ -31,16 +30,14 @@ public class MethodTableModel extends AbstractTableModel implements
 
 	public MethodTableModel(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
 		this.valueModel = valueModel;
-		Class<?> domainClass = valueModel.getValueType();
+		Class<?> objectClass = valueModel.getValueType();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
 
-		if (TypeUtil.isJavaType(domainClass)) {
+		if (TypeUtil.isJavaType(objectClass) || TypeUtil.isEnum(objectClass)) {
 			JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
-			format = formatFactory.create(domainClass);
+			format = formatFactory.create(objectClass);
 		} else {
-			TableVisibleFilter propertyInfoFilter = new TableVisibleFilter();
-			PropertyInfoComparator propertyInfoComparator = new PropertyInfoComparator();
-			propertyInfos = reflectionProvider.getPropertyInfos(
-					domainClass, propertyInfoFilter, propertyInfoComparator);
+			propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 		}
 		refresh();
 	}
