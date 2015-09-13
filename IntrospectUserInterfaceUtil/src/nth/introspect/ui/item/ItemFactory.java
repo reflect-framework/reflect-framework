@@ -19,6 +19,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.filter.LinkedT
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.NoParameterOrParameterFactoryFilter;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.ReturnTypeFilter;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodItem;
@@ -63,8 +64,8 @@ public class ItemFactory {
 				new NoParameterOrParameterFactoryFilter());
 		filter.or(new ParameterTypeFilter(parameterType));
 		filter.and(new LinkedToPropertyFilter(propertyInfo));
-		List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(
-				domainType, filter);
+		ClassInfo classInfo=reflectionProvider.getClassInfo(domainType);
+		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos(filter);
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			PropertyMethodItem item = new PropertyMethodItem(formView,
 					propertyInfo, actionMethodInfo, parameterModel,false);

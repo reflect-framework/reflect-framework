@@ -49,7 +49,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 						new LinkedToPropertyFilter(otherPropertyInfo));
 				filter.and(new ParameterTypeFilter(parameterClass));
 
-				List<ActionMethodInfo> propertyMethods = reflectionProvider.getMethodInfos(domainClass, filter);
+				List<ActionMethodInfo> propertyMethods = classInfo.getActionMethodInfos(filter);
 				for (ActionMethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
 							formView, otherPropertyInfo, propertyMethodInfo,

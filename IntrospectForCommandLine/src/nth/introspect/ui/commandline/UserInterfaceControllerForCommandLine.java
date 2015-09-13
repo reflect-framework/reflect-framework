@@ -101,6 +101,7 @@ public class UserInterfaceControllerForCommandLine extends
 			allArguments.add(argumentsPerLine);
 			line = br.readLine();
 		}
+		br.close();
 		return allArguments;
 	}
 
@@ -220,6 +221,7 @@ public class UserInterfaceControllerForCommandLine extends
 				System.out.print(options.toString());
 			}
 		}
+		reader.close();
 
 		Item selectedItem = items.get(input - 1);
 		Action action = selectedItem.getAction();

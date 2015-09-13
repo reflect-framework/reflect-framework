@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.List;
 
+import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
@@ -16,6 +17,8 @@ import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfoFactory;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactory;
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
@@ -39,6 +42,7 @@ public class ClassInfo implements NameInfo {
 	private final IconModel iconModel;
 	private final List<Method> validationMethods;
 	private final List<PropertyInfo> propertyInfosSorted;
+	private final List<ActionMethodInfo> actionMethodInfosSorted;
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
 		LanguageProvider languageProvider = providerContainer
@@ -59,6 +63,7 @@ public class ClassInfo implements NameInfo {
 		this.validationMethods = ValidationMethodFactory.create(objectClass);
 		this.propertyInfosSorted = PropertyInfoFactory.createSorted(
 				providerContainer, objectClass);
+		this.actionMethodInfosSorted= ActionMethodInfoFactory.createSorted(providerContainer, this);
 	}
 
 	@Override
@@ -118,5 +123,26 @@ public class ClassInfo implements NameInfo {
 		}
 		return null;
 	}
+
+	public List<ActionMethodInfo> getActionMethodInfosSorted() {
+		return actionMethodInfosSorted;
+	}
+
+	public ActionMethodInfo getActionMethodInfo(String methodName) {
+		for (ActionMethodInfo actionMethodInfo : actionMethodInfosSorted) {
+			if (actionMethodInfo.getSimpleName().equals(methodName)) {
+				return actionMethodInfo;
+			}
+		}
+		return null;
+	}
+	
+	public List<ActionMethodInfo> getActionMethodInfos(
+			Filter<ActionMethodInfo> methodInfoFilter) {
+		List<ActionMethodInfo> foundMethodInfos = FilterUtil.filter(actionMethodInfosSorted,
+				methodInfoFilter);
+		return foundMethodInfos;
+	}
+
 
 }

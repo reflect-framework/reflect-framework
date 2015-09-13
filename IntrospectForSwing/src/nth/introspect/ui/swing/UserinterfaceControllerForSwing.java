@@ -95,7 +95,7 @@ public class UserinterfaceControllerForSwing extends
 	}
 
 	@Override
-	public nth.introspect.layer1userinterface.view.ViewContainer getViewContainer() {
+	public nth.introspect.layer1userinterface.view.ViewContainer<?> getViewContainer() {
 		return mainWindow.getViewContainer();
 	}
 

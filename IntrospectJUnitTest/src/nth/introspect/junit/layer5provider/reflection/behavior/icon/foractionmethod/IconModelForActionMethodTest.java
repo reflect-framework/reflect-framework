@@ -5,12 +5,12 @@ import static org.junit.Assert.assertNull;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 
@@ -159,13 +159,8 @@ public class IconModelForActionMethodTest {
 
 	private ActionMethodInfo getActionMethodInfo(
 			Class<?> objectClass, String methodName) {
-		List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(objectClass);
-		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
-			if (actionMethodInfo.getSimpleName().equals(methodName)) {
-				return actionMethodInfo;
-			}
-		}
-		return null;
+		ClassInfo classInfo=reflectionProvider.getClassInfo(objectClass);
+		return classInfo.getActionMethodInfo(methodName);
 	}
 
 	

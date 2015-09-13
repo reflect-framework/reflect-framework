@@ -31,12 +31,11 @@ public class MethodTableModel extends AbstractTableModel implements
 	public MethodTableModel(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
 		this.valueModel = valueModel;
 		Class<?> objectClass = valueModel.getValueType();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-
 		if (TypeUtil.isJavaType(objectClass) || TypeUtil.isEnum(objectClass)) {
 			JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
 			format = formatFactory.create(objectClass);
 		} else {
+			ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
 			propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 		}
 		refresh();

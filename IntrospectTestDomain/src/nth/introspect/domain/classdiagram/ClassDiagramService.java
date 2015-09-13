@@ -40,13 +40,10 @@ public class ClassDiagramService {
 	public List<ClassFeature> allClasses() {
 		Set<Class<?>> foundClasses = new HashSet<Class<?>>();
 
-		int index = 0;
-		int maxValue = serviceClasses.size();
 		for (Class<?> serviceClass : serviceClasses) {
 			// Task task=notificationProvider.addNewTask("Finding classes",
 			// index, maxValue);
 			getReferencedClasses(reflectionProvider, serviceClass, foundClasses);
-			index++;
 		}
 
 		List<ClassFeature> classFeatures = new ArrayList<ClassFeature>();
@@ -76,6 +73,7 @@ public class ClassDiagramService {
 			System.out.println(clazz.getCanonicalName());
 
 			ClassInfo classInfo = reflectionProvider.getClassInfo(clazz);
+			
 			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Class<?> propertyType = propertyInfo.getPropertyType()
@@ -84,8 +82,7 @@ public class ClassDiagramService {
 						foundClasses);// recursive call
 			}
 
-			List<ActionMethodInfo> actionMethodInfos = reflectionProvider
-					.getMethodInfos(clazz);
+			List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfosSorted();
 			for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 				Class<?> returnType = actionMethodInfo.getReturnType()
 						.getTypeOrGenericCollectionType();

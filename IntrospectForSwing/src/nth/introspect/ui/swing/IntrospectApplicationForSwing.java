@@ -21,10 +21,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
 public abstract class IntrospectApplicationForSwing implements
 		IntrospectApplication {
 
-	private final String[] commandLineArguments;
-
 	public IntrospectApplicationForSwing(String[] commandLineArguments)  {
-		this.commandLineArguments = commandLineArguments;
 		Introspect.start(this);
 	}
 	

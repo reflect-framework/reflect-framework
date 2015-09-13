@@ -11,6 +11,7 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.images.IntrospectImage;
 
 public class AboutItem extends Item {
@@ -28,7 +29,8 @@ public class AboutItem extends Item {
 			@Override
 			public void run() {
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
-				List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(AboutProvider.class, methodFilter);
+				ClassInfo classInfo=reflectionProvider.getClassInfo(AboutItem.class);
+				List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos( methodFilter);
 				if (actionMethodInfos.size() == 1) {
 					ActionMethodInfo actionMethodInfo = actionMethodInfos.get(0);
 					userInterfaceController.startExecution(aboutProvider, actionMethodInfo, null);

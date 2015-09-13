@@ -23,7 +23,6 @@ public class CloneUtil {
 	public static Object clone(ReflectionProvider reflectionProvider, Object sourceObject, Object destinationObject) {
 		Class<?> sourceClass = sourceObject.getClass();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(sourceClass);
-		Class<?> destinationClass = destinationObject.getClass();
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo sourcePropertyInfo : propertyInfos) {
 			PropertyInfo destinationPropertyInfo = classInfo.getPropertyInfo(sourcePropertyInfo.getSimpleName());

@@ -41,15 +41,16 @@ public class ClassDiagram {
 			getInterfaces().add(new ClassFeature(interfaze));
 		}
 
-		// properties
 		ClassInfo classInfo=reflectionProvider.getClassInfo(objectClass);
+		
+		// properties
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			getProperties().add(new ClassFeature(propertyInfo));
 		}
 
 		// methods
-		List<ActionMethodInfo> actionMethodInfos = reflectionProvider.getMethodInfos(objectClass);
+		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfosSorted();
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			getMethods().add(new ClassFeature(actionMethodInfo));
 		}

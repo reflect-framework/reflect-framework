@@ -13,6 +13,7 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 public class CommandService {
 
@@ -33,10 +34,13 @@ public class CommandService {
 		return null;
 	}
 
-	public static List<Command> getCommands(UserInterfaceContainer userInterfaceContainer)
+	public static List<Command> getCommands(
+			UserInterfaceContainer userInterfaceContainer)
 			throws IntrospectCommandLineException {
-		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
+		ReflectionProvider reflectionProvider = userInterfaceContainer
+				.get(ReflectionProvider.class);
+		ServiceContainer serviceContainer = userInterfaceContainer
+				.get(ServiceContainer.class);
 		List<Object> serviceObjects = serviceContainer.getServiceObjects();
 
 		if (serviceObjects.size() == 0) {
@@ -49,13 +53,12 @@ public class CommandService {
 
 		for (Object serviceObject : serviceObjects) {
 			Class<? extends Object> serviceClass = serviceObject.getClass();
-
-			List<ActionMethodInfo> actionMethodInfos = reflectionProvider
-					.getMethodInfos(serviceClass);
+			ClassInfo classInfo = reflectionProvider.getClassInfo(serviceClass);
+			List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfosSorted();
 
 			for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
-				Command command = new Command(reflectionProvider, serviceObject, actionMethodInfo,
-						shortCommandName);
+				Command command = new Command(reflectionProvider,
+						serviceObject, actionMethodInfo, shortCommandName);
 				commands.add(command);
 			}
 		}

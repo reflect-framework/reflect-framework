@@ -1,9 +1,6 @@
 package nth.introspect.layer5provider.reflection;
 
-import java.util.List;
-
 import nth.introspect.container.ConstructionInjection;
-import nth.introspect.generic.filter.Filter;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.Provider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -31,10 +28,4 @@ public interface ReflectionProvider extends Provider {
 
 	ClassInfo getClassInfo(Class<?> objectClass);
 
-	// TODO move to classInfo
-	List<ActionMethodInfo> getMethodInfos(Class<?> objectClass);
-
-	// TODO move to classInfo
-	List<ActionMethodInfo> getMethodInfos(Class<?> objectClass,
-			Filter<ActionMethodInfo> methodInfoFilter);
 }

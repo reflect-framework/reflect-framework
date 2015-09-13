@@ -2,6 +2,7 @@ package nth.introspect.junit.layer5provider.reflection;
 
 import nth.introspect.layer5provider.reflection.behavior.description.Description;
 import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.introspect.layer5provider.reflection.behavior.order.Order;
 
 @Description(englishDescription=ReflectionProviderTestObject.DESCRIPTION)
 public class ReflectionProviderTestObject {
@@ -17,7 +18,8 @@ public class ReflectionProviderTestObject {
 	public static final String PROPERTY1_ACTION_METHOD =  PROPERTY1+"ActionMethod";
 	public static final String TITLE = "title";
 	
-	
+
+	@Order(sequenceNumber=1)
 	public void classActionMethod() {
 		
 	}

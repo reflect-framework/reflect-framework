@@ -2,6 +2,7 @@ package nth.introspect.layer5provider.reflection.info.actionmethod;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.URI;
 import java.util.List;
 
@@ -195,7 +196,8 @@ public class ActionMethodInfo implements NameInfo {
 			List<PropertyInfo> propertyInfos) {
 		return !isMethodOfObjectClass(method)
 				&& !isGetterOrSetterMethod(method, propertyInfos)
-				&& !BehavioralMethods.isBehavioralMethod(method);
+				&& !BehavioralMethods.isBehavioralMethod(method)
+				&& !Modifier.isStatic(method.getModifiers());
 	}
 
 	private static boolean isGetterOrSetterMethod(Method method,

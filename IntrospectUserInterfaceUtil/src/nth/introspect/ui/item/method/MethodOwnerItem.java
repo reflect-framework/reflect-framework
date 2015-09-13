@@ -30,8 +30,9 @@ public class MethodOwnerItem extends HierarchicalItem {
 
 		setText(methodOwnerInfo.getDisplayName());
 		setDescription(methodOwnerInfo.getDescription());
-		List<ActionMethodInfo> actionMethodInfos = reflectionProvider
-				.getMethodInfos(methodOwner.getClass(), methodFilter);
+		ClassInfo classInfo=reflectionProvider.getClassInfo(methodOwner.getClass());
+		List<ActionMethodInfo> actionMethodInfos = classInfo
+				.getActionMethodInfos( methodFilter);
 
 		UserInterfaceController<?> userInterfaceController = userInterfaceContainer
 				.get(UserInterfaceController.class);
