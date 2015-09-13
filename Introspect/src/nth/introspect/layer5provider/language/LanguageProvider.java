@@ -5,22 +5,25 @@ import java.util.Locale;
 import nth.introspect.container.ConstructionInjection;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * <p>
  * The {@link LanguageProvider} makes multilingual support possible. The
  * {@link IntrospectFramework} supports the English language by default because
- * these texts are embedded in the code as part of the <a
+ * it uses the ClassNames, {@link DomainObjectProperty}Names and
+ * {@link ActionMethod}names that are used in the code as part of the <a
  * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
  * Language</a> (it does not make sense to mix an other language into your
  * code).
  * </p>
  * <h3>Language property files</h3>
  * <p>
- * Texts for other languages are stored in property files. The name of the need
- * to have the following file name: TODO VERIFY FORMAT &lt;application
- * configuration folder&gt;/Resources_&lt;Language_code&gt;.properties
+ * Texts for other languages are stored in property files. The name of these files need
+ * to be: &lt;application
+ * configuration folder&gt;/language_&lt;language_code&gt;.properties
  * </p>
  * Where:
  * <ul>
