@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import java.net.URI;
 import java.util.List;
 
+import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
@@ -32,9 +33,9 @@ import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
 
 /**
  * <p>
- * Provides (reflection) information on a {@link ActionMethod}. This class is inspired
- * by the MethodDiscriptor class, which is not use because it is not implemented
- * by Android
+ * Provides (reflection) information on a {@link ActionMethod}. This class is
+ * inspired by the MethodDiscriptor class, which is not use because it is not
+ * implemented by Android
  * </p>
  * 
  * @author nilsth
@@ -55,7 +56,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 	private final ParameterFactoryModel parameterFactoryModel;
-	private  ExecutionModeType executionMode; 
+	private ExecutionModeType executionMode;
 	private final IconModel iconModel;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
@@ -143,7 +144,7 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	public void setExecutionMode(ExecutionModeType executeMethod) {
-		this.executionMode=executeMethod;
+		this.executionMode = executeMethod;
 	}
 
 	public MethodParameterType getParameterType() {
@@ -199,17 +200,24 @@ public class ActionMethodInfo implements NameInfo {
 				&& !isGetterOrSetterMethod(method, propertyInfos)
 				&& !BehavioralMethods.isBehavioralMethod(method)
 				&& !Modifier.isStatic(method.getModifiers())
-				&& !isAlwaysHidden(method);
+				&& hasValidMethodParameter(method);
 	}
 
-	private static boolean isAlwaysHidden(Method method) {
-		Hidden hiddenAnnotation = method.getAnnotation(Hidden.class);
-		return hiddenAnnotation!=null && hiddenAnnotation.exceptForRoleNames().equals("");
+	private static boolean hasValidMethodParameter(Method method) {
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		switch (parameterTypes.length) {
+		case 0:
+			return true;
+		case 1:
+			return TypeUtil.isDomainType(parameterTypes[0]);
+		default:
+			return false;
+		}
 	}
 
 	private static boolean isGetterOrSetterMethod(Method method,
 			List<PropertyInfo> propertyInfos) {
-		
+
 		if (method.getName().equals("isContainingProductCodeBaan110")) {
 			System.out.println();
 		}
@@ -223,12 +231,13 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	private static boolean isMethodOfObjectClass(Method method) {
-		String methodName=method.getName();
+		String methodName = method.getName();
 		for (Method methodOfObjectClass : Object.class.getMethods()) {
 			if (methodOfObjectClass.getName().equals(methodName)) {
 				return true;
 			}
-		};
+		}
+		;
 		return false;
 	}
 
