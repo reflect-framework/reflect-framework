@@ -17,6 +17,7 @@ import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModelF
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeFactory;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconModel;
@@ -197,11 +198,21 @@ public class ActionMethodInfo implements NameInfo {
 		return !isMethodOfObjectClass(method)
 				&& !isGetterOrSetterMethod(method, propertyInfos)
 				&& !BehavioralMethods.isBehavioralMethod(method)
-				&& !Modifier.isStatic(method.getModifiers());
+				&& !Modifier.isStatic(method.getModifiers())
+				&& !isAlwaysHidden(method);
+	}
+
+	private static boolean isAlwaysHidden(Method method) {
+		Hidden hiddenAnnotation = method.getAnnotation(Hidden.class);
+		return hiddenAnnotation!=null && hiddenAnnotation.exceptForRoleNames().equals("");
 	}
 
 	private static boolean isGetterOrSetterMethod(Method method,
 			List<PropertyInfo> propertyInfos) {
+		
+		if (method.getName().equals("isContainingProductCodeBaan110")) {
+			System.out.println();
+		}
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			if (method.equals(propertyInfo.getGetterMethod())
 					|| method.equals(propertyInfo.getSetterMethod())) {
