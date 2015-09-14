@@ -42,6 +42,8 @@ import org.apache.poi.ss.util.CellRangeAddress;
  */
 public class ExcelReportFactory {
 	private ReflectionProvider reflectionProvider;
+	private CellStyle dateStyle;
+	private CellStyle propertyValueStyle;
 
 	public ExcelReportFactory(ReflectionProvider reflectionProvider) {
 		this.reflectionProvider = reflectionProvider;
@@ -59,8 +61,9 @@ public class ExcelReportFactory {
 		Date exportDateTime = new Date();
 		initFooter(sheet, exportDateTime);
 
-		ClassInfo classInfo=reflectionProvider.getClassInfo(domainClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = classInfo
+				.getPropertyInfosSortedAnsVisibleInTable();
 		int maxNumberOfColumns = getMaxNumberOfColumns(propertyInfos);
 
 		addTitlebar(wb, sheet, reportTitle, maxNumberOfColumns - 1);
@@ -116,8 +119,8 @@ public class ExcelReportFactory {
 			Cell cell) {
 		Sheet sheet = cell.getSheet();
 		Workbook workbook = sheet.getWorkbook();
-		CellStyle PROPERTY_VALUE_STYLE = createPropertyValueStyle(workbook);
-		CellStyle DATE_STYLE = createDateStyle(workbook);
+		CellStyle PROPERTY_VALUE_STYLE = getPropertyValueStyle(workbook);
+		CellStyle DATE_STYLE = getDateStyle(workbook);
 		cell.setCellStyle(PROPERTY_VALUE_STYLE);
 		Object value = propertyInfo.getValue(domainObject);
 		if (value == null) {
@@ -150,13 +153,14 @@ public class ExcelReportFactory {
 	}
 
 	private void addPropertyTable(Sheet sheet, Cell cell,
-			PropertyInfo propertyInfo, Object value) {//TODO still used????
+			PropertyInfo propertyInfo, Object value) {// TODO still used????
 		Row row = cell.getRow();
 		Class<?> objectClass = propertyInfo.getPropertyType()
 				.getTypeOrGenericCollectionType();
 
-		ClassInfo classInfo=reflectionProvider.getClassInfo(objectClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
+		List<PropertyInfo> propertyInfos = classInfo
+				.getPropertyInfosSortedAnsVisibleInTable();
 
 		createPropertyTableHeader(sheet, row, propertyInfos);
 
@@ -209,7 +213,6 @@ public class ExcelReportFactory {
 		return maxNumberOfColumns;
 	}
 
-
 	private void addTitlebar(Workbook wb, Sheet sheet, String reportTitle,
 			int maxNumberOfColumns) {
 		CellStyle HEADER_TITLE_STYLE = createTitleBarStyle(wb);
@@ -237,19 +240,19 @@ public class ExcelReportFactory {
 		initFooter(sheet, exportDateTime);
 
 		int nr_of_columns = propertyInfos.size();
-		addTitlebar(wb, sheet, reportTitle, nr_of_columns-1);
+		addTitlebar(wb, sheet, reportTitle, nr_of_columns - 1);
 
 		addTableHeaderRow(propertyInfos, sheet);
-		
-		int rowNr=sheet.getPhysicalNumberOfRows();
 
-		sheet.setAutoFilter(new CellRangeAddress(1, 1, 0,nr_of_columns-1));
+		int rowNr = sheet.getPhysicalNumberOfRows();
+
+		sheet.setAutoFilter(new CellRangeAddress(1, 1, 0, nr_of_columns - 1));
 
 		sheet.createFreezePane(0, rowNr, 0, rowNr);
 
 		addDomainObjectRows(domainObjects, propertyInfos, sheet);
-		
-		autoSizeColumns(sheet, nr_of_columns-1);
+
+		autoSizeColumns(sheet, nr_of_columns - 1);
 
 		return createDownloadStream(reportTitle, exportDateTime, wb);
 
@@ -257,8 +260,9 @@ public class ExcelReportFactory {
 
 	private List<PropertyInfo> getPropertyInfosForTable(Class<?> domainClass) {
 		// get propertyInfos
-		ClassInfo classInfo=reflectionProvider.getClassInfo(domainClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = classInfo
+				.getPropertyInfosSortedAnsVisibleInTable();
 		return propertyInfos;
 	}
 
@@ -267,7 +271,7 @@ public class ExcelReportFactory {
 		Row row;
 		int columnNr;
 		Cell cell;
-		int rowNr=sheet.getPhysicalNumberOfRows();
+		int rowNr = sheet.getPhysicalNumberOfRows();
 		for (Object domainObject : domainObjects) {
 			row = sheet.createRow(rowNr++);
 			columnNr = 0;
@@ -279,8 +283,7 @@ public class ExcelReportFactory {
 		return rowNr;
 	}
 
-	private void addTableHeaderRow(List<PropertyInfo> propertyInfos,
-			Sheet sheet) {
+	private void addTableHeaderRow(List<PropertyInfo> propertyInfos, Sheet sheet) {
 		Workbook workbook = sheet.getWorkbook();
 		CellStyle HEADER_COLUMNS_STYLE = createColumnHeaderStyle(workbook);
 		int rowNr = sheet.getPhysicalNumberOfRows();
@@ -328,6 +331,13 @@ public class ExcelReportFactory {
 		return filePath.toString();
 	}
 
+	private CellStyle getDateStyle(Workbook wb) {
+		if (dateStyle == null) {
+			dateStyle = createDateStyle(wb);
+		}
+		return dateStyle;
+	}
+
 	private CellStyle createDateStyle(Workbook wb) {
 		CreationHelper createHelper = wb.getCreationHelper();
 		CellStyle cellStyle = wb.createCellStyle();
@@ -357,6 +367,13 @@ public class ExcelReportFactory {
 		style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
 		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 		return style;
+	}
+
+	private CellStyle getPropertyValueStyle(Workbook wb) {
+		if (propertyValueStyle == null) {
+			propertyValueStyle = createPropertyValueStyle(wb);
+		}
+		return propertyValueStyle;
 	}
 
 	private CellStyle createPropertyValueStyle(Workbook wb) {
@@ -393,7 +410,6 @@ public class ExcelReportFactory {
 		printSetup.setFitHeight(Short.MAX_VALUE);
 		printSetup.setFitWidth((short) 1);
 	}
-
 
 	private void initFooter(Sheet sheet, Date exportDateTime) {
 		Footer footer = sheet.getFooter();
