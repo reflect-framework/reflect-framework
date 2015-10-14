@@ -126,7 +126,7 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 	}
 
 	@Override
-	public Class<? extends AboutProvider> getVersionProviderClass() {
+	public Class<? extends AboutProvider> getAboutProviderClass() {
 		return DefaultAboutProvider.class;
 	}
 
