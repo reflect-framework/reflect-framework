@@ -42,7 +42,7 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 
 
 	@Override
-	public Class<? extends AboutProvider> getVersionProviderClass() {
+	public Class<? extends AboutProvider> getAboutProviderClass() {
 		return DefaultAboutProvider.class;
 	}
 
