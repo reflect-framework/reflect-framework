@@ -14,14 +14,13 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
 
 public class About extends VersionInfo {
 
-
 	private IntrospectApplication application;
 
 	public About(IntrospectApplication introspectApplication) {
 		super(introspectApplication.getClass());
 		this.application = introspectApplication;
 	}
-	
+
 	public List<VersionInfo> getProviders() {
 		List<VersionInfo> providerInfos = new ArrayList<VersionInfo>();
 		providerInfos.add(getAuthorizationProviderInfo());
@@ -34,39 +33,45 @@ public class About extends VersionInfo {
 		return providerInfos;
 	}
 
-
 	private VersionInfo getNotificationProviderInfo() {
-		Class<? extends NotificationProvider> notificationProviderClass = application.getNotificationProviderClass();
+		Class<? extends NotificationProvider> notificationProviderClass = application
+				.getNotificationProviderClass();
 		return new VersionInfo(notificationProviderClass);
 	}
 
 	private VersionInfo getValidationProviderInfo() {
-		Class<? extends ValidationProvider> validationProviderClass = application.getValidationProviderClass();
+		Class<? extends ValidationProvider> validationProviderClass = application
+				.getValidationProviderClass();
 		return new VersionInfo(validationProviderClass);
 	}
 
 	private VersionInfo getAuthorizationProviderInfo() {
-		Class<? extends AuthorizationProvider> authorizationProviderClass = application.getAuthorizationProviderClass();
+		Class<? extends AuthorizationProvider> authorizationProviderClass = application
+				.getAuthorizationProviderClass();
 		return new VersionInfo(authorizationProviderClass);
 	}
 
 	private VersionInfo getReflectionProviderInfo() {
-		Class<? extends ReflectionProvider> reflectionProviderClass = application.getReflectionProviderClass();
+		Class<? extends ReflectionProvider> reflectionProviderClass = application
+				.getReflectionProviderClass();
 		return new VersionInfo(reflectionProviderClass);
 	}
 
 	private VersionInfo getLanguageProviderInfo() {
-		Class<? extends LanguageProvider> languageProviderClass = application.getLanguageProviderClass();
+		Class<? extends LanguageProvider> languageProviderClass = application
+				.getLanguageProviderClass();
 		return new VersionInfo(languageProviderClass);
 	}
 
 	private VersionInfo getPathProviderInfo() {
-		Class<? extends PathProvider> pathProviderClass = application.getPathProviderClass();
+		Class<? extends PathProvider> pathProviderClass = application
+				.getPathProviderClass();
 		return new VersionInfo(pathProviderClass);
 	}
 
 	private VersionInfo getUserInterfaceControllerInfo() {
-		Class<? extends UserInterfaceController<?>> userInterfaceControllerClass = application.getUserInterfaceControllerClass();
+		Class<? extends UserInterfaceController<?>> userInterfaceControllerClass = application
+				.getUserInterfaceControllerClass();
 		return new VersionInfo(userInterfaceControllerClass);
 	}
 

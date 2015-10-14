@@ -15,10 +15,11 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * The {@link DomainObjectMenu} is displayed on the <a
  * href="https://en.wikipedia.org/wiki/Toolbar">toolbar</a> of a
- * {@link FormView} (that displays a {@link DomainObject}) or as a <a href="">context
- * menu</a> when the user clicks on a row of a table view. The {@link DomainObjectMenu}
- * allows a user to perform an action on or with a {@link DomainObject}. An
- * {@link DomainObjectMenu} contains all the {@link ActionMethod}s of the {@link DomainObject} and all
+ * {@link FormView} (that displays a {@link DomainObject}) or as a <a
+ * href="">context menu</a> when the user clicks on a row of a table view. The
+ * {@link DomainObjectMenu} allows a user to perform an action on or with a
+ * {@link DomainObject}. An {@link DomainObjectMenu} contains all the
+ * {@link ActionMethod}s of the {@link DomainObject} and all
  * {@link ActionMethod} s of {@link ServiceObject}s that take the
  * {@link DomainObject} as a parameter. Each {@link ServiceObject} is displayed
  * as a sub menu.

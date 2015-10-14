@@ -7,6 +7,8 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfoFactory;
 
 public class DefaultReflectionProvider implements ReflectionProvider {
+	
+	//TODO Continue code review here 
 	private final HashMap<Class<?>, ClassInfo> classInfos;
 	private final ProviderContainer providerContainer;
 

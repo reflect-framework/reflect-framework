@@ -1,11 +1,5 @@
 package nth.introspect.generic.util;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 public class StringUtil {
 
@@ -30,70 +24,6 @@ public class StringUtil {
 
 	public static String repeat(String string, int length) {
 		return fill("", string, length);
-	}
-
-	public static String getStackTrace(Throwable throwable) {
-		final Writer result = new StringWriter();
-		final PrintWriter printWriter = new PrintWriter(result);
-		throwable.printStackTrace(printWriter);
-		return result.toString();
-	}
-
-	public static String getDescription(Object object) {
-		StringBuffer description = new StringBuffer(object.getClass().getSimpleName());
-		description.append("(");
-		List<Field> fields = findFields(object.getClass());
-		boolean firstField = true;
-		for (Field field : fields) {
-			if (!isConstant(field)) {
-				field.setAccessible(true);
-				if (!firstField) {
-					description.append(", ");
-				}
-				description.append(field.getName());
-				description.append("=");
-				try {
-					description.append(field.get(object).toString());
-				} catch (Exception e) {
-					description.append("?");
-				}
-				firstField = false;
-			}
-		}
-		description.append(")");
-		return description.toString();
-	}
-
-	/**
-	 * Finds a private or public field by fieldname. <br>
-	 * It will go trough all super classes unti the field is found.
-	 */
-	private static List<Field> findFields(Class<?> beanClass) {
-		List<Field> fields = new ArrayList<Field>();
-		for (Field field : beanClass.getDeclaredFields()) {
-			if (!StringUtil.isEliphantCase(field.getName())) {
-				// field is not a constant so add it to the list
-				fields.add(field);
-			}
-		}
-		// get declared fields of super class
-		beanClass = beanClass.getSuperclass();
-		if (beanClass != Object.class) {
-			// get fields of super classes recursively
-			fields.addAll(findFields(beanClass));
-		}
-		return fields;
-	}
-
-	private static boolean isConstant(Field field) {
-		String name = field.getName();
-		for (int i = 0; i < name.length(); i++) {
-			char ch = name.charAt(i);
-			if (!Character.isUpperCase(ch) && ch != '_') {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	public static String convertToNormalCase(String camelCase) {
@@ -208,7 +138,7 @@ public class StringUtil {
         return count;
     }
 
-	public static boolean containsCharacter(String stringToSearch, String charactersToFind) {
+	public static boolean containsCharacters(String stringToSearch, String charactersToFind) {
 		char[] characters = charactersToFind.toCharArray();
 		for (char c : characters) {
 			if (stringToSearch.contains(""+c)) {

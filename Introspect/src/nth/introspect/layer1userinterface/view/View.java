@@ -8,8 +8,5 @@ public interface View {
 	public String getViewDescription();
 	public URI getViewIconURI();
 	public void onViewActivate();
-	//TODO public void onViewDeactivate();
-	//TODO public void onViewClose();
-	
 	
 }

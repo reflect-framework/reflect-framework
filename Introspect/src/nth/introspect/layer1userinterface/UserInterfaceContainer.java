@@ -14,16 +14,6 @@ import nth.introspect.layer2service.ServiceContainer;
  */
 public class UserInterfaceContainer extends DependencyInjectionContainer {
 
-//	private LanguageProvider languageProvider;
-//	private final IntrospectApplication application;
-//	private UserInterfaceController<?> userInterfaceController;
-//	private ReflectionProvider reflectionProvider;
-//	private PathProvider pathProvider;
-//	private IntrospectApplication introspectApplication;
-//	private NotificationProvider notificationProvider;
-//	private ClassInfo introspectApplicationClassInfo;
-//	private AboutProvider aboutProvider;
-
 	public UserInterfaceContainer(IntrospectApplication application) {
 		super(new ServiceContainer(application));
 		add(application.getUserInterfaceControllerClass());

@@ -64,10 +64,10 @@ public class FieldModeFactory {
 		}
 		boolean hasDate = false;
 		boolean hasTime = false;
-		if (StringUtil.containsCharacter(formatPattern, "GyYMwWDdFEu")) {
+		if (StringUtil.containsCharacters(formatPattern, "GyYMwWDdFEu")) {
 			hasDate = true;
 		}
-		if (StringUtil.containsCharacter(formatPattern, "aHkKhmsSzZX")) {
+		if (StringUtil.containsCharacters(formatPattern, "aHkKhmsSzZX")) {
 			hasTime = true;
 		}
 		if (hasDate && hasTime) {

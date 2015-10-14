@@ -136,8 +136,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </pre>
  * <p>
  * {@link ServiceObject}s can have references to other objects. These objects
- * are injected into the ServiceObject (see the
- * {@link ConstructionInjection} section)
+ * are injected into the ServiceObject (see the {@link ConstructionInjection}
+ * section)
  * </p>
  * 
  * <h3>Service object members</h3>
@@ -150,10 +150,11 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </ul>
  * These members are discussed in more detail in the following paragraphs.
  * </p>
- * <h2>Action Methods</h2> 
-<p>
-{@link ServiceObject}s are all about {@link ActionMethod}s that represent the main menu items (see section {@link ServiceObjectActionMethod})
-</p>
+ * <h2>Action Methods</h2>
+ * <p>
+ * {@link ServiceObject}s are all about {@link ActionMethod}s that represent the
+ * main menu items (see section {@link ServiceObjectActionMethod})
+ * </p>
  * 
  * @author Nils ten Hoeve
  */

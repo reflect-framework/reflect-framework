@@ -13,7 +13,6 @@ public class DefaultPathProvider implements PathProvider {
 	private static final String CONFIG_SUB_PATH = "configs";
 	private static final String DOCUMENT_SUB_PATH = "documents";
 	private static final String IMAGE_SUB_PATH = "images";
-	private static final String SLASH = "/";
 	private final URI rootPath;
 	private final URI configPath;
 	private final URI documenPath;
@@ -47,10 +46,9 @@ public class DefaultPathProvider implements PathProvider {
 			String documentSubPath, String imageSubPath)
 			throws URISyntaxException {
 		this.rootPath = rootPath;
-		// this.configPath = createURI(rootPath, configSubPath);
-		this.configPath = rootPath;
-		this.documenPath = createURI(rootPath, documentSubPath);
-		this.imagePath = createURI(rootPath, imageSubPath);
+		this.configPath = rootPath.resolve(configSubPath);
+		this.documenPath = rootPath.resolve(documentSubPath);
+		this.imagePath = rootPath.resolve(imageSubPath);
 	}
 
 	public DefaultPathProvider(URI rootPath, URI configPath, URI documenPath,
@@ -85,28 +83,5 @@ public class DefaultPathProvider implements PathProvider {
 	public URI getImagePath() {
 		return imagePath;
 	}
-
-	private URI createURI(URI rootPath, String pathAppendix)
-			throws URISyntaxException {
-		String scheme = rootPath.getScheme();
-		String userInfo = rootPath.getUserInfo();
-		String host = rootPath.getHost();
-		int port = rootPath.getPort();
-		String path = rootPath.getPath();
-		if (!path.endsWith(SLASH)) {
-			path += SLASH;
-		}
-		if (pathAppendix != null) {
-			while (pathAppendix.startsWith(SLASH)) {
-				// remove slash as a first char
-				pathAppendix = pathAppendix.substring(1);
-			}
-			path = path + pathAppendix;
-		}
-		String query = rootPath.getQuery();
-		String fragment = rootPath.getFragment();
-		return new URI(scheme, userInfo, host, port, path, query, fragment);
-	}
-
 
 }
