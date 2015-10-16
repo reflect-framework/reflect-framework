@@ -1,7 +1,8 @@
 package nth.introspect.doc;
 
 import nth.software.doc.generator.SoftwareDocumentationGenerator;
-
+import nth.introspect.Introspect;
+import nth.introspect.documentation.IntrospectDocumentation;
 import nth.introspect.documentation.IntrospectFramework;
 
 /**
@@ -20,16 +21,16 @@ import nth.introspect.documentation.IntrospectFramework;
  * {@link SoftwareDocumentationGenerator} application with the following
  * parameters:
  * <ul>
- * <li>createGitHubHtmlDocumentation "M:/My Git/Introspect-Framework"
- * "IntrospectDocumentationInstructions" "ntenhoeve" "GithuB66^" "M:\My
+ * <li>createGitHubHtmlDocumentation "M:/My Git/{@link Introspect}-Framework"
+ * "{@link IntrospectDocumentation}" "ntenhoeve" "GithuB66^" "M:\My
  * Git\ntenhoeve.github.io"</li>
- * <li>createGitHubWikiDocumentation "M:/My Git/Introspect-Framework"
- * "IntrospectDocumentationInstructions" "ntenhoeve" "GithuB66^" "M:\My
- * Git\Introspect-Framework.wiki"</li>
+ * <li>createGitHubWikiDocumentation "M:/My Git/{@link Introspect}-Framework"
+ * "{@link IntrospectDocumentation}" "ntenhoeve" "GithuB66^" "M:\My
+ * Git\{@link Introspect}-Framework.wiki"</li>
  * </ul>
  * Or run the {@link SoftwareDocumentationGenerator} with the
  * UpdateIntrospectDocumentation.commands file as parameter (located in this
- * package). Thise file does the same as the above.
+ * package). This file does the same as the above.
  * </p>
  * <p>
  * The {@link SoftwareDocumentationGenerator} will then parse the JavaDoc of the
@@ -39,8 +40,7 @@ import nth.introspect.documentation.IntrospectFramework;
  * </p>
  * <h3>Viewing the Introspect Documentation</h3>
  * <p>
- * The GitHubPageGenerator then commit and push these repositories to the GitHub
- * server, effectively updating the web site and the Wiki:
+ * When the GitHubPageGenerator has published/updated the documentation it can be found at:
  * </p>
  * <ul>
  * <li>Web page: <a
