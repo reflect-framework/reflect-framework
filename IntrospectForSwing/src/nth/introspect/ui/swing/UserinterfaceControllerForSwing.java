@@ -1,6 +1,7 @@
 package nth.introspect.ui.swing;
 
 import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
+import nth.introspect.layer1userinterface.controller.DisplaySize;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
@@ -33,7 +35,7 @@ public class UserinterfaceControllerForSwing extends
 
 	private MainWindow mainWindow;
 
-	public UserinterfaceControllerForSwing(IntrospectApplication application, UserInterfaceContainer userInterfaceContainer) {
+	public UserinterfaceControllerForSwing(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 	}
 
@@ -167,6 +169,20 @@ public class UserinterfaceControllerForSwing extends
 			}
 		}
 
+	}
+
+	@Override
+	public DisplaySize getDisplaySize() {
+		return DisplaySize.forWidthInInches(getDisplayWidthInInches());
+	}
+
+	@Override
+	public int getDisplayWidthInInches() {
+	    Toolkit tk = Toolkit.getDefaultToolkit ();
+	    int pixelsPerInch = tk.getScreenResolution ();
+	    int widtInPixels = mainWindow.getWidth();
+	    int widthInInch=widtInPixels/pixelsPerInch;
+		return widthInInch;
 	}
 
 }
