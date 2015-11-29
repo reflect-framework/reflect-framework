@@ -1,8 +1,10 @@
-package nth.introspect.repository.hibernate;
+package nth.introspect.infrastructure.hibernate;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+import nth.introspect.infrastructure.hibernate.HibernateConfiguration;
 
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.SQLiteDialect;

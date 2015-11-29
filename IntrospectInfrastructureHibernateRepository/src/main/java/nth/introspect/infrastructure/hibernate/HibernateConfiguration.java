@@ -1,4 +1,4 @@
-package nth.introspect.repository.hibernate;
+package nth.introspect.infrastructure.hibernate;
 
 import java.util.ArrayList;
 import java.util.List;

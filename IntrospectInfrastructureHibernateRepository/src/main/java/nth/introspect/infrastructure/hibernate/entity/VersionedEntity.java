@@ -1,4 +1,4 @@
-package nth.introspect.repository.hibernate.entity;
+package nth.introspect.infrastructure.hibernate.entity;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;

@@ -1,11 +1,11 @@
-package nth.introspect.repository.hibernate;
+package nth.introspect.infrastructure.hibernate;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import nth.introspect.infrastructure.hibernate.entity.DeletableEntity;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
-import nth.introspect.repository.hibernate.entity.DeletableEntity;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

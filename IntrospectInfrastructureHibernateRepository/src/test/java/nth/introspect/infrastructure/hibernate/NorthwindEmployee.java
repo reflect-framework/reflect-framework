@@ -1,4 +1,4 @@
-package nth.introspect.repository.hibernate;
+package nth.introspect.infrastructure.hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

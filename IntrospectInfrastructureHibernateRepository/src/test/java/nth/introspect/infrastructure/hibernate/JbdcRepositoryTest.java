@@ -1,4 +1,4 @@
-package nth.introspect.repository.hibernate;
+package nth.introspect.infrastructure.hibernate;
 
 import java.io.File;
 import java.net.URISyntaxException;
