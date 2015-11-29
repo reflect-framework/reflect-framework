@@ -19,6 +19,7 @@ import javax.swing.JFileChooser;
 import nth.introspect.generic.exception.MethodNotSupportedException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
+import nth.introspect.layer1userinterface.controller.DisplaySize;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
@@ -42,13 +43,23 @@ import nth.introspect.ui.view.FormMode;
 public class UserInterfaceControllerForCommandLine extends
 		GraphicalUserinterfaceController<CommandLineView> {
 
+	/**
+	 * TODO UserInterfaceControllerForCommandLine should not implement
+	 * GraphicalUserinterfaceController (to get rid of all unused methods such
+	 * as {@link #showDialog(DialogType, String, String, List)},
+	 * {@link #closeProgressDialog()},
+	 * {@link #showDialog(DialogType, String, String, List)},
+	 * {@link #getViewContainer()}, {@link #getDisplaySize()},
+	 * {@link #getDisplayWidthInInches()}, etc..
+	 */
 	private CommandLineViewContainer viewContainer;
 	private final ProviderContainer providerContainer;
 
 	public UserInterfaceControllerForCommandLine(
 			UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-		this.providerContainer = userInterfaceContainer.get(ProviderContainer.class);
+		this.providerContainer = userInterfaceContainer
+				.get(ProviderContainer.class);
 	}
 
 	@Override
@@ -66,7 +77,8 @@ public class UserInterfaceControllerForCommandLine extends
 	public void start() {
 		try {
 			viewContainer = new CommandLineViewContainer();
-			IntrospectApplicationForCommandLine commandLineApplication = providerContainer.get(IntrospectApplicationForCommandLine.class);
+			IntrospectApplicationForCommandLine commandLineApplication = providerContainer
+					.get(IntrospectApplicationForCommandLine.class);
 			String[] arguments = commandLineApplication
 					.getCommandLineArguments();
 
@@ -154,7 +166,8 @@ public class UserInterfaceControllerForCommandLine extends
 
 		Object serviceObject = command.getServiceObject();
 		ActionMethodInfo actionMethodInfo = command.getMethodInfo();
-		actionMethodInfo.setExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
+		actionMethodInfo
+				.setExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
 
 		startExecution(serviceObject, actionMethodInfo, methodParameterValue);
 	}
@@ -270,8 +283,7 @@ public class UserInterfaceControllerForCommandLine extends
 	public CommandLineView createFormView(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(
-				providerContainer.get(ReflectionProvider.class),
+		return new FormView(providerContainer.get(ReflectionProvider.class),
 				actionMethodInfo, domainObject);
 	}
 
@@ -279,9 +291,8 @@ public class UserInterfaceControllerForCommandLine extends
 	public CommandLineView createTableView(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new TableView(
-				providerContainer.get(ReflectionProvider.class), actionMethodInfo,
-				(Collection<?>) methodReturnValue);
+		return new TableView(providerContainer.get(ReflectionProvider.class),
+				actionMethodInfo, (Collection<?>) methodReturnValue);
 	}
 
 	@Override
@@ -299,6 +310,16 @@ public class UserInterfaceControllerForCommandLine extends
 			showErrorDialog("Error", "Error browsing URI: " + uri.toString(),
 					exception);
 		}
+	}
+
+	@Override
+	public DisplaySize getDisplaySize() {
+		return DisplaySize.LARGE;
+	}
+
+	@Override
+	public int getDisplayWidthInInches() {
+		return 8;
 	}
 
 }
