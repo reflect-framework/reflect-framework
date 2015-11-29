@@ -7,7 +7,14 @@ import nth.introspect.dataaccess.hibernate.entity.DeletableEntity;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnit;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnitConfiguration;
 import nth.introspect.dataaccess.hibernate.persistenceunit.PersistenceUnitFactory;
+import nth.introspect.repository.hibernate.HibernateRepository;
 
+/**
+ * @deprecated replaced by {@link HibernateRepository} 
+ * @author nilsth
+ *
+ * @param <T>
+ */
 public abstract class HibernateDataAccess<T>  {
 
 	private PersistenceUnit persistenceUnit;
