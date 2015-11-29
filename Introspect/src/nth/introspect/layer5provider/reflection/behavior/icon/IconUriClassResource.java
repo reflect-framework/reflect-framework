@@ -1,6 +1,6 @@
 package nth.introspect.layer5provider.reflection.behavior.icon;
 
-import java.io.File;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -79,10 +79,11 @@ public class IconUriClassResource {
 			return null;
 		} else {
 			URI uri = url.toURI();
-			File file = new File(uri);
-			if (file.exists()) {
+			InputStream is = ownerClass.getResourceAsStream(resourceName);
+			try {
+				is.available();
 				return uri;
-			} else {
+			} catch (Exception exception) {
 				return null;
 			}
 		}

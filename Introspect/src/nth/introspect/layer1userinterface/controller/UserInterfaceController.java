@@ -199,5 +199,9 @@ public interface UserInterfaceController<T> extends NotificationListener {
 			Object methodReturnValue);
 
 	void start();
+	
+	public DisplaySize getDisplaySize();
+	
+	public int getDisplayWidthInInches();
 
 }

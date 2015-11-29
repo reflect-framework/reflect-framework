@@ -64,7 +64,8 @@ public abstract class TextModel {
 
 	private static String createServiceClassText(String simpleName) {
 		String domainObjectName = removeServiceSuffix(simpleName);
-		String text = plural(domainObjectName);
+		String plural=plural(domainObjectName);
+		String text = StringUtil.convertToNormalCase(plural);
 		return text;
 	}
 
