@@ -50,6 +50,11 @@ public class TitleBuilder {
 		this.titleBuilder = new StringBuilder();
 	}
 
+	//TODO: create title of object using reflection (using @Order, @Hidden notation and ignoring properties of type collection). This requires the ReflectionProvider. This is no problem if the TitleBuilder is injected into the object (improves peformance because titlebuilder does not have to be instantiated every toString call)
+//	public TitleBuilder(final Object object) {
+//		
+//	}
+
 	public TitleBuilder append(final String text) {
 		append(defaultSeparator, text);
 		return this;
