@@ -2,7 +2,6 @@ package nth.introspect;
 
 import java.util.List;
 
-import nth.introspect.documentation.IntrospectGettingStarted;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;

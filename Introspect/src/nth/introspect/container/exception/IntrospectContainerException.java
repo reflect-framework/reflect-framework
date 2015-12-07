@@ -1,6 +1,6 @@
 package nth.introspect.container.exception;
 
-public class IntrospectContainerException  extends RuntimeException {//TODO change to Exception!!!
+public class IntrospectContainerException  extends RuntimeException {
 
 	private static final long serialVersionUID = 7500700346364627419L;
 

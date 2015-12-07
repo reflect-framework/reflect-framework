@@ -17,10 +17,6 @@ package nth.introspect.documentation;
  * 
  * <H1>Object behavior</h1> {@insert ObjectBehavior}
  * 
- * <h1>Getting Started</h1> {@insert IntrospectGettingStarted}
- * 
- * <h1>Demo's</h1> {@insert IntrospectDemos}
- * 
  * <h1>Downloads</h1> {@insert IntrospectDownloads}
  * 
  * <h1>Documentation</h1>

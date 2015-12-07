@@ -27,7 +27,7 @@ public class NotLinkedToPropertyFilter implements Filter<ActionMethodInfo> {
 	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
 		if (TypeCategory.NONE == actionMethodInfo.getParameterType().getTypeCategory() || actionMethodInfo.hasParameterFactory()) {
 			for (String propertyName : propertyNames) {
-				if (actionMethodInfo.getSimpleName().startsWith(propertyName)) {//TODO endswith
+				if (actionMethodInfo.getSimpleName().startsWith(propertyName)) {
 					return false;
 				}
 			}
