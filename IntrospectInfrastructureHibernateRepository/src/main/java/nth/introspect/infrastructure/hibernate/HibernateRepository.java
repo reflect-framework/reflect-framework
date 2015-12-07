@@ -55,7 +55,7 @@ public abstract class HibernateRepository<T> {
 		if (DeletableEntity.class.isAssignableFrom(getDomainType())) {
 			query.append(" where e.deleted=false");
 		}
-		Session session = sessionFactory.openSession();
+		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
 		List<T> result = session.createQuery( query.toString()).list();
 		session.getTransaction().commit();
@@ -64,7 +64,7 @@ public abstract class HibernateRepository<T> {
 	}
 
 	public void set(T entity) {
-		Session session = sessionFactory.openSession();
+		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save( entity);
 		session.getTransaction().commit();
@@ -78,7 +78,7 @@ public abstract class HibernateRepository<T> {
 			deletableEntity.setDeleted(true);
 			set((T) deletableEntity);// TODO test
 		} else {
-			Session session = sessionFactory.openSession();
+			Session session = getSessionFactory().openSession();
 			session.beginTransaction();
 			session.delete( entity);
 			session.getTransaction().commit();
@@ -91,6 +91,10 @@ public abstract class HibernateRepository<T> {
 		ParameterizedType parameterizedType = (ParameterizedType) getClass()
 				.getGenericSuperclass();
 		return (Class<T>) parameterizedType.getActualTypeArguments()[0];
+	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
 	}
 
 }
