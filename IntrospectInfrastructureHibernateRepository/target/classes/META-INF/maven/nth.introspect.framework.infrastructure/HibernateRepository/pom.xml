@@ -15,6 +15,7 @@
 	</properties>
 
 	<dependencies>
+	        <!--  TODO add Introspect dependency and remove from Eclipse Java Build Path (project properties) -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
