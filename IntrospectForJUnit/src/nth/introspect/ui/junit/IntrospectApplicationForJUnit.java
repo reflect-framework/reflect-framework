@@ -47,11 +47,23 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * classes by overriding the get...Class or get...Classes methods in the
  * {@link IntrospectApplicationForJUnit} class</li>
  * </ul>
+ * <p>
  * If you are new to JUnit test I recommend to watch one of the many instruction
  * video's on the Internet. Your IDE most likely supports you with implementing
  * and running JUnit tests (and if not you can probably download a plug-in for
- * it)<br>
- * <br>
+ * it)
+ * </p>
+ * 
+ * <h3>How to download a IntrospectForJUnit demo project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * 
+ * <h3>How to create a new IntrospectForJUnit project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * 
  * <h3>Example of a testing a ServiceObject and InfrastructureMockUpObject in a
  * JUnit test case</h3>
  * 
@@ -87,9 +99,6 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * 	// other test methods ...
  * }
  * </pre>
- * 
- * 
- * 
  * 
  * @author nilsth
  *
