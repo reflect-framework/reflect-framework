@@ -18,6 +18,21 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
+/**
+ * TODO
+ * 
+ * <h3>How to download a IntrospectForCommandLine demo project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * 
+ * <h3>How to create a new IntrospectCommandLine project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * @author nilsth
+ *
+ */
 public abstract class IntrospectApplicationForCommandLine implements IntrospectApplication {
 
 	private final String[] commandLineArguments;
