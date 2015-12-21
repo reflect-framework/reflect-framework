@@ -2,6 +2,7 @@ package nth.introspect.ui.swing;
 
 import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
+import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.about.DefaultAboutProvider;
@@ -18,6 +19,22 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
+/**
+ * {@link IntrospectApplicationForSwing} is an implementation of the {@link IntrospectFramework} for desktop computers such as ...  
+ * 
+ *  <h3>How to download a IntrospectForSwing demo project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * 
+ * <h3>How to create a new IntrospectForSwing project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * 
+ * @author nilsth
+ *
+ */
 public abstract class IntrospectApplicationForSwing implements
 		IntrospectApplication {
 
