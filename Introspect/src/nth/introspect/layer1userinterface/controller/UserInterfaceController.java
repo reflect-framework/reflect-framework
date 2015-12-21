@@ -3,19 +3,34 @@ package nth.introspect.layer1userinterface.controller;
 import java.net.URI;
 import java.util.List;
 
-import nth.introspect.IntrospectApplication;
+import nth.introspect.documentation.IntrospectApplicationProjects;
 import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.notification.NotificationListener;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 /**
+ *
  * <p>
  * The {@link UserInterfaceController} is responsible for showing information to
  * the user and processing the information from the user using the objects in
  * the lower layers (see {@link IntrospectArchitecture}).
  * </p>
+ * 
+ * <p>
+ * See the {@link IntrospectApplicationProjects} section to learn what types of
+ * user interfaces are available, or download all the sources of the
+ * {@link IntrospectFramework} projects and see the class hierarchy of the
+ * {@link UserInterfaceController} class to find all the different user
+ * interface implementations.
+ * </p>
+ * 
+ * TODO make reference to IntrospectProjectsDemosAndDownloads and move the sub
+ * parts to the javadoc IntrospectApplication inplementations, containting a
+ * description of the type of application, How to download a demo, How to create
+ * a new project
  * <p>
  * An user interface could be any type of user interface, in example:
  * </p>
@@ -111,10 +126,6 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * <li>See {@link IntrospectApplicationForJUnit}.</li>
  * </ul>
  * 
- * Please see the class hierarchy of the {@link IntrospectApplication} class to
- * find all the different user interface implementations. See the
- * {@link IntrospectGettingStarted} section with specific instructions for each
- * type of {@link IntrospectApplication}
  * 
  * @author Nils ten Hoeve
  * 
@@ -198,9 +209,9 @@ public interface UserInterfaceController<T> extends NotificationListener {
 			Object methodReturnValue);
 
 	void start();
-	
+
 	public DisplaySize getDisplaySize();
-	
+
 	public int getDisplayWidthInInches();
 
 }

@@ -1,6 +1,9 @@
 package nth.introspect.documentation;
 
 /**
+ * <img src="IntrospectDocumentation.png">
+ * <title>The Introspect Framework</title>
+ * 
  * <h1>The Introspect Framework</h1> {@insert IntrospectFramework}
  * 
  * <H1>The Domain Layer</H1> {@insert DomainLayer}
@@ -17,13 +20,21 @@ package nth.introspect.documentation;
  * 
  * <H1>Object behavior</h1> {@insert ObjectBehavior}
  * 
+ * <h1>Introspect Application Projects</h1> {@insert
+ * IntrospectApplicationProjects}
+ * 
+ * <h1>Introspect Provider Projects</h1> {@insert IntrospectProviderProjects}
+ * 
+ * <h1>Introspect Infrastructure Projects</h1> {@insert IntrospectInfrastructureProjects}
+ * 
  * <h1>Downloads</h1> {@insert IntrospectDownloads}
  * 
  * <h1>Documentation</h1>
  * <p>
- * The documentation of the {@link IntrospectFramework} is generated from its JavaDoc
- * (starting with the {@link IntrospectDocumentation} file) and released in different
- * formats and different location with help of the SoftwareDocumentationGenerator:
+ * The documentation of the {@link IntrospectFramework} is generated from its
+ * JavaDoc (starting with the {@link IntrospectDocumentation} file) and
+ * published in different formats and at different locations with help of the
+ * {@link SoftwareDocumentationGenerator}:
  * </p>
  * <ul>
  * <li><a
@@ -31,7 +42,6 @@ package nth.introspect.documentation;
  * as Git Hub Wiki</a></li>
  * <li><a href="http://ntenhoeve.github.io">Documentation as Web Page</a></li>
  * </ul>
- * 
  * 
  * <h1>Development</h1> {@insert IntrospectDevelopment}
  * 

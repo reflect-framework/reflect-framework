@@ -20,10 +20,10 @@ import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
  * 
  * <h3>Behavioral Method Convention</h3>
  * <ul>
- * <li>Syntax: &ltmemberName&gt;&ltbehaviourName&gt;<br>
- * &ltmemberName&gt;= can be a {@link Class}Name, a {@link DomainObjectProperty}
+ * <li>Syntax: &lt;memberName&gt;&lt;behaviourName&gt;<br>
+ * &lt;memberName&gt;= can be a {@link Class}Name, a {@link DomainObjectProperty}
  * Name or a {@link ActionMethod}Name<br>
- * &ltbehaviourName&gt;= A behavior like Icon, Hidden, Disabled, Validation, etc
+ * &lt;behaviourName&gt;= A behavior like Icon, Hidden, Disabled, Validation, etc
  * </li>
  * <li>{@link BehavioralMethod}s do NOT have any parameters</li>
  * <li>{@link BehavioralMethod}s ALWAYS return a value (see
