@@ -1,0 +1,1 @@
+For Junit tests see IntrospectForJUnit
