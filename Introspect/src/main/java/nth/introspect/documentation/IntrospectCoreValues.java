@@ -84,11 +84,6 @@ import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
  * means that the Introspect framework uses reasonable defaults wherever
  * possible. These default values can be overridden by the developer.
  * </p>
- * <h3>No dependencies with tools</h3>
- * <ul>
- * <li>No dependencies with an Integrated Development Environment or build tool.
- * </li>
- * </ul>
  */
 
 public interface IntrospectCoreValues extends Documentation {
