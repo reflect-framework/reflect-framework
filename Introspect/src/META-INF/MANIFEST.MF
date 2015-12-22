@@ -1,8 +1,0 @@
-Implementation-Title: Introspect
-Class-Path: 
-Built-By: nilsth
-Created-By: Nils ten Hoeve
-Implementation-Vendor: Nils ten Hoeve
-Implementation-Version: 0.0.89
-Manifest-Version: 1.0
-Built-Date: 2012-02-02 18:03:52
