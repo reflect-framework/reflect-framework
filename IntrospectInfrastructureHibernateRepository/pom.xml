@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>nth.introspect.framework.infrastructure</groupId>
-	<artifactId>HibernateRepository</artifactId>
+	<artifactId>IntrospectInfrastructureHibernateRepository</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -47,6 +47,17 @@
 			<groupId>net.kemitix</groupId>
 			<artifactId>sqlite-dialect</artifactId>
 			<version>0.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>nth.introspect.framework</groupId>
+			<artifactId>Introspect</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>nth.introspect.framework</groupId>
+			<artifactId>IntrospectForJUnit</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

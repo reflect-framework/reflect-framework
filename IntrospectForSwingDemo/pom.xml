@@ -16,4 +16,16 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>nth.introspect.framework</groupId>
+  		<artifactId>IntrospectExampleDomain</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>nth.introspect.framework</groupId>
+  		<artifactId>IntrospectForSwing</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
