@@ -7,6 +7,7 @@
 
 	<build>
 		<plugins>
+			<!-- Set a compiler level -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
@@ -15,7 +16,26 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+		
+			<!-- Make this jar executable -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+				  <archive>
+				    <manifest>
+					<addClasspath>true</addClasspath>
+					 <mainClass>com.mkyong.core.utils.App</mainClass>  
+					<classpathPrefix>dependency-jars/</classpathPrefix>
+				    </manifest>
+				  </archive>
+				</configuration>
+			</plugin> 
+
+			
 		</plugins>
+		
 	</build>
 
 	<dependencies>
