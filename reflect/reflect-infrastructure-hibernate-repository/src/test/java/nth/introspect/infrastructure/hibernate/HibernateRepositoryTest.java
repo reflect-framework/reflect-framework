@@ -39,19 +39,6 @@ public class HibernateRepositoryTest extends TestCase {
 	}
 
 	
-	@Test
-	public void setTest() {
-		fail("Not yet implemented"); // TODO
-	}
 
-	@Test
-	public void DeleteTest() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void getDomainTypeTest() {
-		fail("Not yet implemented"); // TODO
-	}
 
 }

@@ -31,13 +31,13 @@ public class JbdcRepositoryTest extends TestCase {
 		Class.forName("org.sqlite.JDBC");
 		Connection conn = DriverManager.getConnection(connectionUrl.toString());
 		if (conn != null) {
-			System.out.println("Connected to the database");
+//			System.out.println("Connected to the database");
 			DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
-			System.out.println("Driver name: " + dm.getDriverName());
-			System.out.println("Driver version: " + dm.getDriverVersion());
-			System.out.println("Product name: " + dm.getDatabaseProductName());
-			System.out.println("Product version: "
-					+ dm.getDatabaseProductVersion());
+//			System.out.println("Driver name: " + dm.getDriverName());
+//			System.out.println("Driver version: " + dm.getDriverVersion());
+//			System.out.println("Product name: " + dm.getDatabaseProductName());
+//			System.out.println("Product version: "
+//					+ dm.getDatabaseProductVersion());
 
 			String query = "SELECT EmployeeID, LastName, FirstName, Title FROM Employees ";
 			Statement stmt = conn.createStatement();
@@ -47,20 +47,21 @@ public class JbdcRepositoryTest extends TestCase {
 			// Retrieve data from the returned ResultSet object
 			boolean more;
 			more = rs.next();
-			while (more) {
-				System.out.println("ID: " + rs.getInt("EmployeeId"));
-				System.out.println("Name: " + rs.getString("FirstName") + " "
-						+ rs.getString("LastName"));
-				System.out.println("Title: " + rs.getString("Title"));
-				System.out.println("");
-				more = rs.next();
-			}
+assertTrue(rs.next());
+			
+//			while (more) {
+//				System.out.println("ID: " + rs.getInt("EmployeeId"));
+//				System.out.println("Name: " + rs.getString("FirstName") + " "
+//						+ rs.getString("LastName"));
+//				System.out.println("Title: " + rs.getString("Title"));
+//				System.out.println("");
+//				more = rs.next();
+//			}
 			// Close the ResultSet
 			rs.close();
 			// Close the Statement object
 			stmt.close();
 			// Close the Connection object
-			conn.commit();
 			conn.close();
 		}
 	}

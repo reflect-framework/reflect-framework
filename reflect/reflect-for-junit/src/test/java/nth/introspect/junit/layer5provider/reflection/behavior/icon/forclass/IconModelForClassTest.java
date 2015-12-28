@@ -88,7 +88,7 @@ public class IconModelForClassTest {
 		IconModelForClass_AnnotationAbsoluteUri obj = new IconModelForClass_AnnotationAbsoluteUri();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(obj.getClass());
 		URI iconUri = classInfo.getIconURI(obj);
-		assertEquals(getUri("icon.png"), iconUri);
+		assertEquals(IconModelForClass_MethodAbsoluteUri.ABSOLUTE_URI_TO_ICON, iconUri.toString());
 	}
 
 	@Test
@@ -136,7 +136,7 @@ public class IconModelForClassTest {
 		IconModelForClass_MethodAbsoluteUri obj = new IconModelForClass_MethodAbsoluteUri();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(obj.getClass());
 		URI iconUri = classInfo.getIconURI(obj);
-		assertEquals(getUri("icon.png"), iconUri);
+		assertEquals(IconModelForClass_MethodAbsoluteUri.ABSOLUTE_URI_TO_ICON, iconUri.toString());
 	}
 
 	@Test

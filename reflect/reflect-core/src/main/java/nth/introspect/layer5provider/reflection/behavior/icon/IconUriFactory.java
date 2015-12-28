@@ -1,6 +1,7 @@
 package nth.introspect.layer5provider.reflection.behavior.icon;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -31,12 +32,19 @@ public class IconUriFactory {
 	}
 
 	private static URI checkIfExists(URI uri) {
-		File file = new File(uri);
-		if (file.exists()) {
+		try {
+			uri.toURL().openStream();
 			return uri;
-		} else {
+		} catch (IOException e) {
 			return null;
 		}
+
+		// File file = new File(uri);
+		// if (file.exists()) {
+		// return uri;
+		// } else {
+		// return null;
+		// }
 	}
 
 }

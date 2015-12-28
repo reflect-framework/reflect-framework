@@ -1,5 +1,8 @@
 package nth.introspect.junit.layer5provider.reflection.behavior.icon.foractionmethod;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.ui.images.IntrospectImage;
@@ -11,7 +14,7 @@ public class IconModelForActionMethodTestObject {
 	private static final String BOGUS_PNG = "bogus.png";
 	private static final String ICON_PNG = "icon.png";
 	private static final String ABSOLUTE_URI_TO_NONE_EXISTING_ICON = "file:/C:/bogus/bogus.png";
-	private static final String ABSOLUTE_URI_TO_ICON = "file:/C:/Users/nilsth/My%20Git/Introspect-Framework/IntrospectJUnitTest/bin/nth/introspect/junit/layer5provider/reflection/behavior/icon/foractionmethod/icon.png";
+	public static final String ABSOLUTE_URI_TO_ICON =  "https://www.google.nl/images/nav_logo242.png";
 
 	public void actionMethodIconDefaultUri() {
 
@@ -86,8 +89,9 @@ public class IconModelForActionMethodTestObject {
 		
 	}
 
-	public String actionMethodIconMethodAbsoluteUriIcon() {
+	public String actionMethodIconMethodAbsoluteUriIcon() throws URISyntaxException {
 		return ABSOLUTE_URI_TO_ICON; 
+		
 	}
 
 
@@ -99,5 +103,5 @@ public class IconModelForActionMethodTestObject {
 		return ABSOLUTE_URI_TO_NONE_EXISTING_ICON; 
 	}
 
-	
+
 }

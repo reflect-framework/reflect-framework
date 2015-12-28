@@ -89,7 +89,7 @@ public class IconModelForActionMethodTest {
 		IconModelForActionMethodTestObject obj = new IconModelForActionMethodTestObject();
 		ActionMethodInfo actionMethodInfo = getActionMethodInfo(obj.getClass(),"actionMethodIconAnnotationAbsoluteUri");
 		URI iconUri = actionMethodInfo.getIconURI(obj);
-		assertEquals(getUri(ICON_PNG), iconUri);
+		assertEquals(IconModelForActionMethodTestObject.ABSOLUTE_URI_TO_ICON, iconUri.toString());
 	}
 
 	@Test
@@ -137,7 +137,7 @@ public class IconModelForActionMethodTest {
 		IconModelForActionMethodTestObject obj = new IconModelForActionMethodTestObject();
 		ActionMethodInfo actionMethodInfo = getActionMethodInfo(obj.getClass(),"actionMethodIconMethodAbsoluteUri");
 		URI iconUri = actionMethodInfo.getIconURI(obj);
-		assertEquals(getUri(ICON_PNG), iconUri);
+		assertEquals(IconModelForActionMethodTestObject.ABSOLUTE_URI_TO_ICON, iconUri.toString());
 	}
 
 	@Test

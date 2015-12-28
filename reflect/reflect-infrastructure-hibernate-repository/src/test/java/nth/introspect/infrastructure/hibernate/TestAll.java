@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ JbdcRepositoryTest.class, TestAll.class })
+@SuiteClasses({ HibernateRepositoryTest.class })
 public class TestAll extends TestCase {
 
 }

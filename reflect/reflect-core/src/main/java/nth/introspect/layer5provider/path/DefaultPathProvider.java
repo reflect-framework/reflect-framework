@@ -30,9 +30,9 @@ public class DefaultPathProvider implements PathProvider {
 		File rootPath = new File(rootPathUri);
 		if (rootPath.getName().toUpperCase().contains(JAR_EXTENTION)) {
 			rootPath = rootPath.getParentFile();
-		} else if (rootPath.getName().toUpperCase().equals(BIN_FOLDER)) {
-			rootPath = rootPath.getParentFile();
-			rootPath=new File(rootPath.getAbsolutePath()+"/dist");
+//		} else if (rootPath.getName().toUpperCase().equals(BIN_FOLDER)) {
+//			rootPath = rootPath.getParentFile();
+//			rootPath=new File(rootPath.getAbsolutePath()+"/dist");
 		}
 		
 		return rootPath.toURI();

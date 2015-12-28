@@ -3,11 +3,11 @@ package nth.introspect.junit.layer5provider.reflection.behavior.icon.forclass;
 
 public class IconModelForClass_MethodAbsoluteUri {
 
-	public static final String ICON_URI = "file:/C:/Users/nilsth/My%20Git/Introspect-Framework/IntrospectJUnitTest/bin/nth/introspect/junit/layer5provider/reflection/behavior/icon/forclass/icon.png";
+	public static final String ABSOLUTE_URI_TO_ICON =  "https://www.google.nl/images/nav_logo242.png";
 
 	// This path may need changing on your computer in order to pass the JUnit test
 
 	public String iconModelForClass_MethodAbsoluteUriIcon() {
-		return ICON_URI;
+		return ABSOLUTE_URI_TO_ICON;
 	}
 }
