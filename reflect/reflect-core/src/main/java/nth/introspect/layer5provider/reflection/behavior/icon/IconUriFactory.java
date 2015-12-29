@@ -32,19 +32,23 @@ public class IconUriFactory {
 	}
 
 	private static URI checkIfExists(URI uri) {
-		try {
-			uri.toURL().openStream();
-			return uri;
-		} catch (IOException e) {
-			return null;
+		String schema = uri.getScheme();
+		if (schema.equals("file")) {
+			File file = new File(uri);
+			if (file.exists()) {
+				return uri;
+			} else {
+				return null;
+			}
+		} else {
+			try {
+				uri.toURL().openStream();
+				return uri;
+			} catch (IOException e) {
+				return null;
+			}
 		}
 
-		// File file = new File(uri);
-		// if (file.exists()) {
-		// return uri;
-		// } else {
-		// return null;
-		// }
 	}
 
 }

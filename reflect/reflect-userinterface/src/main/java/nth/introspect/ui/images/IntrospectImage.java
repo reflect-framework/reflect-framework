@@ -3,6 +3,7 @@ package nth.introspect.ui.images;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 
 /**
+ * 
  * <p>
  * Provides a list of standard images user by Introspect. These URI's are for
  * internal use only. To convert them to a real world URI use:
@@ -12,6 +13,8 @@ import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResour
  * {@link IntrospectImage#MENU_OPENED}).getAbsoluteURI()
  * 
  * @author nilsth
+ *
+ *@deprecated Use FontAwesome (https://fortawesome.github.io/Font-Awesome/) instead (because it vector based so scales better and is faster than images)
  *
  */
 public class IntrospectImage {

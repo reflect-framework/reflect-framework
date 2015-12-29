@@ -76,7 +76,7 @@ public class LanguageProviderWithoutFileTest {
 
 	@Test
 	public void getTextForLocaleAndKeyAndDefaultText() {
-		String defaultValue=languageProvider.getText(Locale.FRENCH, COM_ACME_LABEL1,CLOSE_APPLICATION);
+		String defaultValue=languageProvider.getText(Locale.GERMAN, COM_ACME_LABEL1,CLOSE_APPLICATION);
 		assertEquals(CLOSE_APPLICATION, defaultValue);
 	}
 
