@@ -8,11 +8,11 @@ import nth.introspect.IntrospectApplication;
 
 public class DefaultPathProvider implements PathProvider {
 
-	private static final String BIN_FOLDER = "BIN";
 	private static final String JAR_EXTENTION = ".JAR";
 	private static final String CONFIG_SUB_PATH = "configs";
 	private static final String DOCUMENT_SUB_PATH = "documents";
 	private static final String IMAGE_SUB_PATH = "images";
+	private static final String EXE_EXTENTION = ".EXE";
 	private final URI rootPath;
 	private final URI configPath;
 	private final URI documenPath;
@@ -30,11 +30,9 @@ public class DefaultPathProvider implements PathProvider {
 		File rootPath = new File(rootPathUri);
 		if (rootPath.getName().toUpperCase().contains(JAR_EXTENTION)) {
 			rootPath = rootPath.getParentFile();
-//		} else if (rootPath.getName().toUpperCase().equals(BIN_FOLDER)) {
-//			rootPath = rootPath.getParentFile();
-//			rootPath=new File(rootPath.getAbsolutePath()+"/dist");
+		} else if (rootPath.getName().toUpperCase().contains(EXE_EXTENTION)) {
+			rootPath = rootPath.getParentFile();	
 		}
-		
 		return rootPath.toURI();
 	}
 

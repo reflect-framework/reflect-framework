@@ -40,7 +40,8 @@ package nth.introspect.documentation;
  * <li><a
  * href="https://github.com/ntenhoeve/Introspect-Framework/wiki">Documentation
  * as Git Hub Wiki</a></li>
- * <li><a href="http://ntenhoeve.github.io">Documentation as Web Page</a></li>
+ * <li><a href="http://ntenhoeve.github.io/TheIntrospectFramework.html">Documentation as Web Page</a></li>
+ * <li><a href="http://ntenhoeve.github.io/TheIntrospectFramework_Printable.html">Documentation as a printable Web Page (single page)</a></li>
  * </ul>
  * 
  * <h1>Development</h1> {@insert IntrospectDevelopment}
