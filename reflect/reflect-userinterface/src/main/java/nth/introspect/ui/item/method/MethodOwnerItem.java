@@ -34,7 +34,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 		List<ActionMethodInfo> actionMethodInfos = classInfo
 				.getActionMethodInfos( methodFilter);
 
-		UserInterfaceController<?> userInterfaceController = userInterfaceContainer
+		UserInterfaceController userInterfaceController = userInterfaceContainer
 				.get(UserInterfaceController.class);
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			MethodItem methodItem = new MethodItem(userInterfaceContainer,

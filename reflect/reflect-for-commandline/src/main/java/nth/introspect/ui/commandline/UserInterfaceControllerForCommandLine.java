@@ -169,7 +169,7 @@ public class UserInterfaceControllerForCommandLine extends
 		actionMethodInfo
 				.setExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
 
-		startExecution(serviceObject, actionMethodInfo, methodParameterValue);
+		processActionMethod(serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	private boolean isCommandFile(String[] arguments) {

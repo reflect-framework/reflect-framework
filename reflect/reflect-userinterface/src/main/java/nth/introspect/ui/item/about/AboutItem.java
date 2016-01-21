@@ -17,7 +17,7 @@ import nth.introspect.ui.images.IntrospectImage;
 public class AboutItem extends Item {
 	private static final String ABOUT = "About";
 
-	public AboutItem(final UserInterfaceController<?> userInterfaceController, final ReflectionProvider reflectionProvider, LanguageProvider languageProvider, final AboutProvider aboutProvider) {
+	public AboutItem(final UserInterfaceController userInterfaceController, final ReflectionProvider reflectionProvider, LanguageProvider languageProvider, final AboutProvider aboutProvider) {
 		super(languageProvider);
 		setText(ABOUT);
 		setDescription(ABOUT);
@@ -33,7 +33,7 @@ public class AboutItem extends Item {
 				List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos( methodFilter);
 				if (actionMethodInfos.size() == 1) {
 					ActionMethodInfo actionMethodInfo = actionMethodInfos.get(0);
-					userInterfaceController.startExecution(aboutProvider, actionMethodInfo, null);
+					userInterfaceController.processActionMethod(aboutProvider, actionMethodInfo, null);
 				} else {
 					StringBuffer message = new StringBuffer("Could not find ");
 					message.append(ABOUT.toLowerCase());

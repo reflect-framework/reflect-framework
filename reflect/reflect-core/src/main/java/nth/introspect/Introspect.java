@@ -27,7 +27,7 @@ public class Introspect {
 	 */
 	public static void start(IntrospectApplication application) {
 		UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
-		UserInterfaceController<?> userInterfaceController = userInterfaceContainer
+		UserInterfaceController userInterfaceController = userInterfaceContainer
 				.get(UserInterfaceController.class);
 		userInterfaceController.start();
 	}

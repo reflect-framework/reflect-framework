@@ -15,7 +15,7 @@ public class FormOkItem extends MethodItem {
 
 	public FormOkItem( final FormView formView, final Object methodOwner, final ActionMethodInfo actionMethodInfo, final BufferedDomainValueModel domainValueModel) {
 		super (formView.getuserInterfaceContainer(), methodOwner, actionMethodInfo, domainValueModel);
-		final UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().get(UserInterfaceController.class);
+		final UserInterfaceController userInterfaceController = formView.getuserInterfaceContainer().get(UserInterfaceController.class);
 		setHotKey(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.CTRL_MASK));
 		setAction(new Action() {
 			@Override
@@ -23,7 +23,7 @@ public class FormOkItem extends MethodItem {
 				if (FormMode.EDIT_MODE== formView.getFormMode()) {
 					domainValueModel.commit();
 				}
-				userInterfaceController.excuteMethod(methodOwner, actionMethodInfo, domainValueModel.getValue());
+				userInterfaceController.processActionMethodExecution(methodOwner, actionMethodInfo, domainValueModel.getValue());
 				userInterfaceController.getViewContainer().removeView(formView);
 			}
 

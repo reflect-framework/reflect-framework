@@ -49,7 +49,7 @@ public class MainWindow extends JFrame {
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
 	private final PathProvider pathProvider;
-	private final UserInterfaceController<?> userInterfaceController;
+	private final UserInterfaceController userInterfaceController;
 	private final ReflectionProvider reflectionProvider;
 	private final AboutProvider aboutProvider;
 

@@ -9,6 +9,9 @@ import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.notification.NotificationListener;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 /**
@@ -130,7 +133,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * @author Nils ten Hoeve
  * 
  */
-public interface UserInterfaceController<T> extends NotificationListener {
+public abstract class UserInterfaceController implements NotificationListener {
 
 	/**
 	 * Provides simple feedback about an operation in a small popup. It only
@@ -140,32 +143,62 @@ public interface UserInterfaceController<T> extends NotificationListener {
 	 * 
 	 * @param message
 	 */
-	public void showInfoMessage(String message);
+	public abstract void showInfoMessage(String message);
 
-	public void showDialog(DialogType dialogType, String title, String message,
+	public abstract  void showDialog(DialogType dialogType, String title, String message,
 			List<Item> items);
 
-	public void showErrorDialog(String title, String message,
+	public abstract  void showErrorDialog(String title, String message,
 			Throwable throwable);
 
-	public void showProgressDialog(String taskDescription, int currentValue,
+	public abstract  void showProgressDialog(String taskDescription, int currentValue,
 			int maxValue);// TODO refactor parameters to: taskName, int
 							// percentageCompleted
 
-	public void closeProgressDialog();// TODO remove. progress dialog should
+	public abstract  void closeProgressDialog();// TODO remove. progress dialog should
 										// close automatically when
 										// percentageCompleted=100
 
-	public void openURI(URI uri);
+	public abstract  void openURI(URI uri);
+	//TODO moveToGraphicalUserInterface and rename to showActionMethodResult(URI uri);
 
-	public void downloadFile(DownloadStream downloadStream);
+	public abstract  void downloadFile(DownloadStream downloadStream);
+	//TODO moveToGraphicalUserInterface and rename to showActionMethodResult(Downloadstream downloadstream);
 
 	@SuppressWarnings("rawtypes")
-	public ViewContainer getViewContainer();
+	public  abstract ViewContainer getViewContainer();//TODO moveToGraphicalUserInterface
 
 	/**
-	 * This method is called from a {@link MethodItem} and starts the process of
-	 * invoking a method
+	 * This method is called when a user sends an command to the
+	 * {@link UserInterfaceController}. this can come from different sources
+	 * such as:
+	 * <ul>
+	 * <li>command line</li>
+	 * <li>graphical user interface (when the user activates a menu item)</li>
+	 * <li>http request from a SOAP or Restfull client</li>
+	 * <li>etc</li>
+	 * </ul>
+	 * This method will process the {@link ActionMethod} parameter (depending on
+	 * how it is annotated):
+	 * <ul>
+	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_DIRECTLY }: Will call
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} directly (i.e.
+	 * when there is no {@link ActionMethod} parameter)</li>
+	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will ask
+	 * the user for confirmation before the {@link ActionMethod} is executed. To
+	 * do this it will call one of the confirmActionMethodParameter(...) methods
+	 * in the {@link UserInterfaceController} implementation. After the
+	 * confirmation the {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 * needs to be called (i.e. by a OK button).</li>
+	 * <li>
+	 * {@link ExecutionModeType#EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL }:
+	 * Will let the user edit the {@link ActionMethod} parameter before the
+	 * {@link ActionMethod} is executed. To do this it will call one of the
+	 * editActionMethodParameter(...) methods in the
+	 * {@link UserInterfaceController} implementation. After the confirmation
+	 * the {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs to be
+	 * called (i.e. by a OK button).</li>
+	 * </ul>
 	 * 
 	 * @param methodOwner
 	 *            Domain or service object that owns the method
@@ -173,12 +206,12 @@ public interface UserInterfaceController<T> extends NotificationListener {
 	 * @param methodParameterValue
 	 */
 
-	public void startExecution(Object methodOwner,
+	public  abstract void processActionMethod(Object methodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue);
 
 	/**
 	 * This method is called from
-	 * {@link #startExecution(Object, ActionMethodInfo, Object)} or from the
+	 * {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from the
 	 * {@link FormOkItem} linked to the OK button <br>
 	 * It needs the check if the method is enabled before the method is executed<br>
 	 * It needs to validate the method parameter value before the method is
@@ -189,7 +222,7 @@ public interface UserInterfaceController<T> extends NotificationListener {
 	 * @param methodParameterValue
 	 */
 
-	void excuteMethod(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public abstract void   processActionMethodExecution(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue);
 
 	/**
@@ -204,14 +237,14 @@ public interface UserInterfaceController<T> extends NotificationListener {
 	 * @param methodReturnValue
 	 */
 
-	void showMethodReturnValue(Object serviceObject,
+	public abstract void processActionMethodReturnValue(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue);
 
-	void start();
+	public abstract void  start();
 
-	public DisplaySize getDisplaySize();
+	public  abstract DisplaySize getDisplaySize();//TODO moveToGraphicalUserInterface or remove completely
 
-	public int getDisplayWidthInInches();
+	public  abstract int getDisplayWidthInInches();//TODO moveToGraphicalUserInterface  or remove completely
 
 }

@@ -97,7 +97,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
 
 public interface IntrospectApplication {
 
-	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass();
+	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass();
 
 	public Class<? extends ReflectionProvider> getReflectionProviderClass();
 
@@ -116,5 +116,6 @@ public interface IntrospectApplication {
 	public List<Class<?>> getServiceClasses();
 
 	public List<Class<?>> getInfrastructureClasses();
+
 
 }

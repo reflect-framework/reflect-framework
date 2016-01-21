@@ -37,12 +37,12 @@ public class PropertyMethodItem extends MethodItem {
 
 			@Override
 			public void run() {
-				UserInterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().get(UserInterfaceController.class);
+				UserInterfaceController userInterfaceController = formView.getuserInterfaceContainer().get(UserInterfaceController.class);
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				
  				userInterfaceController.getViewContainer().setSelectedView(formView);
-				userInterfaceController.startExecution(propertyOwner, propertyMethodInfo, methodParameter);
+				userInterfaceController.processActionMethod(propertyOwner, propertyMethodInfo, methodParameter);
 			}
 		};
 	}

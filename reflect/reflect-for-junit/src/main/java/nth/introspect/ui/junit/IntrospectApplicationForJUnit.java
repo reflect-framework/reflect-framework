@@ -125,7 +125,7 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 	}
 
 	@Override
-	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass() {
+	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
 		return null;// JUnit has no user interface controller
 	}
 

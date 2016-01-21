@@ -29,14 +29,14 @@ public class MethodItem extends Item {
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValueModel = methodParameterValueModel;
-		final UserInterfaceController<?> userInterfaceController = userInterfaceContainer
+		final UserInterfaceController userInterfaceController = userInterfaceContainer
 				.get(UserInterfaceController.class);
 		setAction(new Action() {
 			@Override
 			public void run() {
 				Object methodParameterValue = (methodParameterValueModel == null) ? null
 						: methodParameterValueModel.getValue();
-				userInterfaceController.startExecution(methodOwner, actionMethodInfo,
+				userInterfaceController.processActionMethod(methodOwner, actionMethodInfo,
 						methodParameterValue);
 			}
 

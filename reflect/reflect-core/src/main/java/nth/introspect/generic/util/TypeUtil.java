@@ -7,6 +7,7 @@ import java.util.List;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
+import nth.introspect.layer1userinterface.controller.UploadStream;
 import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 public class TypeUtil {
@@ -102,6 +103,11 @@ public class TypeUtil {
 	public static boolean isDowloadStream(Class<?> type) {
 		return type.isAssignableFrom(DownloadStream.class);
 	}
+	
+
+	private static boolean isUploadStream(Class<?> type) {
+		return  type.isAssignableFrom(UploadStream.class);
+	}
 
 	/**
 	 * 
@@ -136,6 +142,8 @@ public class TypeUtil {
 			return TypeCategory.URI_TYPE;
 		} else if (isDowloadStream(type)) {
 			return TypeCategory.DOWNLOAD_STREAM_TYPE;
+		}else if (isUploadStream(type)) {
+			return TypeCategory.UPLOAD_STREAM_TYPE;
 		} else if (isJavaType(type)) {
 			return TypeCategory.JAVA_TYPE;
 		} else if (isHierarchicalDomainType(type)) {
@@ -144,6 +152,7 @@ public class TypeUtil {
 			return TypeCategory.DOMAIN_TYPE;
 		}
 	}
+
 
 	public static boolean isEnum(Class<?> type) {
 		return type.isEnum();

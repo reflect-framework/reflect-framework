@@ -43,7 +43,7 @@ public abstract class IntrospectApplicationForSwing implements
 	}
 	
 	@Override
-	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass() {
+	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
 		return UserinterfaceControllerForSwing.class;
 	}
 

@@ -20,6 +20,40 @@ public class Repetition {
 		return new Repetition("+");
 	}
 
+	public static Repetition times(int times) {
+		StringBuilder expression=new StringBuilder();
+		expression.append("{");
+		expression.append(times);
+		expression.append("}");
+		return new Repetition(expression.toString());
+	}
+	
+	public static Repetition minMax(int min, int max) {
+		StringBuilder expression=new StringBuilder();
+		expression.append("{");
+		expression.append(min);
+		expression.append(",");
+		expression.append(max);
+		expression.append("}");
+		return new Repetition(expression.toString());
+	}
+
+	public static Repetition min(int min) {
+		StringBuilder expression=new StringBuilder();
+		expression.append("{");
+		expression.append(min);
+		expression.append(",}");
+		return new Repetition(expression.toString());
+	}
+
+	public static Repetition max(int max) {
+		StringBuilder expression=new StringBuilder();
+		expression.append("{,");
+		expression.append(max);
+		expression.append("}");
+		return new Repetition(expression.toString());
+	}
+
 	public Repetition reluctant() {
 		mode=MODE_RELUCTANT;
 		return this;
@@ -30,11 +64,13 @@ public class Repetition {
 		return this;
 	}
 	
+
+	
 	@Override
 	public String toString() {
 		return regex+mode;
 	}
-	
+
 	
 
 }

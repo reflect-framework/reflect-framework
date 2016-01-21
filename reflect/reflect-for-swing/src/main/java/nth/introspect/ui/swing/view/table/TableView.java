@@ -244,7 +244,7 @@ public class TableView extends SwingView implements
 						return actionMethodInfo.invoke(methodOwner,
 								methodParameterValue);
 					} catch (Exception e) {
-						UserInterfaceController<?> userInterfaceController = getuserInterfaceContainer().get(UserInterfaceController.class);
+						UserInterfaceController userInterfaceController = getuserInterfaceContainer().get(UserInterfaceController.class);
 						userInterfaceController.showErrorDialog(getViewTitle(),
 								"Error getting table values.", e);
 						return null;

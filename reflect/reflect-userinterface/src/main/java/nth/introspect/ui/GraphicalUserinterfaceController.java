@@ -40,7 +40,7 @@ import nth.introspect.ui.view.TableView;
  *            layout) that implements {@link View}
  */
 public abstract class GraphicalUserinterfaceController<T extends View>
-		implements UserInterfaceController<T> {
+		extends UserInterfaceController {
 
 	@Override
 	public void onTaskChange(Task task) {
@@ -78,7 +78,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	}
 
 	@Override
-	public void startExecution(Object methodOwner,
+	public void processActionMethod(Object methodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		try {
 			ExecutionModeType executionMode = actionMethodInfo
@@ -93,7 +93,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 						methodParameterValue);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
-				excuteMethod(methodOwner, actionMethodInfo,
+				processActionMethodExecution(methodOwner, actionMethodInfo,
 						methodParameterValue);
 				break;
 			}
@@ -141,7 +141,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	}
 
 	@Override
-	public void excuteMethod(Object serviceObject,
+	public void processActionMethodExecution(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		// TODO check if the method is enabled before the method is executed
 		// (otherwise throw exception)
@@ -165,7 +165,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	/**
 	 * This method is called from
-	 * {@link #excuteMethod(Object, ActionMethodInfo, Object)} <br>
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} <br>
 	 * This method must do 3 things<br>
 	 * - invoke Object methodReturnValue=
 	 * {@link ActionMethodInfo#invoke(Object, Object)} in a separate thread (may
@@ -175,7 +175,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	 * - catch errors during the execution of the thread and call
 	 * {@link #showErrorDialog(String, String, Throwable)} if needed<br>
 	 * - invoke
-	 * {@link GraphicalUserinterfaceController#showMethodReturnValue(Object, ActionMethodInfo, Object, Object)}
+	 * {@link GraphicalUserinterfaceController#processActionMethodReturnValue(Object, ActionMethodInfo, Object, Object)}
 	 * <br>
 	 * <br>
 	 * This method can be overridden if the framework of the user interface
@@ -223,7 +223,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 						selectedView.onViewActivate();
 					}
 					// show method result
-					showMethodReturnValue(serviceObject, actionMethodInfo,
+					processActionMethodReturnValue(serviceObject, actionMethodInfo,
 							methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
 					String title = TitleUtil.createTitle(reflectionProvider,
@@ -240,7 +240,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	}
 
 	@Override
-	public void showMethodReturnValue(Object serviceObject,
+	public void processActionMethodReturnValue(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
 		String title = TitleUtil.createTitle(reflectionProvider,
@@ -284,7 +284,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 							.getClassInfo(serviceClass);
 					List<ActionMethodInfo> actionMethodInfos = classInfo
 							.getActionMethodInfos(new MethodNameFilter(methodName));
-					startExecution(serviceObject, actionMethodInfos.get(0),
+					processActionMethod(serviceObject, actionMethodInfos.get(0),
 							null);
 				} catch (Exception exception) {
 					throw new RuntimeException(
@@ -392,7 +392,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	// TODO view factory?
 	/**
 	 * NOTE that the FormOkItem linked to the OK button of the FormView will
-	 * need to call {@link #excuteMethod(Object, ActionMethodInfo, Object)};
+	 * need to call {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
 	 * 
 	 * @param serviceObject
 	 * @param actionMethodInfo

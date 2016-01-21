@@ -45,7 +45,7 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 
 
 	@Override
-	public Class<? extends UserInterfaceController<?>> getUserInterfaceControllerClass() {
+	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
 		return UserInterfaceControllerForCommandLine.class;
 	}
 

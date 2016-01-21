@@ -15,27 +15,31 @@ public class DialogMethodItem extends Item {
 	private final Object methodParameterValue;
 
 	/**
-	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the getters
+	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the
+	 * getters
 	 * 
 	 * @param methodOwner
 	 * @param actionMethodInfo
 	 */
-	public DialogMethodItem(UserInterfaceContainer userInterfaceContainer , final Object methodOwner, final ActionMethodInfo actionMethodInfo, final Object methodParameterValue) {
+	public DialogMethodItem(UserInterfaceContainer userInterfaceContainer,
+			final Object methodOwner, final ActionMethodInfo actionMethodInfo,
+			final Object methodParameterValue) {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
-final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.get(UserInterfaceController.class);
+		final UserInterfaceController userInterfaceController = userInterfaceContainer
+				.get(UserInterfaceController.class);
 		setAction(new Action() {
 			@Override
 			public void run() {
-				userInterfaceController.excuteMethod(methodOwner, actionMethodInfo, methodParameterValue);
-				//TODO refresh form!!!!
+				userInterfaceController.processActionMethodExecution(
+						methodOwner, actionMethodInfo, methodParameterValue);
+				// TODO refresh form!!!!
 			}
 
 		});
 	}
-
 
 	@Override
 	public URI getIconURI() {
@@ -54,13 +58,13 @@ final UserInterfaceController<?> userInterfaceController=userInterfaceContainer.
 
 	@Override
 	public boolean isEnabled() {
-		return actionMethodInfo.isEnabled(methodOwner) ;
+		return actionMethodInfo.isEnabled(methodOwner);
 	}
 
 	@Override
 	public String getDescription() {
-		return super.getDescriptionWithHotKey( actionMethodInfo.getDescription());
+		return super
+				.getDescriptionWithHotKey(actionMethodInfo.getDescription());
 	}
-
 
 }

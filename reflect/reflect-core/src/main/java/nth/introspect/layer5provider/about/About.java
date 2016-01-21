@@ -70,7 +70,7 @@ public class About extends VersionInfo {
 	}
 
 	private VersionInfo getUserInterfaceControllerInfo() {
-		Class<? extends UserInterfaceController<?>> userInterfaceControllerClass = application
+		Class<? extends UserInterfaceController> userInterfaceControllerClass = application
 				.getUserInterfaceControllerClass();
 		return new VersionInfo(userInterfaceControllerClass);
 	}

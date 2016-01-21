@@ -1,5 +1,7 @@
 package nth.introspect.generic.regex;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,13 +15,53 @@ import java.util.regex.Pattern;
 public class Regex {
 
 	private static final char[] SPECIAL_CHARS = { '\\', '[', ']', '{', '}',
-			'*', '+', '$' };
+			'*', '+', '$','.' };
 	private final StringBuilder regex;
 
 	public Regex() {
 		regex = new StringBuilder();
 	}
 
+	public java.util.regex.Pattern toPattern() {
+		return java.util.regex.Pattern.compile(regex.toString());
+	}
+	
+	public Matcher toMatcher(String input) {
+		return toPattern().matcher(input);
+	}
+	
+	public boolean hasMatchIn(String input) {
+		Matcher matcher=toMatcher(input);
+		return matcher.find();
+	}
+	
+	public List<String> findMatches(String input) {
+		Matcher matcher=toMatcher(input);
+		List<String> matches=new ArrayList<>();
+		while (matcher.find()) {
+			String match = matcher.group();
+			matches.add(match);
+		}
+		return matches;
+	}
+
+
+	public String findFirstMatchIn(String input) {
+		Matcher matcher=toMatcher(input);
+		if (matcher.find()) {
+			String match = matcher.group();
+			return match;
+		} 
+		return null;
+	}
+
+
+	@Override
+	public String toString() {
+		return regex.toString();
+	}
+
+	
 	public Regex beginOfLine() {
 		regex.append("^");
 		return this;
@@ -86,11 +128,6 @@ public class Regex {
 		return this;
 	}
 
-	@Override
-	public String toString() {
-		return regex.toString();
-	}
-
 	public Regex newLine() {
 		regex.append("\\r\\n");
 		return this;
@@ -128,17 +165,9 @@ public class Regex {
 		return this;
 	}
 
-	public Regex caseUnsensativeMode() {
+	public Regex ignoreCase() {
 		regex.append("(?iu)");
 		return this;
-	}
-
-	public java.util.regex.Pattern asPattern() {
-		return java.util.regex.Pattern.compile(regex.toString());
-	}
-	
-	public Matcher asMatcher(String input) {
-		return asPattern().matcher(input);
 	}
 
 	public Regex xmlStartElement(String elementName) {
@@ -172,7 +201,12 @@ public class Regex {
 	}
 
 	public Regex letters() {
-		regex.append("[a-zA-Z]");
+		regex.append(LetterTypes.ALL_CASE);
+		return this;
+	}
+
+	public Regex letters(LetterTypes letterTypes) {
+		regex.append(letterTypes);
 		return this;
 	}
 
@@ -183,10 +217,32 @@ public class Regex {
 		return this;
 	}
 
+	public Regex letters(LetterTypes letterTypes, Repetition repetition) {
+		letters(letterTypes);
+		regex.append(repetition);
+		return this;
+	}
+
+
 	public Regex group(Regex group, Repetition repetition) {
 		group(group);
 		regex.append(repetition);
 		return this;
 	}
-	
+
+	public Regex decimal() {
+		regex.append("\\d");
+		return this;
+	}
+
+	public Regex decimal(Repetition oneOrMoreTimes) {
+		decimal();
+		regex.append(oneOrMoreTimes);
+		return this;
+	}
+
+	public Regex wordBoundary() {
+		regex.append("\\b");
+		return this;
+	}
 }
