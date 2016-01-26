@@ -24,7 +24,6 @@ import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.ProviderContainer;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -83,7 +82,7 @@ public class UserInterfaceControllerForCommandLine extends
 					.getCommandLineArguments();
 
 			List<Command> commands = CommandService
-					.getCommands(getUserInterfaceContainer());
+					.getCommands(userInterfaceContainer);
 
 			if (isCommandFile(arguments)) {
 				List<String[]> argumentsInFile = getArgumentsFromCommandFile(arguments);
@@ -318,5 +317,7 @@ public class UserInterfaceControllerForCommandLine extends
 	public int getDisplayWidthInInches() {
 		return 8;
 	}
+
+	
 
 }

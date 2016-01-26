@@ -1,7 +1,7 @@
 package nth.introspect.generic.exception;
 
 
-public class TypeNotSupportedException extends RuntimeException {
+public class TypeNotSupportedException extends IntrospectException {
 
 	private static final long serialVersionUID = 2460695691202447353L;
 

@@ -1,18 +1,34 @@
 package nth.introspect.layer1userinterface.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 
 import nth.introspect.documentation.IntrospectApplicationProjects;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.generic.util.TitleUtil;
+import nth.introspect.generic.util.TypeUtil;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.processmethod.ConfirmActionMethodParameter;
+import nth.introspect.layer1userinterface.controller.processmethod.EditActionMethodParameter;
+import nth.introspect.layer1userinterface.controller.processmethod.EditActionMethodParameter;
+import nth.introspect.layer1userinterface.controller.processmethod.ProcessMethod;
+import nth.introspect.layer1userinterface.controller.processmethod.ShowActionMethodResult;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.ViewContainer;
+import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationListener;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
+
+//FIXME: test all methods in this class
+
 
 /**
  *
@@ -135,6 +151,24 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  */
 public abstract class UserInterfaceController implements NotificationListener {
 
+	protected final UserInterfaceContainer userInterfaceContainer;
+	protected final ReflectionProvider reflectionProvider;
+	protected final LanguageProvider languageProvider;
+
+	public UserInterfaceController(UserInterfaceContainer userInterfaceContainer) {
+		this.userInterfaceContainer = userInterfaceContainer;
+		this.reflectionProvider = userInterfaceContainer
+				.get(ReflectionProvider.class);
+		this.languageProvider = userInterfaceContainer
+				.get(LanguageProvider.class);
+	}
+
+	/**
+	 * Allows the user interface objects to be build (i.e. the creation of a
+	 * main window)
+	 */
+	public abstract void start();
+
 	/**
 	 * Provides simple feedback about an operation in a small popup. It only
 	 * fills the amount of space required for the message and the current
@@ -145,28 +179,36 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 */
 	public abstract void showInfoMessage(String message);
 
-	public abstract  void showDialog(DialogType dialogType, String title, String message,
-			List<Item> items);
+	public abstract void showDialog(DialogType dialogType, String title,
+			String message, List<Item> items);
 
-	public abstract  void showErrorDialog(String title, String message,
+	public abstract void showErrorDialog(String title, String message,
 			Throwable throwable);
 
-	public abstract  void showProgressDialog(String taskDescription, int currentValue,
-			int maxValue);// TODO refactor parameters to: taskName, int
-							// percentageCompleted
+	public abstract void showProgressDialog(String taskDescription,
+			int currentValue, int maxValue);
 
-	public abstract  void closeProgressDialog();// TODO remove. progress dialog should
-										// close automatically when
-										// percentageCompleted=100
+	// TODO refactor parameters to: taskName, int percentageCompleted
 
-	public abstract  void openURI(URI uri);
-	//TODO moveToGraphicalUserInterface and rename to showActionMethodResult(URI uri);
+	public abstract void closeProgressDialog();
 
-	public abstract  void downloadFile(DownloadStream downloadStream);
-	//TODO moveToGraphicalUserInterface and rename to showActionMethodResult(Downloadstream downloadstream);
+	// TODO remove. progress dialog should close automatically when
+	// percentageCompleted=100
+
+	public abstract void openURI(URI uri);
+
+	// TODO moveToGraphicalUserInterface and rename to
+	// ShowActionMethodResult(URI uri);
+
+	public abstract void downloadFile(DownloadStream downloadStream);
+
+	// TODO moveToGraphicalUserInterface and rename to
+	// ShowActionMethodResult(Downloadstream downloadstream);
 
 	@SuppressWarnings("rawtypes")
-	public  abstract ViewContainer getViewContainer();//TODO moveToGraphicalUserInterface
+	public abstract ViewContainer getViewContainer();
+
+	// TODO moveToGraphicalUserInterface
 
 	/**
 	 * This method is called when a user sends an command to the
@@ -182,13 +224,14 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * how it is annotated):
 	 * <ul>
 	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_DIRECTLY }: Will call
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} directly (i.e.
-	 * when there is no {@link ActionMethod} parameter)</li>
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 * directly (i.e. when there is no {@link ActionMethod} parameter)</li>
 	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will ask
 	 * the user for confirmation before the {@link ActionMethod} is executed. To
 	 * do this it will call one of the confirmActionMethodParameter(...) methods
 	 * in the {@link UserInterfaceController} implementation. After the
-	 * confirmation the {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 * confirmation the
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
 	 * needs to be called (i.e. by a OK button).</li>
 	 * <li>
 	 * {@link ExecutionModeType#EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL }:
@@ -196,8 +239,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * {@link ActionMethod} is executed. To do this it will call one of the
 	 * editActionMethodParameter(...) methods in the
 	 * {@link UserInterfaceController} implementation. After the confirmation
-	 * the {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs to be
-	 * called (i.e. by a OK button).</li>
+	 * the
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 * needs to be called (i.e. by a OK button).</li>
 	 * </ul>
 	 * 
 	 * @param methodOwner
@@ -206,13 +250,51 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodParameterValue
 	 */
 
-	public  abstract void processActionMethod(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue);
+	public final void processActionMethod(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter) {
+		try {
+
+			methodParameter = ActionMethodParameterFactory.createIfNeeded(
+					userInterfaceContainer, methodOwner, methodInfo,
+					methodParameter);
+
+			ExecutionModeType executionMode = methodInfo.getExecutionMode();
+			switch (executionMode) {
+			case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
+				//FIXME: reflectionProvider.getEditActionMethodParameterMethod(methodInfo).execute(methodOwner,methodParameter);
+				//FIXME: can we get rid of MethodReturnType and MethodParameterType???? 
+				new EditActionMethodParameter(this, methodOwner, methodInfo,
+						methodParameter).invoke();
+				break;
+			case EXECUTE_METHOD_AFTER_CONFORMATION:
+				//FIXME: reflectionProvider.getConfirmActionMethodParameterMethod(methodInfo).execute(methodOwner,methodParameter);
+				new ConfirmActionMethodParameter(this, methodOwner, methodInfo,
+						methodParameter).invoke();
+				break;
+			case EXECUTE_METHOD_DIRECTLY:
+				processActionMethodExecution(methodOwner, methodInfo,
+						methodParameter);
+				break;
+			}
+		} catch (Exception exception) {
+			String title = TitleUtil.createTitle(reflectionProvider,
+					methodInfo, methodParameter, true);
+			String message = languageProvider.getText("Failed to execute.");
+			showErrorDialog(title, message, exception);
+		}
+
+	}
+
+	public abstract void editActionMethodParameter(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter);
+
+	public abstract void confirmActionMethodParameter(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter);
 
 	/**
 	 * This method is called from
-	 * {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from the
-	 * {@link FormOkItem} linked to the OK button <br>
+	 * {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from
+	 * the {@link FormOkItem} linked to the OK button <br>
 	 * It needs the check if the method is enabled before the method is executed<br>
 	 * It needs to validate the method parameter value before the method is
 	 * executed
@@ -222,8 +304,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodParameterValue
 	 */
 
-	public abstract void   processActionMethodExecution(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue);
+	public abstract void processActionMethodExecution(Object serviceObject,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue);
 
 	/**
 	 * This method is called from
@@ -237,14 +319,99 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodReturnValue
 	 */
 
-	public abstract void processActionMethodReturnValue(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue);
+	public void processActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			Object methodResult) {
+		try {
+			//FIXME: reflectionProvider.getShowActionMethodResultMethod(methodInfo).execute(methodOwner,methodParameter,methodResult);
+			new ShowActionMethodResult(this, methodOwner, methodInfo,
+					methodParameter, methodResult).invoke();
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException exception) {
+			String title = TitleUtil.createTitle(reflectionProvider,
+					methodInfo, methodParameter, true);
+			String message = languageProvider.getText("Failed to execute.");
+			showErrorDialog(title, message, exception);
+		}
 
-	public abstract void  start();
+	}
 
-	public  abstract DisplaySize getDisplaySize();//TODO moveToGraphicalUserInterface or remove completely
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type void
+	 * 
+	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public abstract void showActionMethodresult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter);
 
-	public  abstract int getDisplayWidthInInches();//TODO moveToGraphicalUserInterface  or remove completely
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DomainObject}
+	 * 
+	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public abstract void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			Object methodResult);
+
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link Collection}
+	 * 
+	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public abstract void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			List<?> methodResult);
+
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link URI}
+	 * 
+	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public abstract void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			URI methodResult);
+
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}
+	 * 
+	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public abstract void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			DownloadStream methodResult);
+
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link String}
+	 * 
+	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public abstract void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			String methodResult);
+
+	public abstract DisplaySize getDisplaySize();
+
+	// TODO moveToGraphicalUserInterface or remove completely
+
+	public abstract int getDisplayWidthInInches();
+	// TODO moveToGraphicalUserInterface or remove completely
 
 }

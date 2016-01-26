@@ -104,7 +104,7 @@ public class UserinterfaceControllerForSwing extends
 	public SwingView createFormView(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(getUserInterfaceContainer(), serviceObject, actionMethodInfo, methodParameterValue,
+		return new FormView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue,
 				domainObject, formMode);
 	}
 
@@ -112,7 +112,7 @@ public class UserinterfaceControllerForSwing extends
 	public SwingView createTableView(Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new TableView(getUserInterfaceContainer(), serviceObject, actionMethodInfo, methodParameterValue);
+		return new TableView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package nth.introspect.ui;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import nth.introspect.Introspect;
@@ -14,11 +15,8 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
-import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.notification.Task;
-import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
@@ -39,8 +37,33 @@ import nth.introspect.ui.view.TableView;
  *            A user interface specific class (often a component container/
  *            layout) that implements {@link View}
  */
-public abstract class GraphicalUserinterfaceController<T extends View>
-		extends UserInterfaceController {
+public abstract class GraphicalUserinterfaceController<T extends View> extends
+		UserInterfaceController {
+
+	@Override
+	public void confirmActionMethodParameter(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter) {
+		// create the dialog items/ buttons
+		List<Item> items = new ArrayList<Item>();
+		DialogMethodItem methodExecuteItem = new DialogMethodItem(
+				userInterfaceContainer, methodOwner, methodInfo,
+				methodParameter);
+		items.add(methodExecuteItem);
+		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
+		items.add(cancelItem);
+
+		// create the confirmation title and message
+		String title = languageProvider.getText("Confirmation");
+		StringBuilder message = new StringBuilder();
+		message.append(languageProvider.getText("Do you want to execute: "));
+		message.append(TitleUtil.createTitle(reflectionProvider, methodInfo,
+				methodParameter, false));
+		message.append("?");
+
+		// show the dialog
+		showDialog(DialogType.QUESTION, title, message.toString(), items);
+
+	}
 
 	@Override
 	public void onTaskChange(Task task) {
@@ -61,83 +84,21 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
-	protected final UserInterfaceContainer userInterfaceContainer;
-	protected final ReflectionProvider reflectionProvider;
-	protected final LanguageProvider languageProvider;
 
 	public GraphicalUserinterfaceController(
 			UserInterfaceContainer userInterfaceContainer) {
-		this.userInterfaceContainer = userInterfaceContainer;
-		this.reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
-		this.languageProvider = userInterfaceContainer
-				.get(LanguageProvider.class);
+		super(userInterfaceContainer);
 		NotificationProvider notificationProvider = userInterfaceContainer
 				.get(NotificationProvider.class);
 		notificationProvider.addListener(this);
 	}
 
 	@Override
-	public void processActionMethod(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
-		try {
-			ExecutionModeType executionMode = actionMethodInfo
-					.getExecutionMode();
-			switch (executionMode) {
-			case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
-				createAndShowParameterForm(methodOwner, actionMethodInfo,
-						methodParameterValue, FormMode.EDIT_MODE);
-				break;
-			case EXECUTE_METHOD_AFTER_CONFORMATION:
-				createAndShowConformationDialog(methodOwner, actionMethodInfo,
-						methodParameterValue);
-				break;
-			case EXECUTE_METHOD_DIRECTLY:
-				processActionMethodExecution(methodOwner, actionMethodInfo,
-						methodParameterValue);
-				break;
-			}
-		} catch (Exception exception) {
-			String title = TitleUtil.createTitle(reflectionProvider,
-					actionMethodInfo, methodParameterValue, true);
-			String message = languageProvider.getText("Failed to execute.");
-			showErrorDialog(title, message, exception);
-		}
-	}
-
-	private void createAndShowParameterForm(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			FormMode formMode) throws InstantiationException,
-			IllegalAccessException {
-		Object domainObject = methodParameterValue;
-		if (actionMethodInfo.hasParameterFactory()) {
-			domainObject = actionMethodInfo.createMethodParameter(methodOwner);
-		}
-		openFormView(methodOwner, actionMethodInfo, methodParameterValue,
-				domainObject, formMode);
-	}
-
-	private void createAndShowConformationDialog(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
-		// create the dialog items/ buttons
-		List<Item> items = new ArrayList<Item>();
-		DialogMethodItem methodExecuteItem = new DialogMethodItem(
-				userInterfaceContainer, methodOwner, actionMethodInfo,
-				methodParameterValue);
-		items.add(methodExecuteItem);
-		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
-		items.add(cancelItem);
-
-		// create the confirmation title and message
-		String title = languageProvider.getText("Confirmation");
-		StringBuilder message = new StringBuilder();
-		message.append(languageProvider.getText("Do you want to: "));
-		message.append(TitleUtil.createTitle(reflectionProvider,
-				actionMethodInfo, methodParameterValue, false));
-		message.append("?");
-
-		// show the dialog
-		showDialog(DialogType.QUESTION, title, message.toString(), items);
+	public void editActionMethodParameter(Object actionMethodOwner,
+			ActionMethodInfo actionMethodInfo, Object actionMethodParameterValue) {
+		openFormView(actionMethodOwner, actionMethodInfo,
+				actionMethodParameterValue, actionMethodParameterValue,
+				FormMode.EDIT_MODE);
 	}
 
 	@Override
@@ -197,25 +158,17 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 			public void run() {
 				try {
 					Object methodReturnValue = null;
-					// skip getting the method return value if it returns a
-					// collection
-					if (actionMethodInfo.getReturnType().getTypeCategory() != TypeCategory.COLLECTION_TYPE
-							&& actionMethodInfo.getReturnType()
-									.getTypeCategory() != TypeCategory.HIERARCHICAL_DOMAIN_TYPE) {
-						// not a collection so get method return value
-						Method method = actionMethodInfo.getActionMethod();
-						Object[] methodArguments = null;
-						if (TypeCategory.NONE == actionMethodInfo
-								.getParameterType().getTypeCategory()) {
-							methodArguments = new Object[0];
-						} else {
-							// domain of collection
-							methodArguments = new Object[] { methodParameterValue };
-						}
-						methodReturnValue = method.invoke(serviceObject,
-								methodArguments);
+					Method method = actionMethodInfo.getActionMethod();
+					Object[] methodArguments = null;
+					if (TypeCategory.NONE == actionMethodInfo
+							.getParameterType().getTypeCategory()) {
+						methodArguments = new Object[0];
+					} else {
+						// domain of collection
+						methodArguments = new Object[] { methodParameterValue };
 					}
-
+					methodReturnValue = method.invoke(serviceObject,
+							methodArguments);
 					// update current view (calling a method on a object is most
 					// likely to change its state
 					View selectedView = getViewContainer().getSelectedView();
@@ -223,7 +176,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 						selectedView.onViewActivate();
 					}
 					// show method result
-					processActionMethodReturnValue(serviceObject, actionMethodInfo,
+					processActionMethodResult(serviceObject, actionMethodInfo,
 							methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
 					String title = TitleUtil.createTitle(reflectionProvider,
@@ -237,76 +190,6 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 		};
 		Thread methodExecutionThread = new Thread(runnable);
 		methodExecutionThread.start();
-	}
-
-	@Override
-	public void processActionMethodReturnValue(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		String title = TitleUtil.createTitle(reflectionProvider,
-				actionMethodInfo, methodParameterValue, true);
-		switch (actionMethodInfo.getReturnType().getTypeCategory()) {
-		case NONE:// void
-			StringBuffer message = new StringBuffer(
-					actionMethodInfo.getDisplayName());
-			message.append(languageProvider
-					.getText(" was successfully executed"));
-			showInfoMessage(message.toString());
-			break;
-		case DOMAIN_TYPE:
-			Object domainObject = methodReturnValue;
-			openFormView(serviceObject, actionMethodInfo, methodParameterValue,
-					domainObject, FormMode.READ_ONLY_MODE);
-			break;
-		case COLLECTION_TYPE:
-			// TODO case tableModel:
-			openTableView(serviceObject, actionMethodInfo,
-					methodParameterValue, methodReturnValue);
-			break;
-		case HIERARCHICAL_DOMAIN_TYPE:
-			openTreeTableView(serviceObject, actionMethodInfo,
-					methodParameterValue, methodReturnValue);
-			break;
-		case URI_TYPE:
-			URI uri = (URI) methodReturnValue;
-			String uriString = uri.toString();
-			if (uriString.toLowerCase().startsWith(
-					Introspect.class.getSimpleName().toLowerCase() + ":")) {
-				try {
-					int positionColon = uriString.indexOf(":");
-					int positionLastDot = uriString.lastIndexOf(".");
-					String serviceClassName = uriString.substring(
-							positionColon + 1, positionLastDot);
-					String methodName = uriString
-							.substring(positionLastDot + 1);
-					Class<?> serviceClass = Class.forName(serviceClassName);
-					ClassInfo classInfo = reflectionProvider
-							.getClassInfo(serviceClass);
-					List<ActionMethodInfo> actionMethodInfos = classInfo
-							.getActionMethodInfos(new MethodNameFilter(methodName));
-					processActionMethod(serviceObject, actionMethodInfos.get(0),
-							null);
-				} catch (Exception exception) {
-					throw new RuntimeException(
-							"Illegal Introspect URI. Format must be a standard URI like http://www.google.com or of format: Introspect:<service class package>.<service class name>.<service class method>",
-							exception);
-				}
-			} else {
-				openURI(uri);
-			}
-			break;
-		case DOWNLOAD_STREAM_TYPE:
-			downloadFile((DownloadStream) methodReturnValue);
-			break;
-		case JAVA_TYPE:
-			message = new StringBuffer(title);
-			message.append(": ");
-			message.append(languageProvider.getText("Result is: "));
-			message.append(methodReturnValue.toString());
-			showInfoMessage(message.toString());
-			break;
-		}
-
 	}
 
 	public void openFormView(Object methodOwner,
@@ -389,10 +272,10 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 		viewContainer.addView(treeTableView);
 	}
 
-	// TODO view factory?
 	/**
 	 * NOTE that the FormOkItem linked to the OK button of the FormView will
-	 * need to call {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
+	 * need to call
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
 	 * 
 	 * @param serviceObject
 	 * @param actionMethodInfo
@@ -432,18 +315,94 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 		showDialog(DialogType.ERROR, title, message, items);
 	}
 
+	@Override
+	public void showActionMethodresult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter) {
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
+				methodParameter, true);
+
+		StringBuffer message = new StringBuffer(title);
+		message.append(languageProvider.getText(" was successfully executed"));
+		showInfoMessage(message.toString());
+	}
+
+	@Override
+	public void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			Object methodResult) {
+		Object domainObject = methodResult;
+		openFormView(methodOwner, methodInfo, methodParameter, domainObject,
+				FormMode.READ_ONLY_MODE);
+
+	}
+
+	@Override
+	public void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			List<?> methodResult) {
+		openTableView(methodOwner, methodInfo, methodParameter, methodResult);
+	}
+
+	@Override
+	public void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			URI methodResult) {
+		URI uri = methodResult;
+		String uriString = uri.toString();
+		if (uriString.toLowerCase().startsWith(
+				Introspect.class.getSimpleName().toLowerCase() + ":")) {
+			try {
+				int positionColon = uriString.indexOf(":");
+				int positionLastDot = uriString.lastIndexOf(".");
+				String serviceClassName = uriString.substring(
+						positionColon + 1, positionLastDot);
+				String methodName = uriString.substring(positionLastDot + 1);
+				Class<?> serviceClass = Class.forName(serviceClassName);
+				ClassInfo classInfo = reflectionProvider
+						.getClassInfo(serviceClass);
+				List<ActionMethodInfo> actionMethodInfos = classInfo
+						.getActionMethodInfos(new MethodNameFilter(methodName));
+				processActionMethod(methodOwner, actionMethodInfos.get(0), null);
+			} catch (Exception exception) {
+				throw new RuntimeException(
+						"Illegal Introspect URI. Format must be a standard URI like http://www.google.com or of format: Introspect:<service class package>.<service class name>.<service class method>",
+						exception);
+			}
+		} else {
+			openURI(uri);
+		}
+
+	}
+
+	@Override
+	public void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			DownloadStream methodResult) {
+		DownloadStream downloadStream = methodResult;
+		downloadFile(downloadStream);
+	}
+
+	@Override
+	public void showActionMethodResult(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter,
+			String methodResult) {
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
+				methodParameter, true);
+
+		StringBuilder message = new StringBuilder(title);
+		message.append(": ");
+		message.append(languageProvider.getText("Result is: "));
+		message.append(methodResult);
+		showInfoMessage(message.toString());
+
+	}
+
 	public void refresh() {
 		// refresh current view
 		View view = getViewContainer().getSelectedView();
 		if (view != null) {
 			view.onViewActivate();
 		}
-	}
-
-	// TODO we might want to remove this: We want the UserInterfaceContainer to
-	// know the UserInterfaceController. Not visa versa
-	public UserInterfaceContainer getUserInterfaceContainer() {
-		return userInterfaceContainer;
 	}
 
 }

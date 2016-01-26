@@ -6,7 +6,9 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 public class TitleUtil {
 
-	public static String createTitle(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo, Object methodParameter, boolean shortTile) {
+	public static String createTitle(ReflectionProvider reflectionProvider,
+			ActionMethodInfo actionMethodInfo, Object methodParameter,
+			boolean shortTile) {
 		StringBuffer title = new StringBuffer();
 		String methodDisplayName = actionMethodInfo.getDisplayName();
 		if (methodDisplayName != null) {
@@ -18,7 +20,8 @@ public class TitleUtil {
 
 		if (methodParameter != null) {
 			// add method parameter value between parentheses
-			ClassInfo classInfo = reflectionProvider.getClassInfo(methodParameter.getClass());
+			ClassInfo classInfo = reflectionProvider
+					.getClassInfo(methodParameter.getClass());
 			String parameterText = classInfo.getTitle(methodParameter);
 			// shorten if needed
 			if (shortTile && parameterText.length() > 20) {
@@ -32,6 +35,6 @@ public class TitleUtil {
 		return title.toString();
 
 	}
-	
+
 
 }
