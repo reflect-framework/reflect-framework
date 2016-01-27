@@ -142,13 +142,13 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	 * This method can be overridden if the framework of the user interface
 	 * implementation requires a specific threading mechanism (i.e. Android)
 	 * 
-	 * @param serviceObject
+	 * @param methodOwner
 	 * @param actionMethodInfo
 	 * @param methodParameterValue
 	 * 
 	 */
 
-	public void startMethodExecutionThread(final Object serviceObject,
+	public void startMethodExecutionThread(final Object methodOwner,
 			final ActionMethodInfo actionMethodInfo,
 			final Object methodParameterValue) {
 
@@ -158,17 +158,15 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 			public void run() {
 				try {
 					Object methodReturnValue = null;
-					Method method = actionMethodInfo.getActionMethod();
-					Object[] methodArguments = null;
+					Object[] methodParameter = null;
 					if (TypeCategory.NONE == actionMethodInfo
 							.getParameterType().getTypeCategory()) {
-						methodArguments = new Object[0];
+						methodParameter = new Object[0];
 					} else {
 						// domain of collection
-						methodArguments = new Object[] { methodParameterValue };
+						methodParameter = new Object[] { methodParameterValue };
 					}
-					methodReturnValue = method.invoke(serviceObject,
-							methodArguments);
+					actionMethodInfo.invoke(methodOwner, methodParameter);
 					// update current view (calling a method on a object is most
 					// likely to change its state
 					View selectedView = getViewContainer().getSelectedView();
@@ -176,7 +174,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 						selectedView.onViewActivate();
 					}
 					// show method result
-					processActionMethodResult(serviceObject, actionMethodInfo,
+					processActionMethodResult(methodOwner, actionMethodInfo,
 							methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
 					String title = TitleUtil.createTitle(reflectionProvider,

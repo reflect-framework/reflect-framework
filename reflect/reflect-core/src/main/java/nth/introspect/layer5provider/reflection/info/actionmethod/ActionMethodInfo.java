@@ -110,10 +110,6 @@ public class ActionMethodInfo implements NameInfo {
 		return canonicalName;
 	}
 
-	public Method getActionMethod() {
-		return actionMethod;
-	}
-
 	public String getDisplayName() {
 		return displayNameModel.getText();
 	}
