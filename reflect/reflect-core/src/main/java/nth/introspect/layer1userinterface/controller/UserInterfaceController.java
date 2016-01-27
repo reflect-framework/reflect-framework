@@ -9,13 +9,7 @@ import nth.introspect.documentation.IntrospectApplicationProjects;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.generic.util.TitleUtil;
-import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.processmethod.ConfirmActionMethodParameter;
-import nth.introspect.layer1userinterface.controller.processmethod.EditActionMethodParameter;
-import nth.introspect.layer1userinterface.controller.processmethod.EditActionMethodParameter;
-import nth.introspect.layer1userinterface.controller.processmethod.ProcessMethod;
-import nth.introspect.layer1userinterface.controller.processmethod.ShowActionMethodResult;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer3domain.DomainObject;
@@ -25,7 +19,9 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
+import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ConfirmActionMethodParameterInfo;
+import nth.introspect.layer5provider.reflection.info.userinterfacemethod.EditActionMethodParameterInfo;
+import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ShowActionMethodResultInfo;
 
 //FIXME: test all methods in this class
 
@@ -198,12 +194,12 @@ public abstract class UserInterfaceController implements NotificationListener {
 	public abstract void openURI(URI uri);
 
 	// TODO moveToGraphicalUserInterface and rename to
-	// ShowActionMethodResult(URI uri);
+	// ShowActionMethodResultInfo(URI uri);
 
 	public abstract void downloadFile(DownloadStream downloadStream);
 
 	// TODO moveToGraphicalUserInterface and rename to
-	// ShowActionMethodResult(Downloadstream downloadstream);
+	// ShowActionMethodResultInfo(Downloadstream downloadstream);
 
 	@SuppressWarnings("rawtypes")
 	public abstract ViewContainer getViewContainer();
@@ -261,15 +257,13 @@ public abstract class UserInterfaceController implements NotificationListener {
 			ExecutionModeType executionMode = methodInfo.getExecutionMode();
 			switch (executionMode) {
 			case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
-				//FIXME: reflectionProvider.getEditActionMethodParameterMethod(methodInfo).execute(methodOwner,methodParameter);
-				//FIXME: can we get rid of MethodReturnType and MethodParameterType???? 
-				new EditActionMethodParameter(this, methodOwner, methodInfo,
-						methodParameter).invoke();
+				//FIXME: can we get rid of MethodReturnType and MethodParameterType????
+				EditActionMethodParameterInfo editMethod = reflectionProvider.getEditActionMethodParameterInfo(methodInfo);
+				editMethod.invoke(this, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_AFTER_CONFORMATION:
-				//FIXME: reflectionProvider.getConfirmActionMethodParameterMethod(methodInfo).execute(methodOwner,methodParameter);
-				new ConfirmActionMethodParameter(this, methodOwner, methodInfo,
-						methodParameter).invoke();
+				ConfirmActionMethodParameterInfo confirmMethod = reflectionProvider.getConfirmActionMethodParameterInfo(methodInfo);
+				confirmMethod.invoke(this, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
 				processActionMethodExecution(methodOwner, methodInfo,
@@ -323,9 +317,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 			ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
 		try {
-			//FIXME: reflectionProvider.getShowActionMethodResultMethod(methodInfo).execute(methodOwner,methodParameter,methodResult);
-			new ShowActionMethodResult(this, methodOwner, methodInfo,
-					methodParameter, methodResult).invoke();
+			ShowActionMethodResultInfo showMethod = reflectionProvider.getShowActionMethodResultInfo(methodInfo);
+			showMethod.invoke(this, methodOwner, methodParameter, methodResult);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException exception) {
 			String title = TitleUtil.createTitle(reflectionProvider,
