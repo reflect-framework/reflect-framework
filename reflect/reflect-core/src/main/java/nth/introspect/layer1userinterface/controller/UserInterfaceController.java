@@ -19,6 +19,7 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ConfirmActionMethodParameterInfo;
 import nth.introspect.layer5provider.reflection.info.userinterfacemethod.EditActionMethodParameterInfo;
 import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ShowActionMethodResultInfo;
@@ -250,9 +251,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 			ActionMethodInfo methodInfo, Object methodParameter) {
 		try {
 
-			methodParameter = ActionMethodParameterFactory.createIfNeeded(
-					userInterfaceContainer, methodOwner, methodInfo,
-					methodParameter);
+			if(methodParameter==null && methodInfo.hasParameter()) {
+				methodParameter=methodInfo.createMethodParameter(methodOwner);
+			}
 
 			ExecutionModeType executionMode = methodInfo.getExecutionMode();
 			switch (executionMode) {
@@ -279,6 +280,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	}
 
+	
+
+	
 	public abstract void editActionMethodParameter(Object methodOwner,
 			ActionMethodInfo methodInfo, Object methodParameter);
 

@@ -29,6 +29,7 @@ import nth.introspect.layer5provider.reflection.info.NameInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.layer5provider.reflection.info.type.MethodParameterType;
 import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
+import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 /**
  * <p>
@@ -235,5 +236,11 @@ public class ActionMethodInfo implements NameInfo {
 		;
 		return false;
 	}
+
+	public boolean hasParameter() {
+		return actionMethod.getParameterTypes().length>0;
+	}
+
+
 
 }
