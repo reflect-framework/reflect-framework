@@ -34,13 +34,12 @@ public class Command {
 			ActionMethodInfo actionMethodInfo)
 			throws IntrospectCommandLineException {
 		List<Parameter> parameters = new ArrayList<Parameter>();
-		Class<?> parameterClass = actionMethodInfo.getParameterType().getType();
+		Class<?> parameterClass = actionMethodInfo.getParameterType();
 
 		if (parameterClass != null) {
 
 			// get propertyInfos
-			Class<?> returnClass = actionMethodInfo.getParameterType()
-					.getTypeOrGenericCollectionType();
+			Class<?> returnClass = actionMethodInfo.getParameterGenericType();
 			ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
 			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 			propertyInfos=FilterUtil.filter(propertyInfos, new CommandLineParameterFilter());
@@ -132,17 +131,11 @@ public class Command {
 
 	public Object createMethodParameter() throws IntrospectCommandLineException {
 		try {
-			if (actionMethodInfo.hasParameterFactory()) {
 				return actionMethodInfo.createMethodParameter(serviceObject);
-			} else {
-				return actionMethodInfo.getParameterType().getType()
-						.newInstance();
-			}
 		} catch (Exception e) {
 			throw new IntrospectCommandLineException(
 					"Could not create a new instance of method parameter: "
-							+ actionMethodInfo.getParameterType().getType()
-									.getCanonicalName() + " for method: "
+							+ actionMethodInfo.getParameterType().getCanonicalName() + " for method: "
 							+ actionMethodInfo.getCanonicalName(), e);
 		}
 	}

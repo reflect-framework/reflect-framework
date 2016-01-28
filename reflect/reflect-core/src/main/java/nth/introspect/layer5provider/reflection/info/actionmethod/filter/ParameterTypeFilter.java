@@ -14,7 +14,7 @@ public class ParameterTypeFilter implements Filter<ActionMethodInfo>{
 
 	@Override
 	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
-		Class<?> methodParameterClass = actionMethodInfo.getParameterType().getType();
+		Class<?> methodParameterClass = actionMethodInfo.getParameterType();
 		return methodParameterClass!=null && parameterType.isAssignableFrom(methodParameterClass);
 	}
 

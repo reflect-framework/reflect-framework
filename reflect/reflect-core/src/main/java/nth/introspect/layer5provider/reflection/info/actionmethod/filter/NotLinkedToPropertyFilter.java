@@ -8,7 +8,6 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 public class NotLinkedToPropertyFilter implements Filter<ActionMethodInfo> {
 
@@ -25,7 +24,7 @@ public class NotLinkedToPropertyFilter implements Filter<ActionMethodInfo> {
 
 	@Override
 	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
-		if (TypeCategory.NONE == actionMethodInfo.getParameterType().getTypeCategory() || actionMethodInfo.hasParameterFactory()) {
+		if (! actionMethodInfo.hasParameter() || actionMethodInfo.hasParameterFactory()) {
 			for (String propertyName : propertyNames) {
 				if (actionMethodInfo.getSimpleName().startsWith(propertyName)) {
 					return false;

@@ -69,20 +69,13 @@ public class MethodItem extends Item {
 	}
 
 	private boolean isMethodInvokable() {
-		TypeCategory parameterType = actionMethodInfo.getParameterType()
-				.getTypeCategory();
-		switch (parameterType) {
-		case NONE:
-			return true;// no parameter needed
-		case DOMAIN_TYPE:
-			// return true if the methodParameter not null or when there is a
-			// parameter factory (because we do not need a field value than)
+		if (actionMethodInfo.hasParameter()) {
 			return actionMethodInfo.hasParameterFactory()
 					|| methodParameterValueModel != null
 					&& methodParameterValueModel.getValue() != null;
+		} else {
+			return true;// no parameter needed
 		}
-		// TODO parameter type = collection
-		return false;
 	}
 
 }

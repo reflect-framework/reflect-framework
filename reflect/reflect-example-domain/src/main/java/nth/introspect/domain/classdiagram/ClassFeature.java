@@ -32,7 +32,7 @@ public class ClassFeature {
 		Class<?> returnType = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
 		if (returnType == Void.TYPE) {
 			// if method is of type void, try to get the type of the parameter
-			Class<?> parameterType = actionMethodInfo.getParameterType().getTypeOrGenericCollectionType();
+			Class<?> parameterType = actionMethodInfo.getParameterGenericType();
 			return parameterType;
 		} else {
 			return returnType;
@@ -43,7 +43,7 @@ public class ClassFeature {
 		StringBuffer representation = new StringBuffer();
 		representation.append(actionMethodInfo.getSimpleName());
 		representation.append("(");
-		if (actionMethodInfo.getParameterType().getTypeCategory() != TypeCategory.NONE) {
+		if (actionMethodInfo.hasParameter()) {
 			representation.append(actionMethodInfo.getParameterType().toString());
 		}
 		representation.append(")");

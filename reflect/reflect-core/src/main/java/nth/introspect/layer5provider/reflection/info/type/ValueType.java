@@ -26,8 +26,7 @@ public abstract class ValueType {
 	private Class<?> getTypeOrGenericCollectionType(Class<?> type,
 			TypeCategory typeCategory, Method method) {
 		// get typeOrGenericCollectionType.
-		if (type == null || typeCategory != TypeCategory.COLLECTION_TYPE
-				|| this.getClass() == MethodParameterType.class) {
+		if (type == null || typeCategory != TypeCategory.COLLECTION_TYPE) {
 			return type;
 		} else {
 			Class<?> genericType = getGenericTypeOfReturnTypeOfCollection(method);

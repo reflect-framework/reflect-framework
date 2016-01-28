@@ -18,8 +18,8 @@ public class WithoutParameterTypeFilter implements Filter<ActionMethodInfo> {
 	 */
 	@Override
 	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
-		Class<?> methodParameterClass = actionMethodInfo.getParameterType().getType();
-		return methodParameterClass == null || !actionMethodInfo.getParameterType().getType().isAssignableFrom(parameterType);
+		Class<?> methodParameterClass = actionMethodInfo.getParameterType();
+		return methodParameterClass == null || !actionMethodInfo.getParameterType().isAssignableFrom(parameterType);
 	}
 
 }

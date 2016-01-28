@@ -89,8 +89,7 @@ public class ClassDiagramService {
 				getReferencedClasses(reflectionProvider, returnType,
 						foundClasses);// recursive call
 
-				Class<?> parameterType = actionMethodInfo.getParameterType()
-						.getTypeOrGenericCollectionType();
+				Class<?> parameterType = actionMethodInfo.getParameterGenericType();
 				getReferencedClasses(reflectionProvider, parameterType,
 						foundClasses);// recursive call
 			}

@@ -57,7 +57,7 @@ public class PropertyMethodItem extends MethodItem {
 			text.append(": ");
 		}
 		Object parameterValue = null;
-		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.getParameterType().getTypeCategory()!=TypeCategory.NONE ) {
+		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.hasParameter() ) {
 			parameterValue = parameterValueModel.getValue();
 		}
 		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().get(ReflectionProvider.class);
@@ -70,7 +70,7 @@ public class PropertyMethodItem extends MethodItem {
 	@Override
 	public boolean isEnabled() {
 		boolean methodIsEnabled = propertyMethodInfo.isEnabled(propertyOwnerModel.getValue());
-		boolean hasNoParameter=propertyMethodInfo.getParameterType().getTypeCategory()==TypeCategory.NONE;
+		boolean hasNoParameter=!propertyMethodInfo.hasParameter();
 		boolean hasParameterFactory = propertyMethodInfo.hasParameterFactory();
 		boolean canGetParameterValue = parameterValueModel.canGetValue() ;//TODO check for type as well?
 		return methodIsEnabled && ( hasNoParameter || hasParameterFactory || canGetParameterValue);
