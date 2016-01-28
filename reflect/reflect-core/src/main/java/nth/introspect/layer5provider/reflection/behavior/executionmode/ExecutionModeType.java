@@ -12,7 +12,7 @@ import nth.introspect.layer3domain.DomainObject;
  * executed after the user activates the confirmation button. The method is NOT
  * executed when the user cancels the confirmation dialog.</li>
  * <li>
- * {@link ExecutionModeType#EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL}: the
+ * {@link ExecutionModeType#EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL}: the
  * {@link UserInterfaceController} opens a form on a new tab, so that the user
  * can modify (edit) the {@link DomainObject}. The method is executed with the
  * edited {@link DomainObject} as the method parameter, when the user clicks the
@@ -24,5 +24,5 @@ import nth.introspect.layer3domain.DomainObject;
  *
  */
 public enum ExecutionModeType {
-	EXECUTE_METHOD_DIRECTLY, EXECUTE_METHOD_AFTER_CONFORMATION, EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL
+	EXECUTE_METHOD_DIRECTLY, EXECUTE_METHOD_AFTER_CONFORMATION, EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL
 }

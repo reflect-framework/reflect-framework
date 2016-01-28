@@ -32,7 +32,7 @@ public class ExecutionModeTest {
 		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodDefaultExecutionMode");
 		ExecutionModeType executionMode = actionMethodInfo.getExecutionMode();
 		assertEquals(
-				ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL,
+				ExecutionModeType.EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL,
 				executionMode);
 	}
 

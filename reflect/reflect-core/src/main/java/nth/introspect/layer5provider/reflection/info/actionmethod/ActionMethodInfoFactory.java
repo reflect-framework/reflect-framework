@@ -18,15 +18,15 @@ public class ActionMethodInfoFactory {
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		Method[] methods = classInfo.getObjectClass().getMethods();
 		for (Method method : methods) {
-			if (ActionMethodInfo.isActionMethod(method, propertyInfos)) {
-				String linkedPropertyName = findLinkedPropertyName(method,
-						propertyInfos);// TODO make actionMethods part of
-										// ClassInfo's and PropertyInfo's!!!
-
+			String linkedPropertyName = findLinkedPropertyName(method,
+					propertyInfos);
+			// TODO make actionMethods part of ClassInfo's and PropertyInfo's!!!
+			try {
 				ActionMethodInfo actionMethodInfo = new ActionMethodInfo(
-						providerContainer, method,
-						linkedPropertyName);
+						providerContainer, method, linkedPropertyName);
 				actionMethodInfos.add(actionMethodInfo);
+			} catch (InvalidActionMethodException e) {
+				// method is not a valid ActionMethod
 			}
 		}
 		// order form properties (note that the formOrder value getter is not

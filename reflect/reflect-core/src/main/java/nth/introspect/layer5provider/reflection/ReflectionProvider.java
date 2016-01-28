@@ -7,9 +7,6 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ConfirmActionMethodParameterInfo;
-import nth.introspect.layer5provider.reflection.info.userinterfacemethod.EditActionMethodParameterInfo;
-import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ShowActionMethodResultInfo;
 
 /**
  * The {@link ReflectionProvider} provides information on objects (
@@ -30,12 +27,5 @@ import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ShowAct
 public interface ReflectionProvider extends Provider {
 
 	ClassInfo getClassInfo(Class<?> objectClass);
-
-	EditActionMethodParameterInfo getEditActionMethodParameterInfo(ActionMethodInfo actionMethodInfo);
-
-	ConfirmActionMethodParameterInfo getConfirmActionMethodParameterInfo(
-			ActionMethodInfo actionMethodInfo);
-
-	ShowActionMethodResultInfo getShowActionMethodResultInfo(
-			ActionMethodInfo actionMethodInfo);
+	
 }

@@ -6,6 +6,7 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 public class TitleUtil {
 
+	//FIXME: move to ActionMethodInfo
 	public static String createTitle(ReflectionProvider reflectionProvider,
 			ActionMethodInfo actionMethodInfo, Object methodParameter,
 			boolean shortTile) {

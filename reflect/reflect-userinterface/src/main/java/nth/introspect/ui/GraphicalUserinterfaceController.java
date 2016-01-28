@@ -41,7 +41,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 		UserInterfaceController {
 
 	@Override
-	public void confirmActionMethodParameter(Object methodOwner,
+	public void confirmActionMethod(Object methodOwner,
 			ActionMethodInfo methodInfo, Object methodParameter) {
 		// create the dialog items/ buttons
 		List<Item> items = new ArrayList<Item>();
@@ -157,16 +157,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 			@Override
 			public void run() {
 				try {
-					Object methodReturnValue = null;
-					Object[] methodParameter = null;
-					if (TypeCategory.NONE == actionMethodInfo
-							.getParameterType().getTypeCategory()) {
-						methodParameter = new Object[0];
-					} else {
-						// domain of collection
-						methodParameter = new Object[] { methodParameterValue };
-					}
-					actionMethodInfo.invoke(methodOwner, methodParameter);
+					Object methodReturnValue =actionMethodInfo.invoke(methodOwner, methodParameterValue);
 					// update current view (calling a method on a object is most
 					// likely to change its state
 					View selectedView = getViewContainer().getSelectedView();
@@ -314,7 +305,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	}
 
 	@Override
-	public void showActionMethodresult(Object methodOwner,
+	public void showActionMethodResult(Object methodOwner,
 			ActionMethodInfo methodInfo, Object methodParameter) {
 		String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
 				methodParameter, true);

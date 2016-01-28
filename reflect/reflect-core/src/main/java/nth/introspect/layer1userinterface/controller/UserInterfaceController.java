@@ -19,10 +19,6 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
-import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ConfirmActionMethodParameterInfo;
-import nth.introspect.layer5provider.reflection.info.userinterfacemethod.EditActionMethodParameterInfo;
-import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ShowActionMethodResultInfo;
 
 //FIXME: test all methods in this class
 
@@ -231,7 +227,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
 	 * needs to be called (i.e. by a OK button).</li>
 	 * <li>
-	 * {@link ExecutionModeType#EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL }:
+	 * {@link ExecutionModeType#EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL }:
 	 * Will let the user edit the {@link ActionMethod} parameter before the
 	 * {@link ActionMethod} is executed. To do this it will call one of the
 	 * editActionMethodParameter(...) methods in the
@@ -257,14 +253,11 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 			ExecutionModeType executionMode = methodInfo.getExecutionMode();
 			switch (executionMode) {
-			case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
-				//FIXME: can we get rid of MethodReturnType and MethodParameterType????
-				EditActionMethodParameterInfo editMethod = reflectionProvider.getEditActionMethodParameterInfo(methodInfo);
-				editMethod.invoke(this, methodOwner, methodParameter);
+			case EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL:
+				methodInfo.invokeEditParameterMethod(this, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_AFTER_CONFORMATION:
-				ConfirmActionMethodParameterInfo confirmMethod = reflectionProvider.getConfirmActionMethodParameterInfo(methodInfo);
-				confirmMethod.invoke(this, methodOwner, methodParameter);
+				methodInfo.invokeConfirmMethod(this,methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
 				processActionMethodExecution(methodOwner, methodInfo,
@@ -286,7 +279,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	public abstract void editActionMethodParameter(Object methodOwner,
 			ActionMethodInfo methodInfo, Object methodParameter);
 
-	public abstract void confirmActionMethodParameter(Object methodOwner,
+	public abstract void confirmActionMethod(Object methodOwner,
 			ActionMethodInfo methodInfo, Object methodParameter);
 
 	/**
@@ -321,8 +314,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 			ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
 		try {
-			ShowActionMethodResultInfo showMethod = reflectionProvider.getShowActionMethodResultInfo(methodInfo);
-			showMethod.invoke(this, methodOwner, methodParameter, methodResult);
+			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException exception) {
 			String title = TitleUtil.createTitle(reflectionProvider,
@@ -341,7 +333,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodresult(Object methodOwner,
+	public abstract void showActionMethodResult(Object methodOwner,
 			ActionMethodInfo methodInfo, Object methodParameter);
 
 	/**

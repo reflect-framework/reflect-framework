@@ -73,7 +73,7 @@ public class TestsService {
 		return test;
 	}
 
-	@ExecutionMode(mode = ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL)
+	@ExecutionMode(mode = ExecutionModeType.EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL)
 	public void modifyTest(Test test) {
 	}
 

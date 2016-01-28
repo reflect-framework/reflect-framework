@@ -16,15 +16,14 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  */
 public class ExecutionModeFactory {
 
-	public static ExecutionModeType create(Method method,
-			String canonicalMethodName) {
+	public static ExecutionModeType create(Method method) {
 		ExecutionMode executionModeAnnotation = method
 				.getAnnotation(ExecutionMode.class);
 		if (executionModeAnnotation == null) {
 			return defaultExecutionMode(method);
 		} else if (methodHasNoParameters(method)) {
 			return executionModeForMethodWithoutParameters(
-					executionModeAnnotation, canonicalMethodName);
+					executionModeAnnotation);
 		} else {
 			return executionModeAnnotation.mode();
 		}
@@ -34,14 +33,14 @@ public class ExecutionModeFactory {
 		if (methodHasNoParameters(method)) {
 			return ExecutionModeType.EXECUTE_METHOD_DIRECTLY;
 		} else {
-			return ExecutionModeType.EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL;
+			return ExecutionModeType.EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL;
 		}
 	}
 
 	private static ExecutionModeType executionModeForMethodWithoutParameters(
-			ExecutionMode executionModeAnnotation, String canonicalMethodName) {
+			ExecutionMode executionModeAnnotation) {
 		switch (executionModeAnnotation.mode()) {
-		case EDIT_PARAMETER_THAN_EXECUTE_METHOD_OR_CANCEL:
+		case EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL:
 			return ExecutionModeType.EXECUTE_METHOD_DIRECTLY;
 		case EXECUTE_METHOD_AFTER_CONFORMATION:
 			return ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION;
