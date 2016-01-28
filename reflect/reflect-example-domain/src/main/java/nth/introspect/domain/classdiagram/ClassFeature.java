@@ -4,7 +4,6 @@ import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
 import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenFor;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 
 public class ClassFeature {
 
@@ -29,10 +28,10 @@ public class ClassFeature {
 	}
 
 	private static Class<?> getMethodType(ActionMethodInfo actionMethodInfo) {
-		Class<?> returnType = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
+		Class<?> returnType = actionMethodInfo.getGenericReturnType();
 		if (returnType == Void.TYPE) {
 			// if method is of type void, try to get the type of the parameter
-			Class<?> parameterType = actionMethodInfo.getParameterGenericType();
+			Class<?> parameterType = actionMethodInfo.getGenericParameterType();
 			return parameterType;
 		} else {
 			return returnType;
@@ -47,7 +46,7 @@ public class ClassFeature {
 			representation.append(actionMethodInfo.getParameterType().toString());
 		}
 		representation.append(")");
-		if (actionMethodInfo.getReturnType().getTypeCategory() != TypeCategory.NONE) {
+		if (actionMethodInfo.hasParameter()) {
 			representation.append(" : ");
 			representation.append(actionMethodInfo.getReturnType().toString());
 		}
@@ -77,7 +76,7 @@ public class ClassFeature {
 		return representation;
 	}
 
-	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
+	@Hidden(propertyHiddenFor = HiddenFor.TABLES)
 	public Class<?> getType() {
 		return type;
 	}

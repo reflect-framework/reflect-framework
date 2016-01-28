@@ -1,7 +1,6 @@
 package nth.introspect.ui.swing.view.table;
 
 import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -110,13 +109,13 @@ public class TableView extends SwingView implements
 				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), ON_ROW_CLICK);
 		table.getActionMap().put(ON_ROW_CLICK, new AbstractAction() {
 
+			private static final long serialVersionUID = -7373360094398512228L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = table.getSelectedRow();
 				Rectangle positionInTable = table.getCellRect(selectedRow, 0,
 						true);
-				Point positionInWindow = table.getLocation(positionInTable
-						.getLocation());
 				onTableRowSelect(positionInTable.x + 20, positionInTable.y);
 
 			}
@@ -216,8 +215,7 @@ public class TableView extends SwingView implements
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getReturnType()
-							.getTypeOrGenericCollectionType();
+					return actionMethodInfo.getGenericReturnType();
 				}
 
 				@Override
@@ -253,8 +251,7 @@ public class TableView extends SwingView implements
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getReturnType()
-							.getTypeOrGenericCollectionType();
+					return actionMethodInfo.getGenericReturnType();
 				}
 
 				@Override

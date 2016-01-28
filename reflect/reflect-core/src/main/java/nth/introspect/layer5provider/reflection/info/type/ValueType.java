@@ -5,7 +5,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import nth.introspect.generic.util.TypeUtil;
-
+/**
+ * FIXME: remove this class (see how we did the userinterface editActionMethodParameter confirmActionMethod and showActionMethodResult methods and do the same for field creation) 
+ */
 public abstract class ValueType {
 
 	private final Class<?> type;

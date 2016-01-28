@@ -14,7 +14,7 @@ public class ReturnTypeFilter implements Filter<ActionMethodInfo>{
 
 	@Override
 	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
-		Class<?> methodReturnClass = actionMethodInfo.getReturnType().getTypeOrGenericCollectionType();
+		Class<?> methodReturnClass = actionMethodInfo.getGenericReturnType();
 		return methodReturnClass!=null && returnType.isAssignableFrom(methodReturnClass);
 	}
 

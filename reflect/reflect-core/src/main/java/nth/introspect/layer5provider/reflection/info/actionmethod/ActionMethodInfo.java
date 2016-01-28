@@ -28,7 +28,6 @@ import nth.introspect.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModel;
 import nth.introspect.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
-import nth.introspect.layer5provider.reflection.info.type.MethodReturnType;
 import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ConfirmMethodFactory;
 import nth.introspect.layer5provider.reflection.info.userinterfacemethod.EditParameterMethodFactory;
 import nth.introspect.layer5provider.reflection.info.userinterfacemethod.ShowMethodFactory;
@@ -49,7 +48,9 @@ public class ActionMethodInfo implements NameInfo {
 	private final Method actionMethod;
 	private final String linkedPropertyName;
 	private final Class<?> parameterType;
-	private final MethodReturnType returnType;
+	private final Class<?> genericParameterType;
+	private final Class<?> returnType;
+	private final Class<?> genericReturnType;
 	private final double order;
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
@@ -61,7 +62,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final Method editParameterMethod;
 	private final Method cofirmMethod;
 	private final Method showResultMethod;
-	private final Class<?> parameterGenericType;
+
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		this(providerContainer, method, null);
@@ -97,10 +98,11 @@ public class ActionMethodInfo implements NameInfo {
 				canonicalName, linkedPropertyName);
 		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName,
 				canonicalName, linkedPropertyName);
-		this.returnType = new MethodReturnType(method);
+		this.returnType =createReturnType(method);
+		this.genericReturnType=createGenericReturnType(method);
 		// this.parameterType = new MethodParameterType(method);
 		this.parameterType = createParameterType(method);
-		this.parameterGenericType = createParameterGenericType(method);
+		this.genericParameterType = createGenericParameterType(method);
 		this.order = OrderFactory.create(method);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, method);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, method);
@@ -109,7 +111,26 @@ public class ActionMethodInfo implements NameInfo {
 
 	}
 
-	private Class<?> createParameterGenericType(Method method) {
+	private Class<?> createGenericReturnType(Method method) {
+		try {
+			Type type = method.getGenericReturnType();
+			ParameterizedType pType = (ParameterizedType) type;
+			Type actualType = pType.getActualTypeArguments()[0];
+			if (actualType.toString().equals("java.lang.Class<?>")) {
+				return Class.class;
+			}
+			Class<?> genericType = (Class<?>) actualType;
+			return genericType;
+		} catch (Exception exception) {
+			return parameterType;
+		}
+	}
+
+	private Class<?> createReturnType(Method method) {
+		return method.getReturnType();
+	}
+
+	private Class<?> createGenericParameterType(Method method) {
 		try {
 			Type type = method.getGenericParameterTypes()[0];
 			ParameterizedType pType = (ParameterizedType) type;
@@ -228,12 +249,16 @@ public class ActionMethodInfo implements NameInfo {
 		return parameterType;
 	}
 
-	public Class<?> getParameterGenericType() {
-		return parameterGenericType;
+	public Class<?> getGenericParameterType() {
+		return genericParameterType;
 	}
 
-	public MethodReturnType getReturnType() {
+	public Class<?> getReturnType() {
 		return returnType;
+	}
+	
+		public Class<?> getGenericReturnType() {
+		return genericReturnType;
 	}
 
 	public boolean hasParameterFactory() {

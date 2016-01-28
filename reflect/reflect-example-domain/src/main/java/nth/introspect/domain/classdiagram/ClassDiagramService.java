@@ -84,12 +84,11 @@ public class ClassDiagramService {
 
 			List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfosSorted();
 			for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
-				Class<?> returnType = actionMethodInfo.getReturnType()
-						.getTypeOrGenericCollectionType();
+				Class<?> returnType = actionMethodInfo.getGenericReturnType();
 				getReferencedClasses(reflectionProvider, returnType,
 						foundClasses);// recursive call
 
-				Class<?> parameterType = actionMethodInfo.getParameterGenericType();
+				Class<?> parameterType = actionMethodInfo.getGenericParameterType();
 				getReferencedClasses(reflectionProvider, parameterType,
 						foundClasses);// recursive call
 			}

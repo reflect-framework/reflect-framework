@@ -39,7 +39,7 @@ public class Command {
 		if (parameterClass != null) {
 
 			// get propertyInfos
-			Class<?> returnClass = actionMethodInfo.getParameterGenericType();
+			Class<?> returnClass = actionMethodInfo.getGenericParameterType();
 			ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
 			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 			propertyInfos=FilterUtil.filter(propertyInfos, new CommandLineParameterFilter());
