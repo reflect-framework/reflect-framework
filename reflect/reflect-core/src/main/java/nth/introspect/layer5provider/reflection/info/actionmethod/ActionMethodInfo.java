@@ -100,7 +100,6 @@ public class ActionMethodInfo implements NameInfo {
 				canonicalName, linkedPropertyName);
 		this.returnType =createReturnType(method);
 		this.genericReturnType=createGenericReturnType(method);
-		// this.parameterType = new MethodParameterType(method);
 		this.parameterType = createParameterType(method);
 		this.genericParameterType = createGenericParameterType(method);
 		this.order = OrderFactory.create(method);
