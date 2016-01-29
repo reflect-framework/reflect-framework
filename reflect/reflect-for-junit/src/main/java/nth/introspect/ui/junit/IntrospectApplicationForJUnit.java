@@ -7,15 +7,13 @@ import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.IntrospectArchitecture;
+import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.layer4infrastructure.InfrastructureContainer;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
-import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.about.DefaultAboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
@@ -67,6 +65,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * <h3>Example of a testing a ServiceObject and InfrastructureMockUpObject in a
  * JUnit test case</h3>
  * 
+ * 
  * <pre>
  * public class ProductServiceTest {
  * 
@@ -74,19 +73,10 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * 
  * 	&#064;Before
  * 	public void setUp() throws Exception {
- * 		IntrospectApplicationForJUnit application = new IntrospectApplicationForJUnit() {
- * 
- * 			&#064;Override
- * 			public List&lt;Class&lt;?&gt;&gt; getServiceClasses() {
- * 				return new ClassList(ProductService.class);
- * 			}
- * 
- * 			&#064;Override
- * 			public List&lt;Class&lt;?&gt;&gt; getInfrastructureClasses() {
- * 				return new ClassList(ProductRepositoryMockup.class);
- * 			}
- * 		};
- * 		DependencyInjectionContainer container = application.createContainer();
+ * 		DependencyInjectionContainer container = new IntrospectApplicationForJUnit()
+ * 				.addServiceClass(ProductService.class)
+ * 				.addInfrastructureClass(ProductRepositoryMockup.class)
+ *              .createContainer();
  * 		productService = container.get(ProductService.class);
  * 	}
  * 
@@ -98,6 +88,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * 
  * 	// other test methods ...
  * }
+ * 
  * </pre>
  * 
  * @author nilsth
@@ -105,28 +96,40 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  */
 public class IntrospectApplicationForJUnit implements IntrospectApplication {
 
+	private final List<Class<?>> serviceClasses;
+	private final List<Class<?>> infrastructureClasses;
+
+	public IntrospectApplicationForJUnit() {
+		serviceClasses = new ArrayList<>();
+		infrastructureClasses = new ArrayList<>();
+	}
+
+	/**
+	 * Fluent interface method to add ServiceClasses
+	 */
+	public IntrospectApplicationForJUnit addServiceClass(Class<?> serviceClass) {
+		serviceClasses.add(serviceClass);
+		return this;
+	}
+
+	/**
+	 * Fluent interface method to add InfrastructureClasses
+	 */
+	public IntrospectApplicationForJUnit addInfrastructureClass(Class<?> infrastructureClass) {
+		infrastructureClasses.add(infrastructureClass);
+		return this;
+	}
+
+	/**
+	 * @return a {@link DependencyInjectionContainer} for testing
+	 */
 	public DependencyInjectionContainer createContainer() {
-		if (hasServiceObjects()) {
-			return new ServiceContainer(this);
-		} else if (hasInfrastructureObjects()) {
-			return new InfrastructureContainer(this);
-		} else {
-			return new ProviderContainer(this);
-		}
-	}
-
-	private boolean hasInfrastructureObjects() {
-		return getInfrastructureClasses() != null
-				&& getInfrastructureClasses().size() > 0;
-	}
-
-	private boolean hasServiceObjects() {
-		return getServiceClasses() != null && getServiceClasses().size() > 0;
+		return new UserInterfaceContainer(this, false);
 	}
 
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
-		return null;// JUnit has no user interface controller
+		return UserInterfaceControllerForJUnit.class;
 	}
 
 	@Override
@@ -169,13 +172,13 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 	}
 
 	@Override
-	public List<Class<?>> getServiceClasses() {
-		return new ArrayList<Class<?>>();
+	public final List<Class<?>> getServiceClasses() {
+		return serviceClasses;
 	}
 
 	@Override
-	public List<Class<?>> getInfrastructureClasses() {
-		return new ArrayList<Class<?>>();
+	public final List<Class<?>> getInfrastructureClasses() {
+		return infrastructureClasses;
 	}
 
 }

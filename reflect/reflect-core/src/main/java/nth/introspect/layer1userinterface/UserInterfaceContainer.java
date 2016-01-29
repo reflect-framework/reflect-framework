@@ -7,7 +7,8 @@ import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer2service.ServiceContainer;
 
 /**
- * This {@link DependencyInjectionContainer} represents the {@link UserInterfaceLayer}
+ * This {@link DependencyInjectionContainer} represents the
+ * {@link UserInterfaceLayer}
  * 
  * @author nilsth
  * 
@@ -15,10 +16,13 @@ import nth.introspect.layer2service.ServiceContainer;
 public class UserInterfaceContainer extends DependencyInjectionContainer {
 
 	public UserInterfaceContainer(IntrospectApplication application) {
-		super(new ServiceContainer(application));
-		add(application.getUserInterfaceControllerClass());
+		this(application, true);
 	}
 
+	public UserInterfaceContainer(IntrospectApplication application, boolean mustHaveServiceObject) {
+		super(new ServiceContainer(application, mustHaveServiceObject));
+		add(application.getUserInterfaceControllerClass());
+	}
 
 	@Override
 	public List<Class<?>> getAllClasses() {
@@ -26,6 +30,6 @@ public class UserInterfaceContainer extends DependencyInjectionContainer {
 		allClasses.remove(DependencyInjectionContainer.class);
 		allClasses.add(UserInterfaceContainer.class);
 		return allClasses;
-	}	
+	}
 
 }

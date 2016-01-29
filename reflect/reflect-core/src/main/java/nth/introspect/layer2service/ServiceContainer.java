@@ -16,12 +16,12 @@ import nth.introspect.layer3domain.DomainContainer;
  */
 public class ServiceContainer extends DependencyInjectionContainer {
 
-	public ServiceContainer(IntrospectApplication application) {
+	public ServiceContainer(IntrospectApplication application, boolean mustHaveServiceClasses) {
 		super(new DomainContainer(application));
 
 		// add all service classes
 		List<Class<?>> serviceClasses = application.getServiceClasses();
-		if (serviceClasses.size() == 0) {
+		if (mustHaveServiceClasses && serviceClasses.size() == 0 ) {
 			throw new MissingServiceClassException(application);
 		}
 		add(serviceClasses);

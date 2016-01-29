@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import nth.introspect.junit.layer5provider.reflection.behavior.icon.forclass.IconModelForClass_Default;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;

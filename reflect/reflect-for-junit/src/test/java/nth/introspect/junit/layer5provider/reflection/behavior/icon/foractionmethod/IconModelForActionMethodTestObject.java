@@ -1,6 +1,5 @@
 package nth.introspect.junit.layer5provider.reflection.behavior.icon.foractionmethod;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import nth.introspect.layer5provider.reflection.behavior.icon.Icon;

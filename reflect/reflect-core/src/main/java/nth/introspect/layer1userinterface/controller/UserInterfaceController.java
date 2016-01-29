@@ -154,6 +154,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	/**
 	 * Allows the user interface objects to be build (i.e. the creation of a
 	 * main window)
+	 * 
+	 *TODO consider to  add (commandline) arguments
 	 */
 	public abstract void start();
 
@@ -199,7 +201,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodParameterValue
 	 */
 
-	public final void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
+	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
 			Object methodParameter) {
 		try {
 
@@ -242,13 +244,10 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * It needs to validate the method parameter value before the method is
 	 * executed
 	 * 
-	 * @param serviceObject
-	 * @param actionMethodInfo
-	 * @param methodParameterValue
 	 */
 
-	public abstract void processActionMethodExecution(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue);
+	public abstract void processActionMethodExecution(Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter);
 
 	/**
 	 * This method is called from
