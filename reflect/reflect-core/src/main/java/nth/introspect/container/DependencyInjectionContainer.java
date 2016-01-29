@@ -144,24 +144,27 @@ public abstract class DependencyInjectionContainer {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> T getObjectFromThisContainer(Class<T> type,
+	private <T> T getObjectFromThisContainer(Class<T> typeToFind,
 			List<Class<?>> classesWaitingToBeInstantiated) {
-		Class<?> foundType = NearestParentFinder.findParent(
-				typesAndInstances.keySet(), type);
-		if (foundType == null) {
+		
+		Class<?> typeToGet = NearestParentFinder.findParent(
+				typesAndInstances.keySet(), typeToFind);
+
+		if (typeToGet == null) {
 			return null; // TODO throw exception?
 		} else {
-			Object storedObject = typesAndInstances.get(foundType);
+			Object storedObject = typesAndInstances.get(typeToGet);
 			if (storedObject == null) {
-				classesWaitingToBeInstantiated.add(foundType);
+				classesWaitingToBeInstantiated.add(typeToGet);
 				InstanceFactory instanceFactory = new InstanceFactory(
-						foundType, this);
+						typeToGet, this);
 				Object newObject = instanceFactory
 						.createInstance(classesWaitingToBeInstantiated);
-				typesAndInstances.put(type, newObject);
-				classesWaitingToBeInstantiated.remove(foundType);
+				typesAndInstances.put(typeToGet, newObject);
+				classesWaitingToBeInstantiated.remove(typeToGet);
 				// TODO IntrospectLog.debug(name + " created: " +
 				// type.getCanonicalName());
+				
 				return (T) newObject;
 			} else {
 				// TODO IntrospectLog.debug(name + " from cache: "+

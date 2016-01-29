@@ -1,15 +1,14 @@
 package nth.introspect.ui;
 
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import nth.introspect.Introspect;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
+import nth.introspect.layer1userinterface.controller.DisplaySize;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
@@ -20,7 +19,6 @@ import nth.introspect.layer5provider.notification.Task;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.type.TypeCategory;
 import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
@@ -393,5 +391,44 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 			view.onViewActivate();
 		}
 	}
+
+	/**
+	 * Provides simple feedback about an operation in a small popup. It only
+	 * fills the amount of space required for the message and the current
+	 * activity remains visible and interactive. The message popup will
+	 * automatically disappear after a timeout
+	 * 
+	 * @param message
+	 */
+	public abstract void showInfoMessage(String message);
+
+	public abstract void showDialog(DialogType dialogType, String title, String message, List<Item> items);
+
+	/**
+	 * TODO refactor so that progress dialog shows multiple thread monitors,
+	 * while listening to updates
+	 * 
+	 * @param taskDescription
+	 * @param currentValue
+	 * @param maxValue
+	 */
+	public abstract void showProgressDialog(String taskDescription, int currentValue, int maxValue);
+
+	/**
+	 * TODO remove. progress dialog should close automatically when all tasks
+	 * are completed
+	 */
+	public abstract void closeProgressDialog();
+
+	public abstract void openURI(URI uri);
+
+	public abstract void downloadFile(DownloadStream downloadStream);
+
+	@SuppressWarnings("rawtypes")
+	public abstract ViewContainer getViewContainer();
+
+	public abstract DisplaySize getDisplaySize();
+
+	public abstract int getDisplayWidthInInches();
 
 }

@@ -8,7 +8,6 @@ import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.LogicFilter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
@@ -21,6 +20,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.filter.Paramet
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.ReturnTypeFilter;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.item.method.PropertyMethodItem;
 import nth.introspect.ui.item.method.PropertyMethodOwnerItem;
@@ -74,7 +74,7 @@ public class ItemFactory {
 			items.add(item);
 		}
 
-		ViewContainer viewContainer = formView.getuserInterfaceContainer().get(UserInterfaceController.class).getViewContainer();
+		ViewContainer viewContainer = formView.getuserInterfaceContainer().get(GraphicalUserinterfaceController.class).getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, propertyInfo));
 
 		// service object methods
@@ -113,7 +113,7 @@ public class ItemFactory {
 		// items.add(item)
 		// }
 
-		ViewContainer viewContainer = tableView.getuserInterfaceContainer().get(UserInterfaceController.class).getViewContainer();
+		ViewContainer viewContainer = tableView.getuserInterfaceContainer().get(GraphicalUserinterfaceController.class).getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
 
 		// create filter for service object items

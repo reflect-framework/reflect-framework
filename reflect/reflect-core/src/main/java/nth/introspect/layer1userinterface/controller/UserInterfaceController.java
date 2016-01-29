@@ -10,8 +10,6 @@ import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationListener;
@@ -21,7 +19,6 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 //FIXME: test all methods in this class
-
 
 /**
  *
@@ -150,10 +147,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	public UserInterfaceController(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
-		this.languageProvider = userInterfaceContainer
-				.get(LanguageProvider.class);
+		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 	}
 
 	/**
@@ -162,46 +157,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 */
 	public abstract void start();
 
-	/**
-	 * Provides simple feedback about an operation in a small popup. It only
-	 * fills the amount of space required for the message and the current
-	 * activity remains visible and interactive. The message popup will
-	 * automatically disappear after a timeout
-	 * 
-	 * @param message
-	 */
-	public abstract void showInfoMessage(String message);
-
-	public abstract void showDialog(DialogType dialogType, String title,
-			String message, List<Item> items);
-
-	public abstract void showErrorDialog(String title, String message,
-			Throwable throwable);
-
-	public abstract void showProgressDialog(String taskDescription,
-			int currentValue, int maxValue);
-
-	// TODO refactor parameters to: taskName, int percentageCompleted
-
-	public abstract void closeProgressDialog();
-
-	// TODO remove. progress dialog should close automatically when
-	// percentageCompleted=100
-
-	public abstract void openURI(URI uri);
-
-	// TODO moveToGraphicalUserInterface and rename to
-	// ShowActionMethodResultInfo(URI uri);
-
-	public abstract void downloadFile(DownloadStream downloadStream);
-
-	// TODO moveToGraphicalUserInterface and rename to
-	// ShowActionMethodResultInfo(Downloadstream downloadstream);
-
-	@SuppressWarnings("rawtypes")
-	public abstract ViewContainer getViewContainer();
-
-	// TODO moveToGraphicalUserInterface
+	public abstract void showErrorDialog(String title, String message, Throwable throwable);
 
 	/**
 	 * This method is called when a user sends an command to the
@@ -243,12 +199,12 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodParameterValue
 	 */
 
-	public final void processActionMethod(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter) {
+	public final void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter) {
 		try {
 
-			if(methodParameter==null && methodInfo.hasParameter()) {
-				methodParameter=methodInfo.createMethodParameter(methodOwner);
+			if (methodParameter == null && methodInfo.hasParameter()) {
+				methodParameter = methodInfo.createMethodParameter(methodOwner);
 			}
 
 			ExecutionModeType executionMode = methodInfo.getExecutionMode();
@@ -257,30 +213,26 @@ public abstract class UserInterfaceController implements NotificationListener {
 				methodInfo.invokeEditParameterMethod(this, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_AFTER_CONFORMATION:
-				methodInfo.invokeConfirmMethod(this,methodOwner, methodParameter);
+				methodInfo.invokeConfirmMethod(this, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
-				processActionMethodExecution(methodOwner, methodInfo,
-						methodParameter);
+				processActionMethodExecution(methodOwner, methodInfo, methodParameter);
 				break;
 			}
 		} catch (Exception exception) {
-			String title = TitleUtil.createTitle(reflectionProvider,
-					methodInfo, methodParameter, true);
+			String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
+					true);
 			String message = languageProvider.getText("Failed to execute.");
 			showErrorDialog(title, message, exception);
 		}
 
 	}
 
-	
+	public abstract void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter);
 
-	
-	public abstract void editActionMethodParameter(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter);
-
-	public abstract void confirmActionMethod(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter);
+	public abstract void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter);
 
 	/**
 	 * This method is called from
@@ -310,15 +262,13 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodReturnValue
 	 */
 
-	public void processActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult) {
+	public void processActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, Object methodResult) {
 		try {
 			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
-		} catch (IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException exception) {
-			String title = TitleUtil.createTitle(reflectionProvider,
-					methodInfo, methodParameter, true);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
+			String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
+					true);
 			String message = languageProvider.getText("Failed to execute.");
 			showErrorDialog(title, message, exception);
 		}
@@ -333,8 +283,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
@@ -344,9 +294,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, Object methodResult);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
@@ -356,9 +305,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			List<?> methodResult);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, List<?> methodResult);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
@@ -368,9 +316,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			URI methodResult);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, URI methodResult);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
@@ -380,9 +327,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			DownloadStream methodResult);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, DownloadStream methodResult);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
@@ -392,15 +338,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			String methodResult);
-
-	public abstract DisplaySize getDisplaySize();
-
-	// TODO moveToGraphicalUserInterface or remove completely
-
-	public abstract int getDisplayWidthInInches();
-	// TODO moveToGraphicalUserInterface or remove completely
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, String methodResult);
 
 }

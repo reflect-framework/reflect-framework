@@ -21,6 +21,7 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
 import nth.introspect.ui.item.tab.CloseThisTabItem;
@@ -116,9 +117,11 @@ public class FormView extends SwingView implements
 		return buttonBar;
 	}
 
+	
 	public JButton createCloseButton() {
-		UserInterfaceController userInterfaceController = userInterfaceContainer
-				.get(UserInterfaceController.class);
+		@SuppressWarnings("rawtypes")
+		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
+				.get(GraphicalUserinterfaceController.class);
 		ViewContainer viewContainer = userInterfaceController
 				.getViewContainer();
 		LanguageProvider languageProvider = userInterfaceContainer
@@ -129,8 +132,9 @@ public class FormView extends SwingView implements
 	}
 
 	public JButton createCancelButton() {
-		UserInterfaceController userInterfaceController = userInterfaceContainer
-				.get(UserInterfaceController.class);
+		@SuppressWarnings("rawtypes")
+		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
+				.get(GraphicalUserinterfaceController.class);
 		ViewContainer viewContainer = userInterfaceController
 				.getViewContainer();
 		LanguageProvider languageProvider = userInterfaceContainer
