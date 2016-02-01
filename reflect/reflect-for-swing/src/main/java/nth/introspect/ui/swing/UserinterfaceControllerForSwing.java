@@ -12,11 +12,14 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DisplaySize;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
+import nth.introspect.layer1userinterface.controller.UploadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -65,6 +68,25 @@ public class UserinterfaceControllerForSwing extends
 		Toast.makeText(mainWindow, message, Style.NORMAL).display();
 	}
 
+	/**
+	 * TODO add abstract method editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) to {@link GraphicalUserinterfaceController}
+	 */
+	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
+		final JFileChooser fc = new JFileChooser();
+		String title=TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream, true);
+		fc.setDialogTitle(title);
+		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(uploadStream.getFileTypeDescription(), uploadStream.getFileExtentions());
+		fc.setFileFilter(filter);
+		int result = fc.showOpenDialog(getMainWindow());
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fc.getSelectedFile();
+		    uploadStream.setFile(selectedFile);
+		    processActionMethodExecution(methodOwner, methodInfo, uploadStream);
+		}
+	};
+	
+	
 	@Override
 	public void downloadFile(DownloadStream downloadStream) {
 		JFileChooser chooser = new JFileChooser();

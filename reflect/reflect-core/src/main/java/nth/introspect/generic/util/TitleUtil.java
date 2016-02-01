@@ -1,6 +1,7 @@
 package nth.introspect.generic.util;
 
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
@@ -20,14 +21,8 @@ public class TitleUtil {
 		}
 
 		if (methodParameter != null) {
-			// add method parameter value between parentheses
-			ClassInfo classInfo = reflectionProvider
-					.getClassInfo(methodParameter.getClass());
-			String parameterText = classInfo.getTitle(methodParameter);
-			// shorten if needed
-			if (shortTile && parameterText.length() > 20) {
-				parameterText = parameterText.substring(0, 17) + "...";
-			}
+			String parameterText = createMethodParameterTitle(reflectionProvider, methodParameter,
+					shortTile);
 			// append to title between parentheses
 			title.append(" (");
 			title.append(parameterText);
@@ -35,6 +30,17 @@ public class TitleUtil {
 		}
 		return title.toString();
 
+	}
+
+	private static String createMethodParameterTitle(ReflectionProvider reflectionProvider,
+			Object methodParameter, boolean shortTile) {
+		TitleModel model=new TitleModel(reflectionProvider);
+		String parameterText =model.getTitle(methodParameter);
+		// shorten if needed
+		if (shortTile && parameterText.length() > 20) {
+			parameterText = parameterText.substring(0, 17) + "...";
+		}
+		return parameterText;
 	}
 
 
