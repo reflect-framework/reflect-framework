@@ -102,8 +102,8 @@ public class Accordion extends JPanel implements ActionListener {
 	 * 
 	 * @param name
 	 *            The name of the outlook bar
-	 * @param icon
-	 *            An icon to display in the outlook bar
+	 * @param MaterialAppBarIcon
+	 *            An MaterialAppBarIcon to display in the outlook bar
 	 * @param componenet
 	 *            The component to add to the bar
 	 */
@@ -136,7 +136,7 @@ public class Accordion extends JPanel implements ActionListener {
 
 	/**
 	 * Programmatically sets the currently visible bar; the visible bar index
-	 * must be in the range of 0 to size() - 1
+	 * must be in the range of 0 to SIZE() - 1
 	 * 
 	 * @param visibleBar
 	 */
@@ -150,7 +150,7 @@ public class Accordion extends JPanel implements ActionListener {
 
 	/**
 	 * Programmatically sets the currently visible bar; the visible bar index
-	 * must be in the range of 0 to size() - 1
+	 * must be in the range of 0 to SIZE() - 1
 	 * 
 	 * @param visibleBar
 	 */
@@ -311,8 +311,8 @@ public class Accordion extends JPanel implements ActionListener {
 		 * 
 		 * @param name
 		 *            The name of the bar
-		 * @param icon
-		 *            JButton icon
+		 * @param MaterialAppBarIcon
+		 *            JButton MaterialAppBarIcon
 		 * @param component
 		 *            The component that is the body of the Outlook Bar
 		 */

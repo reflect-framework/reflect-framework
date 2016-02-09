@@ -16,7 +16,7 @@ public class ReflectionProviderTestObject {
 	public static final String PROPERTY2 = "property2";
 	public static final String CLASS_ACTION_METHOD = "classActionMethod";
 	public static final String PROPERTY1_ACTION_METHOD =  PROPERTY1+"ActionMethod";
-	public static final String TITLE = "title";
+	public static final String TITLE = "MaterialAppBarTitle";
 	
 
 	@Order(sequenceNumber=1)

@@ -17,13 +17,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
-import nth.introspect.layer1userinterface.controller.DisplaySize;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UploadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
+import nth.introspect.ui.style.DisplaySize;
 import nth.introspect.ui.swing.dialog.toast.Toast;
 import nth.introspect.ui.swing.dialog.toast.Toast.Style;
 import nth.introspect.ui.swing.mainwindow.MainWindow;
@@ -199,11 +199,12 @@ public class UserinterfaceControllerForSwing extends
 
 	@Override
 	public int getDisplayWidthInInches() {
-	    Toolkit tk = Toolkit.getDefaultToolkit ();
-	    int pixelsPerInch = tk.getScreenResolution ();
-	    int widtInPixels = mainWindow.getWidth();
-	    int widthInInch=widtInPixels/pixelsPerInch;
-		return widthInInch;
+		return 15;//TODO
+//	    Toolkit tk = Toolkit.getDefaultToolkit ();
+//	    int pixelsPerInch = tk.getScreenResolution ();
+//	    int widtInPixels = mainWindow.getWidth();
+//	    int widthInInch=widtInPixels/pixelsPerInch;
+//		return widthInInch;
 	}
-
+	
 }

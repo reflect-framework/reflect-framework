@@ -19,7 +19,6 @@ import javax.swing.JFileChooser;
 import nth.introspect.generic.exception.MethodNotSupportedException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
-import nth.introspect.layer1userinterface.controller.DisplaySize;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
@@ -37,6 +36,7 @@ import nth.introspect.ui.commandline.view.CommandLineViewContainer;
 import nth.introspect.ui.commandline.view.FormView;
 import nth.introspect.ui.commandline.view.HelpView;
 import nth.introspect.ui.commandline.view.TableView;
+import nth.introspect.ui.style.DisplaySize;
 import nth.introspect.ui.view.FormMode;
 
 public class UserInterfaceControllerForCommandLine extends
@@ -310,7 +310,7 @@ public class UserInterfaceControllerForCommandLine extends
 
 	@Override
 	public DisplaySize getDisplaySize() {
-		return DisplaySize.LARGE;
+		return DisplaySize.WIDE;
 	}
 
 	@Override

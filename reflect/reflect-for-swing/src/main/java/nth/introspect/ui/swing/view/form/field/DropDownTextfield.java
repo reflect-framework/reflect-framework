@@ -63,7 +63,7 @@ public class DropDownTextfield<T extends JComponent> extends JPanel {
 				.create(IntrospectImage.BUTTON_DROPDOWN_2);
 		final Icon icon3 = IconFactory
 				.create(IntrospectImage.BUTTON_DROPDOWN_3);
-		final Icon icon4 = null;// disabled: no icon visible
+		final Icon icon4 = null;// disabled: no MaterialAppBarIcon visible
 		JButton button = new JButton(icon1) {
 			@Override
 			public void setEnabled(boolean b) {

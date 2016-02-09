@@ -14,7 +14,7 @@ public class PropertyCategoryRow extends JPanel {
 		WrapingLabel label = new WrapingLabel(text);
 		label.setForeground(ColorUtil.getDark());
 		label.setAlignmentX(SwingConstants.LEFT);
-		setPreferredSize(label.getPreferredSize());//set height to label height
+		setPreferredSize(label.getPreferredSize());//set HEIGHT to label HEIGHT
 		add(label);
 	}
 

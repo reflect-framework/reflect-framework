@@ -37,7 +37,7 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Vie
 					SwingView view = getView(index);
 					//update tab contents
 					view.onViewActivate();
-					//update tab title, description and icon
+					//update tab MaterialAppBarTitle, description and MaterialAppBarIcon
 					setTitleAt(index, view.getViewTitle());
 					setToolTipTextAt(index, view.getViewDescription());
 					setIconAt(index, IconFactory.create(view.getViewIconURI()));

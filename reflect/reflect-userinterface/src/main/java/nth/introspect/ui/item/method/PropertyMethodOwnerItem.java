@@ -69,8 +69,8 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	public String getText() {
 		// TODO return TitleUtil.createTitle(methodInfo, methodParameter,
 		// false);
-		return formView.getViewTitle();// using description instead of title
-										// because the title could be truncated
+		return formView.getViewTitle();// using description instead of MaterialAppBarTitle
+										// because the MaterialAppBarTitle could be truncated
 	}
 
 	@Override

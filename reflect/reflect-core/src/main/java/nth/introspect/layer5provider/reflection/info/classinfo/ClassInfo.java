@@ -6,6 +6,8 @@ import java.util.List;
 
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.FilterUtil;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
@@ -24,9 +26,7 @@ import nth.introspect.layer5provider.reflection.info.property.PropertyInfoFactor
 import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
 
 /**
- * Provides information on a bean.<br>
- * This class is inspired by the BeanInfo class, which can not be use because it
- * is not implemented by Android
+ * Provides information on a {@link ServiceObject} or {@link DomainObject}.<br>
  * 
  * @author nilsth
  * 

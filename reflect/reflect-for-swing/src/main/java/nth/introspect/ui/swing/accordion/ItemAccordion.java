@@ -15,7 +15,7 @@ import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.swing.icon.IconFactory;
-import nth.introspect.ui.swing.view.menu.MenuListRenderer;
+import nth.introspect.ui.swing.view.menu.MenuSearchListRenderer;
 
 @SuppressWarnings("serial")
 public class ItemAccordion extends Accordion {
@@ -86,7 +86,7 @@ public class ItemAccordion extends Accordion {
 		List<Item> methodItems = methodOwnerItem.getChildren();
 		Item[] array = methodItems.toArray(new Item[methodItems.size()]);
 		final JList menuList = new JList(array);
-		menuList.setCellRenderer(new MenuListRenderer());
+		menuList.setCellRenderer(new MenuSearchListRenderer());
 		menuList.setFixedCellHeight(ITEM_HEIGHT);
 		menuList.addKeyListener(createMenuListKeyListener());
 		menuList.addMouseListener(createMenuListMouseListener());

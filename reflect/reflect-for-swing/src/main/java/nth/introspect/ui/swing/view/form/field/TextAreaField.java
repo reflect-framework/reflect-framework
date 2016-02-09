@@ -21,12 +21,12 @@ public class TextAreaField extends JTextArea implements Refreshable {
 		this.valueModel = readWriteValueModel;
 		refresh();
 
-		// same font and border as JTextField
+		// same FONT and border as JTextField
 		JTextField textFieldExample = new JTextField();
 		setFont(textFieldExample.getFont());
 		setBorder(textFieldExample.getBorder());
 
-		//set preferred height (higher than most fields)
+		//set preferred HEIGHT (higher than most fields)
 		setPreferredSize(new Dimension(Integer.MAX_VALUE,PropertyRow.HIGH_FIELD_HEIGHT));
 		
 

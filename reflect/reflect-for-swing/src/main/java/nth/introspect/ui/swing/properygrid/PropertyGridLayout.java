@@ -38,7 +38,7 @@ public class PropertyGridLayout implements LayoutManager {
 		maxLabelWith = 0;
 		int rowHeight = 0;
 
-		// set size and location of property rows
+		// set SIZE and location of property rows
 		for (Component propertyPanel : container.getComponents()) {
 			rowHeight = (int) propertyPanel.getMaximumSize().getHeight();
 			// rowHeight = DEFAULT_ROW_HEIGHT;
@@ -61,7 +61,7 @@ public class PropertyGridLayout implements LayoutManager {
 		// maxLabelWith = MAX_LABEL_WIDTH;
 		// }
 
-		// set size of lables fields and validators
+		// set SIZE of lables fields and validators
 		x = 0;
 		y = 0;
 		for (Component propertyPanel : container.getComponents()) {
@@ -84,8 +84,8 @@ public class PropertyGridLayout implements LayoutManager {
 					int halfPanelWidth = fieldAndValidatorPanel.getWidth() / 2;
 					field.setLocation(SPACING, SPACING);
 					Dimension size = new Dimension(halfPanelWidth - 2 * SPACING, fieldAndValidatorPanel.getHeight() - 2 * SPACING);
-					// field.setMinimumSize(size);
-					// field.setPreferredSize(size);
+					// field.setMinimumSize(SIZE);
+					// field.setPreferredSize(SIZE);
 					field.setSize(size);
 					validator.setLocation(halfPanelWidth + SPACING, SPACING);
 					validator.setSize(size);
@@ -103,7 +103,7 @@ public class PropertyGridLayout implements LayoutManager {
 			y += rowHeight;
 		}
 
-		// TODO set size of labels,
+		// TODO set SIZE of labels,
 
 	}
 

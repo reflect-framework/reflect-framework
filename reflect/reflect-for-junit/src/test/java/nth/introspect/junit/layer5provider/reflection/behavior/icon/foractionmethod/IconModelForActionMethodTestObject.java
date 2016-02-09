@@ -4,11 +4,11 @@ import java.net.URISyntaxException;
 
 import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
-import nth.introspect.ui.images.IntrospectImage;
+import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 
 public class IconModelForActionMethodTestObject {
-
-	private static final String CLASS_RESOURCE_TO_ICON = IntrospectImage.EDIT_COPY2;
+	// TODO: {@link IntrospectApplicationForJUnit} should not depend on reflect-graphical-user-interface
+//	private static final String CLASS_RESOURCE_TO_ICON = IntrospectImage.EDIT_COPY2;
 	private static final String CLASS_RESOURCE_URI_TO_NONE_EXISTING_ICON = IconUriClassResource.SCHEMA + "://bogus/bogus.png";
 	private static final String BOGUS_PNG = "bogus.png";
 	private static final String ICON_PNG = "icon.png";
@@ -22,11 +22,13 @@ public class IconModelForActionMethodTestObject {
 	public void actionMethodIconDefaultUriNotExist() {
 
 	}
-
-	@Icon(iconURI = CLASS_RESOURCE_TO_ICON)
-	public void actionMethodIconAnnotationClassReferenceUri() {
-
-	}
+	/**
+	 * TODO: {@link IntrospectApplicationForJUnit} should not depend on reflect-graphical-user-interface
+	 */
+//	@Icon(iconURI = CLASS_RESOURCE_TO_ICON)
+//	public void actionMethodIconAnnotationClassReferenceUri() {
+//
+//	}
 
 	@Icon(iconURI = CLASS_RESOURCE_URI_TO_NONE_EXISTING_ICON)
 	public void actionMethodIconAnnotationClassReferenceUriNotExist() {
@@ -56,9 +58,10 @@ public class IconModelForActionMethodTestObject {
 
 	}
 
-	public String actionMethodIconMethodClassReferenceUriIcon() {
-		return CLASS_RESOURCE_TO_ICON;
-	}
+	// TODO: {@link IntrospectApplicationForJUnit} should not depend on reflect-graphical-user-interface
+//	public String actionMethodIconMethodClassReferenceUriIcon() {
+//		return CLASS_RESOURCE_TO_ICON;
+//	}
 
 	public void actionMethodIconMethodClassReferenceUriNotExist() {
 

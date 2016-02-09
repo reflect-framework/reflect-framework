@@ -73,7 +73,7 @@ public class TableView extends SwingView implements
 	private JTable createTable(final MethodTableModel tableModel) {
 		final JTable table = new JTable();
 		table.setModel(tableModel);
-		table.setRowHeight(22);// Row height a bit higher than default: 1.5 * 16
+		table.setRowHeight(22);// Row HEIGHT a bit higher than default: 1.5 * 16
 
 		table.addMouseListener(new MouseListener() {
 

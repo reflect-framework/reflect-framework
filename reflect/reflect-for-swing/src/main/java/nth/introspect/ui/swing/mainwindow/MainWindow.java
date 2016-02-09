@@ -7,7 +7,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -15,6 +14,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
@@ -28,38 +28,39 @@ import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.swing.component.toolbar.MaterialAppBar;
+import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.about.AboutItem;
+import nth.introspect.ui.style.DisplaySize;
+import nth.introspect.ui.style.DisplayType;
+import nth.introspect.ui.style.MenuType;
 import nth.introspect.ui.swing.icon.IconFactory;
 import nth.introspect.ui.swing.item.button.ItemIconButton;
 import nth.introspect.ui.swing.style.SwingStyleConstant;
 import nth.introspect.ui.swing.view.container.SwingViewContainer;
-import nth.introspect.ui.swing.view.container.TabHeader;
-import nth.introspect.ui.swing.view.menu.MenuTabPanel;
+import nth.introspect.ui.swing.view.menu.MenuList;
 
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 7688708437355470674L;
 	private JSplitPane splitPanel;
-	private MenuTabPanel menuTabPanel;
+	private JScrollPane menuPanel;
 	private SwingViewContainer contentTabPanel;
 	private JButton menuButton;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
-	private final PathProvider pathProvider;
-	private final UserInterfaceController userInterfaceController;
+	private final GraphicalUserinterfaceController userInterfaceController;
 	private final ReflectionProvider reflectionProvider;
 	private final AboutProvider aboutProvider;
 
 	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.userInterfaceController = userInterfaceContainer
-				.get(UserInterfaceController.class);
+				.get(GraphicalUserinterfaceController.class);
 		this.reflectionProvider = userInterfaceContainer
 				.get(ReflectionProvider.class);
-		this.pathProvider = userInterfaceContainer.get(PathProvider.class);
 		;
 		this.aboutProvider = userInterfaceContainer.get(AboutProvider.class);
 		;
@@ -67,6 +68,7 @@ public class MainWindow extends JFrame {
 				.get(LanguageProvider.class);
 		// Set style
 		try {
+			
 			UIManager
 					.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception e) {
@@ -82,19 +84,20 @@ public class MainWindow extends JFrame {
 		setTitle(application, applicationInfo);
 		setIcon(application, applicationInfo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setUndecorated(true);
 
 		// Create window contents
-		menuTabPanel = createMenuTabPanel();
+		menuPanel = createMenuTabPanel();
 		contentTabPanel = createContentTabPanel();
-		splitPanel = createSplitPanel(menuTabPanel, contentTabPanel);
+		splitPanel = createSplitPanel(menuPanel, contentTabPanel);
 		getContentPane().add(splitPanel, BorderLayout.CENTER);
 
 		menuButton = createMenuButton();
-		JButton aboutButton = createAboutButton();
-		JButton findButton = createFindButton(menuTabPanel);
-		JButton tabButton = createTabButton(menuTabPanel);
-		JToolBar toolbar = createToolBar(aboutButton, menuButton, findButton,
-				tabButton);
+//		JButton aboutButton = createAboutButton();
+//		JButton findButton = createFindButton(menuPanel);
+//		JButton tabButton = createTabButton(menuPanel);
+		//JToolBar toolbar = createToolBar(aboutButton, menuButton, findButton,tabButton);
+		JToolBar toolbar=new MaterialAppBar(userInterfaceContainer);
 		getContentPane().add(toolbar, BorderLayout.NORTH);
 
 		// Display the window.
@@ -142,7 +145,7 @@ public class MainWindow extends JFrame {
 
 	/**
 	 * Creates a button to show or hide the menu.<br>
-	 * The icon and tool tip will be set by the {@link #showMenu()} and
+	 * The MaterialAppBarIcon and tool tip will be set by the {@link #showMenu()} and
 	 * {@link MainWindow#hideMenu()} methods
 	 * 
 	 * @return a button to show or hide the menu
@@ -167,55 +170,55 @@ public class MainWindow extends JFrame {
 		return button;
 	}
 
-	private JButton createFindButton(final MenuTabPanel menuTabPanel) {
-		JButton button = new JButton();
-		@SuppressWarnings("serial")
-		Action action = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				menuTabPanel.getMenuPanel().getSearchField().requestFocus();
-			}
-		};
-		button.setAction(action);
-		button.registerKeyboardAction(action,
-				KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0),
-				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(languageProvider.getText("Find Menu Item (F3)"));
-		try {
-			button.setIcon(IconFactory.create(new IconUriClassResource(
-					IntrospectImage.EDIT_FIND).getAbsoluteURI(),
-					SwingStyleConstant.ICON_SIZE));
-		} catch (URISyntaxException e1) {
-		}
-		return button;
-	}
-
-	private JButton createTabButton(final MenuTabPanel menuTabPanel) {
-		JButton button = new JButton();
-		@SuppressWarnings("serial")
-		Action action = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int selectedTabIndex = getViewContainer().getSelectedIndex();
-				if (selectedTabIndex >= 0) {
-					Component selectedTabHeader = getViewContainer()
-							.getTabComponentAt(selectedTabIndex);
-					if (selectedTabHeader instanceof TabHeader) {
-						TabHeader tabHeader = (TabHeader) selectedTabHeader;
-						tabHeader.showPopupMenu(10, 10);
-					}
-				}
-			}
-		};
-		button.setAction(action);
-		button.registerKeyboardAction(action,
-				KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
-				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		button.setToolTipText(languageProvider.getText("Show Tabs Menu (F4)"));
-		button.setIcon(IconFactory.create(IntrospectImage.TABS,
-				SwingStyleConstant.ICON_SIZE));
-		return button;
-	}
+//	private JButton createFindButton(final MenuTabPanel menuTabPanel) {
+//		JButton button = new JButton();
+//		@SuppressWarnings("serial")
+//		Action action = new AbstractAction() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				menuTabPanel.getMenuPanel().getSearchField().requestFocus();
+//			}
+//		};
+//		button.setAction(action);
+//		button.registerKeyboardAction(action,
+//				KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0),
+//				JComponent.WHEN_IN_FOCUSED_WINDOW);
+//		button.setToolTipText(languageProvider.getText("Find Menu Item (F3)"));
+//		try {
+//			button.setIcon(IconFactory.create(new IconUriClassResource(
+//					IntrospectImage.EDIT_FIND).getAbsoluteURI(),
+//					SwingStyleConstant.ICON_SIZE));
+//		} catch (URISyntaxException e1) {
+//		}
+//		return button;
+//	}
+//
+//	private JButton createTabButton(final MenuTabPanel menuTabPanel) {
+//		JButton button = new JButton();
+//		@SuppressWarnings("serial")
+//		Action action = new AbstractAction() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				int selectedTabIndex = getViewContainer().getSelectedIndex();
+//				if (selectedTabIndex >= 0) {
+//					Component selectedTabHeader = getViewContainer()
+//							.getTabComponentAt(selectedTabIndex);
+//					if (selectedTabHeader instanceof TabHeader) {
+//						TabHeader tabHeader = (TabHeader) selectedTabHeader;
+//						tabHeader.showPopupMenu(10, 10);
+//					}
+//				}
+//			}
+//		};
+//		button.setAction(action);
+//		button.registerKeyboardAction(action,
+//				KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
+//				JComponent.WHEN_IN_FOCUSED_WINDOW);
+//		button.setToolTipText(languageProvider.getText("Show Tabs Menu (F4)"));
+//		button.setIcon(IconFactory.create(IntrospectImage.TABS,
+//				SwingStyleConstant.ICON_SIZE));
+//		return button;
+//	}
 
 	private JSplitPane createSplitPanel(Component menuTabPanel,
 			Component contentTabPanel) {
@@ -231,13 +234,16 @@ public class MainWindow extends JFrame {
 		return swingViewContainer;
 	}
 
-	private MenuTabPanel createMenuTabPanel() {
-		return new MenuTabPanel(userInterfaceContainer);
+	private JScrollPane createMenuTabPanel() {
+		MenuList menuList=new MenuList(userInterfaceContainer);
+		JScrollPane menuPanel = new JScrollPane(menuList);
+		return menuPanel;
+//		return new MenuTabPanel(userInterfaceContainer);
 	}
 
 	public void hideMenu() {
 		// hide menu tab panel
-		menuTabPanel.setVisible(false);
+		menuPanel.setVisible(false);
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(false);
 		// set menu button
@@ -248,7 +254,7 @@ public class MainWindow extends JFrame {
 
 	public void showMenu() {
 		// un-hide menu tab panel
-		menuTabPanel.setVisible(true);
+		menuPanel.setVisible(true);
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(true);
 		// hide menu button
@@ -258,10 +264,20 @@ public class MainWindow extends JFrame {
 	}
 
 	public boolean isMenuVisible() {
-		return menuTabPanel.isVisible();
+		return menuPanel.isVisible();
 	}
 
 	public SwingViewContainer getViewContainer() {
 		return contentTabPanel;
+	}
+
+	public void setMenuVisible(boolean menuVisible) {
+		if (userInterfaceController.getMaterialStyle().menuType==MenuType.DRAWER) {
+			
+		} else {
+			
+		}
+		
+		menuPanel.setVisible(menuVisible);
 	}
 }

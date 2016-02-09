@@ -125,7 +125,12 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 	}
 
 	public List<String> getEvents() {
-		return events;
+		List<String> eventsClone=new ArrayList<>();
+		for (String event : events) {
+			eventsClone.add(new String(event));
+		}
+		events.clear();
+		return eventsClone;
 	}
 
 }

@@ -23,11 +23,12 @@ public class SwingUtil {
 	public static final int GRID_HEIGHT = 20;
 	public static final Font FONT = new Font("Universe", Font.PLAIN, 18);
 
-	public static Component findParentComponentOfType(Component component, Class<?> type) {
+	
+	public static <T extends Component> T findParentComponentOfType(Component component, Class<T> type) {
 		do {
 			component = component.getParent();
 			if (component != null && type.isAssignableFrom(component.getClass())) {
-				return component;
+				return (T) component;
 			}
 		} while (component != null);
 
@@ -78,7 +79,7 @@ public class SwingUtil {
 
 	public static void setUIFont(FontUIResource f) {
 		//
-		// sets the default font for all Swing components.
+		// sets the default FONT for all Swing components.
 		// ex.
 		// setUIFont (new javax.swing.plaf.FontUIResource
 		// ("Serif",Font.ITALIC,12));

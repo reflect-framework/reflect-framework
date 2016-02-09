@@ -30,7 +30,7 @@ public class ComboBoxRenderer extends DefaultListCellRenderer {
 			String text = languageProvider.getText(key, defaultValue);
 			setText(text);
 			//TODO? setToolTipText();
-			//TODO set icon
+			//TODO set MaterialAppBarIcon
 
 		}
 		return this;

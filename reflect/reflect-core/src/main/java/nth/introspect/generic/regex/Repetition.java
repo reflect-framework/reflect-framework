@@ -12,6 +12,10 @@ public class Repetition {
 		this.regex = regex;
 	}
 
+	public static Repetition onceOrNotAtAll() {
+		return new Repetition("?");
+	}
+	
 	public static Repetition zeroOrMoreTimes() {
 		return new Repetition("*");
 	}

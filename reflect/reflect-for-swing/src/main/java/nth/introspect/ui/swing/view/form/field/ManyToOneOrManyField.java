@@ -72,7 +72,7 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 	private JScrollPane createTableContainer() {
 		JScrollPane tableContainer = new JScrollPane(table);
 		tableContainer.getViewport().setBackground(ColorUtil.getLightColor());
-		// set preferred height (higher than most fields)
+		// set preferred HEIGHT (higher than most fields)
 		tableContainer.setPreferredSize(new Dimension(Integer.MAX_VALUE,
 				PropertyRow.HIGH_FIELD_HEIGHT));
 		tableContainer.addMouseListener(new MouseListener() {
@@ -112,7 +112,7 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 	private JTable createTable(final MethodTableModel tableModel) {
 		final JTable table = new JTable();
 		table.setModel(tableModel);
-		table.setRowHeight(ROW_HEIGHT);// Row height a bit higher than default:
+		table.setRowHeight(ROW_HEIGHT);// Row HEIGHT a bit higher than default:
 										// 1.5 * 16
 		table.addMouseListener(new MouseListener() {
 

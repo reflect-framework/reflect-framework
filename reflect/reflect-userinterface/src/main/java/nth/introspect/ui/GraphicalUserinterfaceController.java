@@ -8,7 +8,6 @@ import nth.introspect.Introspect;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
-import nth.introspect.layer1userinterface.controller.DisplaySize;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
@@ -23,6 +22,12 @@ import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
+import nth.introspect.ui.style.DisplaySize;
+import nth.introspect.ui.style.DisplayType;
+import nth.introspect.ui.style.MaterialColorPalette;
+import nth.introspect.ui.style.MaterialColors;
+import nth.introspect.ui.style.MaterialContentColors;
+import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 import nth.introspect.ui.view.TableView;
@@ -50,7 +55,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
 		items.add(cancelItem);
 
-		// create the confirmation title and message
+		// create the confirmation MaterialAppBarTitle and message
 		String title = languageProvider.getText("Confirmation");
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to execute: "));
@@ -430,5 +435,18 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	public abstract DisplaySize getDisplaySize();
 
 	public abstract int getDisplayWidthInInches();
+
+	public MaterialStyle getMaterialStyle() {
+		MaterialColorPalette palette = MaterialColorPalette.TEAL;
+		MaterialColors primaryDarkColors = palette.getColor500();
+		MaterialColors primaryMediumColors = palette.getColor300();
+		MaterialColors primaryLightColors = palette.getColor100();
+		MaterialColors accentColors = palette.getColor100();
+		MaterialColors contentColors = MaterialContentColors.LIGHT;
+		boolean hasKeyboardAndMouse=true;//assumption
+		DisplayType displayType=new DisplayType(getDisplayWidthInInches(), hasKeyboardAndMouse);
+		MaterialStyle materialStyle=new MaterialStyle(primaryDarkColors, primaryMediumColors, primaryLightColors, accentColors, contentColors, displayType );
+		return materialStyle;
+	}
 
 }

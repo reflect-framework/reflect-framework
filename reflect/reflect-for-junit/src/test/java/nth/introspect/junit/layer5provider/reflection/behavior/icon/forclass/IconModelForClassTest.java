@@ -10,7 +10,6 @@ import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 
 import org.junit.Before;
@@ -50,14 +49,15 @@ public class IconModelForClassTest {
 		assertNull(iconUri);
 	}
 
-	@Test
-	public void classIconAnnotationClassReferenceUri()
-			throws URISyntaxException {
-		IconModelForClass_AnnotationClassReferenceUri obj = new IconModelForClass_AnnotationClassReferenceUri();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(obj.getClass());
-		URI iconUri = classInfo.getIconURI(obj);
-		assertEquals(getUri(IntrospectImage.class, "edit_copy.png"), iconUri);
-	}
+	//TODO: {@link IntrospectApplicationForJUnit} should not depend on reflect-graphical-user-interface
+//	@Test
+//	public void classIconAnnotationClassReferenceUri()
+//			throws URISyntaxException {
+//		IconModelForClass_AnnotationClassReferenceUri obj = new IconModelForClass_AnnotationClassReferenceUri();
+//		ClassInfo classInfo = reflectionProvider.getClassInfo(obj.getClass());
+//		URI iconUri = classInfo.getIconURI(obj);
+//		assertEquals(getUri(IntrospectImage.class, "edit_copy.png"), iconUri);
+//	}
 
 	@Test
 	public void classIconAnnotationClassReferenceUriNotExist() {
