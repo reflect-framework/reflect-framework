@@ -3,22 +3,19 @@ package nth.introspect.ui.style;
 public class DisplayType {
 
 	private final DisplaySize size;
-	private final DisplayDense dense;
+	private final DisplayScale scale;
 
-	public DisplayType(int widthInInches, boolean hasKeyboardAndMouse) {
+	public DisplayType(int widthInInches, boolean hasKeyboardOrMouse) {
 		size = DisplaySize.forWidthInInches(widthInInches);
-		dense = DisplayDense.forHasKeyboardAndMouse(hasKeyboardAndMouse);
+		scale = DisplayScale.forHasKeyboardOrMouse(hasKeyboardOrMouse);
 	}
 
 	public DisplaySize getSize() {
 		return size;
 	}
 
-	public DisplayDense getDense() {
-		return dense;
+	public DisplayScale getScale() {
+		return scale;
 	}
 	
-	public boolean isDense() {
-		return dense==DisplayDense.DENSE;
-	}
 }

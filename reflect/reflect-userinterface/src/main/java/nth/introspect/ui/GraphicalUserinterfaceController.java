@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
@@ -25,9 +25,8 @@ import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
 import nth.introspect.ui.style.DisplaySize;
 import nth.introspect.ui.style.DisplayType;
 import nth.introspect.ui.style.MaterialColorPalette;
-import nth.introspect.ui.style.MaterialColors;
-import nth.introspect.ui.style.MaterialContentColors;
 import nth.introspect.ui.style.MaterialStyle;
+import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 import nth.introspect.ui.view.TableView;
@@ -342,7 +341,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 		URI uri = methodResult;
 		String uriString = uri.toString();
 		if (uriString.toLowerCase().startsWith(
-				Introspect.class.getSimpleName().toLowerCase() + ":")) {
+				IntrospectFramework.class.getSimpleName().toLowerCase() + ":")) {
 			try {
 				int positionColon = uriString.indexOf(":");
 				int positionLastDot = uriString.lastIndexOf(".");
@@ -437,15 +436,9 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	public abstract int getDisplayWidthInInches();
 
 	public MaterialStyle getMaterialStyle() {
-		MaterialColorPalette palette = MaterialColorPalette.TEAL;
-		MaterialColors primaryDarkColors = palette.getColor500();
-		MaterialColors primaryMediumColors = palette.getColor300();
-		MaterialColors primaryLightColors = palette.getColor100();
-		MaterialColors accentColors = palette.getColor100();
-		MaterialColors contentColors = MaterialContentColors.LIGHT;
 		boolean hasKeyboardAndMouse=true;//assumption
 		DisplayType displayType=new DisplayType(getDisplayWidthInInches(), hasKeyboardAndMouse);
-		MaterialStyle materialStyle=new MaterialStyle(primaryDarkColors, primaryMediumColors, primaryLightColors, accentColors, contentColors, displayType );
+		MaterialStyle materialStyle=new MaterialStyle(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE, Color.WHITE,  displayType );
 		return materialStyle;
 	}
 

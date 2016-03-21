@@ -19,6 +19,12 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
 			<groupId>nth.reflect.framework</groupId>
 			<artifactId>reflect-for-junit</artifactId>
 			<version>0.0.1-SNAPSHOT</version>

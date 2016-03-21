@@ -1,96 +1,250 @@
 package nth.introspect.ui.style;
 
-import java.awt.Color;
-import java.awt.Font;
+import nth.introspect.ui.style.basic.Color;
+import nth.introspect.ui.style.basic.Font;
+import nth.introspect.ui.style.control.ApplicationToolbarStyle;
+import nth.introspect.ui.style.control.ApplicationToolbarTitleStyle;
+import nth.introspect.ui.style.control.ListStyle;
+import nth.introspect.ui.style.control.MenuStyle;
+import nth.introspect.ui.style.control.TabContainerStyle;
+import nth.introspect.ui.style.control.TabToolbarButtonStyle;
+import nth.introspect.ui.style.control.TabToolbarStyle;
+import nth.introspect.ui.style.control.ToolbarIconStyle;
 
 public class MaterialStyle {
 
-	private final MaterialColors primaryDarkColors;
-	private final MaterialColors primaryLightColors;
-	private final MaterialColors primaryMediumColors;
-	
-	public final DisplayType displayType;
-	public final MaterialList list;
-	public final MaterialAppBar appBar;
-	public final MenuType menuType;
-
-	public MaterialStyle(MaterialColors primaryDarkColors, MaterialColors primaryMediumColors,
-			MaterialColors primaryLightColors, MaterialColors accentColors,
-			MaterialColors contentColors, DisplayType displayType) {
-		this.primaryDarkColors = primaryDarkColors;
-		this.primaryMediumColors = primaryMediumColors;
-		this.primaryLightColors = primaryLightColors;
-		this.displayType = displayType;
-		this.list = new MaterialList();
-		this.appBar = new MaterialAppBar();
-		this.menuType=MenuType.getForDisplaySize(displayType.getSize());
-
-	}
+	private final MaterialColorSet primaryColors;
+	private final MaterialColorSet primaryLightColors;
+	private final MaterialColorSet accentColors;
+	private final MaterialColorSet contentColors;
+	private final DisplayScale displayScale;
+	private final DisplaySize displaySize;
 
 	/**
-	 * See
-	 * https://www.google.com/design/spec/components/lists.html#lists-actions
-	 */
-
-	public final class MaterialList {
-		public final MaterialListSingleLine singleLine;
-
-		public MaterialList() {
-			singleLine = new MaterialListSingleLine();
-
-		}
-
-		public final int INDENT = 32;
-
-		public final class MaterialListSingleLine {
-			public final int HEIGHT = displayType.isDense() ? 40 : 48;
-			public final int PADDING_LEFT = 16;
-			public final int PADDING_RIGHT = 16;
-			public final Font FONT = MaterialFont.SUBHEADING;
-		}
-
-	}
-
-	/**
-	 * See
-	 * https://www.google.com/design/spec/layout/structure.html#structure-app
-	 * -bar
 	 * 
-	 * @author nilsth
-	 *
+	 * @param primaryColor
+	 *            a color that is prominent visible (i.e. background color of
+	 *            application toolbar
+	 * @param accentColor
+	 *            a color that is used for thinks that need attention (i.e.
+	 *            important buttons or controls that have focus
+	 * @param contentColor
+	 *            a color used for the background of the content (either white
+	 *            or black)
+	 * @param displayType
 	 */
-	public final class MaterialAppBar {
-		public final int HEIGHT = (displayType.isDense()) ? 48 : 56;
-		public final int leftPadding = 16;
-		public final int rightPadding = 16;
-		public final Color BACKGROUND = primaryDarkColors.getBackground();
-		public final Color FOREGROUND1 = primaryDarkColors.getForeground1();
-		public final MaterialAppBarTitle title;
-		public final MaterialAppBarIcon icon ;
-		public MaterialAppBar() {
-			title= new MaterialAppBarTitle();
-			icon = new MaterialAppBarIcon();	
+	public MaterialStyle(Color primaryColor, Color accentColor, Color contentColor,
+			DisplayType displayType) {
+		verifyColorNotBlackWhite(primaryColor);
+		this.primaryColors = new MaterialColorSet(primaryColor);
+		this.primaryLightColors = new MaterialColorSet(primaryColor.deriveDarknes(1.2));
+		verifyColorNotBlackWhite(accentColor);
+		this.accentColors = new MaterialColorSet(accentColor);
+		verifyColorBlackWhite(contentColor);
+		this.contentColors = new MaterialColorSet(contentColor);
+		this.displayScale = displayType.getScale();
+		this.displaySize = displayType.getSize();
+	}
+
+	private void verifyColorBlackWhite(Color contentColor) {
+		if (!Color.BLACK.equals(contentColor) && !Color.WHITE.equals(contentColor)) {
+			throw new RuntimeException("Content color must be black or white");
+		}
+	}
+
+	private void verifyColorNotBlackWhite(Color color) {
+		if (Color.BLACK.equals(color) || Color.WHITE.equals(color)) {
+			throw new RuntimeException("Primary color or Accent color can not be black or white");
 		}
 
-		public final class MaterialAppBarTitle {
-			public final Font FONT = MaterialFont.TITLE;
-			public final Color FOREGROUND = primaryDarkColors.getForeground1();
+	}
 
-			public final class padding {
-				public final int left = 20;
-				public final int right = 20;
-				public final int top = 16;
-				public final int bottom = 20;
+	public ApplicationToolbarStyle getApplicationToolbarStyle() {
+		return new ApplicationToolbarStyle() {
+
+			@Override
+			public Color getBackgroundColor() {
+				return primaryColors.getBackground();
 			}
-		}
 
-		public final class MaterialAppBarIcon {
-			public final int PADDING = 16;
-			public final int SIZE = displayType.isDense() ? 20 : 24;
-			public final Color FOREGROUND1 = primaryDarkColors.getForeground1();
-			public final Color PRESSED = primaryLightColors.getBackground();
+			@Override
+			public int getHeight() {
+				return displayScale.scale(56);
+			}
+		};
+	}
 
-		}
+	public ToolbarIconStyle getApplicationToolbarIconStyle() {
+		return new ToolbarIconStyle() {
+
+			@Override
+			public int getPadding() {
+				return displayScale.scale(16);
+			}
+
+			@Override
+			public Color getIconColor() {
+				return primaryColors.getForeground1();
+			}
+
+			@Override
+			public Color getPressedColor() {
+				return primaryColors.getBackgroundHighLighted();
+			}
+
+			@Override
+			public int getSize() {
+				return displayScale.scale(20);
+			}
+
+			@Override
+			public Font getFont() {
+				return MaterialFont.getFontAwesome();
+			}
+
+		};
+	}
+
+	public ApplicationToolbarTitleStyle getApplicationToolbarTitleStyle() {
+		return new ApplicationToolbarTitleStyle() {
+
+			@Override
+			public Color getTextColor() {
+				return primaryColors.getForeground1();
+			}
+
+			@Override
+			public Font getFont() {
+				return MaterialFont.getTitle(displayScale);
+			}
+
+		};
+	}
+
+	public MenuStyle getMenuStyle() {
+		return new MenuStyle() {
+
+			@Override
+			public MenuType getMenuType() {
+				return MenuType.getForDisplaySize(displaySize);
+			}
+		};
+
+	}
+
+	public ListStyle getListSingleLineStyle() {
+		return new ListStyle() {
+
+			@Override
+			public int getHeight() {
+				return displayScale.scale(48);
+			}
+
+			@Override
+			public int getPaddingLeft() {
+				return displayScale.scale(16);
+			}
+
+			@Override
+			public int getPaddingRight() {
+				return displayScale.scale(16);
+			}
+
+			@Override
+			public Font getPrimaryTextFont() {
+				return MaterialFont.getSubHeading(displayScale);
+			}
+
+			@Override
+			public int getIndent() {
+				return displayScale.scale(32);
+			}
+
+			@Override
+			public Color getBackgroundColor() {
+				return contentColors.getBackground();
+			}
+
+			@Override
+			public Color getTextColor() {
+				return contentColors.getForeground1();
+			}
+		};
+	}
+
+	public TabContainerStyle getTabContainerStyle() {
+		return new TabContainerStyle() {
+
+			@Override
+			public Color getBackground() {
+				return contentColors.getBackground();
+			}
+		};
+	}
+
+	public TabToolbarStyle getTabToolbarStyle() {
+		return new TabToolbarStyle() {
+
+			@Override
+			public int getHeight() {
+				return displayScale.scale(56);
+			}
+
+			@Override
+			public Color getBackGroundColor() {
+				return primaryLightColors.getBackground();
+			}
+
+			@Override
+			public Color getPressedColor() {
+				return primaryLightColors.getBackgroundHighLighted();
+			}
+		};
+	}
+
+	public TabToolbarButtonStyle getTabToolbarButtonStyle() {
+		return new TabToolbarButtonStyle() {
+
+			@Override
+			public Font getFont() {
+				return MaterialFont.getButton(displayScale);
+			}
+
+			@Override
+			public Color getTextColor() {
+				return primaryLightColors.getForeground1();
+			}
+		};
+	}
+
+	public ToolbarIconStyle getTabToolbarIconStyle() {
+		return new ToolbarIconStyle() {
+
+			@Override
+			public int getPadding() {
+				return displayScale.scale(16);
+			}
+
+			@Override
+			public Color getIconColor() {
+				return primaryLightColors.getForeground1();
+			}
+
+			@Override
+			public Color getPressedColor() {
+				return primaryLightColors.getBackgroundHighLighted();
+			}
+
+			@Override
+			public int getSize() {
+				return displayScale.scale(20);
+			}
+
+			@Override
+			public Font getFont() {
+				return MaterialFont.getFontAwesome();
+			}
+		};
 	}
 
 }

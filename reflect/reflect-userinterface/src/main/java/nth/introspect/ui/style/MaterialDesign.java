@@ -1,6 +1,5 @@
 package nth.introspect.ui.style;
 
-import nth.introspect.Introspect;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 

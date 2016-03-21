@@ -1,57 +1,87 @@
 package nth.introspect.ui.style;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
+
+import nth.introspect.ui.style.basic.Font;
 
 /**
- * See https://www.google.com/design/spec/style/typography.html#typography-typeface
+ * See
+ * https://www.google.com/design/spec/style/typography.html#typography-typeface
  * 
- * Note that introspect uses the same font size for {@link DisplayDense#DENSE} or {@link DisplayDense#NONE_DENSE}, where as Google's {@link MaterialDesign} has small differences
  */
 
-public class MaterialFont  {
+public class MaterialFont {
 
-	private static Font robotoLight;
-	private static Font robotoRegular;
-	private static Font robotoMedium;
+	private static final String ROBOTO_LIGHT_URL = "/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Light.ttf";
+	private static final String ROBOTO_REGULAR_URL = "/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Regular.ttf";
+	private static final String ROBOTO_MEDIUM_URL = "/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Medium.ttf";;
+	private static final String FONT_AWESOME_URL = "/META-INF/resources/webjars/font-awesome/4.5.0/fonts/fontawesome-webfont.ttf";
 
+	private static final String ROBOTO = "Roboto";
 	
-	static{
-		robotoLight=createFont("/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Light.ttf");
-		robotoRegular=createFont("/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Regular.ttf");
-		robotoMedium=createFont("/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Medium.ttf");
+	
+	private static Font createFont(String path, int size) {
+		URL url = MaterialFont.class.getResource(path);
+		String fontName = getFontName(path);
+//		String fontName = "Roboto";
+		Font font = new Font(url, fontName, size, false);
+		return font;
 	}
 
-	private static Font createFont(String fontResourcePath) {
-		try {
-        	InputStream stream = MaterialFont.class.getResourceAsStream(fontResourcePath);
-        	Font font = Font.createFont(Font.TRUETYPE_FONT, stream);
-            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
-            stream.close();
-            return font;
-        } catch (FontFormatException ffe) {
-            throw new RuntimeException(ffe);
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe);
-        }
+	private static String getFontName(String path) {
+		int beginIndex=path.lastIndexOf("/")+1;
+		int endIndex=path.indexOf(".",beginIndex);
+		String name=path.substring(beginIndex, endIndex);
+		name=name.replace("-", " ");
+		return name;
 	}
 
-	
-	
-	public static final Font DISPLAY4=robotoLight.deriveFont(112f);
-	public static final Font DISPLAY3=robotoRegular.deriveFont(56f);
-	public static final Font DISPLAY2=robotoRegular.deriveFont( 45f );
-	public static final Font DISPLAY1=robotoRegular.deriveFont( 34f );
-	public static final Font HEADLINE=robotoRegular.deriveFont( 24f );
-	public static final Font TITLE=robotoMedium.deriveFont( 24f );
-	public static final Font SUBHEADING=robotoRegular.deriveFont( 16f );
-	public static final Font BODY2=robotoMedium.deriveFont( 14f );
-	public static final Font BODY1=robotoRegular.deriveFont( 14f );
-	public static final Font CAPTION=robotoRegular.deriveFont( 12f );
-	public static final Font BUTTON=robotoMedium.deriveFont( 12f );
-	
+	public static Font getDisplay4(DisplayScale displayScale) {
+		return createFont(ROBOTO_LIGHT_URL, displayScale.scale(112));
+	}
+
+	public static Font getDisplay3(DisplayScale displayScale) {
+		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(56));
+	}
+
+	public static Font getDisplay2(DisplayScale displayScale) {
+		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(45));
+	}
+
+	public static Font getDisplay1(DisplayScale displayScale) {
+		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(34));
+	}
+
+	public static Font getHeadLine(DisplayScale displayScale) {
+		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(24));
+	}
+
+	public static Font getTitle(DisplayScale displayScale) {
+		return createFont(ROBOTO_MEDIUM_URL, displayScale.scale(24));
+	}
+
+	public static Font getSubHeading(DisplayScale displayScale) {
+		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(16));
+	}
+
+	public static Font getBody2(DisplayScale displayScale) {
+		return createFont(ROBOTO_MEDIUM_URL, displayScale.scale(14));
+	}
+
+	public static Font getBody1(DisplayScale displayScale) {
+		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(14));
+	}
+
+	public static Font getCaption(DisplayScale displayScale) {
+		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(12));
+	}
+
+	public static Font getButton(DisplayScale displayScale) {
+		return createFont(ROBOTO_MEDIUM_URL, displayScale.scale(14));
+	}
+
+	public static Font getFontAwesome() {
+		return createFont(FONT_AWESOME_URL,32);
+	}
 
 }

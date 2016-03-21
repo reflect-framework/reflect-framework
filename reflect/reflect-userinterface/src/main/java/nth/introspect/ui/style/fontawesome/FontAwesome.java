@@ -722,4 +722,9 @@ public enum FontAwesome {
     public char character() {
         return character;
     }
+    
+    @Override
+    public String toString() {
+    	return Character.toString(character);
+    }
 }
