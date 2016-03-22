@@ -1,6 +1,6 @@
 package nth.introspect.layer5provider.reflection.behavior.disabled;
 
-import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.IntrospectFramework;
 
 /**
  * If the code has both a "disabled annotation" and a "disabled method", the

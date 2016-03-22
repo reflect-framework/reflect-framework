@@ -3,7 +3,7 @@ package nth.introspect.layer5provider.reflection.behavior.title;
 import java.text.Format;
 import java.util.List;
 
-import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;

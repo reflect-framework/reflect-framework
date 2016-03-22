@@ -5,9 +5,10 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 
+import nth.introspect.IntrospectApplication;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.IntrospectApplicationProjects;
 import nth.introspect.documentation.IntrospectArchitecture;
-import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer3domain.DomainObject;
@@ -43,8 +44,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * <p>
  * An user interface could be any type of user interface, in example:
  * </p>
- * <h3>
- * Command line interface</h3>
+ * <h3>Command line interface</h3>
  * <ul>
  * <li><a href="http://en.wikipedia.org/wiki/Command-line_interface">Command
  * line interface</a> is a text-based user interface where the user (or client)
@@ -56,10 +56,10 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * 
  * <h3>Desktop interface</h3>
  * <ul>
- * <li>A desktop interface is a <a
- * href="http://en.wikipedia.org/wiki/Graphical_user_interface"> graphical user
- * interface</a> for a computer with an <a
- * href="https://en.wikipedia.org/wiki/Desktop_environment">desktop
+ * <li>A desktop interface is a
+ * <a href="http://en.wikipedia.org/wiki/Graphical_user_interface"> graphical
+ * user interface</a> for a computer with an
+ * <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop
  * environment</a></li>
  * <li>The user is likely to be a person</li>
  * <li>Introspect has an desktop implementation based on <a href="">Swing</a>.
@@ -68,10 +68,9 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * 
  * <h3>Mobile interface</h3>
  * <ul>
- * <li>
- * A mobile interface is a <a
- * href="http://en.wikipedia.org/wiki/Graphical_user_interface"> graphical user
- * interface</a> for mobile devices such as smart phones and tablets.</li>
+ * <li>A mobile interface is a
+ * <a href="http://en.wikipedia.org/wiki/Graphical_user_interface"> graphical
+ * user interface</a> for mobile devices such as smart phones and tablets.</li>
  * <li>The user is likely to be a person</li>
  * <li>Introspect will have a mobile implementation using Android. See
  * {@link IntrospectApplicationForAndroid}</li>
@@ -79,24 +78,22 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * 
  * <h3>Web interface</h3>
  * <ul>
- * <li>
- * A <a href="https://en.wikipedia.org/wiki/Web_application">web application</a>
- * is a <a
- * href="http://en.wikipedia.org/wiki/Graphical_user_interface">graphical user
- * interface</a> for <a href="https://en.wikipedia.org/wiki/Web_browser">web
- * browsers</a></li>
+ * <li>A <a href="https://en.wikipedia.org/wiki/Web_application">web
+ * application</a> is a
+ * <a href="http://en.wikipedia.org/wiki/Graphical_user_interface">graphical
+ * user interface</a> for
+ * <a href="https://en.wikipedia.org/wiki/Web_browser">web browsers</a></li>
  * <li>The user is likely to be a person</li>
- * <li>
- * Introspect will have a mobile implementation using Vaadin. See
+ * <li>Introspect will have a mobile implementation using Vaadin. See
  * {@link IntrospectApplicationForVaadin}</li>
  * </ul>
  * 
  * <h3>SOAP interface</h3>
  * <ul>
- * <li>The SOAP interface is a <a
- * href="https://en.wikipedia.org/wiki/Web_service">web service</a> that allows
- * other computer applications to interact via the <a
- * href="http://en.wikipedia.org/wiki/SOAP">Simple Object Access Protocol
+ * <li>The SOAP interface is a
+ * <a href="https://en.wikipedia.org/wiki/Web_service">web service</a> that
+ * allows other computer applications to interact via the
+ * <a href="http://en.wikipedia.org/wiki/SOAP">Simple Object Access Protocol
  * (SOAP)</a></li>
  * <li>The user is likely to be another computer application</li>
  * <li>Introspect might have a SOAP implementation in the future</li>
@@ -104,24 +101,24 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * 
  * <h3>RESTfull XML interface</h3>
  * <ul>
- * <li>The RESTfull XML interface is a <a
- * href="https://en.wikipedia.org/wiki/Web_service">web service</a> that allows
- * other computer applications to interact using <a
- * href="http://en.wikipedia.org/wiki/Representational_state_transfer"
- * >Representational State Transfer (RESTfull)</a> with <a
- * href="https://en.wikipedia.org/wiki/XML">XML</a></li>
+ * <li>The RESTfull XML interface is a
+ * <a href="https://en.wikipedia.org/wiki/Web_service">web service</a> that
+ * allows other computer applications to interact using
+ * <a href="http://en.wikipedia.org/wiki/Representational_state_transfer" >
+ * Representational State Transfer (RESTfull)</a> with
+ * <a href="https://en.wikipedia.org/wiki/XML">XML</a></li>
  * <li>The user is likely to be another computer application</li>
  * <li>Introspect might have a RESTfull XML implementation in the future</li>
  * </ul>
  * 
  * <h3>RESTfull JSON interface</h3>
  * <ul>
- * <li>The RESTfull SJON interface is a <a
- * href="https://en.wikipedia.org/wiki/Web_service">web service</a> that allows
- * other computer applications to interact using <a
- * href="http://en.wikipedia.org/wiki/Representational_state_transfer"
- * >Representational State Transfer (RESTfull)</a> with <a
- * href="https://en.wikipedia.org/wiki/JSON">JSON</a></li>
+ * <li>The RESTfull SJON interface is a
+ * <a href="https://en.wikipedia.org/wiki/Web_service">web service</a> that
+ * allows other computer applications to interact using
+ * <a href="http://en.wikipedia.org/wiki/Representational_state_transfer" >
+ * Representational State Transfer (RESTfull)</a> with
+ * <a href="https://en.wikipedia.org/wiki/JSON">JSON</a></li>
  * <li>The user is likely to be another computer application</li>
  * <li>Introspect might have a RESTfull XML implementation in the future</li>
  * </ul>
@@ -129,8 +126,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * <h3>JUnit interface</h3>
  * <ul>
  * <li>The JUnit interface is an interface to test objects in the lower layers
- * (see {@link IntrospectArchitecture}), using the <a
- * href="https://en.wikipedia.org/wiki/JUnit">JUnit test framework</a></li>
+ * (see {@link IntrospectArchitecture}), using the
+ * <a href="https://en.wikipedia.org/wiki/JUnit">JUnit test framework</a></li>
  * <li>The user is the JUnit test framework</li>
  * <li>See {@link IntrospectApplicationForJUnit}.</li>
  * </ul>
@@ -151,14 +148,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 	}
 
-	/**
-	 * Allows the user interface objects to be build (i.e. the creation of a
-	 * main window)
-	 * 
-	 *TODO consider to  add (commandline) arguments
-	 */
-	public abstract void start();
-
 	public abstract void showErrorDialog(String title, String message, Throwable throwable);
 
 	/**
@@ -177,11 +166,12 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_DIRECTLY }: Will call
 	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
 	 * directly (i.e. when there is no {@link ActionMethod} parameter)</li>
-	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will ask
-	 * the user for confirmation before the {@link ActionMethod} is executed. To
-	 * do this it will call one of the confirmActionMethodParameter(...) methods
-	 * in the {@link UserInterfaceController} implementation. After the
-	 * confirmation the
+	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will
+	 * ask the user for confirmation before the {@link ActionMethod} is
+	 * executed. To do this it will call one of the
+	 * confirmActionMethodParameter(...) methods in the
+	 * {@link UserInterfaceController} implementation. After the confirmation
+	 * the
 	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
 	 * needs to be called (i.e. by a OK button).</li>
 	 * <li>
@@ -240,7 +230,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * This method is called from
 	 * {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from
 	 * the {@link FormOkItem} linked to the OK button <br>
-	 * It needs the check if the method is enabled before the method is executed<br>
+	 * It needs the check if the method is enabled before the method is executed
+	 * <br>
 	 * It needs to validate the method parameter value before the method is
 	 * executed
 	 * 
@@ -265,7 +256,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 			Object methodParameter, Object methodResult) {
 		try {
 			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException exception) {
 			String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
 					true);
 			String message = languageProvider.getText("Failed to execute.");
@@ -340,4 +332,11 @@ public abstract class UserInterfaceController implements NotificationListener {
 	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
 			Object methodParameter, String methodResult);
 
+	/**
+	 * Allows the user interface objects to be build (i.e. the creation of a
+	 * main window). All information needed to start the application (like the
+	 * command line arguments or web ap URL) should be available in the
+	 * {@link IntrospectApplication}
+	 */
+	public abstract void launch();
 }

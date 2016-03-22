@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import nth.introspect.IntrospectApplication;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.documentation.IntrospectArchitecture;
-import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.UserInterfaceLayer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;

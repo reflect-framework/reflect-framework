@@ -1,7 +1,7 @@
 package nth.introspect.layer5provider.reflection.behavior;
 
+import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.Documentation;
-import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;

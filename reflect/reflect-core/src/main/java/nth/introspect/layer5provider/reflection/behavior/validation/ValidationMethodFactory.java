@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer3domain.DomainObjectProperty;

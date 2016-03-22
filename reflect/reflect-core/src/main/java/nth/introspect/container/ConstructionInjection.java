@@ -1,9 +1,9 @@
 package nth.introspect.container;
 
 import nth.introspect.IntrospectApplication;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
-import nth.introspect.documentation.IntrospectFramework;
 
 /**
  * <p>

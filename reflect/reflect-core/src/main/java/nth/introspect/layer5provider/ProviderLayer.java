@@ -1,9 +1,9 @@
 package nth.introspect.layer5provider;
 
+import nth.introspect.IntrospectFramework;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.documentation.IntrospectArchitecture;
-import nth.introspect.documentation.IntrospectFramework;
 
 /**
  * <p>

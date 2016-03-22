@@ -1,5 +1,7 @@
 package nth.introspect.documentation;
 
+import nth.introspect.IntrospectFramework;
+
 /**
  * <img src="IntrospectDocumentation.png">
  * <title>The Introspect Framework</title>

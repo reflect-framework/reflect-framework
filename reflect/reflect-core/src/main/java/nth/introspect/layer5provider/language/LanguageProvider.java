@@ -2,8 +2,8 @@ package nth.introspect.layer5provider.language;
 
 import java.util.Locale;
 
+import nth.introspect.IntrospectFramework;
 import nth.introspect.container.ConstructionInjection;
-import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer3domain.DomainObjectProperty;
 import nth.introspect.layer5provider.Provider;

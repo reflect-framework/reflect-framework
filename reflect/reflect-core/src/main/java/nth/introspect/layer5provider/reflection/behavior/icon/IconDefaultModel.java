@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URL;
 
-import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 

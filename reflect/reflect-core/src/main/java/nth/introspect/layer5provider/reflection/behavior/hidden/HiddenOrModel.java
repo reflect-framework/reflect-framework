@@ -1,6 +1,6 @@
 package nth.introspect.layer5provider.reflection.behavior.hidden;
 
-import nth.introspect.documentation.IntrospectFramework;
+import nth.introspect.IntrospectFramework;
 
 /**
  * If the code has both a "hidden annotation" and a "hidden method", the

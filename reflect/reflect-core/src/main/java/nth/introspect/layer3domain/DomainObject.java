@@ -1,8 +1,8 @@
 package nth.introspect.layer3domain;
 
 import nth.introspect.IntrospectApplication;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.Documentation;
-import nth.introspect.documentation.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer2service.ServiceObjectActionMethod;

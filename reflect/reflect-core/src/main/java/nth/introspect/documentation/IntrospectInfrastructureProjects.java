@@ -1,6 +1,7 @@
 package nth.introspect.documentation;
 
 import nth.introspect.IntrospectApplication;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer4infrastructure.InfrastructureObject;

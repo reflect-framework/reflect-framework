@@ -1,5 +1,6 @@
 package nth.introspect.documentation;
 
+import nth.introspect.IntrospectFramework;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 
 /**

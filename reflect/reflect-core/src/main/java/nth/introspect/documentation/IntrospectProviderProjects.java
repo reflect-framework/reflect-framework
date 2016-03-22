@@ -1,6 +1,7 @@
 package nth.introspect.documentation;
 
 import nth.introspect.IntrospectApplication;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.layer5provider.Provider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 

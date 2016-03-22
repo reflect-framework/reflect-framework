@@ -21,7 +21,7 @@ public class ServiceContainer extends DependencyInjectionContainer {
 
 		// add all service classes
 		List<Class<?>> serviceClasses = application.getServiceClasses();
-		if (mustHaveServiceClasses && serviceClasses.size() == 0 ) {
+		if (mustHaveServiceClasses && (serviceClasses==null || serviceClasses.size() == 0) ) {
 			throw new MissingServiceClassException(application);
 		}
 		add(serviceClasses);
