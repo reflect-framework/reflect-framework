@@ -3,7 +3,6 @@ package nth.introspect.ui.junit;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.Introspect;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.documentation.IntrospectArchitecture;

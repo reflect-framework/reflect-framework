@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import nth.introspect.layer4infrastructure.InfrastructureObject;
-
 import org.hibernate.dialect.Dialect;
+
+import nth.introspect.layer4infrastructure.InfrastructureObject;
 
 /**
  * {@link HibernateConfiguration} is a class that holds abstract (read only)

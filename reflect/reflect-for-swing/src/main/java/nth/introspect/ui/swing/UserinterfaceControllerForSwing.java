@@ -42,7 +42,7 @@ public class UserinterfaceControllerForSwing extends
 	}
 
 	@Override
-	public void start() {
+	public void launch() {
 		mainWindow = new MainWindow(userInterfaceContainer);
 	}
 	

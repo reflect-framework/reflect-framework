@@ -52,7 +52,7 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 	}
 
 	@Override
-	public void start() {
+	public void launch() {
 		events.add("start()");
 	}
 

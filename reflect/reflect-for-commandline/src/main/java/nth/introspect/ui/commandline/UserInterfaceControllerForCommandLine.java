@@ -72,8 +72,10 @@ public class UserInterfaceControllerForCommandLine extends
 		// Not supported yet
 	}
 
+	
+	//TODO change launch(commandlineArguments) (see javaFX Application.launch)
 	@Override
-	public void start() {
+	public void launch() {
 		try {
 			viewContainer = new CommandLineViewContainer();
 			IntrospectApplicationForCommandLine commandLineApplication = providerContainer

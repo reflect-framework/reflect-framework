@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 
 import nth.introspect.container.DependencyInjectionContainer;
-import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;

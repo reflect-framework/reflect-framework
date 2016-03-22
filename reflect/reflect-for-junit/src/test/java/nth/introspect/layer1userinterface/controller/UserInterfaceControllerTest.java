@@ -1,19 +1,18 @@
 package nth.introspect.layer1userinterface.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import nth.introspect.Introspect;
+import org.junit.Before;
+import org.junit.Test;
+
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 import nth.introspect.ui.junit.UserInterfaceControllerForJUnit;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class UserInterfaceControllerTest {
 

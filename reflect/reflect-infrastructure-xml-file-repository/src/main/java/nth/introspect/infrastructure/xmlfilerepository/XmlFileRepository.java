@@ -14,7 +14,6 @@ import java.util.Scanner;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 
-import nth.introspect.Introspect;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.generic.xml.XmlConverter;

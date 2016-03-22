@@ -15,6 +15,7 @@
 		<module>reflect-userinterface</module>
 		<module>reflect-for-commandline</module>
 		<module>reflect-for-commandline-demo</module>
+		<module>reflect-for-javafx</module>
 		<module>reflect-for-junit</module>
 		<module>reflect-example-domain</module>
 		<module>reflect-for-swing</module>
@@ -36,8 +37,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.3</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
 			</plugins>

@@ -17,12 +17,9 @@ import nth.introspect.ui.swing.IntrospectApplicationForSwing;
 @Description(englishDescription="ACME Web Shop for everything you need...")
 public class AcmeWebShop extends IntrospectApplicationForSwing {
 
-	public AcmeWebShop(String[] commandLineArguments) {
-		super(commandLineArguments);
-	}
 
 	public static void main(String[] commandLineArguments) {
-		new AcmeWebShop(commandLineArguments);
+		launch();
 	}
 	
 	

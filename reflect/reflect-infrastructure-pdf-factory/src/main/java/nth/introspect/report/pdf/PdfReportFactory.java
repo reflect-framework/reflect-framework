@@ -1,22 +1,9 @@
 package nth.introspect.report.pdf;
 
-import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import nth.introspect.Introspect;
-import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfoComparator;
-import nth.introspect.layer5provider.reflection.info.property.TableVisibleFilter;
-import nth.introspect.report.FormSection;
-import nth.introspect.report.Report;
-import nth.introspect.report.ReportProvider;
-import nth.introspect.report.Section;
-import nth.introspect.report.TableSection;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
@@ -32,6 +19,15 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.report.FormSection;
+import nth.introspect.report.Report;
+import nth.introspect.report.ReportProvider;
+import nth.introspect.report.Section;
+import nth.introspect.report.TableSection;
 
 public class PdfReportFactory extends ReportProvider<Document> {
 

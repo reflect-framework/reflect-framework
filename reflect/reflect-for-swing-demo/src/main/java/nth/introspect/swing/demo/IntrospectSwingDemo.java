@@ -9,15 +9,11 @@ import nth.introspect.ui.swing.IntrospectApplicationForSwing;
 
 public class IntrospectSwingDemo extends IntrospectApplicationForSwing {
 
-	public IntrospectSwingDemo(String[] arguments) {
-		super(arguments);
-	}
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] arguments) {
-		new IntrospectSwingDemo(arguments);
+		launch();
 	}
 
 	@Override

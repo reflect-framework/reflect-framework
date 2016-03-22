@@ -11,8 +11,8 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 import nth.introspect.container.DependencyInjectionContainer;
+import nth.introspect.swing.util.ColorFactory;
 import nth.introspect.ui.GraphicalUserinterfaceController;
-import nth.introspect.ui.style.MaterialColorTheme;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.swing.view.menu.item.Item;
 
@@ -22,7 +22,7 @@ public class MenuList extends JList<Item> {
 
 	public MenuList(DependencyInjectionContainer userInterfaceContainer) {
 		super(new MenuListModel(userInterfaceContainer));
-		GraphicalUserinterfaceController controller = userInterfaceContainer.get(GraphicalUserinterfaceController.class);
+		GraphicalUserinterfaceController<?> controller = userInterfaceContainer.get(GraphicalUserinterfaceController.class);
 		MaterialStyle materialStyle=controller.getMaterialStyle();
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setLayoutOrientation(JList.VERTICAL);
@@ -30,7 +30,7 @@ public class MenuList extends JList<Item> {
 		setVisibleRowCount(-1);
 		addMouseListener(createMouseListener());
 		addKeyListener(createKeyListener());
-		setBackground(MaterialColorTheme.defaultTheme.getBackGround().getBackground());
+		setBackground(ColorFactory.create(materialStyle.getListSingleLineStyle().getBackgroundColor()));
 	}
 
 	private KeyListener createKeyListener() {

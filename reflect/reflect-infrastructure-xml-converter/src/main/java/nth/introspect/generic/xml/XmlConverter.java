@@ -17,7 +17,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import nth.introspect.Introspect;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import nth.introspect.IntrospectFramework;
 import nth.introspect.container.InstanceFactory;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.generic.xml.transform.DefaultMatcher;
@@ -27,14 +32,9 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 public class XmlConverter {
 
-	private static final String INTROSPECT = Introspect.class.getSimpleName();
+	private static final String INTROSPECT = IntrospectFramework.class.getSimpleName();
 	private static final String ID = "id";
 	private static DefaultMatcher XML_TRANSFORM_MATCHER = new DefaultMatcher(null);
 	private final ReflectionProvider reflectionProvider;

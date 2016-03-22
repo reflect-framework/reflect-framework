@@ -2,13 +2,12 @@ package nth.introspect.infrastructure.hibernate;
 
 import java.util.List;
 
-import junit.framework.TestCase;
-import nth.introspect.container.DependencyInjectionContainer;
-import nth.introspect.generic.util.ClassList;
-import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import junit.framework.TestCase;
+import nth.introspect.container.DependencyInjectionContainer;
+import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
 
 public class HibernateRepositoryTest extends TestCase {
 

@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nth.introspect.Introspect;
 import nth.introspect.domain.test.TestsService;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
@@ -25,7 +24,6 @@ public class ClassDiagramService {
 	public ClassDiagramService(ReflectionProvider reflectionProvider) {
 		this.reflectionProvider = reflectionProvider;
 		serviceClasses = new ArrayList<Class<?>>();
-		serviceClasses.add(Introspect.class);
 		serviceClasses.add(TestsService.class);
 	}
 

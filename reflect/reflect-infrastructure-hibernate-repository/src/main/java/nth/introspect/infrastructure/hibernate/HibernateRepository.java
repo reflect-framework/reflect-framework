@@ -3,13 +3,13 @@ package nth.introspect.infrastructure.hibernate;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import nth.introspect.infrastructure.hibernate.entity.DeletableEntity;
-import nth.introspect.layer3domain.DomainObject;
-import nth.introspect.layer4infrastructure.InfrastructureObject;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import nth.introspect.infrastructure.hibernate.entity.DeletableEntity;
+import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer4infrastructure.InfrastructureObject;
 
 /**
  * A {@link InfrastructureObject} to link a {@link DomainObject} type to a database using Hibernate (JPA)

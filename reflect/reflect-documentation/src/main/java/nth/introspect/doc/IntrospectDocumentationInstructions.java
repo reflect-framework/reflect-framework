@@ -1,8 +1,7 @@
 package nth.introspect.doc;
 
-import nth.introspect.Introspect;
+import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.IntrospectDocumentation;
-import nth.introspect.documentation.IntrospectFramework;
 
 /**
  * <p>
