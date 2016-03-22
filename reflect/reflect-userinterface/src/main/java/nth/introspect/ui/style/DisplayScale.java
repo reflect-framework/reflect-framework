@@ -1,18 +1,28 @@
 package nth.introspect.ui.style;
 
-public enum DisplayDense {
+public enum DisplayScale {
 	/**
 	 * When the mouse and keyboard are the primary input methods, measurements may be condensed to accommodate denser layouts.
 	 */
-	DENSE,
+	DENSE(0.85),
 	/**
 	 * When a touch screen is the primary input methods, measurements may NOT be condensed to accommodate easy to control input.
 	 */
-	NONE_DENSE
+	NONE_DENSE(1)
 	;
 
-	public static DisplayDense forHasKeyboardAndMouse(boolean hasKeyboardAndMouse) {
-		if (hasKeyboardAndMouse) {
+	private double scale;
+
+	private DisplayScale(double scale) {
+		this.scale = scale;
+	}
+	
+	public int scale(int size) {
+		return (int) (size* scale);
+	}
+	
+	public static DisplayScale forHasKeyboardOrMouse(boolean hasKeyboardOrMouse) {
+		if (hasKeyboardOrMouse) {
 			return DENSE;
 		} else {
 			return NONE_DENSE;
