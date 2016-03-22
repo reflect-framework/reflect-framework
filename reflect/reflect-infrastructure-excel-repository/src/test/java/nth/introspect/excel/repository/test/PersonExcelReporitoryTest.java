@@ -20,7 +20,7 @@ import org.junit.rules.TemporaryFolder;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.excel.repository.exception.ColumnNamesNotFoundException;
 import nth.introspect.excel.repository.exception.CouldNotFindSheetsException;
-import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
+import nth.introspect.junit.IntrospectApplicationForJUnit;
 
 public class PersonExcelReporitoryTest {
 

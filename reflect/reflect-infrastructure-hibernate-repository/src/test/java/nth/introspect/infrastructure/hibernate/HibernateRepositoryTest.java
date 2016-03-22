@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 import nth.introspect.container.DependencyInjectionContainer;
-import nth.introspect.ui.junit.IntrospectApplicationForJUnit;
+import nth.introspect.junit.IntrospectApplicationForJUnit;
 
 public class HibernateRepositoryTest extends TestCase {
 

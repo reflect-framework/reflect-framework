@@ -3,7 +3,6 @@ package nth.introspect.generic.util;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 public class TitleUtil {
 

@@ -22,12 +22,6 @@
 			<version>3.13</version>
 		</dependency>
 		<dependency>
-			<groupId>nth.reflect.framework</groupId>
-			<artifactId>reflect-for-junit</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
