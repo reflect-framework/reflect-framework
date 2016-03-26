@@ -74,7 +74,7 @@ public class RfxWindow extends VBox {
 	private RfxApplicationToolbar applicationToolbar;
 	private Rectangle2D midmizePosAndSize;
 
-	public RfxWindow(Stage stage, Node node, UserInterfaceContainer userInterfaceContainer) {
+	public RfxWindow(Stage stage, Node node, UserInterfaceContainer userInterfaceContainer, MaterialStyle materialStyle) {
 		super();
 		primaryStage = stage;
 		primaryStage.initStyle(StageStyle.TRANSPARENT);
@@ -84,8 +84,6 @@ public class RfxWindow extends VBox {
 		//TODO initStyleProperties()
 		//TODO initControlls()
 
-		MaterialStyle materialStyle = getMaterialStyle();
-		
 		applicationToolbar = new RfxApplicationToolbar(materialStyle, this, userInterfaceContainer);
 
 		contentPlaceHolder.setMinSize(0, 0);
@@ -219,15 +217,6 @@ public class RfxWindow extends VBox {
 		});
 	}
 
-
-	private MaterialStyle getMaterialStyle() {//TODO get from graphicalUserInterfaceController
-		boolean hasKeyboardAndMouse=true;//assumption
-		int displayWidthInInches=10 ;//TODO
-		DisplayType displayType=new DisplayType(displayWidthInInches, hasKeyboardAndMouse);
-		MaterialStyle materialStyle=new MaterialStyle(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE, nth.introspect.ui.style.basic.Color.WHITE,  displayType );
-		return materialStyle;
-	}
-	
 	private boolean isRightEdge(double x, double y, Bounds boundsInParent) {
 		if (x < this.getWidth() && x > this.getWidth() - contentPlaceHolder.snappedLeftInset()) {
 			return true;

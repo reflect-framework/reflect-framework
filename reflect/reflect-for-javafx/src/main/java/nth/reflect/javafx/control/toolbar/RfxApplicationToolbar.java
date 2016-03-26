@@ -77,10 +77,6 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 		}
 	}
 
-//	private void initStyleClassName() {
-//		getStyleClass().add(RfxStyleGroup.getStyleClassName(RfxApplicationToolbar.class));
-//	}
-
 	private void addMenuButton(ToolbarIconStyle iconStyle) {
 		RfxApplicationToolbarMenuButton menuButton = new RfxApplicationToolbarMenuButton(iconStyle);
 		getChildren().add(menuButton);
@@ -97,15 +93,4 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 		getChildren().add(spacer);
 	}
 
-//	public static List<RfxStyleGroup> getStyleGroups(MaterialStyle materialStyle) {
-//		ApplicationToolbarStyle applicationToolbarStyle = materialStyle
-//				.getApplicationToolbarStyle();
-//
-//		List<RfxStyleGroup> styleGroups = new ArrayList<>();
-//
-//		RfxStyleGroup style = new RfxStyleGroup(RfxApplicationToolbar.class);
-//		
-//
-//		return styleGroups;
-//	}
 }
