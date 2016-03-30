@@ -115,8 +115,11 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	private Label createLabel(Font font) {
 		Label label = new Label(font.getName());
 		label.setFont(RfxFontFactory.create(font));
+	
 		return label;
 	}
+	
+	
 
 	@Override
 	public void launch() {
@@ -125,7 +128,6 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		Stage primaryStage = application.getPrimaryStage();
 		
 		MaterialStyle materialStyle=getMaterialStyle();
-		
 		
 
 		
@@ -154,6 +156,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 		Scene scene = new Scene(mainWindow);
 		new RfxStyleSheet(materialStyle).addToScene(scene);
+		//scene.getStylesheets().add(RfxUserinterfaceController.class.getResource("default-style.css").toExternalForm());
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();

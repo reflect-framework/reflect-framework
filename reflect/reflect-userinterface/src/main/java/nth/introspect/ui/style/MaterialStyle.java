@@ -136,9 +136,10 @@ public class MaterialStyle {
 		return new ListStyle() {
 
 			@Override
-			public int getHeight() {
-				return displayScale.scale(48);
+			public int getMinHeight() {
+				return displayScale.scale(56);
 			}
+
 
 			@Override
 			public int getPaddingLeft() {

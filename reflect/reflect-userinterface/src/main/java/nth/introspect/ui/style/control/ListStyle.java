@@ -6,7 +6,7 @@ import nth.introspect.ui.style.basic.Font;
 
 public interface ListStyle {
 
-	int getHeight();
+	int getMinHeight();
 
 	int getPaddingLeft();
 
@@ -19,5 +19,7 @@ public interface ListStyle {
 	Color getBackgroundColor();
 
 	Color getTextColor();
+
+	
 
 }

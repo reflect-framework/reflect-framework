@@ -1,8 +1,6 @@
 package nth.reflect.javafx.control.toolbar;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -12,7 +10,8 @@ import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ApplicationToolbarStyle;
 import nth.introspect.ui.style.control.ApplicationToolbarTitleStyle;
 import nth.introspect.ui.style.control.ToolbarIconStyle;
-import nth.reflect.javafx.control.style.RfxBackgroundFactory;
+import nth.reflect.javafx.control.style.RfxStyleSelector;
+import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 /**
@@ -32,7 +31,7 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 
 	public RfxApplicationToolbar(MaterialStyle materialStyle, RfxWindow window, UserInterfaceContainer userInterfaceContainer) {
 		this.window = window;
-		initStyleProperties(materialStyle.getApplicationToolbarStyle());
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxApplicationToolbar.class));
 		
 		ToolbarIconStyle iconStyle = materialStyle.getTabToolbarIconStyle();
 		addMenuButton(iconStyle);
@@ -52,14 +51,6 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 
 		setOnMouseClicked((mouseEvent) -> onMouseClicked(mouseEvent, resizeButton));
 		setOnMouseDragged((mouseEvent) -> setOnMouseDragged(mouseEvent));
-	}
-
-	private void initStyleProperties(ApplicationToolbarStyle toolbarStyle) {
-		setMinWidth(300);
-		setBackground(RfxBackgroundFactory.fill(toolbarStyle.getBackgroundColor()));
-		setHeight(toolbarStyle.getHeight());
-		setPadding(Insets.EMPTY);
-		setAlignment(Pos.CENTER_LEFT);
 	}
 
 	private void setOnMouseDragged(MouseEvent event) {
@@ -91,6 +82,17 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		getChildren().add(spacer);
+	}
+
+	public static void appendStyleGroups(RfxStyleSheet styleSheet, MaterialStyle materialStyle) {
+		ApplicationToolbarStyle toolbarStyle=materialStyle.getApplicationToolbarStyle();
+		
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbar.class))
+		.setBackground(toolbarStyle.getBackgroundColor())
+		.setHeight(toolbarStyle.getHeight())
+		.setMinWidth(300)
+		.setPadding(0)
+		.setAlignment(Pos.CENTER_LEFT);
 	}
 
 }

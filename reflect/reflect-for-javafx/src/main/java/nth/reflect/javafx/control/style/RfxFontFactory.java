@@ -4,7 +4,11 @@ import javafx.scene.text.Font;
 
 /**
  * converts Reflect font to JavaFX font
+ * @deprecated use {@link RfxStyleSheet}
+ * @author nilsth
+ *
  */
+
 public class RfxFontFactory {
 
 	public static Font create(

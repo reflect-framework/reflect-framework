@@ -8,8 +8,11 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ToolbarIconStyle;
 import nth.reflect.javafx.control.style.RfxColorFactory;
+import nth.reflect.javafx.control.style.RfxStyleSelector;
+import nth.reflect.javafx.control.style.RfxStyleSheet;
 
 /**
  * Reflect Application Toolbar Button (icons) for JavaFX with Google Material
@@ -21,24 +24,24 @@ import nth.reflect.javafx.control.style.RfxColorFactory;
 
 public class RfxApplicationToolbarButton extends Button {
 
-	// TODO RfxToolbarIconButton
 	// TODO RfxFlatButton
 	// TODO RfxRaisedButton
 
 	public RfxApplicationToolbarButton(ToolbarIconStyle iconStyle) {
 		super();
-		initStyleProperties(iconStyle);
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxApplicationToolbarButton.class));
 	}
 
-	private void initStyleProperties(ToolbarIconStyle iconStyle) {
-		setBorder(Border.EMPTY);
-		setHeight(iconStyle.getSize());
-		setPadding(new Insets(iconStyle.getPadding()));
-		Color pressedColor = RfxColorFactory.create( iconStyle.getPressedColor());
-		backgroundProperty().bind(Bindings.when(pressedProperty())
-				.then(new Background(
-						new BackgroundFill(pressedColor, new CornerRadii(2), Insets.EMPTY)))
-				.otherwise(Background.EMPTY));
+
+	public static void appendStyleGroups(RfxStyleSheet styleSheet, MaterialStyle materialStyle) {
+		ToolbarIconStyle iconStyle = materialStyle.getTabToolbarIconStyle();
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarButton.class))
+				.setBorderWidth(0).setHeight(iconStyle.getSize())
+				.setPadding(iconStyle.getPadding()).setBackground(null);
+
+		styleSheet.addStyleGroup(
+				RfxStyleSelector.createFor(RfxApplicationToolbarButton.class).appendPressed())
+				.setBackground(iconStyle.getPressedColor());
 	}
 
 }
