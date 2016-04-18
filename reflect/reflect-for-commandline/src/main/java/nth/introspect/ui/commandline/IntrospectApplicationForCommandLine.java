@@ -1,6 +1,8 @@
 package nth.introspect.ui.commandline;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.List;
 
 import com.sun.javafx.application.LauncherImpl;
 
@@ -41,11 +43,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  */
 public abstract class IntrospectApplicationForCommandLine implements IntrospectApplication {
 
-	private final String[] commandLineArguments;
-
-	public IntrospectApplicationForCommandLine(String... commandLineArguments) {
-		this.commandLineArguments = commandLineArguments;
-	}
+	private  String[] commandLineArguments;
 
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
@@ -148,7 +146,8 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 				Class<? extends IntrospectApplicationForCommandLine> appClass = theClass;
 				Constructor<? extends IntrospectApplicationForCommandLine> constructor = (Constructor<? extends IntrospectApplicationForCommandLine>) appClass
 						.getConstructors()[0];
-				IntrospectApplicationForCommandLine app = constructor.newInstance(args);
+				IntrospectApplicationForCommandLine app = constructor.newInstance();
+				app.setCommandlineArguments(args);
 				IntrospectFramework.launch(app);
 			} else {
 				throw new RuntimeException("Error: " + theClass + " is not a subclass of "
@@ -159,6 +158,10 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
 		}
+	}
+
+	private void setCommandlineArguments(String[] commandLineArguments) {
+		this.commandLineArguments=commandLineArguments;
 	}
 
 }

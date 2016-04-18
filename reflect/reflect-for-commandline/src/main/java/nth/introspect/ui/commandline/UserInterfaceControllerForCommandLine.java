@@ -73,7 +73,6 @@ public class UserInterfaceControllerForCommandLine extends
 	}
 
 	
-	//TODO change launch(commandlineArguments) (see javaFX Application.launch)
 	@Override
 	public void launch() {
 		try {

@@ -131,7 +131,7 @@ public class Command {
 
 	public Object createMethodParameter() throws IntrospectCommandLineException {
 		try {
-				return actionMethodInfo.createMethodParameter(serviceObject);
+			return actionMethodInfo.createMethodParameter(serviceObject); 
 		} catch (Exception e) {
 			throw new IntrospectCommandLineException(
 					"Could not create a new instance of method parameter: "

@@ -8,7 +8,7 @@ public class CommandLineViewContainer implements ViewContainer<CommandLineView> 
 
 	@Override
 	public int getViewCount() {
-		throw new MethodNotSupportedException();
+		return 1;
 	}
 
 	@Override
