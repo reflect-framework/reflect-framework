@@ -33,8 +33,8 @@ public class IconMethodModel  implements IconModel {
 			} catch (Exception exception) {
 				return null;
 			}
-		} catch (Exception e) {
-			throw new BehaviorMethodInvokeException(iconMethod);
+		} catch (Exception exception) {
+			throw new BehaviorMethodInvokeException(iconMethod, exception);
 		}
 	}
 }

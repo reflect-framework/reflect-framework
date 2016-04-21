@@ -1,14 +1,14 @@
 package nth.introspect.ui.commandline.domain.command;
 
 import java.io.File;
+import java.net.URI;
 import java.net.URL;
 import java.text.Format;
 import java.util.Date;
 import java.util.Map;
 
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
-import com.sun.org.apache.xml.internal.utils.URI;
+import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class Parameter {
 	private final PropertyInfo propertyInfo;

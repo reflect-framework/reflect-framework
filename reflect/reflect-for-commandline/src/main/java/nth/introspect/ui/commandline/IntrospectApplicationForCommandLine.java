@@ -1,12 +1,7 @@
 package nth.introspect.ui.commandline;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.List;
 
-import com.sun.javafx.application.LauncherImpl;
-
-import javafx.application.Application;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
@@ -115,6 +110,7 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 	 * @throws IllegalStateException
 	 *             if this method is called more than once.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void launch(String... args) {
 		// Figure out the right class to call
 		StackTraceElement[] cause = Thread.currentThread().getStackTrace();

@@ -8,82 +8,49 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
-import nth.introspect.generic.exception.MethodNotSupportedException;
+import nth.introspect.generic.util.ExceptionUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
-import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.layer1userinterface.item.Item.Action;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.ProviderContainer;
+import nth.introspect.layer5provider.notification.Task;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.commandline.domain.command.Command;
 import nth.introspect.ui.commandline.domain.command.CommandService;
 import nth.introspect.ui.commandline.domain.command.IntrospectCommandLineException;
 import nth.introspect.ui.commandline.domain.command.Parameter;
-import nth.introspect.ui.commandline.view.CommandLineView;
-import nth.introspect.ui.commandline.view.CommandLineViewContainer;
 import nth.introspect.ui.commandline.view.FormView;
 import nth.introspect.ui.commandline.view.HelpView;
 import nth.introspect.ui.commandline.view.TableView;
-import nth.introspect.ui.style.DisplaySize;
-import nth.introspect.ui.view.FormMode;
 
-public class UserInterfaceControllerForCommandLine extends
-		GraphicalUserinterfaceController<CommandLineView> {
+public class UserInterfaceControllerForCommandLine extends UserInterfaceController {
 
-	/**
-	 * TODO UserInterfaceControllerForCommandLine should not implement
-	 * GraphicalUserinterfaceController (to get rid of all unused methods such
-	 * as {@link #showDialog(DialogType, String, String, List)},
-	 * {@link #closeProgressDialog()},
-	 * {@link #showDialog(DialogType, String, String, List)},
-	 * {@link #getViewContainer()}, {@link #getDisplaySize()},
-	 * {@link #getDisplayWidthInInches()}, etc..
-	 */
-	private CommandLineViewContainer viewContainer;
 	private final ProviderContainer providerContainer;
 
-	public UserInterfaceControllerForCommandLine(
-			UserInterfaceContainer userInterfaceContainer) {
+	public UserInterfaceControllerForCommandLine(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-		this.providerContainer = userInterfaceContainer
-				.get(ProviderContainer.class);
+		this.providerContainer = userInterfaceContainer.get(ProviderContainer.class);
 	}
 
-	@Override
-	public void showProgressDialog(String taskDescription, int currentValue,
-			int maxValue) {
-		// Not supported yet
-	}
-
-	@Override
-	public void closeProgressDialog() {
-		// Not supported yet
-	}
-
-	
 	@Override
 	public void launch() {
 		try {
-			viewContainer = new CommandLineViewContainer();
 			IntrospectApplicationForCommandLine commandLineApplication = providerContainer
 					.get(IntrospectApplicationForCommandLine.class);
-			String[] arguments = commandLineApplication
-					.getCommandLineArguments();
+			String[] arguments = commandLineApplication.getCommandLineArguments();
 
-			List<Command> commands = CommandService
-					.getCommands(userInterfaceContainer);
+			List<Command> commands = CommandService.getCommands(userInterfaceContainer);
 
 			if (isCommandFile(arguments)) {
 				List<String[]> argumentsInFile = getArgumentsFromCommandFile(arguments);
@@ -100,8 +67,7 @@ public class UserInterfaceControllerForCommandLine extends
 
 	}
 
-	private List<String[]> getArgumentsFromCommandFile(String[] arguments)
-			throws IOException {
+	private List<String[]> getArgumentsFromCommandFile(String[] arguments) throws IOException {
 		File commandFile = getCommandFile(arguments);
 		FileReader commandFileReader = new FileReader(commandFile);
 		BufferedReader br = new BufferedReader(commandFileReader);
@@ -142,18 +108,15 @@ public class UserInterfaceControllerForCommandLine extends
 		Command command = CommandService.findCommand(commands, arguments);
 		if (command == null) {
 			HelpView helpView = new HelpView("Unknown command", commands);
-			getViewContainer().addView(helpView);
+			System.out.println(helpView.toString());
 			System.exit(1);
-
 		}
 
 		List<Parameter> parameters = command.getParameters();
-		boolean invalidNumberOfArguments = arguments.length != 1 + parameters
-				.size();// number of arguments != command + parameters
+		boolean invalidNumberOfArguments = arguments.length != 1 + parameters.size();
 		if (invalidNumberOfArguments) {
-			HelpView helpView = new HelpView("Invalid number of arguments!",
-					commands);
-			getViewContainer().addView(helpView);
+			HelpView helpView = new HelpView("Invalid number of arguments!", commands);
+			System.out.println(helpView.toString());
 		}
 
 		Object methodParameterValue = command.createMethodParameter();
@@ -166,8 +129,7 @@ public class UserInterfaceControllerForCommandLine extends
 
 		Object serviceObject = command.getServiceObject();
 		ActionMethodInfo actionMethodInfo = command.getMethodInfo();
-		actionMethodInfo
-				.setExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
+		actionMethodInfo.setExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
 
 		processActionMethod(serviceObject, actionMethodInfo, methodParameterValue);
 	}
@@ -185,72 +147,107 @@ public class UserInterfaceControllerForCommandLine extends
 		return new File(arguments[0]);
 	}
 
-	@Override
-	public void showInfoMessage(String message) {
-		// display message
-		System.out.println(message);
+	public void downloadFile(DownloadStream downloadStream) {
 	}
 
 	@Override
-	public void showDialog(DialogType dialogType, String title, String message,
-			List<Item> items) {
-		StringBuilder txt = new StringBuilder(dialogType.toString());
-		txt.append(" - ");
+	public void onTaskChange(Task task) {
+	}
+
+	@Override
+	public void onRefresh() {
+	}
+
+	@Override
+	public void onNewMessage(String title, String message) {
+	}
+
+	@Override
+	public void showErrorDialog(String title, String message, Throwable throwable) {
+		StringBuilder txt = new StringBuilder();
 		txt.append(title);
 		txt.append("\n");
 		txt.append(message);
 		txt.append("\n");
+		txt.append("Cause: ");
+		txt.append(ExceptionUtil.getRootCause(throwable).getMessage());
+		txt.append("\n");
+		txt.append("Details: ");
+		txt.append("\n");
+		txt.append(ExceptionUtil.getRootCauseStackTrace(throwable));
 		System.out.println(txt.toString());
-
-		StringBuilder options = new StringBuilder(dialogType.toString());
-		options.append(languageProvider.getText("Options: "));
-		for (int index = 0; index < items.size(); index++) {
-			options.append(index + 1);
-			options.append("=");
-			options.append(items.get(index).getText());
-			if (index == items.size() - 1) {
-				// last option
-				options.append("? ");
-			} else {
-				options.append(", ");
-			}
-
-		}
-		System.out.print(options.toString());
-
-		Scanner reader = new Scanner(System.in);
-		int input = -1;
-		while (input < 1 || input > items.size()) {
-			try {
-				char c = reader.next().charAt(0);
-				input = Integer.valueOf("" + c);
-			} catch (Exception e) {
-			}
-			if (input < 1 || input > items.size()) {
-				System.out.println(languageProvider.getText("Invalid input."));
-				System.out.print(options.toString());
-			}
-		}
-		reader.close();
-
-		Item selectedItem = items.get(input - 1);
-		Action action = selectedItem.getAction();
-		if (action != null) {
-			action.run();
-		}
-
 	}
 
 	@Override
-	public CommandLineViewContainer getViewContainer() {
-		return viewContainer;
+	public void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter) {
+		// TODO check if the method is enabled before the method is executed
+		// (otherwise throw exception)
+		// TODO validate the method parameter value before the method is
+		// executed (if invalid: throw exception)
+
+		Object methodReturnValue;
+		try {
+			methodReturnValue = methodInfo.invoke(methodOwner, methodParameter);
+		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+			throw new RuntimeException(e);
+		}
+		// show method result
+		processActionMethodResult(methodOwner, methodInfo, methodParameter, methodReturnValue);
 	}
 
 	@Override
-	public void downloadFile(DownloadStream downloadStream) {
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter) {
+		System.out.println("Succesfully executed");
+	}
+	
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, Object methodResult) {
+		FormView formView = new FormView(reflectionProvider, methodInfo, methodResult);
+		System.out.println(formView.toString());
+	}
+
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, List<?> methodResult) {
+		TableView tableView = new TableView(providerContainer.get(ReflectionProvider.class),
+				methodInfo, (Collection<?>) methodResult);
+		System.out.println(tableView.toString());
+	}
+
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, URI uri) {
+		try {
+			Desktop.getDesktop().browse(uri);
+		} catch (IOException exception) {
+			showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
+		}
+	}
+
+
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, DownloadStream methodResult) {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setSelectedFile(downloadStream.getFile());
-		InputStream inputStream = downloadStream.getInputStream();
+		chooser.setSelectedFile(methodResult.getFile());
+		InputStream inputStream = methodResult.getInputStream();
 		int returnVal = chooser.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = chooser.getSelectedFile();
@@ -277,48 +274,10 @@ public class UserInterfaceControllerForCommandLine extends
 	}
 
 	@Override
-	public CommandLineView createFormView(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object domainObject, FormMode formMode) {
-		return new FormView(providerContainer.get(ReflectionProvider.class),
-				actionMethodInfo, domainObject);
-	}
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, String methodResult) {
+		System.out.println(methodResult);
 
-	@Override
-	public CommandLineView createTableView(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		return new TableView(providerContainer.get(ReflectionProvider.class),
-				actionMethodInfo, (Collection<?>) methodReturnValue);
 	}
-
-	@Override
-	public CommandLineView createTreeTableView(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		throw new MethodNotSupportedException();
-	}
-
-	@Override
-	public void openURI(URI uri) {
-		try {
-			Desktop.getDesktop().browse(uri);
-		} catch (IOException exception) {
-			showErrorDialog("Error", "Error browsing URI: " + uri.toString(),
-					exception);
-		}
-	}
-
-	@Override
-	public DisplaySize getDisplaySize() {
-		return DisplaySize.WIDE;
-	}
-
-	@Override
-	public int getDisplayWidthInInches() {
-		return 8;
-	}
-
-	
 
 }

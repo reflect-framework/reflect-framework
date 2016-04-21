@@ -25,8 +25,7 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 	public MenuListRenderer(MaterialStyle materialStyle) {
 		this.style= materialStyle.getListSingleLineStyle();
 		setOpaque(true);
-		setPreferredSize(new Dimension(0, materialStyle.getListSingleLineStyle().getHeight()));
-
+		setPreferredSize(new Dimension(0, materialStyle.getListSingleLineStyle().getMinHeight()));
 	}
 
 	@Override

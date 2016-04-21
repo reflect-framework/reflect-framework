@@ -294,6 +294,10 @@ public class ActionMethodInfo implements NameInfo {
 	public boolean hasParameter() {
 		return actionMethod.getParameterTypes().length > 0;
 	}
+	
+	public boolean hasReturnValue() {
+		return actionMethod.getReturnType()!=Void.TYPE;
+	}
 
 	/**
 	 * Method to invoke a editAtionMethodParameter method of the
@@ -324,9 +328,14 @@ public class ActionMethodInfo implements NameInfo {
 	public void invokeShowResult(UserInterfaceController userInterfaceController,
 			Object methodOwner, Object methodParameter, Object methodResult)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter,
+		if (hasReturnValue()) {
+			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter,
 				methodResult);
+		} else {
+			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
+		}
 
 	}
 
+	
 }

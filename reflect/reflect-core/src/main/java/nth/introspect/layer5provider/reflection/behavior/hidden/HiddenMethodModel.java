@@ -46,8 +46,8 @@ public class HiddenMethodModel implements HiddenModel {
 		Object[] arguments = new Object[0];
 		try {
 			return (boolean) hiddenMethod.invoke(obj, arguments);
-		} catch (Exception e) {
-			throw new BehaviorMethodInvokeException(hiddenMethod);
+		} catch (Exception exception) {
+			throw new BehaviorMethodInvokeException(hiddenMethod, exception);
 		}
 	}
 

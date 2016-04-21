@@ -1,12 +1,10 @@
 package nth.introspect.junit;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.generic.exception.IntrospectException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.notification.Task;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -61,19 +59,7 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 		throw new IntrospectException(title + "-" + message, throwable);
 	}
 
-	@Override
-	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter) {
-		events.add(String.format("editActionMethodParameter(%s, %s, %s)", methodOwner, methodInfo,
-				methodParameter));
-	}
-
-	@Override
-	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter) {
-		events.add(String.format("confirmActionMethod(%s, %s, %s)", methodOwner, methodInfo,
-				methodParameter));
-	}
+	
 
 	@Override
 	public void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo,
@@ -101,20 +87,6 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 			Object methodParameter, List<?> methodResult) {
 		events.add(String.format("showActionMethodResult(%s, %s, %s, (List<?>) %s)", methodOwner,
 				methodInfo, methodParameter, methodResult));
-	}
-
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, URI methodResult) {
-		events.add(String.format("showActionMethodResult(%s, %s, %s, (URI) %s)", methodOwner,
-				methodInfo, methodParameter, methodResult));
-	}
-
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, DownloadStream methodResult) {
-		events.add(String.format("showActionMethodResult(%s, %s, %s, (DownloadStream) %s)",
-				methodOwner, methodInfo, methodParameter, methodResult));
 	}
 
 	@Override

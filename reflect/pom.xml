@@ -16,7 +16,6 @@
 		<module>reflect-for-commandline</module>
 		<module>reflect-for-commandline-demo</module>
 		<module>reflect-for-javafx</module>
-		<module>reflect-for-junit</module>
 		<module>reflect-example-domain</module>
 		<module>reflect-for-swing</module>
 		<module>reflect-for-swing-demo</module>

@@ -10,14 +10,13 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
 public class ShowMethodFactory {
 
 	private final static String SHOW_ACTION_METHOD_RESULT = "showActionMethodResult";
-	private static final Class<?> VOID_TYPE = null;
 
 	public static Method create(Class<? extends UserInterfaceController> controllerClass,
 			ExecutionModeType executionMode, Method actionMethod) {
 
 		Class<?> returnType = actionMethod.getReturnType();
 		Class<?>[] parameterTypes;
-		if (returnType == VOID_TYPE) {
+		if (returnType == Void.TYPE) {
 			parameterTypes = new Class[] { Object.class, ActionMethodInfo.class, Object.class };
 		} else {
 			parameterTypes = new Class[] { Object.class, ActionMethodInfo.class, Object.class,

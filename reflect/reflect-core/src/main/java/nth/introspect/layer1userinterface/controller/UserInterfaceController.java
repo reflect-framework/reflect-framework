@@ -212,19 +212,15 @@ public abstract class UserInterfaceController implements NotificationListener {
 				break;
 			}
 		} catch (Exception exception) {
-			String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
-					true);
-			String message = languageProvider.getText("Failed to execute.");
-			showErrorDialog(title, message, exception);
+			String title = languageProvider.getText("Error while executing an action" );
+			String messageFormat = languageProvider.getText("Action: %s" );
+			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
+					false);
+			String message=String.format(messageFormat, actionMethod);
+			showErrorDialog(title,  message, exception);
 		}
 
 	}
-
-	public abstract void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter);
-
-	public abstract void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter);
 
 	/**
 	 * This method is called from
@@ -234,11 +230,12 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * <br>
 	 * It needs to validate the method parameter value before the method is
 	 * executed
+	 * @throws Exception 
 	 * 
 	 */
 
 	public abstract void processActionMethodExecution(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter);
+			ActionMethodInfo methodInfo, Object methodParameter) ;
 
 	/**
 	 * This method is called from
@@ -258,19 +255,22 @@ public abstract class UserInterfaceController implements NotificationListener {
 			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException exception) {
-			String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
-					true);
-			String message = languageProvider.getText("Failed to execute.");
-			showErrorDialog(title, message, exception);
+			String title = languageProvider.getText("Error while displaying an action result" );
+			String messageFormat = languageProvider.getText("Action: %s" );
+			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
+					false);
+			String message=String.format(messageFormat, actionMethod);
+			showErrorDialog(title,  message, exception);
 		}
 
 	}
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type void
-	 * 
-	 * @param methodOwner
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
@@ -279,9 +279,10 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DomainObject}
-	 * 
-	 * @param methodOwner
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
@@ -290,42 +291,23 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link Collection}
-	 * 
-	 * @param methodOwner
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
 	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
 			Object methodParameter, List<?> methodResult);
 
+	
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link URI}
-	 * 
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, URI methodResult);
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}
-	 * 
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, DownloadStream methodResult);
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link String}
-	 * 
-	 * @param methodOwner
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */

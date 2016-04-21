@@ -23,8 +23,8 @@ public class DisabledMethodModel  implements DisabledModel {
 		Object[] arguments = new Object[0];
 		try {
 			return (boolean) disabledMethod.invoke(obj, arguments);
-		} catch (Exception e) {
-			throw new BehaviorMethodInvokeException(disabledMethod);
+		} catch (Exception exception) {
+			throw new BehaviorMethodInvokeException(disabledMethod, exception);
 		}
 	}
 

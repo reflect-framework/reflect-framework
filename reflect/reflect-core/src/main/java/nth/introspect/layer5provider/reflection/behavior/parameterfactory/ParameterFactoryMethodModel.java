@@ -25,7 +25,7 @@ public class ParameterFactoryMethodModel implements ParameterFactoryModel{
 			Object domainObject = parameterFactoryMethod.invoke(methodOwner, arguments);
 			return domainObject;
 		} catch (Exception e) {
-			throw new BehaviorMethodInvokeException(parameterFactoryMethod);
+			throw new BehaviorMethodInvokeException(parameterFactoryMethod, e);
 		}
 	}
 

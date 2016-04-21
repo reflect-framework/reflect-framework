@@ -6,8 +6,8 @@ public class BehaviorMethodInvokeException extends RuntimeException {
 
 	private static final long serialVersionUID = -8447500654942721817L;
 
-	public BehaviorMethodInvokeException(Method behavioralMethod) {
-		super(createMessage(behavioralMethod));
+	public BehaviorMethodInvokeException(Method behavioralMethod, Exception exception) {
+		super(createMessage(behavioralMethod), exception);
 	}
 
 	private static String createMessage(Method behavioralMethod) {

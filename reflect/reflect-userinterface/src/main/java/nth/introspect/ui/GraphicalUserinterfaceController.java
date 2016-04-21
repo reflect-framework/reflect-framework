@@ -15,6 +15,7 @@ import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.notification.Task;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
@@ -39,17 +40,15 @@ import nth.introspect.ui.view.TableView;
  *            A user interface specific class (often a component container/
  *            layout) that implements {@link View}
  */
-public abstract class GraphicalUserinterfaceController<T extends View> extends
-		UserInterfaceController {
+public abstract class GraphicalUserinterfaceController<T extends View>
+		extends UserInterfaceController {
 
-	@Override
-	public void confirmActionMethod(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter) {
+	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter) {
 		// create the dialog items/ buttons
 		List<Item> items = new ArrayList<Item>();
-		DialogMethodItem methodExecuteItem = new DialogMethodItem(
-				userInterfaceContainer, methodOwner, methodInfo,
-				methodParameter);
+		DialogMethodItem methodExecuteItem = new DialogMethodItem(userInterfaceContainer,
+				methodOwner, methodInfo, methodParameter);
 		items.add(methodExecuteItem);
 		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
 		items.add(cancelItem);
@@ -58,8 +57,8 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 		String title = languageProvider.getText("Confirmation");
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to execute: "));
-		message.append(TitleUtil.createTitle(reflectionProvider, methodInfo,
-				methodParameter, false));
+		message.append(
+				TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter, false));
 		message.append("?");
 
 		// show the dialog
@@ -87,20 +86,17 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
 
-	public GraphicalUserinterfaceController(
-			UserInterfaceContainer userInterfaceContainer) {
+	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 		NotificationProvider notificationProvider = userInterfaceContainer
 				.get(NotificationProvider.class);
 		notificationProvider.addListener(this);
 	}
 
-	@Override
 	public void editActionMethodParameter(Object actionMethodOwner,
 			ActionMethodInfo actionMethodInfo, Object actionMethodParameterValue) {
-		openFormView(actionMethodOwner, actionMethodInfo,
-				actionMethodParameterValue, actionMethodParameterValue,
-				FormMode.EDIT_MODE);
+		openFormView(actionMethodOwner, actionMethodInfo, actionMethodParameterValue,
+				actionMethodParameterValue, FormMode.EDIT_MODE);
 	}
 
 	@Override
@@ -112,14 +108,13 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 		// executed (if invalid: throw exception)
 
 		// show ProgressDialog
-		String title = TitleUtil.createTitle(reflectionProvider,
-				actionMethodInfo, methodParameterValue, true);
+		String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
+				methodParameterValue, true);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
 		// start method execution thread
 		try {
-			startMethodExecutionThread(serviceObject, actionMethodInfo,
-					methodParameterValue);
+			startMethodExecutionThread(serviceObject, actionMethodInfo, methodParameterValue);
 		} catch (Exception exception) {
 			String message = languageProvider.getText("Failed to execute.");
 			showErrorDialog(title, message, exception);
@@ -128,7 +123,8 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 
 	/**
 	 * This method is called from
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} <br>
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 * <br>
 	 * This method must do 3 things<br>
 	 * - invoke Object methodReturnValue=
 	 * {@link ActionMethodInfo#invoke(Object, Object)} in a separate thread (may
@@ -151,15 +147,15 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	 */
 
 	public void startMethodExecutionThread(final Object methodOwner,
-			final ActionMethodInfo actionMethodInfo,
-			final Object methodParameterValue) {
+			final ActionMethodInfo actionMethodInfo, final Object methodParameterValue) {
 
 		Runnable runnable = new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					Object methodReturnValue =actionMethodInfo.invoke(methodOwner, methodParameterValue);
+					Object methodReturnValue = actionMethodInfo.invoke(methodOwner,
+							methodParameterValue);
 					// update current view (calling a method on a object is most
 					// likely to change its state
 					View selectedView = getViewContainer().getSelectedView();
@@ -167,13 +163,12 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 						selectedView.onViewActivate();
 					}
 					// show method result
-					processActionMethodResult(methodOwner, actionMethodInfo,
-							methodParameterValue, methodReturnValue);
+					processActionMethodResult(methodOwner, actionMethodInfo, methodParameterValue,
+							methodReturnValue);
 				} catch (Exception exception) {
-					String title = TitleUtil.createTitle(reflectionProvider,
-							actionMethodInfo, methodParameterValue, true);
-					String message = languageProvider
-							.getText("Failed to execute.");
+					String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
+							methodParameterValue, false);
+					String message = languageProvider.getText("Failed to execute.");
 					showErrorDialog(title, message, exception);
 				}
 
@@ -183,9 +178,8 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 		methodExecutionThread.start();
 	}
 
-	public void openFormView(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object domainObject, FormMode formMode) {
+	public void openFormView(Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		ViewContainer<T> viewContainer = getViewContainer();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
@@ -195,8 +189,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 				// identical formView?
 				if (methodOwner == formView.getMethodOwner()
 						&& actionMethodInfo == formView.getMethodInfo()
-						&& methodParameterValue == formView
-								.getMethodParameter()
+						&& methodParameterValue == formView.getMethodParameter()
 						&& domainObject == formView.getDomainObject()
 						&& formMode == formView.getFormMode()) {
 					// activate identical formView
@@ -206,14 +199,13 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 			}
 		}
 		// formView not found so create and show a new formView
-		T formView = createFormView(methodOwner, actionMethodInfo,
-				methodParameterValue, domainObject, formMode);
+		T formView = createFormView(methodOwner, actionMethodInfo, methodParameterValue,
+				domainObject, formMode);
 		viewContainer.addView(formView);
 	}
 
-	public void openTableView(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
+	public void openTableView(Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue, Object methodReturnValue) {
 		ViewContainer<T> viewContainer = getViewContainer();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
@@ -223,8 +215,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 				// identical tableView?
 				if (methodOwner == tableView.getMethodOwner()
 						&& actionMethodInfo == tableView.getMethodInfo()
-						&& methodParameterValue == tableView
-								.getMethodParameter()) {
+						&& methodParameterValue == tableView.getMethodParameter()) {
 					// activate identical tableView
 					viewContainer.setSelectedView((T) tableView);
 					return;
@@ -232,14 +223,13 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 			}
 		}
 		// tableView not found so create and show a new tableView
-		T tableView = createTableView(methodOwner, actionMethodInfo,
-				methodParameterValue, methodReturnValue);
+		T tableView = createTableView(methodOwner, actionMethodInfo, methodParameterValue,
+				methodReturnValue);
 		viewContainer.addView(tableView);
 	}
 
-	public void openTreeTableView(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
+	public void openTreeTableView(Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue, Object methodReturnValue) {
 		ViewContainer<T> viewContainer = getViewContainer();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
@@ -249,8 +239,7 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 				// identical tableView?
 				if (methodOwner == tableView.getMethodOwner()
 						&& actionMethodInfo == tableView.getMethodInfo()
-						&& methodParameterValue == tableView
-								.getMethodParameter()) {
+						&& methodParameterValue == tableView.getMethodParameter()) {
 					// activate identical tableView
 					viewContainer.setSelectedView((T) tableView);
 					return;
@@ -258,8 +247,8 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 			}
 		}
 		// tableView not found so create and show a new tableView
-		T treeTableView = createTreeTableView(methodOwner, actionMethodInfo,
-				methodParameterValue, methodReturnValue);
+		T treeTableView = createTreeTableView(methodOwner, actionMethodInfo, methodParameterValue,
+				methodReturnValue);
 		viewContainer.addView(treeTableView);
 	}
 
@@ -274,23 +263,19 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	 * @param domainObject
 	 * @return
 	 */
-	public abstract T createFormView(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object domainObject, FormMode formMode);
+	public abstract T createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue, Object domainObject, FormMode formMode);
 
-	public abstract T createTableView(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue);
+	public abstract T createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue, Object methodReturnValue);
 
-	public abstract T createTreeTableView(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue);
+	public abstract T createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue, Object methodReturnValue);
 
 	// TODO public abstract T createMenuView();
 
 	@Override
-	public void showErrorDialog(String title, String message,
-			Throwable throwable) {
+	public void showErrorDialog(String title, String message, Throwable throwable) {
 
 		throwable.printStackTrace(); // to help debugging (stack trace in
 										// eclipse console has hyper links to
@@ -306,51 +291,80 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 		showDialog(DialogType.ERROR, title, message, items);
 	}
 
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
 	@Override
-	public void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter) {
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
-				methodParameter, true);
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter) {
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter, true);
 
 		StringBuffer message = new StringBuffer(title);
 		message.append(languageProvider.getText(" was successfully executed"));
 		showInfoMessage(message.toString());
 	}
 
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
 	@Override
-	public void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult) {
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, Object methodResult) {
 		Object domainObject = methodResult;
 		openFormView(methodOwner, methodInfo, methodParameter, domainObject,
 				FormMode.READ_ONLY_MODE);
 
 	}
 
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
 	@Override
-	public void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			List<?> methodResult) {
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, List<?> methodResult) {
 		openTableView(methodOwner, methodInfo, methodParameter, methodResult);
 	}
 
-	@Override
-	public void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			URI methodResult) {
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, URI methodResult) {
 		URI uri = methodResult;
 		String uriString = uri.toString();
-		if (uriString.toLowerCase().startsWith(
-				IntrospectFramework.class.getSimpleName().toLowerCase() + ":")) {
+		if (uriString.toLowerCase()
+				.startsWith(IntrospectFramework.class.getSimpleName().toLowerCase() + ":")) {
 			try {
 				int positionColon = uriString.indexOf(":");
 				int positionLastDot = uriString.lastIndexOf(".");
-				String serviceClassName = uriString.substring(
-						positionColon + 1, positionLastDot);
+				String serviceClassName = uriString.substring(positionColon + 1, positionLastDot);
 				String methodName = uriString.substring(positionLastDot + 1);
 				Class<?> serviceClass = Class.forName(serviceClassName);
-				ClassInfo classInfo = reflectionProvider
-						.getClassInfo(serviceClass);
+				ClassInfo classInfo = reflectionProvider.getClassInfo(serviceClass);
 				List<ActionMethodInfo> actionMethodInfos = classInfo
 						.getActionMethodInfos(new MethodNameFilter(methodName));
 				processActionMethod(methodOwner, actionMethodInfos.get(0), null);
@@ -365,20 +379,34 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 
 	}
 
-	@Override
-	public void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			DownloadStream methodResult) {
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 * 
+	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, DownloadStream methodResult) {
 		DownloadStream downloadStream = methodResult;
 		downloadFile(downloadStream);
 	}
 
+	/**
+	 * Process method to show the result of an {@link ActionMethod} with return
+	 * type {@link DownloadStream}. See
+	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
+	 *
+ 	 * @param methodOwner
+	 * @param methodInfo
+	 * @param methodParameter
+	 */
 	@Override
-	public void showActionMethodResult(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter,
-			String methodResult) {
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo,
-				methodParameter, true);
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, String methodResult) {
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter, true);
 
 		StringBuilder message = new StringBuilder(title);
 		message.append(": ");
@@ -406,7 +434,8 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	 */
 	public abstract void showInfoMessage(String message);
 
-	public abstract void showDialog(DialogType dialogType, String title, String message, List<Item> items);
+	public abstract void showDialog(DialogType dialogType, String title, String message,
+			List<Item> items);
 
 	/**
 	 * TODO refactor so that progress dialog shows multiple thread monitors,
@@ -436,9 +465,10 @@ public abstract class GraphicalUserinterfaceController<T extends View> extends
 	public abstract int getDisplayWidthInInches();
 
 	public MaterialStyle getMaterialStyle() {
-		boolean hasKeyboardAndMouse=true;//assumption
-		DisplayType displayType=new DisplayType(getDisplayWidthInInches(), hasKeyboardAndMouse);
-		MaterialStyle materialStyle=new MaterialStyle(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE, Color.WHITE,  displayType );
+		boolean hasKeyboardAndMouse = true;// assumption
+		DisplayType displayType = new DisplayType(getDisplayWidthInInches(), hasKeyboardAndMouse);
+		MaterialStyle materialStyle = new MaterialStyle(MaterialColorPalette.TEAL,
+				MaterialColorPalette.ORANGE, Color.WHITE, displayType);
 		return materialStyle;
 	}
 
