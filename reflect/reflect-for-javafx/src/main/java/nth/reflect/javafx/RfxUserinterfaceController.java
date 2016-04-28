@@ -100,18 +100,6 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		return null;
 	}
 
-	@Override
-	public DisplaySize getDisplaySize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getDisplayWidthInInches() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	private Label createLabel(Font font) {
 		Label label = new Label(font.getName());
 		label.setFont(RfxFontFactory.create(font));

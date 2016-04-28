@@ -9,7 +9,7 @@ public class MaterialAppBarIconButton extends MaterialButton {
 	private static final long serialVersionUID = 5925859067046013332L;
 
 	public MaterialAppBarIconButton(MaterialStyle materialStyle, FontAwesome fontAwesomeIcon) {
-		super(materialStyle.getApplicationToolbarIconStyle().getIconColor(),
+		super(materialStyle.getApplicationToolbarIconStyle().getColor(),
 				materialStyle.getApplicationToolbarIconStyle().getPressedColor(),
 				materialStyle.getApplicationToolbarIconStyle().getPadding(),
 				materialStyle.getApplicationToolbarIconStyle().getSize(), fontAwesomeIcon);

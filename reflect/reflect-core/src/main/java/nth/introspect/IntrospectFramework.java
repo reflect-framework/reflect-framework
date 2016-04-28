@@ -5,6 +5,7 @@ import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer5provider.path.url.ReflectUrlStreamHandlerFactory;
 
 /**
  * <p>
@@ -78,6 +79,8 @@ public class IntrospectFramework {
 	 * @throws IntrospectContainerException
 	 */
 	public static void launch(IntrospectApplication application) {
+		new ReflectUrlStreamHandlerFactory(application).register(); 
+		
 		UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
 		UserInterfaceController userInterfaceController = userInterfaceContainer
 				.get(UserInterfaceController.class);

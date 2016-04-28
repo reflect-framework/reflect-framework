@@ -83,7 +83,7 @@ public class MaterialStyle {
 			}
 
 			@Override
-			public Color getIconColor() {
+			public Color getColor() {
 				return primaryColors.getForeground1();
 			}
 
@@ -227,7 +227,7 @@ public class MaterialStyle {
 			}
 
 			@Override
-			public Color getIconColor() {
+			public Color getColor() {
 				return primaryLightColors.getForeground1();
 			}
 

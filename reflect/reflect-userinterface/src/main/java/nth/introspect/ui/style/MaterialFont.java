@@ -22,9 +22,13 @@ public class MaterialFont {
 	
 	private static Font createFont(String path, int size) {
 		URL url = MaterialFont.class.getResource(path);
-		String fontName = getFontName(path);
-//		String fontName = "Roboto";
-		Font font = new Font(url, fontName, size, false);
+		String name = getFontName(path);
+		return createFont(name, path, size);
+	}
+	
+	private static Font createFont(String name, String path, int size) {
+		URL url = MaterialFont.class.getResource(path);
+		Font font = new Font(url, name, size, false);
 		return font;
 	}
 
@@ -81,7 +85,7 @@ public class MaterialFont {
 	}
 
 	public static Font getFontAwesome() {
-		return createFont(FONT_AWESOME_URL,32);
+		return createFont("FontAwesome", FONT_AWESOME_URL,32);
 	}
 
 }

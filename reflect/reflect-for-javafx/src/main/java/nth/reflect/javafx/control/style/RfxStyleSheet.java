@@ -22,6 +22,8 @@ import nth.introspect.ui.style.basic.Color;
 import nth.reflect.javafx.control.list.RfxList;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
+import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarMenuButton;
+import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarTitle;
 
 public class RfxStyleSheet {
 
@@ -40,15 +42,7 @@ public class RfxStyleSheet {
 	}
 
 	public void addToScene(Scene scene) {
-		RfxApplicationToolbar.appendStyleGroups(this, materialStyle);
-		RfxApplicationToolbarButton.appendStyleGroups(this, materialStyle);
-		RfxList.appendStyleGroups(this, materialStyle);
-
-		System.out.println(toString());
-
-		URL.setURLStreamHandlerFactory(new StringURLStreamHandlerFactory(toString()));
-
-		scene.getStylesheets().setAll("internal:stylesheet.css");
+		scene.getStylesheets().setAll(new RfxStyleSheetUrl().toString());
 	}
 
 
@@ -76,47 +70,5 @@ public class RfxStyleSheet {
 		return css.toString();
 	}
 
-	private class StringURLConnection extends URLConnection {
-		private final String css;
-
-		public StringURLConnection(URL url, String css) {
-			super(url);
-			this.css = css;
-		}
-
-		@Override
-		public void connect() throws IOException {
-		}
-
-		@Override
-		public InputStream getInputStream() throws IOException {
-			return new StringBufferInputStream(css);
-		}
-	}
-
-	private class StringURLStreamHandlerFactory implements URLStreamHandlerFactory {
-		private final String css;
-
-		public StringURLStreamHandlerFactory(String css) {
-			this.css = css;
-		}
-
-		URLStreamHandler streamHandler = new URLStreamHandler() {
-			@Override
-			protected URLConnection openConnection(URL url) throws IOException {
-				if (url.toString().toLowerCase().endsWith(".css")) {
-					return new StringURLConnection(url, css);
-				}
-				throw new FileNotFoundException();
-			}
-		};
-
-		@Override
-		public URLStreamHandler createURLStreamHandler(String protocol) {
-			if ("internal".equals(protocol)) {
-				return streamHandler;
-			}
-			return null;
-		}
-	}
+	
 }

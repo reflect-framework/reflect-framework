@@ -1,6 +1,8 @@
 package nth.introspect.ui.swing;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.List;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.IntrospectFramework;
@@ -15,6 +17,8 @@ import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.path.url.ClassResourceUrlHandler;
+import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
@@ -78,6 +82,11 @@ public abstract class IntrospectApplicationForSwing implements
 	@Override
 	public Class<? extends NotificationProvider> getNotificationProviderClass() {
 		return DefaultNotificationProvider.class;
+	}
+	
+	@Override
+	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
+		return Arrays.asList(new ClassResourceUrlHandler());
 	}
 
 	/**

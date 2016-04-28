@@ -192,19 +192,5 @@ public class UserinterfaceControllerForSwing extends
 
 	}
 
-	@Override
-	public DisplaySize getDisplaySize() {
-		return DisplaySize.forWidthInInches(getDisplayWidthInInches());
-	}
-
-	@Override
-	public int getDisplayWidthInInches() {
-		return 15;//TODO
-//	    Toolkit tk = Toolkit.getDefaultToolkit ();
-//	    int pixelsPerInch = tk.getScreenResolution ();
-//	    int widtInPixels = mainWindow.getWidth();
-//	    int widthInInch=widtInPixels/pixelsPerInch;
-//		return widthInInch;
-	}
 	
 }

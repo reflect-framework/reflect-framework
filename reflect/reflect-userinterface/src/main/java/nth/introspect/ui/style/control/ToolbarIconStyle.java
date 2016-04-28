@@ -7,7 +7,7 @@ import nth.introspect.ui.style.basic.Font;
 public interface ToolbarIconStyle {
 
 	int getPadding();
-	Color getIconColor();
+	Color getColor();
 	Color getPressedColor();
 	int getSize();
 	Font getFont();//TODO YUK

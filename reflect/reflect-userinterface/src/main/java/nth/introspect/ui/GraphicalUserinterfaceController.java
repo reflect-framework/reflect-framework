@@ -460,13 +460,12 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	@SuppressWarnings("rawtypes")
 	public abstract ViewContainer getViewContainer();
 
-	public abstract DisplaySize getDisplaySize();
+	//public abstract int getDisplayWidthInInches();
 
-	public abstract int getDisplayWidthInInches();
-
-	public MaterialStyle getMaterialStyle() {
-		boolean hasKeyboardAndMouse = true;// assumption
-		DisplayType displayType = new DisplayType(getDisplayWidthInInches(), hasKeyboardAndMouse);
+	public static MaterialStyle getMaterialStyle() {
+		boolean hasKeyboardAndMouse = true;// assumption TODO: get real value from system
+		int displayWidthInInches=11; // assumption TODO: get real value from system
+		DisplayType displayType = new DisplayType(displayWidthInInches, hasKeyboardAndMouse);
 		MaterialStyle materialStyle = new MaterialStyle(MaterialColorPalette.TEAL,
 				MaterialColorPalette.ORANGE, Color.WHITE, displayType);
 		return materialStyle;

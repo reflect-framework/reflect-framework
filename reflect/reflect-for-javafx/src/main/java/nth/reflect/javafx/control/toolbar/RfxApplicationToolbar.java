@@ -74,7 +74,7 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 	}
 
 	private void addApplicationTitle(ApplicationToolbarTitleStyle titleStyle, UserInterfaceContainer userInterfaceContainer) {
-		RfxApplicationToolbarTitle title = new RfxApplicationToolbarTitle(titleStyle, userInterfaceContainer);
+		RfxApplicationToolbarTitle title = new RfxApplicationToolbarTitle(userInterfaceContainer);
 		getChildren().add(title);
 	}
 

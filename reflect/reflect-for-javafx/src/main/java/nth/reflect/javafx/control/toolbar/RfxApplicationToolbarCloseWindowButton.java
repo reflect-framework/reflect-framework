@@ -15,14 +15,14 @@ import nth.reflect.javafx.control.style.RfxColorFactory;
 public class RfxApplicationToolbarCloseWindowButton extends RfxApplicationToolbarButton {
 
 	public RfxApplicationToolbarCloseWindowButton(ToolbarIconStyle iconStyle) {
-		super(iconStyle);
+		super();
 		initIcon(iconStyle);
 		initAction();
 	}
 
 	private void initIcon(ToolbarIconStyle iconStyle) {
 		//TODO create own SVGGlyph so we can get rid of all jfounix libs (remove lib folder)
-		Color color = RfxColorFactory.create(iconStyle.getIconColor());
+		Color color = RfxColorFactory.create(iconStyle.getColor());
 		SVGGlyph glyph = new SVGGlyph(0, "CLOSE", "M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z", color);
 		int size = iconStyle.getSize();
 		glyph.setSize(size,size);

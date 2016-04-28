@@ -12,6 +12,8 @@ import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.path.url.ReflectUrl;
+import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.introspect.layer5provider.validation.ValidationProvider;
@@ -112,6 +114,8 @@ public interface IntrospectApplication {
 	public Class<? extends ValidationProvider> getValidationProviderClass();
 
 	public Class<? extends NotificationProvider> getNotificationProviderClass();
+	
+	public List<ReflectUrlConnection> getReflectUrlStreamHandlers();
 
 	public List<Class<?>> getServiceClasses();
 

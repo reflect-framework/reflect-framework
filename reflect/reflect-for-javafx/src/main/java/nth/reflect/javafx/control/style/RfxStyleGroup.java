@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Control;
 import javafx.scene.layout.Region;
 import nth.introspect.ui.style.basic.Color;
+import nth.introspect.ui.style.basic.Font;
 
 public class RfxStyleGroup {
 
@@ -35,6 +36,14 @@ public class RfxStyleGroup {
 		return css.toString();
 	}
 
+	private String getQuoted(String text) {
+		StringBuilder css = new StringBuilder();
+		css.append('"');
+		css.append(text);
+		css.append('"');
+		return css.toString();
+	}
+	
 	private String getPixels(int size) {
 		StringBuilder css = new StringBuilder();
 		css.append(size);
@@ -73,6 +82,19 @@ public class RfxStyleGroup {
 		return this;
 	}
 
+	public RfxStyleGroup setPadding(int top, int right, int bottom, int left) {
+		StringBuilder padding = new StringBuilder();
+		padding.append(getPixels(top));
+		padding.append(" ");
+		padding.append(getPixels(right));
+		padding.append(" ");
+		padding.append(getPixels(bottom));
+		padding.append(" ");
+		padding.append(getPixels(left));
+		properties.put("-fx-padding", padding.toString());
+		return this;
+	}
+
 	public RfxStyleGroup setMinHeight(int minHeight) {
 		properties.put("-fx-min-height", getPixels(minHeight));
 		return this;
@@ -80,6 +102,11 @@ public class RfxStyleGroup {
 
 	public RfxStyleGroup setHeight(int height) {
 		properties.put("-fx-height", getPixels(height));
+		return this;
+	}
+
+	public RfxStyleGroup setMaxHeight(int maxHeight) {
+		properties.put("-fx-max-height", getPixels(maxHeight));
 		return this;
 	}
 
@@ -92,4 +119,27 @@ public class RfxStyleGroup {
 		properties.put("-fx-alignment", pos.name().toLowerCase().replace("_", "-"));
 		return this;
 	}
+
+	public RfxStyleGroup setTextFill(Color color) {
+		properties.put("-fx-text-fill", getRGB(color));
+		return this;
+	}
+
+	public RfxStyleGroup setFillWidth(boolean fillWidth) {
+		properties.put("-fx-fill-width", Boolean.toString(fillWidth).toLowerCase());
+		return this;
+	}
+
+	public RfxStyleGroup setFont(Font font) {
+		properties.put("-fx-font-family", getQuoted(font.getName()));
+		setFontSize(font.getSize());
+		return this;
+	}
+
+	public RfxStyleGroup setFontSize(int fontSize) {
+		properties.put("-fx-font-size", Integer.toString(fontSize)+"px");
+		return this;
+	}
+
+	
 }

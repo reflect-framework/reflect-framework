@@ -1,5 +1,8 @@
 package nth.reflect.javafx;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nth.introspect.IntrospectApplication;
@@ -15,10 +18,14 @@ import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.path.url.ClassResourceUrlHandler;
+import nth.introspect.layer5provider.path.url.FontIconUrlHandler;
+import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
+import nth.reflect.javafx.control.style.RfxStyleSheetUrlHandler;
 
 public abstract class ReflectApplicationForJavaFX extends Application implements IntrospectApplication{
 
@@ -71,9 +78,16 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 		return DefaultNotificationProvider.class;
 	}
 
+	@Override
+	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
+		return Arrays.asList(new ClassResourceUrlHandler(), new FontIconUrlHandler(), new RfxStyleSheetUrlHandler());
+	}
+	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
+	
+	
 
 	
 }

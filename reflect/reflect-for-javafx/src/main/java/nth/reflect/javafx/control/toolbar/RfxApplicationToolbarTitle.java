@@ -1,6 +1,5 @@
 package nth.reflect.javafx.control.toolbar;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
@@ -9,9 +8,11 @@ import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ApplicationToolbarTitleStyle;
-import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxFontFactory;
+import nth.reflect.javafx.control.style.RfxStyleSelector;
+import nth.reflect.javafx.control.style.RfxStyleSheet;
 
 /**
  * Reflect Application Toolbar for JavaFX with Google Material Design style
@@ -21,9 +22,8 @@ import nth.reflect.javafx.control.style.RfxFontFactory;
  */
 public class RfxApplicationToolbarTitle extends Label {
 
-	public RfxApplicationToolbarTitle(ApplicationToolbarTitleStyle style,
-			UserInterfaceContainer UserInterfaceContainer) {
-		initStyleProperties(style);
+	public RfxApplicationToolbarTitle(UserInterfaceContainer UserInterfaceContainer) {
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxApplicationToolbarTitle.class));
 		initTitle(UserInterfaceContainer);
 	}
 
@@ -36,12 +36,12 @@ public class RfxApplicationToolbarTitle extends Label {
 		setText(title);
 	}
 
-	private void initStyleProperties(ApplicationToolbarTitleStyle style) {
-		setTextFill(RfxColorFactory.create(style.getTextColor()));
-		setFont(RfxFontFactory.create(style.getFont()));
-		setAlignment(Pos.CENTER_LEFT);
-		VBox.setVgrow(this, Priority.ALWAYS);
-		setPadding(new Insets(0, 16, 0, 16));// TODO get from titleStyle
+	public static void appendStyleGroups(RfxStyleSheet styleSheet, MaterialStyle materialStyle) {
+		ApplicationToolbarTitleStyle style = materialStyle.getApplicationToolbarTitleStyle();
+
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarTitle.class))
+				.setTextFill(style.getTextColor()).setAlignment(Pos.CENTER_LEFT)
+				.setFont(style.getFont());
 	}
 
 }

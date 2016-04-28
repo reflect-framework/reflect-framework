@@ -21,11 +21,7 @@
 			<artifactId>reflect-userinterface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>org.controlsfx</groupId>
-			<artifactId>controlsfx</artifactId>
-			<version>8.40.10</version>
-		</dependency>
+	
 		<dependency>
 			<groupId>com.jfoenix</groupId>
 			<artifactId>jfoenix</artifactId>

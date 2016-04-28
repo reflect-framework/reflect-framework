@@ -1,6 +1,7 @@
 package nth.introspect.junit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nth.introspect.IntrospectApplication;
@@ -23,6 +24,8 @@ import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.path.url.ClassResourceUrlHandler;
+import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
@@ -178,6 +181,11 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 	@Override
 	public final List<Class<?>> getInfrastructureClasses() {
 		return infrastructureClasses;
+	}
+
+	@Override
+	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
+		return Arrays.asList(new ClassResourceUrlHandler());
 	}
 
 }
