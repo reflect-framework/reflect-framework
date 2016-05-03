@@ -1,6 +1,8 @@
 package nth.introspect.ui.commandline;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.IntrospectFramework;
@@ -15,6 +17,7 @@ import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
@@ -80,6 +83,11 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 		return DefaultNotificationProvider.class;
 	}
 
+	@Override
+	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
+		return new ArrayList<>();
+	}
+	
 	public String[] getCommandLineArguments() {
 		return commandLineArguments;
 	}
