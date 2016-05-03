@@ -19,12 +19,12 @@ import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.path.url.ClassResourceUrlHandler;
-import nth.introspect.layer5provider.path.url.FontIconUrlHandler;
 import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
+import nth.introspect.ui.style.fonticonurl.FontIconUrlHandler;
 import nth.reflect.javafx.control.style.RfxStyleSheetUrlHandler;
 
 public abstract class ReflectApplicationForJavaFX extends Application implements IntrospectApplication{

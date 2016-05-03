@@ -1,10 +1,9 @@
 package nth.reflect.javafx.control.toolbar;
 
-import com.jfoenix.svg.SVGGlyph;
+import java.net.MalformedURLException;
 
-import javafx.scene.paint.Color;
 import nth.introspect.ui.style.control.ToolbarIconStyle;
-import nth.reflect.javafx.control.style.RfxColorFactory;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 
 /**
  * Reflect Application Toolbar Close Window button for JavaFX with Google Material Design style
@@ -14,19 +13,9 @@ import nth.reflect.javafx.control.style.RfxColorFactory;
  */
 public class RfxApplicationToolbarCloseWindowButton extends RfxApplicationToolbarButton {
 
-	public RfxApplicationToolbarCloseWindowButton(ToolbarIconStyle iconStyle) {
-		super();
-		initIcon(iconStyle);
+	public RfxApplicationToolbarCloseWindowButton(ToolbarIconStyle iconStyle) throws MalformedURLException {
+		super(FontAwesomeUrl.CLOSE);//  FontAwesomeUrl.CLOSE);
 		initAction();
-	}
-
-	private void initIcon(ToolbarIconStyle iconStyle) {
-		//TODO create own SVGGlyph so we can get rid of all jfounix libs (remove lib folder)
-		Color color = RfxColorFactory.create(iconStyle.getColor());
-		SVGGlyph glyph = new SVGGlyph(0, "CLOSE", "M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z", color);
-		int size = iconStyle.getSize();
-		glyph.setSize(size,size);
-		setGraphic(glyph);
 	}
 
 	private void initAction() {

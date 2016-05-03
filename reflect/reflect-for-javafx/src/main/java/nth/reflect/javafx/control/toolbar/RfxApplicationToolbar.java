@@ -1,5 +1,7 @@
 package nth.reflect.javafx.control.toolbar;
 
+import java.net.MalformedURLException;
+
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -29,7 +31,7 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 	// TODO
 	// http://stackoverflow.com/questions/18173956/how-to-drag-undecorated-window
 
-	public RfxApplicationToolbar(MaterialStyle materialStyle, RfxWindow window, UserInterfaceContainer userInterfaceContainer) {
+	public RfxApplicationToolbar(MaterialStyle materialStyle, RfxWindow window, UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		this.window = window;
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxApplicationToolbar.class));
 		
@@ -68,7 +70,7 @@ public class RfxApplicationToolbar extends HBox {//ToolBar {
 		}
 	}
 
-	private void addMenuButton(ToolbarIconStyle iconStyle) {
+	private void addMenuButton(ToolbarIconStyle iconStyle) throws MalformedURLException {
 		RfxApplicationToolbarMenuButton menuButton = new RfxApplicationToolbarMenuButton(iconStyle);
 		getChildren().add(menuButton);
 	}

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Control;
-import javafx.scene.layout.Region;
 import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.basic.Font;
 

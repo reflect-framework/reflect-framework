@@ -14,7 +14,7 @@ import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResour
  * 
  * @author nilsth
  *
- *@deprecated Use FontAwesome (https://fortawesome.github.io/Font-Awesome/) instead (because it vector based so scales better and is faster than images)
+ *@deprecated Use FontAwesomeUrl (https://fortawesome.github.io/Font-Awesome/) instead (because it vector based so scales better and is faster than images)
  *
  */
 public class IntrospectImage {

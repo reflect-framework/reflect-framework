@@ -2,26 +2,25 @@ package nth.introspect.swing.component.button;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
 
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
 import nth.introspect.swing.util.ColorFactory;
-import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.basic.Color;
-import nth.introspect.ui.style.fontawesome.FontAwesome;
-import nth.introspect.ui.style.fontawesome.FontAwesomeIcon;
+import nth.introspect.ui.swing.icon.FontAwesomeIcon;
 
 public class MaterialButton extends JButton {
 
 	private static final long serialVersionUID = 9201185700452373792L;
 
-	public MaterialButton(Color foregroundColor, Color heighlightColor, int padding, int iconSize, FontAwesome fontAwesomeIcon) {
+	public MaterialButton(Color foregroundColor, Color heighlightColor, int padding, int iconSize, String fontIconUrl) throws MalformedURLException {
 		super();
 		setContentAreaFilled(false);
 		setFocusable(false);
 		setBorder(new EmptyBorder(padding,padding,padding,padding));
-		FontAwesomeIcon icon = new FontAwesomeIcon(fontAwesomeIcon);
+		FontAwesomeIcon icon = new FontAwesomeIcon(fontIconUrl);
 		icon.setColor(ColorFactory.create(foregroundColor));
 		icon.setSize(iconSize);
 		setIcon(icon);

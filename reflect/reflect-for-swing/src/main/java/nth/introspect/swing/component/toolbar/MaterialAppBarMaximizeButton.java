@@ -6,12 +6,12 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 
 import javax.swing.JFrame;
 
-import nth.introspect.swing.component.button.MaterialButton;
 import nth.introspect.ui.style.MaterialStyle;
-import nth.introspect.ui.style.fontawesome.FontAwesome;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 import nth.introspect.ui.swing.properygrid.SwingUtil;
 
 public class MaterialAppBarMaximizeButton extends MaterialAppBarIconButton implements ActionListener {
@@ -19,8 +19,8 @@ public class MaterialAppBarMaximizeButton extends MaterialAppBarIconButton imple
 	private static final long serialVersionUID = 864750663334885651L;
 	public MaterialStyle materialStyle;
 
-	public MaterialAppBarMaximizeButton(MaterialStyle materialStyle) {
-		super(materialStyle, FontAwesome.fa_compress);
+	public MaterialAppBarMaximizeButton(MaterialStyle materialStyle) throws MalformedURLException {
+		super(materialStyle, FontAwesomeUrl.COMPRESS);
 		addActionListener(this);
 	}
 

@@ -4,19 +4,20 @@ import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 
 import javax.swing.JFrame;
 
 import nth.introspect.ui.style.MaterialStyle;
-import nth.introspect.ui.style.fontawesome.FontAwesome;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 import nth.introspect.ui.swing.properygrid.SwingUtil;
 
 public class MaterialAppBarMinimizeButton extends MaterialAppBarIconButton implements ActionListener{
 
 	private static final long serialVersionUID = 864750663334885651L;
 
-	public MaterialAppBarMinimizeButton(MaterialStyle materialStyle) {
-		super(materialStyle, FontAwesome.fa_long_arrow_down);
+	public MaterialAppBarMinimizeButton(MaterialStyle materialStyle) throws MalformedURLException {
+		super(materialStyle, FontAwesomeUrl.LONG_ARROW_DOWN);
 		addActionListener(this);
 	}
 

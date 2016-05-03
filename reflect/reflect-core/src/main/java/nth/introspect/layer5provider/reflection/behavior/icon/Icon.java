@@ -5,8 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.swing.plaf.FontUIResource;
+
 import nth.introspect.layer5provider.path.url.ClassResourceUrl;
-import nth.introspect.layer5provider.path.url.FontIconUrl;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
@@ -24,8 +25,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </p>
  * The iconURI can be a:
  * <ul>
- * <li>{@link FontIconUrl} <b>(the preferred way of defining an icon)</b></li>
- * <li>{@link ClassResourceUrl}</li>
+ * <li>FontIconUrl {@include FontIconUrl} <b>Note that this is the preferred way of defining an icon</b></li>
+ * <li>ClassResourceUrl {@include ClassResourceUrl}</li>
  * <li>&lt;fileName&gt; e.g. Cut.jpg that will be located in the
  * &lt;imageFolder&gt;/Cut.jpg</li>
  * <li>&lt;relativePath&gt;/&lt;fileName&gt; e.g. /edit/Cut.jpg that will be

@@ -1,5 +1,6 @@
 package nth.reflect.javafx;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,7 +19,6 @@ import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.DisplayScale;
-import nth.introspect.ui.style.DisplaySize;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.basic.Font;
@@ -140,7 +139,12 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		contentWithMenu.setCenter(content);
 		contentWithMenu.setLeft(menu);
 		
-		mainWindow = new RfxWindow(primaryStage, contentWithMenu, userInterfaceContainer, materialStyle);
+		try {
+			mainWindow = new RfxWindow(primaryStage, contentWithMenu, userInterfaceContainer, materialStyle);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Scene scene = new Scene(mainWindow);
 		new RfxStyleSheet(materialStyle).addToScene(scene);

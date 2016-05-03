@@ -3,9 +3,10 @@ package nth.introspect.swing.component.toolbar;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 
 import nth.introspect.ui.style.MaterialStyle;
-import nth.introspect.ui.style.fontawesome.FontAwesome;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 import nth.introspect.ui.swing.mainwindow.MainWindow;
 import nth.introspect.ui.swing.properygrid.SwingUtil;
 
@@ -13,8 +14,8 @@ public class MaterialAppBarMenuButton extends MaterialAppBarIconButton implement
 
 	private static final long serialVersionUID = -1031306949702539790L;
 
-	public MaterialAppBarMenuButton(MaterialStyle materialStyle) {
-		super(materialStyle, FontAwesome.fa_navicon);
+	public MaterialAppBarMenuButton(MaterialStyle materialStyle) throws MalformedURLException {
+		super(materialStyle, FontAwesomeUrl.NAVICON);
 		addActionListener(this);
 	}
 

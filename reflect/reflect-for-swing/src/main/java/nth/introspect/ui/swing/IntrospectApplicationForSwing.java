@@ -23,6 +23,7 @@ import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
+import nth.introspect.ui.style.fonticonurl.FontIconUrlHandler;
 
 /**
  * {@link IntrospectApplicationForSwing} is an implementation of the {@link IntrospectFramework} for desktop computers such as ...  
@@ -86,7 +87,7 @@ public abstract class IntrospectApplicationForSwing implements
 	
 	@Override
 	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
-		return Arrays.asList(new ClassResourceUrlHandler());
+		return Arrays.asList(new ClassResourceUrlHandler(), new FontIconUrlHandler());
 	}
 
 	/**

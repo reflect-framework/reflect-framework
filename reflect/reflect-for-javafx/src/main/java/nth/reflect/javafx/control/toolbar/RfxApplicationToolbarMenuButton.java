@@ -1,11 +1,9 @@
 package nth.reflect.javafx.control.toolbar;
 
-import javafx.scene.control.Label;
-import javafx.scene.text.Font;
-import nth.introspect.ui.style.MaterialFont;
+import java.net.MalformedURLException;
+
 import nth.introspect.ui.style.control.ToolbarIconStyle;
-import nth.introspect.ui.style.fontawesome.FontAwesome;
-import nth.reflect.javafx.control.style.RfxFontFactory;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 
 /**
  * Reflect Application Toolbar menu button for JavaFX with Google Material Design style
@@ -15,9 +13,8 @@ import nth.reflect.javafx.control.style.RfxFontFactory;
  */
 public class RfxApplicationToolbarMenuButton extends RfxApplicationToolbarButton {
 
-	public RfxApplicationToolbarMenuButton(ToolbarIconStyle iconStyle) {
-		super();
-		initIcon();
+	public RfxApplicationToolbarMenuButton(ToolbarIconStyle iconStyle) throws MalformedURLException {
+		super(FontAwesomeUrl.NAVICON);
 		initAction();
 	}
 
@@ -25,8 +22,5 @@ public class RfxApplicationToolbarMenuButton extends RfxApplicationToolbarButton
 		// TODO Auto-generated method stub
 	}
 
-	private void initIcon() {
-		setText(String.valueOf(FontAwesome. fa_navicon.character()));
-	}
 
 }

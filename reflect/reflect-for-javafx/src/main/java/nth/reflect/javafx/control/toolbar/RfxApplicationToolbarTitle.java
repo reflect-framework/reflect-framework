@@ -2,15 +2,12 @@ package nth.reflect.javafx.control.toolbar;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ApplicationToolbarTitleStyle;
-import nth.reflect.javafx.control.style.RfxFontFactory;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 

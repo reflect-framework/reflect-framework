@@ -1,20 +1,15 @@
 package nth.introspect.swing.component.tabpanel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
-import nth.introspect.swing.component.toolbar.MaterialAppBar;
 import nth.introspect.ui.swing.view.SwingView;
 
 public class SwingViewContainer2 extends JPanel implements ViewContainer<SwingView> {
@@ -66,7 +61,12 @@ public class SwingViewContainer2 extends JPanel implements ViewContainer<SwingVi
 	}
 
 	private void update() {
-		tabBar.update(views, currentView);
+		try {
+			tabBar.update(views, currentView);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		contentPanel.setView(currentView);
 	}
 

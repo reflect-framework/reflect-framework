@@ -7,6 +7,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
 import java.net.URI;
 
 import javax.swing.AbstractAction;
@@ -53,7 +54,7 @@ public class MainWindow extends JFrame {
 	private final ReflectionProvider reflectionProvider;
 	private final AboutProvider aboutProvider;
 
-	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
+	public MainWindow(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);

@@ -1,6 +1,7 @@
 package nth.introspect.swing.component.toolbar;
 
 import java.awt.Dimension;
+import java.net.MalformedURLException;
 
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -17,7 +18,7 @@ public class MaterialAppBar extends JToolBar {
 	private static final long serialVersionUID = 318218084707411312L;
 	private final MaterialStyle materialStyle;
 
-	public MaterialAppBar(UserInterfaceContainer userInterfaceContainer) {
+	public MaterialAppBar(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		GraphicalUserinterfaceController<?> controller=userInterfaceContainer.get(GraphicalUserinterfaceController.class);
 		
 		materialStyle = controller.getMaterialStyle();

@@ -18,14 +18,8 @@
  */
 package nth.reflect.javafx.control.window;
 
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import java.net.MalformedURLException;
+
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
@@ -36,7 +30,6 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -46,11 +39,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.ui.style.DisplayType;
-import nth.introspect.ui.style.MaterialColorPalette;
-import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
 
@@ -74,7 +63,7 @@ public class RfxWindow extends VBox {
 	private RfxApplicationToolbar applicationToolbar;
 	private Rectangle2D midmizePosAndSize;
 
-	public RfxWindow(Stage stage, Node node, UserInterfaceContainer userInterfaceContainer, MaterialStyle materialStyle) {
+	public RfxWindow(Stage stage, Node node, UserInterfaceContainer userInterfaceContainer, MaterialStyle materialStyle) throws MalformedURLException {
 		super();
 		primaryStage = stage;
 		primaryStage.initStyle(StageStyle.TRANSPARENT);

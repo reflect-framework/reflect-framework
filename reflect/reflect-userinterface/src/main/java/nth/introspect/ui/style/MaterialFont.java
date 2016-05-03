@@ -3,6 +3,7 @@ package nth.introspect.ui.style;
 import java.net.URL;
 
 import nth.introspect.ui.style.basic.Font;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 
 /**
  * See
@@ -15,7 +16,7 @@ public class MaterialFont {
 	private static final String ROBOTO_LIGHT_URL = "/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Light.ttf";
 	private static final String ROBOTO_REGULAR_URL = "/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Regular.ttf";
 	private static final String ROBOTO_MEDIUM_URL = "/META-INF/resources/webjars/roboto-fontface/0.4.3/fonts/Roboto-Medium.ttf";;
-	private static final String FONT_AWESOME_URL = "/META-INF/resources/webjars/font-awesome/4.5.0/fonts/fontawesome-webfont.ttf";
+//	private static final String FONT_AWESOME_URL = "/META-INF/resources/webjars/font-awesome/4.5.0/fonts/fontawesome-webfont.ttf";
 
 	private static final String ROBOTO = "Roboto";
 	
@@ -85,7 +86,7 @@ public class MaterialFont {
 	}
 
 	public static Font getFontAwesome() {
-		return createFont("FontAwesome", FONT_AWESOME_URL,32);
+		return createFont(FontAwesomeUrl.FONTAWESOME_NAME, FontAwesomeUrl.FONTAWESOME_URL,32);
 	}
 
 }

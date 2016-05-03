@@ -2,7 +2,6 @@ package nth.reflect.javafx.control.style;
 
 
 import javafx.scene.Node;
-import javafx.scene.control.Control;
 
 public class RfxStyleSelector {
 
