@@ -23,7 +23,7 @@ public class ItemIconButton extends JButton {
 
 		setAccelerator(item.getHotKey());
 		
-		setIcon(IconFactory.create(item.getIconURI(),
+		setIcon(IconFactory.create(item.getIconURL(),
 				SwingStyleConstant.ICON_SIZE));
 		
 		action = new ActionListener() {

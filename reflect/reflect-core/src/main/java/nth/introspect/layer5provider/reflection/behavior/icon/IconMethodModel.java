@@ -1,7 +1,7 @@
 package nth.introspect.layer5provider.reflection.behavior.icon;
 
 import java.lang.reflect.Method;
-import java.net.URI;
+import java.net.URL;
 
 import nth.introspect.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
 
@@ -14,22 +14,19 @@ import nth.introspect.layer5provider.reflection.behavior.BehaviorMethodInvokeExc
 public class IconMethodModel  implements IconModel {
 
 	private final Method iconMethod;
-	private final URI imageFolderUri;
 
-	public IconMethodModel(Method iconMethod, URI imageFolderUri) {
+	public IconMethodModel(Method iconMethod) {
 		this.iconMethod = iconMethod;
-		this.imageFolderUri = imageFolderUri;
 	}
 
 
 	@Override
-	public URI getURI(Object obj) {
+	public URL getURL(Object obj) {
 		Object[] arguments = new Object[0];
 		try {
-			String iconURI = (String) iconMethod.invoke(obj, arguments);
+			String iconURL = (String) iconMethod.invoke(obj, arguments);
 			try {
-				URI uri = IconUriFactory.create(iconURI, imageFolderUri);
-				return uri;
+				return new URL(iconURL);
 			} catch (Exception exception) {
 				return null;
 			}

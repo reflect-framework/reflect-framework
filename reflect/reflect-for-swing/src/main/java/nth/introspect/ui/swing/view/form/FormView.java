@@ -2,7 +2,7 @@ package nth.introspect.ui.swing.view.form;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.Box;
@@ -161,8 +161,8 @@ public class FormView extends SwingView implements
 	}
 
 	@Override
-	public URI getViewIconURI() {
-		return actionMethodInfo.getIconURI(methodOwner);
+	public URL getViewIconURL() {
+		return actionMethodInfo.getIconURL(methodOwner);
 	}
 
 	@Override

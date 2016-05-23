@@ -1,7 +1,7 @@
 package nth.introspect.ui.swing.item.menu;
 
 import java.awt.event.ActionEvent;
-import java.net.URI;
+import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -21,13 +21,8 @@ public class Menu extends JMenu {
 		super();
 		this.item = item;
 		for (Item child : item.getChildren()) {
-			if (child.isSeparator()) {
-				addSeparator();
-			} else {
 				add(MenuItemFactory.create(child));
-			}
 		}
-
 		revalidate();
 		repaint();
 	}
@@ -74,8 +69,8 @@ public class Menu extends JMenu {
 
 	@Override
 	public Icon getIcon() {
-		URI iconUri = item.getIconURI();
-		return IconFactory.create(iconUri);
+		URL iconUrl = item.getIconURL();
+		return IconFactory.create(iconUrl);
 	}
 
 	// @Override

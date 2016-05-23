@@ -11,6 +11,12 @@ public class RfxStyleSelector {
 		selector = new StringBuilder();
 	}
 	
+	public static RfxStyleSelector createFor(Class<? extends Node> controlClass, String suffix) {
+		RfxStyleSelector styleSelector = new RfxStyleSelector();
+		styleSelector.append(controlClass, suffix);
+		return styleSelector;
+	}
+	
 	public static RfxStyleSelector createFor(Class<? extends Node> controlClass) {
 		RfxStyleSelector styleSelector = new RfxStyleSelector();
 		styleSelector.append(controlClass);
@@ -22,6 +28,16 @@ public class RfxStyleSelector {
 			selector.append(" ");
 		}
 		String className = RfxStyleSheet.createStyleClassName(controlClass);
+		selector.append(".");
+		selector.append(className);
+		return this;
+	}
+	
+	public RfxStyleSelector append(Class<? extends Node> controlClass, String suffix) {
+		if (selector.length()>0) {
+			selector.append(" ");
+		}
+		String className = RfxStyleSheet.createStyleClassName(controlClass, suffix);
 		selector.append(".");
 		selector.append(className);
 		return this;
@@ -46,8 +62,6 @@ public class RfxStyleSelector {
 		selector.append(":pressed");
 		return this;
 	}
-
-	
 	
 	@Override
 	public String toString() {

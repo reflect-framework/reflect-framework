@@ -64,7 +64,7 @@ public class ClassInfoTest {
 
 	@Test
 	public void testGetIconURI() {
-		assertNull(classInfo.getIconURI(new ReflectionProviderTestObject()));
+		assertNull(classInfo.getIconURL(new ReflectionProviderTestObject()));
 	}
 
 	@Test

@@ -30,8 +30,8 @@ import nth.introspect.ui.view.TableView;
 
 public class ItemFactory {
 
-	public static List<MethodOwnerItem> createMenuViewItems(UserInterfaceContainer userInterfaceContainer) {
-		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
+	public static List<Item> createMainMenuItems(UserInterfaceContainer userInterfaceContainer) {
+		List<Item> items = new ArrayList<Item>();
 
 		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
 		List<Object> serviceObjects = serviceContainer.getServiceObjects();

@@ -5,14 +5,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.net.URI;
+import java.net.URL;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.disabled.DisabledModel;
@@ -88,7 +87,6 @@ public class ActionMethodInfo implements NameInfo {
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = providerContainer
 				.get(AuthorizationProvider.class);
-		PathProvider pathProvider = providerContainer.get(PathProvider.class);
 
 		this.actionMethod = method;
 		this.linkedPropertyName = linkedPropertyName;
@@ -106,7 +104,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, method);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, method);
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, parameterType);
-		this.iconModel = IconModelFactory.create(method, pathProvider.getImagePath());
+		this.iconModel = IconModelFactory.create(method);
 
 	}
 
@@ -219,8 +217,8 @@ public class ActionMethodInfo implements NameInfo {
 		return descriptionModel.getText();
 	}
 
-	public URI getIconURI(Object obj) {
-		return iconModel.getURI(obj);
+	public URL getIconURL(Object obj) {
+		return iconModel.getURL(obj);
 	}
 
 	public double getOrder() {

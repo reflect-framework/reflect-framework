@@ -12,7 +12,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>nth.reflect.framework</groupId>
-			<artifactId>reflect-core</artifactId>
+			<artifactId>reflect-userinterface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

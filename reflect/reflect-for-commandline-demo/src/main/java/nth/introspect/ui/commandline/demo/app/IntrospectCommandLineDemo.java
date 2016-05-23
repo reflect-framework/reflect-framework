@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import nth.introspect.layer5provider.path.url.ClassResourceUrlHandler;
-import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
+import nth.introspect.layer5provider.url.UrlProvider;
+import nth.introspect.layer5provider.url.application.ApplicationUrlProvider;
+import nth.introspect.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.introspect.ui.commandline.IntrospectApplicationForCommandLine;
 import nth.introspect.ui.commandline.demo.dom.TestService;
 
@@ -26,9 +27,10 @@ public class IntrospectCommandLineDemo extends
 		return new ArrayList<Class<?>>();
 	}
 
+	
 	@Override
-	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
-		return Arrays.asList(new ClassResourceUrlHandler());
+	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
+		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class);
 	}
 
 

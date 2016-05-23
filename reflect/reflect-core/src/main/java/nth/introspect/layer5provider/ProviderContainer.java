@@ -7,8 +7,9 @@ import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.url.ReflectUrlStreamHandlerFactory;
+import nth.introspect.layer5provider.url.UrlProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
@@ -26,7 +27,13 @@ public class ProviderContainer extends DependencyInjectionContainer {
 		add(application);
 
 		// add provider classes
-		add(application.getPathProviderClass(), PathProvider.class, application);
+		for (Class<? extends UrlProvider> urlProviderClass: application.getUrlProviderClasses()) {
+			add(urlProviderClass);
+		}
+		ReflectUrlStreamHandlerFactory urlStreamHandlerFactory = new  ReflectUrlStreamHandlerFactory(application,this);
+		urlStreamHandlerFactory.register();
+		
+		
 		add(application.getLanguageProviderClass(), LanguageProvider.class,
 				application);
 		add(application.getValidationProviderClass(), ValidationProvider.class,

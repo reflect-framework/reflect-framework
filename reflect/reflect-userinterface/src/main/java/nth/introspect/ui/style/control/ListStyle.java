@@ -12,13 +12,15 @@ public interface ListStyle {
 
 	int getPaddingRight();
 
-	Font getPrimaryTextFont();
-
 	int getIndent();
 
 	Color getBackgroundColor();
 
 	Color getTextColor();
+
+	Font getTitleFont();
+
+	Font getSubHeadingFont();
 
 	
 

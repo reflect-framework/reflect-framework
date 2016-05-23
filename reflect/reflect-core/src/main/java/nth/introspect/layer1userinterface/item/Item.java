@@ -1,6 +1,7 @@
 package nth.introspect.layer1userinterface.item;
 
 import java.net.URI;
+import java.net.URL;
 import java.util.StringTokenizer;
 
 import javax.swing.KeyStroke;
@@ -12,12 +13,11 @@ import nth.introspect.layer5provider.path.PathProvider;
 public class Item {
 
 	private Action action;
-	private URI iconURI;
+	private URL iconURL;
 	private boolean enabled = true;
 	private boolean visible = true;
 	private String text;
 	private String description;
-	private boolean isSeparator = false;
 	private KeyStroke hotKey;
 	private final LanguageProvider languageProvider;
 
@@ -35,7 +35,7 @@ public class Item {
 	 * @param action
 	 *            The action to be fired
 	 */
-	public Item(LanguageProvider languageProvider, String text, URI iconURI, Action action) {
+	public Item(LanguageProvider languageProvider, String text, URL iconURL, Action action) {
 
 		this.languageProvider = languageProvider;
 		if (text == null) {
@@ -43,12 +43,12 @@ public class Item {
 		}
 		setText(text);
 		setDescription(text);
-		setIconURI(iconURI);
+		setIconURL(iconURL);
 		setAction(action);
 	}
 
-	public void setIconURI(URI iconURI) {
-		this.iconURI = iconURI;
+	public void setIconURL(URL iconURL) {
+		this.iconURL = iconURL;
 	}
 
 	public Item(PathProvider pathProvider, LanguageProvider languageProvider, String text, Action action) {
@@ -76,8 +76,8 @@ public class Item {
 	 * 
 	 * @return The icon of the item, null if the item doesn't have an icon
 	 */
-	public URI getIconURI() {
-		return iconURI;
+	public URL getIconURL() {
+		return iconURL;
 	}
 
 	public String getText() {
@@ -148,14 +148,6 @@ public class Item {
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	protected void setSeparator(boolean isSeparator) {
-		this.isSeparator = isSeparator;
-	}
-
-	public boolean isSeparator() {
-		return isSeparator;
 	}
 
 	public KeyStroke getHotKey() {

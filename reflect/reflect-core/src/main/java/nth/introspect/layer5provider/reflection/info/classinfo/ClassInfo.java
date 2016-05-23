@@ -1,7 +1,7 @@
 package nth.introspect.layer5provider.reflection.info.classinfo;
 
 import java.lang.reflect.Method;
-import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 import nth.introspect.generic.filter.Filter;
@@ -10,7 +10,6 @@ import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.ProviderContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
@@ -49,7 +48,7 @@ public class ClassInfo implements NameInfo {
 				.get(LanguageProvider.class);
 		ReflectionProvider reflectionProvider = providerContainer
 				.get(ReflectionProvider.class);
-		PathProvider pathProvider = providerContainer.get(PathProvider.class);
+		//PathProvider pathProvider = providerContainer.get(PathProvider.class);
 		this.simpleName = objectClass.getSimpleName();
 		this.canonicalName = objectClass.getCanonicalName();
 		this.objectClass = objectClass;
@@ -58,8 +57,7 @@ public class ClassInfo implements NameInfo {
 		this.descriptionModel = new DescriptionModel(languageProvider,
 				objectClass, simpleName, canonicalName);
 		this.titleModel = new TitleModel(reflectionProvider);
-		this.iconModel = IconModelFactory.create(objectClass,
-				pathProvider.getImagePath());
+		this.iconModel = IconModelFactory.create(objectClass);
 		this.validationMethods = ValidationMethodFactory.create(objectClass);
 		this.propertyInfosSorted = PropertyInfoFactory.createSorted(
 				providerContainer, objectClass);
@@ -88,8 +86,8 @@ public class ClassInfo implements NameInfo {
 		return descriptionModel.getText();
 	}
 
-	public URI getIconURI(Object obj) {
-		return iconModel.getURI(obj);
+	public URL getIconURL(Object obj) {
+		return iconModel.getURL(obj);
 	}
 
 	public String getTitle(Object obj) {

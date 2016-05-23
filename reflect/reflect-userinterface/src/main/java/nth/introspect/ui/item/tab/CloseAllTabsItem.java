@@ -1,20 +1,19 @@
-package nth.introspect.ui.item.tab;
+ package nth.introspect.ui.item.tab;
 
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
-import nth.introspect.ui.images.IntrospectImage;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 
 public class CloseAllTabsItem extends Item {
 
 	private static final String CLOSE_ALL_TABS = "Close all tabs";
 	private final ViewContainer<View> viewContainer;
 
-	@SuppressWarnings("unchecked")
 	public CloseAllTabsItem(LanguageProvider languageProvider,
 			final ViewContainer<View> viewContainer) {
 		super(languageProvider);
@@ -22,9 +21,8 @@ public class CloseAllTabsItem extends Item {
 		setText(CLOSE_ALL_TABS);
 		setDescription(CLOSE_ALL_TABS);
 		try {
-			setIconURI(new IconUriClassResource(IntrospectImage.TABS_CLOSE_ALL)
-					.getAbsoluteURI());
-		} catch (URISyntaxException e) {
+			setIconURL(new URL(FontAwesomeUrl.CLOSE));
+		} catch (MalformedURLException e) {
 		}
 		setAction(new Action() {
 			@Override

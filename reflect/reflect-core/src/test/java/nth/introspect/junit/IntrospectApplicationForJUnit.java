@@ -24,10 +24,10 @@ import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.path.url.ClassResourceUrlHandler;
-import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.url.UrlProvider;
+import nth.introspect.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
@@ -144,15 +144,16 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 		return DefaultAboutProvider.class;
 	}
 
-	/**
-	 * You might want to use the override this method and use the
-	 * {@link DefaultPathProvider#DefaultPathProvider(java.net.URI) constructor}
-	 */
-	@Override
-	public Class<? extends PathProvider> getPathProviderClass() {
-		return DefaultPathProvider.class;
-	}
+//	/**
+//	 * You might want to use the override this method and use the
+//	 * {@link DefaultPathProvider#DefaultPathProvider(java.net.URI) constructor}
+//	 */
+//	@Override
+//	public Class<? extends PathProvider> getPathProviderClass() {
+//		return DefaultPathProvider.class;
+//	}
 
+	
 	@Override
 	public Class<? extends LanguageProvider> getLanguageProviderClass() {
 		return DefaultLanguageProvider.class;
@@ -184,8 +185,8 @@ public class IntrospectApplicationForJUnit implements IntrospectApplication {
 	}
 
 	@Override
-	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
-		return Arrays.asList(new ClassResourceUrlHandler());
+	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
+		return Arrays.asList(ClassResourceUrlProvider.class);
 	}
 
 }

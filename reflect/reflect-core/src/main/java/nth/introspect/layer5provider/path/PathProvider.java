@@ -5,6 +5,7 @@ import java.net.URI;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
+import nth.introspect.layer5provider.url.UrlProvider;
 
 /**
  * <p>
@@ -27,7 +28,7 @@ import nth.introspect.layer5provider.Provider;
  * your customizer {@link PathProvider} implementation by overriding the
  * {@link IntrospectApplication#getPathProviderClass()} method.
  * </p>
- * 
+ * @deprecated use {@link UrlProvider}
  * @author nilsth
  *
  */

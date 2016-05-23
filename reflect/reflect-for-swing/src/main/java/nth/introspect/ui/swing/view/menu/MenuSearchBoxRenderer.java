@@ -1,8 +1,6 @@
 package nth.introspect.ui.swing.view.menu;
 
 import java.awt.Component;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 import javax.swing.DefaultListCellRenderer;
@@ -20,13 +18,9 @@ public class MenuSearchBoxRenderer extends DefaultListCellRenderer {
 		
 		if (value instanceof HierarchicalItem) {
 			HierarchicalItem item = (HierarchicalItem) value;
-			URI iconURI = item.getIconURI();
-			if (iconURI != null) {
-				try {
-					URL iconURL = iconURI.toURL();
+			URL iconURL = item.getIconURL();
+			if (iconURL != null) {
 					setIcon(new ImageIcon(iconURL));
-				} catch (MalformedURLException e) {
-				}
 			}
 			setText(item.getTextPath(MenuSearchBoxModel.SEPERATOR));
 			setToolTipText(item.getDescription());

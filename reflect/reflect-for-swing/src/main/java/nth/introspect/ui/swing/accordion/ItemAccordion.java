@@ -178,7 +178,7 @@ public class ItemAccordion extends Accordion {
 			getButton().setText(methodOwnerItem.getText());
 			getButton().setToolTipText(methodOwnerItem.getDescription());
 			getButton().setIcon(
-					IconFactory.create(methodOwnerItem.getIconURI()));
+					IconFactory.create(methodOwnerItem.getIconURL()));
 		}
 
 		public MethodOwnerItem getMethodOwnerItem() {

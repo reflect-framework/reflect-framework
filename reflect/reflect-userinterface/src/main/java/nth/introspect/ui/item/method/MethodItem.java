@@ -1,6 +1,6 @@
 package nth.introspect.ui.item.method;
 
-import java.net.URI;
+import java.net.URL;
 
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
@@ -43,8 +43,8 @@ public class MethodItem extends Item {
 	}
 
 	@Override
-	public URI getIconURI() {
-		return actionMethodInfo.getIconURI(methodOwner);
+	public URL getIconURL() {
+		return actionMethodInfo.getIconURL(methodOwner);
 	}
 
 	@Override

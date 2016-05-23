@@ -1,8 +1,8 @@
 package nth.introspect.layer5provider.reflection.behavior.icon;
 
-import java.net.URI;
+import java.net.URL;
 
 
 public interface IconModel {
-	URI getURI(Object obj);
+	URL getURL(Object obj);
 }

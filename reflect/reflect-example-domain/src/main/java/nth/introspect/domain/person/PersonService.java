@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
+
+@Icon(iconURL=FontAwesomeUrl.USERS)
 public class PersonService {
 
 	private List<Person> persons;
@@ -51,13 +56,14 @@ public class PersonService {
 		bianca.getChildren().add(tycho);
 		bianca.getChildren().add(sanne);
 		
-		//add to colleciton
+		//add to collection
 		persons.add(nils);
 		persons.add(bianca);
 		persons.add(tycho);
 		persons.add(sanne);
 	}
-	
+
+	@Hidden(exceptForRoleNames="salesmanager")
 	public List<Person> allPersons() {
 		return persons;
 	}

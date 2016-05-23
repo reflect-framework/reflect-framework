@@ -7,16 +7,18 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
-import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
+import nth.introspect.layer5provider.url.UrlProvider;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.reflect.javafx.control.list.RfxList;
+import nth.reflect.javafx.control.list.RfxMainMenuList;
+import nth.reflect.javafx.control.list.RfxMainMenuListCell;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarMenuButton;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarTitle;
 
-public class RfxStyleSheetUrlHandler extends ReflectUrlConnection {
+public class RfxStyleSheetUrlHandler extends UrlProvider {
 
 	private String css;
 
@@ -29,8 +31,10 @@ public class RfxStyleSheetUrlHandler extends ReflectUrlConnection {
 		RfxApplicationToolbarTitle.appendStyleGroups(styleSheet, materialStyle);
 		RfxApplicationToolbarButton.appendStyleGroups(styleSheet, materialStyle);
 		RfxApplicationToolbarMenuButton.appendStyleGroups(styleSheet, materialStyle);
+		
 		RfxList.appendStyleGroups(styleSheet, materialStyle);
-
+		RfxMainMenuListCell.appendStyleGroups(styleSheet, materialStyle);
+		
 		System.out.println(styleSheet.toString());
 
 		css = styleSheet.toString();

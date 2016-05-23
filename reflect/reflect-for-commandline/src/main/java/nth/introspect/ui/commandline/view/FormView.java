@@ -37,9 +37,5 @@ public class FormView extends CommandLineView {
 		return table.toString();
 	}
 
-	@Override
-	public void onViewActivate() {
-		// do nothing
-	}
 
 }

@@ -18,10 +18,11 @@ import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.path.DefaultPathProvider;
 import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.path.url.ClassResourceUrlHandler;
-import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.url.UrlProvider;
+import nth.introspect.layer5provider.url.application.ApplicationUrlProvider;
+import nth.introspect.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 import nth.introspect.ui.style.fonticonurl.FontIconUrlHandler;
@@ -53,10 +54,7 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 		return DefaultAboutProvider.class;
 	}
 
-	@Override
-	public Class<? extends PathProvider> getPathProviderClass() {
-		return DefaultPathProvider.class;
-	}
+	
 
 	@Override
 	public Class<? extends LanguageProvider> getLanguageProviderClass() {
@@ -79,8 +77,8 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public List<ReflectUrlConnection> getReflectUrlStreamHandlers() {
-		return Arrays.asList(new ClassResourceUrlHandler(), new FontIconUrlHandler(), new RfxStyleSheetUrlHandler());
+	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
+		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlHandler.class, RfxStyleSheetUrlHandler.class);
 	}
 	
 	public Stage getPrimaryStage() {

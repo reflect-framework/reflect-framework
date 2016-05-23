@@ -1,26 +1,24 @@
-package nth.introspect.layer5provider.path.url;
+package nth.introspect.layer5provider.url.classresource;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
-import java.net.URLStreamHandlerFactory;
+
+import nth.introspect.layer5provider.url.ReflectUrl;
+import nth.introspect.layer5provider.url.application.ApplicationUrl;
 
 /**
  * <p>
- * A {@link ClassResourceUrl} is a {@link ReflectUrl} that helps to create a
+ * A {@link ApplicationUrl} is a {@link ReflectUrl} that helps to create a
  * reference to a class resource (See {@link Class#getResource(String)})
  * </p>
  * <p>
- * The format of a {@link ClassResourceUrl} is: reflectclassresource://&lt;class
+ * The format of a {@link ApplicationUrl} is: reflect-class-resource-url://&lt;class
  * path&gt;/&lt;resource name&gt;
  * </p>
  * <p>
- * E.g.: reflectclassresource://com.acme.SalesApp/sales.png;
+ * E.g.: reflect-class-resource-url://com.acme.SalesApp/sales.png; (for a sales.png file in the SalesApp class in the com.acme package)   
  * </p>
  * 
  * @author nilsth
@@ -28,7 +26,7 @@ import java.net.URLStreamHandlerFactory;
  */
 
 public class ClassResourceUrl implements ReflectUrl {
-	public static String PROTOCOL = "reflectclassresource";
+	public static String PROTOCOL = "reflect-class-resource-url";
 	private final URL classResourceUrl;
 
 	public ClassResourceUrl(Class<?> resourceClass, String resourceFile)
@@ -82,7 +80,8 @@ public class ClassResourceUrl implements ReflectUrl {
 	}
 
 	@Override
-	public URL toURL() {
+	public URL toInternalURL() {
 		return classResourceUrl;
 	}
+
 }

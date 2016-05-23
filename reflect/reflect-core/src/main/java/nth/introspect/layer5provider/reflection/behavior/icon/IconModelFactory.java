@@ -1,8 +1,7 @@
 package nth.introspect.layer5provider.reflection.behavior.icon;
 
 import java.lang.reflect.Method;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
 
 import nth.introspect.IntrospectApplication;
 import nth.introspect.layer2service.ServiceObject;
@@ -36,13 +35,13 @@ import nth.introspect.layer5provider.reflection.behavior.BehavioralMethods;
  */
 public class IconModelFactory {
 
-	public static  IconModel create(Method actionMethod, URI imagePath) {
-		IconMethodModel iconMethodModel=createIconMethodModel(actionMethod,imagePath);
+	public static  IconModel create(Method actionMethod) {
+		IconMethodModel iconMethodModel=createIconMethodModel(actionMethod);
 		if (iconMethodModel!=null) {
 			return iconMethodModel;			
 		}
 
-		IconUriModel iconAnnotationModel = createIconAnnotationModel(actionMethod, imagePath);
+		IconUrlModel iconAnnotationModel = createIconAnnotationModel(actionMethod);
 		if (iconAnnotationModel!=null) {
 			return iconAnnotationModel;			
 		}
@@ -51,13 +50,13 @@ public class IconModelFactory {
 		return iconDefaultModel;
 	}
 
-	public static IconModel create(Class<?> objectClass, URI imagePath) {
-		IconMethodModel iconMethodModel=createIconMethodModel(objectClass,imagePath);
+	public static IconModel create(Class<?> objectClass) {
+		IconMethodModel iconMethodModel=createIconMethodModel(objectClass);
 		if (iconMethodModel!=null) {
 			return iconMethodModel;			
 		}
 
-		IconUriModel iconAnnotationModel = createIconAnnotationModel(objectClass, imagePath);
+		IconUrlModel iconAnnotationModel = createIconAnnotationModel(objectClass);
 		if (iconAnnotationModel!=null) {
 			return iconAnnotationModel;			
 		}
@@ -67,15 +66,15 @@ public class IconModelFactory {
 	}
 	
 	
-	private static IconUriModel createIconAnnotationModel(Method actionMethod, URI imagePath) {
+	private static IconUrlModel createIconAnnotationModel(Method actionMethod) {
 		Icon iconAnnotation = actionMethod.getAnnotation(Icon.class);
 		if (iconAnnotation==null) {
 			return null;
 		} else {
 			try {
-				URI uri = IconUriFactory.create(iconAnnotation.iconURI(), imagePath);
-				return new IconUriModel(uri);
-			} catch (URISyntaxException e) {
+				URL iconUrl=new URL(iconAnnotation.iconURL());
+				return new IconUrlModel(iconUrl);
+			} catch (Exception e) {
 				return null;
 			}
 			
@@ -83,24 +82,24 @@ public class IconModelFactory {
 		
 	}
 
-	private static IconMethodModel createIconMethodModel(Method actionMethod, URI imagePath) {
+	private static IconMethodModel createIconMethodModel(Method actionMethod) {
 		Method iconMethod = BehavioralMethods.ICON.findFor(actionMethod);
 		if (iconMethod==null) {
 			return null;
 		} else {
-			return new IconMethodModel(iconMethod, imagePath);
+			return new IconMethodModel(iconMethod);
 		}
 	}
 
-	private static IconUriModel createIconAnnotationModel(Class<?> objectClass, URI imagePath) {
+	private static IconUrlModel createIconAnnotationModel(Class<?> objectClass) {
 		Icon iconAnnotation = objectClass.getAnnotation(Icon.class);
 		if (iconAnnotation==null) {
 			return null;
 		} else {
 			try {
-				URI uri = IconUriFactory.create(iconAnnotation.iconURI(), imagePath);
-				return new IconUriModel(uri);
-			} catch (URISyntaxException e) {
+				URL iconUrl=new URL(iconAnnotation.iconURL());
+				return new IconUrlModel(iconUrl);
+			} catch (Exception e) {
 				return null;
 			}
 			
@@ -108,12 +107,12 @@ public class IconModelFactory {
 		
 	}
 
-	private static IconMethodModel createIconMethodModel(Class<?> objectClass, URI imagePath) {
+	private static IconMethodModel createIconMethodModel(Class<?> objectClass) {
 		Method iconMethod = BehavioralMethods.ICON.findFor(objectClass);
 		if (iconMethod==null) {
 			return null;
 		} else {
-			return new IconMethodModel(iconMethod, imagePath);
+			return new IconMethodModel(iconMethod);
 		}
 	}
 

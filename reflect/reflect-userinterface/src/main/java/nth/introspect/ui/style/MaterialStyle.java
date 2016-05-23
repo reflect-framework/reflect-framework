@@ -137,7 +137,7 @@ public class MaterialStyle {
 
 			@Override
 			public int getMinHeight() {
-				return displayScale.scale(56);
+				return displayScale.scale(48);
 			}
 
 
@@ -149,11 +149,6 @@ public class MaterialStyle {
 			@Override
 			public int getPaddingRight() {
 				return displayScale.scale(16);
-			}
-
-			@Override
-			public Font getPrimaryTextFont() {
-				return MaterialFont.getSubHeading(displayScale);
 			}
 
 			@Override
@@ -169,6 +164,18 @@ public class MaterialStyle {
 			@Override
 			public Color getTextColor() {
 				return contentColors.getForeground1();
+			}
+
+
+			@Override
+			public Font getTitleFont() {
+				return MaterialFont.getTitle(displayScale);
+			}
+
+
+			@Override
+			public Font getSubHeadingFont() {
+				return MaterialFont.getSubHeading(displayScale);
 			}
 		};
 	}

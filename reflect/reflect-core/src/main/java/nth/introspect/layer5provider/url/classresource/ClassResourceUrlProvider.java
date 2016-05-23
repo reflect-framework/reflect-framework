@@ -1,12 +1,19 @@
-package nth.introspect.layer5provider.path.url;
+package nth.introspect.layer5provider.url.classresource;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ClassResourceUrlHandler extends ReflectUrlConnection {
+import nth.introspect.layer5provider.url.UrlProvider;
+/**
+ * A {@link ClassResourceUrlProvider} handles a {@link ClassResourceUrl}.
+ * 
+ * {@include ClassResourceUrl}
+ * @author nilsth
+ *
+ */
+public class ClassResourceUrlProvider extends UrlProvider {
 
 	@Override
 	public String getProtocol() {
@@ -31,6 +38,20 @@ public class ClassResourceUrlHandler extends ReflectUrlConnection {
 			}
 
 		};
+	}
+	
+	@Override
+	protected String toExternalForm(URL url) {
+		try{
+			ClassResourceUrl classResourceUrl = new ClassResourceUrl(url);
+			Class<?> resourceClass = classResourceUrl.getResourceClass();
+			String resourecFile = classResourceUrl.getResourceFile();
+			URL resourceUrl = resourceClass.getResource(resourecFile);
+			return resourceUrl.toExternalForm();
+		} catch (Exception exception) {
+			return null;
+		}
+		
 	}
 
 }

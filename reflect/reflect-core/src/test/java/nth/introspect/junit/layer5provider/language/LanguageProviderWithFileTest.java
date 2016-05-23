@@ -27,10 +27,11 @@ public class LanguageProviderWithFileTest {
 	@Before
 	public void setUp() throws Exception {
 		IntrospectApplicationForJUnit application = new IntrospectApplicationForJUnit() {
-			@Override
-			public Class<? extends PathProvider> getPathProviderClass() {
-				return LanguageProviderTestPathProvider.class;
-			}
+//FIXME: test will fail
+			//			@Override
+//			public Class<? extends PathProvider> getPathProviderClass() {
+//				return LanguageProviderTestPathProvider.class;
+//			}
 			
 		};
 		DependencyInjectionContainer container = application.createContainer();

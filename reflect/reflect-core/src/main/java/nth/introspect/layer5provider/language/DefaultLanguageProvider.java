@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import nth.introspect.generic.util.StringUtil;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
 
 public class DefaultLanguageProvider implements LanguageProvider {
@@ -17,9 +16,9 @@ public class DefaultLanguageProvider implements LanguageProvider {
 	private ResourceBundleClassLoader resourceBundleClassLoader;
 	private Locale defaultLocale;
 
-	public DefaultLanguageProvider(PathProvider pathProvider) {
+	public DefaultLanguageProvider() {
 		defaultLocale = Locale.ENGLISH;
-		resourceBundleClassLoader = new ResourceBundleClassLoader(pathProvider);
+		resourceBundleClassLoader = new ResourceBundleClassLoader();
 	}
 
 	private String getLanguageFileComments() {

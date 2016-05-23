@@ -24,6 +24,7 @@ import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.basic.Font;
 import nth.introspect.ui.view.FormMode;
 import nth.reflect.javafx.control.list.RfxList;
+import nth.reflect.javafx.control.list.RfxMainMenuList;
 import nth.reflect.javafx.control.style.RfxFontFactory;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.window.RfxWindow;
@@ -130,10 +131,12 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		content.getChildren().add(createLabel(MaterialFont.getBody1(DisplayScale.DENSE)));
 		content.getChildren().add(createLabel(MaterialFont.getButton(DisplayScale.DENSE)));
 
-		 RfxList menu = new RfxList(materialStyle);
-		ObservableList<String> items =FXCollections.observableArrayList (
-			    "Single", "Double", "Suite", "Family App");
-		menu.setItems(items);
+//		 RfxList menu = new RfxList();
+//		ObservableList<String> items =FXCollections.observableArrayList (
+//			    "Single", "Double", "Suite", "Family App");
+//		menu.setItems(items);
+		
+		RfxMainMenuList menu=new RfxMainMenuList(userInterfaceContainer);
 		
 		BorderPane contentWithMenu=new BorderPane();
 		contentWithMenu.setCenter(content);

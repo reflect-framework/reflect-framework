@@ -1,6 +1,6 @@
 package nth.introspect.ui.item.tab;
 
-import java.net.URI;
+import java.net.URL;
 
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
@@ -31,8 +31,8 @@ public class SelectTabItem extends Item {
 	}
 
 	@Override
-	public URI getIconURI() {
-		return view.getViewIconURI();
+	public URL getIconURL() {
+		return view.getViewIconURL();
 	}
 
 }

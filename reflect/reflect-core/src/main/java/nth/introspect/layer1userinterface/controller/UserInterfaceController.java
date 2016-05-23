@@ -1,8 +1,6 @@
 package nth.introspect.layer1userinterface.controller;
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 
 import nth.introspect.IntrospectApplication;
@@ -10,8 +8,8 @@ import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.IntrospectApplicationProjects;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.generic.util.TitleUtil;
+import nth.introspect.junit.IntrospectApplicationForJUnit;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer3domain.DomainObject;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationListener;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;

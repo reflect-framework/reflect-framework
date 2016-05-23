@@ -2,6 +2,7 @@ package nth.introspect.ui.swing.item.menu;
 
 import java.awt.event.ActionEvent;
 import java.net.URI;
+import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -94,8 +95,8 @@ public class MenuItem extends JMenuItem {
 
 	@Override
 	public Icon getIcon() {
-		URI iconUri = item.getIconURI();
-		return IconFactory.create(iconUri,SwingStyleConstant.ICON_SIZE);
+		URL iconUrl = item.getIconURL();
+		return IconFactory.create(iconUrl,SwingStyleConstant.ICON_SIZE);
 	}
 
 }

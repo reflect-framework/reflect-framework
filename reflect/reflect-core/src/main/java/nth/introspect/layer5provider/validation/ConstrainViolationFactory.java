@@ -9,13 +9,13 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 import javax.validation.metadata.ConstraintDescriptor;
 
+import org.apache.bval.jsr303.util.PathImpl;
+
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethod;
 import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-
-import org.apache.bval.jsr303.util.PathImpl;
 
 /**
  * Creates {@link ConstraintViolation}s from {@link ValidationMethod}s, for the

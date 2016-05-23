@@ -53,7 +53,7 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 		setEnabled(serviceObjectItem.isEnabled());
 		// setIcon(entry.getImage());
 
-		setFont(AwtFontFactory.create(style.getPrimaryTextFont()));
+		setFont(AwtFontFactory.create(style.getTitleFont()));
 
 		Color red = Color.RED;//TODO
 		Color foreground = isSelected ? red : ColorFactory.create(style.getTextColor());
@@ -79,7 +79,7 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 		setEnabled(actionMethodItem.isEnabled());
 		// setIcon(entry.getImage());
 
-		setFont(AwtFontFactory.create(style.getPrimaryTextFont()));
+		setFont(AwtFontFactory.create(style.getTitleFont()));
 
 		Color red = Color.RED;//TODO
 		Color foreground = isSelected ? red : ColorFactory.create(style.getTextColor());

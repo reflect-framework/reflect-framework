@@ -11,7 +11,7 @@ import java.net.URLConnection;
 import java.net.URLStreamHandler;
 import java.net.URLStreamHandlerFactory;
 
-import nth.introspect.layer5provider.path.url.ReflectUrl;
+import nth.introspect.layer5provider.url.ReflectUrl;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.basic.Font;
 
@@ -60,7 +60,7 @@ import nth.introspect.ui.style.basic.Font;
 
 public class FontIconUrl implements ReflectUrl {
 	public static final String PROTOCOL_SUFFIX = "://";
-	public static String PROTOCOL = "reflectfonticon";
+	public static final String PROTOCOL = "reflectfonticon";
 	private final URL fontIconUrl;
 
 	public FontIconUrl(String fontName, URL fontUrl, char uniCode) throws MalformedURLException {
@@ -110,7 +110,7 @@ public class FontIconUrl implements ReflectUrl {
 	}
 
 	@Override
-	public URL toURL() {
+	public URL toInternalURL() {
 		return fontIconUrl;
 	}
 

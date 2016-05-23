@@ -57,9 +57,5 @@ public class HelpView extends CommandLineView {
 		return table.toString();
 	}
 
-	@Override
-	public void onViewActivate() {
-		// do nothing		
-	}
 
 }

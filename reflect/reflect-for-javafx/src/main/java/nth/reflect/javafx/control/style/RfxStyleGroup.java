@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Labeled;
 import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.basic.Font;
 
@@ -93,6 +94,12 @@ public class RfxStyleGroup {
 		return this;
 	}
 
+	public RfxStyleGroup setCellSize(int size) {
+		properties.put("-fx-cell-size", getPixels(size));
+		return this;
+	}
+
+	
 	public RfxStyleGroup setMinHeight(int minHeight) {
 		properties.put("-fx-min-height", getPixels(minHeight));
 		return this;
@@ -138,6 +145,7 @@ public class RfxStyleGroup {
 		properties.put("-fx-font-size", Integer.toString(fontSize)+"px");
 		return this;
 	}
+
 
 	
 }

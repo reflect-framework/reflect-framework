@@ -1,6 +1,6 @@
 package nth.introspect.ui.swing.view.menu.item;
 
-import java.net.URI;
+import java.net.URL;
 
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -28,8 +28,8 @@ public class ActionMethodItem implements Item {
 	}
 
 	@Override
-	public URI getIcon() {
-		return methodInfo.getIconURI(serviceObject);
+	public URL getIcon() {
+		return methodInfo.getIconURL(serviceObject);
 	}
 
 	@Override

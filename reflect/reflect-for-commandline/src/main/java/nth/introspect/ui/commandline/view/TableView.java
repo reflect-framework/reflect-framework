@@ -57,9 +57,5 @@ public class TableView extends CommandLineView {
 		return table.toString();
 	}
 
-	@Override
-	public void onViewActivate() {
-		// do nothing
-	}
 
 }

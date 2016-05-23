@@ -13,7 +13,7 @@ public class IconModelForActionMethodTestObject {
 	private static final String BOGUS_PNG = "bogus.png";
 	private static final String ICON_PNG = "icon.png";
 	private static final String ABSOLUTE_URI_TO_NONE_EXISTING_ICON = "file:/C:/bogus/bogus.png";
-	public static final String ABSOLUTE_URI_TO_ICON =  "https://www.google.nl/images/nav_logo242.png";
+	public static final String ABSOLUTE_ÙRL_TO_ICON = "https://www.google.nl/images/nav_logo242.png";
 
 	public void actionMethodIconDefaultUri() {
 
@@ -30,26 +30,26 @@ public class IconModelForActionMethodTestObject {
 //
 //	}
 
-	@Icon(iconURI = CLASS_RESOURCE_URI_TO_NONE_EXISTING_ICON)
+	@Icon(iconURL = CLASS_RESOURCE_URI_TO_NONE_EXISTING_ICON)
 	public void actionMethodIconAnnotationClassReferenceUriNotExist() {
 	}
 
-	@Icon(iconURI = ICON_PNG)
+	@Icon(iconURL = ICON_PNG)
 	public void actionMethodIconAnnotationRelativeUri() {
 
 	}
 
-	@Icon(iconURI = BOGUS_PNG)
+	@Icon(iconURL = BOGUS_PNG)
 	public void actionMethodIconAnnotationRelativeUriNotExist() {
 
 	}
 
-	@Icon(iconURI = ABSOLUTE_URI_TO_ICON)
+	@Icon(iconURL = ABSOLUTE_ÙRL_TO_ICON)
 	public void actionMethodIconAnnotationAbsoluteUri() {
 
 	}
 
-	@Icon(iconURI = ABSOLUTE_URI_TO_NONE_EXISTING_ICON)
+	@Icon(iconURL = ABSOLUTE_URI_TO_NONE_EXISTING_ICON)
 	public void actionMethodIconAnnotationAbsoluteUriNotExist() {
 
 	}
@@ -92,7 +92,7 @@ public class IconModelForActionMethodTestObject {
 	}
 
 	public String actionMethodIconMethodAbsoluteUriIcon() throws URISyntaxException {
-		return ABSOLUTE_URI_TO_ICON; 
+		return ABSOLUTE_ÙRL_TO_ICON; 
 		
 	}
 

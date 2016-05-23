@@ -3,7 +3,7 @@ package nth.reflect.javafx.control.style;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import nth.introspect.layer5provider.path.url.ReflectUrl;
+import nth.introspect.layer5provider.url.ReflectUrl;
 
 /**
  * <p>
@@ -36,7 +36,7 @@ public class RfxStyleSheetUrl implements ReflectUrl {
 
 
 	@Override
-	public URL toURL() {
+	public URL toInternalURL() {
 		return styleSheetUrl;
 	}
 	

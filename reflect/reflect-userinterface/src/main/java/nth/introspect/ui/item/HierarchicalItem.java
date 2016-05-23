@@ -1,6 +1,7 @@
 package nth.introspect.ui.item;
 
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +29,14 @@ public class HierarchicalItem extends Item {
 	 *            The action to be fired
 	 */
 	public HierarchicalItem(LanguageProvider languageProvider, String text,
-			URI iconURI, Action action) {
+			URL iconURL, Action action) {
 		super(languageProvider);
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
 		}
 		setText(text);
 		setDescription(text);
-		setIconURI(iconURI);
+		setIconURL(iconURL);
 		setAction(action);
 	}
 
@@ -57,7 +58,7 @@ public class HierarchicalItem extends Item {
 	 * @return True if this item has children
 	 */
 	public boolean hasChildren() {
-		return !isSeparator() && children.size() > 0;
+		return children.size() > 0;
 	}
 
 	/**
@@ -108,31 +109,6 @@ public class HierarchicalItem extends Item {
 
 	public void addItem(Item menuItem) {
 		children.add(menuItem);
-	}
-
-	/**
-	 * Adds a separator to this menu. A separator is a way to visually group
-	 * items in a menu, to make it easier for users to find what they are
-	 * looking for in the menu.
-	 * 
-	 */
-	public HierarchicalItem addSeparator() {
-		HierarchicalItem item = createSeperator();
-		addItem(createSeperator());
-		return item;
-	}
-
-	public HierarchicalItem addSeparator(int index) {
-		HierarchicalItem item = createSeperator();
-		addItem(index, item);
-		return item;
-	}
-
-	private static HierarchicalItem createSeperator() {
-		HierarchicalItem item = new HierarchicalItem(null);
-		item.setSeparator(true);
-		item.setText("");
-		return item;
 	}
 
 	public String getTextPath(String seperator) {

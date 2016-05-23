@@ -66,9 +66,6 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * <p>
  * {@insert NotificationProvider}
  * </p>
- * <h2>Path Provider</h2>
- * <p>
- * {@insert PathProvider}
  * </p>
  * <h2>Reflection Provider</h2>
  * <p>
@@ -78,6 +75,9 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * <p>
  * {@insert AboutProvider}
  * </p>
+ * <h2>URL Providers</h2>
+ * <p>
+ * {@insert UrlProvider}
  * 
  * @author Nils ten Hoeve
  */

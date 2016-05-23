@@ -1,7 +1,6 @@
 package nth.introspect.layer5provider.reflection.behavior.icon;
 
 import java.lang.reflect.Method;
-import java.net.URI;
 import java.net.URL;
 
 import nth.introspect.IntrospectFramework;
@@ -33,25 +32,20 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  */
 public class IconDefaultModel implements IconModel {
 
-	private URI uri;
+	private URL url;
 
 	public IconDefaultModel(Method actionMethod) {
-		uri = createURI(actionMethod);
+		url = createURL(actionMethod);
 	}
 
 	public IconDefaultModel(Class<?> objectClass) {
-		uri = createURI(objectClass);
+		url = createURL(objectClass);
 	}
 
-	
-	private URI createURI(Class<?> objectClass) {
+	private URL createURL(Class<?> objectClass) {
 		String resourceName = createResourceName(objectClass);
 		URL url = objectClass.getResource(resourceName);
-		try {
-			return url.toURI();
-		} catch (Exception e) {
-			return null;
-		}
+		return url;
 	}
 
 	private String createResourceName(Class<?> objectClass) {
@@ -62,15 +56,11 @@ public class IconDefaultModel implements IconModel {
 
 	}
 
-	private URI createURI(Method actionMethod) {
+	private URL createURL(Method actionMethod) {
 		Class<?> ownerClass = actionMethod.getDeclaringClass();
 		String resourceName = createResourceName(actionMethod);
 		URL url = ownerClass.getResource(resourceName);
-		try {
-			return url.toURI();
-		} catch (Exception e) {
-			return null;
-		}
+		return url;
 	}
 
 	private String createResourceName(Method actionMethod) {
@@ -84,8 +74,8 @@ public class IconDefaultModel implements IconModel {
 	}
 
 	@Override
-	public URI getURI(Object obj) {
- 		return uri;
+	public URL getURL(Object obj) {
+		return url;
 	}
 
 }

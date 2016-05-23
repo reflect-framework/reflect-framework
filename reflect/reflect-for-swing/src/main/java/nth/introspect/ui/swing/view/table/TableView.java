@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -149,8 +149,8 @@ public class TableView extends SwingView implements
 	}
 
 	@Override
-	public URI getViewIconURI() {
-		return actionMethodInfo.getIconURI(methodOwner);
+	public URL getViewIconURL() {
+		return actionMethodInfo.getIconURL(methodOwner);
 	}
 
 	@Override

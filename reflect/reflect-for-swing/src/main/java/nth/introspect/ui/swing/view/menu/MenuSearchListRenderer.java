@@ -22,7 +22,7 @@ public class MenuSearchListRenderer extends DefaultListCellRenderer {
 			
 			setText(item.getText());
 			setToolTipText(item.getDescription());
-			ImageIcon icon = IconFactory.create(item.getIconURI(), SwingStyleConstant.ICON_SIZE);
+			ImageIcon icon = IconFactory.create(item.getIconURL(), SwingStyleConstant.ICON_SIZE);
 			setIcon(icon);
 			
 		} 

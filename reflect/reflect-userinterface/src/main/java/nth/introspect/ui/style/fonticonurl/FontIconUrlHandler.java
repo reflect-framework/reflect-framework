@@ -6,9 +6,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import nth.introspect.layer5provider.path.url.ReflectUrlConnection;
+import nth.introspect.layer5provider.url.UrlProvider;
 
-public class FontIconUrlHandler extends ReflectUrlConnection {
+public class FontIconUrlHandler extends UrlProvider {
 
 	@Override
 	public String getProtocol() {

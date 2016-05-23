@@ -1,11 +1,12 @@
 package nth.introspect.ui.item.method;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
@@ -18,62 +19,47 @@ public class MethodOwnerItem extends HierarchicalItem {
 	private ClassInfo methodOwnerInfo;
 	private final Object methodOwner;
 
-	public MethodOwnerItem(UserInterfaceContainer userInterfaceContainer,
-			Object methodOwner, Filter<ActionMethodInfo> methodFilter,
-			ReadOnlyValueModel methodParameterValueModel) {
+	public MethodOwnerItem(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
+			Filter<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
 		ReflectionProvider reflectionProvider = userInterfaceContainer
 				.get(ReflectionProvider.class);
-		methodOwnerInfo = reflectionProvider.getClassInfo(methodOwner
-				.getClass());
+		methodOwnerInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
 
-		setText(methodOwnerInfo.getDisplayName());
-		setDescription(methodOwnerInfo.getDescription());
-		ClassInfo classInfo=reflectionProvider.getClassInfo(methodOwner.getClass());
-		List<ActionMethodInfo> actionMethodInfos = classInfo
-				.getActionMethodInfos( methodFilter);
+		ClassInfo classInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
+		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos(methodFilter);
 
-		UserInterfaceController userInterfaceController = userInterfaceContainer
-				.get(UserInterfaceController.class);
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
-			MethodItem methodItem = new MethodItem(userInterfaceContainer,
-					methodOwner, actionMethodInfo, methodParameterValueModel);
+			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner,
+					actionMethodInfo, methodParameterValueModel);
 			addItem(methodItem);
 		}
 	}
 
 	@Override
 	public boolean isVisible() {
-		// check visibility of children
-		Item lastVisibleItem = null;
 		for (Item child : getChildren()) {
-			if (child.isSeparator()) {
-				// set visibility of separator
-				if (child.isVisible()) {
-					if (lastVisibleItem == null
-							|| lastVisibleItem.isSeparator()) {
-						// hide separator
-						child.setVisible(false);
-					} else {
-						// separator remains visible
-						lastVisibleItem = child;
-					}
-				}
-			} else {
-				if (child.isVisible()) {
-					lastVisibleItem = child;
-				}
+			if (child.isVisible()) {
+				return true;
 			}
 		}
+		return false;
+	}
 
-		if (lastVisibleItem != null && lastVisibleItem.isSeparator()) {
-			// hide separator when it is the last visible item
-			lastVisibleItem.setVisible(false);
-		}
+	@Override
+	public String getText() {
+		return methodOwnerInfo.getDisplayName();
+	}
 
-		// hide this item if this item does not contain a visible item
-		return lastVisibleItem != null;
+	@Override
+	public String getDescription() {
+		return methodOwnerInfo.getDescription();
+	}
+
+	@Override
+	public URL getIconURL() {
+		return methodOwnerInfo.getIconURL(methodOwner);
 	}
 
 }

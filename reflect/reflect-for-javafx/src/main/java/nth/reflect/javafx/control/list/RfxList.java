@@ -14,9 +14,9 @@ import nth.reflect.javafx.control.style.RfxStyleSheet;
  * @author nilsth
  *
  */
-public class RfxList extends ListView {
+public class RfxList<T> extends ListView<T> {
 
-	public RfxList(MaterialStyle materialStyle) {
+	public RfxList() {
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxList.class));
 	}
 
@@ -30,16 +30,16 @@ public class RfxList extends ListView {
 			.setPadding(0);
 		
 		
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class).append(ListCell.class))
-			.setBackground(listStyle.getBackgroundColor())
-			.setMinHeight(listStyle.getMinHeight())
-			.setPadding(listStyle.getPaddingLeft());//TODO
-		//TODO font size and color
-	
-		
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class).append(ListCell.class).appendFilled().appendSelected().appendFocused())
-			.setBackground(new nth.introspect.ui.style.basic.Color(255,0,0));//TODO
-		//TODO text color
+//		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class).append(ListCell.class))
+//			.setBackground(listStyle.getBackgroundColor())
+//			.setMinHeight(listStyle.getMinHeight())
+//			.setPadding(listStyle.getPaddingLeft());//TODO
+//		//TODO font size and color
+//	
+//		
+//		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class).append(ListCell.class).appendFilled().appendSelected().appendFocused())
+//			.setBackground(new nth.introspect.ui.style.basic.Color(255,0,0));//TODO
+//		//TODO text color
 		
 	}
 		

@@ -1,6 +1,6 @@
 package nth.introspect.ui.item.dialog;
 
-import java.net.URI;
+import java.net.URL;
 
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
@@ -42,8 +42,8 @@ public class DialogMethodItem extends Item {
 	}
 
 	@Override
-	public URI getIconURI() {
-		return actionMethodInfo.getIconURI(methodOwner);
+	public URL getIconURL() {
+		return actionMethodInfo.getIconURL(methodOwner);
 	}
 
 	@Override

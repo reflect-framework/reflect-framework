@@ -11,18 +11,17 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.HierarchicalItem;
-import nth.introspect.ui.item.SeparatorItem;
-
+/**
+ * TODO remove this class???
+ * @author nilsth
+ *
+ */
 public class TabsItem extends HierarchicalItem {
 
 	public TabsItem(LanguageProvider languageProvider, ViewContainer<View> viewContainer, View view) {
 		super(languageProvider);
 		setText("Tabs");
 		setDescription("Tabs menu");
-		try {
-			setIconURI(new IconUriClassResource(IntrospectImage.TABS).getAbsoluteURI());
-		} catch (URISyntaxException e) {
-		}
 
 		@SuppressWarnings("unchecked")
 		List<Item> children = new ArrayList<Item>();
@@ -30,7 +29,6 @@ public class TabsItem extends HierarchicalItem {
 		children.add(new CloseOtherTabsItem(languageProvider,viewContainer,view));
 		children.add(new CloseAllTabsItem(languageProvider,viewContainer));
 		if (viewContainer.getViewCount() > 1) {
-			children.add(new SeparatorItem());
 			for (int i = 0; i < viewContainer.getViewCount(); i++) {
 				view = viewContainer.getView(i);
 				children.add(new SelectTabItem(languageProvider,viewContainer,view));

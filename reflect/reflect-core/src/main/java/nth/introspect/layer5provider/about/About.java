@@ -1,6 +1,7 @@
 package nth.introspect.layer5provider.about;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import nth.introspect.IntrospectApplication;
@@ -8,8 +9,8 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.url.UrlProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 public class About extends VersionInfo {
@@ -26,11 +27,22 @@ public class About extends VersionInfo {
 		providerInfos.add(getAuthorizationProviderInfo());
 		providerInfos.add(getReflectionProviderInfo());
 		providerInfos.add(getLanguageProviderInfo());
-		providerInfos.add(getPathProviderInfo());
+		providerInfos.addAll(getUrlProviderInfos());
 		providerInfos.add(getValidationProviderInfo());
 		providerInfos.add(getNotificationProviderInfo());
 		providerInfos.add(getUserInterfaceControllerInfo());
 		return providerInfos;
+	}
+
+	private Collection<? extends VersionInfo> getUrlProviderInfos() {
+		List<VersionInfo> urlProviderInfos=new ArrayList<>();
+		List<Class<? extends UrlProvider>> urlProviderClasses = application
+				.getUrlProviderClasses();
+		for (Class<? extends UrlProvider> urlProviderClass : urlProviderClasses) {
+			VersionInfo urlProviderInfo = new VersionInfo(urlProviderClass);
+			urlProviderInfos.add(urlProviderInfo);
+		}
+		return urlProviderInfos; 
 	}
 
 	private VersionInfo getNotificationProviderInfo() {
@@ -61,12 +73,6 @@ public class About extends VersionInfo {
 		Class<? extends LanguageProvider> languageProviderClass = application
 				.getLanguageProviderClass();
 		return new VersionInfo(languageProviderClass);
-	}
-
-	private VersionInfo getPathProviderInfo() {
-		Class<? extends PathProvider> pathProviderClass = application
-				.getPathProviderClass();
-		return new VersionInfo(pathProviderClass);
 	}
 
 	private VersionInfo getUserInterfaceControllerInfo() {

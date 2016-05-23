@@ -1,6 +1,7 @@
 package nth.introspect.ui.item.about;
 
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
@@ -8,11 +9,10 @@ import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.ui.images.IntrospectImage;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 
 public class AboutItem extends Item {
 	private static final String ABOUT = "About";
@@ -21,10 +21,11 @@ public class AboutItem extends Item {
 		super(languageProvider);
 		setText(ABOUT);
 		setDescription(ABOUT);
-		try {
-			setIconURI(new IconUriClassResource(IntrospectImage.BUTTON_ROUND_ABOUT).getAbsoluteURI());
-		} catch (URISyntaxException e) {
-		}
+			try {
+				setIconURL(new URL( FontAwesomeUrl.INFO_CIRCLE));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 		setAction(new Action() {
 			@Override
 			public void run() {

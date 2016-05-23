@@ -1,7 +1,7 @@
 package nth.introspect.ui.swing.view.container;
 
 import java.awt.Component;
-import java.net.URI;
+import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -40,7 +40,7 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Vie
 					//update tab MaterialAppBarTitle, description and MaterialAppBarIcon
 					setTitleAt(index, view.getViewTitle());
 					setToolTipTextAt(index, view.getViewDescription());
-					setIconAt(index, IconFactory.create(view.getViewIconURI()));
+					setIconAt(index, IconFactory.create(view.getViewIconURL()));
 				}
 			}
 		};
@@ -72,8 +72,8 @@ public class SwingViewContainer extends JTabbedPane implements ViewContainer<Vie
 	public void addView(View view) {
 		String title = view.getViewTitle();
 		String description = view.getViewDescription();
-		URI iconURI = view.getViewIconURI();
-		ImageIcon icon = IconFactory.create(iconURI, SwingStyleConstant.ICON_SIZE);
+		URL iconURL = view.getViewIconURL();
+		ImageIcon icon = IconFactory.create(iconURL, SwingStyleConstant.ICON_SIZE);
 		view.onViewActivate();
 		insertTab(title, icon, (Component) view, description, getViewCount());
 	}

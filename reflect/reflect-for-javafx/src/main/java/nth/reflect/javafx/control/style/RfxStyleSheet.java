@@ -20,13 +20,12 @@ public class RfxStyleSheet {
 	public RfxStyleGroup addStyleGroup(RfxStyleSelector styleSelector) {
 		RfxStyleGroup styleGroup = new RfxStyleGroup(styleSelector);
 		styleGroups.add(styleGroup);
-		return styleGroup;														
+		return styleGroup;
 	}
 
 	public void addToScene(Scene scene) {
 		scene.getStylesheets().setAll(new RfxStyleSheetUrl().toString());
 	}
-
 
 	public static String createStyleClassName(Class<? extends Node> controlClass) {
 		StringBuilder styleClassName = new StringBuilder();
@@ -42,6 +41,18 @@ public class RfxStyleSheet {
 		return styleClassName.toString();
 	}
 
+	public static String createStyleClassName(Class<? extends Node> controlClass, String suffix) {
+		StringBuilder styleClassName = new StringBuilder();
+		styleClassName.append(createStyleClassName(controlClass));
+
+		if (suffix != null && suffix.trim().length() > 0) {
+			suffix = suffix.trim().toLowerCase().replace(" ", "-");
+			styleClassName.append("-");
+			styleClassName.append(suffix);
+		}
+		return styleClassName.toString();
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder css = new StringBuilder();
@@ -52,5 +63,4 @@ public class RfxStyleSheet {
 		return css.toString();
 	}
 
-	
 }

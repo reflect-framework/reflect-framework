@@ -5,7 +5,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import nth.introspect.layer5provider.path.url.ClassResourceUrl;
+import nth.introspect.layer5provider.url.application.ApplicationUrl;
+import nth.introspect.layer5provider.url.classresource.ClassResourceUrl;
 
 /**
  * 
@@ -25,7 +26,7 @@ import nth.introspect.layer5provider.path.url.ClassResourceUrl;
  * file://c:/MyProject/src/com/acme/customer/person.png</li>
  * </ul>
  * 
- * @deprecated use {@link ClassResourceUrl}
+ * @deprecated use {@link ApplicationUrl} or {@link ClassResourceUrl}
  * @author nilsth
  *
  */

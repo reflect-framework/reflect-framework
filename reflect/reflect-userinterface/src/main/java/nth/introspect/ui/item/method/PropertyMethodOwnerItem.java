@@ -1,6 +1,6 @@
 package nth.introspect.ui.item.method;
 
-import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 import nth.introspect.generic.filter.LogicFilter;
@@ -61,8 +61,8 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	}
 
 	@Override
-	public URI getIconURI() {
-		return formView.getViewIconURI();
+	public URL getIconURL() {
+		return formView.getViewIconURL();
 	}
 
 	@Override

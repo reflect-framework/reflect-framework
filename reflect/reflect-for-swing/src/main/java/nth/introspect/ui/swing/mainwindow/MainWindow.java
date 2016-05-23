@@ -8,7 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
-import java.net.URI;
+import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -109,8 +109,8 @@ public class MainWindow extends JFrame {
 
 	private void setIcon(IntrospectApplication application, ClassInfo applicationInfo) {
 		try {
-			URI iconUri = applicationInfo.getIconURI(application);
-			Image image = Toolkit.getDefaultToolkit().getImage(iconUri.toURL());
+			URL iconUrl = applicationInfo.getIconURL(application);
+			Image image = Toolkit.getDefaultToolkit().getImage(iconUrl);
 			setIconImage(image);
 		} catch (Exception exception) {
 		}

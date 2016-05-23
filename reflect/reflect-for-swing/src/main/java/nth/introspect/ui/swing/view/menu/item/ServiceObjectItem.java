@@ -1,6 +1,7 @@
 package nth.introspect.ui.swing.view.menu.item;
 
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class ServiceObjectItem implements Item {
 	}
 
 	@Override
-	public URI getIcon() {
-		return serviceObjectInfo.getIconURI(serviceObject);
+	public URL getIcon() {
+		return serviceObjectInfo.getIconURL(serviceObject);
 	}
 
 	@Override

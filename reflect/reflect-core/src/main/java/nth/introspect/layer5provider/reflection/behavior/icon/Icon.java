@@ -5,10 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.swing.plaf.FontUIResource;
-
-import nth.introspect.layer5provider.path.url.ClassResourceUrl;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
+import nth.introspect.layer5provider.url.application.ApplicationUrl;
 
 /**
  * <p>
@@ -18,15 +16,15 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </p>
  * 
  * <p>
- * Syntax: {@link Icon}(String iconURI)
+ * Syntax: {@link Icon}(String iconURL)
  * </p>
  * <p>
  * Parameter iconURI: image or unicode character to be used as an icon
  * </p>
- * The iconURI can be a:
+ * The iconURL can be a:
  * <ul>
- * <li>FontIconUrl {@include FontIconUrl} <b>Note that this is the preferred way of defining an icon</b></li>
- * <li>ClassResourceUrl {@include ClassResourceUrl}</li>
+ * <li>{@link FontIconUrl} <b>Note that this is the preferred way of defining an icon</b></li>
+ * <li>{@link ApplicationUrl}</li>
  * <li>&lt;fileName&gt; e.g. Cut.jpg that will be located in the
  * &lt;imageFolder&gt;/Cut.jpg</li>
  * <li>&lt;relativePath&gt;/&lt;fileName&gt; e.g. /edit/Cut.jpg that will be
@@ -43,5 +41,5 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface Icon {
-	public String iconURI();
+	public String iconURL();
 }
