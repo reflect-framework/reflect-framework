@@ -4,14 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
-import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
 
 public class IconFactory {
 

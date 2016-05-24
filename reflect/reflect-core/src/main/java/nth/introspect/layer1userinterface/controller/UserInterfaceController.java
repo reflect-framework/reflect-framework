@@ -8,7 +8,6 @@ import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.IntrospectApplicationProjects;
 import nth.introspect.documentation.IntrospectArchitecture;
 import nth.introspect.generic.util.TitleUtil;
-import nth.introspect.junit.IntrospectApplicationForJUnit;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.NotificationListener;

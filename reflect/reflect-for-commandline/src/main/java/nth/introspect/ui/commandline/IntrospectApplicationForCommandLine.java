@@ -1,7 +1,6 @@
 package nth.introspect.ui.commandline;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +15,6 @@ import nth.introspect.layer5provider.language.DefaultLanguageProvider;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
-import nth.introspect.layer5provider.path.DefaultPathProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.url.UrlProvider;

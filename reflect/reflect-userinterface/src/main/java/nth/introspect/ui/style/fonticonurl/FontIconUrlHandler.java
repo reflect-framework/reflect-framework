@@ -2,7 +2,6 @@ package nth.introspect.ui.style.fonticonurl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 

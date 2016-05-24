@@ -1,8 +1,6 @@
 package nth.introspect.ui.style.basic;
 
 import java.net.URL;
-
-import nth.introspect.ui.style.DisplayScale;
 /**
  * This class was created to get away from AWT or JavaFX dependencies
  * @author nilsth

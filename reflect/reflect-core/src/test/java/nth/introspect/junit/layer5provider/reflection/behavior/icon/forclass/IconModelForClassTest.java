@@ -7,14 +7,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import nth.introspect.container.DependencyInjectionContainer;
-import nth.introspect.junit.IntrospectApplicationForJUnit;
-import nth.introspect.layer5provider.path.PathProvider;
-import nth.introspect.layer5provider.reflection.ReflectionProvider;
-import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import nth.introspect.container.DependencyInjectionContainer;
+import nth.introspect.junit.IntrospectApplicationForJUnit;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 
 public class IconModelForClassTest {
 

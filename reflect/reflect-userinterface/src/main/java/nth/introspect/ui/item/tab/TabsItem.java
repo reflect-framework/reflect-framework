@@ -1,6 +1,5 @@
 package nth.introspect.ui.item.tab;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +7,6 @@ import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.behavior.icon.IconUriClassResource;
-import nth.introspect.ui.images.IntrospectImage;
 import nth.introspect.ui.item.HierarchicalItem;
 /**
  * TODO remove this class???

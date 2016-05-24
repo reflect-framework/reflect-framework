@@ -23,7 +23,6 @@ import nth.introspect.ui.item.dialog.DialogCancelItem;
 import nth.introspect.ui.item.dialog.DialogCloseItem;
 import nth.introspect.ui.item.dialog.DialogMethodItem;
 import nth.introspect.ui.item.dialog.DialogShowStackTraceItem;
-import nth.introspect.ui.style.DisplaySize;
 import nth.introspect.ui.style.DisplayType;
 import nth.introspect.ui.style.MaterialColorPalette;
 import nth.introspect.ui.style.MaterialStyle;

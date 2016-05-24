@@ -1,6 +1,5 @@
 package nth.reflect.javafx.control.list;
 
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ListStyle;

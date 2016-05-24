@@ -4,8 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -23,7 +21,6 @@ import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.basic.Font;
 import nth.introspect.ui.view.FormMode;
-import nth.reflect.javafx.control.list.RfxList;
 import nth.reflect.javafx.control.list.RfxMainMenuList;
 import nth.reflect.javafx.control.style.RfxFontFactory;
 import nth.reflect.javafx.control.style.RfxStyleSheet;

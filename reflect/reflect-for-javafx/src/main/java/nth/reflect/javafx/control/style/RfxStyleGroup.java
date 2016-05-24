@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Labeled;
 import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.basic.Font;
 

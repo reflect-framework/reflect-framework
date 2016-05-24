@@ -1,7 +1,6 @@
 package nth.introspect.ui.swing.item.menu;
 
 import java.awt.event.ActionEvent;
-import java.net.URI;
 import java.net.URL;
 
 import javax.swing.AbstractAction;

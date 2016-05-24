@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ import javax.crypto.CipherOutputStream;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.generic.xml.XmlConverter;
-import nth.introspect.layer5provider.path.PathProvider;
+import nth.introspect.layer5provider.url.application.ApplicationUrl;
 
 /**
  * A very simple data access class for the {@link Introspect} framework that can
@@ -33,7 +36,6 @@ import nth.introspect.layer5provider.path.PathProvider;
 // TODO make crypto optional
 public class XmlFileRepository {
 
-	private final PathProvider pathProvider;
 	private final XmlConverter xmlConverter;
 
 
@@ -52,16 +54,18 @@ public class XmlFileRepository {
 	 *            True if the data in the XML file needs to be indented (indents
 	 *            make the XML easier to read by a human, but result in more
 	 *            data to store and process)
+	 * @throws MalformedURLException 
+	 * @throws URISyntaxException 
 	 */
 	// TODO add parameter String encryptionKey
-	public XmlFileRepository(PathProvider pathProvider, XmlConverter xmlConverter, String databaseName,
-			Boolean xmlIndent) {
-		this.pathProvider = pathProvider;
+	public XmlFileRepository(XmlConverter xmlConverter, String databaseName,
+			Boolean xmlIndent) throws MalformedURLException, URISyntaxException {
 		this.xmlConverter = xmlConverter;
 		this.xmlIndent = xmlIndent;
 		String databaseFileName = databaseName + ".db";
-		URI databaseUri = pathProvider.getConfigPath().resolve(databaseFileName);
-		databaseFile = new File(databaseUri);
+		String relativePath = "";
+		URL url=new ApplicationUrl(relativePath,databaseFileName).toInternalURL();
+		databaseFile = new File(url.toURI());
 		domainObjects = new ArrayList<Object>();
 	}
 

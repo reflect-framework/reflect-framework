@@ -1,13 +1,11 @@
 package nth.introspect.ui.item;
 
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 
 public class HierarchicalItem extends Item {
 
@@ -40,7 +38,7 @@ public class HierarchicalItem extends Item {
 		setAction(action);
 	}
 
-	public HierarchicalItem(PathProvider pathProvider, LanguageProvider languageProvider, String text,
+	public HierarchicalItem(LanguageProvider languageProvider, String text,
 			Action action) {
 		super(languageProvider);
 		if (text == null) {

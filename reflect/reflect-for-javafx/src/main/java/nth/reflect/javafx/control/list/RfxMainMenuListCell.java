@@ -1,23 +1,18 @@
 package nth.reflect.javafx.control.list;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
-
-import javax.swing.text.html.StyleSheet;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.text.Font;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ListStyle;
 import nth.introspect.ui.style.fonticonurl.FontIconUrl;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
-import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 
 public class RfxMainMenuListCell extends ListCell<Item> {
 	

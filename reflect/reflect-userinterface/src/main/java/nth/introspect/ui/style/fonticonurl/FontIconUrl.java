@@ -1,18 +1,10 @@
 package nth.introspect.ui.style.fonticonurl;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
-import java.net.URLStreamHandlerFactory;
 
 import nth.introspect.layer5provider.url.ReflectUrl;
-import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.basic.Font;
 
 /**

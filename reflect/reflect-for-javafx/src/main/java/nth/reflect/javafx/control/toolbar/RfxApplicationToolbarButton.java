@@ -1,7 +1,6 @@
 package nth.reflect.javafx.control.toolbar;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -9,9 +8,7 @@ import javafx.scene.text.Font;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ToolbarIconStyle;
-import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 import nth.introspect.ui.style.fonticonurl.FontIconUrl;
-import nth.reflect.javafx.control.style.RfxFontFactory;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 

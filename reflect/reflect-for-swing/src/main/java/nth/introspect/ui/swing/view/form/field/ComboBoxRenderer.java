@@ -6,16 +6,13 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 
 @SuppressWarnings("serial")
 public class ComboBoxRenderer extends DefaultListCellRenderer {
 
 	private final LanguageProvider languageProvider;
-	private final PathProvider pathProvider;
 	
-	public ComboBoxRenderer(PathProvider pathProvider, LanguageProvider languageProvider) {
-		this.pathProvider = pathProvider;
+	public ComboBoxRenderer(LanguageProvider languageProvider) {
 		this.languageProvider = languageProvider;
 	}
 

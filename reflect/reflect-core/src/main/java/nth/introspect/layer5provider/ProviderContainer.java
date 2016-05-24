@@ -27,31 +27,29 @@ public class ProviderContainer extends DependencyInjectionContainer {
 		add(application);
 
 		// add provider classes
-		for (Class<? extends UrlProvider> urlProviderClass: application.getUrlProviderClasses()) {
+		for (Class<? extends UrlProvider> urlProviderClass : application.getUrlProviderClasses()) {
 			add(urlProviderClass);
 		}
-		ReflectUrlStreamHandlerFactory urlStreamHandlerFactory = new  ReflectUrlStreamHandlerFactory(application,this);
-		urlStreamHandlerFactory.register();
-		
-		
-		add(application.getLanguageProviderClass(), LanguageProvider.class,
-				application);
-		add(application.getValidationProviderClass(), ValidationProvider.class,
-				application);
-		add(application.getAuthorizationProviderClass(),
-				AuthorizationProvider.class, application);
-		add(application.getNotificationProviderClass(),
-				NotificationProvider.class, application);
-		add(application.getReflectionProviderClass(), ReflectionProvider.class,
-				application);
-		add(application.getAboutProviderClass(), AboutProvider.class,
-				application);
+
+		try {
+			ReflectUrlStreamHandlerFactory urlStreamHandlerFactory = new ReflectUrlStreamHandlerFactory(
+					application, this);
+			urlStreamHandlerFactory.register();
+		} catch (Error error) {
+			// assuming we already set the urlStreamHandlerFactory
+		}
+
+		add(application.getLanguageProviderClass(), LanguageProvider.class, application);
+		add(application.getValidationProviderClass(), ValidationProvider.class, application);
+		add(application.getAuthorizationProviderClass(), AuthorizationProvider.class, application);
+		add(application.getNotificationProviderClass(), NotificationProvider.class, application);
+		add(application.getReflectionProviderClass(), ReflectionProvider.class, application);
+		add(application.getAboutProviderClass(), AboutProvider.class, application);
 	}
 
-	private void add(Class<? extends Provider> provider,
-			Class<?> providerType,
+	private void add(Class<? extends Provider> provider, Class<?> providerType,
 			IntrospectApplication application) {
-		if (provider == null || ! providerType.isAssignableFrom(provider)) {
+		if (provider == null || !providerType.isAssignableFrom(provider)) {
 			throw new ProviderNotDefined(application, providerType);
 		}
 		add(provider);

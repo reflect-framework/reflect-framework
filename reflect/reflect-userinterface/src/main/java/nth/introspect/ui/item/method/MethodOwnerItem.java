@@ -1,6 +1,5 @@
 package nth.introspect.ui.item.method;
 
-import java.net.URI;
 import java.net.URL;
 import java.util.List;
 

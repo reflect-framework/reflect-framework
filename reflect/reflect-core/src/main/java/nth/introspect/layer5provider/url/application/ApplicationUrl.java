@@ -38,8 +38,8 @@ public class ApplicationUrl implements ReflectUrl {
 		this(new URL(applicationUrl));
 	}
 
-	public ApplicationUrl(URL classResourceUrl) throws MalformedURLException {
-		this.applicationUrl = classResourceUrl;
+	public ApplicationUrl(URL applicationUrl) throws MalformedURLException {
+		this.applicationUrl = applicationUrl;
 		verify();
 	}
 

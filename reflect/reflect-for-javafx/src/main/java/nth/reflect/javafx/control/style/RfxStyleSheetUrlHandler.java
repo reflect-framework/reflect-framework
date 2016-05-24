@@ -11,7 +11,6 @@ import nth.introspect.layer5provider.url.UrlProvider;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.reflect.javafx.control.list.RfxList;
-import nth.reflect.javafx.control.list.RfxMainMenuList;
 import nth.reflect.javafx.control.list.RfxMainMenuListCell;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;

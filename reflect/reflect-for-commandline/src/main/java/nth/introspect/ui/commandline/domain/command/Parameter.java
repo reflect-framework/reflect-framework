@@ -7,7 +7,6 @@ import java.text.Format;
 import java.util.Date;
 import java.util.Map;
 
-
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
 public class Parameter {

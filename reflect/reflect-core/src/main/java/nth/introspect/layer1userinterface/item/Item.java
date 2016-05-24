@@ -1,6 +1,5 @@
 package nth.introspect.layer1userinterface.item;
 
-import java.net.URI;
 import java.net.URL;
 import java.util.StringTokenizer;
 
@@ -8,7 +7,6 @@ import javax.swing.KeyStroke;
 
 import nth.introspect.generic.util.StringUtil;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.path.PathProvider;
 
 public class Item {
 
@@ -51,7 +49,7 @@ public class Item {
 		this.iconURL = iconURL;
 	}
 
-	public Item(PathProvider pathProvider, LanguageProvider languageProvider, String text, Action action) {
+	public Item(LanguageProvider languageProvider, String text, Action action) {
 		this.languageProvider = languageProvider;
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");

@@ -1,6 +1,5 @@
 package nth.introspect.ui.swing.view.menu.item;
 
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;

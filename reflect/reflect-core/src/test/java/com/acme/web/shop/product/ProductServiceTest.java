@@ -6,6 +6,7 @@ import java.util.List;
 import nth.introspect.container.DependencyInjectionContainer;
 import nth.introspect.junit.IntrospectApplicationForJUnit;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
