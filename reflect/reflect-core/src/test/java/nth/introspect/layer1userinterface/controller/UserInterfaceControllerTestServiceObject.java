@@ -14,6 +14,7 @@ public class UserInterfaceControllerTestServiceObject {
 		
 	}
 	
+	
 	@Override
 	public String toString() {
 		return SERVICE_OBJECT;

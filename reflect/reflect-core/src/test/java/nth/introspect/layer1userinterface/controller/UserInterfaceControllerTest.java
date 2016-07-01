@@ -1,6 +1,6 @@
 package nth.introspect.layer1userinterface.controller;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -41,6 +41,7 @@ public class UserInterfaceControllerTest {
 	@Test
 	public void testEditActionMethodParameter() {
 		ActionMethodInfo methodInfo= serviceObjectInfo.getActionMethodInfo("editActionMethodDomainParameter");
+		assertNotNull(methodInfo);
 		controller.processActionMethod(serviceObject, methodInfo, null);
 		List<String> events = controller.getEvents();
 		assertEquals("processActionMethod(ServiceObject, nth.introspect.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, null)", events.get(0));
