@@ -17,6 +17,7 @@ import java.util.List;
 import javax.swing.JFileChooser;
 
 import nth.introspect.generic.util.ExceptionUtil;
+import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
@@ -33,6 +34,7 @@ import nth.introspect.ui.commandline.domain.command.Parameter;
 import nth.introspect.ui.commandline.view.FormView;
 import nth.introspect.ui.commandline.view.HelpView;
 import nth.introspect.ui.commandline.view.TableView;
+import nth.introspect.ui.view.FormMode;
 
 public class UserInterfaceControllerForCommandLine extends UserInterfaceController {
 
@@ -129,9 +131,31 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 
 		Object serviceObject = command.getServiceObject();
 		ActionMethodInfo actionMethodInfo = command.getMethodInfo();
-		actionMethodInfo.setExecutionMode(ExecutionModeType.EXECUTE_METHOD_DIRECTLY);
 
 		processActionMethod(serviceObject, actionMethodInfo, methodParameterValue);
+	}
+
+	/**
+	 * Overriding this method for the
+	 * {@link UserInterfaceControllerForCommandLine} because a command line
+	 * application only supports
+	 * {@link ExecutionModeType.EXECUTE_METHOD_DIRECTLY} only so we can call
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 */
+	@Override
+	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter) {
+		try {
+			processActionMethodExecution(methodOwner, methodInfo, methodParameter);
+		} catch (Exception exception) {
+			String title = languageProvider.getText("Error while executing an action");
+			String messageFormat = languageProvider.getText("Action: %s");
+			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo,
+					methodParameter, false);
+			String message = String.format(messageFormat, actionMethod);
+			showErrorDialog(title, message, exception);
+		}
+
 	}
 
 	private boolean isCommandFile(String[] arguments) {
@@ -201,7 +225,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			Object methodParameter) {
 		System.out.println("Succesfully executed");
 	}
-	
+
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
 			Object methodParameter, Object methodResult) {
 		FormView formView = new FormView(reflectionProvider, methodInfo, methodResult);
@@ -220,7 +244,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	 * type {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
- 	 * @param methodOwner
+	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
@@ -233,13 +257,12 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		}
 	}
 
-
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
 	 * type {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
- 	 * @param methodOwner
+	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
@@ -280,4 +303,9 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 
 	}
 
+	public void editActionMethodParameter(Object actionMethodOwner,
+			ActionMethodInfo actionMethodInfo, Object actionMethodParameterValue) {
+		// Do nothing: The user interface controller will create the
+		// domainObject from the command line arguments
+	}
 }

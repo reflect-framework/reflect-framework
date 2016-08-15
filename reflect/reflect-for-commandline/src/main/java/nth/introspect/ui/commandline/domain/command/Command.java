@@ -8,6 +8,7 @@ import java.util.List;
 import nth.introspect.generic.filter.FilterUtil;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.actionmethod.NoParameterFactoryException;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
@@ -29,10 +30,8 @@ public class Command {
 
 	}
 
-	private List<Parameter> createParameters(
-			ReflectionProvider reflectionProvider,
-			ActionMethodInfo actionMethodInfo)
-			throws IntrospectCommandLineException {
+	private List<Parameter> createParameters(ReflectionProvider reflectionProvider,
+			ActionMethodInfo actionMethodInfo) throws IntrospectCommandLineException {
 		List<Parameter> parameters = new ArrayList<Parameter>();
 		Class<?> parameterClass = actionMethodInfo.getParameterType();
 
@@ -42,8 +41,8 @@ public class Command {
 			Class<?> returnClass = actionMethodInfo.getGenericParameterType();
 			ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
 			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
-			propertyInfos=FilterUtil.filter(propertyInfos, new CommandLineParameterFilter());
-			
+			propertyInfos = FilterUtil.filter(propertyInfos, new CommandLineParameterFilter());
+
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				Parameter parameter = new Parameter(propertyInfo);
 				parameters.add(parameter);
@@ -52,8 +51,8 @@ public class Command {
 		return parameters;
 	}
 
-	private String createName(Object serviceObject,
-			ActionMethodInfo actionMethodInfo, boolean shortCommand) {
+	private String createName(Object serviceObject, ActionMethodInfo actionMethodInfo,
+			boolean shortCommand) {
 		StringBuffer name = new StringBuffer();
 		if (!shortCommand) {
 			name.append(serviceObject.getClass().getName());
@@ -115,8 +114,8 @@ public class Command {
 
 	private String getJarName() {
 		try {
-			File jarFile = new File(Command.class.getProtectionDomain()
-					.getCodeSource().getLocation().toURI());
+			File jarFile = new File(
+					Command.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 			if ("bin".equals(jarFile.getName())) {// fix debug issue (when not
 													// executed from a jar.i.e.
 													// during debugging)
@@ -131,12 +130,18 @@ public class Command {
 
 	public Object createMethodParameter() throws IntrospectCommandLineException {
 		try {
-			return actionMethodInfo.createMethodParameter(serviceObject); 
+			try {
+				return actionMethodInfo.createMethodParameter(serviceObject);
+			} catch (NoParameterFactoryException e) {
+				Class<?> parameterType = actionMethodInfo.getParameterType();
+				return parameterType.newInstance();
+			}
 		} catch (Exception e) {
 			throw new IntrospectCommandLineException(
 					"Could not create a new instance of method parameter: "
-							+ actionMethodInfo.getParameterType().getCanonicalName() + " for method: "
-							+ actionMethodInfo.getCanonicalName(), e);
+							+ actionMethodInfo.getParameterType().getCanonicalName()
+							+ " for method: " + actionMethodInfo.getCanonicalName(),
+					e);
 		}
 	}
 

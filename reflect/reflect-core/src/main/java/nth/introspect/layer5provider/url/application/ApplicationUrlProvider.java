@@ -23,7 +23,7 @@ public class ApplicationUrlProvider extends UrlProvider {
 	private URL applicationUrl;
 
 	public ApplicationUrlProvider(IntrospectApplication application) {
-		URL applicationUrl = application.getClass().getProtectionDomain().getCodeSource().getLocation();
+		applicationUrl = application.getClass().getProtectionDomain().getCodeSource().getLocation();
 		String fileName = applicationUrl.getFile().toUpperCase();
 		if (fileName.endsWith(JAR_EXTENTION) || fileName.endsWith(EXE_EXTENTION)) {
 			try {
@@ -34,20 +34,21 @@ public class ApplicationUrlProvider extends UrlProvider {
 	}
 
 	private URL getParentUrl(URL url) throws MalformedURLException {
-		String path = url.getPath();
-		if ((path == null) || path.equals("") || path.equals("/")) {
+		String parentURL = url.toString();
+		if ((parentURL == null) || parentURL.equals("") || parentURL.equals("/")) {
 			return new URL("");
 		}
 
-		int lastSlashPos = path.lastIndexOf('/');
+		parentURL=parentURL.replace("\\", "/");
+		int lastSlashPos = parentURL.lastIndexOf('/')+1;
 		if (lastSlashPos >= 0) {
-			path = path.substring(0, lastSlashPos); // strip off the slash
-			return new URL(path);
+			parentURL = parentURL.substring(0, lastSlashPos); // strip off the slash and everything behind
+			return new URL(parentURL);
 		} else {
 			return new URL("");
 		}
 	}
-
+	
 	@Override
 	public String getProtocol() {
 		return ApplicationUrl.PROTOCOL;
@@ -66,12 +67,12 @@ public class ApplicationUrlProvider extends UrlProvider {
 
 		//TODO check for double slashes
 		String relativePath = url.getPath();
-		if (relativePath != null) {
+		String file = url.getFile();
+		if (relativePath != null && !relativePath.equals(file)) {
 			externalForm.append(relativePath);
 		}
 
 		//TODO check for double slashes and add slash if needed
-		String file = url.getFile();
 		if (file != null) {
 			externalForm.append(file);
 		}

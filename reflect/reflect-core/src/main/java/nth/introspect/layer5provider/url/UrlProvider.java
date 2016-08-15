@@ -11,6 +11,9 @@ import nth.introspect.layer5provider.Provider;
  * be registered with the {@link IntrospectApplication#getUrlProviderClasses()}
  * so that they can be registered with {@link URL#setURLStreamHandlerFactory()}
  * (See {@link ReflectUrlStreamHandlerFactory}).
+ * 
+ * TODO look at a maybe nicer solution: http://stackoverflow.com/questions/15195890/nio2-how-to-generically-map-a-uri-to-a-path
+ * 
  */
 
 public abstract class UrlProvider extends URLStreamHandler implements Provider {

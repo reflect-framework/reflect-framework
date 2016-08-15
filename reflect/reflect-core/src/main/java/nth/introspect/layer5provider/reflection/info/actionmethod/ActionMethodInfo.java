@@ -56,7 +56,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 	private final ParameterFactoryModel parameterFactoryModel;
-	private ExecutionModeType executionMode;
+	private final ExecutionModeType executionMode;
 	private final IconModel iconModel;
 	private final Method editParameterMethod;
 	private final Method cofirmMethod;
@@ -236,12 +236,7 @@ public class ActionMethodInfo implements NameInfo {
 	public ExecutionModeType getExecutionMode() {
 		return executionMode;
 	}
-
-	// TODO try to remove method
-	public void setExecutionMode(ExecutionModeType executeMethod) {
-		this.executionMode = executeMethod;
-	}
-
+		
 	public Class<?> getParameterType() {
 		return parameterType;
 	}

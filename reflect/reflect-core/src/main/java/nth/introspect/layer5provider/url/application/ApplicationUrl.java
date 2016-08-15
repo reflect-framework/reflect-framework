@@ -25,10 +25,17 @@ public class ApplicationUrl implements ReflectUrl {
 	public static String PROTOCOL = "reflect-application-url";
 	private final URL applicationUrl;
 
+	/**
+	 * Creates a reference to the application folder
+	 * @param relativePath If you have no relative path (a file in the application folder) use "/" as relative path.
+	 * @param resourceFile
+	 * @throws MalformedURLException
+	 */
 	public ApplicationUrl(String relativePath, String resourceFile)
 			throws MalformedURLException {
 		this(new URL(PROTOCOL, relativePath, resourceFile));
 	}
+
 
 	public ApplicationUrl() throws MalformedURLException {
 		this("/","");
