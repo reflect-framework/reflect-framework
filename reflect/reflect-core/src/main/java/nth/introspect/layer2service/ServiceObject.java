@@ -14,9 +14,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * The word 'service' implies:
  * <ul>
- * <li>
- * There is a client that needs to be served. For the IntrospectFramework this
- * is the user, trough the {@link UserInterfaceController}</li>
+ * <li>There is a client that needs to be served. For the IntrospectFramework
+ * this is the user, trough the {@link UserInterfaceController}</li>
  * <li>There are activities\ operations. For the IntrospectFramework these are
  * defined as {@link ActionMethod}'s</li>
  * <li>An activity\ operation is done with other things. For the
@@ -24,14 +23,14 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * s trough {@link ActionMethod} parameters and return values</li>
  * </ul>
  * </p>
- * Eric Evans explains in his book <a
- * href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
+ * Eric Evans explains in his book
+ * <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
  * Design</a>, that a good {@link ServiceObject} has three characteristics:
  * <ul>
- * <li>
- * The operation relates to a domain concept that is not a natural part of a
+ * <li>The operation relates to a domain concept that is not a natural part of a
  * {@link DomainObject} (Entities or Value Objects).</li>
- * <li>The interface is defined in terms of other elements of the domain model.</li>
+ * <li>The interface is defined in terms of other elements of the domain model.
+ * </li>
  * <li>The operation is state-less</li>
  * </ul>
  * These characteristics are discussed in more detail in the following
@@ -66,9 +65,9 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * {@link ServiceObject}s do not have state and therefore should not have
  * properties (no getter and setter methods). My personal opinion is that a
- * {@link ServiceObject} with state is a <a
- * href="http://en.wikipedia.org/wiki/Code_smell">code-smell</a>, which you can
- * solve by moving the {@link ServiceObjectActionMethod}s that share state
+ * {@link ServiceObject} with state is a
+ * <a href="http://en.wikipedia.org/wiki/Code_smell">code-smell</a>, which you
+ * can solve by moving the {@link ServiceObjectActionMethod}s that share state
  * (fields) to new or existing {@link DomainObject}s.</li>
  * </p>
  * <h3>Service Objects should be flat</h3>
@@ -81,8 +80,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * logic or validation logic, but delegate the work to collaborations of
  * {@link DomainObject}s and {@link InfrastructureObject}s, in order to prevent
  * the <a href="http://martinfowler.com/bliki/AnemicDomainModel.html">Anemic
- * Domain Model</a> - <a
- * href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>.
+ * Domain Model</a> -
+ * <a href="http://en.wikipedia.org/wiki/Anti-pattern">anti-pattern</a>.
  * </p>
  * <p>
  * <h3>A web shop example</h3>
@@ -99,23 +98,16 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </ul>
  * </p>
  * 
- * <h3>Naming</h3>
+ *  * <h3>Construction</h3>
  * <p>
- * {@link ServiceObject}s are normally named after the {@link DomainObject}s
- * that they service and have the suffix 'Service' (e.g. CustomerService,
- * OrderService, etc).
- * </p>
- * 
- * <h3>Construction</h3>
- * <p>
- * The principle of “naked objects” is that any <a
- * href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">'Plain Old Java
+ * The principle of “naked objects” is that any
+ * <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">'Plain Old Java
  * Object' (POJO)</a> can function as a {@link ServiceObject}. In other words: a
  * service class does not have to inherit from any special class, nor implement
  * any particular interface, nor have any specific attributes.
  * </p>
  * <p>
- * {@link ServiceObject}s are instiantated by the {@link IntrospectFramework},
+ * {@link ServiceObject}s are instantiated by the {@link IntrospectFramework},
  * and therefore need to be registered to the
  * {@link IntrospectApplication#getServiceClasses()} method.
  * </p>
@@ -138,6 +130,13 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * {@link ServiceObject}s can have references to other objects. These objects
  * are injected into the ServiceObject (see the {@link ConstructionInjection}
  * section)
+ * </p>
+ * 
+ * <h3>Naming</h3>
+ * <p>
+ * {@link ServiceObject}s are normally named after the {@link DomainObject}s
+ * that they service and have the suffix 'Service' (e.g. CustomerService,
+ * OrderService, etc).
  * </p>
  * 
  * <h3>Service object members</h3>

@@ -5,6 +5,7 @@ import nth.introspect.IntrospectFramework;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer2service.ServiceContainer;
+import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer2service.ServiceObjectActionMethod;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.Provider;
@@ -35,6 +36,19 @@ import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
  * Language</a> (in terms understood by both users and developers).
  * </p>
  * 
+ * <h3>Presentation</h3>
+ * <p>
+ * An {@link UserInterfaceController} can display domain objects in 3 ways:<br>
+ * <ul>
+ * <li>Domain object as form:<br>
+ * <img src="ObjectAsForm.png"></li>
+ * <li>Domain object as a field in a form:<br>
+ * <img src="ObjectAsField.png"></li>
+ * <li>Domain object as a row in a table:<br>
+ * <img src="ObjectAsTable.png"></li>
+ * </ul>
+ * </p>
+ *
  * <h3>Construction</h3>
  * <p>
  * The principle of “naked objects” is that any <a
@@ -73,31 +87,13 @@ import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
  * to:</li>
  * <ul>
  * <li>Add the reference object as a parameter in the constructor and link it to
- * a private field, so that it can be used throughout the class. TODO what
- * happens see above</li>
- * <li>Override the {@link IntrospectApplication#getDomainClasses()} method and
- * return a list of {@link DomainObject}s that need to be created using
- * Dependency Injection</li>
- * <li>The object that creates the Customer objects needs to have a reference to
- * the {@link DomainContainer}. A CustomerService object can get a reference to
- * the {@link DomainContainer} when it is created by the
- * {@link ServiceContainer} (which is done by the {@link IntrospectFramework})</li>
+ * a private field, so that it can be used throughout the class.</li>
+ * <li>Make sure that the referenced object type is known by the {@link IntrospectFramework}: Its class must be returned by the {@link IntrospectApplication#getDomainClasses()} method.</li>
+ * <li>The object that creates the {@link DomainObject} needs to have a reference to
+ * the {@link DomainContainer} as a constructor parameter, so that that the {@link DomainContainer#get(Class)} method can be called to get or create the {@link DomainObject} with the required dependencies injected by the {@link IntrospectFramework}</li>
  * </ul>
  * </ul>
- * 
- * <h3>Presentation</h3>
- * <p>
- * An {@link UserInterfaceController} can display domain objects in 3 ways:<br>
- * <ul>
- * <li>Domain object as form:<br>
- * <img src="ObjectAsForm.png"></li>
- * <li>Domain object as a field in a form:<br>
- * <img src="ObjectAsField.png"></li>
- * <li>Domain object as a row in a table:<br>
- * <img src="ObjectAsTable.png"></li>
- * </ul>
- * </p>
- * 
+ 
  * <h3>Domain object members</h3>
  * <p>
  * Domain objects contain:

@@ -18,9 +18,8 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
  * <p>
  * With the introspect framework you only need to create domain classes.
  * Introspect provides you the user interface, without writing any user
- * interface code. This means is that the Introspect Framework is ideal for
- * rapid prototyping, rapid development or to learn programming (e.g. at schools
- * to teach:
+ * interface code. This means that the Introspect Framework is ideal for rapid
+ * prototyping, rapid development or to learn programming (e.g. to teach:
  * <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object
  * Oriented Programming</a> or
  * <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven

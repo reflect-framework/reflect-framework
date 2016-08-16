@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
  * TODO EXAMPLE ACMEWebShop
  * <p>
  * Note that the {@link DisplayName} annotation is intended for the English language only.
- * Use the Description default if you want to use multiple languages
+ * Use the {@link DisplayName} default if you want to use multiple languages.
  * </p>
  * 
  * @author nilsth
