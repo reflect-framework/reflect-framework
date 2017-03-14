@@ -11,8 +11,8 @@ import nth.introspect.ui.style.basic.Color;
  */
 public class MaterialColorSet implements MaterialDesign {
 
-	private static final double LIGHTER = 1.005;
-	private static final double DARKER = 0.8;
+	private static final double LIGHTER = 1+0.5;
+	private static final double DARKER = 1-0.5;
 	private final Color backgroundColor;
 	private final Color foregroundColor1;
 	private final Color foregroundColor2;
@@ -32,14 +32,11 @@ public class MaterialColorSet implements MaterialDesign {
 		this.backgroundColor = backgroundColor;
 		if (backgroundColor.isDark()) {
 			backgroundColorHighLighted=backgroundColor.deriveDarknes(LIGHTER);
-		} else {
-			backgroundColorHighLighted=backgroundColor.deriveDarknes(DARKER);
-		}
-		if (backgroundColor.isDark()) {
 			foregroundColor1 = Color.WHITE.deriveAlpha(1.0);
 			foregroundColor2 = Color.WHITE.deriveAlpha(0.70);
 			foregroundColor3 = Color.WHITE.deriveAlpha(0.30);
 		} else {
+			backgroundColorHighLighted=backgroundColor.deriveDarknes(DARKER);
 			foregroundColor1 = Color.BLACK.deriveAlpha(0.87);
 			foregroundColor2 = Color.BLACK.deriveAlpha(0.54);
 			foregroundColor3 = Color.BLACK.deriveAlpha(0.38);
@@ -56,7 +53,7 @@ public class MaterialColorSet implements MaterialDesign {
 
 	/**
 	 * 
-	 * @return color of background for when the object is activated by the user (pressed\ clicked)
+	 * @return color of background for when the object is activated by the user (pressed\ clicked) Note do not use for mouse over: mouse overs confuses the user what has focus. 
 	 */
 	public Color getBackgroundHighLighted() {
 		return backgroundColorHighLighted;

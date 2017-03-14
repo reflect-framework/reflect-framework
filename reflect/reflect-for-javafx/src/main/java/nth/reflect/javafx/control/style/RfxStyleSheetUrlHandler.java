@@ -11,7 +11,7 @@ import nth.introspect.layer5provider.url.UrlProvider;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.reflect.javafx.control.list.RfxList;
-import nth.reflect.javafx.control.list.RfxMainMenuListCell;
+import nth.reflect.javafx.control.list.mainmenu.RfxMainMenuListCell;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarMenuButton;
@@ -24,7 +24,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	public RfxStyleSheetUrlHandler() {
 
 		MaterialStyle materialStyle = GraphicalUserinterfaceController.getMaterialStyle();
-		RfxStyleSheet styleSheet = new RfxStyleSheet(materialStyle);
+		RfxStyleSheet styleSheet = new RfxStyleSheet();
 
 		RfxApplicationToolbar.appendStyleGroups(styleSheet, materialStyle);
 		RfxApplicationToolbarTitle.appendStyleGroups(styleSheet, materialStyle);

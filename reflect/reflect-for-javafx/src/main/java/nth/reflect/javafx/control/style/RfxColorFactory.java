@@ -3,7 +3,6 @@ package nth.reflect.javafx.control.style;
 import javafx.scene.paint.Color;
 /**
  * converts Reflect color to JavaFX color
- * @deprecated use {@link RfxStyleSheet}
  * @author nilsth
  *
  */

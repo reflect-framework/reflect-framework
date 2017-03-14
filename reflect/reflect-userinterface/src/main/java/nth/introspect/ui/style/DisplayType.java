@@ -5,8 +5,8 @@ public class DisplayType {
 	private final DisplaySize size;
 	private final DisplayScale scale;
 
-	public DisplayType(int widthInInches, boolean hasKeyboardOrMouse) {
-		size = DisplaySize.forWidthInInches(widthInInches);
+	public DisplayType( int widtInPixels, int heightInPixels, boolean hasKeyboardOrMouse) {
+		size = DisplaySize.forPixels(widtInPixels, heightInPixels);
 		scale = DisplayScale.forHasKeyboardOrMouse(hasKeyboardOrMouse);
 	}
 

@@ -25,14 +25,19 @@ public class RfxApplicationToolbarButton extends Button {
 	// TODO RfxFlatButton
 	// TODO RfxRaisedButton
 
-	public RfxApplicationToolbarButton(String fontIconUrl) throws MalformedURLException {
+	public RfxApplicationToolbarButton(String fontIconUrl)  {
 		super();
 		 setIcon(fontIconUrl);
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxApplicationToolbarButton.class));
 	}
 
-	public void setIcon(String fontIconUrl) throws MalformedURLException {
-		FontIconUrl iconUrl = new FontIconUrl(fontIconUrl);
+	public void setIcon(String fontIconUrl)  {
+		FontIconUrl iconUrl;
+		try {
+			iconUrl = new FontIconUrl(fontIconUrl);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
 		Font f = Font.loadFont(
 				MaterialFont.getFontAwesome().getUrl().toExternalForm(),
 				32);
@@ -44,18 +49,18 @@ public class RfxApplicationToolbarButton extends Button {
 	public static void appendStyleGroups(RfxStyleSheet styleSheet, MaterialStyle materialStyle) {
 
 		ToolbarIconStyle iconStyle = materialStyle.getTabToolbarIconStyle();
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarButton.class))
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarButton.class)).getProperties()
 				.setBorderWidth(0).setHeight(iconStyle.getSize()).setPadding(iconStyle.getPadding())
 				.setBackground(null).setTextFill(iconStyle.getColor())
 				.setFont(materialStyle.getApplicationToolbarIconStyle().getFont()) //TODO how to do other fonts than FontAwesomeUrl?
 				.setFontSize(materialStyle.getApplicationToolbarIconStyle().getSize());
 
 		styleSheet.addStyleGroup(
-				RfxStyleSelector.createFor(RfxApplicationToolbarButton.class).appendPressed())
+				RfxStyleSelector.createFor(RfxApplicationToolbarButton.class).appendPressed()).getProperties()
 				.setBackground(iconStyle.getPressedColor());
 
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarButton.class)
-				.append(ImageView.class)).setTextFill(iconStyle.getColor());
+				.append(ImageView.class)).getProperties().setTextFill(iconStyle.getColor());
 	}
 
 }

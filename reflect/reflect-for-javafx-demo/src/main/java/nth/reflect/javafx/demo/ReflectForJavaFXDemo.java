@@ -8,9 +8,11 @@ import com.acme.web.shop.product.ProductService;
 import com.acme.web.shop.shopingcart.ShoppingCartService;
 
 import nth.introspect.domain.person.PersonService;
+import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayName;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.javafx.RfxView;
 
+@DisplayName(englishName="Reflect for JavaFX Demo")
 public class ReflectForJavaFXDemo extends ReflectApplicationForJavaFX {
 
 	@Override

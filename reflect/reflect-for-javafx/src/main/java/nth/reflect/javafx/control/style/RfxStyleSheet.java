@@ -10,10 +10,8 @@ import nth.introspect.ui.style.MaterialStyle;
 public class RfxStyleSheet {
 
 	private final List<RfxStyleGroup> styleGroups;
-	private final MaterialStyle materialStyle;
 
-	public RfxStyleSheet(MaterialStyle materialStyle) {
-		this.materialStyle = materialStyle;
+	public RfxStyleSheet() {
 		styleGroups = new ArrayList<>();
 	}
 

@@ -36,7 +36,7 @@ public class RfxApplicationToolbarTitle extends Label {
 	public static void appendStyleGroups(RfxStyleSheet styleSheet, MaterialStyle materialStyle) {
 		ApplicationToolbarTitleStyle style = materialStyle.getApplicationToolbarTitleStyle();
 
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarTitle.class))
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarTitle.class)).getProperties()
 				.setTextFill(style.getTextColor()).setAlignment(Pos.CENTER_LEFT)
 				.setFont(style.getFont());
 	}

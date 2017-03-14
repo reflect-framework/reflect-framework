@@ -161,6 +161,13 @@ public class MaterialStyle {
 				return contentColors.getBackground();
 			}
 
+			
+
+			@Override
+			public Color getSelectedBackGroundColor() {
+				return contentColors.getBackgroundHighLighted();
+			}
+
 			@Override
 			public Color getTextColor() {
 				return contentColors.getForeground1();
@@ -177,6 +184,7 @@ public class MaterialStyle {
 			public Font getSubHeadingFont() {
 				return MaterialFont.getSubHeading(displayScale);
 			}
+
 		};
 	}
 
@@ -254,5 +262,6 @@ public class MaterialStyle {
 			}
 		};
 	}
+
 
 }

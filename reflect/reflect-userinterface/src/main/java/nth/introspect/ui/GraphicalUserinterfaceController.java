@@ -463,10 +463,10 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	public static MaterialStyle getMaterialStyle() {
 		boolean hasKeyboardAndMouse = true;// assumption TODO: get real value from system
-		int displayWidthInInches=11; // assumption TODO: get real value from system
-		DisplayType displayType = new DisplayType(displayWidthInInches, hasKeyboardAndMouse);
-		MaterialStyle materialStyle = new MaterialStyle(MaterialColorPalette.TEAL,
-				MaterialColorPalette.ORANGE, Color.WHITE, displayType);
+		int widtInPixels=300;
+		int heightInPixels=200;
+		DisplayType displayType = new DisplayType(widtInPixels,  heightInPixels, hasKeyboardAndMouse);
+		MaterialStyle materialStyle = new MaterialStyle(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE, Color.WHITE, displayType);
 		return materialStyle;
 	}
 

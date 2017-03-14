@@ -23,10 +23,15 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<dependency> <!--  TODO remove obsolete dependency because of fontawesomefx??? -->
 			<groupId>org.webjars</groupId>
 			<artifactId>font-awesome</artifactId>
 			<version>4.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.jensd</groupId>
+			<artifactId>fontawesomefx</artifactId>
+			<version>8.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>

@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.list;
+package nth.reflect.javafx.control.list.mainmenu;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;

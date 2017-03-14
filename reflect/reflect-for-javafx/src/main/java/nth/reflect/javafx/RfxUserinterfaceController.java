@@ -4,26 +4,35 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.List;
 
+import org.omg.CORBA.ParameterModeHelper;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import nth.introspect.IntrospectApplication;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.ViewContainer;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.layer5provider.url.UrlProvider;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.DisplayScale;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.basic.Font;
 import nth.introspect.ui.view.FormMode;
-import nth.reflect.javafx.control.list.RfxMainMenuList;
+import nth.reflect.javafx.control.list.mainmenu.RfxMainMenuList;
 import nth.reflect.javafx.control.style.RfxFontFactory;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+import nth.reflect.javafx.control.tabpane.RfxTabPane;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxUserinterfaceController extends GraphicalUserinterfaceController<RfxView> {
@@ -116,6 +125,48 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		
 
 		
+		RfxTabPane content = createContent2(materialStyle);
+		
+
+//		
+//		RfxMainMenuList menu=new RfxMainMenuList(userInterfaceContainer);
+//		
+//		BorderPane contentWithMenu=new BorderPane();
+//		contentWithMenu.setCenter(content);
+//		contentWithMenu.setLeft(menu);
+		
+		try {
+			mainWindow = new RfxWindow( content, userInterfaceContainer, materialStyle);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Scene scene = new Scene(mainWindow);
+		new RfxStyleSheet().addToScene(scene);
+		//scene.getStylesheets().add(RfxUserinterfaceController.class.getResource("default-style.css").toExternalForm());
+		
+		primaryStage.setScene(scene);
+
+		Image icon = new Image("file:icon.png");//TODO!!!
+		primaryStage.getIcons().add(icon);
+		
+		
+		String title = getApplicationTitle(application);
+		primaryStage.setTitle(title);
+		
+		primaryStage.show();
+	}
+
+	private String getApplicationTitle(ReflectApplicationForJavaFX application) {
+		ReflectionProvider reflectionProvider = userInterfaceContainer
+				.get(ReflectionProvider.class);
+		ClassInfo applicationInfo = reflectionProvider.getClassInfo(application.getClass());
+		String title = applicationInfo.getDisplayName();
+		return title;
+	}
+
+	private VBox createContent() {
 		VBox content = new VBox();
 		content.getChildren().add(createLabel(MaterialFont.getDisplay4(DisplayScale.DENSE)));
 		content.getChildren().add(createLabel(MaterialFont.getDisplay3(DisplayScale.DENSE)));
@@ -127,31 +178,33 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		content.getChildren().add(createLabel(MaterialFont.getBody2(DisplayScale.DENSE)));
 		content.getChildren().add(createLabel(MaterialFont.getBody1(DisplayScale.DENSE)));
 		content.getChildren().add(createLabel(MaterialFont.getButton(DisplayScale.DENSE)));
-
-//		 RfxList menu = new RfxList();
-//		ObservableList<String> items =FXCollections.observableArrayList (
-//			    "Single", "Double", "Suite", "Family App");
-//		menu.setItems(items);
-		
-		RfxMainMenuList menu=new RfxMainMenuList(userInterfaceContainer);
-		
-		BorderPane contentWithMenu=new BorderPane();
-		contentWithMenu.setCenter(content);
-		contentWithMenu.setLeft(menu);
-		
-		try {
-			mainWindow = new RfxWindow(primaryStage, contentWithMenu, userInterfaceContainer, materialStyle);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Scene scene = new Scene(mainWindow);
-		new RfxStyleSheet(materialStyle).addToScene(scene);
-		//scene.getStylesheets().add(RfxUserinterfaceController.class.getResource("default-style.css").toExternalForm());
-		
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		return content;
 	}
-
+	
+	private RfxTabPane createContent2(MaterialStyle materialStyle) {
+		
+	RfxTabPane tabPane = new RfxTabPane(userInterfaceContainer);
+	tabPane.setPrefSize(300, 200);
+	Tab tab = new Tab();
+	tab.setText("Products");
+	tab.setContent(new Label("Content"));
+	tabPane.getTabs().add(tab);
+	
+	
+	tabPane.setPrefSize(300, 200);
+	tab = new Tab();
+	tab.setText("Shopping Cart");
+	tab.setContent(new Label("Content"));
+	tabPane.getTabs().add(tab);
+	
+	
+	tabPane.setPrefSize(300, 200);
+	tab = new Tab();
+	tab.setText("Deliveries");
+	tab.setContent(createContent());
+	tabPane.getTabs().add(tab);
+	
+	
+	return tabPane;
+	}
 }

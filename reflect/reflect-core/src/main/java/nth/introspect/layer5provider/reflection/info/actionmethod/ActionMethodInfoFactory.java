@@ -26,7 +26,6 @@ public class ActionMethodInfoFactory {
 						providerContainer, method, linkedPropertyName);
 				actionMethodInfos.add(actionMethodInfo);
 			} catch (InvalidActionMethodException e) {
-				e.printStackTrace();
 				// method is not a valid ActionMethod
 			}
 		}

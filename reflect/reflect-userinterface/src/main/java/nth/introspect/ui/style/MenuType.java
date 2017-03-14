@@ -23,7 +23,7 @@ public enum MenuType {
 	EMBEDDED;
 
 	public static MenuType getForDisplaySize(DisplaySize displaySize) {
-		if (DisplaySize.NARROW == displaySize) {
+		if (DisplaySize.SMALL_LANDSCAPE == displaySize || DisplaySize.SMALL_PORTRAIT==displaySize) {
 			return DRAWER;
 		} else {
 			return EMBEDDED;

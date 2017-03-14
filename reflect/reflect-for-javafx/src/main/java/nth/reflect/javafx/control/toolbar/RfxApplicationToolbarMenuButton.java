@@ -13,7 +13,7 @@ import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
  */
 public class RfxApplicationToolbarMenuButton extends RfxApplicationToolbarButton {
 
-	public RfxApplicationToolbarMenuButton(ToolbarIconStyle iconStyle) throws MalformedURLException {
+	public RfxApplicationToolbarMenuButton()  {
 		super(FontAwesomeUrl.NAVICON);
 		initAction();
 	}

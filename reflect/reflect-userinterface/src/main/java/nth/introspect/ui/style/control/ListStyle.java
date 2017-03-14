@@ -22,6 +22,8 @@ public interface ListStyle {
 
 	Font getSubHeadingFont();
 
+	Color getSelectedBackGroundColor();
+
 	
 
 }

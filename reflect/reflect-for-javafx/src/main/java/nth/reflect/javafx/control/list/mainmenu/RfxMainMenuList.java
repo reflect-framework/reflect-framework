@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.list;
+package nth.reflect.javafx.control.list.mainmenu;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
+import nth.reflect.javafx.control.list.RfxList;
 
 public class RfxMainMenuList extends RfxList<Item> {
 
