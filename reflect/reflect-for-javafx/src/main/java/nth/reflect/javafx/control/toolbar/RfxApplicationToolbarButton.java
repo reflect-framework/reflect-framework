@@ -1,66 +1,20 @@
 package nth.reflect.javafx.control.toolbar;
 
-import java.net.MalformedURLException;
+import javafx.geometry.Insets;
+import nth.reflect.javafx.control.RfxControl;
+import nth.reflect.javafx.control.button.RfxButton;
+import nth.reflect.javafx.control.fonticon.RfxFontIconName;
+import nth.reflect.javafx.control.window.RfxUtil;
 
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Font;
-import nth.introspect.ui.style.MaterialFont;
-import nth.introspect.ui.style.MaterialStyle;
-import nth.introspect.ui.style.control.ToolbarIconStyle;
-import nth.introspect.ui.style.fonticonurl.FontIconUrl;
-import nth.reflect.javafx.control.style.RfxStyleSelector;
-import nth.reflect.javafx.control.style.RfxStyleSheet;
+public class RfxApplicationToolbarButton extends RfxButton implements RfxControl {
 
-/**
- * Reflect Application Toolbar Button (icons) for JavaFX with Google Material
- * Design style
- * 
- * @author nilsth
- *
- */
+	private static final double ICON_HEIGHT = 34;
 
-public class RfxApplicationToolbarButton extends Button {
-
-	// TODO RfxFlatButton
-	// TODO RfxRaisedButton
-
-	public RfxApplicationToolbarButton(String fontIconUrl)  {
-		super();
-		 setIcon(fontIconUrl);
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxApplicationToolbarButton.class));
+	public RfxApplicationToolbarButton(RfxFontIconName iconName) {
+		super(iconName);
+		setButtonType(ButtonType.FLAT);
+		setColorSet(RfxUtil.getPrimaryColorSet());
+		setMinHeight(ICON_HEIGHT);
+		setPadding(new Insets(0, 16, 0, 16));
 	}
-
-	public void setIcon(String fontIconUrl)  {
-		FontIconUrl iconUrl;
-		try {
-			iconUrl = new FontIconUrl(fontIconUrl);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
-		Font f = Font.loadFont(
-				MaterialFont.getFontAwesome().getUrl().toExternalForm(),
-				32);
-		setFont(f);
-		String character=iconUrl.getCharacter();
-		setText(character);
-	}
-
-	public static void appendStyleGroups(RfxStyleSheet styleSheet, MaterialStyle materialStyle) {
-
-		ToolbarIconStyle iconStyle = materialStyle.getTabToolbarIconStyle();
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarButton.class)).getProperties()
-				.setBorderWidth(0).setHeight(iconStyle.getSize()).setPadding(iconStyle.getPadding())
-				.setBackground(null).setTextFill(iconStyle.getColor())
-				.setFont(materialStyle.getApplicationToolbarIconStyle().getFont()) //TODO how to do other fonts than FontAwesomeUrl?
-				.setFontSize(materialStyle.getApplicationToolbarIconStyle().getSize());
-
-		styleSheet.addStyleGroup(
-				RfxStyleSelector.createFor(RfxApplicationToolbarButton.class).appendPressed()).getProperties()
-				.setBackground(iconStyle.getPressedColor());
-
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxApplicationToolbarButton.class)
-				.append(ImageView.class)).getProperties().setTextFill(iconStyle.getColor());
-	}
-
 }

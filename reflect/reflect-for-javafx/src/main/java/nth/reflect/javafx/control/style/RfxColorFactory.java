@@ -1,5 +1,9 @@
 package nth.reflect.javafx.control.style;
 
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 /**
  * converts Reflect color to JavaFX color
@@ -16,6 +20,13 @@ public class RfxColorFactory {
 
 	private static double asDouble(int value) {
 		return value/255.0;
+	}
+
+	public static Background createBackGround(nth.introspect.ui.style.basic.Color backgroundColor) {
+		Color color = create(backgroundColor);
+		BackgroundFill backgroundFill=new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY);
+		Background background=new Background(backgroundFill);
+		return background;
 	}
 
 }

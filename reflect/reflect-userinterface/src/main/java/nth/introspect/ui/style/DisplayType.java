@@ -1,5 +1,10 @@
 package nth.introspect.ui.style;
 
+/** 
+ * @Depricated use RfxUtil
+ * @author nilsth
+ *
+ */
 public class DisplayType {
 
 	private final DisplaySize size;

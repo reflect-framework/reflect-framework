@@ -5,6 +5,7 @@ import javax.swing.ViewportLayout;
 import javafx.scene.control.ListView;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ListStyle;
+import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
@@ -17,7 +18,7 @@ import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller
  *
  */
 		
-public class RfxList<T> extends ListView<T> {
+public class RfxList<T> extends ListView<T> implements RfxControl {
 
 	public RfxList() {
 		new RfxVerticalFlingScroller(this);

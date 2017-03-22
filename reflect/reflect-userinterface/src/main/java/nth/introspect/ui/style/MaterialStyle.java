@@ -10,6 +10,11 @@ import nth.introspect.ui.style.control.TabContainerStyle;
 import nth.introspect.ui.style.control.TabToolbarButtonStyle;
 import nth.introspect.ui.style.control.TabToolbarStyle;
 import nth.introspect.ui.style.control.ToolbarIconStyle;
+/** 
+ * @Depricated use RfxUtil
+ * @author nilsth
+ *
+ */
 
 public class MaterialStyle {
 

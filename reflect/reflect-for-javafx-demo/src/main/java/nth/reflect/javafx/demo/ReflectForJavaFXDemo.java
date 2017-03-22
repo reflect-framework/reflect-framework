@@ -3,30 +3,47 @@ package nth.reflect.javafx.demo;
 import java.util.Arrays;
 import java.util.List;
 
-import com.acme.web.shop.product.ProductRepository;
-import com.acme.web.shop.product.ProductService;
-import com.acme.web.shop.shopingcart.ShoppingCartService;
-
-import nth.introspect.domain.person.PersonService;
+import nth.introspect.generic.xml.XmlConverter;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayName;
+import nth.introspect.ui.style.ContentColor;
+import nth.introspect.ui.style.MaterialColorPalette;
+import nth.introspect.ui.style.basic.Color;
+import nth.reflect.example.domain2.account.AccountService;
+import nth.reflect.example.domain2.repository.AccountRepository;
+import nth.reflect.example.domain2.tag.TagService;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
-import nth.reflect.javafx.RfxView;
 
 @DisplayName(englishName="Reflect for JavaFX Demo")
 public class ReflectForJavaFXDemo extends ReflectApplicationForJavaFX {
 
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
 	@Override
 	public List<Class<?>> getServiceClasses() {
-		return Arrays.asList(ProductService.class, ShoppingCartService.class,  PersonService.class);//TODO
+		return Arrays.asList(AccountService.class,TagService.class);//TODO
 	}
 
 	@Override
 	public List<Class<?>> getInfrastructureClasses() {
-		return Arrays.asList(ProductRepository.class);
+		return Arrays.asList(AccountRepository.class, XmlConverter.class);
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
+	@Override
+	public Color getPrimaryColor() {
+		return MaterialColorPalette.TEAL;
+	}
+
+	@Override
+	public Color getAccentColor() {
+		return MaterialColorPalette.ORANGE;
+	}
+
+	@Override
+	public ContentColor getContentColor() {
+		return ContentColor.WHITE;
 	}
 
 }

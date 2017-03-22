@@ -8,9 +8,10 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
+import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.list.RfxList;
 
-public class RfxMainMenuList extends RfxList<Item> {
+public class RfxMainMenuList extends RfxList<Item> implements RfxControl{
 
 	public RfxMainMenuList(UserInterfaceContainer userInterfaceContainer) {
 		super();

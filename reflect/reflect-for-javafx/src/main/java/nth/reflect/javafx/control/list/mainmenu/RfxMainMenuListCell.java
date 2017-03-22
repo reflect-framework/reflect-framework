@@ -12,11 +12,12 @@ import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ListStyle;
 import nth.introspect.ui.style.fonticonurl.FontIconUrl;
+import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.list.RfxList;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 
-public class RfxMainMenuListCell extends ListCell<Item> {
+public class RfxMainMenuListCell extends ListCell<Item> implements RfxControl {
 	
 	private static final String SERVICE_OBJECT_SUFFIX = "service-object";
 	private static final String SERVICE_METHOD_SUFFIX = "service-method";

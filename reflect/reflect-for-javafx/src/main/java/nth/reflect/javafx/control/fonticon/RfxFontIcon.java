@@ -3,6 +3,7 @@ package nth.reflect.javafx.control.fonticon;
 import javafx.scene.text.Text;
 import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.basic.Color;
+import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 
 //See http://stackoverflow.com/questions/33423549/colored-icon-font-in-javafx
@@ -14,7 +15,7 @@ import nth.reflect.javafx.control.style.RfxStyleProperties;
  * @author nilsth
  *
  */
-public class RfxFontIcon extends Text {
+public class RfxFontIcon extends Text implements RfxControl {
 
 	public RfxFontIcon(String fontFamilyName, Character unicodeCharacter, int sizeInPixels,
 			Color color) {

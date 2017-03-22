@@ -8,6 +8,7 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.introspect.ui.style.control.ApplicationToolbarTitleStyle;
+import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 
@@ -17,7 +18,7 @@ import nth.reflect.javafx.control.style.RfxStyleSheet;
  * @author nilsth
  *
  */
-public class RfxApplicationToolbarTitle extends Label {
+public class RfxApplicationToolbarTitle extends Label implements RfxControl {
 
 	public RfxApplicationToolbarTitle(UserInterfaceContainer UserInterfaceContainer) {
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxApplicationToolbarTitle.class));

@@ -14,8 +14,9 @@
   	</dependency>
   	<dependency>
   		<groupId>nth.reflect.framework</groupId>
-  		<artifactId>reflect-example-domain</artifactId>
+  		<artifactId>reflect-example-domain2</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	
   </dependencies>
 </project>

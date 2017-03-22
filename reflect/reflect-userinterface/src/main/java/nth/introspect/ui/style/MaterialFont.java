@@ -65,6 +65,12 @@ public class MaterialFont {
 		return createFont(ROBOTO_MEDIUM_URL, displayScale.scale(24));
 	}
 
+	//TODO get rid of displayScale
+	public static Font getTitle() {
+		return createFont(ROBOTO_MEDIUM_URL, 20);
+	}
+
+	
 	public static Font getSubHeading(DisplayScale displayScale) {
 		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(16));
 	}

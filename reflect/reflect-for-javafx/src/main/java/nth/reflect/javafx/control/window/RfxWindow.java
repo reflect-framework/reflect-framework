@@ -1,59 +1,32 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+
 package nth.reflect.javafx.control.window;
 
 import java.net.MalformedURLException;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.scene.text.Font;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.ui.style.ContentColor;
-import nth.introspect.ui.style.MaterialColorPalette;
-import nth.introspect.ui.style.MaterialStyle;
-import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
+import nth.introspect.ui.style.DisplayScale;
+import nth.introspect.ui.style.MaterialFont;
+import nth.introspect.ui.style.basic.Color;
+import nth.reflect.javafx.control.RfxControl;
+import nth.reflect.javafx.control.style.RfxFontFactory;
+import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
 
-/**
- * Inspired by the Window Decorator by Shadi Shaheen: to resize/move its content without the default window look
- * 
- */
-public class RfxWindow extends VBox {
+public class RfxWindow extends BorderPane implements RfxControl {
 
 	private static final int MENU_WIDTH = 0;
-	private StackPane contentPlaceHolder = new StackPane();
-	private RfxApplicationToolbar applicationToolbar;
+//	private StackPane contentPlaceHolder = new StackPane();
+//	private RfxApplicationToolbar applicationToolbar;
 
-	public RfxWindow( Node node, UserInterfaceContainer userInterfaceContainer, MaterialStyle materialStyle) throws MalformedURLException {
+	public RfxWindow(  UserInterfaceContainer userInterfaceContainer, Color primaryColor, Color accentColor, ContentColor contentColor) throws MalformedURLException {
 		super();
-
+		Font font = RfxFontFactory.create(MaterialFont.getFontAwesome());
 		
-		RfxUtil.init(this, MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE, ContentColor.WHITE);
+		RfxUtil.init(this,primaryColor, accentColor, contentColor );
 		
 		//primaryStage.initStyle(StageStyle.TRANSPARENT);
 		setMinWidth(300);
@@ -62,15 +35,19 @@ public class RfxWindow extends VBox {
 		//TODO initStyleProperties()
 		//TODO initControlls()
 
-		applicationToolbar = new RfxApplicationToolbar(materialStyle,  userInterfaceContainer);
+//		applicationToolbar = new RfxApplicationToolbar( userInterfaceContainer);
 
-		contentPlaceHolder.setMinSize(0, 0);
-		contentPlaceHolder.getChildren().add(node);
-		((Region) node).setMinSize(0, 0);
-		VBox.setVgrow(contentPlaceHolder, Priority.ALWAYS);
+		
+		RfxTabBarPane tabPane = createTabPane( userInterfaceContainer);
+		
+		
+//		contentPlaceHolder.setMinSize(0, 0);
+//		contentPlaceHolder.getChildren().add(tabPane);
+//		tabPane.setMinSize(0, 0);
+//		VBox.setVgrow(contentPlaceHolder, Priority.ALWAYS);
 		//contentPlaceHolder.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY,				BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0, 3, 3, 3))));
 
-		this.getChildren().addAll(applicationToolbar, contentPlaceHolder);
+		setCenter(tabPane);;
 
 
 	}
@@ -81,4 +58,34 @@ public class RfxWindow extends VBox {
 		return wide;
 	}
 
+	
+	private RfxTabBarPane createTabPane( UserInterfaceContainer userInterfaceContainer) {
+		
+	RfxTabBarPane tabPane = new RfxTabBarPane(userInterfaceContainer);
+	//tabPane.setPrefSize(300, 200);
+//	Tab tab = new Tab();
+//	tab.setText("Products");
+//	tab.setContent(new Label("Content"));
+//	tabPane.getTabs().add(tab);
+//	
+//	
+//	tabPane.setPrefSize(300, 200);
+//	tab = new Tab();
+//	tab.setText("Shopping Cart");
+//	tab.setContent(new Label("Content"));
+//	tabPane.getTabs().add(tab);
+//	
+//	
+//	tabPane.setPrefSize(300, 200);
+//	tab = new Tab();
+//	tab.setText("Deliveries");
+//	tab.setContent(createContent());
+//	tabPane.getTabs().add(tab);
+//	
+	
+	return tabPane;
+	}
+	
+	
+	
 }

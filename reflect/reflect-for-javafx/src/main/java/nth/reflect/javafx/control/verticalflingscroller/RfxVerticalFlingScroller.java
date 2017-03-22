@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import nth.reflect.javafx.control.RfxControl;
 
 /**
  * Flinging is the type of scrolling that occurs when a user drags and lifts her
@@ -27,7 +28,7 @@ import javafx.util.Duration;
  */
 
 @SuppressWarnings("restriction")
-public class RfxVerticalFlingScroller {
+public class RfxVerticalFlingScroller implements RfxControl{
 
 	protected static final double MIN_VELOCITY = 0.1;
 	protected static final double MAX_SCROLL_VELOCITY = 1;

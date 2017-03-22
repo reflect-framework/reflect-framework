@@ -26,6 +26,7 @@
 		<module>reflect-infrastructure-xml-file-repository</module>
 		<module>reflect-infrastructure-hibernate-repository</module>
 		<module>reflect-for-javafx-demo</module>
+		<module>reflect-example-domain2</module>
 	</modules>
 
 

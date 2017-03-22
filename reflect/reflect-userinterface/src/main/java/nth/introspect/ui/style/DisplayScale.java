@@ -1,5 +1,12 @@
 package nth.introspect.ui.style;
 
+
+/** 
+ * @Depricated use RfxUtil
+ * @author nilsth
+ *
+ */
+
 public enum DisplayScale {
 	/**
 	 * When the mouse and keyboard are the primary input methods, measurements may be condensed to accommodate denser layouts.

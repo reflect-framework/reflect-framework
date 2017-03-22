@@ -1,7 +1,16 @@
 package nth.introspect.ui.style;
 
+/** 
+ * Depricated use RfxUtil
+ * @author nilsth
+ *
+ */
+
 public enum DisplaySize {
 
+	
+	
+	
 	/**
 	 * SMALL_PORTRAIT For devices such as smart phones in portrait
 	 */

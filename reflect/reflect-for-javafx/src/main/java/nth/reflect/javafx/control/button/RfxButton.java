@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.scene.Node;
 import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.basic.Color;
+import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.fonticon.RfxFontIcon;
 import nth.reflect.javafx.control.fonticon.RfxFontIconName;
 import nth.reflect.javafx.control.style.RfxColorFactory;
@@ -17,7 +18,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.geometry.Insets;
 import javafx.geometry.Insets;
 
-public class RfxButton extends JFXButton {
+public class RfxButton extends JFXButton implements RfxControl {
 
 	private static final int ICON_SIZE = 17;
 	private RfxFontIconName fontIconName;

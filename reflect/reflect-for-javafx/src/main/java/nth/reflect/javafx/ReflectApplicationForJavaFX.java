@@ -23,6 +23,8 @@ import nth.introspect.layer5provider.url.application.ApplicationUrlProvider;
 import nth.introspect.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
+import nth.introspect.ui.style.ContentColor;
+import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.fonticonurl.FontIconUrlHandler;
 import nth.reflect.javafx.control.style.RfxStyleSheetUrlHandler;
 
@@ -82,8 +84,12 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
+
+	public abstract Color getPrimaryColor();
+
+	public abstract Color getAccentColor();
 	
-	
+	public abstract ContentColor getContentColor();
 
 	
 }

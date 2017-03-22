@@ -461,6 +461,12 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	//public abstract int getDisplayWidthInInches();
 
+	/** 
+	 * @Depricated use RfxUtil
+	 * @author nilsth
+	 *
+	 */
+
 	public static MaterialStyle getMaterialStyle() {
 		boolean hasKeyboardAndMouse = true;// assumption TODO: get real value from system
 		int widtInPixels=300;

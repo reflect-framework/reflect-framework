@@ -126,6 +126,7 @@ public enum FontAwesomeIconName implements RfxFontIconName {
     CLIPBOARD('\uf0EA'),
     CLOCK_ALT('\uf017'),
     CLOSE('\uf00D'),
+    CLONE('\uf24d'),
     CLOUD('\uf0C2'),
     CLOUD_DOWNLOAD('\uf0ED'),
     CLOUD_UPLOAD('\uf0EE'),
