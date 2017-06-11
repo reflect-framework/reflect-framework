@@ -1,94 +1,167 @@
 package nth.reflect.javafx.control.list.mainmenu;
 
+import java.util.List;
+
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer1userinterface.item.Item.Action;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.ui.item.ItemFactory;
+import nth.introspect.ui.item.method.MethodItem;
+import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.reflect.javafx.control.style.RfxStyleGroup;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+
 /**
- * Test to replace   {@link RfxMainMenuList}
+ * Test to replace {@link RfxMainMenuList}
+ * 
  * @author nilsth
  *
  */
 public class RfxItemTreeView extends TreeView {
-public RfxItemTreeView(UserInterfaceContainer userInterfaceContainer) {
-	super();
-	
-	  TreeItem<Alert> rootItem = createRootItem();
-	  setRoot(rootItem);
-	
-	
-	 setShowRoot(false);
-     setCellFactory(new Callback<TreeView<Alert>, TreeCell<Alert>>() {
-         @Override
-         public TreeCell<Alert> call(TreeView<Alert> p) {
-             return new RfxItemTreeCell();
-         }
-     });
-	
-		
-	
-	
-//	setOnMouseClicked(this::onMouseClick);
-}
+	private static final String ENTER = "\r";
+	private static final String SPACE = " ";
 
+	public RfxItemTreeView(UserInterfaceContainer userInterfaceContainer) {
+		super();
 
-//TODO change Alert into Item
-private TreeItem<Alert> createRootItem() {
-	TreeItem<Alert> rootNode = new TreeItem<>(new Alert("dummy", "dummy"));
-       rootNode.setExpanded(true);
-       TreeItem<Alert> groupNode = new TreeItem<>(new Alert("group item", "group item"));
-    
-       groupNode.getChildren().addAll(new TreeItem<>(new Alert("sub item 1", "sub item 1")),
-               new TreeItem<>(new Alert("sub item 2", "sub item 2")),
-               new TreeItem<>(new Alert("sub item 3", "sub item 3")));
+		TreeItem<Item> rootItem = createRootItem(userInterfaceContainer);
+		setRoot(rootItem);
 
-       rootNode.getChildren().addAll(new TreeItem<>(new Alert("item 1", "item 1")),
-               groupNode,
-               new TreeItem<>(new Alert("item 2", "item 2")),
-               new TreeItem<>(new Alert("item 3", "item 3")));
-       
-   	//TODO expandServiceItemsAtStartUp(items);
+		setEditable(false);
+		setShowRoot(false);
+		setCellFactory(createCellFactory());
+		setOnKeyTyped(createKeyHandler());
+		setOnMouseClicked(createMouseHandler());
+	}
 
-       
-       return rootNode;
-}
+	private Callback<TreeView<Item>, TreeCell<Item>> createCellFactory() {
+		return new Callback<TreeView<Item>, TreeCell<Item>>() {
+			@Override
+			public TreeCell<Item> call(TreeView<Item> p) {
+				return new RfxItemTreeCell();
+			}
+		};
+	}
 
+	private EventHandler<? super MouseEvent> createMouseHandler() {
+		return new EventHandler<MouseEvent>() {
 
+			@Override
+			public void handle(MouseEvent event) {
+				if (MouseButton.PRIMARY.equals(event.getButton()) && event.getClickCount()==1) {
+					RfxItemTreeView itemTreeView = (RfxItemTreeView) event.getSource();
+					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreeView.getFocusModel()
+							.getFocusedItem();
+					Item item = treeItem.getValue();
+					if (item instanceof MethodItem) {
+						callAction(treeItem.getValue());
+					}
+					
+				}
+			}
+		};
+	}
 
-public static class Alert {
+	private EventHandler<? super KeyEvent> createKeyHandler() {
+		return new EventHandler<KeyEvent>() {
 
-    private final SimpleStringProperty name;
-    private final SimpleStringProperty status;
+			@Override
+			public void handle(KeyEvent event) {
+				String character = event.getCharacter();
+				if (SPACE.equals(character) || ENTER.equals(character)) {
+					RfxItemTreeView itemTreeView = (RfxItemTreeView) event.getSource();
+					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreeView.getFocusModel()
+							.getFocusedItem();
+					Item item = treeItem.getValue();
+					if (item instanceof MethodOwnerItem) {
+						toggleIsExpanded(treeItem);
+						getSelectionModel().select(treeItem);
+					} else if (item instanceof MethodItem) {
+						callAction(treeItem.getValue());
+						getSelectionModel().select(treeItem);
+					}
+				}
+			}
+		};
+	}
 
-    private Alert(String name, String department) {
-        this.name = new SimpleStringProperty(name);
-        this.status = new SimpleStringProperty(department);
-    }
+	protected void callAction(Item item) {
+		Action action = item.getAction();
+		if (action != null) {
+			action.run();
+		}
+	}
 
-    public String getName() {
-        return name.get();
-    }
+	protected void toggleIsExpanded(TreeItem<Item> treeItem) {
+		boolean expanded = treeItem.isExpanded();
+		treeItem.setExpanded(!expanded);
+	}
 
-    public void setName(String fName) {
-        name.set(fName);
-    }
+	private TreeItem<Item> createRootItem(UserInterfaceContainer userInterfaceContainer) {
+		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 
-    public String getStatus() {
-        return status.get();
-    }
+		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
+		rootNode.setExpanded(true);
 
-    public void setStatus(String fName) {
-        status.set(fName);
-    }
-}
+		List<MethodOwnerItem> serviceObjectItems = ItemFactory
+				.createMainMenuItems(userInterfaceContainer);
+
+		for (Item serviceObjectItem : serviceObjectItems) {
+			TreeItem<Item> serviceObjectNode = new TreeItem<>(serviceObjectItem);
+			rootNode.getChildren().add(serviceObjectNode);
+			for (Item methodItem : ((MethodOwnerItem) serviceObjectItem).getChildren()) {
+				TreeItem<Item> serviceObjectMethodNode = new TreeItem<>(methodItem);
+				serviceObjectNode.getChildren().add(serviceObjectMethodNode);
+			}
+		}
+
+		if (canExpandAllServiceItems(rootNode)) {
+			expandAllServiceItems(rootNode);
+		}
+
+		return rootNode;
+	}
+
+	private boolean canExpandAllServiceItems(TreeItem<Item> rootNode) {
+		int nrOfVisibleItems = 0;
+		for (TreeItem<Item> serviceObjectNode : rootNode.getChildren()) {
+			if (serviceObjectNode.getValue().isVisible()) {
+				nrOfVisibleItems++;
+				for (TreeItem<Item> serviceObjectMethodNode : serviceObjectNode.getChildren()) {
+					if (serviceObjectMethodNode.getValue().isVisible()) {
+						nrOfVisibleItems++;
+					}
+				}
+			}
+		}
+		return nrOfVisibleItems < 15;
+	}
+
+	private void expandAllServiceItems(TreeItem<Item> rootNode) {
+		for (TreeItem<Item> serviceObjectNode : rootNode.getChildren()) {
+			if (serviceObjectNode.getValue().isVisible()) {
+				serviceObjectNode.setExpanded(true);
+			}
+		}
+	}
+
 }
