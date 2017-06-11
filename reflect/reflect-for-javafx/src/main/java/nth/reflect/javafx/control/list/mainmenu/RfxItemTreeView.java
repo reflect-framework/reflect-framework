@@ -29,9 +29,12 @@ import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.reflect.javafx.control.style.RfxStyleGroup;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
 
 /**
  * Test to replace {@link RfxMainMenuList}
+ * 
+ * TODO implement {@link RfxVerticalFlingScroller}
  * 
  * @author nilsth
  *
@@ -40,6 +43,7 @@ public class RfxItemTreeView extends TreeView {
 	private static final String ENTER = "\r";
 	private static final String SPACE = " ";
 
+	
 	public RfxItemTreeView(UserInterfaceContainer userInterfaceContainer) {
 		super();
 

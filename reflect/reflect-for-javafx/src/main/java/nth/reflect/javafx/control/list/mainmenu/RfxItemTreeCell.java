@@ -23,7 +23,12 @@ import nth.introspect.ui.style.fonticonurl.FontIconUrl;
 import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
-
+/**
+ * TODO Bold text for {@link MethodOwnerItem}s <br>
+ * TODO TreeCell<Item> to use the visibility of {@link Item#isVisible()}
+ * @author nilsth
+ *
+ */
 public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 
 	private static final String SERVICE_OBJECT_SUFFIX = "service-object";
