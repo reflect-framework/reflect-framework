@@ -17,10 +17,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
+import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -31,35 +33,38 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.ui.style.MaterialColorSet;
+import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.MaterialFont;
+import nth.reflect.javafx.RfxView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
+import nth.reflect.javafx.control.list.mainmenu.RfxItemTreeView;
 import nth.reflect.javafx.control.list.mainmenu.RfxMainMenuList;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
-import nth.reflect.javafx.control.window.RfxUtil;
 
 public class RfxTabBarPane extends BorderPane {
 
-	private static final int BAR_HEIGHT = 38;
+	public static final int BAR_HEIGHT = 38;//TODO move to RfxToolBar
 	private static final int MENU_WIDTH = 300;
 	private static final int WINDOW_FAIRLY_HIGH_BINDING = 700;
 	private static final int WINDOW_FAIRLY_WIDE_BINDING = MENU_WIDTH * 3;
-	private final ObservableList<RfxTab> tabs;
-	private final ObjectPropertyBase<RfxTab> selectedTabProperty;
-	private final BooleanBinding windowFairlyHighBinding;
-	private final BooleanBinding windowFairlyWideBinding;
+	private final ObservableList<RfxView> tabs;
+	private final ObjectPropertyBase<RfxView> selectedTabProperty;
+	private final BooleanBinding windowExtraHighBinding;
+	private final BooleanBinding windowExtraWideBinding;
 	private final RfxTabButtonBar tabButtonBar;
 	private final BorderPane contentPane;
 
 	public RfxTabBarPane(UserInterfaceContainer userInterfaceContainer) {
-		tabs = FXCollections.<RfxTab>observableArrayList();
+		tabs = FXCollections.<RfxView>observableArrayList();
 		tabs.addListener(this::onTabsChanged);
 		selectedTabProperty = new SimpleObjectProperty<>();
 		selectedTabProperty.addListener(this::onSelectedTabChanged);
-		windowFairlyHighBinding = heightProperty().greaterThan(WINDOW_FAIRLY_HIGH_BINDING);
-		windowFairlyWideBinding = widthProperty().greaterThan(WINDOW_FAIRLY_WIDE_BINDING);
+		windowExtraHighBinding = heightProperty().greaterThan(WINDOW_FAIRLY_HIGH_BINDING);
+		windowExtraWideBinding = widthProperty().greaterThan(WINDOW_FAIRLY_WIDE_BINDING);
 
 		tabButtonBar = new RfxTabButtonBar(this);
 		BorderPane toolBar = createApplicationBar(tabButtonBar);
@@ -88,7 +93,7 @@ public class RfxTabBarPane extends BorderPane {
 	}
 
 	private void updateContent() {
-		RfxTab selectedTab = selectedTabProperty.get();
+		RfxView selectedTab = selectedTabProperty.get();
 		if (selectedTab==null) {
 			contentPane.setCenter(null);
 		} else {
@@ -96,12 +101,12 @@ public class RfxTabBarPane extends BorderPane {
 		}
 	}
 
-	private void selectNewTab(Change<RfxTab> change) {
+	private void selectNewTab(Change<RfxView> change) {
 		while (change.next()) {
 
 			if (change.wasAdded()) {
-				List<RfxTab> added = change.getAddedSubList();
-				RfxTab lastAdded = added.get(added.size() - 1);
+				List<RfxView> added = change.getAddedSubList();
+				RfxView lastAdded = added.get(added.size() - 1);
 				selectedTabProperty.set(lastAdded);// this also calls
 													// updateTabBar();
 			} else if (change.wasRemoved()) {
@@ -109,7 +114,7 @@ public class RfxTabBarPane extends BorderPane {
 				if (newIndex < 0) {
 					newIndex = 0;
 				}
-				RfxTab selectedTab = change.getList().get(newIndex);
+				RfxView selectedTab = change.getList().get(newIndex);
 				selectedTabProperty.set(selectedTab);// this also calls
 														// updateTabBar();
 			} else {
@@ -134,7 +139,7 @@ public class RfxTabBarPane extends BorderPane {
 	private BorderPane createContent() {
 		BorderPane content = new BorderPane();
 		content.setBackground(
-				RfxColorFactory.createBackGround(RfxUtil.getContentColorSet().getBackground()));
+				RfxColorFactory.createBackGround(MaterialColors.getContentColorSet().getBackground()));
 		Label label = new Label("Content");
 		content.setCenter(label);
 		return content;
@@ -143,17 +148,18 @@ public class RfxTabBarPane extends BorderPane {
 	private BorderPane createMenuPane(UserInterfaceContainer userInterfaceContainer) {
 		BorderPane menuPane = new BorderPane();
 		menuPane.setBackground(
-				RfxColorFactory.createBackGround(RfxUtil.getContentColorSet().getBackground()));
+				RfxColorFactory.createBackGround(MaterialColors.getContentColorSet().getBackground()));
 		menuPane.setMinWidth(MENU_WIDTH);
 		menuPane.setMaxWidth(MENU_WIDTH);
 		javafx.scene.paint.Color lineColor = RfxColorFactory
-				.create(RfxUtil.getContentColorSet().getForeground3());
+				.create(MaterialColors.getContentColorSet().getForeground3());
 		BorderStroke borderStroke = new BorderStroke(null, lineColor, null, null, null,
 				BorderStrokeStyle.SOLID, null, null, null, null, Insets.EMPTY);
 		Border border = new Border(borderStroke);
 		menuPane.setBorder(border);
 
-		RfxMainMenuList mainMenuList= new RfxMainMenuList(userInterfaceContainer);
+		//RfxMainMenuList mainMenuList= new RfxMainMenuList(userInterfaceContainer);
+		RfxItemTreeView mainMenuList=new RfxItemTreeView(userInterfaceContainer);
 		menuPane.setCenter(mainMenuList);
 //		VBox buttonPane = new VBox();
 //		buttonPane.setPadding(new Insets(1));
@@ -176,60 +182,60 @@ public class RfxTabBarPane extends BorderPane {
 	private JFXButton createListButton(String text, EventHandler<ActionEvent> event) {
 		RfxButton button = new RfxButton(text);
 		button.setButtonType(ButtonType.FLAT);
-		button.setColorSet(RfxUtil.getContentColorSet());
+		button.setColorSet(MaterialColors.getContentColorSet());
 		button.setMinHeight(32);
 		button.setPadding(new Insets(0, 16, 0, 16));
 		button.setOnAction(event);
 		return button;
 	}
 
-	private void onAddTabAtBeginButton(ActionEvent actionEvent) {
-		DemoTab tab = new DemoTab();
-		tabs.add(0, tab);
-	}
+//	private void onAddTabAtBeginButton(ActionEvent actionEvent) {
+//		RfxFormView tab = new RfxFormView();
+//		tabs.add(0, tab);
+//	}
+//
+//	private void onAddTabAtMiddleButton(ActionEvent actionEvent) {
+//		if (tabs.size() > 1) {
+//			Random randomIndexGenerator = new Random();
+//			int randomIndex = randomIndexGenerator.nextInt(tabs.size() - 1) + 1;
+//			RfxFormView tab = new RfxFormView();
+//			tabs.add(randomIndex, tab);
+//		}
+//	}
+//
+//	private void onAddTabAtEndButton(ActionEvent actionEvent) {
+//		int lastIndex = tabs.size();
+//		RfxFormView tab = new RfxFormView();
+//		tabs.add(lastIndex, tab);
+//	}
 
-	private void onAddTabAtMiddleButton(ActionEvent actionEvent) {
-		if (tabs.size() > 1) {
-			Random randomIndexGenerator = new Random();
-			int randomIndex = randomIndexGenerator.nextInt(tabs.size() - 1) + 1;
-			DemoTab tab = new DemoTab();
-			tabs.add(randomIndex, tab);
-		}
-	}
-
-	private void onAddTabAtEndButton(ActionEvent actionEvent) {
-		int lastIndex = tabs.size();
-		DemoTab tab = new DemoTab();
-		tabs.add(lastIndex, tab);
-	}
-
-	private void onRemoveTabAtBeginButton(ActionEvent actionEvent) {
-		if (tabs.size() > 0) {
-			tabs.remove(0);
-		}
-	}
-
-	private void onRemoveTabAtMiddleButton(ActionEvent actionEvent) {
-		if (tabs.size() > 2) {
-			Random randomIndexGenerator = new Random();
-			int randomIndex = randomIndexGenerator.nextInt(tabs.size() - 2) + 1;
-			tabs.remove(randomIndex);
-		}
-	}
-
-	private void onRemoveTabAtEndButton(ActionEvent actionEvent) {
-		if (tabs.size() > 0) {
-			int lastIndex = tabs.size() - 1;
-			tabs.remove(lastIndex);
-		}
-
-	}
+//	private void onRemoveTabAtBeginButton(ActionEvent actionEvent) {
+//		if (tabs.size() > 0) {
+//			tabs.remove(0);
+//		}
+//	}
+//
+//	private void onRemoveTabAtMiddleButton(ActionEvent actionEvent) {
+//		if (tabs.size() > 2) {
+//			Random randomIndexGenerator = new Random();
+//			int randomIndex = randomIndexGenerator.nextInt(tabs.size() - 2) + 1;
+//			tabs.remove(randomIndex);
+//		}
+//	}
+//
+//	private void onRemoveTabAtEndButton(ActionEvent actionEvent) {
+//		if (tabs.size() > 0) {
+//			int lastIndex = tabs.size() - 1;
+//			tabs.remove(lastIndex);
+//		}
+//
+//	}
 
 	private BorderPane createApplicationBar(RfxTabButtonBar tabButtonBar) {
 		BorderPane toolBar = new BorderPane();
 
 		String style = new RfxStyleProperties()
-				.setBackground(RfxUtil.getPrimaryColorSet().getBackground())
+				.setBackground(MaterialColors.getPrimaryColorSet().getBackground())
 				.setMinHeight(BAR_HEIGHT)
 				// .setMinWidth(300)
 				.setPadding(0).setAlignment(Pos.CENTER_LEFT).toString();
@@ -278,10 +284,10 @@ public class RfxTabBarPane extends BorderPane {
 		HBox titlePane = new HBox();
 		titlePane.setMinHeight(BAR_HEIGHT);
 		titlePane.setBackground(new Background(new BackgroundFill(
-				RfxColorFactory.create(RfxUtil.getPrimaryColorSet().getBackground()),
+				RfxColorFactory.create(MaterialColors.getPrimaryColorSet().getBackground()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
-		titlePane.visibleProperty().bind(windowFairlyHighBinding);
-		NumberBinding heightBinding = Bindings.when(windowFairlyHighBinding).then(BAR_HEIGHT)
+		titlePane.visibleProperty().bind(windowExtraHighBinding);
+		NumberBinding heightBinding = Bindings.when(windowExtraHighBinding).then(BAR_HEIGHT)
 				.otherwise(0);
 		titlePane.minHeightProperty().bind(heightBinding);
 		titlePane.maxHeightProperty().bind(heightBinding);
@@ -289,7 +295,7 @@ public class RfxTabBarPane extends BorderPane {
 		// TODO RfxApplicationToolbarTitle title=new
 		Label title = new Label("Application Name");
 		String style = new RfxStyleProperties()
-				.setTextFill(RfxUtil.getPrimaryColorSet().getForeground1())
+				.setTextFill(MaterialColors.getPrimaryColorSet().getForeground1())
 				.setAlignment(Pos.CENTER_LEFT).setFont(MaterialFont.getTitle())
 				.setPadding(0, 0, 0, 16).toString();
 		title.setStyle(style);
@@ -320,7 +326,11 @@ public class RfxTabBarPane extends BorderPane {
 		return mainMenuButton;
 	}
 
-	public ObjectProperty<RfxTab> getSelectedTabProperty() {
+	public ObjectProperty<RfxView> getSelectedTabProperty() {
 		return selectedTabProperty;
+	}
+
+	public ObservableList<RfxView> getTabs() {
+		return tabs;
 	}
 }

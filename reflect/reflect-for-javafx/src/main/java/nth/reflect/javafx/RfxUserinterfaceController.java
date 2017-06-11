@@ -4,8 +4,13 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.List;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXDialogLayout;
+
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
@@ -16,8 +21,11 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
+import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.view.FormMode;
+import nth.reflect.javafx.control.list.mainmenu.RfxItemTreeCell;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+import nth.reflect.javafx.control.tabpane.RfxFormView;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxUserinterfaceController extends GraphicalUserinterfaceController<RfxView> {
@@ -31,8 +39,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	@Override
 	public RfxView createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		// TODO Auto-generated method stub
-		return null;
+		return new RfxFormView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
@@ -57,8 +64,11 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 	@Override
 	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
-		// TODO Auto-generated method stub
-
+		JFXDialogLayout content=new JFXDialogLayout();
+		content.setHeading(new Text(title));
+		content.setBody(new Text(message));
+		JFXDialog dialog=new JFXDialog(mainWindow,content,DialogTransition.CENTER,true);
+		dialog.show();
 	}
 
 	@Override
@@ -87,18 +97,21 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 	@Override
 	public ViewContainer getViewContainer() {
-		// TODO Auto-generated method stub
-		return null;
+		return new RfxViewContainer(mainWindow);
 	}
 
 	@Override
 	public void launch() {
 		ReflectApplicationForJavaFX application = userInterfaceContainer
 				.get(ReflectApplicationForJavaFX.class);
+		
+		MaterialColors.init(application.getPrimaryColor(), application.getSecondaryColor(), application.getAccentColor(), application.getContentColor());
+		
 		Stage primaryStage = application.getPrimaryStage();
 
+		
 		try {
-			mainWindow = new RfxWindow(userInterfaceContainer, application.getPrimaryColor(), application.getAccentColor(), application.getContentColor());
+			mainWindow = new RfxWindow(userInterfaceContainer);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

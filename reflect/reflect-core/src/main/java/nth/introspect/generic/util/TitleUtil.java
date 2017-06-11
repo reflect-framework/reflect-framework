@@ -6,10 +6,9 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodIn
 
 public class TitleUtil {
 
-	//FIXME: move to ActionMethodInfo
+	// FIXME: move to ActionMethodInfo
 	public static String createTitle(ReflectionProvider reflectionProvider,
-			ActionMethodInfo actionMethodInfo, Object methodParameter,
-			boolean shortTile) {
+			ActionMethodInfo actionMethodInfo, Object methodParameter, boolean shortTile) {
 		StringBuffer title = new StringBuffer();
 		String methodDisplayName = actionMethodInfo.getDisplayName();
 		if (methodDisplayName != null) {
@@ -22,10 +21,12 @@ public class TitleUtil {
 		if (methodParameter != null) {
 			String parameterText = createMethodParameterTitle(reflectionProvider, methodParameter,
 					shortTile);
-			// append to title between parentheses
-			title.append(" (");
-			title.append(parameterText);
-			title.append(")");
+			if (parameterText.length() > 0) {
+				// append to title between parentheses
+				title.append(" (");
+				title.append(parameterText);
+				title.append(")");
+			}
 		}
 		return title.toString();
 
@@ -33,14 +34,13 @@ public class TitleUtil {
 
 	private static String createMethodParameterTitle(ReflectionProvider reflectionProvider,
 			Object methodParameter, boolean shortTile) {
-		TitleModel model=new TitleModel(reflectionProvider);
-		String parameterText =model.getTitle(methodParameter);
+		TitleModel model = new TitleModel(reflectionProvider);
+		String parameterText = model.getTitle(methodParameter);
 		// shorten if needed
 		if (shortTile && parameterText.length() > 20) {
 			parameterText = parameterText.substring(0, 17) + "...";
 		}
 		return parameterText;
 	}
-
 
 }

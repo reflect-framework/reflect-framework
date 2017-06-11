@@ -85,11 +85,12 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 		return primaryStage;
 	}
 
-	public abstract Color getPrimaryColor();
+	public abstract Color getPrimaryColor() ;
 
-	public abstract Color getAccentColor();
-	
-	public abstract ContentColor getContentColor();
+	public abstract Color getSecondaryColor();
 
+	public abstract Color getAccentColor() ;
+
+	public abstract ContentColor getContentColor() ;
 	
 }

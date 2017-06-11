@@ -2,7 +2,9 @@ package nth.reflect.javafx.control.button;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.Node;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.style.MaterialColorSet;
+import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.basic.Color;
 import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.fonticon.RfxFontIcon;
@@ -10,11 +12,11 @@ import nth.reflect.javafx.control.fonticon.RfxFontIconName;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleGroup;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
-import nth.reflect.javafx.control.window.RfxUtil;
-
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Insets;
 
@@ -39,6 +41,20 @@ public class RfxButton extends JFXButton implements RfxControl {
 		init();
 		this.fontIconName = fontIconName;
 		setFontIconName(fontIconName);
+	}
+
+	public RfxButton(Item item, MaterialColorSet colorSet) {
+		super();
+		init();
+		setColorSet(colorSet);
+		setText(item.getText());
+		setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				item.getAction().run();
+			}
+		});
 	}
 
 	private void setFontIconName(RfxFontIconName fontIconName) {
@@ -72,7 +88,7 @@ public class RfxButton extends JFXButton implements RfxControl {
 
 	private void init() {
 		getStylesheets().add(RfxStyleSheet.createStyleClassName(RfxButton.class));
-		setColorSet(RfxUtil.getContentColorSet());
+		setColorSet(MaterialColors.getContentColorSet());
 		disabledProperty().addListener((observable, oldValue, newValue) -> {
 			updateColors();
 		});

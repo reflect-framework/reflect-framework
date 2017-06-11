@@ -129,7 +129,6 @@ public class Account {
 	@Override
 	public String toString() {
 		TitleBuilder titleBuilder = new TitleBuilder("-");
-		titleBuilder.append(tag.getName());
 		titleBuilder.append(accountName);
 		return titleBuilder.toString();
 	}

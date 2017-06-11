@@ -2,7 +2,6 @@ package nth.reflect.javafx.control.tabpane;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.When;
-import javafx.beans.value.ObservableNumberValue;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -12,29 +11,29 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import nth.introspect.ui.style.DisplayScale;
 import nth.introspect.ui.style.MaterialColorSet;
+import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.MaterialFont;
+import nth.reflect.javafx.RfxView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
-import nth.reflect.javafx.control.window.RfxUtil;
 
 public class RfxTabButton extends RfxButton {
 
 	private static final int MAX_WIDTH = 400;//264;
 	private static final int PADDING = 12;
 	private static final double HEIGHT = 34;
-	private final RfxTab tab;
+	private final RfxView tab;
 	private final RfxTabBarPane tabBarPane;
 
-	public RfxTabButton(RfxTabBarPane tabBarPane, RfxTab tab) {
-		super(tab.getNameProperty().get());
+	public RfxTabButton(RfxTabBarPane tabBarPane, RfxView tab) {
+		super(tab.getViewTitle());
 		this.tabBarPane = tabBarPane;
 		this.tab = tab;
 		setButtonType(ButtonType.FLAT);
-		setColorSet(RfxUtil.getPrimaryColorSet());
+		setColorSet(MaterialColors.getPrimaryColorSet());
 		setMinHeight(HEIGHT);
 		setPadding(new Insets(0, PADDING, 0, PADDING));
 		setMaxWidth(MAX_WIDTH);
@@ -62,7 +61,7 @@ public class RfxTabButton extends RfxButton {
 
 	private ObservableValue<Color> createTextColorBinding(
 			When whenTabSelected) {
-		MaterialColorSet colorSet = RfxUtil.getPrimaryColorSet();
+		MaterialColorSet colorSet = MaterialColors.getPrimaryColorSet();
 		Color selectedTabColor = RfxColorFactory.create(colorSet.getForeground1());
 		Color unselectedTabColor = RfxColorFactory.create(colorSet.getForeground2());
 		ObservableValue<Color> textColorBinding=whenTabSelected.then(selectedTabColor).otherwise(unselectedTabColor);
@@ -75,7 +74,7 @@ public class RfxTabButton extends RfxButton {
 
 	private Border createForegroundUnderlineBorder() {
 		Color foregroundColor = RfxColorFactory
-				.create(RfxUtil.getAccentColorSet().getBackground());
+				.create(MaterialColors.getAccentColorSet().getBackground());
 		Border foregroundUnderlineBorder = createUnderlineBorder(foregroundColor);
 		return foregroundUnderlineBorder;
 	}
@@ -94,7 +93,7 @@ public class RfxTabButton extends RfxButton {
 		return border;
 	}
 
-	public RfxTab getTab() {
+	public RfxView getTab() {
 		return tab;
 	}
 

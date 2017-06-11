@@ -1,34 +1,17 @@
 package nth.reflect.javafx;
 
-import java.net.URL;
+import java.util.List;
 
-import javafx.scene.layout.HBox;
+import javafx.beans.property.ObjectPropertyBase;
+import javafx.scene.Node;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 
-public class RfxView extends HBox implements View {
+public abstract interface RfxView  extends View {
 
-	@Override
-	public String getViewTitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getViewDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public URL getViewIconURL() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onViewActivate() {
-		// TODO Auto-generated method stub
-
-	}
+	
+	public ObjectPropertyBase<List<Item>> getMenuItemsProperty() ;
+	
+	public Node getContent();
 
 }

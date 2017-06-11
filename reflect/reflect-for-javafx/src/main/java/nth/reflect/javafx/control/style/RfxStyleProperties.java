@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.geometry.Pos;
+import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.basic.Font;
 
 public class RfxStyleProperties extends HashMap<String,String> {
-
 	private static final long serialVersionUID = 7266905658046903895L;
 
 	private String getRGB(Color color) {
@@ -65,6 +65,12 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		put("-fx-background-color", getRGB(color));
 		return this;
 	}
+
+	public RfxStyleProperties setBackground(String colorVariableName) {
+		put("-fx-background-color", colorVariableName);
+		return this;
+	}
+
 
 	public RfxStyleProperties setPadding(int padding) {
 		put("-fx-padding", getPixels(padding));
@@ -154,6 +160,15 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		put("-fx-font-size", Integer.toString(fontSize)+"px");
 		return this;
 	}
+
+	public void setColorVariables(String colorSetName, MaterialColorSet colorSet) {
+		put(colorSetName+MaterialColorSet.FOREGROUND1, getRGB(colorSet.getForeground1()));
+		put(colorSetName+MaterialColorSet.FOREGROUND2, getRGB(colorSet.getForeground2()));
+		put(colorSetName+MaterialColorSet.FOREGROUND3, getRGB(colorSet.getForeground3()));
+		put(colorSetName+MaterialColorSet.BACKGROUND, getRGB(colorSet.getBackground()));
+		put(colorSetName+MaterialColorSet.BACKGROUND_HIGHLIGHTED, getRGB(colorSet.getBackgroundHighLighted()));
+	}
+
 
 
 	

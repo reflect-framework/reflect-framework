@@ -37,6 +37,12 @@ public class ReflectForJavaFXDemo extends ReflectApplicationForJavaFX {
 	}
 
 	@Override
+	public Color getSecondaryColor() {
+		return MaterialColorPalette.GREY;
+	}
+
+	
+	@Override
 	public Color getAccentColor() {
 		return MaterialColorPalette.ORANGE;
 	}
@@ -45,5 +51,6 @@ public class ReflectForJavaFXDemo extends ReflectApplicationForJavaFX {
 	public ContentColor getContentColor() {
 		return ContentColor.WHITE;
 	}
+
 
 }

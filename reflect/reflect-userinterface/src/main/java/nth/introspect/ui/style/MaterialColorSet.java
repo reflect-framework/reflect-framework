@@ -12,7 +12,19 @@ import nth.introspect.ui.style.basic.Color;
 public class MaterialColorSet implements MaterialDesign {
 
 	private static final double LIGHTER = 1+0.5;
-	private static final double DARKER = 1-0.5;
+	private static final double DARKER = 1-0.1;
+	private static final String RFX_COLOR = "-rfx-color";
+	public static final String PRIMARY_COLOR = RFX_COLOR+"-primary";
+	public static final String SECONDARY_COLOR = RFX_COLOR+ "-secondary";
+	public static final String ACCENT_COLOR = RFX_COLOR+ "-accent";
+	public static final String CONTENT_COLOR = RFX_COLOR+ "-content";
+	public static final String FOREGROUND1 = "-foreground1";
+	public static final String FOREGROUND2 = "-foreground2";
+	public static final String FOREGROUND3 = "-foreground3";
+	public static final String BACKGROUND = "-background";
+	public static final String BACKGROUND_HIGHLIGHTED = BACKGROUND+"-heighlighted";
+	public static final String PRIMARY_BACKGROUND_HIGHLIGHTED = PRIMARY_COLOR+BACKGROUND_HIGHLIGHTED;
+	
 	private final Color backgroundColor;
 	private final Color foregroundColor1;
 	private final Color foregroundColor2;

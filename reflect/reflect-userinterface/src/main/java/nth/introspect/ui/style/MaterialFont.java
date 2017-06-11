@@ -61,16 +61,27 @@ public class MaterialFont {
 		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(24));
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public static Font getTitle(DisplayScale displayScale) {
 		return createFont(ROBOTO_MEDIUM_URL, displayScale.scale(24));
 	}
 
-	//TODO get rid of displayScale
 	public static Font getTitle() {
 		return createFont(ROBOTO_MEDIUM_URL, 20);
 	}
 
-	
+
+
+	public static Font getSubHeading() {
+		return createFont(ROBOTO_REGULAR_URL, 16);
+	}
+
+	/**
+	 * @deprecated
+	 */
+
 	public static Font getSubHeading(DisplayScale displayScale) {
 		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(16));
 	}
@@ -79,10 +90,16 @@ public class MaterialFont {
 		return createFont(ROBOTO_MEDIUM_URL, displayScale.scale(14));
 	}
 
+	@Deprecated
 	public static Font getBody1(DisplayScale displayScale) {
 		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(14));
 	}
 
+	public static Font getBody1() {
+		return createFont(ROBOTO_REGULAR_URL, 14);
+	}
+
+	
 	public static Font getCaption(DisplayScale displayScale) {
 		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(12));
 	}

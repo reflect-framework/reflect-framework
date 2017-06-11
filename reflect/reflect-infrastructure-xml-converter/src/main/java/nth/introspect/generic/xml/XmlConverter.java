@@ -2,6 +2,8 @@ package nth.introspect.generic.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +19,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.bval.jsr303.util.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -40,24 +43,26 @@ public class XmlConverter {
 	private final ReflectionProvider reflectionProvider;
 	private final InfrastructureContainer providerContainer;
 
-	public XmlConverter(ReflectionProvider reflectionProvider, InfrastructureContainer providerContainer) {
+	public XmlConverter(ReflectionProvider reflectionProvider,
+			InfrastructureContainer providerContainer) {
 		this.reflectionProvider = reflectionProvider;
 		this.providerContainer = providerContainer;
 	}
-	
+
 	/**
 	 * Parses a XML string to a Document Object Model (DOM)<br>
 	 * See http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
 	 * 
 	 * @throws Exception
 	 */
-	public  Document parse(String xml) throws Exception {
+	public Document parse(String xml) throws Exception {
 		InputStream inputStream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(inputStream);
 
-		// Normalize: optional, but recommended. //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+		// Normalize: optional, but recommended. //read this -
+		// http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 		doc.getDocumentElement().normalize();
 
 		return doc;
@@ -69,7 +74,7 @@ public class XmlConverter {
 	 * 
 	 * @throws Exception
 	 */
-	public  String print(Document document, boolean indent) throws Exception {
+	public String print(Document document, boolean indent) throws Exception {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		if (indent) {
@@ -89,12 +94,12 @@ public class XmlConverter {
 		return sb.toString();
 	}
 
-	public  String marshal(Object object, boolean indent) throws Exception {
+	public String marshal(Object object, boolean indent) throws Exception {
 		Document document = marshal(object);
 		return print(document, indent);
 	}
 
-	public  Document marshal(Object object) throws Exception {
+	public Document marshal(Object object) throws Exception {
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -104,7 +109,6 @@ public class XmlConverter {
 		Element rootElement = document.createElement(INTROSPECT);
 		document.appendChild(rootElement);
 
-		
 		List<Object> marshaledObjects = new ArrayList<Object>();
 		if (object instanceof Collection) {
 			@SuppressWarnings("rawtypes")
@@ -125,23 +129,25 @@ public class XmlConverter {
 		return document;
 	}
 
-
-
-	private  Element marshal( Document document, Element parentElement, Object objectToMarshal, List<Object> marshaledObjects) {
+	private Element marshal(Document document, Element parentElement, Object objectToMarshal,
+			List<Object> marshaledObjects) {
 		// create an element that represents an object
-		Element objectElement = document.createElement(objectToMarshal.getClass().getCanonicalName());
+		Element objectElement = document
+				.createElement(objectToMarshal.getClass().getCanonicalName());
 		objectElement.setAttribute(ID, Integer.toString(objectToMarshal.hashCode()));
 		// parentElement.appendChild(objectElement);
 
-		// was the object already marshaled? YES: the id reference suffices, no need to marshal the properties, since this is already done
+		// was the object already marshaled? YES: the id reference suffices, no
+		// need to marshal the properties, since this is already done
 		if (!marshaledObjects.contains(objectToMarshal)) {
 			// NO: marshal all the properties
 
-			// remember the objects that where marshaled so we do not have to do them twice.
+			// remember the objects that where marshaled so we do not have to do
+			// them twice.
 			marshaledObjects.add(objectToMarshal);
 
 			ClassInfo classInfo = reflectionProvider.getClassInfo(objectToMarshal.getClass());
-			
+
 			List<PropertyInfo> properyInfos = classInfo.getPropertyInfosSorted();
 			for (PropertyInfo propertyInfo : properyInfos) {
 
@@ -152,15 +158,18 @@ public class XmlConverter {
 					Element propertyElement = document.createElement(propertyInfo.getSimpleName());
 					objectElement.appendChild(propertyElement);
 					if (TypeUtil.isColection(propertyType)) {
-						// is a collection: add elements that reference to domain objects
+						// is a collection: add elements that reference to
+						// domain objects
 						Collection<?> propertyCollection = (Collection<?>) propertyValue;
 						for (Object propertyItem : propertyCollection) {
 							// assuming it is a collection of domain objects
-							Element collectionItemElement = marshal(document, propertyElement, propertyItem, marshaledObjects);
+							Element collectionItemElement = marshal(document, propertyElement,
+									propertyItem, marshaledObjects);
 							propertyElement.appendChild(collectionItemElement);
 						}
 					} else if (TypeUtil.isDomainType(propertyType)) {
-						Element domainObjectElement = marshal(document, propertyElement, propertyValue, marshaledObjects);
+						Element domainObjectElement = marshal(document, propertyElement,
+								propertyValue, marshaledObjects);
 						propertyElement.appendChild(domainObjectElement);
 					} else {
 						// is a java value: set text content on property element
@@ -175,12 +184,15 @@ public class XmlConverter {
 
 	}
 
-	public  Collection<?> unmarshal(String xml) throws Exception {
+	public Collection<?> unmarshal(String xml) throws Exception {
+		if (xml.length() == 0) {
+			return null;
+		}
 		Document document = parse(xml);
 		return unmarshal(document, false);
 	}
 
-	public  Object unmarshalFirst(String xml) throws Exception {
+	public Object unmarshalFirst(String xml) throws Exception {
 		Document document = parse(xml);
 		Collection<?> collection = unmarshal(document, true);
 		if (collection.isEmpty()) {
@@ -190,13 +202,14 @@ public class XmlConverter {
 		}
 	}
 
-	public  Collection<?> unmarshal(Document document, boolean firstObjectOnly) throws Exception {
+	public Collection<?> unmarshal(Document document, boolean firstObjectOnly) throws Exception {
 		// get root element
 		List<Object> rootObjects = new ArrayList<Object>();
 		Map<String, Object> unMarshaledObjects = new HashMap<String, Object>();
 		Element rootElement = document.getDocumentElement();
 		if (!rootElement.getNodeName().equals(INTROSPECT)) {
-			throw new RuntimeException("The XML document must have a root element <" + INTROSPECT + ">");
+			throw new RuntimeException(
+					"The XML document must have a root element <" + INTROSPECT + ">");
 		}
 
 		// create objects
@@ -217,12 +230,16 @@ public class XmlConverter {
 	 * 
 	 * @param objectElement
 	 *            Element that represents the object. <br>
-	 *            By Introspect convention: the elements tag name must correspond with the canonical class name.<br>
-	 *            This class name needs to be in the class path and must have default constructor (no-argument constructor) in order to be instantiated
+	 *            By Introspect convention: the elements tag name must
+	 *            correspond with the canonical class name.<br>
+	 *            This class name needs to be in the class path and must have
+	 *            default constructor (no-argument constructor) in order to be
+	 *            instantiated
 	 * @return
 	 * @throws Exception
 	 */
-	private  Object unmarshalObject(Element objectElement, Map<String, Object> unMarshaledObjects) throws Exception {
+	private Object unmarshalObject(Element objectElement, Map<String, Object> unMarshaledObjects)
+			throws Exception {
 		String id = objectElement.getAttribute(ID);
 		// see if we already un-marshaled the object
 		Object object = unMarshaledObjects.get(id);
@@ -230,8 +247,9 @@ public class XmlConverter {
 			// not yet un-marshaled, so create the object
 			String className = objectElement.getTagName();
 			Class<?> classToInstantiate = Class.forName(className);
-			InstanceFactory instanceFactory=new InstanceFactory(classToInstantiate, providerContainer);
-			List<Class<?>> classesWaitingToBeInstantiated=new ArrayList<Class<?>>();
+			InstanceFactory instanceFactory = new InstanceFactory(classToInstantiate,
+					providerContainer);
+			List<Class<?>> classesWaitingToBeInstantiated = new ArrayList<Class<?>>();
 			object = instanceFactory.createInstance(classesWaitingToBeInstantiated);
 
 			// cash the object so we can reference to it if needed
@@ -245,8 +263,10 @@ public class XmlConverter {
 
 			// iterate trough PropertyInfos and set property values
 			for (PropertyInfo propertyInfo : propertyInfos) {
-				if (!propertyInfo.isReadOnly()) {// TODO what if !propertyInfo.isEnabled())
-					Object propertyValue = unMarshalProperty(propertyInfo, propertyElements, unMarshaledObjects);
+				if (!propertyInfo.isReadOnly()) {// TODO what if
+													// !propertyInfo.isEnabled())
+					Object propertyValue = unMarshalProperty(propertyInfo, propertyElements,
+							unMarshaledObjects);
 					propertyInfo.setValue(object, propertyValue);
 				}
 			}
@@ -255,7 +275,8 @@ public class XmlConverter {
 		return object;
 	}
 
-	private  Object unMarshalProperty(PropertyInfo propertyInfo, List<Element> propertyElements, Map<String, Object> unMarshaledObjects) throws Exception {
+	private Object unMarshalProperty(PropertyInfo propertyInfo, List<Element> propertyElements,
+			Map<String, Object> unMarshaledObjects) throws Exception {
 		Element propertyElement = findFirstElement(propertyElements, propertyInfo.getSimpleName());
 		Object propertyValue = null;
 		if (propertyElement != null) {
@@ -263,12 +284,14 @@ public class XmlConverter {
 			Class<?> propertyType = propertyInfo.getPropertyType().getType();
 			if (TypeUtil.isColection(propertyType)) {
 				// Is a collection
-				propertyValue = unMarshalPropertyOfCollectionType(unMarshaledObjects, propertyElement, propertyValue, propertyType);
+				propertyValue = unMarshalPropertyOfCollectionType(unMarshaledObjects,
+						propertyElement, propertyValue, propertyType);
 			} else if (TypeUtil.isDomainType(propertyType) || propertyType == Object.class) {
 				// Is a domain object
 				propertyValue = unMarshalPropertyOfDomainType(propertyElement, unMarshaledObjects);
 			} else {
-				// Is a java value: convert XML value (string) from element to property value
+				// Is a java value: convert XML value (string) from element to
+				// property value
 				propertyValue = unMarshalPropertyOfJavaType(propertyElement, propertyInfo);
 			}
 
@@ -276,7 +299,8 @@ public class XmlConverter {
 		return propertyValue;
 	}
 
-	public  Object unMarshalPropertyOfCollectionType(Map<String, Object> unMarshaledObjects, Element propertyElement, Object propertyValue, Class<?> propertyType) throws Exception {
+	public Object unMarshalPropertyOfCollectionType(Map<String, Object> unMarshaledObjects,
+			Element propertyElement, Object propertyValue, Class<?> propertyType) throws Exception {
 		List<Element> collectionElements = getChildElements(propertyElement);
 		if (List.class.isAssignableFrom(propertyType)) {
 			// create a new list
@@ -297,7 +321,8 @@ public class XmlConverter {
 		return propertyValue;
 	}
 
-	public  Object unMarshalPropertyOfDomainType(Element propertyElement, Map<String, Object> unMarshaledObjects) throws Exception {
+	public Object unMarshalPropertyOfDomainType(Element propertyElement,
+			Map<String, Object> unMarshaledObjects) throws Exception {
 		List<Element> domainObjectElements = getChildElements(propertyElement);
 		Object propertyValue = null;
 		if (domainObjectElements.size() == 1) {// size must be 0 or 1
@@ -308,7 +333,7 @@ public class XmlConverter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private  Object unMarshalPropertyOfJavaType(Node propertyElement, PropertyInfo propertyInfo) {
+	private Object unMarshalPropertyOfJavaType(Node propertyElement, PropertyInfo propertyInfo) {
 		String value = propertyElement.getTextContent();
 
 		// unify type to complex type
@@ -343,7 +368,7 @@ public class XmlConverter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private  String printElementValue(Class<?> type, Object value) {
+	private String printElementValue(Class<?> type, Object value) {
 		// unify type to complex type
 		type = TypeUtil.getComplexType(type);
 		// get xml transformer and transform value
@@ -368,7 +393,7 @@ public class XmlConverter {
 		}
 	}
 
-	private  Element findFirstElement(List<Element> elements, String tagNameToFind) {
+	private Element findFirstElement(List<Element> elements, String tagNameToFind) {
 		for (Element element : elements) {
 			if (element.getTagName().equals(tagNameToFind)) {
 				return element;
@@ -377,7 +402,7 @@ public class XmlConverter {
 		return null;// not found
 	}
 
-	private  List<Element> getChildElements(Element parentElement) {
+	private List<Element> getChildElements(Element parentElement) {
 		List<Element> childElements = new ArrayList<Element>();
 		NodeList propertyNodes = parentElement.getChildNodes();
 		for (int index = 0; index < propertyNodes.getLength(); index++) {

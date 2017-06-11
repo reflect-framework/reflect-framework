@@ -10,6 +10,12 @@ public class RfxStyleSelector {
 	private RfxStyleSelector() {
 		selector = new StringBuilder();
 	}
+
+	public static RfxStyleSelector createFor(String selector) {
+		RfxStyleSelector styleSelector = new RfxStyleSelector();
+		styleSelector.selector.append(selector);
+		return styleSelector;
+	}
 	
 	public static RfxStyleSelector createFor(Class<? extends Node> controlClass, String suffix) {
 		RfxStyleSelector styleSelector = new RfxStyleSelector();
@@ -67,5 +73,6 @@ public class RfxStyleSelector {
 	public String toString() {
 		return selector.toString();
 	}
+
 
 }

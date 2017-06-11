@@ -12,10 +12,9 @@ import nth.introspect.ui.style.control.TabToolbarStyle;
 import nth.introspect.ui.style.control.ToolbarIconStyle;
 /** 
  * @Depricated use RfxUtil
- * @author nilsth
  *
  */
-
+@Deprecated
 public class MaterialStyle {
 
 	private final MaterialColorSet primaryColors;

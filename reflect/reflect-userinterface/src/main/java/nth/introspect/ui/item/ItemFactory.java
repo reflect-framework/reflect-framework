@@ -30,8 +30,8 @@ import nth.introspect.ui.view.TableView;
 
 public class ItemFactory {
 
-	public static List<Item> createMainMenuItems(UserInterfaceContainer userInterfaceContainer) {
-		List<Item> items = new ArrayList<Item>();
+	public static List<MethodOwnerItem> createMainMenuItems(UserInterfaceContainer userInterfaceContainer) {
+		List<MethodOwnerItem> items = new ArrayList<>();
 
 		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
 		List<Object> serviceObjects = serviceContainer.getServiceObjects();
@@ -41,8 +41,11 @@ public class ItemFactory {
 					new NoParameterOrParameterFactoryFilter(), null);
 			items.add(item);
 		}
+
+		
 		return items;
 	}
+
 
 	public static List<Item> createFormViewRelationalFieldItems(
 			FormView formView, ReadOnlyValueModel parameterModel,
