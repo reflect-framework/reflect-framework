@@ -2,6 +2,7 @@ package nth.reflect.javafx.control.list.mainmenu;
 
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
@@ -34,7 +36,8 @@ import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller
 /**
  * Test to replace {@link RfxMainMenuList}
  * 
- * TODO implement {@link RfxVerticalFlingScroller}
+ * TODO implement {@link RfxVerticalFlingScroller}<br>
+ * TODO remove blue (focus?) border e.g. https://stackoverflow.com/questions/37524467/remove-all-focus-borders-from-javafx
  * 
  * @author nilsth
  *
@@ -49,7 +52,6 @@ public class RfxItemTreeView extends TreeView {
 
 		TreeItem<Item> rootItem = createRootItem(userInterfaceContainer);
 		setRoot(rootItem);
-
 		setEditable(false);
 		setShowRoot(false);
 		setCellFactory(createCellFactory());

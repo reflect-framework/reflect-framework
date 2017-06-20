@@ -11,6 +11,7 @@ import nth.introspect.ui.style.basic.Color;
 import nth.reflect.example.domain2.account.AccountService;
 import nth.reflect.example.domain2.repository.AccountRepository;
 import nth.reflect.example.domain2.tag.TagService;
+import nth.reflect.example.domain2.vault.VaultService;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
 
 @DisplayName(englishName="Reflect for JavaFX Demo")
@@ -23,7 +24,7 @@ public class ReflectForJavaFXDemo extends ReflectApplicationForJavaFX {
 	
 	@Override
 	public List<Class<?>> getServiceClasses() {
-		return Arrays.asList(AccountService.class,TagService.class);//TODO
+		return Arrays.asList(VaultService.class, AccountService.class,TagService.class);
 	}
 
 	@Override

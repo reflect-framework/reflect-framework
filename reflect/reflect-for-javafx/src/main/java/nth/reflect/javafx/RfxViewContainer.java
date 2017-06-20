@@ -1,5 +1,6 @@
 package nth.reflect.javafx;
 
+import javafx.application.Platform;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
@@ -43,7 +44,13 @@ public class RfxViewContainer implements ViewContainer<RfxView> {
 
 	@Override
 	public void addView(RfxView view) {
-		tabPane.getTabs().add( view);
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				tabPane.getTabs().add( view);
+			}
+		});
 
 	}
 
