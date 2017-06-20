@@ -12,9 +12,7 @@ import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
-import nth.reflect.javafx.control.list.RfxList;
 import nth.reflect.javafx.control.list.mainmenu.RfxItemTreeCell;
-import nth.reflect.javafx.control.list.mainmenu.RfxMainMenuListCell;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarTitle;
 

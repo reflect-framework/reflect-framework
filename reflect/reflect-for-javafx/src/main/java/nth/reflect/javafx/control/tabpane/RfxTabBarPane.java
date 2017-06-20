@@ -1,7 +1,6 @@
 package nth.reflect.javafx.control.tabpane;
 
 import java.util.List;
-import java.util.Random;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
@@ -17,12 +16,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
-import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -33,14 +30,12 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.RfxView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.javafx.control.list.mainmenu.RfxItemTreeView;
-import nth.reflect.javafx.control.list.mainmenu.RfxMainMenuList;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
