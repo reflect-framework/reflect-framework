@@ -13,6 +13,7 @@ import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialStyle;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.javafx.control.list.mainmenu.RfxItemTreeCell;
+import nth.reflect.javafx.control.list.mainmenu.RfxItemTreeView;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarTitle;
 
@@ -29,6 +30,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 		
 		RfxApplicationToolbar.appendStyleGroups(styleSheet, materialStyle);
 		RfxApplicationToolbarTitle.appendStyleGroups(styleSheet, materialStyle);
+		RfxItemTreeView.appendStyleGroups(styleSheet);
 		RfxItemTreeCell.appendStyleGroups(styleSheet);
 		
 //		RfxList.appendStyleGroups(styleSheet, materialStyle);

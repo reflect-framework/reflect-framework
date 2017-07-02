@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.effects.JFXDepthManager;
 
+import javafx.animation.TranslateTransition;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -21,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -29,6 +31,8 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.MaterialFont;
@@ -52,6 +56,7 @@ public class RfxTabBarPane extends BorderPane {
 	private final BooleanBinding windowExtraWideBinding;
 	private final RfxTabButtonBar tabButtonBar;
 	private final BorderPane contentPane;
+	private final BorderPane menuPane;
 
 	public RfxTabBarPane(UserInterfaceContainer userInterfaceContainer) {
 		tabs = FXCollections.<RfxView>observableArrayList();
@@ -65,9 +70,9 @@ public class RfxTabBarPane extends BorderPane {
 		BorderPane toolBar = createApplicationBar(tabButtonBar);
 		setTop(toolBar);
 
-		BorderPane menuPane = createMenuPane(userInterfaceContainer);
+		menuPane = createMenuPane(userInterfaceContainer);
 		contentPane=createContent();
-		BorderPane menuAndContentPane = createMenuAndContentPane(menuPane, contentPane);
+		StackPane menuAndContentPane = createMenuAndContentPane(menuPane, contentPane);
 		setCenter(menuAndContentPane);
 	}
 
@@ -123,11 +128,16 @@ public class RfxTabBarPane extends BorderPane {
 		updateTabs();
 	}
 
-	private BorderPane createMenuAndContentPane( BorderPane menuPane, BorderPane contentPane) {
-		BorderPane menuAndContentPane = new BorderPane();
-	
-		menuAndContentPane.setLeft(menuPane);
-		menuAndContentPane.setCenter(contentPane);
+	private StackPane createMenuAndContentPane( BorderPane menuPane, BorderPane contentPane) {
+		//BorderPane menuAndContentPane = new BorderPane();
+//		menuAndContentPane.setLeft(menuPane);
+//		menuAndContentPane.setCenter(contentPane);
+//	
+		StackPane menuAndContentPane = new StackPane();
+		menuAndContentPane.getChildren().add(contentPane);
+		menuAndContentPane.getChildren().add(menuPane);
+		menuAndContentPane.setAlignment(menuPane, Pos.TOP_LEFT);
+		
 		return menuAndContentPane;
 	}
 
@@ -303,9 +313,11 @@ public class RfxTabBarPane extends BorderPane {
 	private RfxApplicationToolbarButton createTabMenuButton() {
 		RfxApplicationToolbarButton tabMenuButton = new RfxApplicationToolbarButton(
 				FontAwesomeIconName.ELLIPSIS_V);
-		// menuButton.setOnAction(this::onMenuButtonAction);
+		//tabMenuButton.setOnAction(this::onMenuButtonAction);
 		return tabMenuButton;
 	}
+
+	
 
 	private RfxApplicationToolbarButton createTabSelectionButton() {
 		RfxApplicationToolbarButton tabSelectionButton = new RfxApplicationToolbarButton(
@@ -317,10 +329,32 @@ public class RfxTabBarPane extends BorderPane {
 	private RfxApplicationToolbarButton createMainMenuButtton() {
 		RfxApplicationToolbarButton mainMenuButton = new RfxApplicationToolbarButton(
 				FontAwesomeIconName.BARS);
-		// menuButton.setOnAction(this::onMenuButtonAction);
+		mainMenuButton.setOnAction(this::onMenuButtonAction);
 		return mainMenuButton;
 	}
-
+	
+	public void onMenuButtonAction(ActionEvent event) {
+		hideMenu();
+	}
+	
+	/**
+	 * See https://stackoverflow.com/questions/31601900/javafx-how-to-create-slide-in-animation-effect-for-a-pane-inside-a-transparent
+	 */
+	private void hideMenu() {
+		//See https://stackoverflow.com/questions/31601900/javafx-how-to-create-slide-in-animation-effect-for-a-pane-inside-a-transparent
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(menuPane);
+		translate.setDuration(Duration.millis(500));
+		if (menuPane.getTranslateX()==0) {
+			//move left outside window
+			double width = menuPane.getMinWidth();
+			translate.setToX(width*-1);	
+		} else {
+			//move left of window
+			translate.setToX(0);	
+		}
+		translate.play();
+	}
 	public ObjectProperty<RfxView> getSelectedTabProperty() {
 		return selectedTabProperty;
 	}

@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
@@ -29,8 +30,11 @@ import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.reflect.javafx.control.style.RfxStyleGroup;
+import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
+import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarTitle;
 import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
 
 /**
@@ -49,6 +53,7 @@ public class RfxItemTreeView extends TreeView {
 	
 	public RfxItemTreeView(UserInterfaceContainer userInterfaceContainer) {
 		super();
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxItemTreeView.class));
 
 		TreeItem<Item> rootItem = createRootItem(userInterfaceContainer);
 		setRoot(rootItem);
@@ -168,6 +173,15 @@ public class RfxItemTreeView extends TreeView {
 				serviceObjectNode.setExpanded(true);
 			}
 		}
+	}
+
+	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
+		//remove border
+		RfxStyleProperties properties = styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxItemTreeView.class)).getProperties();
+		properties.put("-fx-background-color", "transparent");
+		properties.put("-fx-background-insets"," 0");
+		properties.put("-fx-padding","0");
+
 	}
 
 }
