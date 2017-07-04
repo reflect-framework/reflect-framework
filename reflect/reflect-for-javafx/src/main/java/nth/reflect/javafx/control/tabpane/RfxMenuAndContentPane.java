@@ -79,8 +79,6 @@ public class RfxMenuAndContentPane extends StackPane {
 	}
 
 	public void showMenu() {
-		// See
-		// https://stackoverflow.com/questions/31601900/javafx-how-to-create-slide-in-animation-effect-for-a-pane-inside-a-transparent
 		TranslateTransition translate = new TranslateTransition();
 		translate.setNode(menuPane);
 		translate.setDuration(Duration.millis(500));
