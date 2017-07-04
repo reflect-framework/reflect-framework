@@ -236,7 +236,7 @@ public class RfxTabBarPane extends BorderPane {
 	}
 	
 	public void onMenuButtonAction(ActionEvent event) {
-		menuAndContentPane.hideMenu();
+		menuAndContentPane.toggleMenuVisibility();
 	}
 	
 	public ObjectProperty<RfxView> getSelectedTabProperty() {
