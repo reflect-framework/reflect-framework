@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.list.mainmenu;
+package nth.reflect.javafx.control.itemtreelist;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -150,7 +150,9 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class)).getProperties()
-				.setFont(MaterialFont.getBody1());
+				.setFont(MaterialFont.getBody1())
+				.setBackground(MaterialColorSet.CONTENT_COLOR + MaterialColorSet.BACKGROUND_HIGHLIGHTED);
+			
 
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class).appendSelected())
 				.getProperties()

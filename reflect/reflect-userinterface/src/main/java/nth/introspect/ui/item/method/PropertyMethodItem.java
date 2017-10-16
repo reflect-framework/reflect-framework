@@ -21,7 +21,7 @@ public class PropertyMethodItem extends MethodItem {
 	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo,
 			ActionMethodInfo propertyMethodInfo,
 			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
-		super(formView.getuserInterfaceContainer(),  formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
+		super(formView.getUserInterfaceContainer(),  formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
 		this.formView = formView;
 		this.showPropertyName = showPropertyName;
 		this.propertyOwnerModel = formView.getDomainValueModel();
@@ -37,7 +37,7 @@ public class PropertyMethodItem extends MethodItem {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void run() {
-				GraphicalUserinterfaceController<?> userInterfaceController = formView.getuserInterfaceContainer().get(GraphicalUserinterfaceController.class);
+				GraphicalUserinterfaceController<?> userInterfaceController = formView.getUserInterfaceContainer().get(GraphicalUserinterfaceController.class);
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				
@@ -60,7 +60,7 @@ public class PropertyMethodItem extends MethodItem {
 		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.hasParameter() ) {
 			parameterValue = parameterValueModel.getValue();
 		}
-		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().get(ReflectionProvider.class);
+		ReflectionProvider reflectionProvider=formView.getUserInterfaceContainer().get(ReflectionProvider.class);
 		text.append(TitleUtil.createTitle(reflectionProvider,propertyMethodInfo,
 				parameterValue, false));
 		return text.toString();

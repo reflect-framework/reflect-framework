@@ -59,7 +59,7 @@ public class ItemFactory {
 		Object serviceObject = formView.getMethodOwner();
 
 		// add property methods
-		ReflectionProvider reflectionProvider = formView.getuserInterfaceContainer().get(ReflectionProvider.class);
+		ReflectionProvider reflectionProvider = formView.getUserInterfaceContainer().get(ReflectionProvider.class);
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
 		Object methodOwner = formView.getDomainValueModel().getValue();
@@ -77,7 +77,7 @@ public class ItemFactory {
 			items.add(item);
 		}
 
-		ViewContainer viewContainer = formView.getuserInterfaceContainer().get(GraphicalUserinterfaceController.class).getViewContainer();
+		ViewContainer viewContainer = formView.getUserInterfaceContainer().get(GraphicalUserinterfaceController.class).getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, propertyInfo));
 
 		// service object methods
@@ -85,7 +85,7 @@ public class ItemFactory {
 				parameterType));
 		filter.or(new ReturnTypeFilter(parameterType));
 		filter.andNot(new EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
-		UserInterfaceContainer userInterfaceContainer=formView.getuserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer=formView.getUserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
 

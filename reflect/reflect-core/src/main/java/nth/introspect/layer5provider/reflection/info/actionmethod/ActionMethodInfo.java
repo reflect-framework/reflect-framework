@@ -59,7 +59,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final ExecutionModeType executionMode;
 	private final IconModel iconModel;
 	private final Method editParameterMethod;
-	private final Method cofirmMethod;
+	private final Method confirmMethod;
 	private final Method showResultMethod;
 
 
@@ -81,7 +81,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.executionMode = ExecutionModeFactory.create(method);
 		this.editParameterMethod = EditParameterMethodFactory.create(controllerClass,
 				executionMode, method);
-		this.cofirmMethod = ConfirmMethodFactory.create(controllerClass, executionMode, method);
+		this.confirmMethod = ConfirmMethodFactory.create(controllerClass, executionMode, method);
 		this.showResultMethod = ShowMethodFactory.create(controllerClass, executionMode, method);
 
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
@@ -310,7 +310,7 @@ public class ActionMethodInfo implements NameInfo {
 	public void invokeConfirmMethod(UserInterfaceController userInterfaceController,
 			Object methodOwner, Object methodParameter) throws IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
-		cofirmMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
+		confirmMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
 
 	}
 

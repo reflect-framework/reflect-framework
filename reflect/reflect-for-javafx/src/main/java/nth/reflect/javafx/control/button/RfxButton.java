@@ -87,7 +87,7 @@ public class RfxButton extends JFXButton implements RfxControl {
 	}
 
 	private void init() {
-		getStylesheets().add(RfxStyleSheet.createStyleClassName(RfxButton.class));
+		//TODO create a button that only uses the style sheets:  getStylesheets().add(RfxStyleSheet.createStyleClassName(RfxButton.class));
 		setColorSet(MaterialColors.getContentColorSet());
 		disabledProperty().addListener((observable, oldValue, newValue) -> {
 			updateColors();

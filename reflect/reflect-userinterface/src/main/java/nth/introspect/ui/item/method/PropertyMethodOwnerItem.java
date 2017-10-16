@@ -26,7 +26,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	public PropertyMethodOwnerItem(FormView formView,
 			ReadOnlyValueModel parameterValueModel,
 			PropertyInfo propertyToExclude) {
-		super(formView.getuserInterfaceContainer().get(LanguageProvider.class));
+		super(formView.getUserInterfaceContainer().get(LanguageProvider.class));
 		this.formView = formView;
 		pupulateChildren(formView, parameterValueModel, propertyToExclude);
 	}
@@ -38,7 +38,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		ReflectionProvider reflectionProvider=formView.getuserInterfaceContainer().get(ReflectionProvider.class);
+		ReflectionProvider reflectionProvider=formView.getUserInterfaceContainer().get(ReflectionProvider.class);
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {

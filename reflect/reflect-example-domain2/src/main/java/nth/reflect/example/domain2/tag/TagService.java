@@ -6,7 +6,7 @@ import nth.introspect.layer5provider.reflection.behavior.executionmode.Execution
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
 import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
-import nth.reflect.example.domain2.repository.AccountRepository;
+import nth.reflect.example.domain2.account.AccountRepository;
 
 @Icon(iconURL=FontAwesomeUrl.TAG )
 public class TagService {

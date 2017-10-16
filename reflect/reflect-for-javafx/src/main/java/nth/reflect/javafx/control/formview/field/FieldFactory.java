@@ -1,7 +1,6 @@
-package nth.introspect.ui.swing.view.form.field;
+package nth.reflect.javafx.control.formview.field;
 
-import java.awt.Component;
-
+import javafx.scene.layout.Region;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.fieldmode.FieldModeType;
@@ -12,36 +11,37 @@ import nth.introspect.ui.view.FormView;
 
 public class FieldFactory {
 
-	public static Component create(FormView formView, ReflectionProvider reflectionProvider,  PropertyValueModel propertyValueModel) {
+	public static Region create(FormView formView, ReflectionProvider reflectionProvider,  PropertyValueModel propertyValueModel) {
 		// TODO how do we make sure that all fields implement refreshable?
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
 		FieldModeType fieldMode = propertyInfo.getFieldMode();
+		System.out.println(fieldMode);
 		switch (fieldMode) {
 		case TEXT:
-			return new TextField(propertyValueModel);
+			return new RfxTextField(propertyValueModel);
 		case PASSWORD:
-			return new PasswordField(propertyValueModel);
+			return new RfxPasswordField(propertyValueModel);
 		case TEXT_AREA:
-			return new TextAreaField(propertyValueModel);
+			return new RfxTextAreaField(propertyValueModel);
 		case CHECK_BOX:
-			return new CheckBox(propertyValueModel);
+			return new RfxCheckBox(propertyValueModel);
 		case NUMBER:
-			return new NumericField2(propertyValueModel);
+			return new RfxNumericField(propertyValueModel);
 		case CHAR:
-			return new UniverselTextField(propertyValueModel);
+			return new RfxTextField(propertyValueModel);
 		case TIME:
-			return new DateTimeField(propertyValueModel, DateTimeMode.TIME);
+			return new RfxDateTimeField(propertyValueModel, DateTimeMode.TIME);
 		case DATE:
-			return new DateTimeField(propertyValueModel, DateTimeMode.DATE);
+			return new RfxDateTimeField(propertyValueModel, DateTimeMode.DATE);
 		case DATE_TIME:
-			return new DateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
+			return new RfxDateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
 		case COMBO_BOX:
 			LanguageProvider languageProvider=formView.getUserInterfaceContainer().get(LanguageProvider.class);
-			return new ComboBox(propertyValueModel, reflectionProvider, languageProvider);
+			return new RfxComboBox(propertyValueModel, reflectionProvider, languageProvider);
 		case ONE_TO_ONE_OR_MANY:
-			return new OneToOneOrManyField(formView,  propertyValueModel);
+			return new RfxOneToOneOrManyField(formView,  propertyValueModel);
 		case MANY_TO_ONE_OR_MANY:
-			return new ManyToOneOrManyField(formView, propertyValueModel);
+			return new RfxManyToOneOrManyField(formView, propertyValueModel);
 		default:
 			throw new RuntimeException("Field mode " + fieldMode.name() + " not supported for property " + propertyInfo.getCanonicalName());
 		}

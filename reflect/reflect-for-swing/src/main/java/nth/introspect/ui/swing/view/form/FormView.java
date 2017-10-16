@@ -201,7 +201,7 @@ public class FormView extends SwingView implements
 	}
 
 	@Override
-	public UserInterfaceContainer getuserInterfaceContainer() {
+	public UserInterfaceContainer getUserInterfaceContainer() {
 		return userInterfaceContainer;
 	}
 }

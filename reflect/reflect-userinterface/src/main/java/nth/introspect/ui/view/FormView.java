@@ -11,6 +11,6 @@ public interface FormView extends MethodView {
 
 	public Object getDomainObject();
 	
-	public UserInterfaceContainer getuserInterfaceContainer();//TODO can we get rid of this? We do not want to have a dual dependency between the userInterfaceContainer and sub classes of the UserInterfaceController
+	public UserInterfaceContainer getUserInterfaceContainer();//TODO can we get rid of this? We do not want to have a dual dependency between the userInterfaceContainer and sub classes of the UserInterfaceController
 
 }

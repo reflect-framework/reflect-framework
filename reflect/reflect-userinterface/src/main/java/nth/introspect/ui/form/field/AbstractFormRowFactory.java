@@ -8,6 +8,8 @@ import nth.introspect.ui.view.FormMode;
 
 public abstract class AbstractFormRowFactory<T> {
 
+	
+	//TODO why is this class not used
 	public T createField(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode ) {
 		PropertyValueModel propertyValueModel=new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		FieldModeType fieldMode = propertyInfo.getFieldMode();

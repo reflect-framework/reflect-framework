@@ -14,6 +14,7 @@ import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
@@ -35,26 +36,26 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.MaterialFont;
+import nth.reflect.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.javafx.RfxView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
-import nth.reflect.javafx.control.list.mainmenu.RfxItemTreeView;
+import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
+import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxTabBarPane extends BorderPane {
 
 	public static final int BAR_HEIGHT = 38;//TODO move to RfxToolBar
-	public static final int MENU_WIDTH = 300;
-	private static final int WINDOW_FAIRLY_HIGH_BINDING = 700;
-	private static final int WINDOW_FAIRLY_WIDE_BINDING = MENU_WIDTH * 3;
 	private final ObservableList<RfxView> tabs;
 	private final ObjectPropertyBase<RfxView> selectedTabProperty;
-	private final BooleanBinding windowExtraHighBinding;
-	private final BooleanBinding windowExtraWideBinding;
+	
 	private final RfxTabButtonBar tabButtonBar;
 	private RfxMenuAndContentPane menuAndContentPane;
 
@@ -63,14 +64,15 @@ public class RfxTabBarPane extends BorderPane {
 		tabs.addListener(this::onTabsChanged);
 		selectedTabProperty = new SimpleObjectProperty<>();
 		selectedTabProperty.addListener(this::onSelectedTabChanged);
-		windowExtraHighBinding = heightProperty().greaterThan(WINDOW_FAIRLY_HIGH_BINDING);
-		windowExtraWideBinding = widthProperty().greaterThan(WINDOW_FAIRLY_WIDE_BINDING);
 
+		RfxWindow rfxWindow=userInterfaceContainer.get(RfxWindow.class);
+		BooleanBinding windowExtraHighBinding = rfxWindow.getExtraHighBinding();
+		
 		tabButtonBar = new RfxTabButtonBar(this);
-		BorderPane toolBar = createApplicationBar(tabButtonBar);
+		BorderPane toolBar = createApplicationBar(tabButtonBar, userInterfaceContainer, windowExtraHighBinding);
 		setTop(toolBar);
-
-		menuAndContentPane = new RfxMenuAndContentPane(userInterfaceContainer);
+		
+		menuAndContentPane = new RfxMenuAndContentPane(userInterfaceContainer, windowExtraHighBinding);
 		setCenter(menuAndContentPane);
 	}
 
@@ -138,7 +140,7 @@ public class RfxTabBarPane extends BorderPane {
 		return button;
 	}
 
-	private BorderPane createApplicationBar(RfxTabButtonBar tabButtonBar) {
+	private BorderPane createApplicationBar(RfxTabButtonBar tabButtonBar, UserInterfaceContainer userInterfaceContainer, BooleanBinding windowExtraHighBinding) {
 		BorderPane toolBar = new BorderPane();
 
 		String style = new RfxStyleProperties()
@@ -149,7 +151,8 @@ public class RfxTabBarPane extends BorderPane {
 		toolBar.setStyle(style);
 		JFXDepthManager.setDepth(toolBar, 1);
 
-		HBox titleBar = createTitleBar();
+		
+		HBox titleBar = createTitleBar(userInterfaceContainer, windowExtraHighBinding);
 		toolBar.setTop(titleBar);
 		BorderPane buttonBar = createButtonBar(tabButtonBar);
 		toolBar.setBottom(buttonBar);
@@ -179,7 +182,7 @@ public class RfxTabBarPane extends BorderPane {
 	private HBox createMenuBar() {
 		HBox menuBar=new HBox();
 		menuBar.setMinHeight(BAR_HEIGHT-10);
-		menuBar.setMinWidth(MENU_WIDTH);
+		menuBar.setMinWidth(RfxWindow.MENU_WIDTH);
 		
 		RfxButton mainMenuButton = createMainMenuButtton();
 		menuBar.getChildren().add(mainMenuButton);
@@ -187,7 +190,7 @@ public class RfxTabBarPane extends BorderPane {
 		return menuBar;
 	}
 
-	private HBox createTitleBar() {
+	private HBox createTitleBar(UserInterfaceContainer userInterfaceContainer, BooleanBinding windowExtraHighBinding) {
 		HBox titlePane = new HBox();
 		titlePane.setMinHeight(BAR_HEIGHT);
 		titlePane.setBackground(new Background(new BackgroundFill(
@@ -200,16 +203,27 @@ public class RfxTabBarPane extends BorderPane {
 		titlePane.maxHeightProperty().bind(heightBinding);
 
 		// TODO RfxApplicationToolbarTitle title=new
-		Label title = new Label("Application Name");
+		String title = getTitle(userInterfaceContainer);
+		Label titleLabel = new Label(title);
 		String style = new RfxStyleProperties()
 				.setTextFill(MaterialColors.getPrimaryColorSet().getForeground1())
 				.setAlignment(Pos.CENTER_LEFT).setFont(MaterialFont.getTitle())
 				.setPadding(0, 0, 0, 16).toString();
-		title.setStyle(style);
+		titleLabel.setStyle(style);
 
 		// RfxApplicationToolbarTitle(userInterfaceContainer);
-		titlePane.getChildren().add(title);
+		titlePane.getChildren().add(titleLabel);
 		return titlePane;
+	}
+
+	private String getTitle(UserInterfaceContainer userInterfaceContainer) {
+			ReflectionProvider reflectionProvider = userInterfaceContainer
+					.get(ReflectionProvider.class);
+			ReflectApplicationForJavaFX application = userInterfaceContainer
+					.get(ReflectApplicationForJavaFX.class);
+			ClassInfo applicationInfo = reflectionProvider.getClassInfo(application.getClass());
+			String title = applicationInfo.getDisplayName();
+			return title;
 	}
 
 	private RfxApplicationToolbarButton createTabMenuButton() {

@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.list.mainmenu;
+package nth.reflect.javafx.control.itemtreelist;
 
 import java.util.List;
 
@@ -29,6 +29,8 @@ import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
+import nth.introspect.ui.style.basic.Color;
+import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleGroup;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
@@ -51,11 +53,9 @@ public class RfxItemTreeView extends TreeView {
 	private static final String SPACE = " ";
 
 	
-	public RfxItemTreeView(UserInterfaceContainer userInterfaceContainer) {
+	public RfxItemTreeView(TreeItem<Item> rootItem) {
 		super();
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxItemTreeView.class));
-
-		TreeItem<Item> rootItem = createRootItem(userInterfaceContainer);
 		setRoot(rootItem);
 		setEditable(false);
 		setShowRoot(false);
@@ -84,7 +84,7 @@ public class RfxItemTreeView extends TreeView {
 							.getFocusedItem();
 					Item item = treeItem.getValue();
 					if (item instanceof MethodItem) {
-						callAction(treeItem.getValue());
+						onAction(treeItem.getValue());
 					}
 					
 				}
@@ -107,7 +107,7 @@ public class RfxItemTreeView extends TreeView {
 						toggleIsExpanded(treeItem);
 						getSelectionModel().select(treeItem);
 					} else if (item instanceof MethodItem) {
-						callAction(treeItem.getValue());
+						onAction(treeItem.getValue());
 						getSelectionModel().select(treeItem);
 					}
 				}
@@ -115,7 +115,8 @@ public class RfxItemTreeView extends TreeView {
 		};
 	}
 
-	protected void callAction(Item item) {
+	protected void onAction(Item item) {
+		
 		Action action = item.getAction();
 		if (action != null) {
 			action.run();
@@ -127,53 +128,7 @@ public class RfxItemTreeView extends TreeView {
 		treeItem.setExpanded(!expanded);
 	}
 
-	private TreeItem<Item> createRootItem(UserInterfaceContainer userInterfaceContainer) {
-		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 
-		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
-		rootNode.setExpanded(true);
-
-		List<MethodOwnerItem> serviceObjectItems = ItemFactory
-				.createMainMenuItems(userInterfaceContainer);
-
-		for (Item serviceObjectItem : serviceObjectItems) {
-			TreeItem<Item> serviceObjectNode = new TreeItem<>(serviceObjectItem);
-			rootNode.getChildren().add(serviceObjectNode);
-			for (Item methodItem : ((MethodOwnerItem) serviceObjectItem).getChildren()) {
-				TreeItem<Item> serviceObjectMethodNode = new TreeItem<>(methodItem);
-				serviceObjectNode.getChildren().add(serviceObjectMethodNode);
-			}
-		}
-
-		if (canExpandAllServiceItems(rootNode)) {
-			expandAllServiceItems(rootNode);
-		}
-
-		return rootNode;
-	}
-
-	private boolean canExpandAllServiceItems(TreeItem<Item> rootNode) {
-		int nrOfVisibleItems = 0;
-		for (TreeItem<Item> serviceObjectNode : rootNode.getChildren()) {
-			if (serviceObjectNode.getValue().isVisible()) {
-				nrOfVisibleItems++;
-				for (TreeItem<Item> serviceObjectMethodNode : serviceObjectNode.getChildren()) {
-					if (serviceObjectMethodNode.getValue().isVisible()) {
-						nrOfVisibleItems++;
-					}
-				}
-			}
-		}
-		return nrOfVisibleItems < 15;
-	}
-
-	private void expandAllServiceItems(TreeItem<Item> rootNode) {
-		for (TreeItem<Item> serviceObjectNode : rootNode.getChildren()) {
-			if (serviceObjectNode.getValue().isVisible()) {
-				serviceObjectNode.setExpanded(true);
-			}
-		}
-	}
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		//remove border

@@ -10,6 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import nth.introspect.layer1userinterface.controller.Refreshable;
+import nth.introspect.ui.form.field.DateTimeMode;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 
 public class DateTimeField extends JSpinner implements Refreshable {
@@ -18,9 +19,7 @@ public class DateTimeField extends JSpinner implements Refreshable {
 	private PropertyValueModel propertyValueModel;
 	private DateTimeMode dateTimeMode;
 
-	public enum DateTimeMode {
-		DATE, TIME, DATE_AND_TIME
-	}
+	
 
 	// public Format dateFormat
 	// public Format

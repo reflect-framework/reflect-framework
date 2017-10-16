@@ -53,7 +53,7 @@ public class ManyToOneOrManyField extends JPanel implements Refreshable {
 
 		setLayout(new BorderLayout());
 
-		UserInterfaceContainer userInterfaceContainer= formView.getuserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer= formView.getUserInterfaceContainer();
 		ReflectionProvider reflectionProvider=userInterfaceContainer. get(ReflectionProvider.class);
 		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		tableModel = new MethodTableModel(reflectionProvider, languageProvider, propertyValueModel);

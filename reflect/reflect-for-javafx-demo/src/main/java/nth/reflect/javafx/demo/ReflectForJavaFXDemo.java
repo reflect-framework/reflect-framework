@@ -8,8 +8,8 @@ import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayName
 import nth.introspect.ui.style.ContentColor;
 import nth.introspect.ui.style.MaterialColorPalette;
 import nth.introspect.ui.style.basic.Color;
+import nth.reflect.example.domain2.account.AccountRepository;
 import nth.reflect.example.domain2.account.AccountService;
-import nth.reflect.example.domain2.repository.AccountRepository;
 import nth.reflect.example.domain2.tag.TagService;
 import nth.reflect.example.domain2.vault.VaultService;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
