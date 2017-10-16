@@ -68,30 +68,11 @@ public class RfxFormView extends BorderPane implements RfxView, FormView {
 		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, reflectionProvider,
 				domainObject, formMode);
 
-		// PropertyGrid propertyGrid = new PropertyGrid();
-		// add(propertyGrid, BorderLayout.CENTER);
-		// Component fieldToGetFocus = null;
-		// for (PropertyInfo propertyInfo : propertyInfos) {
-		// PropertyRow propertyRow = new PropertyRow(this, reflectionProvider,
-		// domainValueModel, propertyInfo, formMode);
-		// if (fieldToGetFocus == null && FormMode.EDIT_MODE == formMode
-		// && propertyInfo.isEnabled(domainObject)) {
-		// // XXX also check for field visibility?
-		// fieldToGetFocus = propertyRow.getField();
-		// }
-		// propertyGrid.addPropertyRow(propertyRow);
-		// }
-		//
-		// add(createButtonBar(), BorderLayout.SOUTH);
-
-
-		//GridPane domainPropertyPane = new RfxDomainPropertyPane(this);
 		RfxDomainPropertyPane domainPropertyPane = new RfxDomainPropertyPane(this);
 		setCenter(domainPropertyPane);
 		
 		HBox bottomButtonPane=createBottomButtonBar();
 		setBottom(bottomButtonPane);
-		
 
 	}
 
@@ -159,62 +140,6 @@ public class RfxFormView extends BorderPane implements RfxView, FormView {
 	}
 
 
-//	private GridPane createPropertyGrid() {
-//		GridPane propertyGrid = new GridPane();
-//		propertyGrid.setHgap(16);
-//		propertyGrid.setVgap(16);
-//		propertyGrid.setPadding(new Insets(16));		
-//
-//		RfxTextField field1 = new RfxTextField();
-//		field1.setLabelFloat(true);
-//		field1.setPromptText("Given name");
-//		RfxTextField validationField = new RfxTextField();
-//		validationField.setPromptText("With Validation..");
-//		RequiredFieldValidator validator = new RequiredFieldValidator();
-//		validator.setMessage("Input Required");
-//		// validator.setAwsomeIcon(new
-//		// Icon(AwesomeIcon.WARNING,"2em",";","error"));
-//		validationField.getValidators().add(validator);
-//		validationField.focusedProperty().addListener((o, oldVal, newVal) -> {
-//			if (!newVal)
-//				validationField.validate();
-//		});
-//		propertyGrid.add(field1, 1, 0);
-//
-//		RfxTextField field2 = new RfxTextField();
-//		field2.setLabelFloat(true);
-//		field2.setPromptText("Family name");
-//		RfxTextField validationField2 = new RfxTextField();
-//		validationField2.setPromptText("With Validation..");
-//		RequiredFieldValidator validator2 = new RequiredFieldValidator();
-//		validator2.setMessage("Input Required");
-//		// validator.setAwsomeIcon(new
-//		// Icon(AwesomeIcon.WARNING,"2em",";","error"));
-//		validationField2.getValidators().add(validator2);
-//		validationField2.focusedProperty().addListener((o, oldVal, newVal) -> {
-//			if (!newVal)
-//				validationField2.validate();
-//		});
-//		propertyGrid.add(field2, 1, 1);
-//
-//		RfxTextField field3 = new RfxTextField();
-//		field3.setLabelFloat(true);
-//		field3.setPromptText("E-mail adres");
-//		RfxTextField validationField3 = new RfxTextField();
-//		validationField3.setPromptText("With Validation..");
-//		RequiredFieldValidator validator3 = new RequiredFieldValidator();
-//		validator3.setMessage("Input Required");
-//		// validator.setAwsomeIcon(new
-//		// Icon(AwesomeIcon.WARNING,"2em",";","error"));
-//		validationField3.getValidators().add(validator3);
-//		validationField3.focusedProperty().addListener((o, oldVal, newVal) -> {
-//			if (!newVal)
-//				validationField3.validate();
-//		});
-//		propertyGrid.add(field3, 1, 2);
-//		
-//		return propertyGrid;
-//	}
 
 
 	@Override
