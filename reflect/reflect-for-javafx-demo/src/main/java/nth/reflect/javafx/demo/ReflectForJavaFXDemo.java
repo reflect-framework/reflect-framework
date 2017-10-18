@@ -3,6 +3,7 @@ package nth.reflect.javafx.demo;
 import java.util.Arrays;
 import java.util.List;
 
+import nth.introspect.domain.test.TestsService;
 import nth.introspect.generic.xml.XmlConverter;
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayName;
 import nth.introspect.ui.style.ContentColor;
@@ -24,7 +25,7 @@ public class ReflectForJavaFXDemo extends ReflectApplicationForJavaFX {
 	
 	@Override
 	public List<Class<?>> getServiceClasses() {
-		return Arrays.asList(VaultService.class, AccountService.class,TagService.class);
+		return Arrays.asList(VaultService.class, AccountService.class,TagService.class, TestsService.class);
 	}
 
 	@Override

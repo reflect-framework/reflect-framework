@@ -16,6 +16,7 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -23,12 +24,13 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.view.FormMode;
-import nth.reflect.javafx.control.formview.RfxFormView;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+import nth.reflect.javafx.control.view.form.RfxFormView;
+import nth.reflect.javafx.control.view.table.RfxTableView;
 import nth.reflect.javafx.control.window.RfxWindow;
 
-public class RfxUserinterfaceController extends GraphicalUserinterfaceController<RfxView> {
+public class RfxUserinterfaceController extends GraphicalUserinterfaceController<View> {
 
 	private RfxWindow mainWindow;
 
@@ -37,20 +39,19 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	}
 
 	@Override
-	public RfxView createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public View createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		return new RfxFormView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
-	public RfxView createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public View createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		// TODO Auto-generated method stub
-		return null;
+		return new RfxTableView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override
-	public RfxView createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public View createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
 		// TODO Auto-generated method stub
 		return null;

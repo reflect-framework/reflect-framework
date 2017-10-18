@@ -1,48 +1,30 @@
-package nth.reflect.javafx.control.formview;
+package nth.reflect.javafx.control.view.form;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
-import com.jfoenix.validation.RequiredFieldValidator;
-
-import javafx.beans.property.ObjectPropertyBase;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import nth.introspect.generic.util.TitleUtil;
-import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
 import nth.introspect.ui.item.tab.CloseThisTabItem;
-import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
-import nth.reflect.javafx.RfxUtils;
-import nth.reflect.javafx.RfxView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
-import nth.reflect.javafx.control.window.RfxWindow;
 
-public class RfxFormView extends BorderPane implements RfxView, FormView {
+public class RfxFormView extends BorderPane implements FormView {
 
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final Object methodOwner;
@@ -137,20 +119,6 @@ public class RfxFormView extends BorderPane implements RfxView, FormView {
 		FormOkItem okItem = new FormOkItem(this, methodOwner, actionMethodInfo,
 				domainValueModel);
 		return new RfxButton(okItem, MaterialColors.getSecondaryColorSet());
-	}
-
-
-
-
-	@Override
-	public ObjectPropertyBase<List<Item>> getMenuItemsProperty() {
-		List<Item> items = new ArrayList<>();
-		return new SimpleObjectProperty<List<Item>>(items);
-	}
-
-	@Override
-	public Node getContent() {
-		return this;
 	}
 
 	@Override

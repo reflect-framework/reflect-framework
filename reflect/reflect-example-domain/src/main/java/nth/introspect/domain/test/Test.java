@@ -13,7 +13,7 @@ import nth.introspect.layer5provider.reflection.behavior.format.Format;
 
 public class Test {
 	private boolean myBoolean;
-	private Test myTest;
+//	private Test myTest;//TODO this will cause an infinate loop in the ReflectionProvider
 	private byte myByte;
 	private short myShort;
 	private int myInt;
@@ -165,13 +165,13 @@ public class Test {
 		this.myEnum = myEnum;
 	}
 
-	public Test getMyTest() {
-		return myTest;
-	}
-
-	public void setMyTest(Test myTest) {
-		this.myTest = myTest;
-	}
+//	public Test getMyTest() {
+//		return myTest;
+//	}
+//
+//	public void setMyTest(Test myTest) {
+//		this.myTest = myTest;
+//	}
 
 
 	public Calendar getMyCalendar() {

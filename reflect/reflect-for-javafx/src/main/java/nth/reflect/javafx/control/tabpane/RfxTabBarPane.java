@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.effects.JFXDepthManager;
 
-import javafx.animation.TranslateTransition;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -14,7 +13,6 @@ import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
@@ -24,27 +22,20 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
-import nth.reflect.javafx.RfxView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
-import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
@@ -53,14 +44,14 @@ import nth.reflect.javafx.control.window.RfxWindow;
 public class RfxTabBarPane extends BorderPane {
 
 	public static final int BAR_HEIGHT = 38;//TODO move to RfxToolBar
-	private final ObservableList<RfxView> tabs;
-	private final ObjectPropertyBase<RfxView> selectedTabProperty;
+	private final ObservableList<View> tabs;
+	private final ObjectPropertyBase<View> selectedTabProperty;
 	
 	private final RfxTabButtonBar tabButtonBar;
 	private RfxMenuAndContentPane menuAndContentPane;
 
 	public RfxTabBarPane(UserInterfaceContainer userInterfaceContainer) {
-		tabs = FXCollections.<RfxView>observableArrayList();
+		tabs = FXCollections.<View>observableArrayList();
 		tabs.addListener(this::onTabsChanged);
 		selectedTabProperty = new SimpleObjectProperty<>();
 		selectedTabProperty.addListener(this::onSelectedTabChanged);
@@ -93,20 +84,20 @@ public class RfxTabBarPane extends BorderPane {
 	}
 
 	private void updateContent() {
-		RfxView selectedTab = selectedTabProperty.get();
+		View selectedTab = selectedTabProperty.get();
 		if (selectedTab==null) {
 			menuAndContentPane.clearContentPane();
 		} else {
-			menuAndContentPane.setContentPane(selectedTab.getContent());
+			menuAndContentPane.setContentPane((Node)selectedTab);
 		}
 	}
 
-	private void selectNewTab(Change<RfxView> change) {
+	private void selectNewTab(Change<View> change) {
 		while (change.next()) {
 
 			if (change.wasAdded()) {
-				List<RfxView> added = change.getAddedSubList();
-				RfxView lastAdded = added.get(added.size() - 1);
+				List<View> added = change.getAddedSubList();
+				View lastAdded = added.get(added.size() - 1);
 				selectedTabProperty.set(lastAdded);// this also calls
 													// updateTabBar();
 			} else if (change.wasRemoved()) {
@@ -114,7 +105,7 @@ public class RfxTabBarPane extends BorderPane {
 				if (newIndex < 0) {
 					newIndex = 0;
 				}
-				RfxView selectedTab = change.getList().get(newIndex);
+				View selectedTab = change.getList().get(newIndex);
 				selectedTabProperty.set(selectedTab);// this also calls
 														// updateTabBar();
 			} else {
@@ -253,11 +244,11 @@ public class RfxTabBarPane extends BorderPane {
 		menuAndContentPane.toggleMenuVisibility();
 	}
 	
-	public ObjectProperty<RfxView> getSelectedTabProperty() {
+	public ObjectProperty<View> getSelectedTabProperty() {
 		return selectedTabProperty;
 	}
 
-	public ObservableList<RfxView> getTabs() {
+	public ObservableList<View> getTabs() {
 		return tabs;
 	}
 }

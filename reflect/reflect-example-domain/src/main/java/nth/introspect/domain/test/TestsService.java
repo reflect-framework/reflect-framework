@@ -13,7 +13,9 @@ import java.util.List;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-
+import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
+import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
+@Icon(iconURL=FontAwesomeUrl.CHECK )
 public class TestsService {
 	private List<Test> tests;
 

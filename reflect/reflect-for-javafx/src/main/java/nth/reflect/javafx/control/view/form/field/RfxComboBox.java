@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.formview.field;
+package nth.reflect.javafx.control.view.form.field;
 
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;

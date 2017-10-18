@@ -11,11 +11,11 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.ui.style.DisplayScale;
 import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.style.MaterialFont;
-import nth.reflect.javafx.RfxView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
@@ -25,10 +25,10 @@ public class RfxTabButton extends RfxButton {
 	private static final int MAX_WIDTH = 400;//264;
 	private static final int PADDING = 12;
 	private static final double HEIGHT = 34;
-	private final RfxView tab;
+	private final View tab;
 	private final RfxTabBarPane tabBarPane;
 
-	public RfxTabButton(RfxTabBarPane tabBarPane, RfxView tab) {
+	public RfxTabButton(RfxTabBarPane tabBarPane, View tab) {
 		super(tab.getViewTitle());
 		this.tabBarPane = tabBarPane;
 		this.tab = tab;
@@ -93,7 +93,7 @@ public class RfxTabButton extends RfxButton {
 		return border;
 	}
 
-	public RfxView getTab() {
+	public View getTab() {
 		return tab;
 	}
 

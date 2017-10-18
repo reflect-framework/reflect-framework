@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.formview;
+package nth.reflect.javafx.control.view.form;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +23,8 @@ import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormMode;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
-import nth.reflect.javafx.control.formview.field.FieldFactory;
 import nth.reflect.javafx.control.style.RfxFontFactory;
+import nth.reflect.javafx.control.view.form.field.FieldFactory;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxDomainPropertyPane extends Pane {

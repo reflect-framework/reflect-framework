@@ -19,9 +19,9 @@ import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.view.FormMode;
 import nth.reflect.javafx.control.RfxControl;
-import nth.reflect.javafx.control.formview.RfxFormView;
 import nth.reflect.javafx.control.style.RfxFontFactory;
 import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
+import nth.reflect.javafx.control.view.form.RfxFormView;
 
 public class RfxWindow extends StackPane implements RfxControl {
 

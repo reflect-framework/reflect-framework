@@ -5,7 +5,6 @@ import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
 import nth.reflect.javafx.control.window.RfxWindow;
-import nth.reflect.javafx.RfxView;
 /**
  * ViewContainer adapter on a {@link RfxWindow}
  * TODO simplify {@link ViewContainer} like {@link RfxWindow#getTabPane()#getTabs()} or {@link RfxWindow#getTabPane()#getSelectedTab()} 
@@ -13,7 +12,7 @@ import nth.reflect.javafx.RfxView;
  *
  * @param <RfxTab>
  */
-public class RfxViewContainer implements ViewContainer<RfxView> {
+public class RfxViewContainer implements ViewContainer<View> {
 	
 
 	private final RfxTabBarPane tabPane;
@@ -28,12 +27,12 @@ public class RfxViewContainer implements ViewContainer<RfxView> {
 	}
 
 	@Override
-	public RfxView getView(int index) {
+	public View getView(int index) {
 		return tabPane.getTabs().get(index);
 	}
 
 	@Override
-	public void setSelectedView(RfxView view) {
+	public void setSelectedView(View view) {
 		tabPane.getSelectedTabProperty().set( view);
 	}
 
@@ -43,7 +42,7 @@ public class RfxViewContainer implements ViewContainer<RfxView> {
 	}
 
 	@Override
-	public void addView(RfxView view) {
+	public void addView(View view) {
 		Platform.runLater(new Runnable() {
 			
 			@Override
@@ -55,7 +54,7 @@ public class RfxViewContainer implements ViewContainer<RfxView> {
 	}
 
 	@Override
-	public void removeView(RfxView view) {
+	public void removeView(View view) {
 		tabPane.getTabs().remove( view);
 	}
 

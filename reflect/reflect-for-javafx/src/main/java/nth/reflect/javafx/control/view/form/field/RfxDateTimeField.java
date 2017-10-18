@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.formview.field;
+package nth.reflect.javafx.control.view.form.field;
 
 import nth.introspect.ui.form.field.DateTimeMode;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
