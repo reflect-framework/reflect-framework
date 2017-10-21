@@ -6,9 +6,14 @@ import java.util.List;
 
 import com.sun.javafx.collections.ObservableListWrapper;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.generic.util.TypeUtil;
@@ -65,29 +70,20 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 			//TODO!!!!
 		} else {
 	        setItems(createObservableList(methodOwner, actionMethodInfo, methodParameterValue));
+	        
+	        
 	        ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
 			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
 			for (PropertyInfo propertyInfo : propertyInfos) {
 				TableColumn propertyColumn = new TableColumn(propertyInfo.getDisplayName());
 				propertyColumn.setMinWidth(100);
-				propertyColumn.setCellValueFactory(createCellValueFactory(propertyInfo));
+				propertyColumn.setCellValueFactory(new PropertyValueFactory<>(propertyInfo.getSimpleName()));
 				getColumns().add(propertyColumn);
 			}
 		}
 
 	}
 
-	private Callback<Object, Object> createCellValueFactory(PropertyInfo propertyInfo) {
-		return new Callback<Object, Object>() {
-
-			@Override
-			public Object call(Object domainObject) {
-				//return propertyInfo.getValue(domainObject);
-				return propertyInfo.getFormatedValue(domainObject);
-			}
-		};
-	
-	}
 
 	private ObservableList<Object> createObservableList(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 			try {
