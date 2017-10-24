@@ -1,4 +1,3 @@
-
 package nth.reflect.javafx.control.window;
 
 import java.net.MalformedURLException;
@@ -18,10 +17,7 @@ import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
 public class RfxWindow extends StackPane implements RfxControl {
 
-	// private static final int MENU_WIDTH = 0;
 	private final RfxTabBarPane tabPane;
-	// private StackPane contentPlaceHolder = new StackPane();
-	// private RfxApplicationToolbar applicationToolbar;
 	private final BooleanBinding extraHighBinding;
 	private final BooleanBinding extraWideBinding;
 	private final BooleanProperty mainMenuVisibleProperty;
@@ -42,12 +38,8 @@ public class RfxWindow extends StackPane implements RfxControl {
 
 		userInterfaceContainer.add(this);
 
-		// primaryStage.initStyle(StageStyle.TRANSPARENT);
 		setMinWidth(300);
 		setMinHeight(500);
-		// setPickOnBounds(false);
-		// TODO initStyleProperties()
-		// TODO initControlls()
 
 		menuPane = new RfxMainMenuPane(userInterfaceContainer);
 		
