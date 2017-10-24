@@ -18,9 +18,9 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer2service.MainMenu;
 import nth.introspect.ui.style.MaterialColors;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
-import nth.reflect.javafx.control.mainmenu.RfxMainMenuView;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.window.RfxWindow;
+import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
 public class RfxMenuAndContentPane extends StackPane {
 
@@ -36,7 +36,7 @@ public class RfxMenuAndContentPane extends StackPane {
 	 * @param windowExtraWideBinding
 	 */
 	public RfxMenuAndContentPane(UserInterfaceContainer userInterfaceContainer,
-			RfxMainMenuView mainMenuPane) {
+			RfxMainMenuPane mainMenuPane) {
 
 		RfxWindow rfxWindow = userInterfaceContainer.get(RfxWindow.class);
 		this.windowExtraWideBinding = rfxWindow.getExtraWideBinding();

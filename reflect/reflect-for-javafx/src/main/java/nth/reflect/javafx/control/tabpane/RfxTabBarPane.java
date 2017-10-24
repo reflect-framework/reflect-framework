@@ -36,12 +36,12 @@ import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
-import nth.reflect.javafx.control.mainmenu.RfxMainMenuView;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 import nth.reflect.javafx.control.window.RfxWindow;
 import nth.reflect.javafx.control.window.appbar.RfxAppBar;
+import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 //TODO make part of RfxWindow than remove this class
 public class RfxTabBarPane extends BorderPane {
 
@@ -53,7 +53,7 @@ public class RfxTabBarPane extends BorderPane {
 	private RfxTabButtonBar tabButtonBar;
 
 	
-	public RfxTabBarPane(UserInterfaceContainer userInterfaceContainer, RfxMainMenuView menuPane) {
+	public RfxTabBarPane(UserInterfaceContainer userInterfaceContainer, RfxMainMenuPane menuPane) {
 		tabs = FXCollections.<View>observableArrayList();
 		tabs.addListener(this::onTabsChanged);
 		selectedTabProperty = new SimpleObjectProperty<>();

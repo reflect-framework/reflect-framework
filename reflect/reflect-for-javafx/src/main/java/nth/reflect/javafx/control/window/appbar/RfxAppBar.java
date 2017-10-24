@@ -31,88 +31,20 @@ import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxAppBar extends BorderPane {
 
-	public static final int BAR_HEIGHT = 38;//TODO move to RfxToolBar
-	private final BooleanBinding windowExtraHighBinding;
-	private final RfxWindow rfxWindow;
-	
 	public RfxAppBar(UserInterfaceContainer userInterfaceContainer, RfxTabButtonBar tabButtonBar) {
 		String style = new RfxStyleProperties()
 				.setBackground(MaterialColors.getPrimaryColorSet().getBackground())
-				.setMinHeight(BAR_HEIGHT)
+				//.setMinHeight(BAR_HEIGHT)
 				// .setMinWidth(300)
 				.setPadding(0).setAlignment(Pos.CENTER_LEFT).toString();
 		setStyle(style);
 		JFXDepthManager.setDepth(this, 1);
-
-		rfxWindow = userInterfaceContainer.get(RfxWindow.class);
-		windowExtraHighBinding = rfxWindow.getExtraHighBinding();
 		
 		HBox titleBar = new RfxAppTitleBar(userInterfaceContainer);
 		setTop(titleBar);
-		BorderPane buttonBar = createButtonBar(tabButtonBar);
+		
+		BorderPane buttonBar = new RfxAppButtonBar(userInterfaceContainer, tabButtonBar);
 		setBottom(buttonBar);
-
 	}
-	
-	//TODO create separate class
-	private BorderPane createButtonBar(RfxTabButtonBar tabButtonBar) {
-		BorderPane buttonBar = new BorderPane();
-		buttonBar.setPadding(new Insets(1));
-		// leftButtonPane=
-		HBox menuBar = createMenuBar();
-		buttonBar.setLeft(menuBar);
-
-		buttonBar.setCenter(tabButtonBar);
 		
-		HBox rightButtonPane = new HBox();
-		rightButtonPane.setMaxHeight(BAR_HEIGHT - 10);
-		buttonBar.setRight(rightButtonPane);
-		RfxButton tabSelectionButton = createTabSelectionButton();
-		rightButtonPane.getChildren().add(tabSelectionButton);
-		RfxButton tabMenuButton = createTabMenuButton();
-		rightButtonPane.getChildren().add(tabMenuButton);
-		return buttonBar;
-	}
-
-	private HBox createMenuBar() {
-		HBox menuBar=new HBox();
-		menuBar.setMinHeight(BAR_HEIGHT-10);
-		menuBar.setMinWidth(RfxWindow.MENU_WIDTH);
-		
-		RfxButton mainMenuButton = createMainMenuButtton();
-		menuBar.getChildren().add(mainMenuButton);
-		
-		return menuBar;
-	}
-
-		
-	private RfxApplicationToolbarButton createTabMenuButton() {
-		RfxApplicationToolbarButton tabMenuButton = new RfxApplicationToolbarButton(
-				FontAwesomeIconName.ELLIPSIS_V);
-		//tabMenuButton.setOnAction(this::onMenuButtonAction);
-		return tabMenuButton;
-	}
-
-	
-
-	private RfxApplicationToolbarButton createTabSelectionButton() {
-		RfxApplicationToolbarButton tabSelectionButton = new RfxApplicationToolbarButton(
-				FontAwesomeIconName.CLONE);
-		// menuButton.setOnAction(this::onMenuButtonAction);
-		return tabSelectionButton;
-	}
-
-	private RfxApplicationToolbarButton createMainMenuButtton() {
-		RfxApplicationToolbarButton mainMenuButton = new RfxApplicationToolbarButton(
-				FontAwesomeIconName.BARS);
-		mainMenuButton.setOnAction(this::toggleMainMenuVisibility);
-		return mainMenuButton;
-	}
-	
-
-	private void toggleMainMenuVisibility(ActionEvent event) {
-		BooleanProperty mainMenuVisibleProperty= rfxWindow.getMainMenuVisibleProperty();
-		mainMenuVisibleProperty.set(!mainMenuVisibleProperty.get());
-	}
-
 }

@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.mainmenu;
+package nth.reflect.javafx.control.window.mainmenu;
 
 import java.util.List;
 import java.util.Optional;

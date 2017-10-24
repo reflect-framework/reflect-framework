@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.mainmenu;
+package nth.reflect.javafx.control.window.mainmenu;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
@@ -13,9 +13,9 @@ import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
 import nth.reflect.javafx.control.window.RfxWindow;
 
-public class RfxMainMenuView extends BorderPane {
+public class RfxMainMenuPane extends BorderPane {
 
-	public RfxMainMenuView(UserInterfaceContainer userInterfaceContainer) {
+	public RfxMainMenuPane(UserInterfaceContainer userInterfaceContainer) {
 		super();
 		setMinWidth(RfxWindow.MENU_WIDTH);
 		setMaxWidth(RfxWindow.MENU_WIDTH);

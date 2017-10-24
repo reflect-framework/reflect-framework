@@ -26,18 +26,19 @@ import nth.reflect.javafx.control.window.RfxWindow;
  *
  */
 public class RfxAppTitleBar extends HBox {
-
+	public static final int BAR_HEIGHT = 38;
+	
 	public RfxAppTitleBar(UserInterfaceContainer userInterfaceContainer) {
 		RfxWindow rfxWindow=userInterfaceContainer.get(RfxWindow.class);
 		BooleanBinding windowExtraHighBinding = rfxWindow.getExtraHighBinding();
 		
-		setMinHeight(RfxAppBar.BAR_HEIGHT);
+		setMinHeight(BAR_HEIGHT);
 		setBackground(new Background(new BackgroundFill(
 				RfxColorFactory.create(MaterialColors.getPrimaryColorSet().getBackground()),
 				CornerRadii.EMPTY, Insets.EMPTY)));
 		
 		visibleProperty().bind(windowExtraHighBinding);
-		NumberBinding heightBinding = Bindings.when(windowExtraHighBinding).then(RfxAppBar.BAR_HEIGHT)
+		NumberBinding heightBinding = Bindings.when(windowExtraHighBinding).then(BAR_HEIGHT)
 				.otherwise(0);
 		minHeightProperty().bind(heightBinding);
 		maxHeightProperty().bind(heightBinding);

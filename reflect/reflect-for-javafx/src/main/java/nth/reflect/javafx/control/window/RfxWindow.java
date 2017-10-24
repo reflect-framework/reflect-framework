@@ -13,8 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.javafx.control.RfxControl;
-import nth.reflect.javafx.control.mainmenu.RfxMainMenuView;
 import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
+import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
 public class RfxWindow extends StackPane implements RfxControl {
 
@@ -25,7 +25,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 	private final BooleanBinding extraHighBinding;
 	private final BooleanBinding extraWideBinding;
 	private final BooleanProperty mainMenuVisibleProperty;
-	private RfxMainMenuView menuPane;
+	private RfxMainMenuPane menuPane;
 	public static final int MENU_WIDTH = 300;
 	private static final int WINDOW_FAIRLY_HIGH_BINDING = 700;
 	public static final double WINDOW_FAIRLY_WIDE_BINDING = MENU_WIDTH * 3;
@@ -49,7 +49,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 		// TODO initStyleProperties()
 		// TODO initControlls()
 
-		menuPane = new RfxMainMenuView(userInterfaceContainer);
+		menuPane = new RfxMainMenuPane(userInterfaceContainer);
 		
 		tabPane = new RfxTabBarPane(userInterfaceContainer, menuPane);
 		getChildren().add(tabPane);
