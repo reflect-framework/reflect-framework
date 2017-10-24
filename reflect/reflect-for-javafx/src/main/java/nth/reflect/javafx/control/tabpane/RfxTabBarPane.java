@@ -41,6 +41,7 @@ import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 import nth.reflect.javafx.control.window.RfxWindow;
+import nth.reflect.javafx.control.window.appbar.RfxAppBar;
 //TODO make part of RfxWindow than remove this class
 public class RfxTabBarPane extends BorderPane {
 
