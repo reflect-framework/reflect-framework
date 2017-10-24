@@ -118,43 +118,6 @@ public class RfxTabBarPane extends BorderPane {
 	public void onSelectedTabChanged(Observable observable) {
 		updateTabs();
 	}
-
-
-
-	private JFXButton createListButton(String text, EventHandler<ActionEvent> event) {
-		RfxButton button = new RfxButton(text);
-		button.setButtonType(ButtonType.FLAT);
-		button.setColorSet(MaterialColors.getContentColorSet());
-		button.setMinHeight(32);
-		button.setPadding(new Insets(0, 16, 0, 16));
-		button.setOnAction(event);
-		return button;
-	}
-
-//	private BorderPane createApplicationBar(RfxTabButtonBar tabButtonBar, UserInterfaceContainer userInterfaceContainer, BooleanBinding windowExtraHighBinding) {
-//		BorderPane toolBar = new BorderPane();
-//
-//		String style = new RfxStyleProperties()
-//				.setBackground(MaterialColors.getPrimaryColorSet().getBackground())
-//				.setMinHeight(BAR_HEIGHT)
-//				// .setMinWidth(300)
-//				.setPadding(0).setAlignment(Pos.CENTER_LEFT).toString();
-//		toolBar.setStyle(style);
-//		JFXDepthManager.setDepth(toolBar, 1);
-//
-//		
-//		HBox titleBar = createTitleBar(userInterfaceContainer, windowExtraHighBinding);
-//		toolBar.setTop(titleBar);
-//		BorderPane buttonBar = createButtonBar(tabButtonBar);
-//		toolBar.setBottom(buttonBar);
-//
-//		return toolBar;
-//	}
-//
-//	
-//	public void onMenuButtonAction(ActionEvent event) {
-//		menuAndContentPane.toggleMenuVisibility();
-//	}
 	
 	public ObjectProperty<View> getSelectedTabProperty() {
 		return selectedTabProperty;
