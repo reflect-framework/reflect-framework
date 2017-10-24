@@ -7,6 +7,7 @@ import java.util.List;
 import com.sun.javafx.collections.ObservableListWrapper;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -65,9 +66,9 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 		Class<?> objectClass =actionMethodInfo.getGenericReturnType();
 //		Class<?> objectClass = valueModel.getValueType();
 		if (TypeUtil.isJavaType(objectClass) || TypeUtil.isEnum(objectClass)) {
-			JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
-			Format format = formatFactory.create(objectClass);
-			//TODO!!!!
+			TableColumn<Object,String> propertyColumn = new TableColumn(languageProvider.getText("Values"));
+			propertyColumn.setCellValueFactory(createCellValueFactoryForJavaTypeOrEnum(languageProvider, objectClass));
+			//TODO setItems
 		} else {
 	        setItems(createObservableList(methodOwner, actionMethodInfo, methodParameterValue));
 	        
@@ -84,6 +85,18 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 
 	}
 
+
+	private Callback<CellDataFeatures<Object, String>, ObservableValue<String>> createCellValueFactoryForJavaTypeOrEnum(LanguageProvider languageProvider, Class<?> objectClass) {
+		JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
+		Format format = formatFactory.create(objectClass);
+		return new Callback<CellDataFeatures<Object, String>, ObservableValue<String>>() {
+
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Object, String> param) {
+				String value = format.format(param);
+				return new ReadOnlyObjectWrapper<String>(value);
+			}};
+	}
 
 	private ObservableList<Object> createObservableList(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 			try {

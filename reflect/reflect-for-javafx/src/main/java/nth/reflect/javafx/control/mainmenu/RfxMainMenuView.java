@@ -15,7 +15,7 @@ import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxMainMenuView extends BorderPane {
 
-	public RfxMainMenuView(UserInterfaceContainer userInterfaceContainer, BooleanBinding windowExtraWideBinding) {
+	public RfxMainMenuView(UserInterfaceContainer userInterfaceContainer) {
 		super();
 		setMinWidth(RfxWindow.MENU_WIDTH);
 		setMaxWidth(RfxWindow.MENU_WIDTH);
@@ -27,7 +27,7 @@ public class RfxMainMenuView extends BorderPane {
 		Border border = new Border(borderStroke);
 		setBorder(border);
 
-		RfxItemTreeView mainMenuList = new RfxMainMenuItemTreeView(userInterfaceContainer, windowExtraWideBinding);
+		RfxItemTreeView mainMenuList = new RfxMainMenuItemTreeView(userInterfaceContainer);
 		setCenter(mainMenuList);
 	}
 	

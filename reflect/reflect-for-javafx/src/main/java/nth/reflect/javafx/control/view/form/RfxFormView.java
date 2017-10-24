@@ -22,6 +22,7 @@ import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.style.RfxColorFactory;
+import nth.reflect.javafx.control.tabpane.RfxAppBar;
 import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
 
 public class RfxFormView extends BorderPane implements FormView {
@@ -60,7 +61,7 @@ public class RfxFormView extends BorderPane implements FormView {
 
 	private HBox createBottomButtonBar() {
 		HBox toolBar = new HBox();
-		toolBar.setMinHeight(RfxTabBarPane.BAR_HEIGHT);
+		toolBar.setMinHeight(RfxAppBar.BAR_HEIGHT);
 		toolBar.setPadding(new Insets(1));
 		toolBar.setSpacing(16);
 		toolBar.setBackground(RfxColorFactory.createBackGround(MaterialColors.getSecondaryColorSet().getBackground()));

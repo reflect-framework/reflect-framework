@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.TreeItem;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.item.Item;
@@ -13,14 +14,18 @@ import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.reflect.javafx.RfxUtils;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.tabpane.RfxMenuAndContentPane;
+import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 
 	private final BooleanBinding windowExtraWideBinding;
+	private final BooleanProperty mainMenuVisibleProperty;
 
-	public RfxMainMenuItemTreeView(UserInterfaceContainer userInterfaceContainer, BooleanBinding windowExtraWideBinding) {
+	public RfxMainMenuItemTreeView(UserInterfaceContainer userInterfaceContainer) {
 		super(createRootItem(userInterfaceContainer));
-		this.windowExtraWideBinding = windowExtraWideBinding;
+		RfxWindow rfxWindow = userInterfaceContainer.get(RfxWindow.class);
+		this.windowExtraWideBinding = rfxWindow.getExtraWideBinding();
+		this.mainMenuVisibleProperty=rfxWindow.getMainMenuVisibleProperty();
 	}
 	
 	
@@ -76,13 +81,17 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 	@Override
 	protected void onAction(Item item) {
 		super.onAction(item);
-		if (!windowExtraWideBinding.getValue()) {
-			Optional<RfxMenuAndContentPane> result = RfxUtils.findParent(this,RfxMenuAndContentPane.class);
-			if (result.isPresent()) {
-				RfxMenuAndContentPane menuAndContentPane=result.get();
-				menuAndContentPane.hideMenu();				
-			}
+		if (isNarrowWindow()) {
+			hideMainMenu();				
 		}
+	}
+
+	private void hideMainMenu() {
+		mainMenuVisibleProperty.set(false);
+	}
+
+	private boolean isNarrowWindow() {
+		return !windowExtraWideBinding.getValue();
 	}
 
 }
