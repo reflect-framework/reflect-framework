@@ -4,7 +4,13 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import nth.introspect.layer1userinterface.view.View;
+import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
 
+/**
+ * TODO: remove this class by moving its contents to {@link RfxAppButtonBar} class
+ * @author nilsth
+ *
+ */
 public class RfxTabButtonBar extends HBox {
 
 

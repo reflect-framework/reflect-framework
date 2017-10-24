@@ -20,8 +20,14 @@ import nth.introspect.ui.style.MaterialColors;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.window.RfxWindow;
+import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
+/**
+ * TODO: remove this class by moving its contents to {@link RfxWindow} class
+ * @author nilsth
+ *
+ */
 public class RfxMenuAndContentPane extends StackPane {
 
 	private final BorderPane mainMenuPane;

@@ -42,7 +42,11 @@ import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 import nth.reflect.javafx.control.window.RfxWindow;
 import nth.reflect.javafx.control.window.appbar.RfxAppBar;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
-//TODO make part of RfxWindow than remove this class
+/**
+ * TODO: remove this class by moving its contents to {@link RfxWindow} class
+ * @author nilsth
+ *
+ */
 public class RfxTabBarPane extends BorderPane {
 
 	

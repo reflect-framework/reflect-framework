@@ -20,6 +20,11 @@ import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 
+/**
+ * TODO: move to {@link nth.reflect.javafx.control.window.appbar} package
+ * @author nilsth
+ *
+ */
 public class RfxTabButton extends RfxButton {
 
 	private static final int MAX_WIDTH = 400;//264;
