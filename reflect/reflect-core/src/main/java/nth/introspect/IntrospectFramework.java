@@ -5,7 +5,6 @@ import nth.introspect.container.exception.IntrospectContainerException;
 import nth.introspect.container.exception.IntrospectContainerInitializationException;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-
 /**
  * <p>
  * Introspect is a light weight
@@ -29,16 +28,17 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
  * The Introspect framework provides different user interface implementations
  * that you can use for:
  * <ul>
- * <li>The desktop (based on
- * <a href="http://en.wikipedia.org/wiki/Swing_(Java)">Swing</a>)</li>
- * <li>Mobile devices (based on
- * <a href="http://en.wikipedia.org/wiki/Android_(operating_system)">Android</a>
- * )</li>
- * <li>The web (based on
- * <a href="http://en.wikipedia.org/wiki/Vaadin">Vaadin</a>)</li>
+ * <li><a href="https://en.wikipedia.org/wiki/JUnit">Junit test</a></li>
  * <li><a href="http://en.wikipedia.org/wiki/Command-line_interface">Command
  * line</a></li>
- * <li>And others</li>
+ * <li>The desktop (using
+ * <a href="https://en.wikipedia.org/wiki/JavaFX">JavaFx</a>)</li>
+ * <li>Mobile devices (still to be developed, using
+ * <a href="http://en.wikipedia.org/wiki/Android_(operating_system)">Android</a>
+ * )</li>
+ * <li>The web (still to be developed, using
+ * <a href="http://en.wikipedia.org/wiki/Vaadin">Vaadin</a>)</li>
+ * <li>And possible others in the future</li>
  * </ul>
  * </p>
  * <p>

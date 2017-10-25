@@ -1,9 +1,10 @@
-package nth.reflect.javafx.control.tabpane;
+package nth.reflect.javafx.control.window;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import nth.introspect.layer1userinterface.view.View;
+import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
 
 /**
@@ -11,13 +12,13 @@ import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
  * @author nilsth
  *
  */
-public class RfxTabButtonBar extends HBox {
+public class RfxTabButtonBar extends HBox implements RfxControl {
 
 
-	private RfxTabBarPane rfxTabBarPane;
+	private RfxWindow rfxWindow;
 
-	public RfxTabButtonBar(RfxTabBarPane rfxTabBarPane) {
-		this.rfxTabBarPane = rfxTabBarPane;
+	public RfxTabButtonBar(RfxWindow rfxWindow) {
+		this.rfxWindow = rfxWindow;
 	}
 
 	private boolean matches(ObservableList<View> tabs) {
@@ -39,7 +40,7 @@ public class RfxTabButtonBar extends HBox {
 		if (!matches(tabs)) {
 			getChildren().clear();
 			for (View tab : tabs) {
-				RfxTabButton tabButton = new RfxTabButton(rfxTabBarPane, tab);
+				RfxTabButton tabButton = new RfxTabButton(rfxWindow, tab);
 				getChildren().add(tabButton);
 			}
 		}

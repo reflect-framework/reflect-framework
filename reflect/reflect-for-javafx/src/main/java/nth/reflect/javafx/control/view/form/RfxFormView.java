@@ -22,8 +22,6 @@ import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.style.RfxColorFactory;
-import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
-import nth.reflect.javafx.control.window.appbar.RfxAppBar;
 import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
 
 public class RfxFormView extends BorderPane implements FormView {

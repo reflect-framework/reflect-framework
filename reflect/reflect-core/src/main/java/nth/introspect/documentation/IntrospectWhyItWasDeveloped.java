@@ -39,11 +39,6 @@ import nth.introspect.layer4infrastructure.InfrastructureObject;
  * you can implement these methods in your objects, but to me this still ignores
  * the principle of "Naked objects" or <a
  * href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO’s</a> .</li>
- * <li><a href="http://isis.apache.org/">Apache Isis</a> uses (depends on) <a
- * href="http://en.wikipedia.org/wiki/Apache_Maven">Maven</a>. Maven has its
- * pros (managing dependencies, and standardizing the build process), but is
- * also famous for its cons (difficult to configure, steep learning curve, etc,
- * etc).</li>
  * <li>I personally dislike the way Apache Isis manages the editing of objects.
  * This is very tightly linked to its <a
  * href="http://en.wikipedia.org/wiki/Persistence_framework">persistence
@@ -55,7 +50,7 @@ import nth.introspect.layer4infrastructure.InfrastructureObject;
  * handled by a {@link InfrastructureObject} like a persistence service (or not
  * at all).</li>
  * </ul>
- * <h3>Reason 4: I could not find what I needed.</h3> I have not found an
+ * <h3>Reason 4: Because I could not find what I needed.</h3> I have not found an
  * framework that provides an out of the box User Interface for both desktop,
  * mobile devices, web interface, command line interface, etc. They are probably
  * out there (Naked Objects and Isis coming close) but I haven't found one (or

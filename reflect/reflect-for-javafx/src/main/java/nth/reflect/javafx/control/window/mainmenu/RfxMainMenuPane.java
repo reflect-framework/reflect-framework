@@ -1,6 +1,5 @@
 package nth.reflect.javafx.control.window.mainmenu;
 
-import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
@@ -10,7 +9,6 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.ui.style.MaterialColors;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.style.RfxColorFactory;
-import nth.reflect.javafx.control.tabpane.RfxTabBarPane;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxMainMenuPane extends BorderPane {

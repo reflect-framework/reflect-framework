@@ -13,7 +13,7 @@ import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.reflect.javafx.RfxUtils;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
-import nth.reflect.javafx.control.tabpane.RfxMenuAndContentPane;
+import nth.reflect.javafx.control.window.RfxMenuAndContentPane;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxMainMenuItemTreeView extends RfxItemTreeView {

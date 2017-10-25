@@ -28,17 +28,36 @@ import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.fonticonurl.FontIconUrlHandler;
 import nth.reflect.javafx.control.style.RfxStyleSheetUrlHandler;
 
-public abstract class ReflectApplicationForJavaFX extends Application implements IntrospectApplication{
-
+/**
+ * {@link ReflectApplicationForJavaFX} is an implementation of the
+ * {@link IntrospectFramework} for desktop computers. It might also be used for
+ * mobile devices, but porting JavaFX for Android is still somewhat of a problem
+ * at the time of this writing.
+ * {@link ReflectApplicationForJavaFX} ties to comply with the <a href="https://material.io/guidelines/">Google Material Design</a> as much as possible. It optimizes the user interface depending on the size of the main window. 
+ * <h3>How to download a IntrospectForJavaFX demo project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * 
+ * <h3>How to create a new IntrospectForJavaFX project</h3>
+ * <p>
+ * TODO
+ * </p>
+ * 
+ * @author nilsth
+ *
+ */
+public abstract class ReflectApplicationForJavaFX extends Application
+		implements IntrospectApplication {
 
 	private Stage primaryStage;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
-		IntrospectFramework.launch(this);		
+		IntrospectFramework.launch(this);
 	}
-	
+
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
 		return RfxUserinterfaceController.class;
@@ -53,8 +72,6 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	public Class<? extends AboutProvider> getAboutProviderClass() {
 		return DefaultAboutProvider.class;
 	}
-
-	
 
 	@Override
 	public Class<? extends LanguageProvider> getLanguageProviderClass() {
@@ -78,19 +95,20 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlHandler.class, RfxStyleSheetUrlHandler.class);
+		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class,
+				FontIconUrlHandler.class, RfxStyleSheetUrlHandler.class);
 	}
-	
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
-	public abstract Color getPrimaryColor() ;
+	public abstract Color getPrimaryColor();
 
 	public abstract Color getSecondaryColor();
 
-	public abstract Color getAccentColor() ;
+	public abstract Color getAccentColor();
 
-	public abstract ContentColor getContentColor() ;
-	
+	public abstract ContentColor getContentColor();
+
 }

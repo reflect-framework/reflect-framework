@@ -25,8 +25,8 @@ import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
-import nth.reflect.javafx.control.tabpane.RfxTabButtonBar;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
+import nth.reflect.javafx.control.window.RfxTabButtonBar;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxAppBar extends BorderPane {

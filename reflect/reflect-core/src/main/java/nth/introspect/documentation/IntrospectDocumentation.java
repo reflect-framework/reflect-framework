@@ -34,7 +34,7 @@ import nth.introspect.IntrospectFramework;
  * <h1>Documentation</h1>
  * <p>
  * The documentation of the {@link IntrospectFramework} is generated from its
- * JavaDoc (starting with the {@link IntrospectDocumentation} file) and
+ * JavaDoc (starting with the {@link IntrospectDocumentation} file) and is
  * published in different formats and at different locations with help of the
  * {@link SoftwareDocumentationGenerator}:
  * </p>

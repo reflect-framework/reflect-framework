@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.tabpane;
+package nth.reflect.javafx.control.window;
 
 import com.jfoenix.controls.JFXDrawer;
 
@@ -19,7 +19,6 @@ import nth.introspect.layer2service.MainMenu;
 import nth.introspect.ui.style.MaterialColors;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.style.RfxColorFactory;
-import nth.reflect.javafx.control.window.RfxWindow;
 import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
@@ -59,8 +58,8 @@ public class RfxMenuAndContentPane extends StackPane {
 	// BorderPane mainMenuPane = new BorderPane();
 	//// mainMenuPane.setBackground(RfxColorFactory
 	//// .createBackGround(MaterialColors.getContentColorSet().getBackground()));
-	// mainMenuPane.setMinWidth(RfxTabBarPane.MENU_WIDTH);
-	// mainMenuPane.setMaxWidth(RfxTabBarPane.MENU_WIDTH);
+	// mainMenuPane.setMinWidth(RfxAppBarMenuPaneAndContentPane.MENU_WIDTH);
+	// mainMenuPane.setMaxWidth(RfxAppBarMenuPaneAndContentPane.MENU_WIDTH);
 	//
 	// javafx.scene.paint.Color lineColor = RfxColorFactory
 	// .create(MaterialColors.getContentColorSet().getForeground3());

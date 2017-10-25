@@ -13,21 +13,22 @@ import nth.introspect.IntrospectFramework;
  * implementation of the {@link IntrospectApplication}.
  * </p>
  * 
- * <h2>Introspect for CommandLine</h2>
- * <p>
- * {@include IntrospectApplicationForCommandLine}
- * </p>
- * 
- * <h2>Introspect for Swing</h2>
- * <p>
- * {@include IntrospectApplicationForSwing}
- * </p>
- * 
  * <h2>Introspect for JUnit</h2>
  * <p>
  * {@include IntrospectApplicationForJUnit}
  * </p>
  * 
+ * <h2>Introspect for CommandLine</h2>
+ * <p>
+ * {@include IntrospectApplicationForCommandLine}
+ * </p>
+ * 
+ * <h2>Introspect for JavaFx</h2>
+ * <p>
+ * {@include ReflectApplicationForJavaFX}
+ * </p>
+ * 
+ *  * 
  * @author nilsth
  *
  */

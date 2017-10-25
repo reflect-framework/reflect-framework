@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.tabpane;
+package nth.reflect.javafx.control.window;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.When;
@@ -31,11 +31,11 @@ public class RfxTabButton extends RfxButton {
 	private static final int PADDING = 12;
 	private static final double HEIGHT = 34;
 	private final View tab;
-	private final RfxTabBarPane tabBarPane;
+	private final RfxWindow rfxWindow;
 
-	public RfxTabButton(RfxTabBarPane tabBarPane, View tab) {
+	public RfxTabButton(RfxWindow rfxWindow, View tab) {
 		super(tab.getViewTitle());
-		this.tabBarPane = tabBarPane;
+		this.rfxWindow = rfxWindow;
 		this.tab = tab;
 		setButtonType(ButtonType.FLAT);
 		setColorSet(MaterialColors.getPrimaryColorSet());
@@ -45,7 +45,7 @@ public class RfxTabButton extends RfxButton {
 		String style=new RfxStyleProperties().setFont(MaterialFont.getBody2(DisplayScale.NONE_DENSE)).toString();
 		setStyle(style);
 		
-		When whenTabSelected = Bindings.when(tabBarPane.getSelectedTabProperty().isEqualTo(tab));
+		When whenTabSelected = Bindings.when(rfxWindow.getSelectedTabProperty().isEqualTo(tab));
 		
 		ObservableValue<Color> textColorBinding = createTextColorBinding(whenTabSelected);
 		textFillProperty().bind(textColorBinding);
@@ -74,7 +74,7 @@ public class RfxTabButton extends RfxButton {
 	}
 	
 	private void onAction(ActionEvent event) {
-		tabBarPane.getSelectedTabProperty().set(tab);
+		rfxWindow.getSelectedTabProperty().set(tab);
 	}
 
 	private Border createForegroundUnderlineBorder() {
