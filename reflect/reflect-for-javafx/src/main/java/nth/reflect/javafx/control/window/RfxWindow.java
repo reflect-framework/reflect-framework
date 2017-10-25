@@ -3,6 +3,8 @@ package nth.reflect.javafx.control.window;
 import java.net.MalformedURLException;
 import java.util.List;
 
+import com.jfoenix.controls.JFXDialog;
+
 import javafx.animation.TranslateTransition;
 import javafx.beans.Observable;
 import javafx.beans.binding.BooleanBinding;
@@ -25,36 +27,40 @@ import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.window.appbar.RfxAppBar;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
+/**
+ * TODO Use a StackPane instead of a BorderPane and override
+ * {@link #layoutChildren()} so that {@link JFXDialog} can use {@link RfxWindow}
+ * as parent and {@link RfxMenuAndContentPane} can merged with {@link RfxWindow}
+ * 
+ * @author nilsth
+ *
+ */
 public class RfxWindow extends BorderPane implements RfxControl {
-
 
 	private final BooleanBinding extraHighBinding;
 	private final BooleanBinding extraWideBinding;
 	private final BooleanProperty mainMenuVisibleProperty;
 	private final ObservableList<View> tabsProperty;
 	private final ObjectPropertyBase<View> selectedTabProperty;
-	
+
 	private RfxMenuAndContentPane menuAndContentPane;
 	private RfxTabButtonBar tabButtonBar;
 	private RfxMainMenuPane menuPane;
 
-	
 	public static final int MENU_WIDTH = 300;
 	private static final int WINDOW_FAIRLY_HIGH_BINDING = 700;
 	public static final double WINDOW_FAIRLY_WIDE_BINDING = MENU_WIDTH * 3;
 	private static final int MENU_SLIDE_ANIMATION_DURATION = 500;
 
-
-	
 	public RfxWindow(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		super();
 
 		extraHighBinding = heightProperty().greaterThan(WINDOW_FAIRLY_HIGH_BINDING);
 		extraWideBinding = widthProperty().greaterThan(WINDOW_FAIRLY_WIDE_BINDING);
-		mainMenuVisibleProperty=createMainMenuVisibleProperty();
+		mainMenuVisibleProperty = createMainMenuVisibleProperty();
 		tabsProperty = createTabsPropery();
 		selectedTabProperty = createSelectedTabProperty();
-		
+
 		userInterfaceContainer.add(this);
 
 		setMinWidth(300);
@@ -62,13 +68,12 @@ public class RfxWindow extends BorderPane implements RfxControl {
 
 		menuPane = new RfxMainMenuPane(userInterfaceContainer);
 		tabButtonBar = new RfxTabButtonBar(this);
-		BorderPane appBar = new RfxAppBar( userInterfaceContainer, tabButtonBar);
+		BorderPane appBar = new RfxAppBar(userInterfaceContainer, tabButtonBar);
 		setTop(appBar);
-		
+
 		menuAndContentPane = new RfxMenuAndContentPane(userInterfaceContainer, menuPane);
 		setCenter(menuAndContentPane);
 	}
-
 
 	private SimpleObjectProperty<View> createSelectedTabProperty() {
 		SimpleObjectProperty<View> selectedTabProperty = new SimpleObjectProperty<>();
@@ -76,13 +81,11 @@ public class RfxWindow extends BorderPane implements RfxControl {
 		return selectedTabProperty;
 	}
 
-
 	private ObservableList<View> createTabsPropery() {
 		ObservableList<View> tabsProperty = FXCollections.<View>observableArrayList();
 		tabsProperty.addListener(this::onTabsChanged);
 		return tabsProperty;
 	}
-
 
 	public void onTabsChanged(Change change) {
 		if (tabsProperty.size() == 0) {
@@ -102,10 +105,10 @@ public class RfxWindow extends BorderPane implements RfxControl {
 
 	private void updateContent() {
 		View selectedTab = selectedTabProperty.get();
-		if (selectedTab==null) {
+		if (selectedTab == null) {
 			menuAndContentPane.clearContentPane();
 		} else {
-			menuAndContentPane.setContentPane((Node)selectedTab);
+			menuAndContentPane.setContentPane((Node) selectedTab);
 		}
 	}
 
@@ -135,7 +138,7 @@ public class RfxWindow extends BorderPane implements RfxControl {
 	public void onSelectedTabChanged(Observable observable) {
 		updateTabs();
 	}
-	
+
 	public ObjectProperty<View> getSelectedTabProperty() {
 		return selectedTabProperty;
 	}
@@ -144,25 +147,24 @@ public class RfxWindow extends BorderPane implements RfxControl {
 		return tabsProperty;
 	}
 
-
 	private BooleanProperty createMainMenuVisibleProperty() {
-		BooleanProperty mainMenuVisibleProperty= new BooleanPropertyBase(true) {
-			
+		BooleanProperty mainMenuVisibleProperty = new BooleanPropertyBase(true) {
+
 			@Override
 			public String getName() {
 				return "mainMenuVisibleProperty";
 			}
-			
+
 			@Override
 			public Object getBean() {
 				return this;
 			}
-			
+
 		};
 		mainMenuVisibleProperty.addListener(new ChangeListener<Boolean>() {
 			@Override
-			public void changed(ObservableValue<? extends Boolean> observable,
-					Boolean oldValue, Boolean newValue) {
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+					Boolean newValue) {
 				if (newValue) {
 					onMainMenuShow();
 				} else {
@@ -176,7 +178,6 @@ public class RfxWindow extends BorderPane implements RfxControl {
 	public BooleanBinding getExtraHighBinding() {
 		return extraHighBinding;
 	}
-
 
 	public BooleanBinding getExtraWideBinding() {
 		return extraWideBinding;
@@ -202,7 +203,5 @@ public class RfxWindow extends BorderPane implements RfxControl {
 		translate.setToX(0);
 		translate.play();
 	}
-
-
 
 }
