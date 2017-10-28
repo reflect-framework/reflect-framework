@@ -1,7 +1,6 @@
 package nth.reflect.javafx.control.window.mainmenu;
 
 import java.util.List;
-import java.util.Optional;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -11,9 +10,7 @@ import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
-import nth.reflect.javafx.RfxUtils;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
-import nth.reflect.javafx.control.window.RfxMenuAndContentPane;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxMainMenuItemTreeView extends RfxItemTreeView {
