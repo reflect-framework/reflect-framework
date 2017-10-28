@@ -29,6 +29,8 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.view.View;
 import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.window.appbar.RfxAppBar;
+import nth.reflect.javafx.control.window.appbar.RfxTabButtonBar;
+import nth.reflect.javafx.control.window.content.RfxContentPane;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
 /** TODO merge {@link RfxMenuAndContentPane} with {@link RfxWindow}
@@ -44,7 +46,6 @@ public class RfxWindow extends StackPane implements RfxControl {
 	private final ObservableList<View> tabsProperty;
 	private final ObjectPropertyBase<View> selectedTabProperty;
 
-	private RfxMenuAndContentPane menuAndContentPane;
 	private RfxTabButtonBar tabButtonBar;
 	private RfxMainMenuPane menuPane;
 
@@ -53,6 +54,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 	public static final double WINDOW_FAIRLY_WIDE_BINDING = MENU_WIDTH * 3;
 	private static final int MENU_SLIDE_ANIMATION_DURATION = 500;
 	private RfxAppBar appBar;
+	private RfxContentPane contentPane;
 
 	public RfxWindow(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		super();
@@ -68,13 +70,17 @@ public class RfxWindow extends StackPane implements RfxControl {
 		setMinWidth(300);
 		setMinHeight(500);
 
-		menuPane = new RfxMainMenuPane(userInterfaceContainer);
+		
 		tabButtonBar = new RfxTabButtonBar(this);
 		appBar = new RfxAppBar(userInterfaceContainer, tabButtonBar);
 		getChildren().add(appBar);
-
-		menuAndContentPane = new RfxMenuAndContentPane(userInterfaceContainer, menuPane);
-		getChildren().add(menuAndContentPane);
+		
+		contentPane=new RfxContentPane();
+		getChildren().add(contentPane);
+		
+		menuPane = new RfxMainMenuPane(userInterfaceContainer);
+		getChildren().add(menuPane);
+		
 	}
 
 	@Override
@@ -90,11 +96,14 @@ public class RfxWindow extends StackPane implements RfxControl {
 		positionInArea(appBar, x, y, width, appBarHeight,
 				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 		y+=appBarHeight;
-
-		menuAndContentPane.resize(width, height-y);
-		positionInArea(menuAndContentPane, x, y, width, height-y,
-				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 		
+		contentPane.resize(width, height-y);
+		positionInArea(contentPane, x, y, width, height-y,
+				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
+
+		menuPane.resize(MENU_WIDTH, height-y);
+		positionInArea(menuPane, x, y, MENU_WIDTH, height-y,
+				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 	}
 	
 	private SimpleObjectProperty<View> createSelectedTabProperty() {
@@ -128,9 +137,9 @@ public class RfxWindow extends StackPane implements RfxControl {
 	private void updateContent() {
 		View selectedTab = selectedTabProperty.get();
 		if (selectedTab == null) {
-			menuAndContentPane.clearContentPane();
+			contentPane.getChildren().clear();
 		} else {
-			menuAndContentPane.setContentPane((Node) selectedTab);
+			contentPane.setCenter((Node) selectedTab);
 		}
 	}
 

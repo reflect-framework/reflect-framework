@@ -1,11 +1,11 @@
-package nth.reflect.javafx.control.window;
+package nth.reflect.javafx.control.window.appbar;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import nth.introspect.layer1userinterface.view.View;
 import nth.reflect.javafx.control.RfxControl;
-import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
+import nth.reflect.javafx.control.window.RfxWindow;
 
 /**
  * TODO: remove this class by moving its contents to {@link RfxAppButtonBar} class

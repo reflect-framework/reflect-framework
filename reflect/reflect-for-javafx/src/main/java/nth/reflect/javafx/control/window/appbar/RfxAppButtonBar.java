@@ -14,8 +14,6 @@ import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 import nth.reflect.javafx.control.view.form.RfxDomainPropertyPane;
 import nth.reflect.javafx.control.view.form.RfxFormView;
 import nth.reflect.javafx.control.view.table.RfxTableView;
-import nth.reflect.javafx.control.window.RfxTabButton;
-import nth.reflect.javafx.control.window.RfxTabButtonBar;
 import nth.reflect.javafx.control.window.RfxWindow;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 

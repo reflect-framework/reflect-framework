@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.window;
+package nth.reflect.javafx.control.window.appbar;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.When;
@@ -19,6 +19,7 @@ import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.style.RfxColorFactory;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
+import nth.reflect.javafx.control.window.RfxWindow;
 
 /**
  * TODO: move to {@link nth.reflect.javafx.control.window.appbar} package
