@@ -17,9 +17,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener.Change;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.view.View;
@@ -27,15 +31,12 @@ import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.window.appbar.RfxAppBar;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
-/**
- * TODO Use a StackPane instead of a BorderPane and override
- * {@link #layoutChildren()} so that {@link JFXDialog} can use {@link RfxWindow}
- * as parent and {@link RfxMenuAndContentPane} can merged with {@link RfxWindow}
+/** TODO merge {@link RfxMenuAndContentPane} with {@link RfxWindow}
  * 
  * @author nilsth
  *
  */
-public class RfxWindow extends BorderPane implements RfxControl {
+public class RfxWindow extends StackPane implements RfxControl {
 
 	private final BooleanBinding extraHighBinding;
 	private final BooleanBinding extraWideBinding;
@@ -51,6 +52,7 @@ public class RfxWindow extends BorderPane implements RfxControl {
 	private static final int WINDOW_FAIRLY_HIGH_BINDING = 700;
 	public static final double WINDOW_FAIRLY_WIDE_BINDING = MENU_WIDTH * 3;
 	private static final int MENU_SLIDE_ANIMATION_DURATION = 500;
+	private RfxAppBar appBar;
 
 	public RfxWindow(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		super();
@@ -68,13 +70,33 @@ public class RfxWindow extends BorderPane implements RfxControl {
 
 		menuPane = new RfxMainMenuPane(userInterfaceContainer);
 		tabButtonBar = new RfxTabButtonBar(this);
-		BorderPane appBar = new RfxAppBar(userInterfaceContainer, tabButtonBar);
-		setTop(appBar);
+		appBar = new RfxAppBar(userInterfaceContainer, tabButtonBar);
+		getChildren().add(appBar);
 
 		menuAndContentPane = new RfxMenuAndContentPane(userInterfaceContainer, menuPane);
-		setCenter(menuAndContentPane);
+		getChildren().add(menuAndContentPane);
 	}
 
+	@Override
+	protected void layoutChildren() {
+		double width = getWidth();
+		double height = getHeight();
+		boolean snapToPixel = isSnapToPixel();
+		double x = 0;
+		double y = 0;
+		
+		double appBarHeight = appBar.calculateHeight();
+		appBar.resize(width, appBarHeight);
+		positionInArea(appBar, x, y, width, appBarHeight,
+				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
+		y+=appBarHeight;
+
+		menuAndContentPane.resize(width, height-y);
+		positionInArea(menuAndContentPane, x, y, width, height-y,
+				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
+		
+	}
+	
 	private SimpleObjectProperty<View> createSelectedTabProperty() {
 		SimpleObjectProperty<View> selectedTabProperty = new SimpleObjectProperty<>();
 		selectedTabProperty.addListener(this::onSelectedTabChanged);

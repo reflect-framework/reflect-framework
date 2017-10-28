@@ -46,5 +46,9 @@ public class RfxAppBar extends BorderPane {
 		BorderPane buttonBar = new RfxAppButtonBar(userInterfaceContainer, tabButtonBar);
 		setBottom(buttonBar);
 	}
+	
+public double calculateHeight() {
+	return computePrefHeight(-1);
+}
 		
 }
