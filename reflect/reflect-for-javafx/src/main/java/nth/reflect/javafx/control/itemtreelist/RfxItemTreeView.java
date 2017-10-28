@@ -1,42 +1,20 @@
 package nth.reflect.javafx.control.itemtreelist;
 
-import java.util.List;
-
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
-import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
-import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
-import nth.introspect.ui.style.basic.Color;
-import nth.reflect.javafx.control.style.RfxColorFactory;
-import nth.reflect.javafx.control.style.RfxStyleGroup;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
-import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
-import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarTitle;
 import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
 
 /**

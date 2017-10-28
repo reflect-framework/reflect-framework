@@ -1,7 +1,14 @@
 package nth.reflect.javafx.control.button;
 
 import com.jfoenix.controls.JFXButton;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColors;
@@ -10,15 +17,6 @@ import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.fonticon.RfxFontIcon;
 import nth.reflect.javafx.control.fonticon.RfxFontIconName;
 import nth.reflect.javafx.control.style.RfxColorFactory;
-import nth.reflect.javafx.control.style.RfxStyleGroup;
-import nth.reflect.javafx.control.style.RfxStyleSheet;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Insets;
 
 public class RfxButton extends JFXButton implements RfxControl {
 

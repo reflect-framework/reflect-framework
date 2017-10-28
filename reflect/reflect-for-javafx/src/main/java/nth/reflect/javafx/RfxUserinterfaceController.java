@@ -24,7 +24,6 @@ import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.view.FormMode;
-import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.view.form.RfxFormView;
 import nth.reflect.javafx.control.view.table.RfxTableView;

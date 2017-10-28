@@ -5,7 +5,6 @@ import java.util.List;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import nth.introspect.ui.style.MaterialStyle;
 
 public class RfxStyleSheet {
 

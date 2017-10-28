@@ -1,7 +1,5 @@
 package nth.reflect.javafx.control.style;
 
-import java.util.Map;
-
 public class RfxStyleGroup {
 
 	private final RfxStyleProperties properties;

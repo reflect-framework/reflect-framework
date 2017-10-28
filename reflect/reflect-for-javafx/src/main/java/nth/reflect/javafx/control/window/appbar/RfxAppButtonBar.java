@@ -1,10 +1,8 @@
 package nth.reflect.javafx.control.window.appbar;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.WritableBooleanValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;

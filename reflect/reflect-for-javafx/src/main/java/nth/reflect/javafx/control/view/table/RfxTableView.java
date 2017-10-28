@@ -6,9 +6,7 @@ import java.util.List;
 
 import com.sun.javafx.collections.ObservableListWrapper;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;

@@ -3,8 +3,6 @@ package nth.reflect.javafx.control.window;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import com.jfoenix.controls.JFXDialog;
-
 import javafx.animation.TranslateTransition;
 import javafx.beans.Observable;
 import javafx.beans.binding.BooleanBinding;
@@ -17,12 +15,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener.Change;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;

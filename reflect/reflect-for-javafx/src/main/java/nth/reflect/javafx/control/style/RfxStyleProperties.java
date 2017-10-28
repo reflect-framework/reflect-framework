@@ -1,7 +1,6 @@
 package nth.reflect.javafx.control.style;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import javafx.geometry.Pos;
 import nth.introspect.ui.style.MaterialColorSet;

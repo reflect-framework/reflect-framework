@@ -1,7 +1,6 @@
 package nth.reflect.javafx.control.fonticon;
 
 import javafx.scene.text.Text;
-import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.basic.Color;
 import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
