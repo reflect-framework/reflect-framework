@@ -11,7 +11,7 @@ import nth.reflect.javafx.control.style.RfxStyleProperties;
 
 public class RfxAppBar extends BorderPane {
 
-	public RfxAppBar(UserInterfaceContainer userInterfaceContainer, RfxTabButtonBar tabButtonBar) {
+	public RfxAppBar(UserInterfaceContainer userInterfaceContainer) {
 		String style = new RfxStyleProperties()
 				.setBackground(MaterialColors.getPrimaryColorSet().getBackground())
 				//.setMinHeight(BAR_HEIGHT)
@@ -23,7 +23,7 @@ public class RfxAppBar extends BorderPane {
 		HBox titleBar = new RfxAppTitleBar(userInterfaceContainer);
 		setTop(titleBar);
 		
-		BorderPane buttonBar = new RfxAppButtonBar(userInterfaceContainer, tabButtonBar);
+		RfxAppButtonBar buttonBar = new RfxAppButtonBar(userInterfaceContainer);
 		setBottom(buttonBar);
 	}
 	

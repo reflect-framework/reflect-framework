@@ -15,6 +15,7 @@ public class RfxApplicationToolbarButton extends RfxButton implements RfxControl
 		setButtonType(ButtonType.FLAT);
 		setColorSet(MaterialColors.getPrimaryColorSet());
 		setMinHeight(ICON_HEIGHT);
+		setMinWidth(ICON_HEIGHT);
 		setPadding(new Insets(0, 16, 0, 16));
 	}
 }
