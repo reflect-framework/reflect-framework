@@ -231,7 +231,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 					Boolean newValue) {
 				if (newValue) {
 					onMainMenuShow();
-				} else {
+				} else if (tabsProperty.size()>0) {
 					onMainMenuHide();
 				}
 			}

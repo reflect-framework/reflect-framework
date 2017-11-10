@@ -3,9 +3,12 @@ package nth.reflect.javafx.control.window.appbar;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
 
+import de.jensd.fx.glyphs.GlyphIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -22,8 +25,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.view.View;
+import nth.introspect.ui.style.basic.Color;
 import nth.reflect.javafx.control.button.RfxButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
+import nth.reflect.javafx.control.fonticon.RfxFontIcon;
+import nth.reflect.javafx.control.style.RfxStyleGroup;
+import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarButton;
 import nth.reflect.javafx.control.view.form.RfxDomainPropertyPane;
 import nth.reflect.javafx.control.view.form.RfxFormView;
@@ -56,7 +63,7 @@ public class RfxAppButtonBar extends Pane {
 	private static final int IGNORE_BASE_LINE = 0;
 	public static final int BAR_HEIGHT = 38;
 	private final BooleanProperty mainMenuVisibleProperty;
-	private final RfxApplicationToolbarButton mainMenuButton;
+	private final JFXButton mainMenuButton;
 	private final ObservableList<View> tabsProperty;
 	private final RfxWindow rfxWindow;
 	private final BooleanBinding extraWideBinding;
@@ -73,7 +80,8 @@ public class RfxAppButtonBar extends Pane {
 		selectedTabProperty = rfxWindow.getSelectedTabProperty();
 		selectedTabProperty.addListener(this::onSelectedTabChanged);
 
-		mainMenuButton = createMainMenuButtton();
+		//mainMenuButton = createMainMenuButtton();
+		mainMenuButton=createMainMenuButtton();
 		getChildren().add(mainMenuButton);
 
 		tabSelectionButton = createTabSelectionButton();
@@ -278,16 +286,6 @@ public class RfxAppButtonBar extends Pane {
 		return mainMenuVisibleProperty.get() && extraWideBinding.get();
 	}
 
-	private HBox createMenuBar() {
-		HBox menuBar = new HBox();
-		menuBar.setMinHeight(BAR_HEIGHT);
-		menuBar.setMinWidth(RfxWindow.MENU_WIDTH);
-
-		RfxButton mainMenuButton = createMainMenuButtton();
-		menuBar.getChildren().add(mainMenuButton);
-
-		return menuBar;
-	}
 
 	private RfxApplicationToolbarButton createTabMenuButton() {
 		RfxApplicationToolbarButton tabMenuButton = new RfxApplicationToolbarButton(
@@ -304,11 +302,31 @@ public class RfxAppButtonBar extends Pane {
 		return tabSelectionButton;
 	}
 
-	private RfxApplicationToolbarButton createMainMenuButtton() {
-		RfxApplicationToolbarButton mainMenuButton = new RfxApplicationToolbarButton(
-				FontAwesomeIconName.BARS);
-		mainMenuButton.setOnAction(this::toggleMainMenuVisibility);
-		return mainMenuButton;
+	private RfxFontIcon createTestIcon() {
+	RfxFontIcon icon=new RfxFontIcon(FontAwesomeIconName.BARS, 16, Color.WHITE);
+return icon;
+	}
+	
+	private JFXButton createMainMenuButtton() {
+//		RfxApplicationToolbarButton mainMenuButton = new RfxApplicationToolbarButton(
+//				FontAwesomeIconName.BARS);
+//		mainMenuButton.setOnAction(this::toggleMainMenuVisibility);
+		
+		JFXButton button = new JFXButton();
+		 FontAwesomeIcon icon = new FontAwesomeIcon();
+		 icon.setIcon(de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.BARS);
+		 icon.setSize("17px");
+		 String iconStyle = icon.getStyle()+";"+new RfxStyleProperties().setFill(Color.WHITE).toString();
+		 icon.setStyle(iconStyle);
+		
+//		RfxFontIcon icon=new RfxFontIcon(FontAwesomeIconName.BARS, 16, Color.WHITE);
+		button.setGraphic(icon);
+		 	button.	setPadding(new Insets(8, 16, 8, 17));
+		//button.getStyleClass().add("button-flat");
+		button.setOnAction(this::toggleMainMenuVisibility);
+//	TODO the above in RfxApplicationToolbarButton and move it to the appbar package
+		return button;
+		//return mainMenuButton;
 	}
 
 	private void toggleMainMenuVisibility(ActionEvent event) {

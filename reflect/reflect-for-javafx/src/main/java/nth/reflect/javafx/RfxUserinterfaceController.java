@@ -1,20 +1,34 @@
 package nth.reflect.javafx;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.List;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.sun.javafx.applet.FXApplet2;
 import com.jfoenix.controls.JFXDialogLayout;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
+import nth.introspect.layer1userinterface.controller.UploadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer1userinterface.view.ViewContainer;
@@ -40,13 +54,15 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	@Override
 	public View createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new RfxFormView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject, formMode);
+		return new RfxFormView(userInterfaceContainer, serviceObject, actionMethodInfo,
+				methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
 	public View createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		return new RfxTableView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
+		return new RfxTableView(userInterfaceContainer, serviceObject, actionMethodInfo,
+				methodParameterValue);
 	}
 
 	@Override
@@ -64,10 +80,10 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 	@Override
 	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
-		JFXDialogLayout content=new JFXDialogLayout();
+		JFXDialogLayout content = new JFXDialogLayout();
 		content.setHeading(new Text(title));
 		content.setBody(new Text(message));
-		JFXDialog dialog=new JFXDialog(mainWindow,content,DialogTransition.CENTER,true);
+		JFXDialog dialog = new JFXDialog(mainWindow, content, DialogTransition.CENTER, true);
 		dialog.setContent(content);
 		dialog.show();
 	}
@@ -86,13 +102,41 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 	@Override
 	public void openURI(URI uri) {
-		// TODO Auto-generated method stub
-
+		try {
+			Desktop.getDesktop().browse(uri);
+		} catch (IOException exception) {
+			showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
+		}
 	}
 
 	@Override
 	public void downloadFile(DownloadStream downloadStream) {
-		// TODO Auto-generated method stub
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save File");
+		fileChooser.setInitialFileName(downloadStream.getFile().getName());
+		File directory = downloadStream.getFile().getParentFile();
+		if (directory!=null) {
+			fileChooser.setInitialDirectory(directory);
+		}
+		ReflectApplicationForJavaFX application = userInterfaceContainer
+				.get(ReflectApplicationForJavaFX.class);
+		Stage stage = application.getPrimaryStage();
+		File file = fileChooser.showSaveDialog(stage);
+		if (file != null) {
+			// safe file
+			try {
+				InputStream inputStream = downloadStream.getInputStream();
+				OutputStream out = new FileOutputStream(file);
+				byte buf[] = new byte[1024];
+				int len;
+				while ((len = inputStream.read(buf)) > 0)
+					out.write(buf, 0, len);
+				out.close();
+				inputStream.close();
+			} catch (Exception e) {
+				showErrorDialog("Error saving file", "Failed to save file.", e);
+			}
+		}
 
 	}
 
@@ -105,12 +149,12 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	public void launch() {
 		ReflectApplicationForJavaFX application = userInterfaceContainer
 				.get(ReflectApplicationForJavaFX.class);
-		
-		MaterialColors.init(application.getPrimaryColor(), application.getSecondaryColor(), application.getAccentColor(), application.getContentColor());
-		
+
+		MaterialColors.init(application.getPrimaryColor(), application.getSecondaryColor(),
+				application.getAccentColor(), application.getContentColor());
+
 		Stage primaryStage = application.getPrimaryStage();
 
-		
 		try {
 			mainWindow = new RfxWindow(userInterfaceContainer);
 		} catch (MalformedURLException e) {
@@ -129,10 +173,9 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 		String title = getApplicationTitle(application);
 		primaryStage.setTitle(title);
-
+		primaryStage.setMaximized(true);
 		primaryStage.show();
 	}
-
 
 	private String getApplicationTitle(ReflectApplicationForJavaFX application) {
 		ReflectionProvider reflectionProvider = userInterfaceContainer
@@ -141,5 +184,34 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		String title = applicationInfo.getDisplayName();
 		return title;
 	}
+
+	@Override
+	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
+			UploadStream uploadStream) {
+		FileChooser fileChooser = new FileChooser();
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream, true);
+		fileChooser.setTitle(title);
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
+				uploadStream.getFileTypeDescription(), uploadStream.getFileExtentionFilters()));
+		ReflectApplicationForJavaFX application = userInterfaceContainer
+				.get(ReflectApplicationForJavaFX.class);
+		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());
+		if (selectedFile != null) {
+			uploadStream.setFile(selectedFile);
+			processActionMethodExecution(methodOwner, methodInfo, uploadStream);
+		}
+
+	}
+
+	/**
+	 * JavaFX does not allow executing threads on the event thread, so we run it later.
+	 */
+	@Override
+	public void executeInThread(Runnable methodExecutionRunnable) {
+		Platform.runLater(methodExecutionRunnable);
+	}
+
+	
 
 }

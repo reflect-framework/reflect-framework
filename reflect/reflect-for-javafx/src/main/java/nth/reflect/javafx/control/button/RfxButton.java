@@ -37,7 +37,6 @@ public class RfxButton extends JFXButton implements RfxControl {
 	public RfxButton(RfxFontIconName fontIconName) {
 		super();
 		init();
-		this.fontIconName = fontIconName;
 		setFontIconName(fontIconName);
 	}
 

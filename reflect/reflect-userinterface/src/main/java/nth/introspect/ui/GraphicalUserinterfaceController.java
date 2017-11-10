@@ -9,6 +9,7 @@ import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.DialogType;
 import nth.introspect.layer1userinterface.controller.DownloadStream;
+import nth.introspect.layer1userinterface.controller.UploadStream;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
@@ -97,6 +98,9 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 		openFormView(actionMethodOwner, actionMethodInfo, actionMethodParameterValue,
 				actionMethodParameterValue, FormMode.EDIT_MODE);
 	}
+	
+	public abstract void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
+			UploadStream uploadStream);
 
 	@Override
 	public void processActionMethodExecution(Object serviceObject,
@@ -173,9 +177,14 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 			}
 		};
-		Thread methodExecutionThread = new Thread(runnable);
-		methodExecutionThread.start();
+		executeInThread(runnable);
 	}
+	
+	/**
+	 * Hook so that each type of user interface can execute the method using threading in they way preferred by user interface  
+	 * @param methodExecutionRunnable
+	 */
+	public abstract void executeInThread(Runnable methodExecutionRunnable) ;
 
 	public void openFormView(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {

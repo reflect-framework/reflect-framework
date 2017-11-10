@@ -21,7 +21,8 @@ public class RfxFontIcon extends Text implements RfxControl {
 		super();
 		setText(Character.toString(unicodeCharacter));
 		String styleProperties = new RfxStyleProperties().setFont(fontFamilyName)
-				.setFontSize(sizeInPixels).setFill(color).toString();
+				.setFontSize(sizeInPixels)
+				.setFill(color).toString();
 		setStyle(styleProperties);
 	}
 

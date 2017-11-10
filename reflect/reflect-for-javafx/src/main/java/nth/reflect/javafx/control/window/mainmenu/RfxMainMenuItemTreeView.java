@@ -4,9 +4,11 @@ import java.util.List;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
@@ -17,12 +19,14 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 
 	private final BooleanBinding windowExtraWideBinding;
 	private final BooleanProperty mainMenuVisibleProperty;
+	private final  ObservableList<View> tabsProperty;
 
 	public RfxMainMenuItemTreeView(UserInterfaceContainer userInterfaceContainer) {
 		super(createRootItem(userInterfaceContainer));
 		RfxWindow rfxWindow = userInterfaceContainer.get(RfxWindow.class);
 		this.windowExtraWideBinding = rfxWindow.getExtraWideBinding();
 		this.mainMenuVisibleProperty=rfxWindow.getMainMenuVisibleProperty();
+		this.tabsProperty=rfxWindow.getTabsProperty();
 	}
 	
 	
@@ -78,7 +82,7 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 	@Override
 	protected void onAction(Item item) {
 		super.onAction(item);
-		if (isNarrowWindow()) {
+		if (isNarrowWindow() && tabsProperty.size()>0) {
 			hideMainMenu();				
 		}
 	}

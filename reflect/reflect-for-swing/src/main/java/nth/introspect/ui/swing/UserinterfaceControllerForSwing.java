@@ -69,11 +69,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		Toast.makeText(mainWindow, message, Style.NORMAL).display();
 	}
 
-	/**
-	 * TODO add abstract method editActionMethodParameter(Object methodOwner,
-	 * ActionMethodInfo methodInfo, UploadStream uploadStream) to
-	 * {@link GraphicalUserinterfaceController}
-	 */
+	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
 			UploadStream uploadStream) {
 		final JFileChooser fc = new JFileChooser();
@@ -81,7 +77,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		fc.setDialogTitle(title);
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				uploadStream.getFileTypeDescription(), uploadStream.getFileExtentions());
+				uploadStream.getFileTypeDescription(), uploadStream.getFileExtentionFilters());
 		fc.setFileFilter(filter);
 		int result = fc.showOpenDialog(getMainWindow());
 		if (result == JFileChooser.APPROVE_OPTION) {
@@ -189,6 +185,12 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 			}
 		}
 
+	}
+
+	@Override
+	public void executeInThread(Runnable methodExecutionRunnable) {
+		Thread methodExecutionThread = new Thread(methodExecutionRunnable);
+		methodExecutionThread.start();
 	}
 
 }

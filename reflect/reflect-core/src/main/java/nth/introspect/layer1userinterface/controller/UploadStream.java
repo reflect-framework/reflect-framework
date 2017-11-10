@@ -8,12 +8,12 @@ import java.io.InputStream;
 public class UploadStream {
 
 	private final String fileTypeDescription;
-	private final String[] fileExtentions;
+	private final String[] fileExtentionFilters;
 	private File file;
 
-	public UploadStream(String fileTypeDescription, String... fileExtentions) {
+	public UploadStream(String fileTypeDescription, String... fileExtentionFilters) {
 		this.fileTypeDescription = fileTypeDescription;
-		this.fileExtentions = fileExtentions;
+		this.fileExtentionFilters = fileExtentionFilters;
 	}
 
 	public File getFile() {
@@ -28,8 +28,8 @@ public class UploadStream {
 		return fileTypeDescription;
 	}
 
-	public String[] getFileExtentions() {
-		return fileExtentions;
+	public String[] getFileExtentionFilters() {
+		return fileExtentionFilters;
 	}
 
 	public void setFile(File file) {
