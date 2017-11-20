@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.item.method.MethodOwnerItem;
-import nth.introspect.ui.style.MaterialColorSet;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.fonticonurl.FontIconUrl;
 import nth.reflect.javafx.control.RfxControl;
@@ -143,12 +143,12 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class)).getProperties()
 				.setFont(MaterialFont.getBody1())
-				.setBackground(MaterialColorSet.CONTENT_COLOR + MaterialColorSet.BACKGROUND_HIGHLIGHTED);
+				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED());
 			
 
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class).appendSelected())
 				.getProperties()
-				.setBackground(MaterialColorSet.ACCENT_COLOR + MaterialColorSet.BACKGROUND);
+				.setBackground(MaterialColorSetCssName.ACCENT.BACKGROUND());
 
 	}
 

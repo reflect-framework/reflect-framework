@@ -3,28 +3,17 @@ package nth.introspect.ui.style;
 import nth.introspect.ui.style.basic.Color;
 
 /**
- * A {@link MaterialColorSet} is a group of background and foreground colors, based on a given background color and a predefined set of rules.
- * See https://www.google.com/design/spec/style/color.html#
+ * A {@link MaterialColorSet} is a group of background and foreground colors,
+ * based on a given background color and a predefined set of rules. See
+ * https://www.google.com/design/spec/style/color.html#
  * 
  * @author nilsth
  *
  */
 public class MaterialColorSet implements MaterialDesign {
 
-	private static final double LIGHTER = 1+0.5;
-	private static final double DARKER = 1-0.1;
-	private static final String RFX_COLOR = "-rfx-color";
-	public static final String PRIMARY_COLOR = RFX_COLOR+"-primary";
-	public static final String SECONDARY_COLOR = RFX_COLOR+ "-secondary";
-	public static final String ACCENT_COLOR = RFX_COLOR+ "-accent";
-	public static final String CONTENT_COLOR = RFX_COLOR+ "-content";
-	public static final String FOREGROUND1 = "-foreground1";
-	public static final String FOREGROUND2 = "-foreground2";
-	public static final String FOREGROUND3 = "-foreground3";
-	public static final String BACKGROUND = "-background";
-	public static final String BACKGROUND_HIGHLIGHTED = BACKGROUND+"-heighlighted";
-	public static final String PRIMARY_BACKGROUND_HIGHLIGHTED = PRIMARY_COLOR+BACKGROUND_HIGHLIGHTED;
-	
+	private static final double LIGHTER = 1 + 0.5;
+	private static final double DARKER = 1 - 0.1;
 	private final Color backgroundColor;
 	private final Color foregroundColor1;
 	private final Color foregroundColor2;
@@ -43,19 +32,18 @@ public class MaterialColorSet implements MaterialDesign {
 	public MaterialColorSet(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 		if (backgroundColor.isDark()) {
-			backgroundColorHighLighted=backgroundColor.deriveDarknes(LIGHTER);
+			backgroundColorHighLighted = backgroundColor.deriveDarknes(LIGHTER);
 			foregroundColor1 = Color.WHITE.deriveAlpha(1.0);
 			foregroundColor2 = Color.WHITE.deriveAlpha(0.70);
 			foregroundColor3 = Color.WHITE.deriveAlpha(0.30);
 		} else {
-			backgroundColorHighLighted=backgroundColor.deriveDarknes(DARKER);
+			backgroundColorHighLighted = backgroundColor.deriveDarknes(DARKER);
 			foregroundColor1 = Color.BLACK.deriveAlpha(0.87);
 			foregroundColor2 = Color.BLACK.deriveAlpha(0.54);
 			foregroundColor3 = Color.BLACK.deriveAlpha(0.38);
 		}
 	}
 
-	
 	/**
 	 * @return backgroundColor
 	 */
@@ -65,13 +53,14 @@ public class MaterialColorSet implements MaterialDesign {
 
 	/**
 	 * 
-	 * @return color of background for when the object is activated by the user (pressed\ clicked) Note do not use for mouse over: mouse overs confuses the user what has focus. 
+	 * @return color of background for when the object is activated by the user
+	 *         (pressed\ clicked) Note do not use for mouse over: mouse overs
+	 *         confuses the user what has focus.
 	 */
 	public Color getBackgroundHighLighted() {
 		return backgroundColorHighLighted;
 	}
 
-	
 	/**
 	 * @return the primary foreground color i.e. used for the most important
 	 *         texts or icons. Note that you should use predefined colors by the

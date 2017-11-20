@@ -77,7 +77,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		fc.setDialogTitle(title);
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				uploadStream.getFileTypeDescription(), uploadStream.getFileExtentionFilters());
+				uploadStream.getFileTypeDescription(), uploadStream.fileExtentionFilters());
 		fc.setFileFilter(filter);
 		int result = fc.showOpenDialog(getMainWindow());
 		if (result == JFileChooser.APPROVE_OPTION) {

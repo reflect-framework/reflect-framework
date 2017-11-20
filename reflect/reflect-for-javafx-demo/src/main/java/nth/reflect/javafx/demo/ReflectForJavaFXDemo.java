@@ -38,11 +38,6 @@ public class ReflectForJavaFXDemo extends ReflectApplicationForJavaFX {
 		return MaterialColorPalette.TEAL;
 	}
 
-	@Override
-	public Color getSecondaryColor() {
-		return MaterialColorPalette.GREY;
-	}
-
 	
 	@Override
 	public Color getAccentColor() {

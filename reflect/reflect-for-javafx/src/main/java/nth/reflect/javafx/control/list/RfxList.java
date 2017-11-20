@@ -2,9 +2,9 @@ package nth.reflect.javafx.control.list;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
-import nth.introspect.ui.style.MaterialColors;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.reflect.javafx.control.RfxControl;
-import nth.reflect.javafx.control.style.RfxColorFactory;
+import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
 
@@ -20,7 +20,7 @@ public class RfxList<T> extends ListView<T> implements RfxControl {
 
 	public RfxList() {
 		new RfxVerticalFlingScroller(this);
-		setBackground(RfxColorFactory.createBackGround(MaterialColors.getContentColorSet().getBackground()));
+//		setBackground(RfxColorFactory.createBackGround(MaterialColors.getContentColorSet().getBackground()));
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxList.class));
 		setPadding(Insets.EMPTY);
 	}
@@ -47,6 +47,14 @@ public class RfxList<T> extends ListView<T> implements RfxControl {
 		
 //	}
 		
-	
+	protected void addStyleClass() {
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxList.class));
+	}
+
+	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class)).getProperties()
+				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1());
+	}
 	
 }

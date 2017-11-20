@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
+
 public class UploadStream {
 
 	private final String fileTypeDescription;
@@ -20,15 +22,16 @@ public class UploadStream {
 		return file;
 	}
 
-	public InputStream getInputStream() throws FileNotFoundException {
-		return new FileInputStream(file);
-	}
+//	public InputStream getInputStream() throws FileNotFoundException {
+//		return new FileInputStream(file);
+//	}
 
 	public String getFileTypeDescription() {
 		return fileTypeDescription;
 	}
 
-	public String[] getFileExtentionFilters() {
+	//TODO rename to getFileExtentionFilter and fix FormatFactory for String[]
+	public String[] fileExtentionFilters() {
 		return fileExtentionFilters;
 	}
 

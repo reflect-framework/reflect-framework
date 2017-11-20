@@ -28,35 +28,35 @@ public class TypeUtil {
 			return Double.class;
 		} else if (type == char.class) {
 			return Character.class;
-		} 
+		}
 		return type;
 	}
-	
+
 	public static boolean isNumber(Class<?> type) {
 		return Number.class.isAssignableFrom(getComplexType(type));
 	}
-	
+
 	public static boolean isChar(Class<?> type) {
 		return Character.class.isAssignableFrom(getComplexType(type));
 	}
 
-	
 	public static boolean isColection(Class<?> type) {
 		return Collection.class.isAssignableFrom(type);
 	}
-	
+
 	public static boolean isJavaType(Class<?> type) {
 		return getComplexType(type).getCanonicalName().startsWith("java");
 	}
-	
+
 	public static boolean isDomainType(Class<?> type) {
-		return  !isJavaType(type) && !isEnum(type);
+		return !isJavaType(type) && !isEnum(type);
 	}
 
 	public static boolean isDomainType(Class<?> type, IntrospectApplication introspectApplication) {
-		return  !isJavaType(type) && !isEnum(type) && !isIntrospectApplication(type) &&  !isServiceClass(type, introspectApplication) && !isInfrastructureClass(type, introspectApplication);
+		return !isJavaType(type) && !isEnum(type) && !isIntrospectApplication(type)
+				&& !isServiceClass(type, introspectApplication)
+				&& !isInfrastructureClass(type, introspectApplication);
 	}
-	
 
 	private static boolean isIntrospectApplication(Class<?> type) {
 		return IntrospectApplication.class.isAssignableFrom(type);
@@ -65,16 +65,23 @@ public class TypeUtil {
 	private static boolean isServiceClass(Class<?> classToFind,
 			IntrospectApplication introspectApplication) {
 		List<Class<?>> serviceClasses = introspectApplication.getServiceClasses();
-		return serviceClasses.contains(classToFind);
+		if (serviceClasses==null) {
+			return false;
+		} else {
+			return serviceClasses.contains(classToFind);
+		}
 	}
 
 	private static boolean isInfrastructureClass(Class<?> classToFind,
 			IntrospectApplication introspectApplication) {
 		List<Class<?>> infrastructureClasses = introspectApplication.getInfrastructureClasses();
-		return infrastructureClasses.contains(classToFind);
+		if (infrastructureClasses == null) {
+			return false;
+		} else {
+			return infrastructureClasses.contains(classToFind);
+		}
 	}
 
-	
 	public static Class<?> getSimpleType(Class<?> type) {
 		if (type == Boolean.class) {
 			return boolean.class;
@@ -103,16 +110,16 @@ public class TypeUtil {
 	public static boolean isDowloadStream(Class<?> type) {
 		return type.isAssignableFrom(DownloadStream.class);
 	}
-	
 
 	private static boolean isUploadStream(Class<?> type) {
-		return  type.isAssignableFrom(UploadStream.class);
+		return type.isAssignableFrom(UploadStream.class);
 	}
 
 	/**
 	 * 
 	 * @param type
-	 * @return true if type is a domain type and has a method <Collection> getChildren() 
+	 * @return true if type is a domain type and has a method <Collection>
+	 *         getChildren()
 	 */
 	public static boolean isHierarchicalDomainType(Class<?> type) {
 		if (isDomainType(type)) {
@@ -122,15 +129,15 @@ public class TypeUtil {
 				return method.getReturnType().isAssignableFrom(Collection.class);
 			} catch (Exception e) {
 				return false;
-			}	
+			}
 		} else {
 			return false;
 		}
-		
+
 	}
 
 	public static boolean isVoidType(Class<?> type) {
-		return type==Void.TYPE;
+		return type == Void.TYPE;
 	}
 
 	public static TypeCategory getTypeCategory(Class<?> type) {
@@ -142,7 +149,7 @@ public class TypeUtil {
 			return TypeCategory.URI_TYPE;
 		} else if (isDowloadStream(type)) {
 			return TypeCategory.DOWNLOAD_STREAM_TYPE;
-		}else if (isUploadStream(type)) {
+		} else if (isUploadStream(type)) {
 			return TypeCategory.UPLOAD_STREAM_TYPE;
 		} else if (isJavaType(type)) {
 			return TypeCategory.JAVA_TYPE;
@@ -153,17 +160,12 @@ public class TypeUtil {
 		}
 	}
 
-
 	public static boolean isEnum(Class<?> type) {
 		return type.isEnum();
 	}
 
 	public static boolean isShort(Class<?> type) {
-		return type==Short.class;
+		return type == Short.class;
 	}
-
-
-	
-
 
 }

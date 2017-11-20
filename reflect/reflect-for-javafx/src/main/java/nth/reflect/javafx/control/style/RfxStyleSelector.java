@@ -49,6 +49,15 @@ public class RfxStyleSelector {
 		return this;
 	}
 
+
+	public RfxStyleSelector append(RfxStyleSelector styleSelectorToAppend) {
+		if (selector.length()>0) {
+			selector.append(" ");
+		}
+		selector.append(styleSelectorToAppend);
+		return this;
+	}
+	
 	public RfxStyleSelector appendFilled() {
 		selector.append(":filled");
 		return this;

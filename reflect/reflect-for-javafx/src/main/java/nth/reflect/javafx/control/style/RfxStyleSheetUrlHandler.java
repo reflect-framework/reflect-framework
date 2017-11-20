@@ -8,14 +8,19 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 import nth.introspect.layer5provider.url.UrlProvider;
-import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.style.MaterialColorSet;
-import nth.introspect.ui.style.MaterialStyle;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
+import nth.reflect.javafx.control.button.RfxContentButton;
+import nth.reflect.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
-import nth.reflect.javafx.control.toolbar.RfxApplicationToolbar;
-import nth.reflect.javafx.control.toolbar.RfxApplicationToolbarTitle;
+import nth.reflect.javafx.control.list.RfxList;
+import nth.reflect.javafx.control.toolbar.RfxToolbar;
+import nth.reflect.javafx.control.view.form.RfxFormBottomToolbar;
+import nth.reflect.javafx.control.view.form.field.RfxTextField;
+import nth.reflect.javafx.control.window.content.RfxContentPane;
+import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
 public class RfxStyleSheetUrlHandler extends UrlProvider {
 
@@ -23,19 +28,23 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 
 	public RfxStyleSheetUrlHandler(ReflectApplicationForJavaFX application) {
 
-		MaterialStyle materialStyle = GraphicalUserinterfaceController.getMaterialStyle();
 		RfxStyleSheet styleSheet = new RfxStyleSheet();
 
 		appendColorDefinitions(styleSheet, application);
 		
-		RfxApplicationToolbar.appendStyleGroups(styleSheet, materialStyle);
-		RfxApplicationToolbarTitle.appendStyleGroups(styleSheet, materialStyle);
+		//panes
+		RfxContentPane.appendStyleGroups(styleSheet);
+		RfxList.appendStyleGroups(styleSheet);
+		RfxMainMenuPane.appendStyleGroups(styleSheet);
+		//Controls
+		RfxToolbar.appendStyleGroups(styleSheet);
+		RfxFormBottomToolbar.appendStyleGroups(styleSheet);
+		RfxContentButton.appendStyleGroups(styleSheet);
+		RfxPrimaryButton.appendStyleGroups(styleSheet);
+		RfxTextField.appendStyleGroups(styleSheet);
 		RfxItemTreeView.appendStyleGroups(styleSheet);
 		RfxItemTreeCell.appendStyleGroups(styleSheet);
 		
-//		RfxList.appendStyleGroups(styleSheet, materialStyle);
-//		RfxMainMenuListCell.appendStyleGroups(styleSheet, materialStyle);
-
 		System.out.println(styleSheet.toString());
 
 		css = styleSheet.toString();
@@ -44,10 +53,9 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	private void appendColorDefinitions(RfxStyleSheet styleSheet, ReflectApplicationForJavaFX application) {
 
 		RfxStyleGroup colorDefintion = styleSheet.addStyleGroup(RfxStyleSelector.createFor("*"));
-		colorDefintion.getProperties().setColorVariables(MaterialColorSet.PRIMARY_COLOR,new MaterialColorSet(application.getPrimaryColor()));
-		colorDefintion.getProperties().setColorVariables(MaterialColorSet.SECONDARY_COLOR,new MaterialColorSet(application.getSecondaryColor()));
-		colorDefintion.getProperties().setColorVariables(MaterialColorSet.ACCENT_COLOR,new MaterialColorSet(application.getAccentColor()));
-		colorDefintion.getProperties().setColorVariables(MaterialColorSet.CONTENT_COLOR, new MaterialColorSet(application.getContentColor().getColor()));
+		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.PRIMARY,new MaterialColorSet(application.getPrimaryColor()));
+		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.ACCENT,new MaterialColorSet(application.getAccentColor()));
+		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.CONTENT, new MaterialColorSet(application.getContentColor().getColor()));
 	}
 
 	@Override

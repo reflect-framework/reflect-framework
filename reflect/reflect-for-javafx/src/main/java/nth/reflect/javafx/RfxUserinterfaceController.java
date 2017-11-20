@@ -10,12 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
-import com.sun.javafx.applet.FXApplet2;
 import com.jfoenix.controls.JFXDialogLayout;
 
 import javafx.application.Platform;
@@ -36,7 +32,6 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
-import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.view.FormMode;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.view.form.RfxFormView;
@@ -150,9 +145,6 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		ReflectApplicationForJavaFX application = userInterfaceContainer
 				.get(ReflectApplicationForJavaFX.class);
 
-		MaterialColors.init(application.getPrimaryColor(), application.getSecondaryColor(),
-				application.getAccentColor(), application.getContentColor());
-
 		Stage primaryStage = application.getPrimaryStage();
 
 		try {
@@ -193,7 +185,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
-				uploadStream.getFileTypeDescription(), uploadStream.getFileExtentionFilters()));
+				uploadStream.getFileTypeDescription(), uploadStream.fileExtentionFilters()));
 		ReflectApplicationForJavaFX application = userInterfaceContainer
 				.get(ReflectApplicationForJavaFX.class);
 		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javafx.geometry.Pos;
 import nth.introspect.ui.style.MaterialColorSet;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.basic.Font;
 
@@ -126,9 +127,19 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		return this;
 	}
 
+	public Object setFill(String colorVariableName) {
+		put("-fx-fill", colorVariableName);
+		return this;
+	}
+
 	
 	public RfxStyleProperties setTextFill(Color color) {
 		put("-fx-text-fill", getRGB(color));
+		return this;
+	}
+
+	public RfxStyleProperties setTextFill(String colorVariableName) {
+		put("-fx-text-fill", colorVariableName);
 		return this;
 	}
 
@@ -160,13 +171,45 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		return this;
 	}
 
-	public void setColorVariables(String colorSetName, MaterialColorSet colorSet) {
-		put(colorSetName+MaterialColorSet.FOREGROUND1, getRGB(colorSet.getForeground1()));
-		put(colorSetName+MaterialColorSet.FOREGROUND2, getRGB(colorSet.getForeground2()));
-		put(colorSetName+MaterialColorSet.FOREGROUND3, getRGB(colorSet.getForeground3()));
-		put(colorSetName+MaterialColorSet.BACKGROUND, getRGB(colorSet.getBackground()));
-		put(colorSetName+MaterialColorSet.BACKGROUND_HIGHLIGHTED, getRGB(colorSet.getBackgroundHighLighted()));
+
+	public void setFocusColor(String colorVariableName) {
+		put("-fx-focus-color",colorVariableName);
+		
 	}
+
+	public  RfxStyleProperties setProperty(String propertyName, String propertyValue) {
+		put(propertyName, propertyValue);
+		return this;
+	}
+
+	
+	public void setColorVariables(MaterialColorSetCssName colorSetName, MaterialColorSet colorSet) {
+		put(colorSetName.FOREGROUND1(), getRGB(colorSet.getForeground1()));
+		put(colorSetName.FOREGROUND2(), getRGB(colorSet.getForeground2()));
+		put(colorSetName.FOREGROUND3(), getRGB(colorSet.getForeground3()));
+		put(colorSetName.BACKGROUND(), getRGB(colorSet.getBackground()));
+		put(colorSetName.BACKGROUND_HIGHLIGHTED(), getRGB(colorSet.getBackgroundHighLighted()));
+	}
+
+	public  RfxStyleProperties setBorderColor(String color) {
+		put ("-fx-border-color", color);
+		return this;
+	}
+
+	public RfxStyleProperties setBorderWidth(int top, int right, int bottom, int left) {
+		StringBuilder widths=new StringBuilder();
+		widths.append(top);
+		widths.append(" ");
+		widths.append(right);
+		widths.append(" ");
+		widths.append(bottom);
+		widths.append(" ");
+		widths.append(left);
+		put ("-fx-border-width", widths.toString());
+		return this;
+	}
+
+
 
 
 

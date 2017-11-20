@@ -7,7 +7,7 @@ import nth.introspect.ui.style.basic.Color;
  * https://www.google.com/design/spec/layout/structure.html#structure-app-bar">
  * https://www.google.com/design/spec/layout/structure.html#structure-app-bar
  * </a>
- * 
+ * @deprecated
  * @author nilsth
  */
 public interface ApplicationToolbarStyle {

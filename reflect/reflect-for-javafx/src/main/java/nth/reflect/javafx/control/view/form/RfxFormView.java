@@ -2,10 +2,8 @@ package nth.reflect.javafx.control.view.form;
 
 import java.net.URL;
 
-import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.view.ViewContainer;
@@ -16,13 +14,10 @@ import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.item.method.FormOkItem;
 import nth.introspect.ui.item.tab.CancelItem;
 import nth.introspect.ui.item.tab.CloseThisTabItem;
-import nth.introspect.ui.style.MaterialColors;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
-import nth.reflect.javafx.control.button.RfxButton;
-import nth.reflect.javafx.control.style.RfxColorFactory;
-import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
+import nth.reflect.javafx.control.button.RfxContentButton;
 
 public class RfxFormView extends BorderPane implements FormView {
 
@@ -60,37 +55,39 @@ public class RfxFormView extends BorderPane implements FormView {
 
 	//TODO create RfxBottomButtonBar class 
 	private HBox createBottomButtonBar() {
-		HBox toolBar = new HBox();
-		toolBar.setMinHeight(RfxAppButtonBar.BAR_HEIGHT);//TODO create constant in RfxBottomButtonBar class
-		toolBar.setPadding(new Insets(1));
-		toolBar.setSpacing(16);
-		toolBar.setBackground(RfxColorFactory.createBackGround(MaterialColors.getSecondaryColorSet().getBackground()));
+//		HBox toolBar = new HBox();
+//		toolBar.setMinHeight(RfxAppButtonBar.BAR_HEIGHT);//TODO create constant in RfxBottomButtonBar class
+//		toolBar.setPadding(new Insets(1));
+//		toolBar.setSpacing(16);
+//		toolBar.setBackground(RfxColorFactory.createBackGround(MaterialColors.getSecondaryColorSet().getBackground()));
+//		
+//		HBox leftSpacer = new HBox();
+//		HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+//		toolBar.getChildren().add(leftSpacer);
+//		
+//		switch (formMode) {
+//		case READ_ONLY_MODE:
+//			toolBar.getChildren().add(createCloseButton());
+//			break;
+//		case EDIT_MODE:
+//			toolBar.getChildren().add(createOkButton());
+//			toolBar.getChildren().add(createCancelButton());
+//			break;
+//		default:
+//			break;
+//		}
+//
+//		HBox rightSpacer = new HBox();
+//		HBox.setHgrow(rightSpacer, Priority.ALWAYS);
+//		toolBar.getChildren().add(rightSpacer);
+//
+//		
+//		return toolBar;
 		
-		HBox leftSpacer = new HBox();
-		HBox.setHgrow(leftSpacer, Priority.ALWAYS);
-		toolBar.getChildren().add(leftSpacer);
-		
-		switch (formMode) {
-		case READ_ONLY_MODE:
-			toolBar.getChildren().add(createCloseButton());
-			break;
-		case EDIT_MODE:
-			toolBar.getChildren().add(createOkButton());
-			toolBar.getChildren().add(createCancelButton());
-			break;
-		default:
-			break;
-		}
-
-		HBox rightSpacer = new HBox();
-		HBox.setHgrow(rightSpacer, Priority.ALWAYS);
-		toolBar.getChildren().add(rightSpacer);
-
-		
-		return toolBar;
+		return new RfxFormBottomToolbar();
 	}
 	
-	public RfxButton createCloseButton() {
+	public RfxContentButton createCloseButton() {
 		@SuppressWarnings("rawtypes")
 		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);
@@ -100,10 +97,10 @@ public class RfxFormView extends BorderPane implements FormView {
 				.get(LanguageProvider.class);
 		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider,
 				viewContainer, this);
-		return new RfxButton(closeItem, MaterialColors.getSecondaryColorSet());
+		return new RfxContentButton(closeItem);
 	}
 
-	public RfxButton createCancelButton() {
+	public RfxContentButton createCancelButton() {
 		@SuppressWarnings("rawtypes")
 		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);
@@ -113,13 +110,13 @@ public class RfxFormView extends BorderPane implements FormView {
 				.get(LanguageProvider.class);
 		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer,
 				this);
-		return new RfxButton(cancelItem, MaterialColors.getSecondaryColorSet());
+		return new RfxContentButton(cancelItem);
 	}
 
-	public RfxButton createOkButton() {
+	public RfxContentButton createOkButton() {
 		FormOkItem okItem = new FormOkItem(this, methodOwner, actionMethodInfo,
 				domainValueModel);
-		return new RfxButton(okItem, MaterialColors.getSecondaryColorSet());
+		return new RfxContentButton(okItem);
 	}
 
 	@Override

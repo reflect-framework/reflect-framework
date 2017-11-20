@@ -21,7 +21,7 @@ import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormMode;
-import nth.reflect.javafx.control.button.RfxButton;
+import nth.reflect.javafx.control.button.RfxContentButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.javafx.control.style.RfxFontFactory;
 import nth.reflect.javafx.control.view.form.field.FieldFactory;
@@ -37,7 +37,7 @@ public class RfxDomainPropertyPane extends Pane {
 	private static final double FIELD_WIDTH_MAX_FOR_WIDE_WINDOW = RfxWindow.WINDOW_FAIRLY_WIDE_BINDING;
 	private Map<PropertyInfo, Label> labels;
 	private Map<PropertyInfo, Region> fields;
-	private Map<PropertyInfo, RfxButton> fieldMenuButtons;
+	private Map<PropertyInfo, RfxContentButton> fieldMenuButtons;
 	private final List<PropertyInfo> propertyInfos;
 	private final BooleanBinding windowExtraWideBinding;
 
@@ -79,7 +79,7 @@ public class RfxDomainPropertyPane extends Pane {
 					propertyInfo);
 			fields.put(propertyInfo, field);
 
-			RfxButton fieldMenuButton = createFieldMenuButton(propertyInfo);
+			RfxContentButton fieldMenuButton = createFieldMenuButton(propertyInfo);
 			fieldMenuButtons.put(propertyInfo, fieldMenuButton);
 		}
 	}
@@ -105,8 +105,8 @@ public class RfxDomainPropertyPane extends Pane {
 		return field;
 	}
 
-	private RfxButton createFieldMenuButton(PropertyInfo propertyInfo) {
-		RfxButton fieldMenuButton = new RfxButton(FontAwesomeIconName.ELLIPSIS_V);
+	private RfxContentButton createFieldMenuButton(PropertyInfo propertyInfo) {
+		RfxContentButton fieldMenuButton = new RfxContentButton(FontAwesomeIconName.ELLIPSIS_V);
 		getChildren().add(fieldMenuButton);
 		return fieldMenuButton;
 	}
@@ -178,7 +178,7 @@ public class RfxDomainPropertyPane extends Pane {
 					0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, isSnapToPixel());
 			y += labelHeight;
 
-			RfxButton fieldMenuButton = fieldMenuButtons.get(propertyInfo);
+			RfxContentButton fieldMenuButton = fieldMenuButtons.get(propertyInfo);
 			double fieldMenuButtonWidth = 0;
 			double fieldMenuButtonHeight = 0;
 			if (fieldMenuButton != null) {
@@ -231,7 +231,7 @@ public class RfxDomainPropertyPane extends Pane {
 			positionInArea(label, x, y, labelWidth, labelHeight,
 					0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, isSnapToPixel());
 
-			RfxButton fieldMenuButton = fieldMenuButtons.get(propertyInfo);
+			RfxContentButton fieldMenuButton = fieldMenuButtons.get(propertyInfo);
 			double fieldMenuButtonWidth = 0;
 			double fieldMenuButtonHeight = 0;
 			if (fieldMenuButton != null) {

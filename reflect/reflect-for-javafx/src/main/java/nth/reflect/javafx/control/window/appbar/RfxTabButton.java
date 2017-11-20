@@ -5,19 +5,11 @@ import javafx.beans.binding.When;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.ui.style.DisplayScale;
-import nth.introspect.ui.style.MaterialColorSet;
-import nth.introspect.ui.style.MaterialColors;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
-import nth.reflect.javafx.control.button.RfxButton;
-import nth.reflect.javafx.control.style.RfxColorFactory;
+import nth.reflect.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.window.RfxWindow;
 
@@ -26,7 +18,7 @@ import nth.reflect.javafx.control.window.RfxWindow;
  * @author nilsth
  *
  */
-public class RfxTabButton extends RfxButton {
+public class RfxTabButton extends RfxPrimaryButton {
 
 	private static final int MAX_WIDTH = 400;//264;
 	private static final int PADDING = 12;
@@ -39,65 +31,36 @@ public class RfxTabButton extends RfxButton {
 		this.rfxWindow = rfxWindow;
 		this.tab = tab;
 		setButtonType(ButtonType.FLAT);
-		setColorSet(MaterialColors.getPrimaryColorSet());
 		setMinHeight(HEIGHT);
 		setPadding(new Insets(0, PADDING, 0, PADDING));
 		setMaxWidth(MAX_WIDTH);
-		String style=new RfxStyleProperties().setFont(MaterialFont.getBody2(DisplayScale.NONE_DENSE)).toString();
-		setStyle(style);
 		
 		When whenTabSelected = Bindings.when(rfxWindow.getSelectedTabProperty().isEqualTo(tab));
-		
-		ObservableValue<Color> textColorBinding = createTextColorBinding(whenTabSelected);
-		textFillProperty().bind(textColorBinding);
-		
-		ObservableValue<Border> borderBinding = createBorderBinding(whenTabSelected);
-		borderProperty().bind(borderBinding);
+		ObservableValue<String> styleBinding = createStyleBinding(whenTabSelected);
+		styleProperty().bind(styleBinding);
 		
 		setOnAction(this::onAction);
 	}
 
-	private ObservableValue<Border> createBorderBinding(When whenTabSelected) {
-		Border foregroundUnderlineBorder = createForegroundUnderlineBorder();
-		Border backgroundUnderlineBorder = createBackgroundUnderlineBorder();
-		ObservableValue<Border> borderBinding = whenTabSelected.then(foregroundUnderlineBorder)
-				.otherwise(backgroundUnderlineBorder);
-		return borderBinding;
-	}
 
-	private ObservableValue<Color> createTextColorBinding(
+	private ObservableValue<String> createStyleBinding(
 			When whenTabSelected) {
-		MaterialColorSet colorSet = MaterialColors.getPrimaryColorSet();
-		Color selectedTabColor = RfxColorFactory.create(colorSet.getForeground1());
-		Color unselectedTabColor = RfxColorFactory.create(colorSet.getForeground2());
-		ObservableValue<Color> textColorBinding=whenTabSelected.then(selectedTabColor).otherwise(unselectedTabColor);
-		return textColorBinding;
+		String selectedTabStyle = new RfxStyleProperties().setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1())
+				.setBorderWidth(0,0,4,0)
+				.setBorderColor(MaterialColorSetCssName.ACCENT.BACKGROUND())
+				.setFont(MaterialFont.getBody2(DisplayScale.NONE_DENSE)).toString();
+		String unselectedTabStyle = new RfxStyleProperties().setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND2())
+				.setBorderWidth(0,0,4,0)
+				.setBorderColor(MaterialColorSetCssName.PRIMARY.BACKGROUND())
+				.setFont(MaterialFont.getBody2(DisplayScale.NONE_DENSE)).toString();
+		ObservableValue<String> styleBinding=whenTabSelected.then(selectedTabStyle).otherwise(unselectedTabStyle);
+		return styleBinding;
 	}
 	
 	private void onAction(ActionEvent event) {
 		rfxWindow.getSelectedTabProperty().set(tab);
 	}
 
-	private Border createForegroundUnderlineBorder() {
-		Color foregroundColor = RfxColorFactory
-				.create(MaterialColors.getAccentColorSet().getBackground());
-		Border foregroundUnderlineBorder = createUnderlineBorder(foregroundColor);
-		return foregroundUnderlineBorder;
-	}
-
-	private Border createBackgroundUnderlineBorder() {
-		Color backgroundColor = Color.TRANSPARENT;
-		Border backgroundUnderlineBorder = createUnderlineBorder(backgroundColor);
-		return backgroundUnderlineBorder;
-	}
-
-	private Border createUnderlineBorder(Color lineColor) {
-		BorderStroke borderStroke = new BorderStroke(null, null, lineColor, null, null, null,
-				BorderStrokeStyle.SOLID, null, CornerRadii.EMPTY, new BorderWidths(0, 0, 3, 0),
-				Insets.EMPTY);
-		Border border = new Border(borderStroke);
-		return border;
-	}
 
 	public View getTab() {
 		return tab;
