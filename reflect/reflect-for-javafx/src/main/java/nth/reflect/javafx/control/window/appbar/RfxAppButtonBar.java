@@ -65,8 +65,10 @@ public class RfxAppButtonBar extends Pane {
 	private final BooleanBinding extraWideBinding;
 	private final ObjectProperty<View> selectedTabProperty;
 	private final RfxPrimaryButton tabSelectionButton;
+	private RfxMainMenuPane mainMenuPane;
 
-	public RfxAppButtonBar(UserInterfaceContainer userInterfaceContainer) {
+	public RfxAppButtonBar(UserInterfaceContainer userInterfaceContainer, RfxMainMenuPane mainMenuPane) {
+		this.mainMenuPane = mainMenuPane;
 		rfxWindow = userInterfaceContainer.get(RfxWindow.class);
 		mainMenuVisibleProperty = rfxWindow.getMainMenuVisibleProperty();
 		mainMenuVisibleProperty.addListener(this::onMainMenuVisibleChanged);
@@ -166,20 +168,20 @@ public class RfxAppButtonBar extends Pane {
 		double x = 0;
 		double y = 0;
 
-		// double mainMenuButtonWidth = mainMenuButton.getMinWidth();
-		// double mainMenuButtonHeight = mainMenuButton.getMinHeight();
-		// mainMenuButton.resize(mainMenuButtonWidth, mainMenuButtonHeight);
 		mainMenuButton.autosize();
 		double mainMenuButtonWidth = mainMenuButton.getWidth();
 		double mainMenuButtonHeight = mainMenuButton.getHeight();
 		positionInArea(mainMenuButton, x, y, mainMenuButtonWidth, mainMenuButtonHeight,
 				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
-		x += mainMenuButton.getWidth();
+		
 
-		if (indentNextToMenuIfEnoughSpace()) {
-			x = RfxWindow.MENU_WIDTH;
+		
+		double menuIndent= RfxWindow.MENU_WIDTH+mainMenuPane.getTranslateX();
+		if (extraWideBinding.get() && menuIndent>mainMenuButton.getWidth()) {
+			x=menuIndent;
+		} else {
+			x = mainMenuButton.getWidth();
 		}
-
 		List<RfxTabButton> tabButtons = getTabButtons();
 		resizeTabButtons(tabButtons);
 
@@ -276,10 +278,6 @@ public class RfxAppButtonBar extends Pane {
 			}
 		}
 		return null;
-	}
-
-	private boolean indentNextToMenuIfEnoughSpace() {
-		return mainMenuVisibleProperty.get() && extraWideBinding.get();
 	}
 
 

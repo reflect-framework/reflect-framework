@@ -27,6 +27,8 @@ import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.view.View;
 import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.window.appbar.RfxAppBar;
+import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
+import nth.reflect.javafx.control.window.appbar.RfxTabButton;
 import nth.reflect.javafx.control.window.content.RfxContentPane;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
@@ -44,7 +46,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 	private final ObservableList<View> tabsProperty;
 	private final ObjectPropertyBase<View> selectedTabProperty;
 
-	private RfxMainMenuPane menuPane;
+	private RfxMainMenuPane mainMenuPane;
 
 	public static final int MENU_WIDTH = 300;
 	private static final int WINDOW_FAIRLY_HIGH_BINDING = 700;
@@ -67,16 +69,35 @@ public class RfxWindow extends StackPane implements RfxControl {
 		setMinWidth(300);
 		setMinHeight(500);
 
-		appBar = new RfxAppBar(userInterfaceContainer);
-		getChildren().add(appBar);
-
 		contentPane = new RfxContentPane(userInterfaceContainer);
 		getChildren().add(contentPane);
 
-		menuPane = new RfxMainMenuPane(userInterfaceContainer);
-		getChildren().add(menuPane);
+		mainMenuPane = new RfxMainMenuPane(userInterfaceContainer);
+		getChildren().add(mainMenuPane);
 
+		appBar = new RfxAppBar(userInterfaceContainer, mainMenuPane);
+		getChildren().add(appBar);
+
+		mainMenuPane.translateXProperty().addListener(this::onMenuMovingLeftOrRight);
 		setOnKeyPressed(createKeyEventHandler());
+	}
+
+	/**
+	 * Hack to move {@link #contentPane} by calling {@link #layoutChildren()}
+	 * and to move {@link RfxTabButton}s in the {@link RfxAppButtonBar} by
+	 * calling {@link RfxAppButtonBar#requestLayout()} when the
+	 * {@link #mainMenuPane} slides in (when shown) or out (when hidden). This
+	 * method is called by registering a listener to the
+	 * {@link RfxMainMenuPane#translateXProperty()}
+	 * 
+	 * @param observable
+	 * @param oldXValue
+	 * @param newXValue
+	 */
+	public void onMenuMovingLeftOrRight(ObservableValue<? extends Number> observable,
+			Number oldXValue, Number newXValue) {
+		requestLayout();
+		appBar.getButtonBar().requestLayout();
 	}
 
 	private EventHandler<KeyEvent> createKeyEventHandler() {
@@ -103,7 +124,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 					} else {
 						selectNextTab();
 					}
-					 event.consume();
+					event.consume();
 				}
 			}
 		};
@@ -112,9 +133,9 @@ public class RfxWindow extends StackPane implements RfxControl {
 	protected void selectPreviousTab() {
 		View selectedTab = selectedTabProperty.get();
 		int selectedTabIndex = tabsProperty.indexOf(selectedTab);
-		int previousTabIndex = selectedTabIndex-1;
-		if (previousTabIndex<0) {
-			previousTabIndex=tabsProperty.size()-1;
+		int previousTabIndex = selectedTabIndex - 1;
+		if (previousTabIndex < 0) {
+			previousTabIndex = tabsProperty.size() - 1;
 		}
 		View previousTab = tabsProperty.get(previousTabIndex);
 		selectedTabProperty.set(previousTab);
@@ -123,9 +144,9 @@ public class RfxWindow extends StackPane implements RfxControl {
 	protected void selectNextTab() {
 		View selectedTab = selectedTabProperty.get();
 		int selectedTabIndex = tabsProperty.indexOf(selectedTab);
-		int nextTabIndex = selectedTabIndex+1;
-		if (nextTabIndex>=tabsProperty.size()) {
-			nextTabIndex=0;
+		int nextTabIndex = selectedTabIndex + 1;
+		if (nextTabIndex >= tabsProperty.size()) {
+			nextTabIndex = 0;
 		}
 		View nextTab = tabsProperty.get(nextTabIndex);
 		selectedTabProperty.set(nextTab);
@@ -140,7 +161,6 @@ public class RfxWindow extends StackPane implements RfxControl {
 		mainMenuVisibleProperty.set(!mainMenuVisibleProperty.get());
 	}
 
-	
 	@Override
 	protected void layoutChildren() {
 		double width = getWidth();
@@ -155,12 +175,18 @@ public class RfxWindow extends StackPane implements RfxControl {
 				HPos.LEFT, VPos.TOP, snapToPixel);
 		y += appBarHeight;
 
-		contentPane.resize(width, height - y);
-		positionInArea(contentPane, x, y, width, height - y,
+		if (extraWideBinding.get()) {
+			x = MENU_WIDTH + mainMenuPane.getTranslateX();
+		} else {
+			x = 0;
+		}
+		contentPane.resize(width - x, height - y);
+		positionInArea(contentPane, x, y, width - x, height - y,
 				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 
-		menuPane.resize(MENU_WIDTH, height - y);
-		positionInArea(menuPane, x, y, MENU_WIDTH, height - y,
+		x = 0;
+		mainMenuPane.resize(MENU_WIDTH, height - y);
+		positionInArea(mainMenuPane, x, y, MENU_WIDTH, height - y,
 				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 	}
 
@@ -178,11 +204,10 @@ public class RfxWindow extends StackPane implements RfxControl {
 	public void onTabsChanged(Change change) {
 		if (tabsProperty.size() == 0) {
 			selectedTabProperty.set(null);
-		} else  {
+		} else {
 			selectNewTab(change);
 		}
 	}
-
 
 	private void selectNewTab(Change<View> change) {
 		while (change.next()) {
@@ -198,10 +223,9 @@ public class RfxWindow extends StackPane implements RfxControl {
 				}
 				View selectedTab = change.getList().get(newIndex);
 				selectedTabProperty.set(selectedTab);
-			} 
+			}
 		}
 	}
-
 
 	public ObjectProperty<View> getSelectedTabProperty() {
 		return selectedTabProperty;
@@ -231,7 +255,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 					Boolean newValue) {
 				if (newValue) {
 					onMainMenuShow();
-				} else if (tabsProperty.size()>0) {
+				} else if (tabsProperty.size() > 0) {
 					onMainMenuHide();
 				}
 			}
@@ -253,16 +277,16 @@ public class RfxWindow extends StackPane implements RfxControl {
 
 	private void onMainMenuHide() {
 		TranslateTransition translate = new TranslateTransition();
-		translate.setNode(menuPane);
+		translate.setNode(mainMenuPane);
 		translate.setDuration(Duration.millis(MENU_SLIDE_ANIMATION_DURATION));
-		double width = menuPane.getMinWidth();
+		double width = mainMenuPane.getMinWidth();
 		translate.setToX(width * -1);
 		translate.play();
 	}
 
 	private void onMainMenuShow() {
 		TranslateTransition translate = new TranslateTransition();
-		translate.setNode(menuPane);
+		translate.setNode(mainMenuPane);
 		translate.setDuration(Duration.millis(MENU_SLIDE_ANIMATION_DURATION));
 		translate.setToX(0);
 		translate.play();

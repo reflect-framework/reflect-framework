@@ -8,27 +8,34 @@ import javafx.scene.layout.HBox;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
+import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
 public class RfxAppBar extends BorderPane {
 
-	public RfxAppBar(UserInterfaceContainer userInterfaceContainer) {
+	private final RfxAppButtonBar buttonBar;
+
+	public RfxAppBar(UserInterfaceContainer userInterfaceContainer, RfxMainMenuPane mainMenuPane) {
 		String style = new RfxStyleProperties()
 				.setBackground(MaterialColorSetCssName.PRIMARY.BACKGROUND())
-				//.setMinHeight(BAR_HEIGHT)
+				// .setMinHeight(BAR_HEIGHT)
 				// .setMinWidth(300)
 				.setPadding(0).setAlignment(Pos.CENTER_LEFT).toString();
 		setStyle(style);
 		JFXDepthManager.setDepth(this, 1);
-		
+
 		HBox titleBar = new RfxAppTitleBar(userInterfaceContainer);
 		setTop(titleBar);
-		
-		RfxAppButtonBar buttonBar = new RfxAppButtonBar(userInterfaceContainer);
+
+		buttonBar = new RfxAppButtonBar(userInterfaceContainer, mainMenuPane);
 		setBottom(buttonBar);
 	}
-	
-public double calculateHeight() {
-	return computePrefHeight(-1);
-}
-		
+
+	public double calculateHeight() {
+		return computePrefHeight(-1);
+	}
+
+	public RfxAppButtonBar getButtonBar() {
+		return buttonBar;
+	}
+
 }
