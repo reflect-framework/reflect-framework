@@ -86,8 +86,13 @@ public class MaterialFont {
 		return createFont(ROBOTO_REGULAR_URL, displayScale.scale(16));
 	}
 
+	
 	public static Font getBody2(DisplayScale displayScale) {
 		return createFont(ROBOTO_MEDIUM_URL, displayScale.scale(14));
+	}
+	
+	public static Font getRobotoMedium14() {
+		return createFont(ROBOTO_MEDIUM_URL, 14);
 	}
 
 	@Deprecated

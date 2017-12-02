@@ -21,33 +21,34 @@ import nth.reflect.javafx.control.style.RfxStyleSheet;
  * @author nilsth
  *
  */
-public class RfxContentButton extends JFXButton implements RfxControl {
+public class RfxContentBottomToolbarButton extends JFXButton implements RfxControl {
 
 	private static final int ICON_SIZE = 17;
 	private static final int MIN_HEIGHT = 32;
+	private static final int PADDING_SIDE = 16;
 	private RfxFontIconName fontIconName;
 	private MaterialColorSet colorSet;
 
-	public RfxContentButton() {
+	public RfxContentBottomToolbarButton() {
 		super();
 		addStyleClass();
 	}
 
-	public RfxContentButton(String text) {
-		super(text);
+	public RfxContentBottomToolbarButton(String text) {
+		super(text.toUpperCase());
 		addStyleClass();
 	}
 
-	public RfxContentButton(RfxFontIconName fontIconName) {
+	public RfxContentBottomToolbarButton(RfxFontIconName fontIconName) {
 		super();
 		addStyleClass();
 		setFontIconName(fontIconName);
 	}
 
-	public RfxContentButton(Item item) {
+	public RfxContentBottomToolbarButton(Item item) {
 		super();
 		addStyleClass();
-		setText(item.getText());
+		setText(item.getText().toUpperCase());
 		setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -66,25 +67,26 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 		}
 	}
 
-	public RfxContentButton(String text, Node node) {
+	public RfxContentBottomToolbarButton(String text, Node node) {
 		super(text, node);
 		addStyleClass();
 	}
 
-
+	
 	protected void addStyleClass() {
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxContentButton.class));
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxContentBottomToolbarButton.class));
 	}
 
 	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)).getProperties()
-		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class)).getProperties()
+		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED())
 		.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
 		.setMinHeight(MIN_HEIGHT)
+		.setPadding(0, PADDING_SIDE, 0, PADDING_SIDE)
 		.setFont(MaterialFont.getRobotoMedium14());
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class).append(RfxStyleSelector.createFor("jfx-rippler"))).getProperties().
-		put("-fx-rippler-fill",MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED());
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class).append(RfxStyleSelector.createFor("jfx-rippler"))).getProperties().
+		put("-fx-rippler-fill",MaterialColorSetCssName.CONTENT.BACKGROUND());
 	}
 	
 }

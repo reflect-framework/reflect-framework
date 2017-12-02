@@ -79,8 +79,10 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		content.setHeading(new Text(title));
 		content.setBody(new Text(message));
 		JFXDialog dialog = new JFXDialog(mainWindow, content, DialogTransition.CENTER, true);
-		dialog.setContent(content);
-		dialog.show();
+		dialog.setLayoutX(mainWindow.getWidth()/2);
+		dialog.setLayoutY(mainWindow.getHeight()/2);
+		
+		dialog.show(mainWindow);
 	}
 
 	@Override

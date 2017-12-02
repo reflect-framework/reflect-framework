@@ -3,6 +3,7 @@ package nth.reflect.javafx.control.style;
 import java.util.HashMap;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Labeled;
 import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.basic.Color;
@@ -206,6 +207,11 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		widths.append(" ");
 		widths.append(left);
 		put ("-fx-border-width", widths.toString());
+		return this;
+	}
+
+	public RfxStyleProperties setSpacing(int spacing) {
+		put("-fx-spacing", Integer.toString(spacing)+"px");
 		return this;
 	}
 

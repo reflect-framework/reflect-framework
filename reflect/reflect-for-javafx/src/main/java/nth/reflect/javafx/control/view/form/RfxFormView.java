@@ -48,75 +48,9 @@ public class RfxFormView extends BorderPane implements FormView {
 		RfxDomainPropertyPane domainPropertyPane = new RfxDomainPropertyPane(this);
 		setCenter(domainPropertyPane);
 		
-		HBox bottomButtonPane=createBottomButtonBar();
+		HBox bottomButtonPane=new RfxFormBottomToolBar(this);
 		setBottom(bottomButtonPane);
 
-	}
-
-	//TODO create RfxBottomButtonBar class 
-	private HBox createBottomButtonBar() {
-//		HBox toolBar = new HBox();
-//		toolBar.setMinHeight(RfxAppButtonBar.BAR_HEIGHT);//TODO create constant in RfxBottomButtonBar class
-//		toolBar.setPadding(new Insets(1));
-//		toolBar.setSpacing(16);
-//		toolBar.setBackground(RfxColorFactory.createBackGround(MaterialColors.getSecondaryColorSet().getBackground()));
-//		
-//		HBox leftSpacer = new HBox();
-//		HBox.setHgrow(leftSpacer, Priority.ALWAYS);
-//		toolBar.getChildren().add(leftSpacer);
-//		
-//		switch (formMode) {
-//		case READ_ONLY_MODE:
-//			toolBar.getChildren().add(createCloseButton());
-//			break;
-//		case EDIT_MODE:
-//			toolBar.getChildren().add(createOkButton());
-//			toolBar.getChildren().add(createCancelButton());
-//			break;
-//		default:
-//			break;
-//		}
-//
-//		HBox rightSpacer = new HBox();
-//		HBox.setHgrow(rightSpacer, Priority.ALWAYS);
-//		toolBar.getChildren().add(rightSpacer);
-//
-//		
-//		return toolBar;
-		
-		return new RfxFormBottomToolbar();
-	}
-	
-	public RfxContentButton createCloseButton() {
-		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
-				.get(GraphicalUserinterfaceController.class);
-		ViewContainer viewContainer = userInterfaceController
-				.getViewContainer();
-		LanguageProvider languageProvider = userInterfaceContainer
-				.get(LanguageProvider.class);
-		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider,
-				viewContainer, this);
-		return new RfxContentButton(closeItem);
-	}
-
-	public RfxContentButton createCancelButton() {
-		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
-				.get(GraphicalUserinterfaceController.class);
-		ViewContainer viewContainer = userInterfaceController
-				.getViewContainer();
-		LanguageProvider languageProvider = userInterfaceContainer
-				.get(LanguageProvider.class);
-		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer,
-				this);
-		return new RfxContentButton(cancelItem);
-	}
-
-	public RfxContentButton createOkButton() {
-		FormOkItem okItem = new FormOkItem(this, methodOwner, actionMethodInfo,
-				domainValueModel);
-		return new RfxContentButton(okItem);
 	}
 
 	@Override
@@ -177,4 +111,5 @@ public class RfxFormView extends BorderPane implements FormView {
 	public UserInterfaceContainer getUserInterfaceContainer() {
 		return userInterfaceContainer;
 	}
+
 }

@@ -2,25 +2,26 @@ package nth.reflect.javafx.control.view.form;
 
 import javafx.geometry.Pos;
 import nth.introspect.ui.style.MaterialColorSetCssName;
+import nth.reflect.javafx.control.button.RfxContentBottomToolbarButton;
 import nth.reflect.javafx.control.button.RfxContentButton;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.toolbar.RfxToolbar;
 
-public class RfxFormBottomToolbar extends RfxToolbar {
+public class RfxContentBottomToolbar extends RfxToolbar {
 
-	public RfxFormBottomToolbar(){
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxFormBottomToolbar.class));
-		
-		getChildren().add(new RfxContentButton("Test") );
+	private static final int MIN_HEIGHT = 42;//Button height dense=32 * 1 1/3= 42
+	private static final int SPACING = 8;
+
+	public RfxContentBottomToolbar(){
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxContentBottomToolbar.class));
 	}
 	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxFormBottomToolbar.class)).getProperties()
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbar.class)).getProperties()
 		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED())
-		.setHeight(60)
-		.setMinWidth(300)
-		.setPadding(0)
+		.setMinHeight(MIN_HEIGHT)
+		.setSpacing(SPACING)
 		.setAlignment(Pos.CENTER);
 	}
 
