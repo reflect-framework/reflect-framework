@@ -10,7 +10,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import nth.introspect.generic.converterfactory.ConverterFactory;
 import nth.introspect.generic.exception.MethodNotSupportedException;
 import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.layer5provider.reflection.behavior.format.FormatFactory;
 
+/**
+ * @deprecated use {@link FormatFactory} instead
+ * @author nilsth
+ *
+ */
 public class JavaFormatFactory extends ConverterFactory<Format> {
 
 	private final LanguageProvider languageProvider;
@@ -139,6 +145,24 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 	@Override
 	public Format createUrlConverter() {
 		return new UrlFormat();
+	}
+
+
+	@Override
+	public Format createLocalTimeConverter() {
+		return new LocalTimeFormat();
+	}
+
+
+	@Override
+	public Format createLocalDateConverter() {
+		return new LocalDateFormat();
+	}
+
+
+	@Override
+	public Format createLocalDateTimeConverter() {
+		return new LocalTimeFormat();
 	}
 
 }

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javafx.util.StringConverter;
 import nth.introspect.generic.converterfactory.ConverterFactory;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer5provider.language.LanguageProvider;
@@ -18,6 +19,9 @@ import nth.introspect.layer5provider.reflection.behavior.format.impl.CharacterFo
 import nth.introspect.layer5provider.reflection.behavior.format.impl.DomainObjectFormat;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.EnumFormat;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.FileFormat;
+import nth.introspect.layer5provider.reflection.behavior.format.impl.LocalDateFormat;
+import nth.introspect.layer5provider.reflection.behavior.format.impl.LocalDateTimeFormat;
+import nth.introspect.layer5provider.reflection.behavior.format.impl.LocalTimeFormat;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.NoFormat;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.NumericFormat;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.StringFormat;
@@ -27,6 +31,8 @@ import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 /**
  * /**
  * Gets the pattern from the {@link Format} annotation and gets the {@link Format} for a {@link PropertyInfo}
+ * 
+ * See also {@link StringConverter} for inspiration and alternative for {@link Format}
  * 
  * @author nilsth
  *
@@ -172,7 +178,24 @@ public class FormatFactory extends ConverterFactory<Format> {
 	public Format createUrlConverter() {
 		return new UrlFormat();
 	}
-	
+
+
+	@Override
+	public Format createLocalTimeConverter() {
+		return new LocalTimeFormat(formatPattern);
+	}
+
+	@Override
+	public Format createLocalDateConverter() {
+		return new LocalDateFormat(formatPattern);
+	}
+
+	@Override
+	public Format createLocalDateTimeConverter() {
+		return new LocalDateTimeFormat(formatPattern);
+
+	}
+
 	private String createFormatPattern(Method getterMethod) {
 		nth.introspect.layer5provider.reflection.behavior.format.Format format = getterMethod.getAnnotation(nth.introspect.layer5provider.reflection.behavior.format.Format.class);
 		if (format == null) {

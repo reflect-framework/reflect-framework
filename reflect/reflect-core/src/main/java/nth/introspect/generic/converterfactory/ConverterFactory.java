@@ -3,6 +3,9 @@ package nth.introspect.generic.converterfactory;
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 import nth.introspect.generic.exception.TypeNotSupportedException;
@@ -47,7 +50,13 @@ public abstract class ConverterFactory<T> extends
 			return createDateConverter();
 		} else if (Calendar.class.isAssignableFrom(type_)) {
 			return createCalendarConverter();
-		} else
+		} else if (LocalDateTime.class.isAssignableFrom(type_)) {
+			return createLocalDateTimeConverter();
+		} else if (LocalDate.class.isAssignableFrom(type_)) {
+			return createLocalDateConverter();
+		}  else if (LocalTime.class.isAssignableFrom(type_)) {
+			return createLocalTimeConverter();
+		}
 		// URI
 		if (URI.class.isAssignableFrom(type_)) {
 			return createUriConverter();
@@ -70,6 +79,12 @@ public abstract class ConverterFactory<T> extends
 		// Not supported
 		throw new TypeNotSupportedException(type_, this.getClass());
 	}
+
+	public abstract T  createLocalTimeConverter();
+
+	public abstract T  createLocalDateConverter();
+
+	public abstract T  createLocalDateTimeConverter();
 
 	public abstract T  createFileConverter();
 
