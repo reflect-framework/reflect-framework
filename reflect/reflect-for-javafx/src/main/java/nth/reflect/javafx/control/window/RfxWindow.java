@@ -161,6 +161,12 @@ public class RfxWindow extends StackPane implements RfxControl {
 		mainMenuVisibleProperty.set(!mainMenuVisibleProperty.get());
 	}
 
+	/**
+	 * Custom layout: {@link #getContentBias()} moves next to
+	 * {@link #mainMenuPane} when the {@link #extraWideBinding}==true. <br>This
+	 * method is also called when then {@link #mainMenuPane} slides in or out
+	 * (see {@link #onMenuMovingLeftOrRight(ObservableValue, Number, Number)})
+	 */
 	@Override
 	protected void layoutChildren() {
 		double width = getWidth();
