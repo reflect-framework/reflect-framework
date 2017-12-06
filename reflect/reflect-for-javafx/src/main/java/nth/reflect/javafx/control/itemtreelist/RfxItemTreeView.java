@@ -21,7 +21,8 @@ import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller
  * Test to replace {@link RfxMainMenuList}
  * 
  * TODO implement {@link RfxVerticalFlingScroller}<br>
- * TODO remove blue (focus?) border e.g. https://stackoverflow.com/questions/37524467/remove-all-focus-borders-from-javafx
+ * TODO remove blue (focus?) border e.g.
+ * https://stackoverflow.com/questions/37524467/remove-all-focus-borders-from-javafx
  * 
  * @author nilsth
  *
@@ -30,7 +31,6 @@ public class RfxItemTreeView extends TreeView {
 	private static final String ENTER = "\r";
 	private static final String SPACE = " ";
 
-	
 	public RfxItemTreeView(TreeItem<Item> rootItem) {
 		super();
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxItemTreeView.class));
@@ -56,7 +56,7 @@ public class RfxItemTreeView extends TreeView {
 
 			@Override
 			public void handle(MouseEvent event) {
-				if (MouseButton.PRIMARY.equals(event.getButton()) && event.getClickCount()==1) {
+				if (MouseButton.PRIMARY.equals(event.getButton()) && event.getClickCount() == 1) {
 					RfxItemTreeView itemTreeView = (RfxItemTreeView) event.getSource();
 					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreeView.getFocusModel()
 							.getFocusedItem();
@@ -64,7 +64,7 @@ public class RfxItemTreeView extends TreeView {
 					if (item instanceof MethodItem) {
 						onAction(treeItem.getValue());
 					}
-					
+
 				}
 			}
 		};
@@ -94,7 +94,7 @@ public class RfxItemTreeView extends TreeView {
 	}
 
 	protected void onAction(Item item) {
-		
+
 		Action action = item.getAction();
 		if (action != null) {
 			action.run();
@@ -106,15 +106,9 @@ public class RfxItemTreeView extends TreeView {
 		treeItem.setExpanded(!expanded);
 	}
 
-
-
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		//remove border
-		RfxStyleProperties properties = styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxItemTreeView.class)).getProperties();
-		properties.put("-fx-background-color", "transparent");
-		properties.put("-fx-background-insets"," 0");
-		properties.put("-fx-padding","0");
-
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxItemTreeView.class)).getProperties()
+				.setPadding(0).setBackgroundInsets(0).setBackground("transparent");
 	}
 
 }

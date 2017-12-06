@@ -15,9 +15,11 @@ import nth.introspect.ui.style.fonticonurl.FontIconUrl;
 import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+
 /**
  * TODO Bold text for {@link MethodOwnerItem}s <br>
  * TODO TreeCell<Item> to use the visibility of {@link Item#isVisible()}
+ * 
  * @author nilsth
  *
  */
@@ -29,8 +31,6 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 	public RfxItemTreeCell() {
 		setDisclosureNode(new Text(""));
 	}
-
-	
 
 	@Override
 	protected void updateItem(Item item, boolean empty) {
@@ -67,7 +67,6 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 			setIcon(item.getIconURL());
 		}
 	}
-
 
 	private void setIcon(URL iconUrl) {
 		try {
@@ -143,8 +142,7 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class)).getProperties()
 				.setFont(MaterialFont.getBody1())
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED());
-			
+				.setBackground("transparent");
 
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class).appendSelected())
 				.getProperties()

@@ -9,6 +9,11 @@ import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.basic.Color;
 import nth.introspect.ui.style.basic.Font;
 
+/**
+ * Style properties class in fluent interface style, because JavaFx does not have a CSS API yet. 
+ * @author nilsth
+ *
+ */
 public class RfxStyleProperties extends HashMap<String,String> {
 	private static final long serialVersionUID = 7266905658046903895L;
 
@@ -212,6 +217,16 @@ public class RfxStyleProperties extends HashMap<String,String> {
 
 	public RfxStyleProperties setSpacing(int spacing) {
 		put("-fx-spacing", Integer.toString(spacing)+"px");
+		return this;
+	}
+
+	/**
+	 * This hides the outer focus border
+	 * @param insets
+	 * @return
+	 */
+	public RfxStyleProperties setBackgroundInsets(int insets) {
+		put("-fx-background-insets",Integer.toString(insets)+"px");
 		return this;
 	}
 

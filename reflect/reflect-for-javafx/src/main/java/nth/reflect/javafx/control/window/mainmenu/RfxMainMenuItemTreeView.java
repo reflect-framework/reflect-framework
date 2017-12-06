@@ -12,7 +12,9 @@ import nth.introspect.layer1userinterface.view.View;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
+import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxMainMenuItemTreeView extends RfxItemTreeView {
@@ -27,6 +29,7 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 		this.windowExtraWideBinding = rfxWindow.getExtraWideBinding();
 		this.mainMenuVisibleProperty=rfxWindow.getMainMenuVisibleProperty();
 		this.tabsProperty=rfxWindow.getTabsProperty();
+		setStyle(new RfxStyleProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED()).toString());
 	}
 	
 	
