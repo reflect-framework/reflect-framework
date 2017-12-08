@@ -8,19 +8,15 @@ public class TitleUtil {
 
 	// FIXME: move to ActionMethodInfo
 	public static String createTitle(ReflectionProvider reflectionProvider,
-			ActionMethodInfo actionMethodInfo, Object methodParameter, boolean shortTile) {
+			ActionMethodInfo actionMethodInfo, Object methodParameter) {
 		StringBuffer title = new StringBuffer();
 		String methodDisplayName = actionMethodInfo.getDisplayName();
 		if (methodDisplayName != null) {
-			if (shortTile && methodDisplayName.length() > 20) {
-				methodDisplayName = methodDisplayName.substring(0, 17) + "...";
-			}
 			title.append(methodDisplayName);
 		}
 
 		if (methodParameter != null) {
-			String parameterText = createMethodParameterTitle(reflectionProvider, methodParameter,
-					shortTile);
+			String parameterText = createMethodParameterTitle(reflectionProvider, methodParameter);
 			if (parameterText.length() > 0) {
 				// append to title between parentheses
 				title.append(" (");
@@ -33,13 +29,9 @@ public class TitleUtil {
 	}
 
 	private static String createMethodParameterTitle(ReflectionProvider reflectionProvider,
-			Object methodParameter, boolean shortTile) {
+			Object methodParameter) {
 		TitleModel model = new TitleModel(reflectionProvider);
 		String parameterText = model.getTitle(methodParameter);
-		// shorten if needed
-		if (shortTile && parameterText.length() > 20) {
-			parameterText = parameterText.substring(0, 17) + "...";
-		}
 		return parameterText;
 	}
 

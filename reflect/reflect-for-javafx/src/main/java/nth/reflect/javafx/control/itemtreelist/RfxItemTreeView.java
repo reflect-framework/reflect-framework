@@ -60,11 +60,7 @@ public class RfxItemTreeView extends TreeView {
 					RfxItemTreeView itemTreeView = (RfxItemTreeView) event.getSource();
 					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreeView.getFocusModel()
 							.getFocusedItem();
-					Item item = treeItem.getValue();
-					if (item instanceof MethodItem) {
-						onAction(treeItem.getValue());
-					}
-
+					onItemAction(treeItem);
 				}
 			}
 		};
@@ -80,22 +76,25 @@ public class RfxItemTreeView extends TreeView {
 					RfxItemTreeView itemTreeView = (RfxItemTreeView) event.getSource();
 					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreeView.getFocusModel()
 							.getFocusedItem();
-					Item item = treeItem.getValue();
-					if (item instanceof MethodOwnerItem) {
-						toggleIsExpanded(treeItem);
-						getSelectionModel().select(treeItem);
-					} else if (item instanceof MethodItem) {
-						onAction(treeItem.getValue());
-						getSelectionModel().select(treeItem);
-					}
+					onItemAction(treeItem);
 				}
 			}
 		};
 	}
 
-	protected void onAction(Item item) {
+	public void onItemAction(TreeItem<Item> treeItem) {
+		Item item = treeItem.getValue();
+		if (item instanceof MethodOwnerItem) {
+			toggleIsExpanded(treeItem);
+		} else if (item instanceof MethodItem) {
+			executeAction(treeItem.getValue().getAction());
+		} else if (item instanceof Item) {
+			executeAction(treeItem.getValue().getAction());
+		}	
+		getSelectionModel().select(treeItem);
+	}
 
-		Action action = item.getAction();
+	private void executeAction(Action action) {
 		if (action != null) {
 			action.run();
 		}

@@ -181,14 +181,12 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue,
-				true);
+		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override
 	public String getViewDescription() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue,
-				false);
+		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override

@@ -82,9 +82,13 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 	}
 
 	
+	/**
+	 * overriding method so that the menu closes automatically then the window is narrow.
+	 * @param treeItem
+	 */
 	@Override
-	protected void onAction(Item item) {
-		super.onAction(item);
+	public void onItemAction(TreeItem<Item> treeItem) {
+		super.onItemAction(treeItem);
 		if (isNarrowWindow() && tabsProperty.size()>0) {
 			hideMainMenu();				
 		}

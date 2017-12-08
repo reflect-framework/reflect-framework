@@ -73,7 +73,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
 			UploadStream uploadStream) {
 		final JFileChooser fc = new JFileChooser();
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream, true);
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream);
 		fc.setDialogTitle(title);
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(

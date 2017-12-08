@@ -56,7 +56,7 @@ public class RfxFormView extends BorderPane implements FormView {
 	@Override
 	public String getViewTitle() {
 		 return TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
-				domainValueModel.getValue(), false);
+				domainValueModel.getValue());
 	}
 
 	@Override

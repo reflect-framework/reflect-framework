@@ -62,7 +62,7 @@ public class PropertyMethodItem extends MethodItem {
 		}
 		ReflectionProvider reflectionProvider=formView.getUserInterfaceContainer().get(ReflectionProvider.class);
 		text.append(TitleUtil.createTitle(reflectionProvider,propertyMethodInfo,
-				parameterValue, false));
+				parameterValue));
 		return text.toString();
 	}
 

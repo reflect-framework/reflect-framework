@@ -151,7 +151,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			String title = languageProvider.getText("Error while executing an action");
 			String messageFormat = languageProvider.getText("Action: %s");
 			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo,
-					methodParameter, false);
+					methodParameter);
 			String message = String.format(messageFormat, actionMethod);
 			showErrorDialog(title, message, exception);
 		}

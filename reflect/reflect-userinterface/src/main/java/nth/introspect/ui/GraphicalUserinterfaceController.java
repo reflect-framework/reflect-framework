@@ -58,7 +58,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to execute: "));
 		message.append(
-				TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter, false));
+				TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter));
 		message.append("?");
 
 		// show the dialog
@@ -112,7 +112,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 		// show ProgressDialog
 		String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
-				methodParameterValue, true);
+				methodParameterValue);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
 		// start method execution thread
@@ -170,7 +170,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 							methodReturnValue);
 				} catch (Exception exception) {
 					String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
-							methodParameterValue, false);
+							methodParameterValue);
 					String message = languageProvider.getText("Failed to execute.");
 					showErrorDialog(title, message, exception);
 				}
@@ -310,7 +310,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
 			Object methodParameter) {
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter, true);
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
 
 		StringBuffer message = new StringBuffer(title);
 		message.append(languageProvider.getText(" was successfully executed"));
@@ -413,7 +413,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
 			Object methodParameter, String methodResult) {
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter, true);
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
 
 		StringBuilder message = new StringBuilder(title);
 		message.append(": ");

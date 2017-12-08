@@ -183,7 +183,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
 			UploadStream uploadStream) {
 		FileChooser fileChooser = new FileChooser();
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream, true);
+		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream);
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(

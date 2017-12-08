@@ -152,7 +152,7 @@ public class FormView extends SwingView implements
 	@Override
 	public String getViewTitle() {
 		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
-				domainValueModel.getValue(), true);
+				domainValueModel.getValue());
 	}
 
 	@Override

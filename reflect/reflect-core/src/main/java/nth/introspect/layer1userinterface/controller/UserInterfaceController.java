@@ -211,8 +211,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 		} catch (Exception exception) {
 			String title = languageProvider.getText("Error while executing an action" );
 			String messageFormat = languageProvider.getText("Action: %s" );
-			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
-					false);
+			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
 			String message=String.format(messageFormat, actionMethod);
 			showErrorDialog(title,  message, exception);
 		}
@@ -254,8 +253,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 				| InvocationTargetException exception) {
 			String title = languageProvider.getText("Error while displaying an action result" );
 			String messageFormat = languageProvider.getText("Action: %s" );
-			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter,
-					false);
+			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
 			String message=String.format(messageFormat, actionMethod);
 			showErrorDialog(title,  message, exception);
 		}

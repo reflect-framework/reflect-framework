@@ -62,7 +62,7 @@ public class RfxList<T> extends ListView<T> implements RfxControl {
 				.setPadding(0);
 		
 //TODO set row background color transparent, not intermediate
-		//TODO set focused row		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class,"cell").appendSelected()).getProperties().setBackground(MaterialColorSetCssName.ACCENT.BACKGROUND());
+//TODO set focused row		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class,"cell").appendSelected()).getProperties().setBackground(MaterialColorSetCssName.ACCENT.BACKGROUND());
 //TODO remove focus border
 		//				.setProperty("-fx-background-color", "transparent,-fx-box-border,-fx-control-inner-background")
 //				.setProperty("-fx-background-insets", "-1.4, 0, 1")

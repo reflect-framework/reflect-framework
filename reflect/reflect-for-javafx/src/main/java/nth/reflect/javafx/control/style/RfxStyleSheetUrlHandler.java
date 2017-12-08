@@ -17,6 +17,7 @@ import nth.reflect.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.list.RfxList;
+import nth.reflect.javafx.control.table.RfxTable;
 import nth.reflect.javafx.control.toolbar.RfxToolbar;
 import nth.reflect.javafx.control.view.form.RfxContentBottomToolbar;
 import nth.reflect.javafx.control.view.form.field.RfxTextField;
@@ -62,11 +63,11 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	private void appendPanes(RfxStyleSheet styleSheet) {
 		RfxContentPane.appendStyleGroups(styleSheet);
 		RfxList.appendStyleGroups(styleSheet);
+		RfxTable.appendStyleGroups(styleSheet);
 		RfxMainMenuPane.appendStyleGroups(styleSheet);
 	}
 
 	private void appendColorDefinitions(RfxStyleSheet styleSheet, ReflectApplicationForJavaFX application) {
-
 		RfxStyleGroup colorDefintion = styleSheet.addStyleGroup(RfxStyleSelector.createFor("*"));
 		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.PRIMARY,new MaterialColorSet(application.getPrimaryColor()));
 		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.ACCENT,new MaterialColorSet(application.getAccentColor()));
