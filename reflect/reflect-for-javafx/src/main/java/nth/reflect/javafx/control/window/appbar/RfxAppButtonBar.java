@@ -19,14 +19,25 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.PopupWindow.AnchorLocation;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
+import nth.introspect.layer1userinterface.view.ViewContainer;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.ui.item.tab.SelectTabItem;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.basic.Color;
+import nth.reflect.javafx.RfxUserinterfaceController;
 import nth.reflect.javafx.control.button.RfxContentButton;
 import nth.reflect.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
+import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
+import nth.reflect.javafx.control.list.RfxList;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.view.form.RfxDomainPropertyPane;
 import nth.reflect.javafx.control.view.form.RfxFormView;
@@ -65,11 +76,13 @@ public class RfxAppButtonBar extends Pane {
 	private final RfxWindow rfxWindow;
 	private final BooleanBinding extraWideBinding;
 	private final ObjectProperty<View> selectedTabProperty;
-	private final RfxPrimaryButton tabSelectionButton;
+	private final JFXButton tabSelectionButton;
 	private RfxMainMenuPane mainMenuPane;
+	private final UserInterfaceContainer userInterfaceContainer;
 
 	public RfxAppButtonBar(UserInterfaceContainer userInterfaceContainer,
 			RfxMainMenuPane mainMenuPane) {
+		this.userInterfaceContainer = userInterfaceContainer;
 		this.mainMenuPane = mainMenuPane;
 		rfxWindow = userInterfaceContainer.get(RfxWindow.class);
 		mainMenuVisibleProperty = rfxWindow.getMainMenuVisibleProperty();
@@ -80,7 +93,6 @@ public class RfxAppButtonBar extends Pane {
 		selectedTabProperty = rfxWindow.getSelectedTabProperty();
 		selectedTabProperty.addListener(this::onSelectedTabChanged);
 
-		// mainMenuButton = createMainMenuButtton();
 		mainMenuButton = createMainMenuButtton();
 		getChildren().add(mainMenuButton);
 
@@ -195,7 +207,7 @@ public class RfxAppButtonBar extends Pane {
 		double mainMenuButtonWidth = mainMenuButton.getWidth();
 		double mainMenuButtonHeight = mainMenuButton.getHeight();
 		positionInArea(mainMenuButton, x, y, mainMenuButtonWidth, mainMenuButtonHeight,
-				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
+				IGNORE_BASE_LINE, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 
 		double menuIndent = RfxWindow.MENU_WIDTH + mainMenuPane.getTranslateX();
 		if (extraWideBinding.get() && menuIndent > mainMenuButton.getWidth()) {
@@ -206,15 +218,18 @@ public class RfxAppButtonBar extends Pane {
 		List<RfxTabButton> tabButtons = getTabButtons();
 		resizeTabButtons(tabButtons);
 
-		double availableWidth = width - x;
+		double availableWidth = width - x;//minus tab selection button width?
 		List<RfxTabButton> visibleTabButtons = getVisibleTabButtons(tabButtons, availableWidth);
-
+		
 		tabSelectionButton.setVisible(visibleTabButtons.size() < tabButtons.size());
 		tabSelectionButton.autosize();
-		positionInArea(tabSelectionButton, width - tabSelectionButton.getWidth(), y,
-				tabSelectionButton.getWidth(), tabSelectionButton.getHeight(), IGNORE_BASE_LINE,
+		double tabSelectionButtonWidth = tabSelectionButton.getWidth();
+		double tabSelectionButtonHeight = tabSelectionButton.getHeight();
+		positionInArea(tabSelectionButton, width - tabSelectionButtonWidth, y,
+				tabSelectionButtonWidth, tabSelectionButtonHeight, IGNORE_BASE_LINE,
 				Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 
+		
 		for (RfxTabButton tabButton : tabButtons) {
 			if (visibleTabButtons.contains(tabButton)) {
 				tabButton.setVisible(true);
@@ -303,11 +318,39 @@ public class RfxAppButtonBar extends Pane {
 		return tabMenuButton;
 	}
 
-	private RfxPrimaryButton createTabSelectionButton() {
-		RfxPrimaryButton tabSelectionButton = new RfxPrimaryButton(FontAwesomeIconName.CLONE);
-		createSelectTabPopUp(tabSelectionButton);
-		// menuButton.setOnAction(this::onMenuButtonAction);
+	private JFXButton createTabSelectionButton() {
+		RfxPrimaryButton tabSelectionButton = new RfxPrimaryButton(FontAwesomeIconName.FILES_ALT);//TODo use de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.CLONE when supported by newer version of jfoenix (fontawesomefx8.9)
+		tabSelectionButton.setOnAction(this::onTabSelectionButtonAction); 
+//		tabSelectionButton.setPadding(new Insets(8, 16, 8, 17));//TODO move to RfxPrimaryButton
+		//TODO fix icon color 
+		//TODO rippler color
 		return tabSelectionButton;
+	}
+	
+	public void onTabSelectionButtonAction(ActionEvent actionEvent) {
+		showSelectTabPopUp();
+	}
+
+	private void showSelectTabPopUp() {
+		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
+		RfxUserinterfaceController userInterfaceController=userInterfaceContainer.get(RfxUserinterfaceController.class);
+		ViewContainer<View> viewContainer = userInterfaceController.getViewContainer();
+		
+		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
+		rootNode.setExpanded(true);
+		RfxItemTreeView itemTreeView=new RfxItemTreeView(rootNode);
+		
+		for (int i=0;i<viewContainer.getViewCount(); i++) {
+			View view=viewContainer.getView(i);
+			SelectTabItem selectTabItem=new SelectTabItem(languageProvider, viewContainer, view);
+			TreeItem<Item> selectTabNode = new TreeItem<>(selectTabItem);
+			rootNode.getChildren().add(selectTabNode);
+		};
+		
+		JFXPopup popup = new JFXPopup();
+		popup.setPopupContent(itemTreeView);
+		popup.setAnchorLocation(AnchorLocation.CONTENT_TOP_RIGHT);
+		popup.show(tabSelectionButton);
 	}
 
 	private JFXButton createMainMenuButtton() {
@@ -320,7 +363,7 @@ public class RfxAppButtonBar extends Pane {
 		icon.setIcon(de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.BARS);
 		icon.setSize("17px");
 		String iconStyle = icon.getStyle() + ";"
-				+ new RfxStyleProperties().setFill(Color.WHITE).toString();
+				+ new RfxStyleProperties().setFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1()).toString();
 		icon.setStyle(iconStyle);
 
 		// RfxFontIcon icon=new RfxFontIcon(FontAwesomeIconName.BARS, 16,
@@ -328,24 +371,14 @@ public class RfxAppButtonBar extends Pane {
 		button.setGraphic(icon);
 		button.setPadding(new Insets(8, 16, 8, 17));
 		// button.getStyleClass().add("button-flat");
-		button.setOnAction(this::toggleMainMenuVisibility);
+		button.setOnAction(this::onMainMenuButton);
 		// TODO the above in RfxPrimaryButton and move it to the appbar package
 		return button;
 		// return mainMenuButton;
 	}
 
-	private void toggleMainMenuVisibility(ActionEvent event) {
+	private void onMainMenuButton(ActionEvent event) {
 		mainMenuVisibleProperty.set(!mainMenuVisibleProperty.get());
 	}
 
-	private void createSelectTabPopUp(RfxContentButton tabSelectionButton) {
-		StackPane root = new StackPane();
-		JFXListView<String> list = new JFXListView<String>();
-		for (int i = 1; i < 5; i++)
-			list.getItems().add("Item " + i);
-
-		JFXPopup popup = new JFXPopup();
-		popup.setPopupContent(list);
-		tabSelectionButton.setOnMouseClicked((e) -> popup.show(tabSelectionButton));
-	}
 }

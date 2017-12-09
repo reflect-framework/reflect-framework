@@ -2,6 +2,7 @@ package nth.reflect.javafx.control.button;
 
 import com.jfoenix.controls.JFXRippler;
 
+import javafx.scene.text.Text;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
@@ -55,11 +56,17 @@ public class RfxPrimaryButton extends RfxContentButton implements RfxControl {
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)).getProperties()
 				.setBackground(MaterialColorSetCssName.PRIMARY.BACKGROUND())
-				.setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1());
+				.setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1())
+				.setPadding(8, 16, 8, 16);
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)
 						.append(RfxStyleSelector.createFor(JFXRippler.class)))
 				.getProperties()
-				.put("-fx-rippler-fill", MaterialColorSetCssName.PRIMARY.BACKGROUND_HIGHLIGHTED());
+				.put("-fx-rippler-fill", "red");// MaterialColorSetCssName.PRIMARY.BACKGROUND_HIGHLIGHTED());
+		styleSheet
+		.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)
+				.append(RfxStyleSelector.createFor(Text.class)))
+		.getProperties()
+		.setFill("red");//MaterialColorSetCssName.PRIMARY.BACKGROUND_HIGHLIGHTED());
 	}
 }
