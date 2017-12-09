@@ -133,7 +133,7 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		return this;
 	}
 
-	public Object setFill(String colorVariableName) {
+	public RfxStyleProperties setFill(String colorVariableName) {
 		put("-fx-fill", colorVariableName);
 		return this;
 	}

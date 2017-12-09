@@ -17,7 +17,9 @@ import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 
 /**
- * {@link RfxControl} button in the content color, see {@link ReflectApplicationForJavaFX#getContentColor()
+ * {@link RfxControl} button in the content color, see
+ * {@link ReflectApplicationForJavaFX#getContentColor()
+ * 
  * @author nilsth
  *
  */
@@ -62,7 +64,7 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 		if (fontIconName == null) {
 			setGraphic(null);
 		} else {
-			setGraphic(new RfxFontIcon(fontIconName, ICON_SIZE, MaterialColorSetCssName.CONTENT.FOREGROUND1()));
+			setGraphic(new RfxFontIcon(fontIconName, ICON_SIZE));
 		}
 	}
 
@@ -71,20 +73,27 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 		addStyleClass();
 	}
 
-
 	protected void addStyleClass() {
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxContentButton.class));
 	}
 
-	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)).getProperties()
-		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
-		.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
-		.setMinHeight(MIN_HEIGHT)
-		.setFont(MaterialFont.getRobotoMedium14());
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class).append(RfxStyleSelector.createFor("jfx-rippler"))).getProperties().
-		put("-fx-rippler-fill",MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED());
+				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1()).setMinHeight(MIN_HEIGHT)
+				.setFont(MaterialFont.getRobotoMedium14());
+		// rippler color
+		styleSheet
+				.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)
+						.append(RfxStyleSelector.createFor("jfx-rippler")))
+				.getProperties()
+				.put("-fx-rippler-fill", MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED());
+		// icon color
+		styleSheet
+				.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)
+						.append(RfxStyleSelector.createFor(">")
+								.append(RfxStyleSelector.createFor(RfxFontIcon.class))))
+				.getProperties().setFill(MaterialColorSetCssName.CONTENT.FOREGROUND1());
 	}
-	
+
 }
