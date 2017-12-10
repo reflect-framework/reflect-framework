@@ -85,14 +85,13 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 		// rippler color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)
-						.append(RfxStyleSelector.createFor("jfx-rippler")))
+						.appendChild("jfx-rippler"))
 				.getProperties()
-				.put("-fx-rippler-fill", MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED());
+				.put("-jfx-rippler-fill", MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED());
 		// icon color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)
-						.append(RfxStyleSelector.createFor(">")
-								.append(RfxStyleSelector.createFor(RfxFontIcon.class))))
+						.appendChild(RfxFontIcon.class))
 				.getProperties().setFill(MaterialColorSetCssName.CONTENT.FOREGROUND1());
 	}
 

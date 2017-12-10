@@ -89,15 +89,14 @@ public class RfxContentBottomToolbarButton extends JFXButton implements RfxContr
 		// rippler color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class)
-						.append(RfxStyleSelector.createFor("jfx-rippler")))
+						.appendChild("jfx-rippler"))
 				.getProperties()
-				.put("-fx-rippler-fill", MaterialColorSetCssName.CONTENT.BACKGROUND());
+				.put("-jfx-rippler-fill", MaterialColorSetCssName.CONTENT.BACKGROUND());
 		
 		// icon color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class)
-						.append(RfxStyleSelector.createFor(">")
-								.append(RfxStyleSelector.createFor(RfxFontIcon.class))))
+						.appendChild(RfxFontIcon.class))
 				.getProperties().setFill(MaterialColorSetCssName.CONTENT.FOREGROUND1());
 	}
 

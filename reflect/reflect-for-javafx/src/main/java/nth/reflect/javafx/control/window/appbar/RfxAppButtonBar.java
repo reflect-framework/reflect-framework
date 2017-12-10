@@ -228,7 +228,6 @@ public class RfxAppButtonBar extends Pane {
 		positionInArea(tabSelectionButton, width - tabSelectionButtonWidth, y,
 				tabSelectionButtonWidth, tabSelectionButtonHeight, IGNORE_BASE_LINE,
 				Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
-
 		
 		for (RfxTabButton tabButton : tabButtons) {
 			if (visibleTabButtons.contains(tabButton)) {
@@ -239,11 +238,10 @@ public class RfxAppButtonBar extends Pane {
 				if (remainingWidth < 0) {
 					tabButtonWidth = width - x;
 					if (tabSelectionButton.isVisible()) {
-						tabButtonWidth -= tabSelectionButton.getWidth();
+						tabButtonWidth = tabButtonWidth-tabSelectionButton.getWidth();
 					}
 				}
 				tabButton.resize(tabButtonWidth, tabButtonHeight);
-
 				positionInArea(tabButton, x, y, tabButtonWidth, tabButtonHeight, IGNORE_BASE_LINE,
 						Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 				x += tabButtonWidth;
@@ -251,6 +249,7 @@ public class RfxAppButtonBar extends Pane {
 				tabButton.setVisible(false);
 			}
 		}
+		
 
 	}
 
@@ -319,11 +318,9 @@ public class RfxAppButtonBar extends Pane {
 	}
 
 	private JFXButton createTabSelectionButton() {
-		RfxPrimaryButton tabSelectionButton = new RfxPrimaryButton(FontAwesomeIconName.FILES_ALT);//TODo use de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.CLONE when supported by newer version of jfoenix (fontawesomefx8.9)
+		RfxPrimaryButton tabSelectionButton = new RfxPrimaryButton(FontAwesomeIconName.FILES_ALT);
+		//TODO use de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.CLONE when supported by newer version of jfoenix (fontawesomefx8.9)
 		tabSelectionButton.setOnAction(this::onTabSelectionButtonAction); 
-//		tabSelectionButton.setPadding(new Insets(8, 16, 8, 17));//TODO move to RfxPrimaryButton
-		//TODO fix icon color 
-		//TODO rippler color
 		return tabSelectionButton;
 	}
 	

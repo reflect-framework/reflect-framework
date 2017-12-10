@@ -45,13 +45,13 @@ public class RfxPrimaryButton extends RfxContentButton implements RfxControl {
 		//rippler color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)
-						.append(RfxStyleSelector.createFor(JFXRippler.class)))
+						.appendChild("jfx-rippler"))
 				.getProperties()
-				.put("-fx-rippler-fill", "red");//TODO does not work needs to be  MaterialColorSetCssName.PRIMARY.BACKGROUND_HIGHLIGHTED());
+				.put("-jfx-rippler-fill", MaterialColorSetCssName.PRIMARY.BACKGROUND_HIGHLIGHTED());
 		//icon color
 		styleSheet
 		.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)
-				.append(RfxStyleSelector.createFor(">").append(RfxStyleSelector.createFor(RfxFontIcon.class))))
+				.appendChild(RfxFontIcon.class))
 		.getProperties()
 		.setFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1());
 	}

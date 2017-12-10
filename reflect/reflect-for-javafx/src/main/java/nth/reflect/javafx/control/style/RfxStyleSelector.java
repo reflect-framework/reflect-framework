@@ -33,12 +33,12 @@ public class RfxStyleSelector {
 		if (selector.length()>0) {
 			selector.append(" ");
 		}
-		String className = RfxStyleSheet.createStyleClassName(controlClass);
 		selector.append(".");
+		String className = RfxStyleSheet.createStyleClassName(controlClass);
 		selector.append(className);
 		return this;
 	}
-	
+
 	public RfxStyleSelector append(Class<? extends Node> controlClass, String suffix) {
 		if (selector.length()>0) {
 			selector.append(" ");
@@ -55,6 +55,26 @@ public class RfxStyleSelector {
 			selector.append(" ");
 		}
 		selector.append(styleSelectorToAppend);
+		return this;
+	}
+	
+	public RfxStyleSelector appendChild(Class<? extends Node> controlClass) {
+		if (selector.length()>0) {
+			selector.append(" > ");
+		}
+		selector.append(".");
+		String className = RfxStyleSheet.createStyleClassName(controlClass);
+		selector.append(className);
+		return this;
+	}
+
+
+	public RfxStyleSelector appendChild(String childSelector) {
+		if (selector.length()>0) {
+			selector.append(" > ");
+		}
+		selector.append(".");
+		selector.append(childSelector);
 		return this;
 	}
 	
@@ -82,6 +102,7 @@ public class RfxStyleSelector {
 	public String toString() {
 		return selector.toString();
 	}
+
 
 
 }
