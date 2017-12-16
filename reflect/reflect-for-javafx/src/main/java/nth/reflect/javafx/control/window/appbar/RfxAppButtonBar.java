@@ -218,13 +218,14 @@ public class RfxAppButtonBar extends Pane {
 		List<RfxTabButton> tabButtons = getTabButtons();
 		resizeTabButtons(tabButtons);
 
-		double availableWidth = width - x;//minus tab selection button width?
-		List<RfxTabButton> visibleTabButtons = getVisibleTabButtons(tabButtons, availableWidth);
-		
-		tabSelectionButton.setVisible(visibleTabButtons.size() < tabButtons.size());
 		tabSelectionButton.autosize();
 		double tabSelectionButtonWidth = tabSelectionButton.getWidth();
 		double tabSelectionButtonHeight = tabSelectionButton.getHeight();
+		
+		double availableWidth = width - x-tabSelectionButtonWidth;//minus tab selection button width?
+		List<RfxTabButton> visibleTabButtons = getVisibleTabButtons(tabButtons, availableWidth);
+		
+		tabSelectionButton.setVisible(visibleTabButtons.size() < tabButtons.size());
 		positionInArea(tabSelectionButton, width - tabSelectionButtonWidth, y,
 				tabSelectionButtonWidth, tabSelectionButtonHeight, IGNORE_BASE_LINE,
 				Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
@@ -235,10 +236,13 @@ public class RfxAppButtonBar extends Pane {
 				double tabButtonWidth = tabButton.getWidth();
 				double tabButtonHeight = tabButton.getHeight();
 				double remainingWidth = width - x - tabButtonWidth;
+				if (tabSelectionButton.isVisible()) {
+					remainingWidth -=tabSelectionButtonWidth;
+				}
 				if (remainingWidth < 0) {
 					tabButtonWidth = width - x;
 					if (tabSelectionButton.isVisible()) {
-						tabButtonWidth = tabButtonWidth-tabSelectionButton.getWidth();
+						tabButtonWidth = tabButtonWidth-tabSelectionButtonWidth;
 					}
 				}
 				tabButton.resize(tabButtonWidth, tabButtonHeight);
@@ -351,9 +355,9 @@ public class RfxAppButtonBar extends Pane {
 	}
 
 	private JFXButton createMainMenuButtton() {
-		// RfxPrimaryButton mainMenuButton = new RfxPrimaryButton(
-		// FontAwesomeIconName.BARS);
-		// mainMenuButton.setOnAction(this::toggleMainMenuVisibility);
+//		 RfxPrimaryButton mainMenuButton = new RfxPrimaryButton(FontAwesomeIconName.BARS);
+//		 mainMenuButton.setOnAction(this::onMainMenuButton);
+//		 return mainMenuButton;
 
 		JFXButton button = new JFXButton();
 		FontAwesomeIcon icon = new FontAwesomeIcon();
@@ -371,7 +375,7 @@ public class RfxAppButtonBar extends Pane {
 		button.setOnAction(this::onMainMenuButton);
 		// TODO the above in RfxPrimaryButton and move it to the appbar package
 		return button;
-		// return mainMenuButton;
+
 	}
 
 	private void onMainMenuButton(ActionEvent event) {
