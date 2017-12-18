@@ -28,6 +28,7 @@ public class RfxContentBottomToolbarButton extends JFXButton implements RfxContr
 	private static final int ICON_SIZE = 17;
 	private static final int MIN_HEIGHT = 32;
 	private static final int PADDING_SIDE = 16;
+	private static final int FONT_SIZE = 14;
 	private RfxFontIconName fontIconName;
 	private MaterialColorSet colorSet;
 
@@ -85,7 +86,7 @@ public class RfxContentBottomToolbarButton extends JFXButton implements RfxContr
 				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED())
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1()).setMinHeight(MIN_HEIGHT)
 				.setPadding(0, PADDING_SIDE, 0, PADDING_SIDE)
-				.setFont(MaterialFont.getRobotoMedium14());
+				.setFont(MaterialFont.getRobotoMedium(FONT_SIZE));
 		// rippler color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class)

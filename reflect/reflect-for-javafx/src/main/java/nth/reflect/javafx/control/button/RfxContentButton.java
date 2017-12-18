@@ -27,6 +27,7 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 
 	private static final int ICON_SIZE = 17;
 	private static final int MIN_HEIGHT = 32;
+	private static final int FONT_SIZE = 14;
 	private RfxFontIconName fontIconName;
 	private MaterialColorSet colorSet;
 
@@ -81,7 +82,7 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)).getProperties()
 				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1()).setMinHeight(MIN_HEIGHT)
-				.setFont(MaterialFont.getRobotoMedium14());
+				.setFont(MaterialFont.getRobotoMedium(FONT_SIZE));
 		// rippler color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)

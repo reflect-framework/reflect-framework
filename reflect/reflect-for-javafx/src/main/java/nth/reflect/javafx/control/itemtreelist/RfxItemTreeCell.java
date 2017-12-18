@@ -25,6 +25,7 @@ import nth.reflect.javafx.control.style.RfxStyleSheet;
  */
 public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 
+	private static final int FONTSIZE = 14;
 	private static final String SERVICE_OBJECT_SUFFIX = "service-object";
 	private static final String SERVICE_METHOD_SUFFIX = "service-method";
 
@@ -140,13 +141,14 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 	// }
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
+		//TODO add RfxItemTree.class in style selector
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class)).getProperties()
-				.setFont(MaterialFont.getBody1())
+				.setFont(MaterialFont.getRobotoRegular(FONTSIZE))
 				.setBackground("transparent");
-
+		//TODO add RfxItemTree.class in style selector
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class).appendSelected())
 				.getProperties()
-				.setBackground(MaterialColorSetCssName.ACCENT.BACKGROUND());
+				.setBackground(MaterialColorSetCssName.CONTENT.FOREGROUND3());
 
 	}
 

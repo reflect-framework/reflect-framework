@@ -35,6 +35,7 @@ public class RfxDomainPropertyPane extends Pane {
 	private static final double LABEL_PREF_HEIGHT = 20;
 	private static final double LABEL_MAX_WIDTH_FOR_WIDE_SCREEN = 200;
 	private static final double FIELD_WIDTH_MAX_FOR_WIDE_WINDOW = RfxWindow.WINDOW_FAIRLY_WIDE_BINDING;
+	private static final int FONT_SIZE = 14;
 	private Map<PropertyInfo, Label> labels;
 	private Map<PropertyInfo, Region> fields;
 	private Map<PropertyInfo, RfxContentButton> fieldMenuButtons;
@@ -86,7 +87,7 @@ public class RfxDomainPropertyPane extends Pane {
 
 	private Label createLabel(PropertyInfo propertyInfo) {
 		Label label = new Label(propertyInfo.getDisplayName());
-		Font font = RfxFontFactory.create(MaterialFont.getBody1());
+		Font font = RfxFontFactory.create(MaterialFont.getRobotoRegular(FONT_SIZE));
 		label.setFont(font);
 		label.setPrefHeight(Label.USE_COMPUTED_SIZE);
 		label.setWrapText(true);

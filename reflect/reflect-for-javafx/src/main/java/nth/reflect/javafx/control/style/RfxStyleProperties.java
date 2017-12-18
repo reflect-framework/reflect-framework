@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Labeled;
+import javafx.scene.text.FontWeight;
 import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.basic.Color;
@@ -201,6 +202,21 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		put ("-fx-border-color", color);
 		return this;
 	}
+	
+	public RfxStyleProperties setBorderColor(String topColor, String rightColor,
+			String bottomColor, String leftColor) {
+		StringBuilder colors=new StringBuilder();
+		colors.append(topColor);
+		colors.append(" ");
+		colors.append(rightColor);
+		colors.append(" ");
+		colors.append(bottomColor);
+		colors.append(" ");
+		colors.append(leftColor);
+		put ("-fx-border-color", colors.toString());
+		return this;
+	}
+
 
 	public RfxStyleProperties setBorderWidth(int top, int right, int bottom, int left) {
 		StringBuilder widths=new StringBuilder();
@@ -229,6 +245,12 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		put("-fx-background-insets",Integer.toString(insets)+"px");
 		return this;
 	}
+
+	public RfxStyleProperties setFontWeight(FontWeight fontWeight) {
+		put("-fx-font-weight", fontWeight.name().toLowerCase());
+		return this;
+	}
+
 
 
 

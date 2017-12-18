@@ -22,6 +22,8 @@ import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller
 
 public class RfxList<T> extends ListView<T> implements RfxControl {
 
+	private static final int FONT_SIZE = 14;
+
 	public RfxList() {
 		new RfxVerticalFlingScroller(this);
 		// setBackground(RfxColorFactory.createBackGround(MaterialColors.getContentColorSet().getBackground()));
@@ -58,7 +60,7 @@ public class RfxList<T> extends ListView<T> implements RfxControl {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class)).getProperties()
 				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
-				.setFont(MaterialFont.getBody1())
+				.setFont(MaterialFont.getRobotoRegular(FONT_SIZE))
 				.setPadding(0);
 		
 //TODO set row background color transparent, not intermediate

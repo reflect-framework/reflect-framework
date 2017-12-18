@@ -39,6 +39,13 @@ public enum MaterialColorSetCssName {
 	public String BACKGROUND_HIGHLIGHTED() {
 		return getColorSetCssName("background-heighlighted");
 	}
+	
+	/**
+	 * @return CSS name for {@link MaterialColorSet#getBackgroundHighLighted()}
+	 */
+	public String TRANSPARENT() {
+		return "transparent";
+	}
 
 	
 

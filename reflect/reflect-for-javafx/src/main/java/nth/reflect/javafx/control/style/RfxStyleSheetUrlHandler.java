@@ -21,6 +21,7 @@ import nth.reflect.javafx.control.table.RfxTable;
 import nth.reflect.javafx.control.toolbar.RfxToolbar;
 import nth.reflect.javafx.control.view.form.RfxContentBottomToolbar;
 import nth.reflect.javafx.control.view.form.field.RfxTextField;
+import nth.reflect.javafx.control.view.table.RfxTableView;
 import nth.reflect.javafx.control.window.content.RfxContentPane;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
@@ -63,7 +64,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	private void appendPanes(RfxStyleSheet styleSheet) {
 		RfxContentPane.appendStyleGroups(styleSheet);
 		RfxList.appendStyleGroups(styleSheet);
-		RfxTable.appendStyleGroups(styleSheet);
+		RfxTableView.appendStyleGroups(styleSheet);
 		RfxMainMenuPane.appendStyleGroups(styleSheet);
 	}
 
