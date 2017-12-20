@@ -71,7 +71,7 @@ public class RfxStyleSelector {
 
 	public RfxStyleSelector appendChild(String childSelector) {
 		if (selector.length()>0) {
-			selector.append(" > ");
+			selector.append(" ");
 		}
 		selector.append(".");
 		selector.append(childSelector);

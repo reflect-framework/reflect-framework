@@ -102,6 +102,11 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		return this;
 	}
 
+	public RfxStyleProperties setSize(int size) {
+		put("-fx-size", getPixels(size));
+		return this;
+	}
+
 	
 	public RfxStyleProperties setMinHeight(int minHeight) {
 		put("-fx-min-height", getPixels(minHeight));
@@ -250,6 +255,7 @@ public class RfxStyleProperties extends HashMap<String,String> {
 		put("-fx-font-weight", fontWeight.name().toLowerCase());
 		return this;
 	}
+
 
 
 

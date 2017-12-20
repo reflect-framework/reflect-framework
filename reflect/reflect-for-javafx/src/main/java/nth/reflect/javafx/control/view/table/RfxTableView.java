@@ -13,6 +13,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SetProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -36,12 +37,24 @@ import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.javafx.control.fonticon.RfxFontIcon;
+import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 
 public class RfxTableView extends TableView<Object> implements nth.introspect.ui.view.TableView {
 
-	private static final int ROW_HEIGHT = 48;
+	private static final int ROW_HEIGHT = RfxItemTreeCell.ITEM_HEIGHT;// Material
+																		// design
+																		// says
+																		// 48
+																		// but
+																		// we
+																		// use
+																		// same
+																		// height
+																		// as
+																		// menu
+																		// items
 	private static final int ROW_FONT_SIZE = 14;
 	private static final int HEADER_FONT_SIZE = 13;
 	private final Object methodOwner;
@@ -329,23 +342,29 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 				.setFont(MaterialFont.getRobotoRegular(ROW_FONT_SIZE))
 				// remove focus border
 				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
-//	TODO does not work	styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-view .column-header-background"))
-//			.getProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
-
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-view .column-header"))
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header"))
+				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
+						MaterialColorSetCssName.CONTENT.TRANSPARENT())
+				.setSize(ROW_HEIGHT);
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header-background"))
 				.getProperties()
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
-		.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-				MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-				MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
-				MaterialColorSetCssName.CONTENT.TRANSPARENT());
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-view .column-header .label"))
+				// hide vertical line in header
+				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header-background").appendChild("filler"))
+				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
+						MaterialColorSetCssName.CONTENT.TRANSPARENT());
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header").appendChild(Label.class))
 				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND2())
 				.setFontWeight(FontWeight.NORMAL);
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-column")).getProperties()
 				.setBorderColor("transparent").setProperty("-fx-alignment", "CENTER-LEFT");
-		// TODO RfxTableView.class in style selector
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell")).getProperties()
 				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
@@ -354,19 +373,13 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
 						MaterialColorSetCssName.CONTENT.TRANSPARENT())
 				.setCellSize(ROW_HEIGHT);
-		// TODO RfxTableView.class in style selector
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell").appendFocused())
 				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.FOREGROUND3())
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
 				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
 						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
 						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT())
-				.setProperty("-fx-table-cell-border-color", "red red red red");
+						MaterialColorSetCssName.CONTENT.TRANSPARENT());
 	}
 
-	private static int HEADER_FONT_SIZE() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
