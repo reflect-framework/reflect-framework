@@ -18,6 +18,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import nth.introspect.generic.util.TitleUtil;
@@ -38,25 +40,13 @@ import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.javafx.control.fonticon.RfxFontIcon;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
+import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
+import nth.reflect.javafx.control.table.RfxTable;
 
-public class RfxTableView extends TableView<Object> implements nth.introspect.ui.view.TableView {
+public class RfxTableView extends BorderPane implements nth.introspect.ui.view.TableView {
 
-	private static final int ROW_HEIGHT = RfxItemTreeCell.ITEM_HEIGHT;// Material
-																		// design
-																		// says
-																		// 48
-																		// but
-																		// we
-																		// use
-																		// same
-																		// height
-																		// as
-																		// menu
-																		// items
-	private static final int ROW_FONT_SIZE = 14;
-	private static final int HEADER_FONT_SIZE = 13;
 	private final Object methodOwner;
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
@@ -64,11 +54,10 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final ReflectionProvider reflectionProvider;
+	private final RfxTable table;
 
 	public RfxTableView(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
-		addStyleClass();
-
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
@@ -77,75 +66,17 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 		reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 
-		initTable(reflectionProvider, languageProvider, methodOwner, actionMethodInfo,
-				methodParameterValue);
-
+		table = new RfxTable(this);
+		setCenter(table);
+		
 		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
 		// menuPopUp = createPopUpMenu(menuItems);
 		// menuBar = createMenuBar(menuItems);
 		// add(menuBar, BorderLayout.NORTH);
 		// add(tableContainer, BorderLayout.CENTER);
-	}
-
-	private void initTable(ReflectionProvider reflectionProvider, LanguageProvider languageProvider,
-			Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
-
-		Class<?> objectClass = actionMethodInfo.getGenericReturnType();
-		// Class<?> objectClass = valueModel.getValueType();
-		if (TypeUtil.isJavaType(objectClass) || TypeUtil.isEnum(objectClass)) {
-			TableColumn<Object, String> propertyColumn = new TableColumn(
-					languageProvider.getText("Values"));
-			propertyColumn.setCellValueFactory(
-					createCellValueFactoryForJavaTypeOrEnum(languageProvider, objectClass));
-			// TODO setItems
-		} else {
-			setItems(createObservableList(methodOwner, actionMethodInfo, methodParameterValue));
-
-			ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
-			for (PropertyInfo propertyInfo : propertyInfos) {
-				TableColumn propertyColumn = new TableColumn(propertyInfo.getDisplayName());
-				propertyColumn.setMinWidth(100);
-				propertyColumn.setCellValueFactory(
-						new PropertyValueFactory<>(propertyInfo.getSimpleName()));
-				getColumns().add(propertyColumn);
-			}
-		}
-
-		ColumnAutoSizer.autoFitTable(this);
 
 	}
 
-	private Callback<CellDataFeatures<Object, String>, ObservableValue<String>> createCellValueFactoryForJavaTypeOrEnum(
-			LanguageProvider languageProvider, Class<?> objectClass) {
-		JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
-		Format format = formatFactory.create(objectClass);
-		return new Callback<CellDataFeatures<Object, String>, ObservableValue<String>>() {
-
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<Object, String> param) {
-				String value = format.format(param);
-				return new ReadOnlyObjectWrapper<String>(value);
-			}
-		};
-	}
-
-	private ObservableList<Object> createObservableList(Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
-		try {
-			Object result = actionMethodInfo.invoke(methodOwner, methodParameterValue);
-			List<Object> list = (List<Object>) result;
-			// TODO create a createObservableList for all types, and that can be
-			// updated when needed
-			return new ObservableListWrapper<Object>(list);
-		} catch (Exception e) {
-			UserInterfaceController userInterfaceController = getuserInterfaceContainer()
-					.get(UserInterfaceController.class);
-			userInterfaceController.showErrorDialog(getViewTitle(), "Error getting table values.",
-					e);
-			return null;
-		}
-	}
 
 	// private JTable createTable(final MethodTableModel tableModel) {
 	// final JTable table = new JTable();
@@ -231,6 +162,7 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 
 	@Override
 	public void onViewActivate() {
+		// TODO refresh table
 		// // get selected domain object
 		// Object selectedDomainObject = null;
 		// int selectedRow = table.getSelectedRow();
@@ -260,7 +192,7 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 
 				@Override
 				public Object getValue() {
-					return getSelectionModel().getSelectedItem();
+					return table.getSelectionModel().getSelectedItem();
 				}
 
 				@Override
@@ -270,7 +202,7 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 
 				@Override
 				public boolean canGetValue() {
-					return !getSelectionModel().isEmpty();
+					return !table.getSelectionModel().isEmpty();
 				}
 
 			};
@@ -305,7 +237,7 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 				@Override
 				public boolean canGetValue() {
 					return true;// TODO only true when method does not return
-								// null or a empty collction?
+								// null or a empty collection?
 				}
 			};
 		}
@@ -331,55 +263,6 @@ public class RfxTableView extends TableView<Object> implements nth.introspect.ui
 	@Override
 	public UserInterfaceContainer getuserInterfaceContainer() {
 		return userInterfaceContainer;
-	}
-
-	protected void addStyleClass() {
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxTableView.class));
-	}
-
-	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class)).getProperties()
-				.setFont(MaterialFont.getRobotoRegular(ROW_FONT_SIZE))
-				// remove focus border
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header"))
-				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT())
-				.setSize(ROW_HEIGHT);
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header-background"))
-				.getProperties()
-				// hide vertical line in header
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header-background").appendChild("filler"))
-				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT());
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTableView.class).appendChild("column-header").appendChild(Label.class))
-				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND2())
-				.setFontWeight(FontWeight.NORMAL);
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-column")).getProperties()
-				.setBorderColor("transparent").setProperty("-fx-alignment", "CENTER-LEFT");
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell")).getProperties()
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT())
-				.setCellSize(ROW_HEIGHT);
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell").appendFocused())
-				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.FOREGROUND3())
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT());
 	}
 
 }

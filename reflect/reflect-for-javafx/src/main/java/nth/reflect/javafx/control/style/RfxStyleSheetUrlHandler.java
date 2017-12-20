@@ -64,7 +64,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	private void appendPanes(RfxStyleSheet styleSheet) {
 		RfxContentPane.appendStyleGroups(styleSheet);
 		RfxList.appendStyleGroups(styleSheet);
-		RfxTableView.appendStyleGroups(styleSheet);
+		RfxTable.appendStyleGroups(styleSheet);
 		RfxMainMenuPane.appendStyleGroups(styleSheet);
 	}
 

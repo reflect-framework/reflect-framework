@@ -1,4 +1,4 @@
-package nth.reflect.javafx.control.view.table;
+package nth.reflect.javafx.control.table;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
