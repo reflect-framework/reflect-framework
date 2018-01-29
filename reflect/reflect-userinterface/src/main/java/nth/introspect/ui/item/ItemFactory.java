@@ -93,7 +93,7 @@ public class ItemFactory {
 
 	}
 
-	public static List<Item> createTableViewRowItems(TableView tableView) {
+	public static List<Item> createTableViewRowMenuItems(TableView tableView) {
 		List<Item> items = new ArrayList<Item>();
 
 		// get info from table view

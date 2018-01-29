@@ -69,7 +69,7 @@ public class RfxTableView extends BorderPane implements nth.introspect.ui.view.T
 		table = new RfxTable(this);
 		setCenter(table);
 		
-		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
+		
 		// menuPopUp = createPopUpMenu(menuItems);
 		// menuBar = createMenuBar(menuItems);
 		// add(menuBar, BorderLayout.NORTH);
@@ -132,7 +132,7 @@ public class RfxTableView extends BorderPane implements nth.introspect.ui.view.T
 	// }
 
 	protected void onTableRowSelect(int x, int y) {
-		List<Item> menuItems = ItemFactory.createTableViewRowItems(RfxTableView.this);
+		List<Item> menuItems = ItemFactory.createTableViewRowMenuItems(RfxTableView.this);
 		// menuPopUp.repopulate(menuItems);
 		// menuPopUp.show(table, x, y);
 	}

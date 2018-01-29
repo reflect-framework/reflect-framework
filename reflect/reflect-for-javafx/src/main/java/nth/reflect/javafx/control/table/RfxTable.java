@@ -3,22 +3,34 @@ package nth.reflect.javafx.control.table;
 import java.text.Format;
 import java.util.List;
 
+import com.jfoenix.controls.JFXPopup;
 import com.sun.javafx.collections.ObservableListWrapper;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import nth.introspect.generic.util.TypeUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
@@ -26,6 +38,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
@@ -39,10 +52,12 @@ public class RfxTable extends TableView<Object> {
 	private static final int ROW_HEIGHT = RfxItemTreeCell.ITEM_HEIGHT;
 	private static final int ROW_FONT_SIZE = 14;
 	private static final int HEADER_FONT_SIZE = 13;
+	private List<Item> rowMenuItems;
 
 	public RfxTable() {
 		// TODO new RfxVerticalFlingScroller(this);
 		addStyleClass();
+		
 	}
 
 	/**
@@ -61,6 +76,10 @@ public class RfxTable extends TableView<Object> {
 		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		ActionMethodInfo actionMethodInfo = tableView.getMethodInfo();
 		
+		rowMenuItems = ItemFactory.createTableViewRowMenuItems(tableView);
+		setOnMouseClicked(this::onMouseClicked);
+		
+		
 		Class<?> objectClass = actionMethodInfo.getGenericReturnType();
 		
 		//TODO arrays and other collections than List
@@ -71,11 +90,103 @@ public class RfxTable extends TableView<Object> {
 			hideHeader();
 		} else {
 			setItems(createObservableList(tableView));
+			setContextMenu(createTestContextMenu());
 			createColumns(reflectionProvider, objectClass);
 			ColumnAutoSizer.autoFitTable(this);
 		}
 
 	}
+
+	/**
+	 * TODO replace with {@link JFXPopup}
+	 * @return
+	 */
+	private ContextMenu createTestContextMenu() {
+
+		
+		final ContextMenu contextMenu = new ContextMenu();
+		contextMenu.setOnShowing(new EventHandler<WindowEvent>() {
+		    public void handle(WindowEvent e) {
+		        System.out.println("showing");
+		    }
+		});
+		contextMenu.setOnShown(new EventHandler<WindowEvent>() {
+		    public void handle(WindowEvent e) {
+		        System.out.println("shown");
+		    }
+		});
+
+		MenuItem item1 = new MenuItem("About");
+		item1.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		        System.out.println("About");
+		    }
+		});
+		MenuItem item2 = new MenuItem("Preferences");
+		item2.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		        System.out.println("Preferences");
+		    }
+		});
+		contextMenu.getItems().addAll(item1, item2);
+		return contextMenu;
+	}
+
+	public void onMouseClicked(javafx.scene.input.MouseEvent event) {
+		if (rowMenuItems!=null) {
+			TableViewSelectionModel selectionModel = getSelectionModel();
+	           ObservableList selectedCells = selectionModel.getSelectedCells();
+	           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+	           TableColumn tableColumn = tablePosition.getTableColumn();
+	           TableRow<?> row = getRow(tablePosition.getRow());
+	           Bounds rowBounds = row.boundsInParentProperty().get();  
+	           System.out.println(rowBounds); 
+	           //TODO Work on this some more!!! e.g. showRowPopUp(x,y), also for keyboard space or enter
+		}
+	}
+	
+	/**
+	 * @param row Index of the row
+	 * @return the corresponding row
+	 */
+	public TableRow<?> getRow(int row) {
+	    List<Node> current = getChildrenUnmodifiable();
+	    while (current.size() == 1) {
+	        current = ((Parent) current.get(0)).getChildrenUnmodifiable();
+	    }
+
+	    current = ((Parent) current.get(1)).getChildrenUnmodifiable();
+	    while (!(current.get(0) instanceof TableRow)) {
+	        current = ((Parent) current.get(0)).getChildrenUnmodifiable();
+	    }
+
+	    Node node = current.get(row);
+	    if (node instanceof TableRow) {
+	        return (TableRow<?>) node;
+	    } else {
+	        throw new RuntimeException("Expected Group with only TableRows as children");
+	    }
+	}
+
+//	private void showRowMenuItems() {
+//			LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+//			
+//			TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
+//			rootNode.setExpanded(true);
+//			RfxItemTreeView itemTreeView = new RfxItemTreeView(rootNode);
+//
+//			for (Item rowMenuItem : rowMenuItems) {
+//				TreeItem<Item> rowMenuNode = new TreeItem<>(rowMenuItem);
+//				rootNode.getChildren().add(rowMenuNode);
+//			};
+//
+//			JFXPopup popup = new JFXPopup();
+//			popup.setPopupContent(itemTreeView);
+//			popup.setAnchorLocation(AnchorLocation.CONTENT_TOP_RIGHT);
+//			popup.show(getSe);
+//		}
+
+		
 
 	private void createColumns(ReflectionProvider reflectionProvider, Class<?> objectClass) {
 		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);

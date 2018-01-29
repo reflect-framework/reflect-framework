@@ -63,7 +63,7 @@ public class TableView extends SwingView implements
 //		tableContainer.setFocusable(false); TODO test
 //		tableContainer.addMouseListener TODO test		
 
-		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
+		List<Item> menuItems = ItemFactory.createTableViewRowMenuItems(this);
 		menuPopUp = createPopUpMenu(menuItems);
 		menuBar = createMenuBar(menuItems);
 		add(menuBar, BorderLayout.NORTH);
@@ -125,7 +125,7 @@ public class TableView extends SwingView implements
 
 	protected void onTableRowSelect(int x, int y) {
 		List<Item> menuItems = ItemFactory
-				.createTableViewRowItems(TableView.this);
+				.createTableViewRowMenuItems(TableView.this);
 		menuPopUp.repopulate(menuItems);
 		menuPopUp.show(table, x, y);
 	}
@@ -165,7 +165,7 @@ public class TableView extends SwingView implements
 		// update table
 		tableModel.refresh();
 		// update menus
-		List<Item> menuItems = ItemFactory.createTableViewRowItems(this);
+		List<Item> menuItems = ItemFactory.createTableViewRowMenuItems(this);
 		menuPopUp.repopulate(menuItems);
 		menuBar.repopulate(menuItems);
 		// set focus (preferably on the same domain object)
