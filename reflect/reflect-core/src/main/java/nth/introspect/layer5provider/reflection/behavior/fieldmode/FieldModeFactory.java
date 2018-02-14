@@ -1,6 +1,9 @@
 package nth.introspect.layer5provider.reflection.behavior.fieldmode;
 
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -31,6 +34,12 @@ public class FieldModeFactory {
 			return getFieldModeTypeForDateTime(formatPattern);
 		} else if (Calendar.class.isAssignableFrom(type)) {
 			return FieldModeType.DATE;
+		} else if (LocalDateTime.class.isAssignableFrom(type)) {
+			return FieldModeType.DATE_TIME;
+		} else if (LocalDate.class.isAssignableFrom(type)) {
+			return FieldModeType.DATE;
+		} else if (LocalTime.class.isAssignableFrom(type)) {
+			return FieldModeType.TIME;
 		} else if (Enum.class.isAssignableFrom(type)) {
 			return FieldModeType.COMBO_BOX;
 		} else if (Number.class.isAssignableFrom(type)) {
