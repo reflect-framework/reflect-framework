@@ -1,5 +1,7 @@
 package nth.reflect.javafx.control.itemtreelist;
 
+import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
@@ -10,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
+import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.reflect.javafx.control.style.RfxStyleProperties;
@@ -40,6 +44,26 @@ public class RfxItemTreeView extends TreeView {
 		setCellFactory(createCellFactory());
 		setOnKeyTyped(createKeyHandler());
 		setOnMouseClicked(createMouseHandler());
+	}
+
+	public RfxItemTreeView(List<MethodOwnerItem> serviceObjectItems, LanguageProvider languageProvider) {
+		this(createRootItem(serviceObjectItems, languageProvider));
+	}
+
+	private static TreeItem<Item> createRootItem(List<MethodOwnerItem> serviceObjectItems, LanguageProvider languageProvider) {
+		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
+		rootNode.setExpanded(true);
+
+		for (Item serviceObjectItem : serviceObjectItems) {
+			TreeItem<Item> serviceObjectNode = new TreeItem<>(serviceObjectItem);
+			rootNode.getChildren().add(serviceObjectNode);
+			for (Item methodItem : ((MethodOwnerItem) serviceObjectItem).getChildren()) {
+				TreeItem<Item> serviceObjectMethodNode = new TreeItem<>(methodItem);
+				serviceObjectNode.getChildren().add(serviceObjectMethodNode);
+			}
+		}
+		
+		return rootNode;
 	}
 
 	private Callback<TreeView<Item>, TreeCell<Item>> createCellFactory() {

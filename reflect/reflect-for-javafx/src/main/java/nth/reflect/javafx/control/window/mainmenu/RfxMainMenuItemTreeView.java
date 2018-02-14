@@ -23,6 +23,10 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 	private final BooleanProperty mainMenuVisibleProperty;
 	private final  ObservableList<View> tabsProperty;
 
+	/**
+	 * TODO can we use RfxItemTreeView instead of this class????
+	 * @param userInterfaceContainer
+	 */
 	public RfxMainMenuItemTreeView(UserInterfaceContainer userInterfaceContainer) {
 		super(createRootItem(userInterfaceContainer));
 		RfxWindow rfxWindow = userInterfaceContainer.get(RfxWindow.class);

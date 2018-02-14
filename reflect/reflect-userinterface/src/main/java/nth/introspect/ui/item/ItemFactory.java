@@ -131,6 +131,44 @@ public class ItemFactory {
 		return items;
 	}
 
+	
+	public static List<MethodOwnerItem> createTableViewRowMenuItems(TableView tableView, Object domainObject) {
+		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
+
+		// get info from table view
+//		ActionMethodInfo methodInfoToExclude = tableView.getMethodInfo();
+		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
+		Object serviceObject = tableView.getMethodOwner();
+
+		// property methods
+		// reflectionProvider reflectionProvider=Introspect.getreflectionProvider();
+		// LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(new
+		// NoParameterOrParameterFactoryFilter());
+		// filter.or(new ParameterTypeFilter(parameterType));
+		// List<ActionMethodInfo> methodInfos =
+		// reflectionProvider.getMethodInfos(parameterType, filter);
+		// for (ActionMethodInfo methodInfo : methodInfos) {
+		// item=new MethodItem(methodOwner, methodInfo,
+		// methodParameterValueModel) TODO methodOwner needs to be a value
+		// model!!!
+		// items.add(item)
+		// }
+
+		ViewContainer viewContainer = tableView.getuserInterfaceContainer().get(GraphicalUserinterfaceController.class).getViewContainer();
+		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
+
+		// create filter for service object items
+		Class<?> domainType = domainObject.getClass();
+		LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
+				new ParameterTypeFilter(domainType));
+//		filter.andNot(new EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
+		UserInterfaceContainer userInterfaceContainer=tableView.getuserInterfaceContainer();
+		items.addAll(createServiceObjectItems(userInterfaceContainer , serviceObject, parameterModel,
+				filter));
+
+		return items;
+	}
+	
 	private static List<MethodOwnerItem> createServiceObjectItems(UserInterfaceContainer userInterfaceContainer,
 			Object serviceObjectToStartWith, ReadOnlyValueModel parameterModel,
 			Filter<ActionMethodInfo> filter) {
