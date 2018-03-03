@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
@@ -29,8 +28,6 @@ public class RfxContentBottomToolbarButton extends JFXButton implements RfxContr
 	private static final int MIN_HEIGHT = 32;
 	private static final int PADDING_SIDE = 16;
 	private static final int FONT_SIZE = 14;
-	private RfxFontIconName fontIconName;
-	private MaterialColorSet colorSet;
 
 	public RfxContentBottomToolbarButton() {
 		super();
@@ -62,7 +59,6 @@ public class RfxContentBottomToolbarButton extends JFXButton implements RfxContr
 	}
 
 	private void setFontIconName(RfxFontIconName fontIconName) {
-		this.fontIconName = fontIconName;
 		if (fontIconName == null) {
 			setGraphic(null);
 		} else {

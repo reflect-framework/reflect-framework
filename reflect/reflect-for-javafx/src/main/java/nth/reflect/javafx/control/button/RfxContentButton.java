@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import nth.introspect.layer1userinterface.item.Item;
-import nth.introspect.ui.style.MaterialColorSet;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
@@ -28,8 +27,6 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 	private static final int ICON_SIZE = 17;
 	private static final int MIN_HEIGHT = 32;
 	private static final int FONT_SIZE = 14;
-	private RfxFontIconName fontIconName;
-	private MaterialColorSet colorSet;
 
 	public RfxContentButton() {
 		super();
@@ -61,7 +58,6 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 	}
 
 	private void setFontIconName(RfxFontIconName fontIconName) {
-		this.fontIconName = fontIconName;
 		if (fontIconName == null) {
 			setGraphic(null);
 		} else {

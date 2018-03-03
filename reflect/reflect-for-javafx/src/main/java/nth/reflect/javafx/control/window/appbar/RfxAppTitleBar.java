@@ -25,26 +25,32 @@ public class RfxAppTitleBar extends HBox {
 	
 	public RfxAppTitleBar(UserInterfaceContainer userInterfaceContainer) {
 		
+		initHeightBinding(userInterfaceContainer);
+
+		Label titleLabel = createTitleLabel(userInterfaceContainer);
+		getChildren().add(titleLabel);
+	}
+
+	private void initHeightBinding(UserInterfaceContainer userInterfaceContainer) {
 		RfxWindow rfxWindow=userInterfaceContainer.get(RfxWindow.class);
 		BooleanBinding windowExtraHighBinding = rfxWindow.getExtraHighBinding();
-		
-		setMinHeight(BAR_HEIGHT);
 		
 		visibleProperty().bind(windowExtraHighBinding);
 		NumberBinding heightBinding = Bindings.when(windowExtraHighBinding).then(BAR_HEIGHT)
 				.otherwise(0);
 		minHeightProperty().bind(heightBinding);
 		maxHeightProperty().bind(heightBinding);
+	}
 
+	private Label createTitleLabel(UserInterfaceContainer userInterfaceContainer) {
 		String title = getTitle(userInterfaceContainer);
 		Label titleLabel = new Label(title);
 		String style = new RfxStyleProperties()
 				.setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1())
-				.setAlignment(Pos.CENTER_LEFT).setFont(MaterialFont.getTitle())
+				.setAlignment(Pos.CENTER_LEFT).setFont(MaterialFont.getRobotoMedium(20))
 				.setPadding(0, 0, 0, 16).toString();
 		titleLabel.setStyle(style);
-
-		getChildren().add(titleLabel);
+		return titleLabel;
 	}
 
 	private String getTitle(UserInterfaceContainer userInterfaceContainer) {

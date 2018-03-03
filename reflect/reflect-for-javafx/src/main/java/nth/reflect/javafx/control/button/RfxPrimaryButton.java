@@ -1,8 +1,5 @@
 package nth.reflect.javafx.control.button;
 
-import com.jfoenix.controls.JFXRippler;
-
-import javafx.scene.text.Text;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.reflect.javafx.ReflectApplicationForJavaFX;
@@ -54,5 +51,6 @@ public class RfxPrimaryButton extends RfxContentButton implements RfxControl {
 				.appendChild(RfxFontIcon.class))
 		.getProperties()
 		.setFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1());
+		//TODO font???
 	}
 }
