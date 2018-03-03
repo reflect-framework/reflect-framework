@@ -138,7 +138,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	}
 
 	@Override
-	public ViewContainer getViewContainer() {
+	public RfxViewContainer getViewContainer() {
 		return new RfxViewContainer(mainWindow);
 	}
 

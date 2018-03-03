@@ -28,7 +28,6 @@ import nth.introspect.layer1userinterface.view.View;
 import nth.reflect.javafx.control.RfxControl;
 import nth.reflect.javafx.control.window.appbar.RfxAppBar;
 import nth.reflect.javafx.control.window.appbar.RfxAppButtonBar;
-import nth.reflect.javafx.control.window.appbar.RfxTabButton;
 import nth.reflect.javafx.control.window.content.RfxContentPane;
 import nth.reflect.javafx.control.window.mainmenu.RfxMainMenuPane;
 
@@ -54,9 +53,11 @@ public class RfxWindow extends StackPane implements RfxControl {
 	private static final int MENU_SLIDE_ANIMATION_DURATION = 500;
 	private RfxAppBar appBar;
 	private RfxContentPane contentPane;
+	private final UserInterfaceContainer userInterfaceContainer;
 
 	public RfxWindow(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		super();
+		this.userInterfaceContainer = userInterfaceContainer;
 
 		extraHighBinding = heightProperty().greaterThan(WINDOW_FAIRLY_HIGH_BINDING);
 		extraWideBinding = widthProperty().greaterThan(WINDOW_FAIRLY_WIDE_BINDING);
@@ -296,6 +297,10 @@ public class RfxWindow extends StackPane implements RfxControl {
 		translate.setDuration(Duration.millis(MENU_SLIDE_ANIMATION_DURATION));
 		translate.setToX(0);
 		translate.play();
+	}
+
+	public UserInterfaceContainer getUserInterfaceContainer() {
+		return userInterfaceContainer;
 	}
 
 }
