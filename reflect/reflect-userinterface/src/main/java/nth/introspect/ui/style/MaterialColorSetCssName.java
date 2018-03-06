@@ -23,7 +23,7 @@ public enum MaterialColorSetCssName {
 	 * @return CSS name for {@link MaterialColorSet#getForeground3()}
 	 */
 	public String FOREGROUND3() {
-		return getColorSetCssName("foreground2");
+		return getColorSetCssName("foreground3");
 	}
 
 	/**

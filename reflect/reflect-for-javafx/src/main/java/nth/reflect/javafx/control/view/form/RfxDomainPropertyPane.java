@@ -14,9 +14,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer3domain.DomainObjectProperty;
+import nth.introspect.layer3domain.DomainObjectPropertyActionMethod;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
+import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
@@ -24,18 +27,43 @@ import nth.introspect.ui.view.FormMode;
 import nth.reflect.javafx.control.button.RfxContentButton;
 import nth.reflect.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.javafx.control.style.RfxFontFactory;
+import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.view.form.field.FieldFactory;
 import nth.reflect.javafx.control.window.RfxWindow;
 
+/**
+ * Property pane to display or edit the {@link DomainObjectProperty}s,
+ * including:<br>
+ * <ul>
+ * <li>
+ * a label that represents the {@link DomainObjectProperty} name (above field
+ * for narrow window, left of field for wide window)
+ * </li>
+ * <li>
+ * a field to display or edit the {@link DomainObjectProperty} value
+ * </li>
+ * <li>
+ * a button to open a context menu with
+ * {@link DomainObjectPropertyActionMethod}s
+ * </li>
+ * </ul> For styling see <a href=
+ * "https://material.io/guidelines/components/text-fields.html#text-fields-layout">Google
+ * Material Design Guidelines</a>
+ * 
+ * @author nilsth
+ *
+ */
 public class RfxDomainPropertyPane extends Pane {
 
-	private static final double PADDING = 8;
-	private static final double HORIZONTAL_GAP = 8;
+	// TODO see:
+	// https://material.io/guidelines/components/text-fields.html#text-fields-layout
+
+	private static final int PADDING = 8;
+	private static final double HORIZONTAL_GAP = 16;
 	private static final double VERTICAL_GAP = 8;
-	private static final double LABEL_PREF_HEIGHT = 20;
 	private static final double LABEL_MAX_WIDTH_FOR_WIDE_SCREEN = 200;
 	private static final double FIELD_WIDTH_MAX_FOR_WIDE_WINDOW = RfxWindow.WINDOW_FAIRLY_WIDE_BINDING;
-	private static final int FONT_SIZE = 14;
+	private static final int LABEL_FONT_SIZE = 12;
 	private Map<PropertyInfo, Label> labels;
 	private Map<PropertyInfo, Region> fields;
 	private Map<PropertyInfo, RfxContentButton> fieldMenuButtons;
@@ -56,16 +84,19 @@ public class RfxDomainPropertyPane extends Pane {
 		windowExtraWideBinding = rfxWindow.getExtraWideBinding();
 
 		populateWithLabelsFieldsAndFieldMenuButtons(reflectionProvider, formView);
-		
+
 		setPadding(new Insets(PADDING));
 	}
 
 	/**
-	 * Creating the children in order of display order (for the proper focus order)
+	 * Creating the children in order of display order (for the proper focus
+	 * order)
+	 * 
 	 * @param reflectionProvider
 	 * @param formView
 	 */
-	private void populateWithLabelsFieldsAndFieldMenuButtons(ReflectionProvider reflectionProvider, RfxFormView formView) {
+	private void populateWithLabelsFieldsAndFieldMenuButtons(ReflectionProvider reflectionProvider,
+			RfxFormView formView) {
 
 		labels = new HashMap<>();
 		fields = new HashMap<>();
@@ -87,11 +118,12 @@ public class RfxDomainPropertyPane extends Pane {
 
 	private Label createLabel(PropertyInfo propertyInfo) {
 		Label label = new Label(propertyInfo.getDisplayName());
-		Font font = RfxFontFactory.create(MaterialFont.getRobotoRegular(FONT_SIZE));
+		Font font = RfxFontFactory.create(MaterialFont.getRobotoRegular(LABEL_FONT_SIZE));
 		label.setFont(font);
 		label.setPrefHeight(Label.USE_COMPUTED_SIZE);
 		label.setWrapText(true);
-		// TODO bold!!!
+		label.setStyle(new RfxStyleProperties()
+				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND2()).toString());
 		getChildren().add(label);
 		return label;
 	}
@@ -172,7 +204,7 @@ public class RfxDomainPropertyPane extends Pane {
 			Label label = labels.get(propertyInfo);
 			label.setAlignment(Pos.TOP_LEFT);
 			double labelWidth = insideWidth;
-			double labelHeight = LABEL_PREF_HEIGHT;
+			double labelHeight = label.prefHeight(labelWidth);
 			label.resize(labelWidth, labelHeight);
 			x = insideX;
 			positionInArea(label, x, y, labelWidth, labelHeight,
@@ -229,7 +261,7 @@ public class RfxDomainPropertyPane extends Pane {
 			double labelHeight = label.prefHeight(labelWidth);
 			label.resize(labelWidth, labelHeight);
 			x = insideX;
-			positionInArea(label, x, y, labelWidth, labelHeight,
+			positionInArea(label, x, y + PADDING, labelWidth, labelHeight,
 					0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, isSnapToPixel());
 
 			RfxContentButton fieldMenuButton = fieldMenuButtons.get(propertyInfo);
@@ -273,6 +305,5 @@ public class RfxDomainPropertyPane extends Pane {
 		}
 		return Math.min(maxLabelWidth, LABEL_MAX_WIDTH_FOR_WIDE_SCREEN);
 	}
-
 
 }

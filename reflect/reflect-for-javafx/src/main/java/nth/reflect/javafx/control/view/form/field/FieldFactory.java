@@ -15,7 +15,6 @@ public class FieldFactory {
 		// TODO how do we make sure that all fields implement refreshable?
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
 		FieldModeType fieldMode = propertyInfo.getFieldMode();
-		System.out.println(fieldMode);
 		switch (fieldMode) {
 		case TEXT:
 			return new RfxTextField(propertyValueModel);

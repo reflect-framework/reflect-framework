@@ -13,7 +13,7 @@ import nth.reflect.javafx.control.button.RfxContentBottomToolbarButton;
 import nth.reflect.javafx.control.window.RfxWindow;
 
 public class RfxFormBottomToolBar extends RfxContentBottomToolbar {
- 
+
 	public RfxFormBottomToolBar(RfxFormView formView) {
 		UserInterfaceContainer userInterfaceContainer = formView.getUserInterfaceContainer();
 		switch (formView.getFormMode()) {
@@ -27,31 +27,29 @@ public class RfxFormBottomToolBar extends RfxContentBottomToolbar {
 		default:
 			break;
 		}
-}
+	}
 
 	private void hide() {
 		setVisible(false);
 		setManaged(false);
 	}
 
-	public RfxContentBottomToolbarButton createCancelButton(UserInterfaceContainer userInterfaceContainer, RfxFormView formView) {
+	public RfxContentBottomToolbarButton createCancelButton(
+			UserInterfaceContainer userInterfaceContainer, RfxFormView formView) {
 		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(RfxUserinterfaceController.class);
-		RfxViewContainer viewContainer = userInterfaceController
-				.getViewContainer();
-		LanguageProvider languageProvider = userInterfaceContainer
-				.get(LanguageProvider.class);
-		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer,
-				formView);
+		RfxViewContainer viewContainer = userInterfaceController.getViewContainer();
+		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer, formView);
 		RfxContentBottomToolbarButton cancelButton = new RfxContentBottomToolbarButton(cancelItem);
-		RfxWindow window=userInterfaceContainer.get(RfxWindow.class);
+		RfxWindow window = userInterfaceContainer.get(RfxWindow.class);
 		BooleanBinding extraWideBinding = window.getExtraWideBinding();
 		cancelButton.visibleProperty().bind(extraWideBinding);
 		cancelButton.managedProperty().bind(extraWideBinding);
 		return cancelButton;
 	}
 
-	public RfxContentBottomToolbarButton createOkButton( RfxFormView formView) {
+	public RfxContentBottomToolbarButton createOkButton(RfxFormView formView) {
 		Object methodOwner = formView.getMethodOwner();
 		ActionMethodInfo actionMethodInfo = formView.getMethodInfo();
 		BufferedDomainValueModel domainValueModel = formView.getDomainValueModel();
