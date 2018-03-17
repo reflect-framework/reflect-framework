@@ -9,7 +9,13 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.actionmethod.filter.NoParameterOrParameterFactoryFilter;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.introspect.ui.item.method.MethodOwnerItem;
 
+/**
+ * @deprecated use {@link MethodOwnerItem}
+ * @author nilsth
+ *
+ */
 public class ServiceObjectItem implements Item {
 
 	private final Object serviceObject;

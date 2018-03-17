@@ -4,7 +4,13 @@ import java.net.URL;
 
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.introspect.ui.item.method.MethodOwnerItem;
 
+/**
+ * @deprecated use {@link MethodItem}
+ * @author nilsth
+ *
+ */
 public class ActionMethodItem implements Item {
 
 	private final UserInterfaceController userInterfaceController;
