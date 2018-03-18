@@ -15,6 +15,7 @@ import nth.introspect.layer5provider.reflection.behavior.description.Description
 import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconModel;
 import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
+import nth.introspect.layer5provider.reflection.behavior.serviceobjectchildren.ServiceObjectChildrenModel;
 import nth.introspect.layer5provider.reflection.behavior.title.TitleModel;
 import nth.introspect.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
 import nth.introspect.layer5provider.reflection.info.NameInfo;
@@ -42,6 +43,7 @@ public class ClassInfo implements NameInfo {
 	private final List<Method> validationMethods;
 	private final List<PropertyInfo> propertyInfosSorted;
 	private final List<ActionMethodInfo> actionMethodInfosSorted;
+	private final ServiceObjectChildrenModel serviceObjectChildrenModel;
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
 		LanguageProvider languageProvider = providerContainer
@@ -58,6 +60,7 @@ public class ClassInfo implements NameInfo {
 				objectClass, simpleName, canonicalName);
 		this.titleModel = new TitleModel(reflectionProvider);
 		this.iconModel = IconModelFactory.create(objectClass);
+		this.serviceObjectChildrenModel=new ServiceObjectChildrenModel(providerContainer, objectClass);
 		this.validationMethods = ValidationMethodFactory.create(objectClass);
 		this.propertyInfosSorted = PropertyInfoFactory.createSorted(
 				providerContainer, objectClass);
@@ -142,5 +145,12 @@ public class ClassInfo implements NameInfo {
 		return foundMethodInfos;
 	}
 
+	public Class<?>[] getServiceObjectChildren() {
+		return serviceObjectChildrenModel.getServiceObjectChildren();
+	}
+
+	public boolean getServiceObjectChildrenBeforeActionMethods() {
+		return serviceObjectChildrenModel.isBeforeActionMethods();
+	}
 
 }

@@ -10,7 +10,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * <p>
- * The {@link Class}Names, {@link DomainObjectProperty}Names and
+ * The {@link Class}Names, {@link DomainObjectProperty} names and
  * {@link ActionMethod}Names are part of the <a
  * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous
  * language</a> (in terms both understand by users and developers) and should
@@ -19,8 +19,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>DisplayName Default</h3>
  * <p>
- * {@link Class}Names, {@link DomainObjectProperty}Names and
- * {@link ActionMethod}Names in the <a
+ * {@link Class} names, {@link DomainObjectProperty} names and
+ * {@link ActionMethod} names in the <a
  * href="https://en.wikipedia.org/wiki/Codebase">codebase</a> use names such as
  * OrderService, orderLines, addOrderLine (using no spaces, <a
  * href="https://nl.wikipedia.org/wiki/CamelCase">camelCase</a> and no special

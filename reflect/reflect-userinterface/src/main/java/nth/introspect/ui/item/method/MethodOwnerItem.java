@@ -3,12 +3,17 @@ package nth.introspect.ui.item.method;
 import java.net.URL;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
+import nth.introspect.IntrospectApplication;
 import nth.introspect.generic.filter.Filter;
 import nth.introspect.generic.valuemodel.ReadOnlyValueModel;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.layer2service.ServiceContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.behavior.serviceobjectchildren.ServiceObjectChildren;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.item.HierarchicalItem;
@@ -25,10 +30,41 @@ public class MethodOwnerItem extends HierarchicalItem {
 		ReflectionProvider reflectionProvider = userInterfaceContainer
 				.get(ReflectionProvider.class);
 		methodOwnerInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
+		boolean serviceObjectChildrenBeforeActionMethods = methodOwnerInfo
+				.getServiceObjectChildrenBeforeActionMethods();
 
+		if (serviceObjectChildrenBeforeActionMethods) {
+			addServiceObjectChildren(userInterfaceContainer, methodOwner, methodFilter,
+					methodParameterValueModel);
+			addActionMethods(userInterfaceContainer, methodOwner, methodFilter,
+					methodParameterValueModel, reflectionProvider);
+		} else {
+			addActionMethods(userInterfaceContainer, methodOwner, methodFilter,
+					methodParameterValueModel, reflectionProvider);
+			addServiceObjectChildren(userInterfaceContainer, methodOwner, methodFilter,
+					methodParameterValueModel);
+		}
+
+	}
+
+	private void addServiceObjectChildren(UserInterfaceContainer userInterfaceContainer,
+			Object methodOwner, Filter<ActionMethodInfo> methodFilter,
+			ReadOnlyValueModel methodParameterValueModel) {
+		Class<?>[] serviceObjectChildren = methodOwnerInfo.getServiceObjectChildren();
+		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
+		for (Class<?> serviceClass : serviceObjectChildren) {
+			Object serviceObject = serviceContainer.get(serviceClass);
+			MethodOwnerItem methodOwnerItem = new MethodOwnerItem(userInterfaceContainer,
+					serviceObject, methodFilter, methodParameterValueModel);
+			addItem(methodOwnerItem);
+		}
+	}
+
+	private void addActionMethods(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
+			Filter<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel,
+			ReflectionProvider reflectionProvider) {
 		ClassInfo classInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
 		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos(methodFilter);
-
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner,
 					actionMethodInfo, methodParameterValueModel);

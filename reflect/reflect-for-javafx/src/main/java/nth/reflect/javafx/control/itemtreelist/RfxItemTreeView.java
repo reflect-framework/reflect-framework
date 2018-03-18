@@ -22,8 +22,6 @@ import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
 
 /**
- * Test to replace {@link RfxMainMenuList}
- * 
  * TODO implement {@link RfxVerticalFlingScroller}<br>
  * TODO remove blue (focus?) border e.g.
  * https://stackoverflow.com/questions/37524467/remove-all-focus-borders-from-javafx
@@ -69,7 +67,7 @@ public class RfxItemTreeView extends TreeView {
 	private Callback<TreeView<Item>, TreeCell<Item>> createCellFactory() {
 		return new Callback<TreeView<Item>, TreeCell<Item>>() {
 			@Override
-			public TreeCell<Item> call(TreeView<Item> p) {
+			public TreeCell<Item> call(TreeView<Item> item) {
 				return new RfxItemTreeCell();
 			}
 		};

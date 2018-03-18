@@ -84,6 +84,10 @@ import nth.introspect.layer3domain.DomainObject;
  * {@insert ValidationMethodFactory}
  * </p>
  * 
+ * <h2>Service Object Children<h2>
+ * <p>
+ * {@insert ServiceObjectChildrenModel}
+ * </p>
  * @author nilsth
  *
  */

@@ -18,7 +18,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>Description Default</h3>
  * <p>
- * By default the description is the same as the default {@link DisplayName}, therefore it is
+ * By default the description is the same as the default {@link ServiceObjectChildren}, therefore it is
  * recommended to override the default value where needed. You can override the
  * default value by defining the description in the language property files (see
  * {@link LanguageProvider}) or by adding a description annotation.

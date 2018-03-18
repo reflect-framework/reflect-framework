@@ -47,12 +47,7 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 				.createMainMenuItems(userInterfaceContainer);
 
 		for (Item serviceObjectItem : serviceObjectItems) {
-			TreeItem<Item> serviceObjectNode = new TreeItem<>(serviceObjectItem);
-			rootNode.getChildren().add(serviceObjectNode);
-			for (Item methodItem : ((MethodOwnerItem) serviceObjectItem).getChildren()) {
-				TreeItem<Item> serviceObjectMethodNode = new TreeItem<>(methodItem);
-				serviceObjectNode.getChildren().add(serviceObjectMethodNode);
-			}
+			createAndAppendTreeItemChild(rootNode, serviceObjectItem);
 		}
 
 		if (canExpandAllServiceItems(rootNode)) {
@@ -60,6 +55,22 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 		}
 
 		return rootNode;
+	}
+
+
+	private static void createAndAppendTreeItemChild(TreeItem<Item> parentTreeItem,
+			Item item) {
+		TreeItem<Item> treeItem = new TreeItem<>(item);
+		parentTreeItem.getChildren().add(treeItem);
+
+		if (item instanceof MethodOwnerItem) {
+			MethodOwnerItem methodOwnerItem = (MethodOwnerItem) item;
+			List<Item> children = methodOwnerItem.getChildren();
+			for (Item child : children) {
+				//add children recursively
+				createAndAppendTreeItemChild(treeItem, child);
+			}
+		}
 	}
 
 	private static boolean canExpandAllServiceItems(TreeItem<Item> rootNode) {

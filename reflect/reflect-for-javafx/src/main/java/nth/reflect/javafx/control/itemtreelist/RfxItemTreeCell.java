@@ -5,14 +5,20 @@ import java.net.URL;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import nth.introspect.layer1userinterface.item.Item;
+import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.style.fonticonurl.FontIconUrl;
 import nth.reflect.javafx.control.RfxControl;
+import nth.reflect.javafx.control.style.RfxStyleProperties;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.view.table.RfxTableView;
@@ -28,7 +34,9 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 
 	private static final int FONTSIZE = 14;
 	public static final int ITEM_HEIGHT = 40;
-
+	public static final String FONT_WEIGHT_BOLD = new RfxStyleProperties().setFontWeight(FontWeight.BOLD).toString();
+	public static final String FONT_WEIGHT_NORMAL = new RfxStyleProperties().setFontWeight(FontWeight.NORMAL).toString();
+	
 	public RfxItemTreeCell() {
 		setDisclosureNode(new Text(""));
 	}
@@ -43,6 +51,11 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 		} else {
 			setText(item.getText());
 			setIcon(item.getIconURL());
+			if (item instanceof HierarchicalItem) {
+				setStyle(FONT_WEIGHT_BOLD);
+			} else	{
+				setStyle(FONT_WEIGHT_NORMAL);
+			}				
 		}
 	}
 
