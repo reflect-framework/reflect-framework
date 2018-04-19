@@ -13,22 +13,23 @@ import javafx.scene.Node;
 import javafx.scene.control.IndexedCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import nth.reflect.javafx.control.RfxControl;
 
 /**
- * Flinging is the type of scrolling that occurs when a user drags and lifts her
- * finger quickly. After the user lifts her finger, you generally want to keep
- * scrolling (moving the viewport), but decelerate until the viewport stops
- * moving.
+ * Flinging is the type of scrolling that occurs when a user drags and lifts
+ * his/her finger quickly. After the user lifts his/her finger, you generally
+ * want to keep scrolling (moving the viewport), but decelerate until the
+ * viewport stops moving.
  * 
  * @author nilsth
  *
  */
 
 @SuppressWarnings("restriction")
-public class RfxVerticalFlingScroller implements RfxControl{
+public class RfxVerticalFlingScroller implements RfxControl {
 
 	protected static final double MIN_VELOCITY = 0.1;
 	protected static final double MAX_SCROLL_VELOCITY = 1;
@@ -48,6 +49,8 @@ public class RfxVerticalFlingScroller implements RfxControl{
 		node.setOnMouseReleased(createOnMouseReleasedHandler());
 		node.setOnMouseDragged(createOnMouseDraggerdHandler());
 	}
+
+
 
 	public RfxVerticalFlingScroller(ListView<?> listView) {
 		this(listView, createTotalContentHeightProperty(listView));
@@ -109,8 +112,8 @@ public class RfxVerticalFlingScroller implements RfxControl{
 				transition.setInterpolator(Interpolator.EASE_OUT);
 				double startValue = scrollbar.getValue();
 				transition.setStartValue(startValue);
-				double viewPortDisplacement =getDisplacement(getViewPortHeight());
-				double fivePersentDisplacement =0.05;
+				double viewPortDisplacement = getDisplacement(getViewPortHeight());
+				double fivePersentDisplacement = 0.05;
 				double displacement = Math.max(viewPortDisplacement, fivePersentDisplacement);
 				transition.setEndValue(startValue - displacement * velocity);
 				transition.fractionProperty().addListener(new ChangeListener() {

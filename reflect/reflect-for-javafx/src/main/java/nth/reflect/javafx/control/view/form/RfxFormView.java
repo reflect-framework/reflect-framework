@@ -2,22 +2,17 @@ package nth.reflect.javafx.control.view.form;
 
 import java.net.URL;
 
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import nth.introspect.generic.util.TitleUtil;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.view.ViewContainer;
-import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.ui.GraphicalUserinterfaceController;
-import nth.introspect.ui.item.method.FormOkItem;
-import nth.introspect.ui.item.tab.CancelItem;
-import nth.introspect.ui.item.tab.CloseThisTabItem;
 import nth.introspect.ui.valuemodel.BufferedDomainValueModel;
 import nth.introspect.ui.view.FormMode;
 import nth.introspect.ui.view.FormView;
-import nth.reflect.javafx.control.button.RfxContentButton;
+import nth.reflect.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
 
 public class RfxFormView extends BorderPane implements FormView {
 
@@ -45,8 +40,17 @@ public class RfxFormView extends BorderPane implements FormView {
 		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, reflectionProvider,
 				domainObject, formMode);
 
+		
 		RfxDomainPropertyPane domainPropertyPane = new RfxDomainPropertyPane(this);
-		setCenter(domainPropertyPane);
+//		setCenter(domainPropertyPane);
+		ScrollPane scrollPane=new ScrollPane(domainPropertyPane);
+		//TODO new RfxVerticalFlingScroller(scrollPane);
+		setCenter(scrollPane);
+		
+//		VBox vbox=new VBox();
+//		vbox.setPrefHeight(javafx.scene.control.Control.USE_COMPUTED_SIZE);
+//		vbox.setMaxHeight(Double.POSITIVE_INFINITY);
+//		vbox.getChildren().add(scrollPane);
 		
 		HBox bottomButtonPane=new RfxFormBottomToolBar(this);
 		setBottom(bottomButtonPane);

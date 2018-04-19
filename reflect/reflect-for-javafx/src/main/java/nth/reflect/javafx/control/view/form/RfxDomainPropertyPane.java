@@ -9,6 +9,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -69,6 +70,8 @@ public class RfxDomainPropertyPane extends Pane {
 	private Map<PropertyInfo, RfxContentButton> fieldMenuButtons;
 	private final List<PropertyInfo> propertyInfos;
 	private final BooleanBinding windowExtraWideBinding;
+	private double totalHeight;
+	private double totalWidtht;
 
 	public RfxDomainPropertyPane(RfxFormView formView) {
 		super();
@@ -144,37 +147,41 @@ public class RfxDomainPropertyPane extends Pane {
 		return fieldMenuButton;
 	}
 
-	/**
-	 * @return 0: minimum width already set in {@link RfxWindow}
-	 */
-	@Override
-	protected double computeMinWidth(double height) {
-		return 0;
-	}
+//	/**
+//	 * @return 0: minimum width already set in {@link RfxWindow}
+//	 */
+//	@Override
+//	protected double computeMinWidth(double height) {
+//		return 0;
+//	}
+//
+//	/**
+//	 * @return 0: minimum totalHeight already set in {@link RfxWindow}
+//	 */
+//	@Override
+//	protected double computeMinHeight(double width) {
+//		return 0;
+//	}
+//
+//	/**
+//	 * @return 0: preferred width already set in {@link RfxWindow}
+//	 */
+//
+//	@Override
+//	protected double computePrefWidth(double height) {
+//		layoutChildren();
+//		System.out.println("w"+getPrefWidth());
+//		return getWidth();
+//	}
 
 	/**
-	 * @return 0: minimum height already set in {@link RfxWindow}
-	 */
-	@Override
-	protected double computeMinHeight(double width) {
-		return 0;
-	}
-
-	/**
-	 * @return 0: preferred width already set in {@link RfxWindow}
-	 */
-
-	@Override
-	protected double computePrefWidth(double height) {
-		return 0;
-	}
-
-	/**
-	 * @return 0: preferred height already set in {@link RfxWindow}
+	 * @return 0: preferred totalHeight already set in {@link RfxWindow}
 	 */
 	@Override
 	protected double computePrefHeight(double width) {
-		return 0;
+		layoutChildren();
+		System.out.println("h"+totalHeight);
+		return totalHeight;
 	}
 
 	@Override
@@ -237,7 +244,8 @@ public class RfxDomainPropertyPane extends Pane {
 			y += HORIZONTAL_GAP;
 
 		}
-
+		totalHeight=y;
+		totalWidtht=width;
 	}
 
 	private void layoutChildrenForWideWindow() {
@@ -292,7 +300,8 @@ public class RfxDomainPropertyPane extends Pane {
 			y += Math.max(labelHeight, fieldHeight);
 			y += HORIZONTAL_GAP;
 		}
-
+		totalHeight=y;
+		totalWidtht=width;
 	}
 
 	private double computeLabelWidthForWideWindow() {
