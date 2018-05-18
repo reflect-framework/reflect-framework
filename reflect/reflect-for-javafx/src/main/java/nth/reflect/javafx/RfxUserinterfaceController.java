@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfoenix.controls.JFXDialog;
@@ -15,6 +16,7 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import com.jfoenix.controls.JFXDialogLayout;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
@@ -27,12 +29,12 @@ import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer1userinterface.controller.UploadStream;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.view.View;
-import nth.introspect.layer1userinterface.view.ViewContainer;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.ui.GraphicalUserinterfaceController;
 import nth.introspect.ui.view.FormMode;
+import nth.reflect.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
 import nth.reflect.javafx.control.view.form.RfxFormView;
 import nth.reflect.javafx.control.view.table.RfxTableView;
@@ -78,9 +80,24 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 		JFXDialogLayout content = new JFXDialogLayout();
 		content.setHeading(new Text(title));
 		content.setBody(new Text(message));
+		
 		JFXDialog dialog = new JFXDialog(mainWindow, content, DialogTransition.CENTER, true);
 		dialog.setLayoutX(mainWindow.getWidth()/2);
 		dialog.setLayoutY(mainWindow.getHeight()/2);
+		
+		List<RfxPrimaryButton>actionButtons=new ArrayList<>();
+		for (Item item : items) {
+			RfxPrimaryButton button=new RfxPrimaryButton(item);
+			button.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
+				@Override
+				public void handle(javafx.event.ActionEvent event) {
+					dialog.close();
+					item.getAction().run();
+				}
+			});
+			actionButtons.add(button);
+		}
+		content.setActions(actionButtons);
 		
 		dialog.show(mainWindow);
 	}

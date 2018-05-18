@@ -88,7 +88,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  * }
  * </pre>
  * <p>
- * For more (detailed) examples see the {@link IntrospectGettingStarted} section.
+ * For more (detailed) examples see the {@link IntrospectApplicationProjects} section.
  * </p>
  * 
  * @author nilsth
