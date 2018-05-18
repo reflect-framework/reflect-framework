@@ -43,7 +43,7 @@ import nth.introspect.layer1userinterface.controller.UserInterfaceController;
  * </p>
  * <p>
  * If you want to start coding right now (even if you are a beginner) please go
- * to the {@link IntrospectGettingStarted} section. If you want to know more
+ * to the {@link IntrospectApplicationProjects} section. If you want to know more
  * about the Introspect Framework keep reading....
  * </p>
  * <h2>Why the Introspect framework was developed</h2>

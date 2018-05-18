@@ -60,10 +60,12 @@ import nth.introspect.layer5provider.reflection.behavior.ObjectBehavior;
  * {@link UserInterfaceController} and {@link Provider}s that can have multiple
  * different implementations.</li>
  * </ul>
+ * <h3>Write once and deploy as different type of applications</h3>
+ * <p>The {@link IntrospectFramework} allows you to write your code once, and deploy it as different types of applications without much of a hassle. See the {@link IntrospectApplicationProjects} for more information.
+ * </p>
+ * 
  * <h3>Lightweight</h3>
- * <ul>
- * <li>The Introspect framework should only be a few kilobytes in size.</li>
- * </ul>
+ * <p>The {@link IntrospectFramework} framework should only be a few kilobytes in size.</p>
  * <h3>Simple to configure</h3> The Introspect framework has no configuration
  * files (see <a href=
  * "http://www.martinfowler.com/articles/injection.html#CodeOrConfigurationFiles"

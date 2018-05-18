@@ -12,7 +12,7 @@ import nth.introspect.layer4infrastructure.InfrastructureLayer;
  * </p>
  * <p>
  * First decide on the type of application you want to create. Then look up the
- * corresponding paragraph in the {@link IntrospectGettingStarted} section.
+ * corresponding paragraph in the {@link IntrospectApplicationProjects} section.
  * There you will learn how to create a java project that contains an
  * application class that extends the {@link IntrospectApplication} class. This
  * class will initialize and start the {@link IntrospectFramework}. This class
