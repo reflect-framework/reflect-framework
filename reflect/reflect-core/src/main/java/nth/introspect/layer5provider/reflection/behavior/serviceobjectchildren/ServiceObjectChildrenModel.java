@@ -20,7 +20,7 @@ import nth.introspect.layer5provider.ProviderContainer;
  * 
  * <h3>ServiceObjectChildren annotation</h3>
  * <p>
- * {insert: ServiceObjectChildren}
+ * {@insert ServiceObjectChildren}
  * </p>
  * 
  * @author nilsth

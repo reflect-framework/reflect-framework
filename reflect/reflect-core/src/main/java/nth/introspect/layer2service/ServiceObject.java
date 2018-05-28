@@ -89,7 +89,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <li>The {@link UserInterfaceController} class calls the
  * {@link ServiceObjectActionMethod} findProduct(searchCriteria) method on
  * {@link ServiceObject}: ProductService</li>
- * <li>This method will call the findProduct on the {@link InfrastructureObject}
+ * <li>This method will call the findProduct method on the {@link InfrastructureObject}
  * : ProductRepository</li>
  * <li>This method will return a list of {@link DomainObject}s that meet the
  * search criteria</li>

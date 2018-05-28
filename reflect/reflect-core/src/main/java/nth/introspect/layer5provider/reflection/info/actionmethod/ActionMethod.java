@@ -52,9 +52,9 @@ import nth.introspect.layer5provider.reflection.behavior.executionmode.Execution
  * <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
  * Language</a> (in terms understood by both users and developers). Keep in mind
  * that the goal of a user is almost never to create, update or delete objects.
- * Method names like: createPerson, updatePerson and removePerson should
- * therefore be avoided where possible. Method names like registerNewBirth,
- * registerMarriage, registerPersonDeceased would be better names.
+ * Method names like: createPerson(Person person), updatePerson(Person person) and removePerson(Person person) should
+ * therefore be avoided where possible. Method names like addNewBorn(BirthCirtificate birthCirtificate),
+ * addMarriage(Marriage marriage), deceased(DeathCertificate deathCertificate) would be better method names.
  * </p>
  * <h2>Action method parameter</h2>
  * <p>

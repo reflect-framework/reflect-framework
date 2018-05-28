@@ -29,9 +29,8 @@ import nth.introspect.layer4infrastructure.InfrastructureObject;
  * The following sections will describe the optional
  * {@link IntrospectInfrastructureProjects} that come with the
  * {@link IntrospectFramework}.
- * <h2>TODO</h2>
  * <p>
- * {@include ...}
+ * TODO
  * </p>
  * 
  * @author nilsth

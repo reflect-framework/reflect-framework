@@ -4,6 +4,7 @@ import nth.introspect.IntrospectApplication;
 import nth.introspect.documentation.Documentation;
 import nth.introspect.layer2service.ServiceObject;
 import nth.introspect.layer3domain.DomainObject;
+import nth.introspect.layer5provider.reflection.behavior.icon.IconModelFactory;
 
 /**
  * The {@link IntrospectApplication}, {@link ServiceObject}s and
@@ -41,7 +42,7 @@ import nth.introspect.layer3domain.DomainObject;
  * 
  * <h2>Icon</h2>
  * <p>
- * {@insert IconModel}
+ * {@insert IconModelFactory}
  * </p>
  * 
  * <h2>Hidden</h2>
@@ -84,7 +85,7 @@ import nth.introspect.layer3domain.DomainObject;
  * {@insert ValidationMethodFactory}
  * </p>
  * 
- * <h2>Service Object Children<h2>
+ * <h2>Service Object Children</h2>
  * <p>
  * {@insert ServiceObjectChildrenModel}
  * </p>

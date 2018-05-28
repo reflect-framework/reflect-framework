@@ -29,13 +29,19 @@ import nth.introspect.ui.style.fonticonurl.FontIconUrlHandler;
 import nth.reflect.javafx.control.style.RfxStyleSheetUrlHandler;
 
 /**
+ * <p>
  * {@link ReflectApplicationForJavaFX} is an implementation of the
- * {@link IntrospectFramework} for desktop computers. It might also be used for
- * mobile devices, but porting JavaFX for Android is still somewhat of a problem
- * at the time of this writing. {@link ReflectApplicationForJavaFX} ties to
- * comply with the <a href="https://material.io/guidelines/">Google Material
- * Design</a> as much as possible. It optimizes the user interface depending on
- * the size of the main window.
+ * {@link IntrospectFramework} that has a
+ * <a href="http://en.wikipedia.org/wiki/Graphical_user_interface"> graphical
+ * user interface</a> for a computer with an
+ * <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop
+ * environment</a>. It might also be used for mobile devices in the future as
+ * well, but porting JavaFX for Android is still somewhat of a problem at the
+ * time of this writing. {@link ReflectApplicationForJavaFX} tries to comply
+ * with the <a href="https://material.io/guidelines/">Google Material Design</a>
+ * as much as possible. It optimizes the user interface depending on the size of
+ * the main window.
+ * </p>
  * <h3>How to download a IntrospectForJavaFX demo project</h3>
  * <p>
  * TODO

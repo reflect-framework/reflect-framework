@@ -37,7 +37,7 @@ import nth.introspect.layer5provider.authorization.AuthorizationProvider;
  * {@link IntrospectFramework}.
  * <h2>IntrospectProviderTomcatAuthorization</h2>
  * <p>
- * {@include ...}
+ * TODO
  * </p>
  * 
  * @author nilsth
