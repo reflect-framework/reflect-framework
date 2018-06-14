@@ -8,9 +8,9 @@ import nth.introspect.IntrospectFramework;
  * There are different implementations of the {@link IntrospectApplication}
  * class, to support different type of applications (e.g. for the command line,
  * desktop, mobile, web environments). This chapter will explain the different
- * {@link IntrospectProviderProjects} that come with the
- * {@link IntrospectFramework}. If needed you can of course free to write your
- * implementation of the {@link IntrospectApplication}.
+ * {@link IntrospectApplication}, and how to get started with them. If needed
+ * you can of course write your own implementation of the
+ * {@link IntrospectApplication} class.
  * </p>
  * 
  * <h2>Introspect for JUnit</h2>

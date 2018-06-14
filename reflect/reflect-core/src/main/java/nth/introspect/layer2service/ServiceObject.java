@@ -41,7 +41,7 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * {@link ServiceObject}s contain {@link ServiceObjectActionMethod}s. The
  * {@link UserInterfaceController} displays these methods as menu items and
- * invokes these methods once a user clicks on the menu item.
+ * invokes these methods once a user clicks on the menu item. Most
  * {@link ServiceObjectActionMethod}s create or retrieve {@link DomainObject}s
  * where the user does not have an existing {@link DomainObject} to navigate
  * from.
@@ -89,8 +89,8 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <li>The {@link UserInterfaceController} class calls the
  * {@link ServiceObjectActionMethod} findProduct(searchCriteria) method on
  * {@link ServiceObject}: ProductService</li>
- * <li>This method will call the findProduct method on the {@link InfrastructureObject}
- * : ProductRepository</li>
+ * <li>This method will call the findProduct method on the
+ * {@link InfrastructureObject} : ProductRepository</li>
  * <li>This method will return a list of {@link DomainObject}s that meet the
  * search criteria</li>
  * <li>The {@link UserInterfaceController} displays the found list of
@@ -98,9 +98,9 @@ import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </ul>
  * </p>
  * 
- *  * <h3>Construction</h3>
+ * <h3>Construction</h3>
  * <p>
- * The principle of “naked objects” is that any
+ * The principle of <a href="https://en.wikipedia.org/wiki/Naked_objects">“naked objects”</a> is that any
  * <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">'Plain Old Java
  * Object' (POJO)</a> can function as a {@link ServiceObject}. In other words: a
  * service class does not have to inherit from any special class, nor implement

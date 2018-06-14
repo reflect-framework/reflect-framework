@@ -7,6 +7,8 @@ import java.util.List;
 import nth.introspect.IntrospectApplication;
 import nth.introspect.IntrospectFramework;
 import nth.introspect.layer1userinterface.controller.UserInterfaceController;
+import nth.introspect.layer2service.ServiceObject;
+import nth.introspect.layer2service.ServiceObjectActionMethod;
 import nth.introspect.layer5provider.about.AboutProvider;
 import nth.introspect.layer5provider.about.DefaultAboutProvider;
 import nth.introspect.layer5provider.authorization.AuthorizationProvider;
@@ -17,13 +19,34 @@ import nth.introspect.layer5provider.notification.DefaultNotificationProvider;
 import nth.introspect.layer5provider.notification.NotificationProvider;
 import nth.introspect.layer5provider.reflection.DefaultReflectionProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
+import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.url.UrlProvider;
 import nth.introspect.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.introspect.layer5provider.validation.DefaultValidationProvider;
 import nth.introspect.layer5provider.validation.ValidationProvider;
 
 /**
- * TODO
+ * <p>
+ * The {@link IntrospectApplication} is an implementation of the
+ * {@link IntrospectFramework} for
+ * <a href="https://en.wikipedia.org/wiki/Command-line_interface">command line
+ * interfaces</a>.<br>
+ * <br>
+ * If you execute the application with parameters it will:
+ * <ul>
+ * <li>parse the given command line</li>
+ * <li>call one of the {@link ServiceObjectActionMethod}'s with an optional parameter</li>
+ * <li>Return the result of the method or return a message if a method was
+ * successfully executed or not</li>
+ * <li>The {@link IntrospectApplicationForCommandLine} is than terminated (state
+ * is lost unless the application stores state somehow)</li>
+ * </ul>
+ * If you execute the application without parameters it will:
+ * <ul>
+ * <li>Return a list of possible commands and arguments</li>
+ * <li>The {@link IntrospectApplicationForCommandLine} is than terminated</li>
+ * </ul>
+ * </p>
  * 
  * <h3>How to download a IntrospectForCommandLine demo project</h3>
  * <p>
@@ -40,7 +63,7 @@ import nth.introspect.layer5provider.validation.ValidationProvider;
  */
 public abstract class IntrospectApplicationForCommandLine implements IntrospectApplication {
 
-	private  String[] commandLineArguments;
+	private String[] commandLineArguments;
 
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
@@ -81,15 +104,15 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
 		return Arrays.asList(ClassResourceUrlProvider.class);
 	}
-	
+
 	public String[] getCommandLineArguments() {
 		return commandLineArguments;
 	}
 
 	/**
-	 * Launch a standalone application. This method is typically called from the
-	 * main method(). It must not be called more than once or an exception will
-	 * be thrown. This is equivalent to launch(TheClass.class, args) where
+	 * Launch a stand-alone application. This method is typically called from
+	 * the main method(). It must not be called more than once or an exception
+	 * will be thrown. This is equivalent to launch(TheClass.class, args) where
 	 * TheClass is the immediately enclosing class of the method that called
 	 * launch. It must be a subclass of Application or a RuntimeException will
 	 * be thrown.
@@ -159,7 +182,7 @@ public abstract class IntrospectApplicationForCommandLine implements IntrospectA
 	}
 
 	private void setCommandlineArguments(String[] commandLineArguments) {
-		this.commandLineArguments=commandLineArguments;
+		this.commandLineArguments = commandLineArguments;
 	}
 
 }
