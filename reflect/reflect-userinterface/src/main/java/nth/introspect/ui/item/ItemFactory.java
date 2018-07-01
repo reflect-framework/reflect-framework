@@ -148,7 +148,7 @@ public class ItemFactory {
 		// items.add(item)
 		// }
 
-		ViewContainer viewContainer = tableView.getuserInterfaceContainer()
+		ViewContainer viewContainer = tableView.getUserInterfaceContainer()
 				.get(GraphicalUserinterfaceController.class).getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
 
@@ -157,7 +157,7 @@ public class ItemFactory {
 		LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
 				new ParameterTypeFilter(domainType));
 		filter.andNot(new EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
-		UserInterfaceContainer userInterfaceContainer = tableView.getuserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer = tableView.getUserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
 
@@ -189,7 +189,7 @@ public class ItemFactory {
 		// items.add(item)
 		// }
 
-		ViewContainer viewContainer = tableView.getuserInterfaceContainer()
+		ViewContainer viewContainer = tableView.getUserInterfaceContainer()
 				.get(GraphicalUserinterfaceController.class).getViewContainer();
 		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
 
@@ -199,7 +199,7 @@ public class ItemFactory {
 				new ParameterTypeFilter(domainType));
 		// filter.andNot(new
 		// EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
-		UserInterfaceContainer userInterfaceContainer = tableView.getuserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer = tableView.getUserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
 

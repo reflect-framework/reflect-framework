@@ -9,6 +9,6 @@ public interface TableView extends MethodView{
 
 	public ReadOnlyValueModel getAllRowsModel();
 
-	public UserInterfaceContainer getuserInterfaceContainer();
+	public UserInterfaceContainer getUserInterfaceContainer();
 
 }

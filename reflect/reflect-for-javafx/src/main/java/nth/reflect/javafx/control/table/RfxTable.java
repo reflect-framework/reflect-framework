@@ -44,6 +44,7 @@ import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
+import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenCollectionModel;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
@@ -52,6 +53,8 @@ import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
+import nth.introspect.ui.valuemodel.PropertyValueModel;
+import nth.introspect.ui.view.FormView;
 import nth.reflect.javafx.RfxUtils;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
@@ -66,15 +69,14 @@ public class RfxTable extends TableView<Object> {
 	private static final int ROW_HEIGHT = RfxItemTreeCell.ITEM_HEIGHT;
 	private static final int ROW_FONT_SIZE = 14;
 	private static final int HEADER_FONT_SIZE = 13;
-	private UserInterfaceContainer userInterfaceContainer;
-	private LanguageProvider languageProvider;
 	private final RfxPopup popupMenu;
-	private nth.introspect.ui.view.TableView tableView;
+	private RfxTableInfo rfxTableInfo;
 
 	public RfxTable() {
 		// TODO new RfxVerticalFlingScroller(this);
 		addStyleClass();
 		popupMenu = new RfxPopup();
+		setOnMouseClicked(this::onMouseClicked);
 	}
 
 	/**
@@ -87,116 +89,112 @@ public class RfxTable extends TableView<Object> {
 	 * @param methodParameterValue
 	 * @param tableView
 	 */
-	public RfxTable(RfxTableView tableView) {
+	public RfxTable(RfxTableInfo rfxTableInfo) {
 		this();
-		this.tableView = tableView;
-		userInterfaceContainer = tableView.getuserInterfaceContainer();
-		ReflectionProvider reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
-		languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+		this.rfxTableInfo = rfxTableInfo;
+		setItems(rfxTableInfo.getItems());
+		initColumns(rfxTableInfo.getTableColumns());
+	}
+	
+	public RfxTable(nth.introspect.ui.view.TableView tableView) {
+		this(new RfxTableInfoForTableView(tableView));
+	}
 
-		ActionMethodInfo actionMethodInfo = tableView.getMethodInfo();
+	public RfxTable(FormView formView, PropertyValueModel propertyValueModel) {
+		this(new RfxTableInfoForFormViewProperty(formView,propertyValueModel)); 
+	}
 
-		setOnMouseClicked(this::onMouseClicked);
-
-		Class<?> objectClass = actionMethodInfo.getGenericReturnType();
-
-		// TODO arrays and other collections than List
-		if (TypeUtil.isJavaType(objectClass) || TypeUtil.isEnum(objectClass)) {
+	private void initColumns(List<TableColumn<Object, ?>> tableColumns) {
+		if (tableColumns.isEmpty()) {
 			TableColumn<Object, String> singeColumn = new TableColumn("");
-			singeColumn.setCellValueFactory(
-					createCellValueFactoryForJavaTypeOrEnum(languageProvider, objectClass));
+			getColumns().addAll(singeColumn);
 			hideHeader();
 		} else {
-			setItems(createObservableList(tableView));
-			setContextMenu(createTestContextMenu());
-			createColumns(reflectionProvider, objectClass);
-			ColumnAutoSizer.autoFitTable(this);
+			getColumns().addAll(tableColumns);
 		}
-
+		ColumnAutoSizer.autoFitTable(this);
 	}
 
-	/**
-	 * TODO replace with {@link JFXPopup}
-	 * 
-	 * @return
-	 */
-	private ContextMenu createTestContextMenu() {
-
-		final ContextMenu contextMenu = new ContextMenu();
-		contextMenu.setOnShowing(new EventHandler<WindowEvent>() {
-			public void handle(WindowEvent e) {
-				System.out.println("showing");
-			}
-		});
-		contextMenu.setOnShown(new EventHandler<WindowEvent>() {
-			public void handle(WindowEvent e) {
-				System.out.println("shown");
-			}
-		});
-
-		MenuItem item1 = new MenuItem("About");
-		item1.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				System.out.println("About");
-			}
-		});
-		MenuItem item2 = new MenuItem("Preferences");
-		item2.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				System.out.println("Preferences");
-			}
-		});
-		contextMenu.getItems().addAll(item1, item2);
-		return contextMenu;
-	}
+	// /**
+	// * TODO replace with {@link JFXPopup}
+	// *
+	// * @return
+	// */
+	// private ContextMenu createTestContextMenu() {
+	//
+	// final ContextMenu contextMenu = new ContextMenu();
+	// contextMenu.setOnShowing(new EventHandler<WindowEvent>() {
+	// public void handle(WindowEvent e) {
+	// System.out.println("showing");
+	// }
+	// });
+	// contextMenu.setOnShown(new EventHandler<WindowEvent>() {
+	// public void handle(WindowEvent e) {
+	// System.out.println("shown");
+	// }
+	// });
+	//
+	// MenuItem item1 = new MenuItem("About");
+	// item1.setOnAction(new EventHandler<ActionEvent>() {
+	// public void handle(ActionEvent e) {
+	// System.out.println("About");
+	// }
+	// });
+	// MenuItem item2 = new MenuItem("Preferences");
+	// item2.setOnAction(new EventHandler<ActionEvent>() {
+	// public void handle(ActionEvent e) {
+	// System.out.println("Preferences");
+	// }
+	// });
+	// contextMenu.getItems().addAll(item1, item2);
+	// return contextMenu;
+	// }
 
 	public void onMouseClicked(javafx.scene.input.MouseEvent event) {
-//			TableViewSelectionModel selectionModel = getSelectionModel();
-//			ObservableList selectedCells = selectionModel.getSelectedCells();
-//			TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-//			TableColumn tableColumn = tablePosition.getTableColumn();
-//			TableRow<?> row = getRow(tablePosition.getRow());
-			onRowClicked(event.getScreenX(),event.getScreenY());
+		// TableViewSelectionModel selectionModel = getSelectionModel();
+		// ObservableList selectedCells = selectionModel.getSelectedCells();
+		// TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+		// TableColumn tableColumn = tablePosition.getTableColumn();
+		// TableRow<?> row = getRow(tablePosition.getRow());
+		onRowClicked(event.getScreenX(), event.getScreenY());
 	}
 
 	public void onRowClicked(double x, double y) {
-		// TODO add handler for keyboard for escape, enter and space (see main menu) that calls this method
-		
-//		double y = row.getBoundsInParent().getMinY();
-//		double height = getHeight();
-//		boolean showBelowNode = (y>(height/2));
-//		
-//		PopupVPosition vPosition = showBelowNode ?PopupVPosition.TOP: PopupVPosition.BOTTOM;
-//		AnchorLocation anchorLocation=showBelowNode ?AnchorLocation.CONTENT_BOTTOM_LEFT: AnchorLocation.CONTENT_TOP_LEFT;
-//		System.out.println(showBelowNode+":"+anchorLocation);
-		
-//		double x = row.getBoundsInParent().getMinX();
-//		double y = row.getBoundsInParent().getMinY();
-		
+		// TODO add handler for keyboard for escape, enter and space (see main
+		// menu) that calls this method
+
+		// double y = row.getBoundsInParent().getMinY();
+		// double height = getHeight();
+		// boolean showBelowNode = (y>(height/2));
+		//
+		// PopupVPosition vPosition = showBelowNode ?PopupVPosition.TOP:
+		// PopupVPosition.BOTTOM;
+		// AnchorLocation anchorLocation=showBelowNode
+		// ?AnchorLocation.CONTENT_BOTTOM_LEFT: AnchorLocation.CONTENT_TOP_LEFT;
+		// System.out.println(showBelowNode+":"+anchorLocation);
+
+		// double x = row.getBoundsInParent().getMinX();
+		// double y = row.getBoundsInParent().getMinY();
+
 		showRowPopupMenu(x, y);
-//		JFXPopup rowMenu = createRowMenu(row);
-//		rowMenu.setAnchorLocation(anchorLocation);
-//		 rowMenu.show(row, vPosition, PopupHPosition.RIGHT);
+		// JFXPopup rowMenu = createRowMenu(row);
+		// rowMenu.setAnchorLocation(anchorLocation);
+		// rowMenu.show(row, vPosition, PopupHPosition.RIGHT);
 	}
 
 	private void showRowPopupMenu(double x, double y) {
-		popupMenu.getContent().clear();
-		popupMenu.getContent().add(createRowMenu());
-		popupMenu.show(this, x, y);
+		if (rfxTableInfo!=null) {
+			popupMenu.getContent().clear();
+			popupMenu.getContent().add(createRowMenu());
+			popupMenu.show(this, x, y);
+		}
 	}
 
 	private RfxItemTreeView createRowMenu() {
-		List<MethodOwnerItem> serviceObjectItems = createRowMenuItems();
-		RfxItemTreeView rowMenuContent = new RfxItemTreeView(serviceObjectItems, languageProvider);
-		return rowMenuContent;
-	}
-
-	private List<MethodOwnerItem> createRowMenuItems() {
-		//TODO hide pop up menu when there are no visible items
 		Object selectedObject = getSelectionModel().getSelectedItem();
-		 List<MethodOwnerItem> items = ItemFactory.createTableViewRowMenuItems(tableView, selectedObject);
-		return items;
+		List<MethodOwnerItem> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
+		RfxItemTreeView rowMenuContent = new RfxItemTreeView(serviceObjectItems, rfxTableInfo.getLanguageProvider());
+		return rowMenuContent;
 	}
 
 	/**
@@ -242,17 +240,7 @@ public class RfxTable extends TableView<Object> {
 	// popup.show(getSe);
 	// }
 
-	private void createColumns(ReflectionProvider reflectionProvider, Class<?> objectClass) {
-		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
-		for (PropertyInfo propertyInfo : propertyInfos) {
-			TableColumn propertyColumn = new TableColumn(propertyInfo.getDisplayName());
-			propertyColumn.setMinWidth(100);
-			propertyColumn
-					.setCellValueFactory(new PropertyValueFactory<>(propertyInfo.getSimpleName()));
-			getColumns().add(propertyColumn);
-		}
-	}
+
 
 	private Callback<CellDataFeatures<Object, String>, ObservableValue<String>> createCellValueFactoryForJavaTypeOrEnum(
 			LanguageProvider languageProvider, Class<?> objectClass) {
@@ -266,25 +254,6 @@ public class RfxTable extends TableView<Object> {
 				return new ReadOnlyObjectWrapper<String>(value);
 			}
 		};
-	}
-
-	private ObservableList<Object> createObservableList(RfxTableView tableView) {
-		try {
-			Object methodOwner = tableView.getMethodOwner();
-			ActionMethodInfo actionMethodInfo = tableView.getMethodInfo();
-			Object methodParameterValue = tableView.getMethodParameter();
-			Object result = actionMethodInfo.invoke(methodOwner, methodParameterValue);
-			List<Object> list = (List<Object>) result;
-			// TODO create a createObservableList for all types, and that can be
-			// updated when needed
-			return new ObservableListWrapper<Object>(list);
-		} catch (Exception e) {
-			UserInterfaceController userInterfaceController = tableView.getuserInterfaceContainer()
-					.get(UserInterfaceController.class);
-			userInterfaceController.showErrorDialog(tableView.getViewTitle(),
-					"Error getting table values.", e);
-			return null;
-		}
 	}
 
 	private void hideHeader() {
@@ -331,8 +300,7 @@ public class RfxTable extends TableView<Object> {
 						.appendChild("column-header").appendChild(Label.class))
 				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND2())
-				.setFontWeight(FontWeight.NORMAL)
-				.setProperty("-fx-alignment", "CENTER-LEFT");
+				.setFontWeight(FontWeight.NORMAL).setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-column")).getProperties()
 				.setBorderColor("transparent").setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell")).getProperties()

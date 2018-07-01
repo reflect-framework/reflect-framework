@@ -6,8 +6,9 @@ import nth.reflect.javafx.control.table.RfxTable;
 
 public class RfxManyToOneOrManyField extends RfxTable {
 
+
 	public RfxManyToOneOrManyField(FormView formView, PropertyValueModel propertyValueModel) {
-		// TODO Auto-generated constructor stub
+		super(formView, propertyValueModel);
 	}
 
 }

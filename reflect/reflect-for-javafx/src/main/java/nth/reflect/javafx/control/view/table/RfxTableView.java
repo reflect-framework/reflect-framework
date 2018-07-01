@@ -221,7 +221,7 @@ public class RfxTableView extends BorderPane implements nth.introspect.ui.view.T
 					try {
 						return actionMethodInfo.invoke(methodOwner, methodParameterValue);
 					} catch (Exception e) {
-						UserInterfaceController userInterfaceController = getuserInterfaceContainer()
+						UserInterfaceController userInterfaceController = getUserInterfaceContainer()
 								.get(UserInterfaceController.class);
 						userInterfaceController.showErrorDialog(getViewTitle(),
 								"Error getting table values.", e);
@@ -261,7 +261,7 @@ public class RfxTableView extends BorderPane implements nth.introspect.ui.view.T
 	}
 
 	@Override
-	public UserInterfaceContainer getuserInterfaceContainer() {
+	public UserInterfaceContainer getUserInterfaceContainer() {
 		return userInterfaceContainer;
 	}
 
