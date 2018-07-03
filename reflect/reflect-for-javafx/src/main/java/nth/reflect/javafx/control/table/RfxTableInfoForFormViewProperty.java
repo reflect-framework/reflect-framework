@@ -2,9 +2,6 @@ package nth.reflect.javafx.control.table;
 
 import java.util.List;
 
-import com.sun.javafx.collections.ObservableListWrapper;
-
-import javafx.collections.ObservableList;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
@@ -18,7 +15,8 @@ public class RfxTableInfoForFormViewProperty extends RfxTableInfo {
 	private final ReflectionProvider reflectionProvider;
 	private final LanguageProvider languageProvider;
 
-	public RfxTableInfoForFormViewProperty(FormView formView, PropertyValueModel propertyValueModel) {
+	public RfxTableInfoForFormViewProperty(FormView formView,
+			PropertyValueModel propertyValueModel) {
 		this.propertyValueModel = propertyValueModel;
 		UserInterfaceContainer userInterfaceContainer = formView.getUserInterfaceContainer();
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
@@ -26,15 +24,12 @@ public class RfxTableInfoForFormViewProperty extends RfxTableInfo {
 	}
 
 	@Override
-	public ObservableList<Object> getItems() {
-		List<Object> list = (List<Object>) propertyValueModel.getValue();
-		// TODO create a createObservableList for all types, and that can be
-		// updated when needed
-		return new ObservableListWrapper<Object>(list);
+	public Object getValues() {
+		return propertyValueModel.getValue();
 	}
 
 	@Override
-	public Class<?> getItemType() {
+	public Class<?> getValuesType() {
 		return propertyValueModel.getValueType();
 	}
 

@@ -2,66 +2,32 @@ package nth.reflect.javafx.control.table;
 
 import java.text.Format;
 import java.util.List;
-import java.util.Optional;
-
-import javax.swing.JPopupMenu;
-
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXPopup.PopupHPosition;
-import com.jfoenix.controls.JFXPopup.PopupVPosition;
-import com.sun.javafx.collections.ObservableListWrapper;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow.AnchorLocation;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
-import nth.introspect.generic.util.TypeUtil;
-import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
-import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
-import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
-import nth.introspect.layer5provider.reflection.behavior.hidden.HiddenCollectionModel;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
 import nth.introspect.ui.view.FormView;
-import nth.reflect.javafx.RfxUtils;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.javafx.control.popup.RfxPopup;
 import nth.reflect.javafx.control.style.RfxStyleSelector;
 import nth.reflect.javafx.control.style.RfxStyleSheet;
-import nth.reflect.javafx.control.view.table.RfxTableView;
 
 public class RfxTable extends TableView<Object> {
 
@@ -92,7 +58,7 @@ public class RfxTable extends TableView<Object> {
 	public RfxTable(RfxTableInfo rfxTableInfo) {
 		this();
 		this.rfxTableInfo = rfxTableInfo;
-		setItems(rfxTableInfo.getItems());
+		setItems(rfxTableInfo.getObservableList());
 		initColumns(rfxTableInfo.getTableColumns());
 	}
 	

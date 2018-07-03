@@ -8,7 +8,6 @@ import com.sun.javafx.scene.control.skin.TableViewSkinBase;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.scene.control.Skin;
 import javafx.scene.control.TableColumnBase;
 import javafx.scene.control.TableView;

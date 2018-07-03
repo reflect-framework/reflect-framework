@@ -1,13 +1,8 @@
 package nth.reflect.javafx.control.table;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.javafx.collections.ObservableListWrapper;
-
-import javafx.collections.ObservableList;
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
-import nth.introspect.layer1userinterface.controller.UserInterfaceController;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -32,29 +27,29 @@ public class RfxTableInfoForTableView extends RfxTableInfo{
 		this.itemType = actionMethodInfo.getGenericReturnType();
 
 	}
-	
-	public ObservableList<Object> getItems() {
+
+	@Override
+	public Object getValues() {
 		try {
 			Object methodOwner = tableView.getMethodOwner();
 			ActionMethodInfo actionMethodInfo = tableView.getMethodInfo();
 			Object methodParameterValue = tableView.getMethodParameter();
-			Object result = actionMethodInfo.invoke(methodOwner, methodParameterValue);
-			List<Object> list = (List<Object>) result;
-			// TODO create a createObservableList for all types, and that can be
-			// updated when needed
-			return new ObservableListWrapper<Object>(list);
+			Object methodResult = actionMethodInfo.invoke(methodOwner, methodParameterValue);
+			return methodResult;
 		} catch (Exception e) {
-			UserInterfaceController userInterfaceController = tableView.getUserInterfaceContainer()
-					.get(UserInterfaceController.class);
-			userInterfaceController.showErrorDialog(tableView.getViewTitle(),
-					"Error getting table values.", e);
-			return new ObservableListWrapper<Object>(new ArrayList<>());
+			StringBuilder message = new StringBuilder(tableView.getViewTitle());
+			message.append(": ");
+			message.append(languageProvider.getText("Error getting table values."));
+			throw new RuntimeException(message.toString(),e);
+//			UserInterfaceController userInterfaceController = tableView.getUserInterfaceContainer()
+//					.get(UserInterfaceController.class);
+//			userInterfaceController.showErrorDialog(tableView.getViewTitle(),
+//					"Error getting table values.", e);
 		}
 	}
-
-
+	
 	@Override
-	public Class<?> getItemType() {
+	public Class<?> getValuesType() {
 		return itemType;
 	}
 
