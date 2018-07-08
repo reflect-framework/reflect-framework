@@ -13,6 +13,7 @@ import javafx.util.Callback;
 import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer1userinterface.item.Item.Action;
 import nth.introspect.layer5provider.language.LanguageProvider;
+import nth.introspect.ui.item.HierarchicalItem;
 import nth.introspect.ui.item.ItemFactory;
 import nth.introspect.ui.item.method.MethodItem;
 import nth.introspect.ui.item.method.MethodOwnerItem;
@@ -44,24 +45,28 @@ public class RfxItemTreeView extends TreeView {
 		setOnMouseClicked(createMouseHandler());
 	}
 
-	public RfxItemTreeView(List<MethodOwnerItem> serviceObjectItems, LanguageProvider languageProvider) {
-		this(createRootItem(serviceObjectItems, languageProvider));
+	public RfxItemTreeView(List<Item> items, LanguageProvider languageProvider) {
+		this(createRootItem(items, languageProvider));
 	}
 
-	private static TreeItem<Item> createRootItem(List<MethodOwnerItem> serviceObjectItems, LanguageProvider languageProvider) {
+	private static TreeItem<Item> createRootItem(List<Item> items, LanguageProvider languageProvider) {
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
-
-		for (Item serviceObjectItem : serviceObjectItems) {
-			TreeItem<Item> serviceObjectNode = new TreeItem<>(serviceObjectItem);
-			rootNode.getChildren().add(serviceObjectNode);
-			for (Item methodItem : ((MethodOwnerItem) serviceObjectItem).getChildren()) {
-				TreeItem<Item> serviceObjectMethodNode = new TreeItem<>(methodItem);
-				serviceObjectNode.getChildren().add(serviceObjectMethodNode);
+		for (Item item : items) {
+			addItem(rootNode, item);
+		}
+		return rootNode;
+	}
+	
+	private static void addItem(TreeItem<Item> parent, Item itemToAdd) {
+		TreeItem<Item> treeItem = new TreeItem<>(itemToAdd);
+		parent.getChildren().add(treeItem);
+		if (itemToAdd instanceof HierarchicalItem) {
+			HierarchicalItem hierarchicalItem = (HierarchicalItem) itemToAdd;
+			for (Item child:hierarchicalItem.getChildren()) {
+				addItem(treeItem,child);
 			}
 		}
-		
-		return rootNode;
 	}
 
 	private Callback<TreeView<Item>, TreeCell<Item>> createCellFactory() {

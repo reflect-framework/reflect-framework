@@ -15,10 +15,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.style.MaterialColorSetCssName;
 import nth.introspect.ui.style.MaterialFont;
 import nth.introspect.ui.valuemodel.PropertyValueModel;
@@ -158,7 +158,7 @@ public class RfxTable extends TableView<Object> {
 
 	private RfxItemTreeView createRowMenu() {
 		Object selectedObject = getSelectionModel().getSelectedItem();
-		List<MethodOwnerItem> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
+		List<Item> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
 		RfxItemTreeView rowMenuContent = new RfxItemTreeView(serviceObjectItems, rfxTableInfo.getLanguageProvider());
 		return rowMenuContent;
 	}

@@ -11,11 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import nth.introspect.generic.util.TypeUtil;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
-import nth.introspect.ui.item.method.MethodOwnerItem;
 
 @SuppressWarnings("restriction")
 public abstract class RfxTableInfo {
@@ -28,7 +28,7 @@ public abstract class RfxTableInfo {
 
 	public abstract LanguageProvider getLanguageProvider();
 
-	public abstract List<MethodOwnerItem> getRowMenuItems(Object selectedObject);
+	public abstract List<Item> getRowMenuItems(Object selectedObject);
 
 	public List<TableColumn<Object, ?>> getTableColumns() {
 		Class<?> itemType = getValuesType();

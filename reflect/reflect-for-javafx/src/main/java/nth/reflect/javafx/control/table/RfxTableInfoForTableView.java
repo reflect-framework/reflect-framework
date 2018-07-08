@@ -3,11 +3,11 @@ package nth.reflect.javafx.control.table;
 import java.util.List;
 
 import nth.introspect.layer1userinterface.UserInterfaceContainer;
+import nth.introspect.layer1userinterface.item.Item;
 import nth.introspect.layer5provider.language.LanguageProvider;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.introspect.ui.item.ItemFactory;
-import nth.introspect.ui.item.method.MethodOwnerItem;
 import nth.introspect.ui.view.TableView;
 
 public class RfxTableInfoForTableView extends RfxTableInfo{
@@ -64,8 +64,8 @@ public class RfxTableInfoForTableView extends RfxTableInfo{
 	}
 
 	@Override
-	public List<MethodOwnerItem> getRowMenuItems(Object selectedObject) {
-		List<MethodOwnerItem> items = ItemFactory.createTableViewRowMenuItems(tableView,
+	public List<Item> getRowMenuItems(Object selectedObject) {
+		List<Item> items = ItemFactory.createTableViewRowMenuItems(tableView,
 				selectedObject);
 		return items;
 	}

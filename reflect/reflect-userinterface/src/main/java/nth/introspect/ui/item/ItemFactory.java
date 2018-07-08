@@ -164,9 +164,9 @@ public class ItemFactory {
 		return items;
 	}
 
-	public static List<MethodOwnerItem> createTableViewRowMenuItems(TableView tableView,
+	public static List<Item> createTableViewRowMenuItems(TableView tableView,
 			Object domainObject) {
-		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
+		List<Item> items = new ArrayList<>();
 
 		// get info from table view
 		// ActionMethodInfo methodInfoToExclude = tableView.getMethodInfo();
