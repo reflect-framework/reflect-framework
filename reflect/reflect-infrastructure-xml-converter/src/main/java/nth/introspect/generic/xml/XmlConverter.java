@@ -35,6 +35,12 @@ import nth.introspect.layer5provider.reflection.ReflectionProvider;
 import nth.introspect.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.introspect.layer5provider.reflection.info.property.PropertyInfo;
 
+/**
+ * TODO implement Marshaller, Unmarshaller, Parser and Printer, see reflect-infrastructure-converter
+ * @author nilsth
+ *
+ */
+
 public class XmlConverter {
 
 	private static final String INTROSPECT = IntrospectFramework.class.getSimpleName();

@@ -29,6 +29,12 @@ import nth.introspect.report.ReportProvider;
 import nth.introspect.report.Section;
 import nth.introspect.report.TableSection;
 
+/**
+ * TODO implement Marshaller, Unmarshaller, Parser and Printer, see reflect-infrastructure-converter
+ * @author nilsth
+ *
+ */
+
 public class PdfReportFactory extends ReportProvider<Document> {
 
 	private static final float HEADER_HEIGHT = 10;
