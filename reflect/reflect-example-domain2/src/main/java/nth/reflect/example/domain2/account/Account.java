@@ -6,14 +6,12 @@ import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 
 import nth.introspect.generic.util.TitleBuilder;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
 import nth.introspect.layer5provider.reflection.behavior.order.Order;
-import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.example.domain2.tag.Tag;
 
 public class Account {
