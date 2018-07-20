@@ -21,7 +21,10 @@ import nth.introspect.layer1userinterface.controller.DownloadStream;
 import nth.introspect.layer4infrastructure.InfrastructureObject;
 import nth.introspect.layer5provider.reflection.ReflectionProvider;
 
+
 /**
+ * TODO implement Marshaller, Unmarshaller, Parser and Printer, see reflect-infrastructure-converter
+ * 
  * {@link InfrastructureObject} to access Microsoft Excel files:
  * <ul>
  * <li>{@link #readAll(ExcelReader)} to read object from Excel sheets</li>
