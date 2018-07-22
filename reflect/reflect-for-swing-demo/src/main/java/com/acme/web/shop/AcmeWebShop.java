@@ -9,13 +9,13 @@ import com.acme.web.shop.product.ProductRepository;
 import com.acme.web.shop.product.ProductService;
 import com.acme.web.shop.shopingcart.ShoppingCartService;
 
-import nth.introspect.layer5provider.reflection.behavior.description.Description;
-import nth.introspect.layer5provider.reflection.behavior.displayname.DisplayName;
-import nth.introspect.ui.swing.IntrospectApplicationForSwing;
+import nth.reflect.fw.layer5provider.reflection.behavior.description.Description;
+import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayName;
+import nth.reflect.fw.ui.swing.ReflecttApplicationForSwing;
 
 @DisplayName(englishName= "ACME Web Shop")
 @Description(englishDescription="ACME Web Shop for everything you need...")
-public class AcmeWebShop extends IntrospectApplicationForSwing {
+public class AcmeWebShop extends ReflecttApplicationForSwing {
 
 
 	public static void main(String[] commandLineArguments) {

@@ -8,11 +8,11 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import nth.introspect.generic.util.TitleBuilder;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.behavior.order.Order;
 import nth.reflect.example.domain2.tag.Tag;
+import nth.reflect.fw.generic.util.TitleBuilder;
+import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.reflect.fw.layer5provider.reflection.behavior.order.Order;
 
 public class Account {
 	private String accountName;

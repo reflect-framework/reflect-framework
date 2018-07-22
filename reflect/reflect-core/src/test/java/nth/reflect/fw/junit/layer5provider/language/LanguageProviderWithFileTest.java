@@ -1,0 +1,90 @@
+package nth.reflect.fw.junit.layer5provider.language;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.Locale;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.junit.layer5provider.validation.Address;
+import nth.reflect.fw.junit.layer5provider.validation.Country;
+import nth.reflect.fw.layer5provider.language.IllegalKeyFormat;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+
+public class LanguageProviderWithFileTest {
+
+	private static final String CLOSE_APPLICATION = "Close application";
+	private static final String COM_ACME_LABEL1 = "com.ACME.label1";
+	private LanguageProvider languageProvider;
+	private ReflectionProvider reflectionProvider;
+
+	@Before
+	public void setUp() throws Exception {
+		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit() {
+//FIXME: test will fail
+			//			@Override
+//			public Class<? extends PathProvider> getPathProviderClass() {
+//				return LanguageProviderTestPathProvider.class;
+//			}
+			
+		};
+		DependencyInjectionContainer container = application.createContainer();
+		languageProvider= container.get(LanguageProvider.class);
+		reflectionProvider=container.get(ReflectionProvider.class);
+	}
+
+	@Test
+	public void getKey() {
+		ClassInfo classInfo = reflectionProvider.getClassInfo(Address.class);
+		String key = languageProvider.getKey(classInfo);
+		assertEquals(Address.class.getCanonicalName(), key);
+
+		key = languageProvider.getKey(Address.class.getCanonicalName());
+		assertEquals(Address.class.getCanonicalName(), key);
+
+
+		key = languageProvider.getKey(Country.NETHERLANDS);
+		assertEquals(Country.class.getCanonicalName()+".NETHERLANDS", key);
+		
+		key = languageProvider.getKey(COM_ACME_LABEL1);
+		assertEquals(COM_ACME_LABEL1, key);
+	}
+
+	@Test (expected=IllegalKeyFormat.class)
+	public void getKeyInvalid() {
+		languageProvider.getKey("bogus key");
+	}
+	
+	@Test
+	public void getDefaultValue() {
+		String defaultValue=languageProvider.getDefaultValue(COM_ACME_LABEL1);
+		assertEquals("Label1", defaultValue);
+		
+		defaultValue=languageProvider.getDefaultValue("closeApplication");
+		assertEquals(CLOSE_APPLICATION, defaultValue);
+	}
+
+	@Test
+	public void getTextForDefaultText() {
+		String defaultValue=languageProvider.getText(CLOSE_APPLICATION);
+		assertEquals(CLOSE_APPLICATION, defaultValue);
+	}
+
+	@Test
+	public void getTextForKeyAndDefaultText() {
+		String defaultValue=languageProvider.getText(COM_ACME_LABEL1,CLOSE_APPLICATION);
+		assertEquals(CLOSE_APPLICATION, defaultValue);
+	}
+
+	@Test
+	public void getTextForLocaleAndKeyAndDefaultText() {
+		String defaultValue=languageProvider.getText(Locale.FRENCH, COM_ACME_LABEL1,CLOSE_APPLICATION);
+		assertEquals("From France file", defaultValue);
+	}
+
+}

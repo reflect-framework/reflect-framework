@@ -3,8 +3,8 @@ package nth.reflect.example.domain2.account;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
-import nth.introspect.generic.xml.XmlConverter;
-import nth.introspect.infrastructure.xmlfilerepository.XmlFileRepository;
+import nth.reflect.infra.generic.xml.XmlConverter;
+import nth.reflect.infra.xmlfilerepository.XmlFileRepository;
 
 public class AccountRepository extends XmlFileRepository{
 	

@@ -3,8 +3,8 @@ package com.acme.web.shop.provider.authorization;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.introspect.layer5provider.authorization.AuthorizationProvider;
-import nth.introspect.layer5provider.authorization.InvalidNameOrPasswordException;
+import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
+import nth.reflect.fw.layer5provider.authorization.InvalidNameOrPasswordException;
 
 public class AcmeAuthorizationProvider implements AuthorizationProvider {
 

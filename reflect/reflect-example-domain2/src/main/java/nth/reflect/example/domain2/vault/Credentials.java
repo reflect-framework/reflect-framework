@@ -1,7 +1,7 @@
 package nth.reflect.example.domain2.vault;
 
-import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
-import nth.introspect.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
+import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
+import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 
 public class Credentials {
 	private String name;

@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nth.introspect.layer5provider.notification.NotificationProvider;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
-import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.example.domain2.tag.Tag;
+import nth.reflect.fw.layer5provider.notification.NotificationProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.reflect.fw.layer5provider.reflection.behavior.icon.Icon;
+import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
 @Icon(iconURL=FontAwesomeUrl.USERS )
 public class AccountService {

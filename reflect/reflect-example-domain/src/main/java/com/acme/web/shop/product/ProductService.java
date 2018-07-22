@@ -2,9 +2,9 @@ package com.acme.web.shop.product;
 
 import java.util.List;
 
-import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
-import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
-import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
+import nth.reflect.fw.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.reflect.fw.layer5provider.reflection.behavior.icon.Icon;
+import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
 @Icon(iconURL=FontAwesomeUrl.PRODUCT_HUNT)
 public class ProductService {

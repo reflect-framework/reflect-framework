@@ -2,7 +2,7 @@ package com.acme.web.shop.product;
 
 import java.util.List;
 
-import nth.introspect.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.reflect.fw.layer5provider.reflection.behavior.hidden.Hidden;
 
 public class ProductService {
 	 

@@ -2,11 +2,11 @@ package nth.reflect.example.domain2.tag;
 
 import java.util.List;
 
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionMode;
-import nth.introspect.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.introspect.layer5provider.reflection.behavior.icon.Icon;
-import nth.introspect.ui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.example.domain2.account.AccountRepository;
+import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.reflect.fw.layer5provider.reflection.behavior.icon.Icon;
+import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
 @Icon(iconURL=FontAwesomeUrl.TAG )
 public class TagService {

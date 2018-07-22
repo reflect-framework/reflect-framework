@@ -1,6 +1,6 @@
 package com.acme.web.shop.customer;
 
-import nth.introspect.generic.util.TitleBuilder;
+import nth.reflect.fw.generic.util.TitleBuilder;
 
 public class Customer {
 	private String givenName;

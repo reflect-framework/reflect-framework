@@ -1,6 +1,6 @@
 package nth.reflect.example.domain2.account;
 
-import nth.introspect.generic.util.TitleBuilder;
+import nth.reflect.fw.generic.util.TitleBuilder;
 
 public class AccountAttribute {
 	private String name;
