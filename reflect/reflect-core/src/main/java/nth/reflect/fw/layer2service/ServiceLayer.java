@@ -11,8 +11,7 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
 
 /**
  * <p>
- * The {@link ServiceLayer} (sometimes also called <a
- * href="application layer">application layer</a>) gives the user access to the
+ * The {@link ServiceLayer} (sometimes also called application layer) gives the user access to the
  * {@link DomainObject}s so that the user can work on them.
  * </p>
  * <p>The {@link ServiceContainer} is an {@link DependencyInjectionContainer} that

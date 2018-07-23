@@ -3,7 +3,7 @@ package nth.reflect.fw.documentation;
 import nth.reflect.fw.ReflectFramework;
 
 /**
- * <img src="ReflectDocumentation.png"> <title>The Reflect Framework</title>
+ * <img src="ReflectLogo.png"> <title>The Reflect Framework</title>
  * 
  * <h1>The Reflect Framework</h1> {@insert ReflectFramework}
  * 
@@ -21,7 +21,7 @@ import nth.reflect.fw.ReflectFramework;
  * 
  * <H1>Object behavior</h1> {@insert ObjectBehavior}
  * 
- * <h1>Reflect Application Projects</h1> {@insert ReflectApplicationProjects}
+ * <h1>Reflect Application Projects (Getting started)</h1> {@insert ReflectApplicationProjects}
  * 
  * <h1>Reflect Provider Projects</h1> {@insert ReflectProviderProjects}
  * 
@@ -45,7 +45,7 @@ import nth.reflect.fw.ReflectFramework;
  * "http://ntenhoeve.github.io/ReflectDocumentation.html">Documentation as Web
  * Page</a></li>
  * <li><a href=
- * "http://ntenhoeve.github.io/TheReflectFramework_Printable.html">Documentation
+ * "http://ntenhoeve.github.io/ReflectDocumentation_Printable.html">Documentation
  * as a printable Web Page (single page)</a></li>
  * </ul>
  * 
