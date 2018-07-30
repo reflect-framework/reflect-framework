@@ -22,9 +22,10 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * With the {@link ReflectFramework} you only need to create
  * {@link DomainObject}s. The {@link ReflectFramework} provides you the
  * <a href="https://en.wikipedia.org/wiki/User_interface">user interface</a>,
- * without writing any <a href="https://en.wikipedia.org/wiki/User_interface">user interface</a> code. This means that the
- * {@link ReflectFramework} is ideal for rapid prototyping, rapid development
- * or to learn programming (e.g. to teach:
+ * without writing any
+ * <a href="https://en.wikipedia.org/wiki/User_interface">user interface</a>
+ * code. This means that the {@link ReflectFramework} is ideal for rapid
+ * prototyping, rapid development or to learn programming (e.g. to teach:
  * <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object
  * Oriented Programming</a> or
  * <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
@@ -33,20 +34,21 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * <p>
  * The {@link ReflectFramework} provides different
  * <a href="https://en.wikipedia.org/wiki/User_interface">user interface</a>
- * implementations that you can use for your {@link DomainObject}s. Please read the
- * {@link ReflectApplicationProjects} section to learn what
+ * implementations that you can use for your {@link DomainObject}s. Please read
+ * the {@link ReflectApplicationProjects} section to learn what
  * <a href="https://en.wikipedia.org/wiki/User_interface">user interfaces</a>
  * are available and how to get started. If you want to know more about the
  * details of the {@link ReflectFramework}, keep reading....
- * </p>
- * <h2>Why the Reflect Framework was developed</h2>
- * <p>
- * {@insert ReflectWhyItWasDeveloped}
  * </p>
  * 
  * <h2>Reflect Core Values</h2>
  * <p>
  * {@insert ReflectCoreValues}
+ * </p>
+ * 
+ * <h2>Why the Reflect Framework was developed</h2>
+ * <p>
+ * {@insert ReflectWhyItWasDeveloped}
  * </p>
  * 
  * <h2>Reflect License</h2>
@@ -87,8 +89,7 @@ public class ReflectFramework {
 	 */
 	public static void launch(ReflectApplication application) {
 		UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
-		UserInterfaceController userInterfaceController = userInterfaceContainer
-				.get(UserInterfaceController.class);
+		UserInterfaceController userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class);
 		userInterfaceController.launch();
 	}
 
@@ -105,8 +106,7 @@ public class ReflectFramework {
 	 * @param application
 	 * @return the created {@link UserInterfaceContainer}
 	 */
-	private static UserInterfaceContainer createUserInterfaceContainer(
-			ReflectApplication application) {
+	private static UserInterfaceContainer createUserInterfaceContainer(ReflectApplication application) {
 		UserInterfaceContainer userInterfaceContainer;
 		try {
 			userInterfaceContainer = new UserInterfaceContainer(application);

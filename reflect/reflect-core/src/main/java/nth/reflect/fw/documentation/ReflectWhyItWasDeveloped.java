@@ -1,6 +1,8 @@
 package nth.reflect.fw.documentation;
 
 import nth.reflect.fw.ReflectFramework;
+import nth.reflect.fw.layer2service.ServiceObject;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 
 /**
@@ -23,37 +25,87 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * another framework has thought me more than I could have learned implementing
  * an existing framework. Specifically on how other frameworks solved issues
  * that I run into.
- * <h3>Reason 3: Because I wanted to do it different</h3> I love the thoughts
- * behind the <a href="http://nakedobjects.codeplex.com/">Naked Objects
- * Framework</a> (for <a
- * href="http://en.wikipedia.org/wiki/.NET_Framework">.net</a>) and the <a
- * href="http://isis.apache.org/">Apache Isis Framework</a> (for <a
- * href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>).
- * But looking at the Apache Isis Framework, there are several things I
- * wanted to do it different in the {@link ReflectFramework} (good or bad is all open for debate):
+ * <h3>Reason 3: Because I could not find what I was looking for</h3> There are
+ * already several frame works that are based on the
+ * <a href="https://en.wikipedia.org/wiki/Naked_objects">Naked Objects</a>
+ * pattern, e.g.:
  * <ul>
- * <li>The <a href="http://en.wikipedia.org/wiki/Business_logic">domain
- * objects</a> and service objects (often repository objects) usually extend a
- * convenience class that contains methods to interact with the Apache Isis
- * framework/ object container. Extending such a class is not mandatory, because
- * you can implement these methods in your objects, but to me this still ignores
- * the principle of "Naked objects" or <a
- * href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO’s</a>.</li>
- * <li>I personally dislike the way Apache Isis manages the editing of objects.
- * This is very tightly linked to its <a
- * href="http://en.wikipedia.org/wiki/Persistence_framework">persistence
+ * <li><a href=
+ * "https://github.com/NakedObjectsGroup/NakedObjectsFramework">Naked Objects
+ * <a> (for .net)</li>
+ * <li><a href="https://isis.apache.org/">Apache Isis</a>
+ * <a href="https://isis.apache.org/guides/ugvw/ugvw.html">Wicket Viewer</a>
+ * (for Java)</li>
+ * <li><a href="http://metawidget.sourceforge.net/screenshots.php">MetaWidget
+ * </a> (for Java)</li>
+ * <li><a href="http://www.openxava.org">Openxava</a> (for Java)</li>
+ * </ul>
+ * These frame works have merit on their own, but they did not have all the things I was
+ * looking for (see {@link ReflectCoreValues}).
+ * 
+ * Specifically:
+ * <h3>Use POJO's</h3> The
+ * <a href="http://en.wikipedia.org/wiki/Business_logic">domain objects</a> and
+ * service objects (often repository objects) usually extend a convenience class
+ * that contains methods to interact with the Apache Isis framework/ object
+ * container. Extending such a class is not mandatory, because you can implement
+ * these methods in your objects, but to me this still ignores the principle of
+ * <a href="https://en.wikipedia.org/wiki/Naked_objects">Naked Objects</a> or
+ * <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO’s</a>.
+ * 
+ * <h3>Editing objects without JPA dependency</h3> I personally dislike the way
+ * Apache Isis manages the editing of objects. This is very tightly linked to
+ * its <a href="http://en.wikipedia.org/wiki/Persistence_framework">persistence
  * framework</a>. I however believe that objects do not necessarily need to be
  * persisted after its been edited. I prefer a different approach: domain
  * objects can be passed to a method as a method parameter. This method
  * parameter can be edited by a user before a method is executed (depending on
  * how the method is annotated). The domain object/ method parameter may then be
  * handled by a {@link InfrastructureObject} like a persistence service (or not
- * at all).</li>
+ * at all).
+ * 
+ * <h3>Missing a good graphical user interface.</h3> In my opinion (at the time
+ * of this writing), none of these graphical user interfaces meet modern design
+ * principles like:
+ * <ul>
+ * <li><a href="https://en.wikipedia.org/wiki/Responsive_web_design">Responsive
+ * Design</a>: An optimized user experience on a variety of devices and screen
+ * sizes.</li>
+ * <li><a href="https://en.wikipedia.org/wiki/Flat_design">Flat design</a>: A
+ * minimalist graphical user interface that does not distract the user execute
+ * its tasks, e.g. like Google's <a href="https://material.io/design/">Material
+ * Design</a></li>
  * </ul>
- * <h3>Reason 4: Because I could not find what I needed.</h3> I have not found an
- * framework that provides an out of the box User Interface for both desktop,
- * mobile devices, web interface, command line interface, etc. They are probably
- * out there (Naked Objects and Isis coming close) but I haven't found one that lives up to modern GUI standards (e.g. like Google's <a href="https://material.io/design/">Material Design</a>).
+ * 
+ * <h3>Missing a Naked Objects WORA framework</h3>
+ * <a href="https://java.com/">Java</a> was developed with the
+ * <a href="https://en.wikipedia.org/wiki/Write_once,_run_anywhere">Write Once
+ * Run Anywhere (WORA)</a>philosophy. A lot has changed since. So does WORA still
+ * apply for Java? The answer: Yes and No:
+ * <ul>
+ * <li>Yes: The
+ * <a href="https://en.wikipedia.org/wiki/Java_virtual_machine">Java Virtual
+ * Machine (JVM)</a> can run on almost all devices</li>
+ * <li>No: It is nearly impossible to write a GUI for a desktop, and deploy it
+ * as a web application or mobile application or vice-versa</li>
+ * </ul>
+ * Frameworks like <a href="https://facebook.github.io/react-native/">React
+ * Native</a>, <a href="https://flutter.io">Google Flutter</a> and
+ * <a href="https://www.codenameone.com">Codename One</a> all aim to write code
+ * once and execute it on different platforms. The need for such frameworks is
+ * obvious: Most of us want our applications to run on as many devices as
+ * possible, without having to re-write test and release the (GUI) application for
+ * multiple platforms, because this is tedious, no value added, costly work.
+ * </p>
+ * <p>
+ * At the time of this writing, none of the existing frameworks can be
+ * dispatched to different platforms (e.g. the web, desktop, and mobile
+ * devices). The {@link ReflectFramework} lets you wrap your
+ * {@link ServiceObject}s, {@link DomainObject}s and
+ * {@link InfrastructureObject}s, in several native implementations of the
+ * {@link ReflectFramework}. For more information see:
+ * {@link ReflectApplicationProjects}
+ * </p>
  */
 
 public interface ReflectWhyItWasDeveloped extends ReflectDocumentationInterface {
