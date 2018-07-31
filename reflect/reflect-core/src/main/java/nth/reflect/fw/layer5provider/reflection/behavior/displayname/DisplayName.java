@@ -9,7 +9,7 @@ import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
- * In some cases the default {@link ServiceObjectChildren} does not suffice, in example when:
+ * In some cases the default {@link DisplayName} does not suffice, in example when:
  * <ul>
  * <li>A different use of capital case is needed</li>
  * <li>Special characters are needed that can not be used in the code</li>
@@ -17,13 +17,13 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * incorrect</li>
  * </ul>
  * <p>
- * In these cases you can use the {@link ServiceObjectChildren} annotation before the class
- * keyword, before the getter method of a {@link DomainObjectProperty} or before the {@link ActionMethod}.
+ * In these cases you can use the {@link DisplayName} annotation before the class
+ * keyword, before the getter method of a {@link DomainObjectProperty} or before a {@link ActionMethod}.
  * </p>
  * TODO EXAMPLE ACMEWebShop
  * <p>
- * Note that the {@link ServiceObjectChildren} annotation is intended for the English language only.
- * Use the {@link ServiceObjectChildren} default if you want to use multiple languages.
+ * Note that the {@link DisplayName} annotation is intended for the English language only.
+ * Use the {@link DisplayName} default if you want to use multiple languages.
  * </p>
  * 
  * @author nilsth
