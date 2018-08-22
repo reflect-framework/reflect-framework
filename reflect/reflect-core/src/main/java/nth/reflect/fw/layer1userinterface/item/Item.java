@@ -1,11 +1,7 @@
 package nth.reflect.fw.layer1userinterface.item;
 
 import java.net.URL;
-import java.util.StringTokenizer;
 
-import javax.swing.KeyStroke;
-
-import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 public class Item {
@@ -16,7 +12,6 @@ public class Item {
 	private boolean visible = true;
 	private String text;
 	private String description;
-	private KeyStroke hotKey;
 	private final LanguageProvider languageProvider;
 
 	public Item(LanguageProvider languageProvider) {
@@ -97,35 +92,7 @@ public class Item {
 		} else {
 			descText = languageProvider.getText(description);
 		}
-		return getDescriptionWithHotKey(descText);
-	}
-
-	public String getDescriptionWithHotKey(String descText) {
-
-		if (hotKey == null) {// TODO implement boolean
-								// UserinterfaceController.isHotKeySupported() and
-								// check here
-			return descText;
-		} else {
-			StringBuilder desc = new StringBuilder(descText);
-			desc.append(" (");
-
-			String hotKeyText = hotKey.toString();
-			hotKeyText = hotKeyText.toLowerCase();
-			hotKeyText = hotKeyText.replace("pressed", "");
-			hotKeyText = hotKeyText.replace("  ", " ");
-			StringTokenizer tokenizer = new StringTokenizer(hotKeyText);
-			while (tokenizer.hasMoreTokens()) {
-				String token = tokenizer.nextToken();
-				token = StringUtil.firstCharToUpperCase(token);
-				desc.append(token);
-				if (tokenizer.hasMoreTokens()) {
-					desc.append(" ");
-				}
-			}
-			desc.append(")");
-			return desc.toString();
-		}
+		return descText;
 	}
 
 	public void setVisible(boolean visible) {
@@ -148,13 +115,6 @@ public class Item {
 		this.text = text;
 	}
 
-	public KeyStroke getHotKey() {
-		return hotKey;
-	}
-
-	public void setHotKey(KeyStroke hotKey) {
-		this.hotKey = hotKey;
-	}
 
 	public interface Action extends Runnable {
 	}

@@ -21,8 +21,6 @@ public class ItemIconButton extends JButton {
 		// DomainPrivider.addPropertyChangeListener(serviceObject,methodInfo)???
 		// to set enabled state?
 
-		setAccelerator(item.getHotKey());
-		
 		setIcon(IconFactory.create(item.getIconURL(),
 				SwingStyleConstant.ICON_SIZE));
 		
@@ -34,18 +32,10 @@ public class ItemIconButton extends JButton {
 			}
 		};
 
-		KeyStroke hotKey = item.getHotKey();
-		setAccelerator(hotKey);
-		
 		addActionListener(action);
 		setToolTipText(item.getDescription());
 
 	}
 	
 	
-	public void setAccelerator(KeyStroke keyStroke) {
-		if (keyStroke != null) {
-			super.registerKeyboardAction(action, keyStroke,JComponent.WHEN_IN_FOCUSED_WINDOW);
-		}
-	}
 }

@@ -137,7 +137,6 @@ public class MainWindow extends JFrame {
 		AboutItem aboutItem = new AboutItem(userInterfaceController, reflectionProvider,
 				languageProvider, aboutProvider);
 		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
-		aboutButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		return aboutButton;
 	}
 

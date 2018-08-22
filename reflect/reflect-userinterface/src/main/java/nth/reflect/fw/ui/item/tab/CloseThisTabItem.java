@@ -22,7 +22,6 @@ public class CloseThisTabItem extends Item {
 		super(languageProvider);
 		setText(CLOSE_THIS_TAB);
 		setDescription(CLOSE_THIS_TAB);
-		setHotKey(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.CTRL_MASK));
 		try {
 			setIconURL(new URL(FontAwesomeUrl.CLOSE ));
 		} catch (MalformedURLException e) {

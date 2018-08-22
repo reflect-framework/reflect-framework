@@ -21,7 +21,6 @@ public class CancelItem extends Item {
 		super(languageProvider);
 		setText(CANCEL);
 		setDescription(CANCEL);
-		setHotKey(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.CTRL_MASK));
 		try {
 			setIconURL(new URL(FontAwesomeUrl.CLOSE ));
 		} catch (MalformedURLException e) {

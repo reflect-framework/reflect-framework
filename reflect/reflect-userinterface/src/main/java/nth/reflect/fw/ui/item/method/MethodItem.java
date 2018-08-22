@@ -64,7 +64,7 @@ public class MethodItem extends Item {
 
 	@Override
 	public String getDescription() {
-		return super.getDescriptionWithHotKey(actionMethodInfo.getDescription());
+		return actionMethodInfo.getDescription();
 	}
 
 	private boolean isMethodInvokable() {

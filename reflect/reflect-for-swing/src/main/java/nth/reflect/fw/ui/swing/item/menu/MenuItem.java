@@ -26,7 +26,6 @@ public class MenuItem extends JMenuItem {
 	public MenuItem(Item item) {
 		this.item = item;
 		setAction(createAction(item));
-		setAccelerator(item.getHotKey());
 		revalidate();
 		repaint();
 	}

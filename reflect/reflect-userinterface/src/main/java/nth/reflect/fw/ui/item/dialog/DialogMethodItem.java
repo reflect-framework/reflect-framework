@@ -63,8 +63,7 @@ public class DialogMethodItem extends Item {
 
 	@Override
 	public String getDescription() {
-		return super
-				.getDescriptionWithHotKey(actionMethodInfo.getDescription());
+		return actionMethodInfo.getDescription();
 	}
 
 }
