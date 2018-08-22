@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import nth.reflect.fw.generic.tablemodel.DomainTableModel;
 import nth.reflect.fw.generic.util.TypeUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.controller.Refreshable;

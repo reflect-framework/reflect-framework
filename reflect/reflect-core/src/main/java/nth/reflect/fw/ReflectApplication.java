@@ -1,5 +1,6 @@
 package nth.reflect.fw;
 
+import java.util.Arrays;
 import java.util.List;
 
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
@@ -27,7 +28,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <li>It provides the {@link UserInterfaceController} type, needed for the
  * application with the
  * {@link ReflectApplication#getUserInterfaceControllerClass()} method. Each
- * application type (commandline, swing, vaadin) requires different
+ * application type (e.g. for the commandline, desktop, web) requires different
  * implementations of the {@link UserInterfaceController}</li>
  * <li>It provides a list of {@link ServiceObject} types with the
  * {@link ReflectApplication#getServiceClasses()} method.
@@ -43,7 +44,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * {@link ReflectApplication#get...ProviderClass()} methods. {@link Provider}
  * Objects help with <a
  * href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross cutting
- * concerns</a>. Each application type (commandline, swing, vaadin) requires
+ * concerns</a>. Each application type  (e.g. for the commandline, desktop, web) requires
  * different implementations of the providers</li>
  * </ul>
  * <p>
@@ -62,7 +63,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * An example of a desktop application:
  * 
  * <pre>
- * public class AcmeWebShop extends ReflectApplicationForSwing {
+ * public class AcmeWebShop extends ReflectApplicationForJavaFx {
  * 
  * 	// constructor not displayed
  * 
@@ -70,19 +71,12 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * 
  * 	&#064;Override
  * 	public List&lt;Class&lt;?&gt;&gt; getServiceClasses() {
- * 		List&lt;Class&lt;?&gt;&gt; serviceClasses = new ArrayList&lt;Class&lt;?&gt;&gt;();
- * 		serviceClasses.add(ShoppingCartService.class);
- * 		serviceClasses.add(ProductService.class);
- * 		return serviceClasses;
+ * 		return Arrays.asList(ShoppingCartService.class , ProductService.class);
  * 	}
  * 
  * 	&#064;Override
  * 	public List&lt;Class&lt;?&gt;&gt; getInfrastructureClasses() {
- * 		List&lt;Class&lt;?&gt;&gt; infrastructureClasses = new ArrayList&lt;Class&lt;?&gt;&gt;();
- * 		infrastructureClasses.add(ProductRepository.class);
- * 		infrastructureClasses.add(EmailClient.class);
- * 		infrastructureClasses.add(PaymentClient.class);
- * 		return infrastructureClasses;
+* 		return Arrays.asList(ProductRepository.class, EmailClient.class, PaymentClient.class);
  * 	}
  * 
  * }
