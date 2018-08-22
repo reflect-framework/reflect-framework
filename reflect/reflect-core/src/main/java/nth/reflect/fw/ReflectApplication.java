@@ -28,11 +28,12 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <li>It provides the {@link UserInterfaceController} type, needed for the
  * application with the
  * {@link ReflectApplication#getUserInterfaceControllerClass()} method. Each
- * application type (e.g. for the commandline, desktop, web) requires different
- * implementations of the {@link UserInterfaceController}</li>
+ * application type (e.g. for the command line, desktop, mobile devices or the
+ * web) requires different implementations of the
+ * {@link UserInterfaceController}</li>
  * <li>It provides a list of {@link ServiceObject} types with the
- * {@link ReflectApplication#getServiceClasses()} method.
- * {@link ServiceObject}s basically provide the actionable/menu items</li>
+ * {@link ReflectApplication#getServiceClasses()} method. {@link ServiceObject}s
+ * basically provide the actionable/menu items</li>
  * <li>It provides a list of {@link DomainObject} types that need to be created
  * using dependency injection, with the
  * {@link ReflectApplication#getDomainClasses()} method.</li>
@@ -42,16 +43,18 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * (i.e. data base access objects, email clients, soap clients, etc)</li>
  * <li>It provides the {@link Provider} types with the
  * {@link ReflectApplication#get...ProviderClass()} methods. {@link Provider}
- * Objects help with <a
- * href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross cutting
- * concerns</a>. Each application type  (e.g. for the commandline, desktop, web) requires
- * different implementations of the providers</li>
+ * Objects help with
+ * <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross cutting
+ * concerns</a>. Each application type (e.g. for the command line, desktop,
+ * mobile devices or the web) requires different implementations of the
+ * providers</li>
  * </ul>
  * <p>
- * Each application type (command line, Android, Vaadin, etc..) has its own
- * implementation of {@link ReflectApplication} to help initializing the
- * framework. See the type hierarchy of {@link ReflectApplication} to learn
- * which classes can be used and view their java doc to learn how to use them.
+ * Each application type (e.g. for the command line, desktop, mobile devices or
+ * the web) has its own implementation of {@link ReflectApplication} to help
+ * initializing the framework. See the type hierarchy of
+ * {@link ReflectApplication} to learn which classes can be used and view their
+ * java doc to learn how to use them.
  * </p>
  * 
  * <p>
@@ -71,18 +74,19 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * 
  * 	&#064;Override
  * 	public List&lt;Class&lt;?&gt;&gt; getServiceClasses() {
- * 		return Arrays.asList(ShoppingCartService.class , ProductService.class);
+ * 		return Arrays.asList(ShoppingCartService.class, ProductService.class);
  * 	}
  * 
  * 	&#064;Override
  * 	public List&lt;Class&lt;?&gt;&gt; getInfrastructureClasses() {
-* 		return Arrays.asList(ProductRepository.class, EmailClient.class, PaymentClient.class);
+ * 		return Arrays.asList(ProductRepository.class, EmailClient.class, PaymentClient.class);
  * 	}
  * 
  * }
  * </pre>
  * <p>
- * For more (detailed) examples see the {@link ReflectApplicationProjects} section.
+ * For more (detailed) examples see the {@link ReflectApplicationProjects}
+ * section.
  * </p>
  * 
  * @author nilsth
@@ -97,7 +101,7 @@ public interface ReflectApplication {
 
 	public Class<? extends AboutProvider> getAboutProviderClass();
 
-//	public Class<? extends PathProvider> getPathProviderClass();
+	// public Class<? extends PathProvider> getPathProviderClass();
 
 	public Class<? extends LanguageProvider> getLanguageProviderClass();
 
@@ -106,12 +110,11 @@ public interface ReflectApplication {
 	public Class<? extends ValidationProvider> getValidationProviderClass();
 
 	public Class<? extends NotificationProvider> getNotificationProviderClass();
-	
+
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses();
 
 	public List<Class<?>> getServiceClasses();
 
 	public List<Class<?>> getInfrastructureClasses();
-
 
 }

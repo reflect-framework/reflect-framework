@@ -4,8 +4,6 @@ import java.net.URL;
 import java.text.Format;
 import java.util.List;
 
-import javax.swing.GroupLayout.Alignment;
-
 import com.sun.javafx.collections.ObservableListWrapper;
 
 import javafx.application.Platform;

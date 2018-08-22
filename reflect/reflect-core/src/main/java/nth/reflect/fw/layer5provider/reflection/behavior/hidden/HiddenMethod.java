@@ -1,7 +1,5 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.hidden;
 
-import javax.swing.text.TableView;
-
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectActionMethod;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
