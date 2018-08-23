@@ -20,7 +20,7 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * {@link ReflectApplication#getInfrastructureClasses()} method.
  * </p>
  * <p>
- * U can use an {@link InfrastructureObject} in a {@link DomainObject} or
+ * You can use an {@link InfrastructureObject} in a {@link DomainObject} or
  * {@link ServiceObject} by adding the {@link InfrastructureObject} as a
  * parameter of the constructor and linking it to a private final field.
  * </p>

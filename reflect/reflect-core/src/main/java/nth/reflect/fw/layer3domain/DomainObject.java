@@ -31,9 +31,9 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
  * <p>
  * {@link DomainObject}s names are nouns, such as customer, product and order.
  * They basically describe the things that are important in your application.
- * {@link DomainObject}s names need to match the <a
+ * {@link DomainObject}s names are part of the <a
  * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
- * Language</a> (in terms understood by both users and developers).
+ * Language</a>: in terms understood by both users and developers.
  * </p>
  * 
  * <h3>Presentation</h3>
@@ -74,7 +74,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
  * There are 2 ways to create new {@link DomainObject}s:
  * <ul>
  * <li>Creating a new {@link DomainObject} with the new keyword:<br>
- * In example: Order order=new OrderLine()</li>
+ * In example: Order order=new Order()</li>
  * <li>Creating a domain object using Dependency Injection:<br>
  * Sometimes you want a new {@link DomainObject} to have references to other
  * objects (being other {@link DomainObject}s, {@link InfrastructureObject}s or

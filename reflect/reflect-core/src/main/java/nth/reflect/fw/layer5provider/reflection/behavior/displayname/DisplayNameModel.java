@@ -11,23 +11,25 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 /**
  * <p>
  * The {@link Class}Names, {@link DomainObjectProperty} names and
- * {@link ActionMethod}Names are part of the <a
- * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous
- * language</a> (in terms both understand by users and developers) and should
- * therefore match both the code and user interface.
+ * {@link ActionMethod}Names are part of the
+ * <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">ubiquitous
+ * language</a> (in terms both understand by users and developers). The
+ * {@link ReflectFramework} therefore displays the same names as used in the
+ * program code.
  * </p>
  * 
  * <h3>DisplayName Default</h3>
  * <p>
  * {@link Class} names, {@link DomainObjectProperty} names and
- * {@link ActionMethod} names in the <a
- * href="https://en.wikipedia.org/wiki/Codebase">codebase</a> use names such as
- * OrderService, orderLines, addOrderLine (using no spaces, <a
- * href="https://nl.wikipedia.org/wiki/CamelCase">camelCase</a> and no special
- * characters). If the user is a an human, more user friendly names are needed
- * such as “Orders” “Order lines” and “Add order line”. This format is called the {@link DisplayName}. The
- * {@link ReflectFramework} will automatically convert the names used in the code  to a human
- * readable format ({@link DisplayName}) when needed.
+ * {@link ActionMethod} names in the
+ * <a href="https://en.wikipedia.org/wiki/Codebase">codebase</a> use names such
+ * as OrderService, orderLines, addOrderLine (using no spaces,
+ * <a href="https://nl.wikipedia.org/wiki/CamelCase">camelCase</a> and no
+ * special characters). If the user is a an human, more user friendly names are
+ * needed such as “Orders” “Order lines” and “Add order line”. This format is
+ * called the {@link DisplayName}. The {@link ReflectFramework} will
+ * automatically convert the names used in the code to a human readable format
+ * ({@link DisplayName}) when needed.
  * </p>
  * <p>
  * The {@link ReflectFramework} supports DisplayNames for multiple languages.
@@ -46,30 +48,26 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  */
 public class DisplayNameModel extends TextModel {
 
-	public DisplayNameModel(LanguageProvider languageProvider,
-			Class<?> objectType, String simpleName, String canonicalName) {
+	public DisplayNameModel(LanguageProvider languageProvider, Class<?> objectType, String simpleName,
+			String canonicalName) {
 		super(languageProvider, objectType, simpleName, canonicalName);
 	}
 
-	public DisplayNameModel(LanguageProvider languageProvider,
-			Method getterMethod, String simpleName, String canonicalName,
-			String linkedPropertyName) {
-		super(languageProvider, getterMethod, simpleName, canonicalName,
-				linkedPropertyName);
+	public DisplayNameModel(LanguageProvider languageProvider, Method getterMethod, String simpleName,
+			String canonicalName, String linkedPropertyName) {
+		super(languageProvider, getterMethod, simpleName, canonicalName, linkedPropertyName);
 	}
 
-	public DisplayNameModel(LanguageProvider languageProvider,
-			Method getterMethod, String simpleName, String canonicalName) {
+	public DisplayNameModel(LanguageProvider languageProvider, Method getterMethod, String simpleName,
+			String canonicalName) {
 		super(languageProvider, getterMethod, simpleName, canonicalName);
 	}
-
 
 	@Override
 	public String createKey(String canonicalName) {
 		return canonicalName.concat(".displayname");
 	}
 
-	
 	@Override
 	public String getDefaultTextFromAnnotation(Class<?> objectType) {
 		DisplayName annotation = objectType.getAnnotation(DisplayName.class);

@@ -40,18 +40,10 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * </a> (for Java)</li>
  * <li><a href="http://www.openxava.org">Openxava</a> (for Java)</li>
  * </ul>
- * These frame works have merit on their own, but they did not have all the things I was
- * looking for (see {@link ReflectCoreValues}).
+ * These frame works have merit on their own, but they did not have all the
+ * things I was looking for (see {@link ReflectCoreValues}).
  * 
  * Specifically:
- * <h3>Use POJO's</h3> The
- * <a href="http://en.wikipedia.org/wiki/Business_logic">domain objects</a> and
- * service objects (often repository objects) usually extend a convenience class
- * that contains methods to interact with the Apache Isis framework/ object
- * container. Extending such a class is not mandatory, because you can implement
- * these methods in your objects, but to me this still ignores the principle of
- * <a href="https://en.wikipedia.org/wiki/Naked_objects">Naked Objects</a> or
- * <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">POJO’s</a>.
  * 
  * <h3>Editing objects without JPA dependency</h3> I personally dislike the way
  * Apache Isis manages the editing of objects. This is very tightly linked to
@@ -80,27 +72,30 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * <h3>Missing a Naked Objects WORA framework</h3>
  * <a href="https://java.com/">Java</a> was developed with the
  * <a href="https://en.wikipedia.org/wiki/Write_once,_run_anywhere">Write Once
- * Run Anywhere (WORA)</a>philosophy. A lot has changed since. So does WORA still
- * apply for Java? The answer: Yes and No:
+ * Run Anywhere (WORA)</a> philosophy. A lot has changed since. So does WORA
+ * still apply for Java? The answer: Yes and No:
  * <ul>
  * <li>Yes: The
  * <a href="https://en.wikipedia.org/wiki/Java_virtual_machine">Java Virtual
- * Machine (JVM)</a> can run on almost all devices</li>
- * <li>No: It is nearly impossible to write a GUI for a desktop, and deploy it
- * as a web application or mobile application or vice-versa</li>
+ * Machine (JVM)</a> can run on almost all devices (from PC to devices out in
+ * space) and has been very successful on the server side.</li>
+ * <li>No: Apple does not allow the Oracle JVM on its devices and Android
+ * devices use Googles JVM which is different. Furthermore: It is nearly
+ * impossible to write a GUI for a desktop, and deploy it as a web application
+ * or mobile application or vice-versa</li>
  * </ul>
  * Frameworks like <a href="https://facebook.github.io/react-native/">React
  * Native</a>, <a href="https://flutter.io">Google Flutter</a> and
  * <a href="https://www.codenameone.com">Codename One</a> all aim to write code
  * once and execute it on different platforms. The need for such frameworks is
  * obvious: Most of us want our applications to run on as many devices as
- * possible, without having to re-write test and release the (GUI) application for
- * multiple platforms, because this is tedious, no value added, costly work.
+ * possible, without having to re-write test and release the (GUI) application
+ * for multiple platforms, because this is tedious, no value added, costly work.
  * </p>
  * <p>
- * At the time of this writing, none of the existing frameworks can be
- * dispatched to different platforms (e.g. the web, desktop, and mobile
- * devices). The {@link ReflectFramework} lets you wrap your
+ * At the time of this writing, none of the existing Naked Object frameworks can
+ * be dispatched to different platforms (e.g. the command line, desktop, mobile
+ * devices and the web). The {@link ReflectFramework} lets you wrap your
  * {@link ServiceObject}s, {@link DomainObject}s and
  * {@link InfrastructureObject}s, in several native implementations of the
  * {@link ReflectFramework}. For more information see:

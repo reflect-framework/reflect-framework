@@ -10,7 +10,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * {@link BehavioralAnnotation}s are recognized by the {@link ReflectFramework}
  * and define how {@link DomainObject}s, {@link DomainObjectProperty}s or
- * {@link ActionMethod}s behave (how they act and how they displayed).
+ * {@link ActionMethod}s behave (how they act and how they are displayed).
  * </p>
  * {@link BehavioralAnnotation}s are normally located before the declaration of
  * the member:

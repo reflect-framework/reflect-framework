@@ -43,16 +43,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
  * <a href="https://java.com">Java</a> is still the <a href=
  * "https://www.codingdojo.com/blog/7-most-in-demand-programming-languages-of-2018/">most
  * used programming language</a>. Most developers are able to write (or read)
- * Java code. There are many Java libraries available that can be used in the
- * application, e.g. for:
- * <ul>
- * <li>Testing or improving code</li>
- * <li>Logging</li>
- * <li>Storing or retreiving data (e.g. JPA)</li>
- * <li>PDF and M$ Excel reading and writing</li>
- * <li>email clients</li>
- * <li>etc</li>
- * </ul>
+ * Java code. There are many Java libraries available that can be used in your
+ * application.
  * 
  * <h3>Provide a good structure for applications</h3>
  * <ul>
@@ -62,17 +54,15 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
  * <li>Facilitate
  * <a href="http://en.wikipedia.org/wiki/Domain-driven_design">domain driven
  * design</a>.</li>
- * <li>The {@link ReflectFramework} should not create a
- * <a href="http://en.wikipedia.org/wiki/Vendor_lock-in">vendor lock-in</a> (not
- * that there is such a thing as an {@link ReflectFramework} Vendor, since it is
- * open source). {@link DomainObject}'s, {@link ServiceObject}'s and
+ * <li>{@link DomainObject}'s, {@link ServiceObject}'s and
  * {@link InfrastructureObject}'s should have no (or almost no) dependencies
- * with the {@link ReflectFramework} so that it could easily (within a few
- * hours) be replaced with another dependency injection framework (such as
+ * with the {@link ReflectFramework} so that it could easily be replaced with
+ * another dependency injection framework (such as
  * <a href="http://en.wikipedia.org/wiki/Spring_Framework">Spring</a>,
  * <a href="http://en.wikipedia.org/wiki/Google_Guice">Guice</a> or
  * <a href="http://picocontainer.codehaus.org/">Pico container</a>, etc...) or
- * visa versa.</li>
+ * visa versa. You would only need to change some annotations and link it to the
+ * other dependency injection framework</li>
  * <li>The {@link ReflectFramework} must accept {@link ServiceObject}s,
  * {@link DomainObject}s, {@link InfrastructureObject}s that are
  * <a href="https://en.wikipedia.org/wiki/Plain_old_Java_object">Plain Old Java

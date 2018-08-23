@@ -6,7 +6,7 @@ import nth.reflect.fw.ReflectApplication;
  * <p>
  * There are different implementations of the {@link ReflectApplication}
  * class, to support different type of applications (e.g. for the command line,
- * desktop, mobile, web environments). This chapter will explain the different
+ * desktop, mobile devices, web environments). This chapter will explain the different
  * {@link ReflectApplication}, and how to get started with them. If needed
  * you can of course write your own implementation of the
  * {@link ReflectApplication} class.

@@ -29,15 +29,14 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * “submit” once the {@link DomainObject} already is submitted)</li>
  * <li>Because a user is not authorized to edit a {@link DomainObjectProperty}
  * Value</li>
- * <li>Because a user is not authorized to invoke an {@link ActionMethod}</li>
  * </ul>
  * </p>
  * <p>
- * Note that if an user is not authorized to change a
+ * Important note: If an user is not authorized to change a
  * {@link DomainObjectProperty} or call an {@link ActionMethod} it is best to
  * hide the method or property instead of disabling it. In general you do not
  * want to confuse users (clutter the user interface) with options that they are
- * not allowed to use anyway.
+ * not allowed to use anyway. Disabled {@link ActionMethod}s <a href="https://axesslab.com/disabled-buttons-suck/">have a bad impact on usability</a>. 
  * </p>
  * 
  * <h3>Disabled Annotation</h3>
