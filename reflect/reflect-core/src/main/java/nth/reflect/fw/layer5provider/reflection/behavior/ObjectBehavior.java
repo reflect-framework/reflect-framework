@@ -4,7 +4,7 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconModelFactory;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModelFactory;
 
 /**
  * The {@link ReflectApplication}, {@link ServiceObject}s and
@@ -40,9 +40,9 @@ import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconModelFactory;
  * {@insert TitleModel}
  * </p>
  * 
- * <h2>Icon</h2>
+ * <h2>FontIcon</h2>
  * <p>
- * {@insert IconModelFactory}
+ * {@insert FontIconModelFactory}
  * </p>
  * 
  * <h2>Hidden</h2>

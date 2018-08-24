@@ -13,9 +13,9 @@ import java.util.List;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.Icon;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIcon;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
-@Icon(iconURL=FontAwesomeUrl.CHECK )
+@FontIcon(fontIconUrl=FontAwesomeUrl.CHECK )
 public class TestsService {
 	private List<Test> tests;
 

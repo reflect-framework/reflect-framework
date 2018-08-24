@@ -3,9 +3,6 @@ package nth.reflect.fw.ui.item.method;
 import java.net.URL;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.filter.Filter;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -13,7 +10,6 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer2service.ServiceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.serviceobjectchildren.ServiceObjectChildren;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.ui.item.HierarchicalItem;
@@ -94,7 +90,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 
 	@Override
 	public URL getIconURL() {
-		return methodOwnerInfo.getIconURL(methodOwner);
+		return methodOwnerInfo.getFontIconUrl(methodOwner);
 	}
 
 }

@@ -150,7 +150,7 @@ public class TableView extends SwingView implements
 
 	@Override
 	public URL getViewIconURL() {
-		return actionMethodInfo.getIconURL(methodOwner);
+		return actionMethodInfo.getFontIconUrl(methodOwner);
 	}
 
 	@Override

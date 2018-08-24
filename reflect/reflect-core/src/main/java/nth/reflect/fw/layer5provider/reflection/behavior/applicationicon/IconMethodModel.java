@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.reflection.behavior.icon;
+package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -6,7 +6,7 @@ import java.net.URL;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
 
 /**
- * Model that returns the value of the {@link IconMethod}
+ * Model that returns the value of the {@link FontIconMethod}
  * 
  * @author nilsth
  *

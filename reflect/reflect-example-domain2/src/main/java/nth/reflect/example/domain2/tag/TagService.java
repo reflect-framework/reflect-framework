@@ -5,10 +5,10 @@ import java.util.List;
 import nth.reflect.example.domain2.account.AccountRepository;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.Icon;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIcon;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
-@Icon(iconURL=FontAwesomeUrl.TAG )
+@FontIcon(fontIconUrl=FontAwesomeUrl.TAG )
 public class TagService {
 
 	private AccountRepository accountRepository;

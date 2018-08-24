@@ -19,10 +19,10 @@ import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModelF
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModel;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelFactory;
@@ -57,7 +57,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final HiddenModel hiddenModel;
 	private final ParameterFactoryModel parameterFactoryModel;
 	private final ExecutionModeType executionMode;
-	private final IconModel iconModel;
+	private final FontIconModel fontIconModel;
 	private final Method editParameterMethod;
 	private final Method confirmMethod;
 	private final Method showResultMethod;
@@ -104,7 +104,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, method);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, method);
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, parameterType);
-		this.iconModel = IconModelFactory.create(method);
+		this.fontIconModel = FontIconModelFactory.create(method);
 
 	}
 
@@ -217,8 +217,8 @@ public class ActionMethodInfo implements NameInfo {
 		return descriptionModel.getText();
 	}
 
-	public URL getIconURL(Object obj) {
-		return iconModel.getURL(obj);
+	public URL getFontIconUrl(Object obj) {
+		return fontIconModel.getFontIconUrl(obj);
 	}
 
 	public double getOrder() {

@@ -1,6 +1,6 @@
 package nth.reflect.fw.ui.style.fontawesome;
 
-import nth.reflect.fw.ui.style.fonticonurl.FontIconUrl;
+import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 
 /**
  * Provides constants of a {@link FontIconUrl} for FontAwesomeIcons

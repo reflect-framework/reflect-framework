@@ -11,7 +11,7 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 /**
  * A {@link ApplicationUrlProvider} handles a {@link ApplicationUrl}.
  * 
- * {@include ApplicationUrl}
+ * {@insert ApplicationUrl}
  * 
  * @author nilsth
  *

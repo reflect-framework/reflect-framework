@@ -1,4 +1,4 @@
-package nth.reflect.fw.ui.style.fonticonurl;
+package nth.reflect.fw.layer5provider.url.fonticon;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,12 @@ import java.net.URLConnection;
 
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 
-public class FontIconUrlHandler extends UrlProvider {
+/**
+ * The {@link FontIconUrlProvider} resolves {@link FontIconUrl}s. {@insert FontIconUrl}
+ * @author nilsth
+ *
+ */
+public class FontIconUrlProvider extends UrlProvider {
 
 	@Override
 	public String getProtocol() {

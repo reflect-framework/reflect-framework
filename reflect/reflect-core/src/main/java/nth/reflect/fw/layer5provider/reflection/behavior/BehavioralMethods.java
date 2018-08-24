@@ -3,18 +3,18 @@ package nth.reflect.fw.layer5provider.reflection.behavior;
 import java.lang.reflect.Method;
 
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledMethod;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenMethod;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationMethod;
 
 public class BehavioralMethods {
 	public static HiddenMethod HIDDEN=new HiddenMethod(); 
 	public static DisabledMethod DISABLED=new DisabledMethod();
-	public static IconMethod ICON=new IconMethod();
+	public static FontIconMethod FONT_ICON=new FontIconMethod();
 	public static ParameterFactoryMethod PARAMETER_FACTORY=new ParameterFactoryMethod();
 	public static ValidationMethod VALIDATION=new ValidationMethod();
-	public static BehavioralMethod[] ALL=new BehavioralMethod[] {HIDDEN, DISABLED, ICON, PARAMETER_FACTORY, VALIDATION};
+	public static BehavioralMethod[] ALL=new BehavioralMethod[] {HIDDEN, DISABLED, FONT_ICON, PARAMETER_FACTORY, VALIDATION};
 	
 	public static boolean isBehavioralMethod(Method method) {
 		for (BehavioralMethod behavioralMethod: ALL) {

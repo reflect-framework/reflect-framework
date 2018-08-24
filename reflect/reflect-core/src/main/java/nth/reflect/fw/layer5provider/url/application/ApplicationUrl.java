@@ -11,10 +11,10 @@ import nth.reflect.fw.layer5provider.url.ReflectUrl;
  * reference to the application folder e.g. to get a resource file
  * </p>
  * <p>
- * The format of a {@link ApplicationUrl} is: reflect-application-url://&lt;relative path to resource&gt;
+ * The format of a {@link ApplicationUrl} is: reflect-application://&lt;relative path to resource&gt;
  * </p>
  * <p>
- * E.g.: reflect-application-url://images/sales.png  (for a reference to the sales.png file in the application sub folder images) 
+ * E.g.: reflect-application://images/sales.png  (for a reference to the sales.png file in the application sub folder images) 
  * </p>
  * 
  * @author nilsth
@@ -22,7 +22,7 @@ import nth.reflect.fw.layer5provider.url.ReflectUrl;
  */
 
 public class ApplicationUrl implements ReflectUrl {
-	public static String PROTOCOL = "reflect-application-url";
+	public static String PROTOCOL = "reflect-application";
 	private final URL applicationUrl;
 
 	/**

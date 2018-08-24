@@ -17,11 +17,11 @@ import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.view.table.RfxTableView;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 import nth.reflect.fw.ui.item.HierarchicalItem;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
 import nth.reflect.fw.ui.style.MaterialFont;
-import nth.reflect.fw.ui.style.fonticonurl.FontIconUrl;
 
 /**
  * TODO Bold text for {@link MethodOwnerItem}s <br>
@@ -70,7 +70,7 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 				setGraphic(icon);
 			}
 			// TODO other types see
-			// /reflect-core/src/main/java/nth/reflect/fw/layer5provider/reflection/behavior/icon/Icon.java
+			// /reflect-core/src/main/java/nth/reflect/fw/layer5provider/reflection/behavior/icon/FontIcon.java
 
 		} catch (MalformedURLException e) {
 

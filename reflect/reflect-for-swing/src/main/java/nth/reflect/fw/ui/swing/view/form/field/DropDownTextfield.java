@@ -15,8 +15,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import nth.reflect.fw.ui.images.ReflectImage;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
+import nth.reflect.fw.ui.swing.image.ReflectImage;
 
 @SuppressWarnings("serial")
 public class DropDownTextfield<T extends JComponent> extends JPanel {

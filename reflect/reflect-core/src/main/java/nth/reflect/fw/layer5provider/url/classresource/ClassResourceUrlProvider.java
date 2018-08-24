@@ -9,7 +9,7 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 /**
  * A {@link ClassResourceUrlProvider} handles a {@link ClassResourceUrl}.
  * 
- * {@include ClassResourceUrl}
+ * {@insert ClassResourceUrl}
  * @author nilsth
  *
  */

@@ -31,7 +31,7 @@ import java.net.MalformedURLException;
 
 import javax.swing.Icon;
 
-import nth.reflect.fw.ui.style.fonticonurl.FontIconUrl;
+import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 
 /**
  * Based on original code by Mario Torre<br/>

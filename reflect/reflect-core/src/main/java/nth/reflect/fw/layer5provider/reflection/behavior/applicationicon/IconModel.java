@@ -1,9 +1,9 @@
-package nth.reflect.fw.layer5provider.reflection.behavior.icon;
+package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 
 import java.net.URL;
 
 /**
- * See {@link IconModelFactory}
+ * See {@link FontIconModelFactory}
  * @author nilsth
  *
  */

@@ -10,15 +10,16 @@ import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
 
 /**
  * <p>
- * A {@link ApplicationUrl} is a {@link ReflectUrl} that helps to create a
+ * A {@link ClassResourceUrl} is a {@link ReflectUrl} that helps to create a
  * reference to a class resource (See {@link Class#getResource(String)})
  * </p>
  * <p>
- * The format of a {@link ApplicationUrl} is: reflect-class-resource-url://&lt;class
+ * The format of a {@link ClassResourceUrl} is: reflect-class-resource://&lt;class
  * path&gt;/&lt;resource name&gt;
  * </p>
  * <p>
- * E.g.: reflect-class-resource-url://com.acme.SalesApp/sales.png; (for a sales.png file in the SalesApp class in the com.acme package)   
+ * E.g.: reflect-class-resource://com.acme.SalesApp/sales.png; (for a sales.png
+ * file in the com.acme package, next to the SalesApp class)
  * </p>
  * 
  * @author nilsth
@@ -26,11 +27,10 @@ import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
  */
 
 public class ClassResourceUrl implements ReflectUrl {
-	public static String PROTOCOL = "reflect-class-resource-url";
+	public static String PROTOCOL = "reflect-class-resource";
 	private final URL classResourceUrl;
 
-	public ClassResourceUrl(Class<?> resourceClass, String resourceFile)
-			throws MalformedURLException {
+	public ClassResourceUrl(Class<?> resourceClass, String resourceFile) throws MalformedURLException {
 		this(new URL(PROTOCOL, resourceClass.getCanonicalName(), resourceFile));
 	}
 

@@ -13,8 +13,8 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconModelFactory;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModel;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.serviceobjectchildren.ServiceObjectChildrenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
@@ -24,6 +24,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfoFactory;
 import nth.reflect.fw.layer5provider.reflection.info.property.TableVisibleFilter;
+import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 
 /**
  * Provides information on a {@link ServiceObject} or {@link DomainObject}.<br>
@@ -39,7 +40,7 @@ public class ClassInfo implements NameInfo {
 	private final Class<?> objectClass;
 	private final DisplayNameModel displayNameModel;
 	private final TitleModel titleModel;
-	private final IconModel iconModel;
+	private final FontIconModel fontIconModel;
 	private final List<Method> validationMethods;
 	private final List<PropertyInfo> propertyInfosSorted;
 	private final List<ActionMethodInfo> actionMethodInfosSorted;
@@ -59,7 +60,7 @@ public class ClassInfo implements NameInfo {
 		this.descriptionModel = new DescriptionModel(languageProvider,
 				objectClass, simpleName, canonicalName);
 		this.titleModel = new TitleModel(reflectionProvider);
-		this.iconModel = IconModelFactory.create(objectClass);
+		this.fontIconModel = FontIconModelFactory.create(objectClass);
 		this.serviceObjectChildrenModel=new ServiceObjectChildrenModel(providerContainer, objectClass);
 		this.validationMethods = ValidationMethodFactory.create(objectClass);
 		this.propertyInfosSorted = PropertyInfoFactory.createSorted(
@@ -89,8 +90,8 @@ public class ClassInfo implements NameInfo {
 		return descriptionModel.getText();
 	}
 
-	public URL getIconURL(Object obj) {
-		return iconModel.getURL(obj);
+	public URL getFontIconUrl(Object obj) {
+		return fontIconModel.getFontIconUrl(obj);
 	}
 
 	public String getTitle(Object obj) {

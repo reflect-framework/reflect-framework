@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.reflection.behavior.icon;
+package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -13,19 +13,19 @@ import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
  * interfaces. These icons help the user to quickly identify what they are
  * looking at.</p>
  * 
- * <h3>Icon Default</h3>
+ * <h3>FontIcon Default</h3>
  * <p>
- * {@insert IconDefaultModel}
+ * {@insert FontIconNoUrlModel}
  * </p>
  * 
- * <h3>Icon Annotation</h3>
+ * <h3>FontIcon Annotation</h3>
  * <p>
- * {@insert Icon}
+ * {@insert FontIcon}
  * </p>
  * 
- * <h3>Icon Method</h3>
+ * <h3>FontIcon Method</h3>
  * <p>
- * {@insert IconMethod}
+ * {@insert FontIconMethod}
  * </p>
  * 
  * 
@@ -83,7 +83,7 @@ public class IconModelFactory {
 	}
 
 	private static IconMethodModel createIconMethodModel(Method actionMethod) {
-		Method iconMethod = BehavioralMethods.ICON.findFor(actionMethod);
+		Method iconMethod = BehavioralMethods.FONT_ICON.findFor(actionMethod);
 		if (iconMethod==null) {
 			return null;
 		} else {
@@ -108,7 +108,7 @@ public class IconModelFactory {
 	}
 
 	private static IconMethodModel createIconMethodModel(Class<?> objectClass) {
-		Method iconMethod = BehavioralMethods.ICON.findFor(objectClass);
+		Method iconMethod = BehavioralMethods.FONT_ICON.findFor(objectClass);
 		if (iconMethod==null) {
 			return null;
 		} else {

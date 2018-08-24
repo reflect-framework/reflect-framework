@@ -35,7 +35,7 @@ public class ActionMethodItem implements Item {
 
 	@Override
 	public URL getIcon() {
-		return methodInfo.getIconURL(serviceObject);
+		return methodInfo.getFontIconUrl(serviceObject);
 	}
 
 	@Override

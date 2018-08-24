@@ -22,11 +22,11 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
+import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.ui.style.ContentColor;
 import nth.reflect.fw.ui.style.basic.Color;
-import nth.reflect.fw.ui.style.fonticonurl.FontIconUrlHandler;
 
 /**
  * <p>
@@ -104,7 +104,7 @@ public abstract class ReflectApplicationForJavaFX extends Application
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class,
-				FontIconUrlHandler.class, RfxStyleSheetUrlHandler.class);
+				FontIconUrlProvider.class, RfxStyleSheetUrlHandler.class);
 	}
 
 	public Stage getPrimaryStage() {

@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.reflection.behavior.icon;
+package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,12 +11,12 @@ import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
 /**
  * <p>
  * If you do not want to use the default icon, you can define an alternative
- * icon by placing an Icon annotation before the “class” key word or before the
+ * icon by placing an FontIcon annotation before the “class” key word or before the
  * {@link ActionMethod}.
  * </p>
  * 
  * <p>
- * Syntax: {@link Icon}(String iconURL)
+ * Syntax: {@link FontIcon}(String iconURL)
  * </p>
  * <p>
  * Parameter iconURI: image or unicode character to be used as an icon

@@ -155,7 +155,7 @@ public class RfxTableView extends BorderPane implements nth.reflect.fw.ui.view.T
 
 	@Override
 	public URL getViewIconURL() {
-		return actionMethodInfo.getIconURL(methodOwner);
+		return actionMethodInfo.getFontIconUrl(methodOwner);
 	}
 
 	@Override

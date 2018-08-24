@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.reflection.behavior.icon;
+package nth.reflect.fw.ui.swing.image;
 
 import java.io.InputStream;
 import java.net.URI;
@@ -11,7 +11,7 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrl;
 /**
  * 
  * <p>
- * This class represents a reference to a Icon, by getting the absolute URI to a
+ * This class represents a reference to a FontIcon, by getting the absolute URI to a
  * class resource.
  * </p>
  * <p>

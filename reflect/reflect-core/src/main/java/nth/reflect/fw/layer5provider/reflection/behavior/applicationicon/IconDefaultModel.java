@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.reflection.behavior.icon;
+package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 
 import java.lang.reflect.Method;
 import java.net.URL;

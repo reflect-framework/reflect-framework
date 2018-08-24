@@ -43,7 +43,7 @@ public class DialogMethodItem extends Item {
 
 	@Override
 	public URL getIconURL() {
-		return actionMethodInfo.getIconURL(methodOwner);
+		return actionMethodInfo.getFontIconUrl(methodOwner);
 	}
 
 	@Override

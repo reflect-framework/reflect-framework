@@ -30,12 +30,12 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.images.ReflectImage;
 import nth.reflect.fw.ui.item.about.AboutItem;
 import nth.reflect.fw.ui.style.MenuType;
 import nth.reflect.fw.ui.swing.component.tabpanel.SwingViewContainer2;
 import nth.reflect.fw.ui.swing.component.toolbar.MaterialAppBar;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
+import nth.reflect.fw.ui.swing.image.ReflectImage;
 import nth.reflect.fw.ui.swing.item.button.ItemIconButton;
 import nth.reflect.fw.ui.swing.style.SwingStyleConstant;
 import nth.reflect.fw.ui.swing.view.container.SwingViewContainer;
@@ -109,7 +109,7 @@ public class MainWindow extends JFrame {
 
 	private void setIcon(ReflectApplication application, ClassInfo applicationInfo) {
 		try {
-			URL iconUrl = applicationInfo.getIconURL(application);
+			URL iconUrl = applicationInfo.getFontIconUrl(application);
 			Image image = Toolkit.getDefaultToolkit().getImage(iconUrl);
 			setIconImage(image);
 		} catch (Exception exception) {

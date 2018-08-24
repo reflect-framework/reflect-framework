@@ -24,7 +24,7 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
  * <li>Syntax: &lt;memberName&gt;&lt;behaviourName&gt;<br>
  * &lt;memberName&gt;= can be a {@link Class}Name, a
  * {@link DomainObjectProperty} Name or a {@link ActionMethod}Name<br>
- * &lt;behaviourName&gt;= A behavior like Icon, Hidden, Disabled, Validation,
+ * &lt;behaviourName&gt;= A behavior like FontIcon, Hidden, Disabled, Validation,
  * etc</li>
  * <li>{@link BehavioralMethod}s do NOT have any parameters</li>
  * <li>{@link BehavioralMethod}s ALWAYS return a value (see

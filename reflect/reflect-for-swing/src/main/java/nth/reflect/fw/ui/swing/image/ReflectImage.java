@@ -1,6 +1,4 @@
-package nth.reflect.fw.ui.images;
-
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconUriClassResource;
+package nth.reflect.fw.ui.swing.image;
 
 /**
  * 
@@ -21,7 +19,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.icon.IconUriClassResour
  */
 public class ReflectImage {
 
-	public static final String SCHEMA = IconUriClassResource.SCHEMA;
+	public static final String SCHEMA = nth.reflect.fw.ui.swing.image.IconUriClassResource.SCHEMA;
 	public static final String PATH = SCHEMA + "://nth.reflect.fw.ui.images.ReflectImage/";
 	public static final String EDIT_COPY2 = PATH + "edit_copy.png";
 

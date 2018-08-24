@@ -8,10 +8,10 @@ import nth.reflect.example.domain2.tag.Tag;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.Icon;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIcon;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
-@Icon(iconURL=FontAwesomeUrl.USERS )
+@FontIcon(fontIconUrl=FontAwesomeUrl.USERS )
 public class AccountService {
 
 	private final AccountRepository accountRepository;

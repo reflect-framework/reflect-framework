@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIcon;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.Hidden;
-import nth.reflect.fw.layer5provider.reflection.behavior.icon.Icon;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
-@Icon(iconURL=FontAwesomeUrl.USERS)
+@FontIcon(fontIconUrl=FontAwesomeUrl.USERS)
 public class PersonService {
 
 	private List<Person> persons;

@@ -40,7 +40,7 @@ public class ServiceObjectItem implements Item {
 
 	@Override
 	public URL getIcon() {
-		return serviceObjectInfo.getIconURL(serviceObject);
+		return serviceObjectInfo.getFontIconUrl(serviceObject);
 	}
 
 	@Override

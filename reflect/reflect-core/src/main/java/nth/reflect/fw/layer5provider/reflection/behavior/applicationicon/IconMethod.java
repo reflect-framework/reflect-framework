@@ -1,12 +1,12 @@
-package nth.reflect.fw.layer5provider.reflection.behavior.icon;
+package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethod;
 
 /**
  * <p>
- * Instead of the {@link Icon} annotation you can also define the icon with a
- * {@link IconMethod}. This allows you to change the icon dynamically during
+ * Instead of the {@link FontIcon} annotation you can also define the icon with a
+ * {@link FontIconMethod}. This allows you to change the icon dynamically during
  * runtime, based on state (e.g. when the {@link DomainObject} Person is a male
  * or female).
  * </p>
@@ -36,7 +36,7 @@ public class IconMethod extends BehavioralMethod{
 
 	@Override
 	public String getBehavioralName() {
-		return "Icon";
+		return "FontIcon";
 	}
 
 	@Override

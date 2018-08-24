@@ -18,7 +18,7 @@ public class HierarchicalItem extends Item {
 
 	/**
 	 * Constructs a new menu item that can optionally have an MaterialAppBarIcon and a action
-	 * associated with it. Icon and action can be null, but a caption must be
+	 * associated with it. FontIcon and action can be null, but a caption must be
 	 * given.
 	 * 
 	 * @param text
