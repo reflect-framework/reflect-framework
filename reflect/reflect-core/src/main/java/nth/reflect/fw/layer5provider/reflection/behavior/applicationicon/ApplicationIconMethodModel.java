@@ -3,6 +3,7 @@ package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 import java.lang.reflect.Method;
 import java.net.URL;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
 
 /**
@@ -11,20 +12,22 @@ import nth.reflect.fw.layer5provider.reflection.behavior.BehaviorMethodInvokeExc
  * @author nilsth
  *
  */
-public class IconMethodModel  implements IconModel {
+public class ApplicationIconMethodModel  implements ApplicationIconModel {
 
 	private final Method iconMethod;
+	private final ReflectApplication reflectApplication;
 
-	public IconMethodModel(Method iconMethod) {
+	public ApplicationIconMethodModel(ReflectApplication reflectApplication, Method iconMethod) {
+		this.reflectApplication = reflectApplication;
 		this.iconMethod = iconMethod;
 	}
 
 
 	@Override
-	public URL getURL(Object obj) {
+	public URL getUrl() {
 		Object[] arguments = new Object[0];
 		try {
-			String iconURL = (String) iconMethod.invoke(obj, arguments);
+			String iconURL = (String) iconMethod.invoke(reflectApplication, arguments);
 			try {
 				return new URL(iconURL);
 			} catch (Exception exception) {

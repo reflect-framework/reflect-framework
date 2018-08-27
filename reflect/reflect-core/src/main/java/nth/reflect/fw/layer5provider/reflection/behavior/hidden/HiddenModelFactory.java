@@ -1,6 +1,7 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.hidden;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
@@ -55,41 +56,41 @@ public class HiddenModelFactory {
 	public static HiddenModel create(
 			AuthorizationProvider authorizationProvider, Method method) {
 
-		HiddenMethodModel hiddenMethodModel = createHiddenMethodModel(method);
-		HiddenAnnotationModel hiddenAnnotationModel = createHiddenAnnotationModel(
+		Optional<HiddenMethodModel> hiddenMethodModel = createHiddenMethodModel(method);
+		Optional<HiddenAnnotationModel> hiddenAnnotationModel = createHiddenAnnotationModel(
 				authorizationProvider, method);
 
-		boolean hasMethod = hiddenMethodModel != null;
-		boolean hasAnnotation = hiddenAnnotationModel != null;
+		boolean hasMethod = hiddenMethodModel.isPresent();
+		boolean hasAnnotation = hiddenAnnotationModel.isPresent();
 
 		if (hasAnnotation && !hasMethod) {
-			return hiddenAnnotationModel;
+			return hiddenAnnotationModel.get();
 		} else if (!hasAnnotation && hasMethod) {
-			return hiddenMethodModel;
+			return hiddenMethodModel.get();
 		} else if (hasAnnotation && hasMethod) {
-			return new HiddenOrModel(hiddenAnnotationModel, hiddenMethodModel);
+			return new HiddenOrModel(hiddenAnnotationModel.get(), hiddenMethodModel.get());
 		} else { // !hasAnnotation && !hasMethod
 			return HiddenFalseModel.getInstance();
 		}
 	}
 
-	private static HiddenAnnotationModel createHiddenAnnotationModel(
+	private static Optional<HiddenAnnotationModel> createHiddenAnnotationModel(
 			AuthorizationProvider authorizationProvider, Method method) {
 		Hidden hiddenAnnotation = method.getAnnotation(Hidden.class);
 		if (hiddenAnnotation == null) {
-			return null;
+			return Optional.empty();
 		} else {
-			return new HiddenAnnotationModel(authorizationProvider,
-					hiddenAnnotation);
+			return Optional.of(new HiddenAnnotationModel(authorizationProvider,
+					hiddenAnnotation));
 		}
 	}
 
-	private static HiddenMethodModel createHiddenMethodModel(Method method) {
-		Method hiddenMethod = BehavioralMethods.HIDDEN.findFor(method);
-		if (hiddenMethod == null) {
-			return null;
+	private static Optional<HiddenMethodModel> createHiddenMethodModel(Method method) {
+		Optional<Method> hiddenMethod = BehavioralMethods.HIDDEN.findFor(method);
+		if (hiddenMethod.isPresent()) {
+			return Optional.of(new HiddenMethodModel(hiddenMethod.get()));
 		} else {
-			return new HiddenMethodModel(hiddenMethod);
+			return Optional.empty();
 		}
 	}
 

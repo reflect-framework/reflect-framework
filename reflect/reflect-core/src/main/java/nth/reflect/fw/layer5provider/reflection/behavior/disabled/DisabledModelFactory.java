@@ -1,6 +1,7 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.disabled;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
@@ -36,7 +37,9 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * {@link DomainObjectProperty} or call an {@link ActionMethod} it is best to
  * hide the method or property instead of disabling it. In general you do not
  * want to confuse users (clutter the user interface) with options that they are
- * not allowed to use anyway. Disabled {@link ActionMethod}s <a href="https://axesslab.com/disabled-buttons-suck/">have a bad impact on usability</a>. 
+ * not allowed to use anyway. Disabled {@link ActionMethod}s
+ * <a href="https://axesslab.com/disabled-buttons-suck/">have a bad impact on
+ * usability</a>.
  * </p>
  * 
  * <h3>Disabled Annotation</h3>
@@ -67,50 +70,46 @@ public class DisabledModelFactory {
 	 * @return A {@link DisabledModel} that checks if an item is disabled or not
 	 *         (at runtime)
 	 */
-	public static DisabledModel create(
-			AuthorizationProvider authorizationProvider, Method method) {
+	public static DisabledModel create(AuthorizationProvider authorizationProvider, Method method) {
 
-		DisabledMethodModel disabledMethodModel = createDisabledMethodModel(method);
-		DisabledAnnotationModel disabledAnnotationModel = createDisabledAnnotationModel(
-				authorizationProvider, method);
+		Optional<DisabledMethodModel> disabledMethodModel = createDisabledMethodModel(method);
+		Optional<DisabledAnnotationModel> disabledAnnotationModel = createDisabledAnnotationModel(authorizationProvider,
+				method);
 
-		boolean hasMethod = disabledMethodModel != null;
-		boolean hasAnnotation = disabledAnnotationModel != null;
-
+		boolean hasAnnotation = disabledAnnotationModel.isPresent();
+		boolean hasMethod = disabledMethodModel.isPresent();
+		
 		if (hasAnnotation && !hasMethod) {
-			return disabledAnnotationModel;
+			return disabledAnnotationModel.get();
 		} else if (!hasAnnotation && hasMethod) {
-			return disabledMethodModel;
+			return disabledMethodModel.get();
 		} else if (hasAnnotation && hasMethod) {
-			return new DisabledOrModel(disabledAnnotationModel,
-					disabledMethodModel);
+			return new DisabledOrModel(disabledAnnotationModel.get(), disabledMethodModel.get());
 		} else { // !hasAnnotation && !hasMethod
 			return DisabledFalseModel.getInstance();
 		}
 	}
 
-	private static DisabledAnnotationModel createDisabledAnnotationModel(
+	private static Optional<DisabledAnnotationModel> createDisabledAnnotationModel(
 			AuthorizationProvider authorizationProvider, Method method) {
 		Disabled disabledAnnotation = method.getAnnotation(Disabled.class);
 		if (disabledAnnotation == null) {
-			return null;
+			return Optional.empty();
 		} else {
-			return new DisabledAnnotationModel(authorizationProvider,
-					disabledAnnotation);
+			return Optional.of(new DisabledAnnotationModel(authorizationProvider, disabledAnnotation));
 		}
 	}
 
-	private static DisabledMethodModel createDisabledMethodModel(Method method) {
-		Method disabledMethod = BehavioralMethods.DISABLED.findFor(method);
-		if (disabledMethod == null) {
-			return null;
+	private static Optional<DisabledMethodModel> createDisabledMethodModel(Method method) {
+		Optional<Method> disabledMethod = BehavioralMethods.DISABLED.findFor(method);
+		if (disabledMethod.isPresent()) {
+			return Optional.of(new DisabledMethodModel(disabledMethod.get()));
 		} else {
-			return new DisabledMethodModel(disabledMethod);
+			return Optional.empty();
 		}
 	}
 
-	public static DisabledModel create(
-			AuthorizationProvider authorizationProvider, Method getterMethod,
+	public static DisabledModel create(AuthorizationProvider authorizationProvider, Method getterMethod,
 			Method setterMethod) {
 		if (setterMethod == null) {
 			return DisabledTrueModel.getInstance();

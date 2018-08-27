@@ -109,7 +109,7 @@ public class MainWindow extends JFrame {
 
 	private void setIcon(ReflectApplication application, ClassInfo applicationInfo) {
 		try {
-			URL iconUrl = applicationInfo.getFontIconUrl(application);
+			URL iconUrl = applicationInfo.getFontIconUrl(application);//FIXME: use applicationInfo.getApplicationIconFile()
 			Image image = Toolkit.getDefaultToolkit().getImage(iconUrl);
 			setIconImage(image);
 		} catch (Exception exception) {

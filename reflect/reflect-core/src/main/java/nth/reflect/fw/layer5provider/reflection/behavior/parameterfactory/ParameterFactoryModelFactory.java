@@ -1,6 +1,7 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import nth.reflect.fw.layer2service.MainMenu;
 import nth.reflect.fw.layer2service.ServiceObject;
@@ -41,9 +42,9 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  */
 public class ParameterFactoryModelFactory {
 	public static ParameterFactoryModel create( Method method, Class<?> methodParameterType) {
-		ParameterFactoryModel methodModel = createMethodModel(method);
-		if (methodModel != null) {
-			return methodModel;
+		Optional<ParameterFactoryModel> methodModel = createMethodModel(method);
+		if (methodModel.isPresent()) {
+			return methodModel.get();
 		}
 
 		ParameterFactoryModel annotationModel = createAnnotationModel( method, methodParameterType);
@@ -64,12 +65,12 @@ public class ParameterFactoryModelFactory {
 		return annotation!=null;
 	}
 
-	private static ParameterFactoryModel createMethodModel(Method method) {
-		Method parameterFactoryMethod = BehavioralMethods.PARAMETER_FACTORY.findFor(method);
-		if (parameterFactoryMethod==null) {
-			return null;
+	private static Optional<ParameterFactoryModel> createMethodModel(Method method) {
+		Optional<Method> parameterFactoryMethod = BehavioralMethods.PARAMETER_FACTORY.findFor(method);
+		if (parameterFactoryMethod.isPresent()) {
+			return Optional.of(new ParameterFactoryMethodModel(parameterFactoryMethod.get()));
 		} else {
-			return new ParameterFactoryMethodModel(parameterFactoryMethod);
+			return Optional.empty();
 		}
 	}
 	

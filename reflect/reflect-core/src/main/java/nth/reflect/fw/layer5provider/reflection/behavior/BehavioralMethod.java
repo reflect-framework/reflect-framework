@@ -1,6 +1,7 @@
 package nth.reflect.fw.layer5provider.reflection.behavior;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.generic.util.StringUtil;
@@ -58,7 +59,7 @@ public abstract class BehavioralMethod {
 		return nameEndsWithSuffix && returnTypeMatches;
 	}
 
-	public Method findFor(Class<?> methodOwner) {
+	public Optional<Method> findFor(Class<?> methodOwner) {
 		String behavioralMethodName = createBehaviorMethodName(methodOwner.getSimpleName());
 		return find(methodOwner, behavioralMethodName);
 	}
@@ -70,7 +71,7 @@ public abstract class BehavioralMethod {
 	 *            a {@link ActionMethod}
 	 * @return
 	 */
-	public Method findFor(Method method) {
+	public Optional<Method> findFor(Method method) {
 		String behavioralMethodName;
 		if (PropertyInfo.isGetterMethod(method)) {
 			String propertyName = createPropertyName(method);
@@ -81,17 +82,17 @@ public abstract class BehavioralMethod {
 		return find(method.getDeclaringClass(), behavioralMethodName);
 	}
 
-	private Method find(Class<?> methodOwner, String behavioralMethodName) {
+	private Optional<Method> find(Class<?> methodOwner, String behavioralMethodName) {
 		Class<?>[] NO_PARAMETERS = new Class<?>[0];
 		try {
 			Method method = methodOwner.getMethod(behavioralMethodName, NO_PARAMETERS);
 			if (getReturnType().isAssignableFrom(method.getReturnType())) {
-				return method;// found
+				return Optional.of(method);// found
 			} else {
-				return null;// incorrect return type
+				return Optional.empty();// incorrect return type
 			}
 		} catch (Exception e) {
-			return null;// method does not exist
+			return Optional.empty();// method does not exist
 		}
 	}
 

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,9 @@ import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.applicationicon.ApplicationIcon;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
 import nth.reflect.fw.ui.view.FormMode;
@@ -179,22 +182,23 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 		primaryStage.setScene(scene);
 
-		Image icon = new Image("file:icon.png");// TODO!!!
-		primaryStage.getIcons().add(icon);
-
-		String title = getApplicationTitle(application);
+		ReflectionProvider reflectProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		ApplicationInfo applicationInfo=reflectProvider.getApplicationInfo();
+		initIcon(primaryStage, applicationInfo);
+		String title = applicationInfo.getDisplayName();
 		primaryStage.setTitle(title);
 		primaryStage.setMaximized(true);
 		primaryStage.show();
 	}
 
-	private String getApplicationTitle(ReflectApplicationForJavaFX application) {
-		ReflectionProvider reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
-		ClassInfo applicationInfo = reflectionProvider.getClassInfo(application.getClass());
-		String title = applicationInfo.getDisplayName();
-		return title;
+	private void initIcon(Stage primaryStage, ApplicationInfo applicationInfo) {
+		URL iconUrl = applicationInfo.getIcon();
+		if (iconUrl!=null) {
+			Image icon = new Image(iconUrl.toString());
+			primaryStage.getIcons().add(icon);
+		}
 	}
+
 
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,

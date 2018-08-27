@@ -3,11 +3,11 @@ package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 import java.net.URL;
 
 /**
- * See {@link FontIconModelFactory}
+ * See {@link ApplicationIconModelFactory}
  * @author nilsth
  *
  */
 
-public interface IconModel {
-	URL getURL(Object obj);
+public interface ApplicationIconModel {
+	URL getUrl();
 }

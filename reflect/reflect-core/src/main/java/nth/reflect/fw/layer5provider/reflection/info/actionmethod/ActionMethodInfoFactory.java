@@ -20,7 +20,7 @@ public class ActionMethodInfoFactory {
 		for (Method method : methods) {
 			String linkedPropertyName = findLinkedPropertyName(method,
 					propertyInfos);
-			// TODO make actionMethods part of ClassInfo's and PropertyInfo's!!!
+			// TODO make actionMethods part of ApplicationInfo's and PropertyInfo's!!!
 			try {
 				ActionMethodInfo actionMethodInfo = new ActionMethodInfo(
 						providerContainer, method, linkedPropertyName);

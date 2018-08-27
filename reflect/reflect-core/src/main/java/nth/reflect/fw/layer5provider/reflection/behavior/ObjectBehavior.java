@@ -45,6 +45,11 @@ import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModelF
  * {@insert FontIconModelFactory}
  * </p>
  * 
+ * <h2>ApplicationIcon</h2>
+ * <p>
+ * {@insert ApplicationIconModelFactory}
+ * </p>
+ * 
  * <h2>Hidden</h2>
  * <p>
  * {@insert HiddenModelFactory}

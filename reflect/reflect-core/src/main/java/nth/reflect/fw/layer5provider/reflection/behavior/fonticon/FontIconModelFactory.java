@@ -12,7 +12,8 @@ import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 
 /**
  * <p>
- * {@link ServiceObject}s ,{@link DomainObject}s and {@link ActionMethod}s can have <a href=
+ * {@link ServiceObject}s ,{@link DomainObject}s and {@link ActionMethod}s can
+ * have <a href=
  * "https://www.sitepoint.com/introduction-icon-fonts-font-awesome-icomoon/">FontIcons</a>
  * that are displayed in graphical user interfaces. These icons help the user to
  * quickly identify what they are looking at.
@@ -20,10 +21,10 @@ import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
  * <p>
  * <a href=
  * "https://www.sitepoint.com/introduction-icon-fonts-font-awesome-icomoon/">Fonticons</a>
- * have become very popular in graphical user interface design. Icon fonts are
- * just fonts. However, instead of containing letters or numbers, they contain
- * symbols and glyphs that can be used in a graphical user interface. Advantages
- * of font icons over <a href=
+ * have become very popular in graphical user interface design. ApplicationIcon
+ * fonts are just fonts. However, instead of containing letters or numbers, they
+ * contain symbols and glyphs that can be used in a graphical user interface.
+ * Advantages of font icons over <a href=
  * "https://en.wikipedia.org/wiki/Image_file_formats#Raster_formats">raster
  * format files</a>:
  * 
@@ -40,8 +41,8 @@ import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
  * <p>
  * There are many free font icons that you can use in your application (e.g.
  * download or include with a build tool like
- * <a href="https://maven.apache.org/">Maven</a>). Examples of free Icon fonts
- * are:
+ * <a href="https://maven.apache.org/">Maven</a>). Examples of free
+ * ApplicationIcon fonts are:
  * <ul>
  * <li><a href="https://material.io/tools/icons/">Google Material Icons</a></li>
  * <li><a href="https://fontawesome.com">Font Awesome</a></li>
@@ -100,7 +101,7 @@ public class FontIconModelFactory {
 		if (iconAnnotationModel.isPresent()) {
 			return iconAnnotationModel.get();
 		}
-		
+
 		return FontIconNoUrlModel.getInstance();
 	}
 
@@ -135,11 +136,11 @@ public class FontIconModelFactory {
 	}
 
 	private static Optional<FontIconMethodModel> createIconMethodModel(Method actionMethod) {
-		Method iconMethod = BehavioralMethods.FONT_ICON.findFor(actionMethod);
-		if (iconMethod == null) {
-			return Optional.empty();
+		Optional<Method> iconMethod = BehavioralMethods.FONT_ICON.findFor(actionMethod);
+		if (iconMethod.isPresent()) {
+			return Optional.of(new FontIconMethodModel(iconMethod.get()));
 		} else {
-			return Optional.of(new FontIconMethodModel(iconMethod));
+			return Optional.empty();
 		}
 	}
 
@@ -154,17 +155,15 @@ public class FontIconModelFactory {
 			} catch (Exception e) {
 				return Optional.empty();
 			}
-
 		}
-
 	}
 
 	private static Optional<FontIconMethodModel> createIconMethodModel(Class<?> objectClass) {
-		Method iconMethod = BehavioralMethods.FONT_ICON.findFor(objectClass);
-		if (iconMethod == null) {
-			return Optional.empty();
+		Optional<Method> iconMethod = BehavioralMethods.FONT_ICON.findFor(objectClass);
+		if (iconMethod.isPresent()) {
+			return Optional.of(new FontIconMethodModel(iconMethod.get()));
 		} else {
-			return  Optional.of(new FontIconMethodModel(iconMethod));
+			return Optional.empty();
 		}
 	}
 

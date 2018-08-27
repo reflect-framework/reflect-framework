@@ -24,8 +24,8 @@ public class ClassResourceUrlProvider extends UrlProvider {
 	protected URLConnection openConnection(URL url) throws IOException {
 		ClassResourceUrl classResourceUrl = new ClassResourceUrl(url);
 		Class<?> resourceClass = classResourceUrl.getResourceClass();
-		String resourecFile = classResourceUrl.getResourceFile();
-		InputStream resourceStream = resourceClass.getResourceAsStream(resourecFile);
+		String resoureFile = classResourceUrl.getResourceFile();
+		InputStream resourceStream = resourceClass.getResourceAsStream(resoureFile);
 		return new URLConnection(url) {
 
 			@Override
@@ -40,18 +40,21 @@ public class ClassResourceUrlProvider extends UrlProvider {
 		};
 	}
 	
+
 	@Override
 	protected String toExternalForm(URL url) {
 		try{
 			ClassResourceUrl classResourceUrl = new ClassResourceUrl(url);
 			Class<?> resourceClass = classResourceUrl.getResourceClass();
-			String resourecFile = classResourceUrl.getResourceFile();
-			URL resourceUrl = resourceClass.getResource(resourecFile);
+			String resoureFile = classResourceUrl.getResourceFile();
+			URL resourceUrl = resourceClass.getResource(resoureFile);
 			return resourceUrl.toExternalForm();
 		} catch (Exception exception) {
-			return null;
+			throw new RuntimeException(exception);
 		}
-		
 	}
+	
+
+
 
 }

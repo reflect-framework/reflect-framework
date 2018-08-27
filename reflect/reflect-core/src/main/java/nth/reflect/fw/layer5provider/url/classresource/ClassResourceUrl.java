@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import nth.reflect.fw.layer5provider.url.ReflectUrl;
-import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
 
 /**
  * <p>
@@ -14,8 +13,8 @@ import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
  * reference to a class resource (See {@link Class#getResource(String)})
  * </p>
  * <p>
- * The format of a {@link ClassResourceUrl} is: reflect-class-resource://&lt;class
- * path&gt;/&lt;resource name&gt;
+ * The format of a {@link ClassResourceUrl} is:
+ * reflect-class-resource://&lt;class path&gt;/&lt;resource name&gt;
  * </p>
  * <p>
  * E.g.: reflect-class-resource://com.acme.SalesApp/sales.png; (for a sales.png
@@ -29,6 +28,7 @@ import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
 public class ClassResourceUrl implements ReflectUrl {
 	public static String PROTOCOL = "reflect-class-resource";
 	private final URL classResourceUrl;
+	private final String resourceFile;
 
 	public ClassResourceUrl(Class<?> resourceClass, String resourceFile) throws MalformedURLException {
 		this(new URL(PROTOCOL, resourceClass.getCanonicalName(), resourceFile));
@@ -40,6 +40,7 @@ public class ClassResourceUrl implements ReflectUrl {
 
 	public ClassResourceUrl(URL classResourceUrl) throws MalformedURLException {
 		this.classResourceUrl = classResourceUrl;
+		this.resourceFile = removeFirstSlash(classResourceUrl.getFile());
 		verify();
 	}
 
@@ -53,10 +54,12 @@ public class ClassResourceUrl implements ReflectUrl {
 		String resourceFile = getResourceFile();
 
 		URL resource = resourceClass.getResource(resourceFile);
-		File file;
+		File file = null;
 		try {
-			file = new File(resource.toURI());
-			if (!file.exists()) {
+			if (resource != null) {
+				file = new File(resource.toURI());
+			}
+			if (resource == null || file == null || !file.exists()) {
 				throw new MalformedURLException("Unknown resource file: " + resourceFile);
 			}
 		} catch (URISyntaxException e) {
@@ -76,7 +79,17 @@ public class ClassResourceUrl implements ReflectUrl {
 	}
 
 	public String getResourceFile() {
-		return classResourceUrl.getFile();
+		return resourceFile;
+	}
+
+	private String removeFirstSlash(String resourceFile) {
+		if (resourceFile == null) {
+			return null;
+		} else if (resourceFile.startsWith("/")) {
+			return resourceFile.substring(1);
+		} else {
+			return resourceFile;
+		}
 	}
 
 	@Override
