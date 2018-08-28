@@ -27,6 +27,7 @@
 		<module>reflect-infrastructure-hibernate-repository</module>
 		<module>reflect-for-javafx-demo</module>
 		<module>reflect-example-domain2</module>
+		<module>reflect-for-vaadin</module>
 	</modules>
 
 

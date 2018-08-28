@@ -118,7 +118,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public nth.reflect.fw.layer1userinterface.view.ViewContainer<?> getViewContainer() {
+	public nth.reflect.fw.layer1userinterface.view.ViewContainer<SwingView> getViewContainer() {
 		return mainWindow.getViewContainer();
 	}
 

@@ -84,13 +84,15 @@ public class ReflectFramework {
 	 * {@link DependencyInjectionContainer} for all the application layers and
 	 * finally starting the {@link UserInterfaceController} This method is
 	 * normally called from the {@link ReflectApplication} class.
+	 * @return 
 	 * 
 	 * @throws ReflectContainerException
 	 */
-	public static void launch(ReflectApplication application) {
+	public static UserInterfaceContainer launch(ReflectApplication application) {
 		UserInterfaceContainer userInterfaceContainer = createUserInterfaceContainer(application);
 		UserInterfaceController userInterfaceController = userInterfaceContainer.get(UserInterfaceController.class);
 		userInterfaceController.launch();
+		return userInterfaceContainer;
 	}
 
 	/**
