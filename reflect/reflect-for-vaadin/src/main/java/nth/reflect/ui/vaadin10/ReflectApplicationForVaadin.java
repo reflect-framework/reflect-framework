@@ -99,21 +99,21 @@ public class ReflectApplicationForVaadin extends VerticalLayout  implements Refl
 		new StyleBuilder().setProperty("border-right", "1px solid lightgray").setZIndex(Z_INDEX_MAIN_MENU).setBackground(Color.WHITE )
 				.setFor(mainMenu);
 		
-		Grid<VaadinItem> mainMenuContent=createMainMenuContent();
+		Grid<Item> mainMenuContent=createMainMenuContent();
 		mainMenu.add(mainMenuContent);
 
 		return mainMenu;
 	}
 
-	private Grid<VaadinItem> createMainMenuContent() {
-		Grid<VaadinItem> grid=new Grid<>();
+	private Grid<Item> createMainMenuContent() {
+		Grid<Item> grid=new Grid<>();
 		new StyleBuilder().setOverflow(Overflow.AUTO).setFor(grid);
 		grid.setItems(getMainMenuItems());
-		grid.addColumn(VaadinItem::getName);
+		grid.addColumn(Item::getText);
 		return grid;
 	}
 
-	private List<VaadinItem> getMainMenuItems() {
+	private List<Item> getMainMenuItems() {
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
@@ -122,16 +122,15 @@ public class ReflectApplicationForVaadin extends VerticalLayout  implements Refl
 		List<MethodOwnerItem> serviceObjectItems = ItemFactory
 				.createMainMenuItems(userInterfaceContainer);
 
-		
-		//TODO wait for Vaadin10 to release a TrreGrid (current state: planned but no time line)
-		List<VaadinItem> vaadinItems=new ArrayList<>();
+		List<Item> items=new ArrayList<>();
+		//TODO wait for Vaadin10 to release a TreeGrid (current state: planned but no time line)
 		for (MethodOwnerItem serviceObjectItem:serviceObjectItems) {
-			vaadinItems.add(new VaadinItem(serviceObjectItem.getText()));
+			items.add(serviceObjectItem);
 			for (Item actionMethodItem:serviceObjectItem.getChildren()) {
-				vaadinItems.add(new VaadinItem("-  "+actionMethodItem.getText()));
+				items.add(actionMethodItem);
 			}
 		}
-		return vaadinItems;
+		return items;
 	}
 
 	/**
