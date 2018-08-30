@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
@@ -30,6 +32,9 @@ import nth.reflect.ui.vaadin10.css.Position;
 import nth.reflect.ui.vaadin10.css.SizeUnit;
 import nth.reflect.ui.vaadin10.css.StyleBuilder;
 
+@HtmlImport("styles/reflect-resize.html")
+@HtmlImport("bower_components/font-roboto/roboto.html")
+@JavaScript("bower_components/jquery/3.3.1-1/jquery.js") 
 public class MainWindow extends Div   {
 
 	private static final long serialVersionUID = -1026778643991244247L;

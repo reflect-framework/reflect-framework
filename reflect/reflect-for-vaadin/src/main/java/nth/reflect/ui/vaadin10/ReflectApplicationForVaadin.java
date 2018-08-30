@@ -6,8 +6,6 @@ import java.util.List;
 import com.acme.web.shop.product.ProductRepository;
 import com.acme.web.shop.product.ProductService;
 import com.acme.web.shop.shopingcart.ShoppingCartService;
-import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 
@@ -40,9 +38,6 @@ import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
  * The main view contains a button and a template element.
  */
 @SuppressWarnings("serial")
-@HtmlImport("styles/reflect-resize.html")
-@HtmlImport("bower_components/font-roboto/roboto.html")
-@JavaScript("bower_components/jquery/3.3.1-1/jquery.js") 
 
 @Route("")
 public class ReflectApplicationForVaadin extends Div  implements ReflectApplication {
