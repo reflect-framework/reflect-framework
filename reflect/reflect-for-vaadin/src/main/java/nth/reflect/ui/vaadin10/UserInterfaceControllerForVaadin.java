@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.JOptionPane;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
@@ -149,22 +148,22 @@ public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 	@Override
 	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
 
-		// get dialog type
-		int messageType = 0;
-		switch (dialogType) {
-		case QUESTION:
-			messageType = JOptionPane.QUESTION_MESSAGE;
-			break;
-		case ERROR:
-			messageType = JOptionPane.ERROR_MESSAGE;
-		}
-
-		// get options, assuming that all items are enabled and visible
-		Object[] options = new String[items.size()];
-		for (int index = 0; index < items.size(); index++) {
-			options[index] = items.get(index).getText();
-		}
-		Object defaultOption = options[items.size() - 1];
+//		// get dialog type
+//		int messageType = 0;
+//		switch (dialogType) {
+//		case QUESTION:
+//			messageType = JOptionPane.QUESTION_MESSAGE;
+//			break;
+//		case ERROR:
+//			messageType = JOptionPane.ERROR_MESSAGE;
+//		}
+//
+//		// get options, assuming that all items are enabled and visible
+//		Object[] options = new String[items.size()];
+//		for (int index = 0; index < items.size(); index++) {
+//			options[index] = items.get(index).getText();
+//		}
+//		Object defaultOption = options[items.size() - 1];
 
 		// show dialog
 //TODO		int selectedIndex = JOptionPane.showOptionDialog(reflectApplicationForVaadin, message, title,
