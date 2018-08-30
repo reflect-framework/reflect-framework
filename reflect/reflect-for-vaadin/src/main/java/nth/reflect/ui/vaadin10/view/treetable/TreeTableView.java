@@ -1,13 +1,14 @@
-package nth.reflect.ui.vaadin10;
+package nth.reflect.ui.vaadin10.view.treetable;
 
 import java.net.URL;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.ui.vaadin10.view.VaadinView;
 
-public class TableTab extends Tab {
+public class TreeTableView extends VaadinView {
 
-	public TableTab(UserInterfaceContainer userInterfaceContainer, Object serviceObject,
+	public TreeTableView(UserInterfaceContainer userInterfaceContainer, Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		// TODO Auto-generated constructor stub
 	}

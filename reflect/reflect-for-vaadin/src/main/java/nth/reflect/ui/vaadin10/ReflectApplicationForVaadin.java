@@ -55,6 +55,7 @@ import nth.reflect.ui.vaadin10.css.Overflow;
 import nth.reflect.ui.vaadin10.css.Position;
 import nth.reflect.ui.vaadin10.css.SizeUnit;
 import nth.reflect.ui.vaadin10.css.StyleBuilder;
+import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
 
 /**
  * The main view contains a button and a template element.
@@ -218,9 +219,9 @@ public class ReflectApplicationForVaadin extends VerticalLayout  implements Refl
 	}
 
 	private Tabs createTabs() {
-		Tab tab1 = new Tab("Tab one");
-		Tab tab2 = new Tab("Tab two");
-		Tab tab3 = new Tab("Tab three");
+		Tab tab1 = new Tab("VaadinView one");
+		Tab tab2 = new Tab("VaadinView two");
+		Tab tab3 = new Tab("VaadinView three");
 		Tabs tabs = new Tabs(tab1, tab2, tab3);
 		tabs.setId("tab-headers");
 		return tabs;
@@ -233,14 +234,13 @@ public class ReflectApplicationForVaadin extends VerticalLayout  implements Refl
 		return title;
 	}
 
-	public ViewContainer<nth.reflect.ui.vaadin10.Tab> getViewContainer() {
-		// TODO Auto-generated method stub
-		return null;
+	public ViewContainer<nth.reflect.ui.vaadin10.view.VaadinView> getViewContainer() {
+		return new VaadinViewContainer(this);
 	}
 	
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
-		return UserinterfaceControllerForVaadin.class;
+		return UserInterfaceControllerForVaadin.class;
 	}
 
 	@Override

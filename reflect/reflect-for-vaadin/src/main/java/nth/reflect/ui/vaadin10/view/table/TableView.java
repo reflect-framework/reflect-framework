@@ -1,18 +1,17 @@
-package nth.reflect.ui.vaadin10;
+package nth.reflect.ui.vaadin10.view.table;
 
 import java.net.URL;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.ui.view.FormMode;
+import nth.reflect.ui.vaadin10.view.VaadinView;
 
-public class FormTab extends Tab {
+public class TableView extends VaadinView {
 
-	public FormTab(UserInterfaceContainer userInterfaceContainer, Object serviceObject,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
+	public TableView(UserInterfaceContainer userInterfaceContainer, Object serviceObject,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	@Override
 	public String getViewTitle() {

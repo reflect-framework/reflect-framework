@@ -17,13 +17,17 @@ import nth.reflect.fw.layer1userinterface.view.ViewContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
 import nth.reflect.fw.ui.view.FormMode;
+import nth.reflect.ui.vaadin10.view.VaadinView;
+import nth.reflect.ui.vaadin10.view.form.FormView;
+import nth.reflect.ui.vaadin10.view.table.TableView;
+import nth.reflect.ui.vaadin10.view.treetable.TreeTableView;
 
 
-public class UserinterfaceControllerForVaadin extends GraphicalUserinterfaceController<Tab> {
+public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceController<VaadinView> {
 
 	private ReflectApplicationForVaadin reflectApplicationForVaadin;
 
-	public UserinterfaceControllerForVaadin(UserInterfaceContainer userInterfaceContainer) {
+	public UserInterfaceControllerForVaadin(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 	}
 
@@ -108,28 +112,28 @@ public class UserinterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 	
 
 	@Override
-	public ViewContainer<Tab> getViewContainer() {
+	public ViewContainer<VaadinView> getViewContainer() {
 		return reflectApplicationForVaadin.getViewContainer();
 	}
 
 	@Override
-	public Tab createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public VaadinView createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new FormView(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
-	public Tab createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public VaadinView createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new TableView(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue);
 	}
 
 	@Override
-	public Tab createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public VaadinView createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		return  new TreeTableTab(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return  new TreeTableView(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue);
 	}
 
