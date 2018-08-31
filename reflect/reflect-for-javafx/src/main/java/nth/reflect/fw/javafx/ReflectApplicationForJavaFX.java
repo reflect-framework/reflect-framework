@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheetUrlHandler;
+import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -31,16 +32,23 @@ import nth.reflect.fw.ui.style.basic.Color;
 /**
  * <p>
  * {@link ReflectApplicationForJavaFX} is an implementation of the
- * {@link ReflectFramework} that has a
+ * {@link ReflectFramework} that provides a
  * <a href="http://en.wikipedia.org/wiki/Graphical_user_interface"> graphical
  * user interface</a> for a computer with an
  * <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop
  * environment</a>. It might also be used for mobile devices in the future as
  * well, but porting JavaFX for Android is still somewhat of a problem at the
- * time of this writing. {@link ReflectApplicationForJavaFX} tries to comply
- * with the <a href="https://material.io/guidelines/">Google Material Design</a>
- * as much as possible. It optimizes the user interface depending on the size of
- * the main window.
+ * time of this writing. {@link ReflectApplicationForJavaFX} tries to comply with the
+ * <a href="https://material.io/guidelines/">Google Material Design</a> as much
+ * as possible. The application can be used on a
+ * <a href="https://en.wikipedia.org/wiki/Desktop_computer">desktop</a>,
+ * <a href="https://en.wikipedia.org/wiki/Laptop">lap-top</a>,
+ * <a href="https://en.wikipedia.org/wiki/Tablet_computer">tablet</a> or
+ * <a href="https://en.wikipedia.org/wiki/Mobile_device">mobile device</a>. It
+ * has an
+ * <a href="https://en.wikipedia.org/wiki/Responsive_web_design">responsive web
+ * design</a>: It optimizes the user interface depending on the size of the
+ * {@link RfxWindow}.
  * </p>
  * <h3>How to download a ReflectForJavaFX demo project</h3>
  * <p>
