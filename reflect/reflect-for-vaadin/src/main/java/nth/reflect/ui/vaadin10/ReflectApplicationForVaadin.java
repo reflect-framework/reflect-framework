@@ -3,6 +3,8 @@ package nth.reflect.ui.vaadin10;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.acme.web.shop.product.ProductRepository;
 import com.acme.web.shop.product.ProductService;
 import com.acme.web.shop.shopingcart.ShoppingCartService;
@@ -35,24 +37,29 @@ import nth.reflect.ui.vaadin10.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
 
 /**
- * The main view contains a button and a template element.
+ * This class will be created and called by the
+ * <a href="http://vaadin.com">Vaadin</a> framework when it gets a
+ * {@link HttpServletRequest} for this application. It will: <ui>
+ * <li>initialize the {@link ReflectFramework} with implemented methods from this class</li>
+ * <li>create the {@link MainWindow}</li>
+ * </ul>
  */
 @SuppressWarnings("serial")
 
 @Route("")
-public class ReflectApplicationForVaadin extends Div  implements ReflectApplication {
+public class ReflectApplicationForVaadin extends Div implements ReflectApplication {
 
 	private final UserInterfaceContainer userInterfaceContainer;
 
 	public ReflectApplicationForVaadin() {
-		userInterfaceContainer=ReflectFramework.launch(this);
+		userInterfaceContainer = ReflectFramework.launch(this);
 		add(new MainWindow(userInterfaceContainer));
 	}
 
 	public ViewContainer<nth.reflect.ui.vaadin10.view.VaadinView> getViewContainer() {
 		return new VaadinViewContainer(this);
 	}
-	
+
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
 		return UserInterfaceControllerForVaadin.class;
@@ -87,24 +94,25 @@ public class ReflectApplicationForVaadin extends Div  implements ReflectApplicat
 	public Class<? extends NotificationProvider> getNotificationProviderClass() {
 		return DefaultNotificationProvider.class;
 	}
-	
-	
+
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
 	}
 
-	//TODO remove later so other ReflectApplicationForVaadin implementations can implement it
-	//TODO remove reflect-example-domain from pom.xml
+	// TODO remove later so other ReflectApplicationForVaadin implementations
+	// can implement it
+	// TODO remove reflect-example-domain from pom.xml
 	@Override
 	public List<Class<?>> getServiceClasses() {
 		return Arrays.asList(ProductService.class, ShoppingCartService.class, PersonService.class);
 	}
 
-	//TODO remove later so other ReflectApplicationForVaadin implementations can implement it
+	// TODO remove later so other ReflectApplicationForVaadin implementations
+	// can implement it
 	@Override
 	public List<Class<?>> getInfrastructureClasses() {
 		return Arrays.asList(ProductRepository.class);
 	}
-	
+
 }
