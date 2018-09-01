@@ -34,7 +34,7 @@ import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.tab.SelectTabItem;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
@@ -344,7 +344,7 @@ public class RfxAppButtonBar extends Pane {
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(RfxUserinterfaceController.class);
-		ViewContainer<View> viewContainer = userInterfaceController.getViewContainer();
+		ViewController<View> viewContainer = userInterfaceController.getViewController();
 
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);

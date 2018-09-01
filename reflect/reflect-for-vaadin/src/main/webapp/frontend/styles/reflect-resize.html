@@ -44,7 +44,7 @@ var mainMenuOpen=true;
 function init() {
 	initGlobalElementVariables();
 	initMainMenuButtonListener();
-	initContentOverlayListener();
+	initOverlayListener();
 	updateGui();
 }
 
@@ -57,17 +57,17 @@ function initGlobalElementVariables() {
 
 	mainMenu=document.getElementById("main-menu");
 
-	content = document.getElementById("content");
+	tabViewContainer = document.getElementById("tab-view-container");
 
-	contentOverlay = document.getElementById("content-overlay");
+	overlay = document.getElementById("overlay");
 }
 
 function initMainMenuButtonListener() {
 	mainMenuButton.onclick=function() {toggleMainMenu()};
 }
 
-function initContentOverlayListener() {
-	contentOverlay.onclick=function() {closeMainMenu()};
+function initOverlayListener() {
+	overlay.onclick=function() {closeMainMenu()};
 }
 
 // ========== MAIN MENU FUNCTIONS ==========
@@ -94,8 +94,8 @@ function updateGui() {
 
 	updateHeader(windowSizeHorizontal,windowSizeVertical);  
 	updateMainMenu(windowSizeHorizontal,windowSizeVertical);
-	updateContent(windowSizeHorizontal,windowSizeVertical);
-	updateContentOverlay(windowSizeHorizontal,windowSizeVertical);
+	updateTabViewContainer(windowSizeHorizontal,windowSizeVertical);
+	updateOverlay(windowSizeHorizontal,windowSizeVertical);
 }
 
 function updateHeader(windowSizeHorizontal,windowSizeVertical) {
@@ -124,23 +124,23 @@ function updateTabHeaders(windowSizeHorizontal) {
 	}	
 }
 
-function updateContent(windowSizeHorizontal,windowSizeVertical) {
-	// content fixed under header, with the remaining height
-	content.style.alignSelf=null;
-	content.style.position="fixed";
+function updateTabViewContainer(windowSizeHorizontal,windowSizeVertical) {
+	// tabViewContainer fixed under header, with the remaining height
+	tabViewContainer.style.alignSelf=null;
+	tabViewContainer.style.position="fixed";
 	if (mainMenuOpen && windowSizeHorizontal>=Size.LARGE) {
-		// content next to main menu on the left
-		content.style.left=MAIN_MENU_WIDTH+"px";
-		content.style.width=(window.innerWidth-MAIN_MENU_WIDTH)+"px";
+		// tabViewContainer next to main menu on the left
+		tabViewContainer.style.left=MAIN_MENU_WIDTH+"px";
+		tabViewContainer.style.width=(window.innerWidth-MAIN_MENU_WIDTH)+"px";
 	} else {
-		// content has full width
-		content.style.left="0px"; 
-		content.style.width=(window.innerWidth)+"px";
+		// tabViewContainer has full width
+		tabViewContainer.style.left="0px"; 
+		tabViewContainer.style.width=(window.innerWidth)+"px";
 	}
-	content.style.height=(window.innerHeight-header.offsetHeight)+"px";
-	content.style.top=header.offsetHeight+"px";
+	tabViewContainer.style.height=(window.innerHeight-header.offsetHeight)+"px";
+	tabViewContainer.style.top=header.offsetHeight+"px";
 	
-	makeChildrenSameSize(content);
+	makeChildrenSameSize(tabViewContainer);
 }
 
 function updateMainMenu(windowSizeHorizontal,windowSizeVertical) {
@@ -153,22 +153,22 @@ function updateMainMenu(windowSizeHorizontal,windowSizeVertical) {
 		// main menu left from viewport
 		mainMenu.style.left=-MAIN_MENU_WIDTH+"px";  
 	}
-	// content fixed under header, with the remaining height
+	// tabViewContainer fixed under header, with the remaining height
 	mainMenu.style.top=header.offsetHeight+"px";
 	mainMenu.style.width=MAIN_MENU_WIDTH+"px";
 	mainMenu.style.height=(window.innerHeight-header.offsetHeight)+"px";
 	makeChildrenSameSize(mainMenu);
 }
 
-function updateContentOverlay(windowSizeHorizontal,windowSizeVertical) {
+function updateOverlay(windowSizeHorizontal,windowSizeVertical) {
 	if (mainMenuOpen && windowSizeHorizontal<Size.LARGE) {
-		contentOverlay.style.display="block";
-		contentOverlay.style.top="0px";
-		contentOverlay.style.left=MAIN_MENU_WIDTH+"px";
-		contentOverlay.style.width=(window.innerWidth-MAIN_MENU_WIDTH)+"px";
-		contentOverlay.style.height=window.innerHeight+"px";	
+		overlay.style.display="block";
+		overlay.style.top="0px";
+		overlay.style.left=MAIN_MENU_WIDTH+"px";
+		overlay.style.width=(window.innerWidth-MAIN_MENU_WIDTH)+"px";
+		overlay.style.height=window.innerHeight+"px";	
 	} else {
-		contentOverlay.style.display="none";
+		overlay.style.display="none";
 	}	
 }
 

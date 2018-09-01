@@ -12,7 +12,7 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer2service.ServiceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -107,9 +107,9 @@ public class ItemFactory {
 			items.add(item);
 		}
 
-		ViewContainer viewContainer = formView.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class).getViewContainer();
-		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, propertyInfo));
+		ViewController viewController = formView.getUserInterfaceContainer()
+				.get(GraphicalUserinterfaceController.class).getViewController();
+		items.addAll(createPropertyOwnerItems(viewController, parameterModel, propertyInfo));
 
 		// service object methods
 		filter = new LogicFilter<ActionMethodInfo>(new ParameterTypeFilter(parameterType));
@@ -132,9 +132,9 @@ public class ItemFactory {
 		Class<?> parameterType = parameterModel.getValueType();
 		Object serviceObject = tableView.getMethodOwner();
 
-		ViewContainer viewContainer = tableView.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class).getViewContainer();
-		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
+		ViewController viewController = tableView.getUserInterfaceContainer()
+				.get(GraphicalUserinterfaceController.class).getViewController();
+		items.addAll(createPropertyOwnerItems(viewController, parameterModel, null));
 
 		// create filter for service object items
 		Class<?> domainType = parameterModel.getValueType();
@@ -157,9 +157,9 @@ public class ItemFactory {
 		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
 		Object serviceObject = tableView.getMethodOwner();
 
-		ViewContainer viewContainer = tableView.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class).getViewContainer();
-		items.addAll(createPropertyOwnerItems(viewContainer, parameterModel, null));
+		ViewController viewController = tableView.getUserInterfaceContainer()
+				.get(GraphicalUserinterfaceController.class).getViewController();
+		items.addAll(createPropertyOwnerItems(viewController, parameterModel, null));
 
 		// create filter for service object items
 		Class<?> domainType = domainObject.getClass();
@@ -199,7 +199,7 @@ public class ItemFactory {
 		return items;
 	}
 
-	private static List<Item> createPropertyOwnerItems(ViewContainer<View> viewContainer,
+	private static List<Item> createPropertyOwnerItems(ViewController<View> viewContainer,
 			ReadOnlyValueModel paramaterModel, PropertyInfo propertyInfo) {
 		List<Item> items = new ArrayList<Item>();
 

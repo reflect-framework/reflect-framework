@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,11 +23,12 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.data.selection.SelectionEvent;
 
 import javafx.scene.control.TreeItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
@@ -38,8 +40,8 @@ import nth.reflect.ui.vaadin10.css.Overflow;
 import nth.reflect.ui.vaadin10.css.Position;
 import nth.reflect.ui.vaadin10.css.SizeUnit;
 import nth.reflect.ui.vaadin10.css.StyleBuilder;
-import nth.reflect.ui.vaadin10.view.VaadinView;
-import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
+import nth.reflect.ui.vaadin10.view.TabView;
+import nth.reflect.ui.vaadin10.view.container.TabViewController;
 
 /**
  * The {@link MainWindow} represents the Graphical User Interface with
@@ -50,8 +52,8 @@ import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
  */
 @HtmlImport("styles/reflect-resize.html")
 @HtmlImport("bower_components/font-roboto/roboto.html")
-@JavaScript("bower_components/jquery/3.3.1-1/jquery.js") 
-public class MainWindow extends Div   {
+@JavaScript("bower_components/jquery/3.3.1-1/jquery.js")
+public class MainWindow extends Div {
 
 	private static final long serialVersionUID = -1026778643991244247L;
 	private static final int Z_INDEX_HEADER = 9998;
@@ -59,19 +61,21 @@ public class MainWindow extends Div   {
 	private static final int Z_INDEX_CONTENT_OVERLAY = Z_INDEX_MAIN_MENU;
 	private static final Color BLACK_WITH_OPACITY = new Color(0f, 0f, 0f, 0.5f);
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final ViewContainer<VaadinView> viewContainer;
+	private final ViewController<TabView> tabViewController;
 	private Tabs tabsBar;
-	private Div content;
+	private final Div tabViewContainer;
+	private Map<Tab, TabView> tabsToViews;
+	private Set<Component> selectedTabView;
 
 	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
-		this.userInterfaceContainer=userInterfaceContainer;
+		this.userInterfaceContainer = userInterfaceContainer;
 		Div mainMenu = createMainMenu();
-		Div content = createContent();
-		Div contentOverlay = createContentOverlay();
+		tabViewContainer = createTabViewContainer();
+		Div overlay = createOverlay();
 		HorizontalLayout header = createHeader();
-		add(header, mainMenu, content, contentOverlay);
-		
-		viewContainer=new VaadinViewContainer(this);
+		add(header, mainMenu, tabViewContainer, overlay);
+
+		tabViewController = new TabViewController(this);
 	}
 
 	/**
@@ -83,37 +87,45 @@ public class MainWindow extends Div   {
 	private Div createMainMenu() {
 		Div mainMenu = new Div();
 		mainMenu.setId("main-menu");
-		new StyleBuilder().setProperty("border-right", "1px solid lightgray").setZIndex(Z_INDEX_MAIN_MENU).setBackground(Color.WHITE )
-				.setFor(mainMenu);
-		
-		Grid<Item> mainMenuContent=createMainMenuContent();
+		new StyleBuilder().setProperty("border-right", "1px solid lightgray").setZIndex(Z_INDEX_MAIN_MENU)
+				.setBackground(Color.WHITE).setFor(mainMenu);
+
+		Grid<Item> mainMenuContent = createMainMenuContent();
 		mainMenu.add(mainMenuContent);
 
 		return mainMenu;
 	}
 
 	private Grid<Item> createMainMenuContent() {
-		Grid<Item> grid=new Grid<>();
+		Grid<Item> grid = new Grid<>();
 		new StyleBuilder().setOverflow(Overflow.AUTO).setFor(grid);
-		grid.setItems(getMainMenuItems());
+		grid.setItems(createMainMenuItems());
 		grid.addColumn(Item::getText);
+		grid.addSelectionListener(this::onMainMenuItemSelected);
 		return grid;
 	}
 
-	private List<Item> getMainMenuItems() {
+	private void onMainMenuItemSelected(SelectionEvent<Grid<Item>, Item> event) {
+		Optional<Item> item = event.getFirstSelectedItem();
+		if (item.isPresent()) {
+			item.get().getAction().run();
+		}
+	}
+
+	private List<Item> createMainMenuItems() {
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
 
-		List<MethodOwnerItem> serviceObjectItems = ItemFactory
-				.createMainMenuItems(userInterfaceContainer);
+		List<MethodOwnerItem> serviceObjectItems = ItemFactory.createMainMenuItems(userInterfaceContainer);
 
-		List<Item> items=new ArrayList<>();
-		//TODO wait for Vaadin10 to release a TreeGrid (current state: planned but no time line)
-		for (MethodOwnerItem serviceObjectItem:serviceObjectItems) {
+		List<Item> items = new ArrayList<>();
+		// TODO wait for Vaadin10 to release a TreeGrid (current state: planned
+		// but no time line)
+		for (MethodOwnerItem serviceObjectItem : serviceObjectItems) {
 			items.add(serviceObjectItem);
-			for (Item actionMethodItem:serviceObjectItem.getChildren()) {
+			for (Item actionMethodItem : serviceObjectItem.getChildren()) {
 				items.add(actionMethodItem);
 			}
 		}
@@ -126,12 +138,10 @@ public class MainWindow extends Div   {
 	 *         children will be repositioned and resized with javascript (see
 	 *         reflect-resize.html)
 	 */
-	private Div createContent() {
-		content = new Div();
-		content.setId("content");
-//		Div loremIpsumText = createLoremIpsumText();
-//		content.add(loremIpsumText);
-		return content;
+	private Div createTabViewContainer() {
+		Div tabViewContainer = new Div();
+		tabViewContainer.setId("tab-view-container");
+		return tabViewContainer;
 	}
 
 	/**
@@ -140,54 +150,38 @@ public class MainWindow extends Div   {
 	 *         element's visibility, position and size is set with javascript
 	 *         (see reflect-resize.html)
 	 */
-	private Div createContentOverlay() {
+	private Div createOverlay() {
 		Div contentOverlay = new Div();
 		new StyleBuilder().setPosition(Position.FIXED).setDisplay(Display.NONE).setBackground(BLACK_WITH_OPACITY)
 				.setZIndex(Z_INDEX_CONTENT_OVERLAY).setCursor(Cursor.POINTER).setFor(contentOverlay);
-		contentOverlay.setId("content-overlay");
+		contentOverlay.setId("overlay");
 		return contentOverlay;
-	}
-
-	private Div createLoremIpsumText(Tab tab) {
-		Div loremIpsumText = new Div();
-		new StyleBuilder().setOverflow(Overflow.AUTO).setPadding(20).setFor(loremIpsumText);
-		StringBuilder text = new StringBuilder();
-		text.append(tab.getLabel());
-		text.append(": ");
-		for (int i = 0; i < 30; i++) {
-			text.append(
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut ante dolor. Integer sit amet efficitur lorem. Etiam scelerisque velit et elementum pulvinar. Phasellus eu nisi vel dui faucibus cursus ac luctus ipsum. Nam ullamcorper ex nisl. Donec lobortis sem ac bibendum ultrices. Ut ullamcorper facilisis consequat. Integer et lacus id urna venenatis placerat. Fusce gravida velit et maximus viverra.");
-			// Random rand = new Random();
-			// int totalNrOfNewLines = rand.nextInt(3);
-			// for (int nrOfNewLines = 0; nrOfNewLines < totalNrOfNewLines;
-			// ++nrOfNewLines) {
-			// text.append("<br/>");
-			// }
-		}
-		loremIpsumText.setText(text.toString());
-		return loremIpsumText;
 	}
 
 	/**
 	 * @return An header element. The header element is a placeholder (a
-	 *         container) for the title bar with tab headers. The header element and its children 
-	 *         will be repositioned and resized with javascript (see
-	 *         reflect-resize.html)
+	 *         container) for the title bar with tab headers. The header element
+	 *         and its children will be repositioned and resized with javascript
+	 *         (see reflect-resize.html)
 	 */
 	private HorizontalLayout createHeader() {
 		HorizontalLayout header = new HorizontalLayout();
 		header.setId("header");
 		header.getElement().removeAttribute("theme");
-		new StyleBuilder().setBackground(Color.LIGHT_GRAY).setOverflow(Overflow.HIDDEN).setWidth(100, SizeUnit.PERCENT).setHeight(55, SizeUnit.PX)
-				.setPadding(5, 5, 0, 5).setZIndex(Z_INDEX_HEADER).setFor(header);
+		new StyleBuilder().setBackground(Color.LIGHT_GRAY).setOverflow(Overflow.HIDDEN).setWidth(100, SizeUnit.PERCENT)
+				.setHeight(55, SizeUnit.PX).setPadding(5, 5, 0, 5).setZIndex(Z_INDEX_HEADER).setFor(header);
 
-		Button mainMenuButton = createMainMenuButton();//TODO improve button and icon appearance
+		Button mainMenuButton = createMainMenuButton();// TODO improve button
+														// and icon appearance
 		Span title = createTitle();
 		Tabs tabs = createTabs();
-		Button contextMenuButton = createContextMenuButton();//TODO improve button and icon appearance
+		Button contextMenuButton = createContextMenuButton();// TODO improve
+																// button and
+																// icon
+																// appearance
 
 		header.add(mainMenuButton, title, tabs, contextMenuButton);
-		header.setVerticalComponentAlignment(Alignment.CENTER, mainMenuButton, title,  contextMenuButton);
+		header.setVerticalComponentAlignment(Alignment.CENTER, mainMenuButton, title, contextMenuButton);
 		header.setVerticalComponentAlignment(Alignment.END, tabs);
 		return header;
 	}
@@ -195,7 +189,8 @@ public class MainWindow extends Div   {
 	private Button createContextMenuButton() {
 		Button contextMenuButton = new Button(new Icon(VaadinIcon.ELLIPSIS_DOTS_V));
 		contextMenuButton.setId("context-menu-button");
-		new StyleBuilder().setColor(Color.WHITE).setPosition(Position.ABSOLUTE).setRight(0,SizeUnit.PX ) .setFor(contextMenuButton);
+		new StyleBuilder().setColor(Color.WHITE).setPosition(Position.ABSOLUTE).setRight(0, SizeUnit.PX)
+				.setFor(contextMenuButton);
 		return contextMenuButton;
 	}
 
@@ -207,75 +202,81 @@ public class MainWindow extends Div   {
 	}
 
 	private Tabs createTabs() {
-//		Tab tab1 = new Tab("VaadinView one");
-//		Tab tab2 = new Tab("VaadinView two");
-//		Tab tab3 = new Tab("VaadinView three");
-//		tabsBar = new Tabs(tab1, tab2, tab3);
-
-//		tabsBar = new Tabs();
-//		tabsBar.setId("tab-headers");
-//		return tabsBar;
-		
 		Tab tab1 = new Tab("Tab one");
-		Div view1 = createLoremIpsumText(tab1);
+		LoremIpsumTabView view1 = new LoremIpsumTabView(tab1);
 
 		Tab tab2 = new Tab("Tab two");
-		Div view2 = createLoremIpsumText(tab2);
+		LoremIpsumTabView view2 = new LoremIpsumTabView(tab2);
 		view2.setVisible(false);
 
 		Tab tab3 = new Tab("Tab three");
-		Div view3 = createLoremIpsumText(tab3);
+		LoremIpsumTabView view3 = new LoremIpsumTabView(tab3);
 		view3.setVisible(false);
 
-		Map<Tab, Component> tabsToPages = new HashMap<>();
-		tabsToPages.put(tab1, view1);
-		tabsToPages.put(tab2, view2);
-		tabsToPages.put(tab3, view3);
+		tabsToViews = new HashMap<>();
+		tabsToViews.put(tab1, view1);
+		tabsToViews.put(tab2, view2);
+		tabsToViews.put(tab3, view3);
+
 		tabsBar = new Tabs(tab1, tab2, tab3);
 		tabsBar.setId("tab-headers");
-		
-		content.add(view1, view2, view3);
-		Set<Component> selectedView = Stream.of(view1)
-		        .collect(Collectors.toSet());
 
-		tabsBar.addSelectedChangeListener(event -> {
-		    selectedView.forEach(page -> page.setVisible(false));
-		    selectedView.clear();
-		    Component selectedPage = tabsToPages.get(tabsBar.getSelectedTab());
-		    selectedPage.setVisible(true);
-		    selectedView.add(selectedPage);
-		});
+		tabViewContainer.add(view1, view2, view3);
+		selectedTabView = Stream.of(view1).collect(Collectors.toSet());
+
+		tabsBar.addSelectedChangeListener(this::onSelectTab);
 		return tabsBar;
 	}
 
 	private Span createTitle() {
-		ReflectionProvider reflectionProvider=userInterfaceContainer.get(ReflectionProvider.class);
-		ApplicationInfo applicationInfo=reflectionProvider.getApplicationInfo();
+		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		ApplicationInfo applicationInfo = reflectionProvider.getApplicationInfo();
 		Span title = new Span(applicationInfo.getDisplayName());
 		title.setTitle(applicationInfo.getDescription());
 		title.setId("title");
-		new StyleBuilder().setColor(Color.WHITE).setOverflow(Overflow.HIDDEN).setFontSize(16, SizeUnit.PT).setFont("Roboto").setFor(title) ;
+		new StyleBuilder().setColor(Color.WHITE).setOverflow(Overflow.HIDDEN).setFontSize(16, SizeUnit.PT)
+				.setFont("Roboto").setFor(title);
 		return title;
 	}
 
-	public ViewContainer<VaadinView> getViewContainer() {
-		return viewContainer;
+	public ViewController<TabView> getTabViewController() {
+		return tabViewController;
 	}
 
-
-	public void onRemoveTab(VaadinView view) {
+	public void onRemoveTab(TabView view) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void onAddTab(VaadinView newView) {
-		// TODO Auto-generated method stub
-		
+	public void onAddTab(TabView newView) {
+		Tab tab = new Tab(newView.getViewTitle());
+		tabsToViews.put(tab, newView);
+		tabsBar.add(tab);
+		tabViewContainer.add(newView);
+		onSelectTab(null);
 	}
 
-	public void onSelectTab(VaadinView view) {
-		// TODO Auto-generated method stub
-		
+	public void onSelectTab(Tabs.SelectedChangeEvent event) {
+		Tab selectedTab = tabsBar.getSelectedTab();
+		TabView selectedView = tabsToViews.get(selectedTab);
+		onSelectTabView(selectedView);
+	}
+
+	/**
+	 * TODO: this method can be called by
+	 * {@link TabViewController#setSelectedView(TabView)}, e.g. when an existing
+	 * tabView should regain focus. In this case we should also select the tab
+	 * with
+	 * {@link #onSelectTab(com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent)},
+	 * but this would case a endless loop!!!!
+	 * 
+	 * @param selectedView
+	 */
+	public void onSelectTabView(TabView selectedView) {
+		selectedTabView.forEach(tabView -> tabView.setVisible(false));
+		selectedTabView.clear();
+		selectedView.setVisible(true);
+		selectedTabView.add(selectedView);
 	}
 
 }

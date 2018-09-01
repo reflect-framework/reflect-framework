@@ -9,10 +9,10 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.ui.swing.view.SwingView;
 
-public class SwingViewContainer2 extends JPanel implements ViewContainer<SwingView> {
+public class SwingViewContainer2 extends JPanel implements ViewController<SwingView> {
 
 	private static final long serialVersionUID = 1L;
 	private List<SwingView> views;

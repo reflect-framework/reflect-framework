@@ -11,14 +11,14 @@ import javax.swing.event.ChangeListener;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
 import nth.reflect.fw.ui.swing.style.SwingStyleConstant;
 import nth.reflect.fw.ui.swing.view.SwingView;
 
 @SuppressWarnings("serial")
-public class SwingViewContainer extends JTabbedPane implements ViewContainer<View> {
+public class SwingViewContainer extends JTabbedPane implements ViewController<View> {
 	private final UserInterfaceContainer userInterfaceContainer;
 
 	public SwingViewContainer(UserInterfaceContainer userInterfaceContainer) {

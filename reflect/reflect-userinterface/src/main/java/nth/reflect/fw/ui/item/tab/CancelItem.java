@@ -9,7 +9,7 @@ import javax.swing.KeyStroke;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
@@ -17,7 +17,7 @@ public class CancelItem extends Item {
 
 	private static final String CANCEL = "Cancel";
 
-	public CancelItem(LanguageProvider languageProvider, final ViewContainer<View> viewContainer,  final View tabToClose ) {
+	public CancelItem(LanguageProvider languageProvider, final ViewController<View> viewContainer,  final View tabToClose ) {
 		super(languageProvider);
 		setText(CANCEL);
 		setDescription(CANCEL);

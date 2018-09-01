@@ -13,7 +13,7 @@ import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -160,7 +160,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 							methodParameterValue);
 					// update current view (calling a method on a object is most
 					// likely to change its state
-					View selectedView = getViewContainer().getSelectedView();
+					View selectedView = getViewController().getSelectedView();
 					if (selectedView != null) {
 						selectedView.onViewActivate();
 					}
@@ -189,7 +189,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	public void openFormView(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		ViewContainer<T> viewContainer = getViewContainer();
+		ViewController<T> viewContainer = getViewController();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
 			T view = viewContainer.getView(i);
@@ -215,7 +215,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	public void openTableView(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		ViewContainer<T> viewContainer = getViewContainer();
+		ViewController<T> viewContainer = getViewController();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
 			T view = viewContainer.getView(i);
@@ -239,7 +239,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	public void openTreeTableView(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		ViewContainer<T> viewContainer = getViewContainer();
+		ViewController<T> viewContainer = getViewController();
 
 		for (int i = 0; i < viewContainer.getViewCount(); i++) {
 			T view = viewContainer.getView(i);
@@ -427,7 +427,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 
 	public void refresh() {
 		// refresh current view
-		View view = getViewContainer().getSelectedView();
+		View view = getViewController().getSelectedView();
 		if (view != null) {
 			view.onViewActivate();
 		}
@@ -467,7 +467,7 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	public abstract void downloadFile(DownloadStream downloadStream);
 
 	@SuppressWarnings("rawtypes")
-	public abstract ViewContainer getViewContainer();
+	public abstract ViewController getViewController();
 
 	// public abstract int getDisplayWidthInInches();
 

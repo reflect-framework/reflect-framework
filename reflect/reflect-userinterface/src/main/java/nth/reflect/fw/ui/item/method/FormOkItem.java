@@ -23,7 +23,7 @@ public class FormOkItem extends MethodItem {
 					domainValueModel.commit();
 				}
 				userInterfaceController.processActionMethodExecution(methodOwner, actionMethodInfo, domainValueModel.getValue());
-				userInterfaceController.getViewContainer().removeView(formView);
+				userInterfaceController.getViewController().removeView(formView);
 			}
 
 		});

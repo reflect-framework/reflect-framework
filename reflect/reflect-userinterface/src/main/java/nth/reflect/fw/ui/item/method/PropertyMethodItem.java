@@ -41,7 +41,7 @@ public class PropertyMethodItem extends MethodItem {
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				
- 				userInterfaceController.getViewContainer().setSelectedView(formView);
+ 				userInterfaceController.getViewController().setSelectedView(formView);
 				userInterfaceController.processActionMethod(propertyOwner, propertyMethodInfo, methodParameter);
 			}
 		};

@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -121,12 +121,12 @@ public class FormView extends SwingView implements
 		@SuppressWarnings("rawtypes")
 		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);
-		ViewContainer viewContainer = userInterfaceController
-				.getViewContainer();
+		ViewController viewController = userInterfaceController
+				.getViewController();
 		LanguageProvider languageProvider = userInterfaceContainer
 				.get(LanguageProvider.class);
 		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider,
-				viewContainer, this);
+				viewController, this);
 		return new ItemButton(closeItem);
 	}
 
@@ -134,11 +134,11 @@ public class FormView extends SwingView implements
 		@SuppressWarnings("rawtypes")
 		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);
-		ViewContainer viewContainer = userInterfaceController
-				.getViewContainer();
+		ViewController viewController = userInterfaceController
+				.getViewController();
 		LanguageProvider languageProvider = userInterfaceContainer
 				.get(LanguageProvider.class);
-		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer,
+		CancelItem cancelItem = new CancelItem(languageProvider, viewController,
 				this);
 		return new ItemButton(cancelItem);
 	}

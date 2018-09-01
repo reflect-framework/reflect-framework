@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.ui.vaadin10.mainwindow.MainWindow;
-import nth.reflect.ui.vaadin10.view.VaadinView;
+import nth.reflect.ui.vaadin10.view.TabView;
 
-public class VaadinViewContainer implements ViewContainer<VaadinView> {
+public class TabViewController implements ViewController<TabView> {
 
-	private final List<VaadinView> views;
+	private final List<TabView> views;
 	private View selectedView;
 	private final MainWindow mainWindow;
 
-	public VaadinViewContainer(MainWindow mainWindow) {
+	public TabViewController(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
-		views = new ArrayList<VaadinView>();
+		views = new ArrayList<TabView>();
 	}
 
 	@Override
@@ -25,18 +25,18 @@ public class VaadinViewContainer implements ViewContainer<VaadinView> {
 	}
 
 	@Override
-	public VaadinView getView(int index) {
+	public TabView getView(int index) {
 		return views.get(index);
 	}
 
 	@Override
-	public void setSelectedView(VaadinView view) {
+	public void setSelectedView(TabView view) {
 		if (!views.contains(view)) {
 			views.add(view);
 			mainWindow.onAddTab(view);
 		}
 		selectedView = view;
-		mainWindow.onSelectTab(view);
+		mainWindow.onSelectTabView(view);
 	}
 
 	@Override
@@ -45,13 +45,12 @@ public class VaadinViewContainer implements ViewContainer<VaadinView> {
 	}
 
 	@Override
-	public void addView(VaadinView newView) {
-		views.add(newView);
+	public void addView(TabView newView) {
 		setSelectedView(newView);
 	}
 
 	@Override
-	public void removeView(VaadinView view) {
+	public void removeView(TabView view) {
 		views.remove(view);
 		if (selectedView == view) {
 			if (views.size() == 0) {

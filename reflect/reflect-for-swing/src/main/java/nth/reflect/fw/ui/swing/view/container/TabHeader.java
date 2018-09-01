@@ -22,7 +22,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.tab.TabsItem;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
@@ -37,7 +37,7 @@ public class TabHeader extends JPanel {
 	private final Component tab;
 	public final LanguageProvider languageProvider;
 
-	public TabHeader( ViewContainer<?> viewContainer, LanguageProvider languageProvider,
+	public TabHeader( ViewController<?> viewContainer, LanguageProvider languageProvider,
 			final Component tab, final String title, final String description,
 			final Icon icon) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));

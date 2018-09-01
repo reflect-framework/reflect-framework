@@ -17,7 +17,7 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
@@ -35,7 +35,7 @@ import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.ui.vaadin10.mainwindow.MainWindow;
-import nth.reflect.ui.vaadin10.view.VaadinView;
+import nth.reflect.ui.vaadin10.view.TabView;
 
 /**
  * <p>
@@ -96,8 +96,8 @@ public class ReflectApplicationForVaadin extends Div implements ReflectApplicati
 		add(mainWindow);
 	}
 
-	public ViewContainer<VaadinView> getViewContainer() {
-		return mainWindow.getViewContainer();
+	public MainWindow getMainWindow() {
+		return mainWindow;
 	}
 
 	@Override
@@ -154,5 +154,6 @@ public class ReflectApplicationForVaadin extends Div implements ReflectApplicati
 	public List<Class<?>> getInfrastructureClasses() {
 		return Arrays.asList(ProductRepository.class);
 	}
+
 
 }

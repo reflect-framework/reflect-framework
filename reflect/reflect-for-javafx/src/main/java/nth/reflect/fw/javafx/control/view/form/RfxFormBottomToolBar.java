@@ -38,7 +38,7 @@ public class RfxFormBottomToolBar extends RfxContentBottomToolbar {
 			UserInterfaceContainer userInterfaceContainer, RfxFormView formView) {
 		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(RfxUserinterfaceController.class);
-		RfxViewContainer viewContainer = userInterfaceController.getViewContainer();
+		RfxViewContainer viewContainer = userInterfaceController.getViewController();
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		CancelItem cancelItem = new CancelItem(languageProvider, viewContainer, formView);
 		RfxContentBottomToolbarButton cancelButton = new RfxContentBottomToolbarButton(cancelItem);

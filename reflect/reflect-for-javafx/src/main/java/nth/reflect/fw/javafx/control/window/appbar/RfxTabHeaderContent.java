@@ -84,7 +84,7 @@ public class RfxTabHeaderContent extends HBox {
 		UserInterfaceContainer userInterfaceContainer = rfxWindow.getUserInterfaceContainer();
 		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(RfxUserinterfaceController.class);
-		RfxViewContainer viewContainer = userInterfaceController.getViewContainer();
+		RfxViewContainer viewContainer = userInterfaceController.getViewController();
 		viewContainer.setSelectedView(tab);
 	}
 	private void onCloseButtonPressed(ActionEvent event) {
@@ -96,7 +96,7 @@ public class RfxTabHeaderContent extends HBox {
 		UserInterfaceContainer userInterfaceContainer = rfxWindow.getUserInterfaceContainer();
 		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(RfxUserinterfaceController.class);
-		RfxViewContainer viewContainer = userInterfaceController.getViewContainer();
+		RfxViewContainer viewContainer = userInterfaceController.getViewController();
 		viewContainer.removeView(tab);
 	}
 

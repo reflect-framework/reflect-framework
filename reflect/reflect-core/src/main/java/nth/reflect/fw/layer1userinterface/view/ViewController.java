@@ -1,6 +1,6 @@
 package nth.reflect.fw.layer1userinterface.view;
 
-public interface ViewContainer<T> {
+public interface ViewController<T> {
 
 	public int getViewCount();
 	public T getView(int index);

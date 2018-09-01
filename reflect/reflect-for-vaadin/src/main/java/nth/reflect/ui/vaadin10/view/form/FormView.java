@@ -5,9 +5,9 @@ import java.net.URL;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.ui.vaadin10.view.VaadinView;
+import nth.reflect.ui.vaadin10.view.TabView;
 
-public class FormView extends VaadinView {
+public class FormView extends TabView {
 
 	public FormView(UserInterfaceContainer userInterfaceContainer, Object serviceObject,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {

@@ -5,19 +5,19 @@ import java.net.URL;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 
 public class CloseAllTabsItem extends Item {
 
 	private static final String CLOSE_ALL_TABS = "Close all tabs";
-	private final ViewContainer<View> viewContainer;
+	private final ViewController<View> viewController;
 
 	public CloseAllTabsItem(LanguageProvider languageProvider,
-			final ViewContainer<View> viewContainer) {
+			final ViewController<View> viewContainer) {
 		super(languageProvider);
-		this.viewContainer = viewContainer;
+		this.viewController = viewContainer;
 		setText(CLOSE_ALL_TABS);
 		setDescription(CLOSE_ALL_TABS);
 		try {
@@ -38,7 +38,7 @@ public class CloseAllTabsItem extends Item {
 
 	@Override
 	public boolean isEnabled() {
-		return viewContainer.getViewCount() > 1;
+		return viewController.getViewCount() > 1;
 	}
 
 }

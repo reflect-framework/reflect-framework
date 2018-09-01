@@ -3,13 +3,13 @@ package nth.reflect.fw.javafx;
 import javafx.application.Platform;
 import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewContainer;
+import nth.reflect.fw.layer1userinterface.view.ViewController;
 /**
- * ViewContainer (adapter on {@link RfxWindow})
+ * ViewController (adapter on {@link RfxWindow})
  * @author nilsth
  *
  */
-public class RfxViewContainer implements ViewContainer<View> {
+public class RfxViewContainer implements ViewController<View> {
 	
 
 	private RfxWindow rfxWindow;
