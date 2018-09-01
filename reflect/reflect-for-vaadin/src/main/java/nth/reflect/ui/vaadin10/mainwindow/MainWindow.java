@@ -1,10 +1,13 @@
 package nth.reflect.ui.vaadin10.mainwindow;
 
 import java.awt.Color;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -23,7 +26,10 @@ import com.vaadin.flow.component.tabs.Tabs;
 import javafx.scene.control.TreeItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer1userinterface.view.ViewContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
 import nth.reflect.fw.ui.item.ItemFactory;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.ui.vaadin10.css.Cursor;
@@ -32,6 +38,8 @@ import nth.reflect.ui.vaadin10.css.Overflow;
 import nth.reflect.ui.vaadin10.css.Position;
 import nth.reflect.ui.vaadin10.css.SizeUnit;
 import nth.reflect.ui.vaadin10.css.StyleBuilder;
+import nth.reflect.ui.vaadin10.view.VaadinView;
+import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
 
 /**
  * The {@link MainWindow} represents the Graphical User Interface with
@@ -51,14 +59,19 @@ public class MainWindow extends Div   {
 	private static final int Z_INDEX_CONTENT_OVERLAY = Z_INDEX_MAIN_MENU;
 	private static final Color BLACK_WITH_OPACITY = new Color(0f, 0f, 0f, 0.5f);
 	private final UserInterfaceContainer userInterfaceContainer;
+	private final ViewContainer<VaadinView> viewContainer;
+	private Tabs tabsBar;
+	private Div content;
 
 	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer=userInterfaceContainer;
-		HorizontalLayout header = createHeader();
 		Div mainMenu = createMainMenu();
 		Div content = createContent();
 		Div contentOverlay = createContentOverlay();
+		HorizontalLayout header = createHeader();
 		add(header, mainMenu, content, contentOverlay);
+		
+		viewContainer=new VaadinViewContainer(this);
 	}
 
 	/**
@@ -114,10 +127,10 @@ public class MainWindow extends Div   {
 	 *         reflect-resize.html)
 	 */
 	private Div createContent() {
-		Div content = new Div();
+		content = new Div();
 		content.setId("content");
-		Div loremIpsumText = createLoremIpsumText();
-		content.add(loremIpsumText);
+//		Div loremIpsumText = createLoremIpsumText();
+//		content.add(loremIpsumText);
 		return content;
 	}
 
@@ -135,10 +148,12 @@ public class MainWindow extends Div   {
 		return contentOverlay;
 	}
 
-	private Div createLoremIpsumText() {
+	private Div createLoremIpsumText(Tab tab) {
 		Div loremIpsumText = new Div();
 		new StyleBuilder().setOverflow(Overflow.AUTO).setPadding(20).setFor(loremIpsumText);
 		StringBuilder text = new StringBuilder();
+		text.append(tab.getLabel());
+		text.append(": ");
 		for (int i = 0; i < 30; i++) {
 			text.append(
 					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut ante dolor. Integer sit amet efficitur lorem. Etiam scelerisque velit et elementum pulvinar. Phasellus eu nisi vel dui faucibus cursus ac luctus ipsum. Nam ullamcorper ex nisl. Donec lobortis sem ac bibendum ultrices. Ut ullamcorper facilisis consequat. Integer et lacus id urna venenatis placerat. Fusce gravida velit et maximus viverra.");
@@ -192,19 +207,75 @@ public class MainWindow extends Div   {
 	}
 
 	private Tabs createTabs() {
-		Tab tab1 = new Tab("VaadinView one");
-		Tab tab2 = new Tab("VaadinView two");
-		Tab tab3 = new Tab("VaadinView three");
-		Tabs tabs = new Tabs(tab1, tab2, tab3);
-		tabs.setId("tab-headers");
-		return tabs;
+//		Tab tab1 = new Tab("VaadinView one");
+//		Tab tab2 = new Tab("VaadinView two");
+//		Tab tab3 = new Tab("VaadinView three");
+//		tabsBar = new Tabs(tab1, tab2, tab3);
+
+//		tabsBar = new Tabs();
+//		tabsBar.setId("tab-headers");
+//		return tabsBar;
+		
+		Tab tab1 = new Tab("Tab one");
+		Div view1 = createLoremIpsumText(tab1);
+
+		Tab tab2 = new Tab("Tab two");
+		Div view2 = createLoremIpsumText(tab2);
+		view2.setVisible(false);
+
+		Tab tab3 = new Tab("Tab three");
+		Div view3 = createLoremIpsumText(tab3);
+		view3.setVisible(false);
+
+		Map<Tab, Component> tabsToPages = new HashMap<>();
+		tabsToPages.put(tab1, view1);
+		tabsToPages.put(tab2, view2);
+		tabsToPages.put(tab3, view3);
+		tabsBar = new Tabs(tab1, tab2, tab3);
+		tabsBar.setId("tab-headers");
+		
+		content.add(view1, view2, view3);
+		Set<Component> selectedView = Stream.of(view1)
+		        .collect(Collectors.toSet());
+
+		tabsBar.addSelectedChangeListener(event -> {
+		    selectedView.forEach(page -> page.setVisible(false));
+		    selectedView.clear();
+		    Component selectedPage = tabsToPages.get(tabsBar.getSelectedTab());
+		    selectedPage.setVisible(true);
+		    selectedView.add(selectedPage);
+		});
+		return tabsBar;
 	}
 
 	private Span createTitle() {
-		Span title = new Span("Reflect for Vaadin10"+LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME));
+		ReflectionProvider reflectionProvider=userInterfaceContainer.get(ReflectionProvider.class);
+		ApplicationInfo applicationInfo=reflectionProvider.getApplicationInfo();
+		Span title = new Span(applicationInfo.getDisplayName());
+		title.setTitle(applicationInfo.getDescription());
 		title.setId("title");
 		new StyleBuilder().setColor(Color.WHITE).setOverflow(Overflow.HIDDEN).setFontSize(16, SizeUnit.PT).setFont("Roboto").setFor(title) ;
 		return title;
+	}
+
+	public ViewContainer<VaadinView> getViewContainer() {
+		return viewContainer;
+	}
+
+
+	public void onRemoveTab(VaadinView view) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onAddTab(VaadinView newView) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onSelectTab(VaadinView view) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

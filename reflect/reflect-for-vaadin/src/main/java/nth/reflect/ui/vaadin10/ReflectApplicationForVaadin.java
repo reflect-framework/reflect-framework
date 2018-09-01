@@ -35,7 +35,7 @@ import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.ui.vaadin10.mainwindow.MainWindow;
-import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
+import nth.reflect.ui.vaadin10.view.VaadinView;
 
 /**
  * <p>
@@ -88,14 +88,16 @@ import nth.reflect.ui.vaadin10.view.container.VaadinViewContainer;
 public class ReflectApplicationForVaadin extends Div implements ReflectApplication {
 
 	private final UserInterfaceContainer userInterfaceContainer;
+	private final MainWindow mainWindow;	
 
 	public ReflectApplicationForVaadin() {
 		userInterfaceContainer = ReflectFramework.launch(this);
-		add(new MainWindow(userInterfaceContainer));
+		mainWindow = new MainWindow(userInterfaceContainer);
+		add(mainWindow);
 	}
 
-	public ViewContainer<nth.reflect.ui.vaadin10.view.VaadinView> getViewContainer() {
-		return new VaadinViewContainer(this);
+	public ViewContainer<VaadinView> getViewContainer() {
+		return mainWindow.getViewContainer();
 	}
 
 	@Override

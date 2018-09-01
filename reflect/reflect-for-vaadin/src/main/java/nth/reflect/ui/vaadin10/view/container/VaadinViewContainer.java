@@ -5,15 +5,17 @@ import java.util.List;
 
 import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer1userinterface.view.ViewContainer;
-import nth.reflect.ui.vaadin10.ReflectApplicationForVaadin;
+import nth.reflect.ui.vaadin10.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin10.view.VaadinView;
 
 public class VaadinViewContainer implements ViewContainer<VaadinView> {
 
 	private final List<VaadinView> views;
 	private View selectedView;
+	private final MainWindow mainWindow;
 
-	public VaadinViewContainer(ReflectApplicationForVaadin reflectApplicationForVaadin) {
+	public VaadinViewContainer(MainWindow mainWindow) {
+		this.mainWindow = mainWindow;
 		views = new ArrayList<VaadinView>();
 	}
 
@@ -28,12 +30,13 @@ public class VaadinViewContainer implements ViewContainer<VaadinView> {
 	}
 
 	@Override
-	public void setSelectedView(VaadinView newView) {
-		if (!views.contains(newView)) {
-			views.add(newView);
+	public void setSelectedView(VaadinView view) {
+		if (!views.contains(view)) {
+			views.add(view);
+			mainWindow.onAddTab(view);
 		}
-		selectedView = newView;
-		update();
+		selectedView = view;
+		mainWindow.onSelectTab(view);
 	}
 
 	@Override
@@ -57,12 +60,8 @@ public class VaadinViewContainer implements ViewContainer<VaadinView> {
 				selectedView = views.get(views.size() - 1);
 			}
 		}
-		update();
+		mainWindow.onRemoveTab(view);
 	}
 
-	private void update() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
