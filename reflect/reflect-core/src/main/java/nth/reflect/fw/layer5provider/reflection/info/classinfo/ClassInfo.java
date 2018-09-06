@@ -3,6 +3,7 @@ package nth.reflect.fw.layer5provider.reflection.info.classinfo;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import nth.reflect.fw.generic.filter.Filter;
 import nth.reflect.fw.generic.filter.FilterUtil;
@@ -23,8 +24,6 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfoFactory;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfoFactory;
-import nth.reflect.fw.layer5provider.reflection.info.property.TableVisibleFilter;
-import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 
 /**
  * Provides information on a {@link ServiceObject} or {@link DomainObject}.<br>
@@ -47,25 +46,21 @@ public class ClassInfo implements NameInfo {
 	private final ServiceObjectChildrenModel serviceObjectChildrenModel;
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
-		LanguageProvider languageProvider = providerContainer
-				.get(LanguageProvider.class);
-		ReflectionProvider reflectionProvider = providerContainer
-				.get(ReflectionProvider.class);
-		//PathProvider pathProvider = providerContainer.get(PathProvider.class);
+		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
+		ReflectionProvider reflectionProvider = providerContainer.get(ReflectionProvider.class);
+		// PathProvider pathProvider =
+		// providerContainer.get(PathProvider.class);
 		this.simpleName = objectClass.getSimpleName();
 		this.canonicalName = objectClass.getCanonicalName();
 		this.objectClass = objectClass;
-		this.displayNameModel = new DisplayNameModel(languageProvider,
-				objectClass, simpleName, canonicalName);
-		this.descriptionModel = new DescriptionModel(languageProvider,
-				objectClass, simpleName, canonicalName);
+		this.displayNameModel = new DisplayNameModel(languageProvider, objectClass, simpleName, canonicalName);
+		this.descriptionModel = new DescriptionModel(languageProvider, objectClass, simpleName, canonicalName);
 		this.titleModel = new TitleModel(reflectionProvider);
 		this.fontIconModel = FontIconModelFactory.create(objectClass);
-		this.serviceObjectChildrenModel=new ServiceObjectChildrenModel(providerContainer, objectClass);
+		this.serviceObjectChildrenModel = new ServiceObjectChildrenModel(providerContainer, objectClass);
 		this.validationMethods = ValidationMethodFactory.create(objectClass);
-		this.propertyInfosSorted = PropertyInfoFactory.createSorted(
-				providerContainer, objectClass);
-		this.actionMethodInfosSorted= ActionMethodInfoFactory.createSorted(providerContainer, this);
+		this.propertyInfosSorted = PropertyInfoFactory.createSorted(providerContainer, objectClass);
+		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, this);
 	}
 
 	@Override
@@ -112,8 +107,8 @@ public class ClassInfo implements NameInfo {
 	}
 
 	public List<PropertyInfo> getPropertyInfosSortedAnsVisibleInTable() {
-		List<PropertyInfo> sortedPropertyInfosVisibleInTable = FilterUtil
-				.filter(propertyInfosSorted, new TableVisibleFilter());
+		List<PropertyInfo> sortedPropertyInfosVisibleInTable = propertyInfosSorted.stream()
+				.filter(propertyInfo -> propertyInfo.isVisibleInTable()).collect(Collectors.toList());
 		return sortedPropertyInfosVisibleInTable;
 	}
 
@@ -138,11 +133,9 @@ public class ClassInfo implements NameInfo {
 		}
 		return null;
 	}
-	
-	public List<ActionMethodInfo> getActionMethodInfos(
-			Filter<ActionMethodInfo> methodInfoFilter) {
-		List<ActionMethodInfo> foundMethodInfos = FilterUtil.filter(actionMethodInfosSorted,
-				methodInfoFilter);
+
+	public List<ActionMethodInfo> getActionMethodInfos(Filter<ActionMethodInfo> methodInfoFilter) {
+		List<ActionMethodInfo> foundMethodInfos = FilterUtil.filter(actionMethodInfosSorted, methodInfoFilter);
 		return foundMethodInfos;
 	}
 

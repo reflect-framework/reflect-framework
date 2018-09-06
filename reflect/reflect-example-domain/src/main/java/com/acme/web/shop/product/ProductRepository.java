@@ -1,17 +1,31 @@
 package com.acme.web.shop.product;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import nth.reflect.fw.infrastructure.randomfactory.RandomListFactory;
 
 public class ProductRepository {
 
+	private final List<Product> products;
+
+	public ProductRepository() {
+		RandomListFactory<Product> randomProductListFactory = new RandomListFactory<Product>(20, 50,
+				new RandomProductFactory());
+		products = randomProductListFactory.create();
+	}
+
 	public List<Product> findProduct(ProductSearchCritiria searchCritiria) {
-		// TODO Auto-generated method stub
-		return null;
+		String searchString = searchCritiria.getSearch().toLowerCase();
+		return products.stream()
+				.filter(p -> p.getName().toLowerCase().contains(searchString)
+						|| p.getCode().toLowerCase().contains(searchString)
+						|| p.getDetails().toLowerCase().contains(searchString))
+				.collect(Collectors.toList());
 	}
 
 	public List<Product> bestSellingProducts() {
-		// TODO Auto-generated method stub
-		return null;
+		return products;
 	}
 
 }

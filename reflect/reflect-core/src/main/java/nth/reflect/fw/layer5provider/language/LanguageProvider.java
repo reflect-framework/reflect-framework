@@ -8,6 +8,7 @@ import nth.reflect.fw.container.ConstructionInjection;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
@@ -84,16 +85,25 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  */
 
 public interface LanguageProvider extends Provider {
-	public Locale getDefaultLocale();
+	Locale getDefaultLocale();
 
-	public String getKey(Object obj);
+	String getKey(String text);
 
-	public String getDefaultValue(String key);
+	String getKey(Enum<?> enumeration);
 
-	public String getText(String defaultText);
+	String getKey(Class<?> clasz);
 
-	public String getText(String key, String defaultText);
+	String getKey(NameInfo nameInfo);
 
-	public String getText(Locale locale, String key, String defaultText);
+	String getKey(Object obj);
+
+	String getDefaultValueFromKey(String key);
+
+	String getText(String defaultText);
+
+	String getText(String key, String defaultText);
+
+	String getText(Locale locale, String key, String defaultText);
+
 
 }

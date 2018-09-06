@@ -1,6 +1,10 @@
 package nth.reflect.fw.generic.exception;
 
-
+/**
+ * @deprecated use {@link ReflectTranslatableException}
+ * @author nilsth
+ *
+ */
 public class TypeNotSupportedException extends ReflectException {
 
 	private static final long serialVersionUID = 2460695691202447353L;

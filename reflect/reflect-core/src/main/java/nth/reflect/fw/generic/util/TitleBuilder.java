@@ -34,6 +34,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.NumericForm
  * @author nilsth
  * 
  */
+
+//TODO would be nice if there would be a static method to get an cashed instance for performance
 public class TitleBuilder {
 
 	private static final String COMMA_SPACE_SEPARATOR = ", ";

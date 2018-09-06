@@ -266,19 +266,19 @@ public abstract class GraphicalUserinterfaceController<T extends View>
 	 * need to call
 	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
 	 * 
-	 * @param serviceObject
+	 * @param actionMethodOwner
 	 * @param actionMethodInfo
 	 * @param methodParameterValue
 	 * @param domainObject
 	 * @return
 	 */
-	public abstract T createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public abstract T createFormView(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode);
 
-	public abstract T createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public abstract T createTableView(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue);
 
-	public abstract T createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public abstract T createTreeTableView(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue);
 
 	// TODO public abstract T createMenuView();

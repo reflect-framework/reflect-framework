@@ -28,6 +28,7 @@
 		<module>reflect-for-javafx-demo</module>
 		<module>reflect-example-domain2</module>
 		<module>reflect-for-vaadin</module>
+		<module>reflect-infrastructure-random-factory</module>
 	</modules>
 
 

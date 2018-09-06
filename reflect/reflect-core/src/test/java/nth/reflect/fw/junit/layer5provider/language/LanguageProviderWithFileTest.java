@@ -11,7 +11,6 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.junit.layer5provider.validation.Address;
 import nth.reflect.fw.junit.layer5provider.validation.Country;
-import nth.reflect.fw.layer5provider.language.IllegalKeyFormat;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
@@ -55,17 +54,13 @@ public class LanguageProviderWithFileTest {
 		assertEquals(COM_ACME_LABEL1, key);
 	}
 
-	@Test (expected=IllegalKeyFormat.class)
-	public void getKeyInvalid() {
-		languageProvider.getKey("bogus key");
-	}
 	
 	@Test
 	public void getDefaultValue() {
-		String defaultValue=languageProvider.getDefaultValue(COM_ACME_LABEL1);
+		String defaultValue=languageProvider.getDefaultValueFromKey(COM_ACME_LABEL1);
 		assertEquals("Label1", defaultValue);
 		
-		defaultValue=languageProvider.getDefaultValue("closeApplication");
+		defaultValue=languageProvider.getDefaultValueFromKey("closeApplication");
 		assertEquals(CLOSE_APPLICATION, defaultValue);
 	}
 

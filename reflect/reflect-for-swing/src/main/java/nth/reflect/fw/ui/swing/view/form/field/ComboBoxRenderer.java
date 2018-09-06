@@ -23,7 +23,7 @@ public class ComboBoxRenderer extends DefaultListCellRenderer {
 		if (value!=null && value.getClass().isEnum()) {
 			//set item text
 			String key = languageProvider.getKey(value);
-			String defaultValue = languageProvider.getDefaultValue(key);
+			String defaultValue = languageProvider.getDefaultValueFromKey(key);
 			String text = languageProvider.getText(key, defaultValue);
 			setText(text);
 			//TODO? setToolTipText();

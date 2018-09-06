@@ -50,7 +50,7 @@ public class StringConverter {
 
 	private static String fromEnum(Object value, LanguageProvider languageProvider) {
 		String key = languageProvider.getKey(value);
-		String defaultValue = languageProvider.getDefaultValue(key);
+		String defaultValue = languageProvider.getDefaultValueFromKey(key);
 		return  languageProvider.getText(key, defaultValue);
 	}
 

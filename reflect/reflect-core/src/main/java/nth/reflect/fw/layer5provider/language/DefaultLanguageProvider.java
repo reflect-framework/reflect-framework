@@ -1,9 +1,5 @@
 package nth.reflect.fw.layer5provider.language;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -43,23 +39,45 @@ public class DefaultLanguageProvider implements LanguageProvider {
 
 	@Override
 	public String getKey(Object obj) {
-		String key = null;
-		if (obj instanceof NameInfo) {
-			NameInfo nameInfo = (NameInfo) obj;
-			key = nameInfo.getCanonicalName();
-		} else if (obj instanceof Class<?>) {
-			Class<?> claz = (Class<?>) obj;
-			key = claz.getCanonicalName();
-		} else if (obj.getClass().isEnum()) {
-			String enumName = ((Enum<?>)obj).name();
-			key = obj.getClass().getCanonicalName() + "." + enumName.toString();
-		} else {
-			key = obj.toString();
+		return getKey(obj.toString());
+	}
+	
+	@Override
+	public String getKey(NameInfo nameInfo) {
+		return nameInfo.getCanonicalName();
+	}
+	
+	@Override
+	public String getKey(Class<?> clasz) {
+		return clasz.getCanonicalName();
+	}
+	
+	@Override
+	public String getKey(Enum<?> enumeration) {
+		String enumName = enumeration.name();
+		return enumeration.getClass().getCanonicalName() + "." + enumName.toString();
+	}
+
+	@Override
+	public String getKey(String text) {
+		StringBuilder key=new StringBuilder();
+		boolean lastCharIsDot = false;
+		for (int i=0;i<text.length();i++) {
+			boolean isLastChar = i==text.length();
+			char ch=text.charAt(i);
+			if (isValidKeyChar(ch)) {
+				key.append(ch);
+				lastCharIsDot=ch=='.';
+			} else if (! lastCharIsDot &&! isLastChar) {
+				key.append('.');
+			}
 		}
-		if (!key.matches("[a-zA-Z0-9._]+")) {
-			throw new IllegalKeyFormat(key);
-		}
-		return key;
+		return text;
+	}
+	
+	
+	private boolean isValidKeyChar(char ch) {
+		return Character.isLetter(ch)||Character.isDigit(ch);
 	}
 
 	@Override
@@ -74,16 +92,11 @@ public class DefaultLanguageProvider implements LanguageProvider {
 
 	public String getText(Locale locale, String key, String defaultText) {
 		String text = null;
-		// check default text
-		if (defaultText == null || defaultText.length() == 0) {
-			throw new IllegalArgumentException("Invalid default text");
-		}
 		// check key
 		if (key == null || key.length() == 0 || key.contains(" ")) {
-			key = StringUtil.convertToCamelCase(defaultText, false);
-		} else if (key.contains(" ")) {
-			throw new IllegalArgumentException("Invalid key");
-		}
+			key = getKey(defaultText);
+		} 
+		
 		// try to get text
 		try {
 			ResourceBundle resourceBundle = ResourceBundle.getBundle(
@@ -93,59 +106,52 @@ public class DefaultLanguageProvider implements LanguageProvider {
 		}
 		// found it?
 		if (text == null) {
-			// TODO reactivate the following 2 lines
-			// store new key with value in language file(s)
-			// appendToLanguageFile(locale, key, defaultText);
-			// reload all language files
-			// ResourceBundle.clearCache();
-			// return default value
 			return defaultText;
 		} else {
-			// return found value
 			return text;
 		}
 	}
 
-	public void appendToLanguageFile(Locale locale, String key,
-			String defaultValue) {
-		File file = getLanguageFile(locale);
-		SortedProperties properties = new SortedProperties();
-		try {
-			properties.load(new FileInputStream(file));
-		} catch (Exception e) {
-			// File did not exist. We will create a new file when needed. No big
-			// deal.
-		}
-		// add property
-		properties.put(key, defaultValue);
+//	public void appendToLanguageFile(Locale locale, String key,
+//			String defaultValue) {
+//		File file = getLanguageFile(locale);
+//		SortedProperties properties = new SortedProperties();
+//		try {
+//			properties.load(new FileInputStream(file));
+//		} catch (Exception e) {
+//			// File did not exist. We will create a new file when needed. No big
+//			// deal.
+//		}
+//		// add property
+//		properties.put(key, defaultValue);
+//
+//		// store modified language file
+//		try {
+//			properties.store(new FileOutputStream(file),
+//					getLanguageFileComments());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		// also store for default locale
+//		Locale defaultLocale = getDefaultLocale();
+//		if (locale != defaultLocale) {
+//			appendToLanguageFile(defaultLocale, key, defaultValue);
+//		}
+//
+//	}
 
-		// store modified language file
-		try {
-			properties.store(new FileOutputStream(file),
-					getLanguageFileComments());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// also store for default locale
-		Locale defaultLocale = getDefaultLocale();
-		if (locale != defaultLocale) {
-			appendToLanguageFile(defaultLocale, key, defaultValue);
-		}
-
-	}
-
-	private File getLanguageFile(Locale locale) {
-		StringBuffer resourceName = new StringBuffer(PREFIX_LANGUAGE_FILE);
-		resourceName.append("_");
-		resourceName.append(locale.getLanguage());
-		resourceName.append(".properties");
-		URL propertyFileURL = resourceBundleClassLoader
-				.findResource(resourceName.toString());
-		return new File(propertyFileURL.getFile());
-	}
+//	private File getLanguageFile(Locale locale) {
+//		StringBuffer resourceName = new StringBuffer(PREFIX_LANGUAGE_FILE);
+//		resourceName.append("_");
+//		resourceName.append(locale.getLanguage());
+//		resourceName.append(".properties");
+//		URL propertyFileURL = resourceBundleClassLoader
+//				.findResource(resourceName.toString());
+//		return new File(propertyFileURL.getFile());
+//	}
 
 	@Override
-	public String getDefaultValue(String key) {
+	public String getDefaultValueFromKey(String key) {
 		String value = null;
 		if (key.contains(DOT)) {
 			value = key.substring(key.lastIndexOf(DOT) + 1);
