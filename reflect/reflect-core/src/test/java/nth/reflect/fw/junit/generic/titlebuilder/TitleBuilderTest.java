@@ -2,6 +2,8 @@ package nth.reflect.fw.junit.generic.titlebuilder;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 import org.junit.Test;
@@ -10,6 +12,8 @@ import nth.reflect.fw.generic.util.TitleBuilder;
 
 public class TitleBuilderTest {
 
+	private static final String CURRENCY_FORMAT = "#.## €";
+	private static final String FORMATED_CURRENCY = "123,26 €";
 	private static final String FORMATED_DATE = "1970-01-01";
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 	private static final String SEPARATOR = "-";
@@ -130,7 +134,7 @@ public class TitleBuilderTest {
 
 		titleBuilder.append(date,DATE_FORMAT);
 		assertEquals(FORMATED_DATE+DEFAULT_SEPARATOR+FORMATED_DATE, titleBuilder.toString());
-
+	
 	}
 
 	@Test
@@ -166,6 +170,11 @@ public class TitleBuilderTest {
 
 		titleBuilder.append(number,NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER+DEFAULT_SEPARATOR+FORMATED_NUMBER, titleBuilder.toString());
+		
+		titleBuilder=new TitleBuilder();
+		titleBuilder.append(new BigDecimal("123.256").setScale(2, RoundingMode.HALF_UP),CURRENCY_FORMAT);
+		assertEquals(FORMATED_CURRENCY, titleBuilder.toString());
+
 	}
 
 	@Test
