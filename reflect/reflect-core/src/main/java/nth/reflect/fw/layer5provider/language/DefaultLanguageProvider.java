@@ -103,6 +103,7 @@ public class DefaultLanguageProvider implements LanguageProvider {
 					PREFIX_LANGUAGE_FILE, locale, resourceBundleClassLoader);
 			text = resourceBundle.getString(key);
 		} catch (Throwable e) {
+			e.printStackTrace();
 		}
 		// found it?
 		if (text == null) {

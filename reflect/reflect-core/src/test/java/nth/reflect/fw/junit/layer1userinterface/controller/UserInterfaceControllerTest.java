@@ -44,13 +44,13 @@ public class UserInterfaceControllerTest {
 		assertNotNull(methodInfo);
 		controller.processActionMethod(serviceObject, methodInfo, null);
 		List<String> events = controller.getEvents();
-		assertEquals("processActionMethod(ServiceObject, nth.reflect.fw.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, null)", events.get(0));
-		assertEquals("editActionMethodParameter(ServiceObject, nth.reflect.fw.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, DomainObject)", events.get(1));
+		assertEquals("processActionMethod(ServiceObject, nth.reflect.fw.junit.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, null)", events.get(0));
+		assertEquals("editActionMethodParameter(ServiceObject, nth.reflect.fw.junit.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, DomainObject)", events.get(1));
 
 		controller.processActionMethod(serviceObject, methodInfo, domainObject);
 		events = controller.getEvents();
-		assertEquals("processActionMethod(ServiceObject, nth.reflect.fw.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, DomainObject)", events.get(0));
-		assertEquals("editActionMethodParameter(ServiceObject, nth.reflect.fw.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, DomainObject)", events.get(1));
+		assertEquals("processActionMethod(ServiceObject, nth.reflect.fw.junit.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, DomainObject)", events.get(0));
+		assertEquals("editActionMethodParameter(ServiceObject, nth.reflect.fw.junit.layer1userinterface.controller.UserInterfaceControllerTestServiceObject.editActionMethodDomainParameter, DomainObject)", events.get(1));
 
 	//TODO verify editActionMethodWithoutParameter
 	}

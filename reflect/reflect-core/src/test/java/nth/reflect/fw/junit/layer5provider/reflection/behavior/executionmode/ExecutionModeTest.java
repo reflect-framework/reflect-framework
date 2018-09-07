@@ -18,9 +18,7 @@ public class ExecutionModeTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit() {
-
-		};
+		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit();
 		DependencyInjectionContainer container = application.createContainer();
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		classInfo=reflectionProvider.getClassInfo(ExecutionModeTestObject.class);

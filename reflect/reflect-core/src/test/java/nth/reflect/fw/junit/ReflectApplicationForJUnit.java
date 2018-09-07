@@ -10,6 +10,7 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.documentation.ReflectArchitecture;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.UserInterfaceLayer;
+import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
@@ -25,7 +26,9 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
+import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
@@ -39,7 +42,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <li>Does not have a {@link UserInterfaceLayer}, because it is not needed for
  * testing. None of the {@link ServiceObject}s, {@link DomainObject}'s
  * {@link InfrastructureObject}, {@link Provider} Objects that you create or
- * maintain do know the User Interface (see {@link ReflectArchitecture}). We
+ * maintain do know the UserTestObject Interface (see {@link ReflectArchitecture}). We
  * do not need to test the {@link ReflectFramework} {@link UserInterfaceLayer} if we
  * assume it works as it should.</li>
  * <li>You only need to register the classes that need testing. You register
@@ -185,7 +188,7 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class);
+		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class);
 	}
-
+	
 }

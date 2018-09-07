@@ -24,14 +24,7 @@ public class LanguageProviderWithFileTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit() {
-//FIXME: test will fail
-			//			@Override
-//			public Class<? extends PathProvider> getPathProviderClass() {
-//				return LanguageProviderTestPathProvider.class;
-//			}
-			
-		};
+		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit() ;
 		DependencyInjectionContainer container = application.createContainer();
 		languageProvider= container.get(LanguageProvider.class);
 		reflectionProvider=container.get(ReflectionProvider.class);

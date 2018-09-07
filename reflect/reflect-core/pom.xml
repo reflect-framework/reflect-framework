@@ -10,8 +10,7 @@
 	<artifactId>reflect-core</artifactId>
 	
 	<description>Project containing the essentials of the Reflect Framework</description>
-
-
+  
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.bval</groupId>

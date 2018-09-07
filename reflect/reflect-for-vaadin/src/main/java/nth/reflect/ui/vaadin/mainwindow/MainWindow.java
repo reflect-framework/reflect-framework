@@ -44,7 +44,7 @@ import nth.reflect.ui.vaadin.view.TabView;
 import nth.reflect.ui.vaadin.view.container.TabViewController;
 
 /**
- * The {@link MainWindow} represents the Graphical User Interface with
+ * The {@link MainWindow} represents the Graphical UserTestObject Interface with
  * <a href="http://vaadin.com">Vaadin</a> {@link Component}s
  * 
  * @author nilsth

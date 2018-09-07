@@ -5,6 +5,7 @@ import java.util.List;
 
 import nth.reflect.fw.generic.exception.ReflectException;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -60,6 +61,18 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 	}
 
 	
+	public void editActionMethodParameter(Object actionMethodOwner,
+			ActionMethodInfo actionMethodInfo, Object actionMethodParameterValue) {
+		events.add(String.format("editActionMethodParameter(%s, %s, %s)", actionMethodOwner,
+				actionMethodInfo, actionMethodParameterValue));
+
+	}
+
+	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
+			UploadStream uploadStream){
+		events.add(String.format("editActionMethodParameter(%s, %s, %s)", methodOwner,
+				methodInfo, uploadStream));
+	}
 
 	@Override
 	public void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo,
@@ -96,6 +109,13 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 				methodInfo, methodParameter, methodResult));
 	}
 
+	
+	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter) {
+		events.add(String.format("confirmActionMethod(%s, %s, %s, %s)", methodOwner,
+				methodInfo, methodParameter));
+	} 
+	
 	public List<String> getEvents() {
 		List<String> eventsClone=new ArrayList<>();
 		for (String event : events) {

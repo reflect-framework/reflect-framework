@@ -43,20 +43,20 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
  * An example of a basic hard coded validation
  * 
  * <pre>
- * public class AcmeAuthorizationProvider implements AuthorizationProvider {
+ * public class AuthorizationProviderTestObject implements AuthorizationProvider {
  * 
- * 	private final List&lt;User&gt; users;
- * 	private User currentUser;
+ * 	private final List&lt;UserTestObject&gt; users;
+ * 	private UserTestObject currentUser;
  * 
- * 	public AcmeAuthorizationProvider() {
+ * 	public AuthorizationProviderTestObject() {
  * 		users = new ArrayList&lt;&gt;();
- * 		users.add(new User(&quot;carla&quot;, &quot;pasword1&quot;, &quot;salesmanager&quot;));
- * 		users.add(new User(&quot;john&quot;, &quot;pasword2&quot;, &quot;customer&quot;));
+ * 		users.add(new UserTestObject(&quot;carla&quot;, &quot;pasword1&quot;, &quot;salesmanager&quot;));
+ * 		users.add(new UserTestObject(&quot;john&quot;, &quot;pasword2&quot;, &quot;customer&quot;));
  * 	}
  * 
  * 	public void login(String userName, String password)
  * 			throws InvalidNameOrPasswordException {
- * 		for (User user : users) {
+ * 		for (UserTestObject user : users) {
  * 			if (user.isValid(userName, password)) {
  * 				currentUser = user;
  * 				return;

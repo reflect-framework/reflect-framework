@@ -41,7 +41,7 @@ public class Product {
 		this.details = details;
 	}
 	@Order(sequenceNumber=40)
-	@Format(pattern="%.2f €")
+	@Format(pattern="%.2f €")//TODO does not work StringFormat vs numberformat
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -51,7 +51,7 @@ public class Product {
 	
 	@Override
 	public String toString() {
-		return new TitleBuilder().append(code).append(name).append(price).toString();
+		return new TitleBuilder().append(code).append(name).append(price,"%.2f €").toString();//TODO does not work StringFormat vs numberformat
 	}
 
 	

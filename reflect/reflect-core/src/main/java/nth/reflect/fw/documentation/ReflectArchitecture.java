@@ -18,7 +18,7 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
  * <li>Separation of concerns (separate responsibilities within the application
  * into different layers).</li>
  * <li>Low coupling between layers, high cohesion within them.</li>
- * <li>User interface modules should contain no business logic.</li>
+ * <li>UserTestObject interface modules should contain no business logic.</li>
  * <li>Layers should be testable individual.</li>
  * <li>Business logic layers contain no user interface and don't refer to user
  * interface modules.</li>

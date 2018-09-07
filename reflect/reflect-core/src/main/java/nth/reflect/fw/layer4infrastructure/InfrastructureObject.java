@@ -39,7 +39,7 @@ import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
  * <p>
  * The methods of infrastructure object are unknown to the
  * {@link UserInterfaceController} and are not displayed on the
- * <a href="https://en.wikipedia.org/wiki/User_interface">User Interface</a>.
+ * <a href="https://en.wikipedia.org/wiki/User_interface">UserTestObject Interface</a>.
  * 
  *  * 
  * <h3>Construction</h3>
