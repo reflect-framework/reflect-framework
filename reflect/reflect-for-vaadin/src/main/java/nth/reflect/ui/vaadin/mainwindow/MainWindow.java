@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JavaScript;
@@ -253,9 +254,13 @@ public class MainWindow extends Div {
 		tabsToViews.put(tab, newView);
 		tabsBar.add(tab);
 		tabViewContainer.add(newView);
-		onSelectTab(null);
+		onSelectTabView(newView);
 	}
 
+	/**
+	 * Called by remote GUI when user clicks on a tab
+	 * @param event of user clicking on tab
+	 */
 	public void onSelectTab(Tabs.SelectedChangeEvent event) {
 		Tab selectedTab = tabsBar.getSelectedTab();
 		TabView selectedView = tabsToViews.get(selectedTab);
@@ -277,6 +282,17 @@ public class MainWindow extends Div {
 		selectedTabView.clear();
 		selectedView.setVisible(true);
 		selectedTabView.add(selectedView);
+		for (Tab tab : tabsToViews.keySet()) {
+			if (tabsToViews.get(tab)==selectedView) {
+				tabsBar.setSelectedTab(tab);
+				break;
+			}
+		};
+		resizeChildernOnBrowser();
+	}
+
+	private void resizeChildernOnBrowser() {
+		UI.getCurrent().getPage().executeJavaScript("updateGui()");
 	}
 
 }

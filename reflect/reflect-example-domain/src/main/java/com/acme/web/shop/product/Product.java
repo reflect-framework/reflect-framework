@@ -1,9 +1,6 @@
 package com.acme.web.shop.product;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import javax.jws.HandlerChain;
 
 import nth.reflect.fw.generic.util.TitleBuilder;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.Format;
@@ -12,7 +9,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenFor;
 import nth.reflect.fw.layer5provider.reflection.behavior.order.Order;
 
 public class Product {
-	private static final String CURRENCY_FORMAT = "#.## €";
+	private static final String CURRENCY_FORMAT = "0.00 €";
 	private String code;
 	private String name;
 	private String details;

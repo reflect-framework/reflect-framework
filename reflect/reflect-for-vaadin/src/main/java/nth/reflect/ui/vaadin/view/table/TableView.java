@@ -17,6 +17,7 @@ import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.DataProviderListener;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.provider.Query;
+import com.vaadin.flow.dom.StyleUtil;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.shared.Registration;
 
@@ -29,6 +30,8 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.ui.vaadin.css.SizeUnit;
+import nth.reflect.ui.vaadin.css.StyleBuilder;
 import nth.reflect.ui.vaadin.view.TabView;
 
 public class TableView extends TabView {
@@ -69,6 +72,7 @@ public class TableView extends TabView {
 		Grid<Object> grid=new Grid<Object>();
 		grid.setDataProvider(createDataProvider());
 		addGridColumns(grid);
+		new StyleBuilder().setWidth(100, SizeUnit.PERCENT).setHeight(100, SizeUnit.PERCENT).setFor(grid);
 		return grid;
 	}
 
