@@ -4,8 +4,6 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer2service.ServiceContainer;
-import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;

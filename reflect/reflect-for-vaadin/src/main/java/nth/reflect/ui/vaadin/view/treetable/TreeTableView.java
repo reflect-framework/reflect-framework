@@ -4,7 +4,7 @@ import java.net.URL;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.ui.vaadin.view.TabView;
+import nth.reflect.ui.vaadin.view.container.TabView;
 
 public class TreeTableView extends TabView {
 

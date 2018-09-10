@@ -3,6 +3,7 @@ package nth.reflect.fw;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.container.exception.ReflectContainerException;
 import nth.reflect.fw.container.exception.ReflectContainerInitializationException;
+import nth.reflect.fw.documentation.ReflectApplicationProjects;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;

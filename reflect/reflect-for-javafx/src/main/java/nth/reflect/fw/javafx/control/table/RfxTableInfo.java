@@ -44,7 +44,7 @@ public abstract class RfxTableInfo {
 		ReflectionProvider reflectionProvider = getReflectionProvider();
 		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>(propertyInfo.getDisplayName());
 			tableColumn.setMinWidth(100);

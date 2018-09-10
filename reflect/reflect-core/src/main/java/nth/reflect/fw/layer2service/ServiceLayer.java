@@ -1,8 +1,8 @@
 package nth.reflect.fw.layer2service;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.documentation.ReflectArchitecture;
+import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer1userinterface.UserInterfaceLayer;
 import nth.reflect.fw.layer3domain.DomainLayer;
 import nth.reflect.fw.layer3domain.DomainObject;

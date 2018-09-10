@@ -95,7 +95,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		
 		// get propertyInfos
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			// add propertyName
@@ -131,7 +131,7 @@ public class PdfReportFactory extends ReportProvider<Document> {
 
 		//get propertyInfos
 		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 				
 		// create table
 		PdfPTable pdfTable = new PdfPTable(propertyInfos.size());

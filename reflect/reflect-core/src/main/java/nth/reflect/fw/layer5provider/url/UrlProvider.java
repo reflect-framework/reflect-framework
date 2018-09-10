@@ -5,9 +5,6 @@ import java.net.URLStreamHandler;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.Provider;
-import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
-import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
-import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 
 /**
  * <p>

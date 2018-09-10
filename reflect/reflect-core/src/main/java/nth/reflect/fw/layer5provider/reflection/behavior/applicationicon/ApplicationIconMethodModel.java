@@ -5,6 +5,7 @@ import java.net.URL;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehaviorMethodInvokeException;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconMethod;
 
 /**
  * Model that returns the value of the {@link FontIconMethod}

@@ -220,4 +220,5 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * {@link ReflectApplication}
 	 */
 	public abstract void launch();
+
 }

@@ -2,6 +2,7 @@ package nth.reflect.fw.layer5provider.reflection.behavior.applicationicon;
 
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethod;
+import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIcon;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrl;
 
 /**

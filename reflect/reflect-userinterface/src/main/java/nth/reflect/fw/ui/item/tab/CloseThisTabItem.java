@@ -1,11 +1,7 @@
 package nth.reflect.fw.ui.item.tab;
 
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.swing.KeyStroke;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;

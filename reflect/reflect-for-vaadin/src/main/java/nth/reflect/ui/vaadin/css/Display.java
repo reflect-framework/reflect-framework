@@ -10,7 +10,17 @@ public enum Display {
 	/**
 	 * The element is completely removed
 	 */
-	NONE;
+	NONE,
+	/**
+	 * Displays an element as a block-level flex container
+	 */
+	INLINE_BLOCK,
+	/**
+	 * Displays an element as an inline-level block container. The element
+	 * itself is formatted as an inline element, but you can apply height and
+	 * width values
+	 */
+	FLEX;
 
 	@Override
 	public String toString() {

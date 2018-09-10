@@ -29,6 +29,7 @@ import com.vaadin.flow.data.selection.SelectionEvent;
 import javafx.scene.control.TreeItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -41,7 +42,7 @@ import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.Position;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
-import nth.reflect.ui.vaadin.view.TabView;
+import nth.reflect.ui.vaadin.view.container.TabView;
 import nth.reflect.ui.vaadin.view.container.TabViewController;
 
 /**
@@ -62,7 +63,7 @@ public class MainWindow extends Div {
 	private static final int Z_INDEX_CONTENT_OVERLAY = Z_INDEX_MAIN_MENU;
 	private static final Color BLACK_WITH_OPACITY = new Color(0f, 0f, 0f, 0.5f);
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final ViewController<TabView> tabViewController;
+	private final TabViewController tabViewController;
 	private Tabs tabsBar;
 	private final Div tabViewContainer;
 	private Map<Tab, TabView> tabsToViews;
@@ -240,7 +241,7 @@ public class MainWindow extends Div {
 		return title;
 	}
 
-	public ViewController<TabView> getTabViewController() {
+	public TabViewController getTabViewController() {
 		return tabViewController;
 	}
 

@@ -3,9 +3,7 @@ package nth.reflect.fw.layer5provider.reflection.behavior.serviceobjectchildren;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer2service.MainMenu;
-import nth.reflect.fw.layer2service.ServiceContainer;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 

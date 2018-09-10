@@ -37,7 +37,8 @@ public class PropertyMethodItem extends MethodItem {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void run() {
-				GraphicalUserinterfaceController<?> userInterfaceController = formView.getUserInterfaceContainer().get(GraphicalUserinterfaceController.class);
+				@SuppressWarnings("rawtypes")
+				GraphicalUserinterfaceController userInterfaceController = formView.getUserInterfaceContainer().get(GraphicalUserinterfaceController.class);
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				

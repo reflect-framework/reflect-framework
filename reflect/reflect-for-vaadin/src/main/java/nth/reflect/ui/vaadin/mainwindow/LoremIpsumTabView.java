@@ -4,10 +4,9 @@ import java.net.URL;
 
 import com.vaadin.flow.component.tabs.Tab;
 
-import javafx.scene.control.TableView;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
-import nth.reflect.ui.vaadin.view.TabView;
+import nth.reflect.ui.vaadin.view.container.TabView;
 
 public class LoremIpsumTabView extends TabView {
 

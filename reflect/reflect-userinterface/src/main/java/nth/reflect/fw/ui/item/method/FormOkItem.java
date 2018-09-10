@@ -1,10 +1,5 @@
 package nth.reflect.fw.ui.item.method;
 
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-
-import javax.swing.KeyStroke;
-
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;

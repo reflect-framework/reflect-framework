@@ -33,7 +33,7 @@ public class ExcelFormWriter extends ExcelWriter {
 		ClassInfo classInfo = reflectionProvider
 				.getClassInfo(object.getClass());
 		List<PropertyInfo> propertyInfos = classInfo
-				.getPropertyInfosSortedAnsVisibleInTable();
+				.getPropertyInfosSortedAndVisibleInTable();
 		int maxNumberOfColumns = getMaxNumberOfColumns(propertyInfos);
 
 		addTitlebar(workbook, sheet, title, maxNumberOfColumns - 1);
@@ -92,7 +92,7 @@ public class ExcelFormWriter extends ExcelWriter {
 
 		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
 		List<PropertyInfo> propertyInfos = classInfo
-				.getPropertyInfosSortedAnsVisibleInTable();
+				.getPropertyInfosSortedAndVisibleInTable();
 
 		createPropertyTableHeader(sheet, row, propertyInfos);
 

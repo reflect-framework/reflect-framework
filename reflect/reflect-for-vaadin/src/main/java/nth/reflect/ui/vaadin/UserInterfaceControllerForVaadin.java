@@ -16,23 +16,30 @@ import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
+import nth.reflect.fw.ui.view.FormFieldSubFactory;
 import nth.reflect.fw.ui.view.FormMode;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
-import nth.reflect.ui.vaadin.view.TabView;
+import nth.reflect.ui.vaadin.view.container.TabView;
+import nth.reflect.ui.vaadin.view.container.TabViewController;
 import nth.reflect.ui.vaadin.view.form.FormView;
+import nth.reflect.ui.vaadin.view.form.field.FormFieldFactoryForVaadin;
+import nth.reflect.ui.vaadin.view.form.field.FormFieldForVaadin;
 import nth.reflect.ui.vaadin.view.table.TableView;
 import nth.reflect.ui.vaadin.view.treetable.TreeTableView;
 
-public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceController<TabView> {
+public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceController<TabView, FormFieldForVaadin> {
 
 	private final ReflectApplicationForVaadin reflectAppForVaadin;
+	private final FormFieldFactoryForVaadin formFieldFactory;
 
 	public UserInterfaceControllerForVaadin(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin.class);
+		formFieldFactory=new FormFieldFactoryForVaadin();
 	}
 
 	/**
@@ -117,7 +124,7 @@ public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 	
 	
 	@Override
-	public ViewController<TabView> getViewController() {
+	public TabViewController getViewController() {
 		return getMainWindow().getTabViewController();
 	}
 
@@ -204,6 +211,11 @@ public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 				}
 			});
 		}
+	}
+
+	@Override
+	public FormFieldFactoryForVaadin getFormFieldFactory() {
+		return formFieldFactory;
 	}
 
 }

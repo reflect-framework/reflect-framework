@@ -1,11 +1,6 @@
 package nth.reflect.fw.layer1userinterface.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import nth.reflect.fw.layer5provider.reflection.behavior.hidden.Hidden;
 
 public class UploadStream {
 

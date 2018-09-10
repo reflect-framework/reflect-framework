@@ -106,7 +106,7 @@ public class ClassInfo implements NameInfo {
 		return propertyInfosSorted;
 	}
 
-	public List<PropertyInfo> getPropertyInfosSortedAnsVisibleInTable() {
+	public List<PropertyInfo> getPropertyInfosSortedAndVisibleInTable() {
 		List<PropertyInfo> sortedPropertyInfosVisibleInTable = propertyInfosSorted.stream()
 				.filter(propertyInfo -> propertyInfo.isVisibleInTable()).collect(Collectors.toList());
 		return sortedPropertyInfosVisibleInTable;

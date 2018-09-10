@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.layer2service.ServiceObject;
-import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 
 /**

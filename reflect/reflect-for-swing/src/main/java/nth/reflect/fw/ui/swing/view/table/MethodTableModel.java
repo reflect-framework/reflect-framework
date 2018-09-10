@@ -35,7 +35,7 @@ public class MethodTableModel extends AbstractTableModel implements
 			format = formatFactory.create(objectClass);
 		} else {
 			ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-			propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+			propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 		}
 		refresh();
 	}

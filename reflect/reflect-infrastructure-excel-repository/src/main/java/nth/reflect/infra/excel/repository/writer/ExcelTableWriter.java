@@ -51,7 +51,7 @@ public class ExcelTableWriter extends ExcelWriter {
 		// get propertyInfos
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
 		List<PropertyInfo> propertyInfos = classInfo
-				.getPropertyInfosSortedAnsVisibleInTable();
+				.getPropertyInfosSortedAndVisibleInTable();
 		return propertyInfos;
 	}
 	

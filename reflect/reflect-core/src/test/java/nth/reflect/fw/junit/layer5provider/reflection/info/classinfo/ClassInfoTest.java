@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
@@ -14,9 +17,6 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class ClassInfoTest {
 

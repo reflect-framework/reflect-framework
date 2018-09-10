@@ -23,7 +23,7 @@ public class CollectionTableModel extends AbstractTableModel implements DomainTa
 			list = new ArrayList<Object>(collection);// convert collection to an array list to safegard the sequance of objects
 		}
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
-		propertyInfos = classInfo.getPropertyInfosSortedAnsVisibleInTable();
+		propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import java.util.List;
 import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
-import nth.reflect.ui.vaadin.view.TabView;
 
 public class TabViewController implements ViewController<TabView> {
 

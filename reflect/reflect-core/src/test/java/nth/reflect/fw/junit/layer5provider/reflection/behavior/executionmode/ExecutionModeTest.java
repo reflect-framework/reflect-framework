@@ -2,15 +2,15 @@ package nth.reflect.fw.junit.layer5provider.reflection.behavior.executionmode;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class ExecutionModeTest {
 

@@ -1,38 +1,26 @@
 package nth.reflect.ui.vaadin.view.table;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
 
-import com.acme.web.shop.product.Product;
-import com.acme.web.shop.product.ProductRepository;
-import com.acme.web.shop.product.ProductService;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.DataProviderListener;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.data.provider.Query;
-import com.vaadin.flow.dom.StyleUtil;
 import com.vaadin.flow.function.ValueProvider;
-import com.vaadin.flow.shared.Registration;
 
-import nth.reflect.fw.generic.exception.ReflectException;
 import nth.reflect.fw.generic.exception.ReflectTranslatableException;
 import nth.reflect.fw.generic.translatablestring.ReflectTranslatable;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
-import nth.reflect.ui.vaadin.view.TabView;
+import nth.reflect.ui.vaadin.view.container.TabView;
 
 public class TableView extends TabView {
 
@@ -80,7 +68,7 @@ public class TableView extends TabView {
 		ValueProvider valueProvider=createValueProviderToString();
 		grid.addColumn(valueProvider);
 		
-		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAnsVisibleInTable();
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			valueProvider=createValueProvider(propertyInfo);
 			grid.addColumn(valueProvider).setHeader(propertyInfo.getDisplayName());

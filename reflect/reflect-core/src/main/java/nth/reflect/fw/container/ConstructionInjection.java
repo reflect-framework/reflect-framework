@@ -2,8 +2,8 @@ package nth.reflect.fw.container;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
-import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.documentation.ReflectArchitecture;
+import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 
 /**
  * <p>

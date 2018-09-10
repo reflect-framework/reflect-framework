@@ -1,8 +1,8 @@
 package nth.reflect.fw.layer1userinterface;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.documentation.ReflectArchitecture;
+import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 
 /**
