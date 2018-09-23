@@ -6,9 +6,10 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.style.MaterialStyle;
+import nth.reflect.fw.ui.style.ReflectColors;
+import nth.reflect.fw.ui.style.component.ApplicationBarStyle;
 import nth.reflect.fw.ui.swing.util.AwtFontFactory;
+import nth.reflect.fw.ui.swing.util.ColorFactory;
 
 public class MaterialAppBarTitle extends JLabel {
 
@@ -20,9 +21,9 @@ public class MaterialAppBarTitle extends JLabel {
 		ClassInfo applicationInfo = reflectionProvider.getClassInfo(application.getClass());
 		String title=applicationInfo.getDisplayName();
 		setText(title);
-		GraphicalUserinterfaceController<?> controller=userInterfaceContainer.get(GraphicalUserinterfaceController.class);
-		MaterialStyle materialStyle = controller.getMaterialStyle();
-		setFont(AwtFontFactory.create(materialStyle.getApplicationToolbarTitleStyle().getFont()));
+		ReflectColors reflectColors = ReflectColors.getFrom(userInterfaceContainer);
+		setForeground(ColorFactory.create(ApplicationBarStyle.getForeground1(reflectColors)));
+		setFont(AwtFontFactory.create(ApplicationBarStyle.getTitleFont()));
 	}
 
 }

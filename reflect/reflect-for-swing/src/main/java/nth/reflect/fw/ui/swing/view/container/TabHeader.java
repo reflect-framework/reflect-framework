@@ -22,7 +22,6 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.tab.TabsItem;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
@@ -33,16 +32,15 @@ import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
  */
 @SuppressWarnings("serial")
 public class TabHeader extends JPanel {
-	private final SwingViewContainer swingViewContainer;
 	private final Component tab;
 	public final LanguageProvider languageProvider;
+	private ViewController viewController;
 
-	public TabHeader( ViewController<?> viewContainer, LanguageProvider languageProvider,
-			final Component tab, final String title, final String description,
-			final Icon icon) {
+	public TabHeader(ViewController viewController, LanguageProvider languageProvider, Component tab,
+			String title, String description, Icon icon) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.languageProvider = languageProvider;
-		this.swingViewContainer = (SwingViewContainer) viewContainer;
+		this.viewController = viewController;
 
 		if (tab == null) {
 			throw new NullPointerException("View is null");
@@ -83,6 +81,7 @@ public class TabHeader extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 	}
 
+
 	public MouseListener createMouseListener() {
 		return new MouseListener() {
 
@@ -114,7 +113,7 @@ public class TabHeader extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				switch (e.getButton()) {
 				case MouseEvent.BUTTON1:
-					swingViewContainer.setSelectedComponent(tab);
+					viewController.setSelectedComponent(tab);
 					break;
 				case MouseEvent.BUTTON3:
 					showPopupMenu(e.getX(), e.getY());
@@ -144,9 +143,9 @@ public class TabHeader extends JPanel {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			int i = swingViewContainer.indexOfTabComponent(TabHeader.this);
+			int i = viewController.indexOfTabComponent(TabHeader.this);
 			if (i != -1) {
-				swingViewContainer.remove(i);
+				viewController.remove(i);
 			}
 		}
 
@@ -178,7 +177,7 @@ public class TabHeader extends JPanel {
 	}
 
 	public void showPopupMenu(int x, int y) {
-		TabsItem tabsItem = new TabsItem(languageProvider, swingViewContainer,
+		TabsItem tabsItem = new TabsItem(languageProvider, viewController,
 				(View) tab);
 		List<Item> items = tabsItem.getChildren();
 		PopupMenu popupMenu = new PopupMenu(items);

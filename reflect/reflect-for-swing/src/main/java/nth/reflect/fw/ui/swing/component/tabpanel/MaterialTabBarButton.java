@@ -1,6 +1,7 @@
 package nth.reflect.fw.ui.swing.component.tabpanel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -11,7 +12,9 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import nth.reflect.fw.ui.style.MaterialStyle;
+import nth.reflect.fw.ui.style.MaterialFont;
+import nth.reflect.fw.ui.style.ReflectColors;
+import nth.reflect.fw.ui.style.component.ApplicationBarStyle;
 import nth.reflect.fw.ui.swing.util.AwtFontFactory;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 import nth.reflect.fw.ui.swing.view.SwingView;
@@ -19,12 +22,12 @@ import nth.reflect.fw.ui.swing.view.SwingView;
 public class MaterialTabBarButton extends JButton {
 
 	private static final long serialVersionUID = 271479970687266003L;
-	public MaterialStyle materialStyle;
+	public ReflectColors reflectColors;
 
-	public MaterialTabBarButton(SwingViewContainer2 viewContainer, MaterialStyle materialStyle, SwingView view, boolean selected) {
+	public MaterialTabBarButton(SwingViewContainer2 viewContainer, ReflectColors reflectColors, SwingView view, boolean selected) {
 		setContentAreaFilled(false);
 		setFocusable(false);
-		addMouseListener(createBackgroundPainter(viewContainer, ColorFactory.create(materialStyle.getTabToolbarStyle().getPressedColor()), view));
+		addMouseListener(createBackgroundPainter(viewContainer, ColorFactory.create(ApplicationBarStyle.getBackgroundHighLighted(reflectColors)), view));
 //		 setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, style.COLORS.getForeground1()));
 //		setBorder(BorderFactory.createBevelBorder(1));
 //		setText(view.getViewTitle().toUpperCase());
@@ -32,13 +35,13 @@ public class MaterialTabBarButton extends JButton {
 		JLabel label = new JLabel(view.getViewTitle().toUpperCase());		
 		EmptyBorder padding = new EmptyBorder(12,12,12,12);
 		if (selected) {
-			MatteBorder bottomBar = BorderFactory.createMatteBorder(0,  0, 2, 0,ColorFactory.create( materialStyle.getTabContainerStyle().getBackground()));
+			MatteBorder bottomBar = BorderFactory.createMatteBorder(0,  0, 2, 0,ColorFactory.create( reflectColors.getContentColors().getBackground()));
 			label.setBorder(new CompoundBorder( bottomBar, padding));
 		} else {
 			label.setBorder(padding);
 		}
-		label.setFont(AwtFontFactory.create(materialStyle.getTabToolbarButtonStyle().getFont()));
-		label.setForeground(ColorFactory.create(materialStyle.getTabToolbarButtonStyle().getTextColor()));
+		label.setFont(AwtFontFactory.create(MaterialFont.getRobotoMedium(12)));
+		label.setForeground(ColorFactory.create(reflectColors.getPrimaryColors().getForeground1()));
 		add(label);
 	}
 	

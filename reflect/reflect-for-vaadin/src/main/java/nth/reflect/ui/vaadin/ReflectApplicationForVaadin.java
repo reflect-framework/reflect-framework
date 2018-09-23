@@ -81,7 +81,6 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
  */
 
 @SuppressWarnings("serial")
-
 @Route("")
 public class ReflectApplicationForVaadin extends Div implements ReflectApplication {
 

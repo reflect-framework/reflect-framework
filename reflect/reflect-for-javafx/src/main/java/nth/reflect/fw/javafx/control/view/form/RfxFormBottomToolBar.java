@@ -14,7 +14,7 @@ import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 
 public class RfxFormBottomToolBar extends RfxContentBottomToolbar {
 
-	public RfxFormBottomToolBar(RfxFormView formView) {
+	public RfxFormBottomToolBar(FormView formView) {
 		UserInterfaceContainer userInterfaceContainer = formView.getUserInterfaceContainer();
 		switch (formView.getFormMode()) {
 		case READ_ONLY_MODE:
@@ -35,7 +35,7 @@ public class RfxFormBottomToolBar extends RfxContentBottomToolbar {
 	}
 
 	public RfxContentBottomToolbarButton createCancelButton(
-			UserInterfaceContainer userInterfaceContainer, RfxFormView formView) {
+			UserInterfaceContainer userInterfaceContainer, FormView formView) {
 		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(RfxUserinterfaceController.class);
 		RfxViewContainer viewContainer = userInterfaceController.getViewController();
@@ -49,7 +49,7 @@ public class RfxFormBottomToolBar extends RfxContentBottomToolbar {
 		return cancelButton;
 	}
 
-	public RfxContentBottomToolbarButton createOkButton(RfxFormView formView) {
+	public RfxContentBottomToolbarButton createOkButton(FormView formView) {
 		Object methodOwner = formView.getMethodOwner();
 		ActionMethodInfo actionMethodInfo = formView.getMethodInfo();
 		BufferedDomainValueModel domainValueModel = formView.getDomainValueModel();

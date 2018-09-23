@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 
-import nth.reflect.fw.ui.style.MaterialStyle;
+import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.ui.swing.mainwindow.MainWindow;
 import nth.reflect.fw.ui.swing.properygrid.SwingUtil;
@@ -14,8 +14,8 @@ public class MaterialAppBarMenuButton extends MaterialAppBarIconButton implement
 
 	private static final long serialVersionUID = -1031306949702539790L;
 
-	public MaterialAppBarMenuButton(MaterialStyle materialStyle) throws MalformedURLException {
-		super(materialStyle, FontAwesomeUrl.NAVICON);
+	public MaterialAppBarMenuButton(ReflectColors reflectColors) throws MalformedURLException {
+		super(reflectColors, FontAwesomeUrl.NAVICON);
 		addActionListener(this);
 	}
 

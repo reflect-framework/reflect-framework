@@ -32,7 +32,7 @@ public class RfxList<T> extends ListView<T> implements RfxControl {
 	}
 
 	// public static void appendStyleGroups(RfxStyleSheet styleSheet,
-	// MaterialStyle materialStyle) {
+	// ReflectColors materialStyle) {
 	//
 	// styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class)).getProperties()
 	// .setBorderWidth(0)

@@ -38,7 +38,7 @@ import nth.reflect.fw.ui.swing.icon.IconFactory;
 import nth.reflect.fw.ui.swing.image.ReflectImage;
 import nth.reflect.fw.ui.swing.item.button.ItemIconButton;
 import nth.reflect.fw.ui.swing.style.SwingStyleConstant;
-import nth.reflect.fw.ui.swing.view.container.SwingViewContainer;
+import nth.reflect.fw.ui.swing.view.container.ViewController;
 import nth.reflect.fw.ui.swing.view.menu.MenuList;
 
 public class MainWindow extends JFrame {
@@ -78,7 +78,6 @@ public class MainWindow extends JFrame {
 		setTitle(application, applicationInfo);
 		setIcon(application, applicationInfo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setUndecorated(true);
 
 		// Create window contents
 		menuPanel = createMenuTabPanel();
@@ -119,25 +118,6 @@ public class MainWindow extends JFrame {
 	private void setTitle(ReflectApplication application, ClassInfo applicationInfo) {
 		String title = applicationInfo.getDisplayName();
 		setTitle(title);
-	}
-
-	private JToolBar createToolBar(JButton aboutButton, JButton menuButton, JButton findButton,
-			JButton tabButton) {
-		JToolBar toolBar = new JToolBar();
-		toolBar.setFloatable(false);
-		toolBar.add(Box.createHorizontalGlue());// align right
-		toolBar.add(aboutButton);
-		toolBar.add(menuButton);
-		toolBar.add(findButton);
-		toolBar.add(tabButton);
-		return toolBar;
-	}
-
-	private JButton createAboutButton() {
-		AboutItem aboutItem = new AboutItem(userInterfaceController, reflectionProvider,
-				languageProvider, aboutProvider);
-		ItemIconButton aboutButton = new ItemIconButton(aboutItem);
-		return aboutButton;
 	}
 
 	/**
@@ -223,9 +203,9 @@ public class MainWindow extends JFrame {
 		return splitPanel;
 	}
 
-	private SwingViewContainer createContentTabPanel() {
-		SwingViewContainer swingViewContainer = new SwingViewContainer(userInterfaceContainer);
-		return swingViewContainer;
+	private ViewController createContentTabPanel() {
+		ViewController viewController = new ViewController(userInterfaceContainer);
+		return viewController;
 	}
 
 	private JScrollPane createMenuTabPanel() {
@@ -266,12 +246,7 @@ public class MainWindow extends JFrame {
 	}
 
 	public void setMenuVisible(boolean menuVisible) {
-		if (userInterfaceController.getMaterialStyle().getMenuStyle().getMenuType() == MenuType.DRAWER) {
-
-		} else {
-
-		}
-
+		//TODO drawer style
 		menuPanel.setVisible(menuVisible);
 	}
 }

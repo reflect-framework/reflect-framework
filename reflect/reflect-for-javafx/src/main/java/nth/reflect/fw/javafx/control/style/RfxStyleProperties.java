@@ -5,7 +5,7 @@ import java.util.HashMap;
 import javafx.geometry.Pos;
 import javafx.scene.control.Labeled;
 import javafx.scene.text.FontWeight;
-import nth.reflect.fw.ui.style.MaterialColorSet;
+import nth.reflect.fw.ui.style.ReflectColorSet;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
 import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.fw.ui.style.basic.Font;
@@ -195,7 +195,7 @@ public class RfxStyleProperties extends HashMap<String,String> {
 	}
 
 	
-	public void setColorVariables(MaterialColorSetCssName colorSetName, MaterialColorSet colorSet) {
+	public void setColorVariables(MaterialColorSetCssName colorSetName, ReflectColorSet colorSet) {
 		put(colorSetName.FOREGROUND1(), getRGB(colorSet.getForeground1()));
 		put(colorSetName.FOREGROUND2(), getRGB(colorSet.getForeground2()));
 		put(colorSetName.FOREGROUND3(), getRGB(colorSet.getForeground3()));
@@ -253,6 +253,11 @@ public class RfxStyleProperties extends HashMap<String,String> {
 
 	public RfxStyleProperties setFontWeight(FontWeight fontWeight) {
 		put("-fx-font-weight", fontWeight.name().toLowerCase());
+		return this;
+	}
+
+	public RfxStyleProperties setWrapText(boolean wrapText) {
+		put("-fx-text-wrap", Boolean.toString(wrapText));
 		return this;
 	}
 

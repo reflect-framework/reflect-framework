@@ -64,7 +64,9 @@ public class TableView extends TabView {
 		return grid;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void addGridColumns(Grid<?> grid) {
+		@SuppressWarnings("rawtypes")
 		ValueProvider valueProvider=createValueProviderToString();
 		grid.addColumn(valueProvider);
 		
@@ -75,6 +77,7 @@ public class TableView extends TabView {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "serial" })
 	private ValueProvider createValueProviderToString() {
 		return new ValueProvider<Object, Object>() {
 			@Override
@@ -84,6 +87,7 @@ public class TableView extends TabView {
 		};
 	}
 
+	@SuppressWarnings({ "serial", "rawtypes" })
 	private ValueProvider createValueProvider(PropertyInfo propertyInfo) {
 		return new ValueProvider<Object, Object>() {
 			@Override

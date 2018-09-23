@@ -234,47 +234,51 @@ public class RfxTable extends TableView<Object> {
 	}
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxTable.class)).getProperties()
+		appendStyleGroups( styleSheet,RfxTable.class, MaterialColorSetCssName.CONTENT.BACKGROUND(), MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED()  );
+	}
+
+	public static void appendStyleGroups( RfxStyleSheet styleSheet, Class<? extends RfxTable> componentClass, String backGroundColor, String backGroundHighLighted) {
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(componentClass)).getProperties()
 				.setFont(MaterialFont.getRobotoRegular(ROW_FONT_SIZE))
 				// remove focus border
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
+				.setBackground(backGroundColor);
 		styleSheet
 				.addStyleGroup(
-						RfxStyleSelector.createFor(RfxTable.class).appendChild("column-header"))
-				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+						RfxStyleSelector.createFor(componentClass).appendChild("column-header"))
+				.getProperties().setBackground(backGroundColor)
 				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
 						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
+						backGroundHighLighted,
 						MaterialColorSetCssName.CONTENT.TRANSPARENT())
 				.setSize(ROW_HEIGHT);
 		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(RfxTable.class)
+				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
 						.appendChild("column-header-background"))
 				.getProperties()
 				// hide vertical line in header
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
+				.setBackground(backGroundColor);
 		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(RfxTable.class)
+				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
 						.appendChild("column-header-background").appendChild("filler"))
-				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+				.getProperties().setBackground(backGroundColor)
 				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
 						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
+						backGroundHighLighted,
 						MaterialColorSetCssName.CONTENT.TRANSPARENT());
 		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(RfxTable.class)
+				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
 						.appendChild("column-header").appendChild(Label.class))
 				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND2())
 				.setFontWeight(FontWeight.NORMAL).setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-column")).getProperties()
-				.setBorderColor("transparent").setProperty("-fx-alignment", "CENTER-LEFT");
+				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT()).setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell")).getProperties()
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
+				.setBackground(backGroundColor)
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
 				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
 						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
+						backGroundHighLighted,
 						MaterialColorSetCssName.CONTENT.TRANSPARENT())
 				.setCellSize(ROW_HEIGHT);
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell").appendFocused())
@@ -282,7 +286,7 @@ public class RfxTable extends TableView<Object> {
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
 				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
 						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(),
+						backGroundHighLighted,
 						MaterialColorSetCssName.CONTENT.TRANSPARENT());
 	}
 }

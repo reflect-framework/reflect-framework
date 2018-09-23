@@ -13,7 +13,11 @@ public class WrapingLabel extends JLabel{
 	private static final String HTML_END = "</html>";
 	private static final String PARAGRAPH_BEGIN = "<p>";
 	private static final String PARAGRAPH_END = "</p>";
-	private static final String LINE_BREAK = "<br>";
+	public static final String LINE_BREAK = "<br>";
+	
+	
+	public WrapingLabel() {
+	}
 	
 	public WrapingLabel(String text) {
 		setText(text);

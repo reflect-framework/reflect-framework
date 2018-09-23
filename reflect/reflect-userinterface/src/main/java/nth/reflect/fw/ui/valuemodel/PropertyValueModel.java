@@ -26,7 +26,7 @@ public class PropertyValueModel implements ReadWriteValueModel {
 		if (canSetValue()) {
 			propertyInfo.setValue(domainValueModel.getValue(), value);
 		} else {
-			throw new RuntimeException("This method may not be called in read only mode!");// Field should be disabled automatically
+			throw new RuntimeException("This method may not be called in read only mode!");// PropertyField should be disabled automatically
 		}
 	}
 

@@ -15,8 +15,8 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	private final FormMode formMode;
 	private final ReflectionProvider reflectionProvider;
 
-	public BufferedDomainValueModel(UserInterfaceContainer userInterfaceContainer, ReflectionProvider reflectionProvider, Object domainObject, FormMode formMode) {
-		this.reflectionProvider = reflectionProvider;
+	public BufferedDomainValueModel(UserInterfaceContainer userInterfaceContainer, Object domainObject, FormMode formMode) {
+		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.domainObject = domainObject;
 		this.formMode = formMode;
 		if (FormMode.EDIT_MODE==formMode) {

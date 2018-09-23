@@ -107,6 +107,25 @@ public class StyleBuilder extends HashMap<String, String> {
 		return this;
 	}
 
+	
+	public StyleBuilder setMargin(int margin) {
+		put("margin", SizeUnit.PX.asString(margin));
+		return this;
+	}
+
+	public StyleBuilder setMargin(int top, int right, int bottom, int left) {
+		StringBuilder padding = new StringBuilder();
+		padding.append(SizeUnit.PX.asString(top));
+		padding.append(" ");
+		padding.append(SizeUnit.PX.asString(right));
+		padding.append(" ");
+		padding.append(SizeUnit.PX.asString(bottom));
+		padding.append(" ");
+		padding.append(SizeUnit.PX.asString(left));
+		put("margin", padding.toString());
+		return this;
+	}
+	
 	//
 	// public StyleBuilder setCellSize(int size) {
 	// put("cell-size", SizeUnit.PX.asString(size));

@@ -10,9 +10,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.style.MaterialStyle;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 import nth.reflect.fw.ui.swing.view.menu.item.Item;
 
@@ -20,17 +19,16 @@ public class MenuList extends JList<Item> {
 
 	private static final long serialVersionUID = 6951897887401103964L;
 
-	public MenuList(DependencyInjectionContainer userInterfaceContainer) {
+	public MenuList(UserInterfaceContainer userInterfaceContainer) {
 		super(new MenuListModel(userInterfaceContainer));
-		GraphicalUserinterfaceController<?> controller = userInterfaceContainer.get(GraphicalUserinterfaceController.class);
-		MaterialStyle materialStyle=controller.getMaterialStyle();
+		ReflectColors reflectColors=ReflectColors.getFrom(userInterfaceContainer);
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setLayoutOrientation(JList.VERTICAL);
-		setCellRenderer(new MenuListRenderer(materialStyle));
+		setCellRenderer(new MenuListRenderer(reflectColors));
 		setVisibleRowCount(-1);
 		addMouseListener(createMouseListener());
 		addKeyListener(createKeyListener());
-		setBackground(ColorFactory.create(materialStyle.getListSingleLineStyle().getBackgroundColor()));
+		setBackground(ColorFactory.create(reflectColors.getContentColors().getBackground()));
 	}
 
 	private KeyListener createKeyListener() {

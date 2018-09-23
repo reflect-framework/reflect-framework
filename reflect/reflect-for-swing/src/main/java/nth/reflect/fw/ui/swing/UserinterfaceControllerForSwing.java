@@ -28,10 +28,12 @@ import nth.reflect.fw.ui.swing.dialog.toast.Toast.Style;
 import nth.reflect.fw.ui.swing.mainwindow.MainWindow;
 import nth.reflect.fw.ui.swing.view.SwingView;
 import nth.reflect.fw.ui.swing.view.form.FormView;
+import nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanel;
 import nth.reflect.fw.ui.swing.view.table.TableView;
 import nth.reflect.fw.ui.view.FormMode;
+import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
 
-public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<SwingView> {
+public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<SwingView, PropertyPanel> {
 
 	private MainWindow mainWindow;
 
@@ -191,6 +193,11 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	public void executeInThread(Runnable methodExecutionRunnable) {
 		Thread methodExecutionThread = new Thread(methodExecutionRunnable);
 		methodExecutionThread.start();
+	}
+
+	@Override
+	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
+		return new nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanelFactory();
 	}
 
 }

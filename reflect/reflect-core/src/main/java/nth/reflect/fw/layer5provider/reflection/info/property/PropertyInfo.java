@@ -221,7 +221,7 @@ public class PropertyInfo implements NameInfo {
 
 	public Object getValue(Object obj) {
 		try {
-			return getGetterMethod().invoke(obj, new Object[0]);
+			return getGetterMethod().invoke(obj);
 		} catch (Exception e) {
 			throw new RuntimeException("Could not read value of property: " + canonicalName, e);
 		}

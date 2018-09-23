@@ -26,7 +26,8 @@ import javafx.stage.Stage;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.javafx.control.view.form.RfxFormView;
+import nth.reflect.fw.javafx.control.view.form.FormView;
+import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyPanel;
 import nth.reflect.fw.javafx.control.view.table.RfxTableView;
 import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -36,14 +37,13 @@ import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.applicationicon.ApplicationIcon;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
 import nth.reflect.fw.ui.view.FormMode;
+import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
 
-public class RfxUserinterfaceController extends GraphicalUserinterfaceController<View> {
+public class RfxUserinterfaceController extends GraphicalUserinterfaceController<View, PropertyPanel> {
 
 	private RfxWindow mainWindow;
 
@@ -54,7 +54,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	@Override
 	public View createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new RfxFormView(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new FormView(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue, domainObject, formMode);
 	}
 
@@ -225,6 +225,11 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	@Override
 	public void executeInThread(Runnable methodExecutionRunnable) {
 		Platform.runLater(methodExecutionRunnable);
+	}
+
+	@Override
+	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
+		return new nth.reflect.fw.javafx.control.view.form.proppanel.PropertyPanelFactory();
 	}
 
 	

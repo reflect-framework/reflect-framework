@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import nth.reflect.fw.ui.swing.style.ColorUtil;
+import nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanel;
 
 public class PropertyGrid extends JScrollPane {
 	private static final long serialVersionUID = 1821162902242037807L;
@@ -33,16 +34,16 @@ public class PropertyGrid extends JScrollPane {
 	}
 
 	public void addPropertyRow(JPanel panel) {
-		if (panel instanceof PropertyRow) {
-			setMnenomic((PropertyRow) panel);
+		if (panel instanceof PropertyPanel) {
+			setMnenomic((PropertyPanel) panel);
 		}
 		propertyGridPanel.add(panel);
 		propertyGridPanel.add(new PropertySeperatorRow());
 	}
 
-	private void setMnenomic(PropertyRow propertyRow) {//FIXME doesn't work
+	private void setMnenomic(PropertyPanel propertyPanel) {//FIXME doesn't work
 		List<Character> mnenomics=getMnenomics();
-		JLabel label = propertyRow.getLabel();
+		JLabel label = propertyPanel.getPropertyLabel();
 		String labelText = label.getText();
 		// try to find a unique mnenomic by trying the first letter of each word
 		StringTokenizer tokenizer=new StringTokenizer(labelText," ");//Separate on words
@@ -71,9 +72,9 @@ public class PropertyGrid extends JScrollPane {
 	private List<Character> getMnenomics() {
 		List<Character> mnemonics=new ArrayList<Character>();
 		for (Component child:propertyGridPanel.getComponents()) {
-			if (child instanceof PropertyRow) {
-				PropertyRow propertyRow = (PropertyRow) child;
-				int mneunomic = propertyRow.getLabel().getDisplayedMnemonic();
+			if (child instanceof PropertyPanel) {
+				PropertyPanel propertyPanel = (PropertyPanel) child;
+				int mneunomic = propertyPanel.getPropertyLabel().getDisplayedMnemonic();
 				mnemonics.add(new Character((char)mneunomic));
 			}
 		}

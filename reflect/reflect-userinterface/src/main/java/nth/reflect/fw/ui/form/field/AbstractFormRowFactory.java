@@ -33,7 +33,7 @@ public abstract class AbstractFormRowFactory<T> {
 		case MANY_TO_ONE_OR_MANY:
 			return createManyToOneOrManyField(propertyValueModel);
 		default:
-			throw new RuntimeException("Field mode " + fieldMode.name() + " not supported for property " + propertyInfo.getCanonicalName());
+			throw new RuntimeException("PropertyField mode " + fieldMode.name() + " not supported for property " + propertyInfo.getCanonicalName());
 		}
 
 	}

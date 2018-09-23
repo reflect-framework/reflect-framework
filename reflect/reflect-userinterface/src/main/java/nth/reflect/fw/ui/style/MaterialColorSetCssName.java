@@ -6,42 +6,42 @@ public enum MaterialColorSetCssName {
 	CONTENT;
 
 	/**
-	 * @return CSS name for {@link MaterialColorSet#getForeground1()}
+	 * @return CSS name for {@link ReflectColorSet#getForeground1()}
 	 */
 	public String FOREGROUND1() {
 		return getColorSetCssName("foreground1");
 	}
 
 	/**
-	 * @return CSS name for {@link MaterialColorSet#getForeground2()}
+	 * @return CSS name for {@link ReflectColorSet#getForeground2()}
 	 */
 	public String FOREGROUND2() {
 		return getColorSetCssName("foreground2");
 	}
 
 	/**
-	 * @return CSS name for {@link MaterialColorSet#getForeground3()}
+	 * @return CSS name for {@link ReflectColorSet#getForeground3()}
 	 */
 	public String FOREGROUND3() {
 		return getColorSetCssName("foreground3");
 	}
 
 	/**
-	 * @return CSS name for {@link MaterialColorSet#getBackground()}
+	 * @return CSS name for {@link ReflectColorSet#getBackground()}
 	 */
 	public String BACKGROUND() {
 		return getColorSetCssName("background");
 	}
 
 	/**
-	 * @return CSS name for {@link MaterialColorSet#getBackgroundHighLighted()}
+	 * @return CSS name for {@link ReflectColorSet#getBackgroundHighLighted()}
 	 */
 	public String BACKGROUND_HIGHLIGHTED() {
 		return getColorSetCssName("background-heighlighted");
 	}
 	
 	/**
-	 * @return CSS name for {@link MaterialColorSet#getBackgroundHighLighted()}
+	 * @return CSS name for {@link ReflectColorSet#getBackgroundHighLighted()}
 	 */
 	public String TRANSPARENT() {
 		return "transparent";

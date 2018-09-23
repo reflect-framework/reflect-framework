@@ -7,11 +7,14 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import nth.reflect.fw.ui.swing.properygrid.PropertyRow.FieldWidth;
+import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
+import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
+import nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanel;
+import nth.reflect.fw.ui.view.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.view.form.propertypanel.PropertyFieldWidth;
 
 public class PropertyGridLayout implements LayoutManager {
 
@@ -39,24 +42,25 @@ public class PropertyGridLayout implements LayoutManager {
 		int rowHeight = 0;
 
 		// set SIZE and location of property rows
-		for (Component propertyPanel : container.getComponents()) {
-			rowHeight = (int) propertyPanel.getMaximumSize().getHeight();
+		for (Component component : container.getComponents()) {
+			rowHeight = (int) component.getMaximumSize().getHeight();
 			// rowHeight = DEFAULT_ROW_HEIGHT;
-			if (propertyPanel instanceof PropertyRow) {
-				PropertyRow propertyRow = (PropertyRow) propertyPanel;
-				rowHeight = (int) (SPACING + propertyRow.getField().getPreferredSize().getHeight() + SPACING);
-				// make a temporary label and replace spaces with underscores to prevent line breaks
-				JLabel tempLabel = new JLabel();
-				tempLabel.setText(propertyRow.getLabel().getText().replace(" ", "_"));
-				tempLabel.setFont(propertyRow.getLabel().getFont());
-				maxLabelWith = (int) Math.max(tempLabel.getMinimumSize().getWidth(), maxLabelWith);
+			if (component instanceof PropertyPanel) {
+				PropertyPanel propertyPanel = (PropertyPanel) component;
+				Component propertyField = (Component) propertyPanel.getPropertyField();
+				rowHeight = (int) (SPACING + propertyField.getPreferredSize().getHeight() + SPACING);
+//				// make a temporary label and replace spaces with underscores to prevent line breaks
+//				JLabel tempLabel = new JLabel();
+//				tempLabel.setText(propertyPanel.getPropertyLabel().getText().replace(" ", "_"));
+//				tempLabel.setFont(propertyPanel.getPropertyLabel().getFont());
+//				maxLabelWith = (int) Math.max(tempLabel.getMinimumSize().getWidth(), maxLabelWith);
 			}
-			propertyPanel.setLocation(new Point(x, y));
-			propertyPanel.setSize(new Dimension(rowWidth, rowHeight));
+			component.setLocation(new Point(x, y));
+			component.setSize(new Dimension(rowWidth, rowHeight));
 			// TODO set component border;
 			y += rowHeight;
 		}
-		maxLabelWith += 3 * SPACING;
+		maxLabelWith =150+ 3 * SPACING;
 		// if (maxLabelWith > MAX_LABEL_WIDTH) {
 		// maxLabelWith = MAX_LABEL_WIDTH;
 		// }
@@ -64,46 +68,43 @@ public class PropertyGridLayout implements LayoutManager {
 		// set SIZE of lables fields and validators
 		x = 0;
 		y = 0;
-		for (Component propertyPanel : container.getComponents()) {
-			rowHeight = propertyPanel.getHeight();
-			if (propertyPanel instanceof PropertyRow) {
-				PropertyRow propertyRow = (PropertyRow) propertyPanel;
-				JLabel label = propertyRow.getLabel();
+		for (Component component : container.getComponents()) {
+			rowHeight = component.getHeight();
+			if (component instanceof PropertyPanel) {
+				PropertyPanel propertyPanel = (PropertyPanel) component;
+				JLabel label = propertyPanel.getPropertyLabel();
 				label.setLocation(SPACING, SPACING);
 				label.setSize(maxLabelWith - 3 * SPACING, rowHeight - 2 * SPACING);
 				label.setVerticalAlignment(SwingConstants.TOP);
 				// label.setHorizontalAlignment(SwingConstants.RIGHT);
 
-				JPanel fieldAndValidatorPanel = propertyRow.getFieldAndValidatorPanel();
-				fieldAndValidatorPanel.setLocation(maxLabelWith, 0);
-				fieldAndValidatorPanel.setSize(new Dimension(rowWidth - maxLabelWith, rowHeight));
+				PropertyField field = propertyPanel.getPropertyField();
+				Component fieldComponent = (Component) field;
+				Component validator = propertyPanel.getPropertyValidationMessages();
+				if (PropertyFieldWidth.FULL==field.getPropertyFieldWidth()) {
+					int propertyPanelWidth = propertyPanel.getWidth();
+					int fieldXPos = maxLabelWith+SPACING;
+					int fieldWidth= propertyPanelWidth-SPACING-fieldXPos;
 
-				Component field = propertyRow.getField();
-				Component validator = propertyRow.getValidator();
-				if (FieldWidth.half.equals(propertyRow.getFieldWidth())) {
-					int halfPanelWidth = fieldAndValidatorPanel.getWidth() / 2;
-					field.setLocation(SPACING, SPACING);
-					Dimension size = new Dimension(halfPanelWidth - 2 * SPACING, fieldAndValidatorPanel.getHeight() - 2 * SPACING);
-					// field.setMinimumSize(SIZE);
-					// field.setPreferredSize(SIZE);
-					field.setSize(size);
-					validator.setLocation(halfPanelWidth + SPACING, SPACING);
-					validator.setSize(size);
+					fieldComponent.setLocation(fieldXPos, SPACING);
+					fieldComponent.setSize(new Dimension(fieldWidth, ((Component)field).getPreferredSize().height));
+					
+					validator.setLocation(fieldXPos, ((Component)field).getPreferredSize().height+SPACING);
+					validator.setSize(new Dimension(fieldWidth, validator.getPreferredSize().height));
+
 				} else {
-					int panelWidth = fieldAndValidatorPanel.getWidth();
-					int minValidatorWidth = (int) validator.getMinimumSize().getWidth();
-					int validatorXPos = panelWidth - minValidatorWidth - 2 * SPACING;
-					validator.setLocation(validatorXPos, SPACING);
-					validator.setSize(new Dimension(minValidatorWidth, fieldAndValidatorPanel.getHeight() - 2 * SPACING));
-
-					field.setLocation(SPACING, SPACING);
-					field.setSize(new Dimension(validatorXPos - 2 * SPACING, fieldAndValidatorPanel.getHeight() - 2 * SPACING));
-				}
+					int fieldXPos = maxLabelWith+SPACING;
+					int fieldWidth= PropertyPanelStyle.getMaxSmallWidth();
+					
+					fieldComponent.setLocation(fieldXPos, SPACING);
+					fieldComponent.setSize(new Dimension(fieldWidth,((Component)field).getPreferredSize().height ));
+					
+					validator.setLocation(fieldXPos, ((Component)field).getPreferredSize().height+SPACING);
+					validator.setSize(new Dimension(fieldWidth,validator.getPreferredSize().height ));
+									}
 			}
 			y += rowHeight;
 		}
-
-		// TODO set SIZE of labels,
 
 	}
 

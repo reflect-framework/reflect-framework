@@ -2,6 +2,8 @@
 <dom-module id="reflect-resize"> 
 <!-- Browser side resizing when window changes in size -->
 <script>
+//This javascript implements the reflect responsive design rules (see JavaDoc of the ReflectResponsiveDesign class)
+
 // ========== BIND_WINDOW EVENTS ==========
 window.onload = function() {init()};
 window.onresize=function() {updateGui()};
@@ -17,7 +19,9 @@ var Size = {
 var MAIN_MENU_WIDTH=280;
 
 // ========== GLOBALS ==========
+
 var windowSize= {
+		//See the javadoc of the ReflectDisplayWidth class
 		horizontal : function() {
 			if (window.innerWidth<378) {         // <10cm (phone size)
 				return Size.SMALL;
@@ -28,6 +32,7 @@ var windowSize= {
 			}
 		} ,
 		vertical : function() {
+		//See the javadoc of the ReflectDisplayHeight class	
 			if (window.innerHeight<378) {         // <10cm (phone size)
 				return Size.SMALL;
 			} else if (window.innerHeight<756) {  // <20cm (tablet size)

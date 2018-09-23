@@ -3,6 +3,7 @@ package nth.reflect.fw.ui.swing.view.form;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
@@ -26,10 +27,12 @@ import nth.reflect.fw.ui.item.tab.CancelItem;
 import nth.reflect.fw.ui.item.tab.CloseThisTabItem;
 import nth.reflect.fw.ui.swing.item.button.ItemButton;
 import nth.reflect.fw.ui.swing.properygrid.PropertyGrid;
-import nth.reflect.fw.ui.swing.properygrid.PropertyRow;
 import nth.reflect.fw.ui.swing.properygrid.SwingUtil;
 import nth.reflect.fw.ui.swing.view.SwingView;
+import nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanel;
+import nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
+import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.view.FormMode;
 
 @SuppressWarnings("serial")
@@ -43,7 +46,7 @@ public class FormView extends SwingView implements
 	private final FormMode formMode;
 	private final Object domainObject;
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final ReflectionProvider reflectionProvider;
+	private final List<PropertyPanel> propertyPanels;
 
 	public FormView(UserInterfaceContainer userInterfaceContainer,
 			Object methodOwner, ActionMethodInfo actionMethodInfo,
@@ -56,31 +59,69 @@ public class FormView extends SwingView implements
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
-		reflectionProvider = userInterfaceContainer
+
+		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer,
+				 domainObject, formMode);
+		
+		propertyPanels = createPropertyPanels();
+		
+		updatePropertyPanels();
+		
+		add(createPropertyGrid(), BorderLayout.CENTER);
+
+		add(createButtonBar(), BorderLayout.SOUTH);
+		
+		setFocusToFirstField();
+	}
+
+	private List<PropertyInfo> getPropertyInfos(Object domainObject) {
+		ReflectionProvider reflectionProvider = userInterfaceContainer
 				.get(ReflectionProvider.class);
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainObject
 				.getClass());
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+		return propertyInfos;
+	}
 
-		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer,
-				reflectionProvider, domainObject, formMode);
-
+	private PropertyGrid createPropertyGrid() {
 		PropertyGrid propertyGrid = new PropertyGrid();
-		add(propertyGrid, BorderLayout.CENTER);
-		Component fieldToGetFocus = null;
-		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyRow propertyRow = new PropertyRow(this, reflectionProvider,
-					domainValueModel, propertyInfo, formMode);
-			if (fieldToGetFocus == null && FormMode.EDIT_MODE == formMode
-					&& propertyInfo.isEnabled(domainObject)) {
-				// XXX also check for field visibility?
-				fieldToGetFocus = propertyRow.getField();
-			}
-			propertyGrid.addPropertyRow(propertyRow);
+		for (PropertyPanel propertyPanel : propertyPanels) {
+			propertyGrid.addPropertyRow(propertyPanel);
 		}
+		return propertyGrid;
+	}
 
-		add(createButtonBar(), BorderLayout.SOUTH);
+	private void updatePropertyPanels() {
+		for (PropertyPanel propertyPanel : propertyPanels) {
+			propertyPanel.updateFromPropertyValueModel();
+		}
+	}
 
+	private void setFocusToFirstField() {
+		for (PropertyPanel propertyPanel : propertyPanels) {
+			Component field = (Component) propertyPanel.getPropertyField();
+			if (FormMode.EDIT_MODE == formMode
+					&& propertyPanel.isVisible() && field.isEnabled()) {
+				setFocus(field);
+				return;
+			}
+		}
+	}
+
+	private List<PropertyPanel>  createPropertyPanels() {
+		List<PropertyInfo> propertyInfos = getPropertyInfos(domainObject);
+		
+		List<PropertyPanel> propertyPanels=new ArrayList<>();
+		PropertyPanelFactory propertyPanelFactory=new PropertyPanelFactory();
+		for (PropertyInfo propertyInfo : propertyInfos) {
+			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
+			PropertyPanel propertyPanel=propertyPanelFactory.createPropertyPanel(this, propertyValueModel);
+			propertyPanels.add(propertyPanel);
+		}
+		return propertyPanels;
+	}
+
+	private void setFocus(Component fieldToGetFocus) {
 		// set focus to first enabled field
 		if (fieldToGetFocus != null) {
 			final Component field = fieldToGetFocus;
@@ -92,9 +133,9 @@ public class FormView extends SwingView implements
 			});
 
 		}
-
 	}
 
+	
 	private Component createButtonBar() {
 		JPanel buttonBar = new JPanel();
 		buttonBar.setAlignmentX(JToolBar.CENTER_ALIGNMENT);
@@ -151,8 +192,7 @@ public class FormView extends SwingView implements
 
 	@Override
 	public String getViewTitle() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
-				domainValueModel.getValue());
+		return actionMethodInfo.getDisplayName();
 	}
 
 	@Override
@@ -172,7 +212,7 @@ public class FormView extends SwingView implements
 
 	@Override
 	public void onViewActivate() {
-		SwingUtil.refreshComponentAndItsChildren(this);
+		updatePropertyPanels();
 	}
 
 	@Override

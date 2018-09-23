@@ -1,9 +1,11 @@
 package nth.reflect.fw.ui;
 
 import java.net.URI;
+import java.text.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -24,15 +26,13 @@ import nth.reflect.fw.ui.item.dialog.DialogCancelItem;
 import nth.reflect.fw.ui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.ui.item.dialog.DialogMethodItem;
 import nth.reflect.fw.ui.item.dialog.DialogShowStackTraceItem;
-import nth.reflect.fw.ui.style.DisplayType;
 import nth.reflect.fw.ui.style.MaterialColorPalette;
-import nth.reflect.fw.ui.style.MaterialStyle;
+import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.style.basic.Color;
-import nth.reflect.fw.ui.view.FormField;
-import nth.reflect.fw.ui.view.FormFieldFactory;
 import nth.reflect.fw.ui.view.FormMode;
 import nth.reflect.fw.ui.view.FormView;
 import nth.reflect.fw.ui.view.TableView;
+import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
 
 /**
  * 
@@ -42,7 +42,7 @@ import nth.reflect.fw.ui.view.TableView;
  *            A user interface specific class (often a component container/
  *            layout) that implements {@link View}
  */
-public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, FORM_FIELD extends FormField>
+public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PROPERTY_PANEL>
 		extends UserInterfaceController {
 
 	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
@@ -456,21 +456,17 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, FO
 	public abstract ViewController getViewController();
 
 	/**
-	 * @Depricated use RfxUtil
-	 * @author nilsth
-	 *
+	 * TODO get color from {@link ReflectApplication} {@link Annotation}, so
+	 * that the {@link GraphicalUserinterfaceController} does not have to be
+	 * overridden when different colors are needed
+	 * 
+	 * @return
 	 */
-
-	public static MaterialStyle getMaterialStyle() {
-		boolean hasKeyboardAndMouse = true;// assumption TODO: get real value
-											// from system
-		int widtInPixels = 300;
-		int heightInPixels = 200;
-		DisplayType displayType = new DisplayType(widtInPixels, heightInPixels, hasKeyboardAndMouse);
-		MaterialStyle materialStyle = new MaterialStyle(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE,
-				Color.WHITE, displayType);
-		return materialStyle;
+	public ReflectColors getColors() {
+		ReflectColors reflectColors = new ReflectColors(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE,
+				Color.WHITE);
+		return reflectColors;
 	}
 
-	public abstract FormFieldFactory<FORM_FIELD> getFormFieldFactory();
+	public abstract PropertyPanelFactory<PROPERTY_PANEL> getPropertyPanelFactory();
 }

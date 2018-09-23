@@ -22,11 +22,11 @@ public enum MenuType {
 	 */
 	EMBEDDED;
 
-	public static MenuType getForDisplaySize(DisplaySize displaySize) {
-		if (DisplaySize.SMALL_LANDSCAPE == displaySize || DisplaySize.SMALL_PORTRAIT==displaySize) {
-			return DRAWER;
+	public static MenuType get(ReflectDisplayWidth displayWidth) {
+		if (ReflectDisplayWidth.LARGE==displayWidth) {
+			return MenuType.EMBEDDED;
 		} else {
-			return EMBEDDED;
+			return DRAWER;
 		}
 	}
 }

@@ -26,8 +26,6 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
-import nth.reflect.fw.ui.style.ContentColor;
-import nth.reflect.fw.ui.style.basic.Color;
 
 /**
  * <p>
@@ -118,37 +116,37 @@ public abstract class ReflectApplicationForJavaFX extends Application
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-
-	/**
-	 * @return A primary color is the color displayed most frequently across
-	 *         your app’s screens and components. To create contrast between
-	 *         elements, you can use lighter or darker tones of your primary
-	 *         color. The contrast between lighter and darker tones helps show
-	 *         division between surfaces, such as between the status bar and a
-	 *         toolbar.
-	 * 
-	 *         TODO: 700 for AppBar, 500 for toolbar, 300 for secondary
-	 *         information
-	 */
-	public abstract Color getPrimaryColor();
-
-	/**
-	 * @return A accent color is used to accent select parts of your UI. It can
-	 *         be complementary or analogous to your primary color, but it
-	 *         should not simply be a light or dark variation of your primary
-	 *         color. It should contrast with elements that surround it and be
-	 *         applied sparingly as an accent. Accent colors can be used for
-	 *         floating action buttons (e.g a plus to add a item) or to indicate
-	 *         focus on elements such as buttons or text fields.
-	 */
-	public abstract Color getAccentColor();
-
-	/**
-	 * 
-	 * @return The content color is the back ground color of the content views
-	 *         (e.g. the background color of a form view), The content color can
-	 *         only be white or black
-	 */
-	public abstract ContentColor getContentColor();
+//
+//	/**
+//	 * @return A primary color is the color displayed most frequently across
+//	 *         your app’s screens and components. To create contrast between
+//	 *         elements, you can use lighter or darker tones of your primary
+//	 *         color. The contrast between lighter and darker tones helps show
+//	 *         division between surfaces, such as between the status bar and a
+//	 *         toolbar.
+//	 * 
+//	 *         TODO: 700 for AppBar, 500 for toolbar, 300 for secondary
+//	 *         information
+//	 */
+//	public abstract Color getPrimaryColor();
+//
+//	/**
+//	 * @return A accent color is used to accent select parts of your UI. It can
+//	 *         be complementary or analogous to your primary color, but it
+//	 *         should not simply be a light or dark variation of your primary
+//	 *         color. It should contrast with elements that surround it and be
+//	 *         applied sparingly as an accent. Accent colors can be used for
+//	 *         floating action buttons (e.g a plus to add a item) or to indicate
+//	 *         focus on elements such as buttons or text fields.
+//	 */
+//	public abstract Color getAccentColor();
+//
+//	/**
+//	 * 
+//	 * @return The content color is the back ground color of the content views
+//	 *         (e.g. the background color of a form view), The content color can
+//	 *         only be white or black
+//	 */
+//	public abstract ContentColor getContentColor();
 
 }

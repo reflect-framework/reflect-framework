@@ -16,35 +16,32 @@ import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.view.FormFieldSubFactory;
 import nth.reflect.fw.ui.view.FormMode;
+import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.view.container.TabView;
 import nth.reflect.ui.vaadin.view.container.TabViewController;
 import nth.reflect.ui.vaadin.view.form.FormView;
-import nth.reflect.ui.vaadin.view.form.field.FormFieldFactoryForVaadin;
-import nth.reflect.ui.vaadin.view.form.field.FormFieldForVaadin;
+import nth.reflect.ui.vaadin.view.form.row.PropertyPanel;
 import nth.reflect.ui.vaadin.view.table.TableView;
 import nth.reflect.ui.vaadin.view.treetable.TreeTableView;
 
-public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceController<TabView, FormFieldForVaadin> {
+public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceController<TabView, PropertyPanel> {
 
 	private final ReflectApplicationForVaadin reflectAppForVaadin;
-	private final FormFieldFactoryForVaadin formFieldFactory;
+	private final nth.reflect.ui.vaadin.view.form.row.PropertyPanelFactory propertyPanelFactory;
 
 	public UserInterfaceControllerForVaadin(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin.class);
-		formFieldFactory=new FormFieldFactoryForVaadin();
+		propertyPanelFactory = new nth.reflect.ui.vaadin.view.form.row.PropertyPanelFactory();
 	}
 
 	/**
 	 * We do not have to create the {@link ReflectApplicationForVaadin}, because
-	 * it is created when but the Vaadin framework when is receives a
+	 * it is created by the Vaadin framework when is receives a
 	 * {@link HttpServletRequest}.
 	 */
 	@Override
@@ -121,8 +118,6 @@ public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 
 	}
 
-	
-	
 	@Override
 	public TabViewController getViewController() {
 		return getMainWindow().getTabViewController();
@@ -133,15 +128,15 @@ public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 	}
 
 	@Override
-	public TabView createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object domainObject, FormMode formMode) {
+	public TabView createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object domainObject, FormMode formMode) {
 		return new FormView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
 				formMode);
 	}
 
 	@Override
-	public TabView createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue) {
+	public TabView createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object methodReturnValue) {
 		return new TableView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
@@ -204,18 +199,19 @@ public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 		Optional<UI> ui = getMainWindow().getUI();
 		if (ui.isPresent()) {
 			ui.get().access(new Command() {
-				
+
 				@Override
 				public void execute() {
-					methodExecutionRunnable.run();;
+					methodExecutionRunnable.run();
+					;
 				}
 			});
 		}
 	}
 
 	@Override
-	public FormFieldFactoryForVaadin getFormFieldFactory() {
-		return formFieldFactory;
+	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
+		return propertyPanelFactory;
 	}
 
 }

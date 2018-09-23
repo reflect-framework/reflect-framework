@@ -40,6 +40,8 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * @author nilsth
  *
  */
+
+//TODO see https://github.com/atarw/material-ui-swing
 public abstract class ReflecttApplicationForSwing implements
 ReflectApplication {
 

@@ -2,16 +2,20 @@ package nth.reflect.fw.ui.swing.component.tabpanel;
 
 import java.net.MalformedURLException;
 
-import nth.reflect.fw.ui.style.MaterialStyle;
+import nth.reflect.fw.ui.style.ReflectColors;
+import nth.reflect.fw.ui.style.component.ApplicationBarStyle;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.ui.swing.component.button.MaterialButton;
 
 public class MaterialTabBarContextMenuButton extends MaterialButton {
 
 	private static final long serialVersionUID = -1862078530902019839L;
+	private static final int PADDING = 16;
+	private static final int SIZE = 20;
+	private static Object getIconPadding;
 
-	public MaterialTabBarContextMenuButton(MaterialStyle materialStyle) throws MalformedURLException {
-		super(materialStyle.getTabToolbarIconStyle().getColor(), materialStyle.getTabToolbarIconStyle().getPressedColor(), materialStyle.getTabToolbarIconStyle().getPadding(), materialStyle.getTabToolbarIconStyle().getSize(), FontAwesomeUrl.ELLIPSIS_V);
+	public MaterialTabBarContextMenuButton(ReflectColors reflectColors) throws MalformedURLException {
+		super(ApplicationBarStyle.getForeground1(reflectColors), ApplicationBarStyle.getBackgroundHighLighted(reflectColors), ApplicationBarStyle.getIconPadding(), ApplicationBarStyle.getIconSize(), FontAwesomeUrl.ELLIPSIS_V);
 	}
 
 }

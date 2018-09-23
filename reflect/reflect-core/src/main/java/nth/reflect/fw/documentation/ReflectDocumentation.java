@@ -21,6 +21,8 @@ import nth.reflect.fw.ReflectFramework;
  * 
  * <H1>Object behavior</h1> {@insert ObjectBehavior}
  * 
+ * <H1>Graphical Design Rules</h1> {@insert ReflectGraphicalDesignRules}
+ * 
  * <h1>Reflect Application Projects (Getting started)</h1> {@insert ReflectApplicationProjects}
  * 
  * <h1>Reflect Provider Projects</h1> {@insert ReflectProviderProjects}

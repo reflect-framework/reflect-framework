@@ -1,6 +1,7 @@
 package nth.reflect.ui.vaadin.view.form;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.component.Component;
@@ -22,13 +23,13 @@ import nth.reflect.fw.ui.item.tab.CancelItem;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.view.FormMode;
+import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 import nth.reflect.ui.vaadin.view.container.TabView;
-import nth.reflect.ui.vaadin.view.form.field.FormFieldFactoryForVaadin;
-import nth.reflect.ui.vaadin.view.form.field.FormFieldForVaadin;
+import nth.reflect.ui.vaadin.view.form.row.PropertyPanel;
 
 @SuppressWarnings("serial")
 public class FormView extends TabView implements nth.reflect.fw.ui.view.FormView {
@@ -42,7 +43,7 @@ public class FormView extends TabView implements nth.reflect.fw.ui.view.FormView
 	private final FormMode formMode;
 	private final BufferedDomainValueModel domainValueModel;
 	private final ReflectionProvider reflectionProvider;
-	private final FormFieldFactoryForVaadin formFieldFactory;
+	private List<PropertyPanel> propertyPanels;
 
 	public FormView(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
@@ -56,13 +57,33 @@ public class FormView extends TabView implements nth.reflect.fw.ui.view.FormView
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		UserInterfaceControllerForVaadin userinterfaceController = userInterfaceContainer
 				.get(UserInterfaceControllerForVaadin.class);
-		this.formFieldFactory = userinterfaceController.getFormFieldFactory();
-		this.domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, reflectionProvider, domainObject,
+		PropertyPanelFactory<PropertyPanel> formRowFactory = userinterfaceController.getPropertyPanelFactory();
+		
+		this.domainValueModel = new BufferedDomainValueModel(userInterfaceContainer,  domainObject,
 				formMode);
 
+		propertyPanels=createFormRows(formRowFactory);
+		
 		FormLayout formLayout = createFormLayout();
 		add(formLayout);
+	}
 
+	private void updateFormRows() {
+		for (PropertyPanel propertyPanel : propertyPanels) {
+			propertyPanel.updateFromPropertyValueModel();
+		}
+	}
+
+	private List<PropertyPanel> createFormRows(PropertyPanelFactory<PropertyPanel> formRowFactory) {
+		List<PropertyPanel> propertyPanels=new ArrayList<>();
+		ClassInfo domainInfo = reflectionProvider.getClassInfo(domainObject.getClass());
+		List<PropertyInfo> propertyInfos = domainInfo.getPropertyInfosSorted();
+		for (PropertyInfo propertyInfo : propertyInfos) {
+			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
+			PropertyPanel propertyPanel = formRowFactory.createPropertyPanel(this, propertyValueModel);
+			propertyPanels.add(propertyPanel);
+		}
+		return propertyPanels;
 	}
 
 	private Component createOkCancelButtonGroup() {
@@ -99,12 +120,8 @@ public class FormView extends TabView implements nth.reflect.fw.ui.view.FormView
 		new StyleBuilder().setHeight(100, SizeUnit.PERCENT).setOverflow(Overflow.AUTO).setPadding(PADDING)
 				.setFor(formLayout);
 
-		ClassInfo domainInfo = reflectionProvider.getClassInfo(domainObject.getClass());
-		List<PropertyInfo> propertyInfos = domainInfo.getPropertyInfosSorted();
-		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
-			FormFieldForVaadin field = formFieldFactory.createAndUpdate(userInterfaceContainer, propertyValueModel);
-			formLayout.add(field);
+		for (PropertyPanel propertyPanel : propertyPanels) {
+			formLayout.add(propertyPanel);
 		}
 
 		if (formMode == FormMode.EDIT_MODE) {
@@ -133,8 +150,7 @@ public class FormView extends TabView implements nth.reflect.fw.ui.view.FormView
 
 	@Override
 	public void onViewActivate() {
-		// TODO Auto-generated method stub
-
+		updateFormRows();
 	}
 
 	@Override

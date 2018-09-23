@@ -8,7 +8,7 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.ui.commandline.ReflectApplicationForCommandLine;
-import nth.reflect.fw.ui.commandline.demo.dom.TestService;
+import nth.reflect.fw.ui.commandline.demo.dom.AllTypesService;
 
 public class ReflectCommandLineDemo extends
 		ReflectApplicationForCommandLine {
@@ -19,7 +19,7 @@ public class ReflectCommandLineDemo extends
 
 	@Override
 	public List<Class<?>> getServiceClasses() {
-		return Arrays.asList(TestService.class);
+		return Arrays.asList(AllTypesService.class);
 	}
 
 	@Override

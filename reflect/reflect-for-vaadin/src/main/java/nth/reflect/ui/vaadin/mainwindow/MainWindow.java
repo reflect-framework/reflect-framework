@@ -29,8 +29,6 @@ import com.vaadin.flow.data.selection.SelectionEvent;
 import javafx.scene.control.TreeItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
@@ -289,6 +287,7 @@ public class MainWindow extends Div {
 				break;
 			}
 		};
+		selectedView.onViewActivate();
 		resizeChildernOnBrowser();
 	}
 
