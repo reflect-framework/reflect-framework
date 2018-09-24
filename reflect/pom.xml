@@ -30,6 +30,7 @@
 		<module>reflect-for-vaadin</module>
 		<module>reflect-infrastructure-random-factory</module>
 		<module>reflect-example-domain-contact</module>
+		<module>reflect-infrastructure-random-generator</module>
 	</modules>
 
 

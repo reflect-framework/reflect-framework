@@ -1,4 +1,4 @@
-package com.acme.web.shop.product;
+package nth.reflect.fw.infrastructure.random.generator.collection.product;
 
 import java.math.BigDecimal;
 
@@ -6,23 +6,26 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.RandomLoremIpsumFactory;
 
-public class RandomProductFactory implements RandomGenerator<Product> {
-
-	private static final String CODE_12334 = "CODE-12334";//FIXME replace with Random.getFormatFactory("999-AA999")
+public class ProductGenerator implements RandomGenerator<Product> {
+/**
+ * FIXME replace {@link #CODE_12345} with a {@link RandomGenerator} (e.g. a FormatGenerator)
+ */
+private static final String CODE_12345 = "CODE-12345";
 	private final RandomLoremIpsumFactory nameFactory;
 	private final RandomLoremIpsumFactory detailFactory;
 	private final BigDecimalGenerator priceFactory;
 	
-	public RandomProductFactory() {
+	public ProductGenerator() {
+//		idFactory=new StringFactory(5, false, true);
 		nameFactory=new RandomLoremIpsumFactory(1,4);
-			detailFactory=new RandomLoremIpsumFactory(5, 10, 1, 5, 1, 3);
+		detailFactory=new RandomLoremIpsumFactory(5, 10, 1, 5, 1, 3);
 		priceFactory=new BigDecimalGenerator(new BigDecimal("10.0"),new BigDecimal("1000.0"));
 	}
 	
 	@Override
 	public Product generate() {
 		Product product=new Product();
-		product.setCode(CODE_12334);
+		product.setCode(CODE_12345);
 		product.setName(nameFactory.generate());
 		product.setDetails(detailFactory.generate());
 		product.setPrice(priceFactory.generate());

@@ -79,7 +79,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * {@insert ExecutionMode}
  * </p>
  * 
- * <h2>Parameter Factory</h2>
+ * <h2>Parameter RandomGenerator</h2>
  * <p>
  * {@insert ParameterFactoryModelFactory}
  * </p>

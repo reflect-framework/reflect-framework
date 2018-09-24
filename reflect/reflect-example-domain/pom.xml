@@ -15,5 +15,10 @@
 			<artifactId>reflect-userinterface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>nth.reflect.framework</groupId>
+			<artifactId>reflect-infrastructure-random-generator</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

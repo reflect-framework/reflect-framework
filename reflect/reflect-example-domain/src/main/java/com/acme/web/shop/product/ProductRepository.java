@@ -3,16 +3,16 @@ package com.acme.web.shop.product;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nth.reflect.fw.infrastructure.randomfactory.RandomListFactory;
+import nth.reflect.fw.infrastructure.random.generator.collection.ListGenerator;
 
 public class ProductRepository {
 
 	private final List<Product> products;
 
 	public ProductRepository() {
-		RandomListFactory<Product> randomProductListFactory = new RandomListFactory<Product>(20, 50,
+		ListGenerator<Product> randomProductListFactory = new ListGenerator<Product>(20, 50,
 				new RandomProductFactory());
-		products = randomProductListFactory.create();
+		products = randomProductListFactory.generate();
 	}
 
 	public List<Product> findProduct(ProductSearchCritiria searchCritiria) {

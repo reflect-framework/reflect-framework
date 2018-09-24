@@ -29,7 +29,7 @@ import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
  * <li>Creating objects with a
  * <a href="https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)"
  * >factory</a> class:<br>
- * class names end with 'Factory', e.g.: ReportFactory, etc..</li>
+ * class names end with 'RandomGenerator', e.g.: ReportFactory, etc..</li>
  * <li><a href="https://en.wikipedia.org/wiki/Logfile">Logging</a>:<br>
  * class names end with 'Logger'</li>
  * </ul>
