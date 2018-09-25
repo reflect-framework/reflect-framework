@@ -12,6 +12,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.EnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * A Factory (Convenience class) for creating {@link RandomGenerator}s using a
@@ -69,6 +70,10 @@ public class Random {
 	
 	public static LongGenerator longGenerator() {
 		return new LongGenerator();
+	}
+
+	public static StringGenerator stringGenerator() {
+		return new StringGenerator();
 	}
 	
 	
