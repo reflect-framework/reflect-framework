@@ -8,6 +8,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator
 import nth.reflect.fw.infrastructure.random.generator.number.BigIntegerGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.DoubleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.number.EnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
@@ -39,6 +40,11 @@ public class Random {
 
 	public static DoubleGenerator doubleGenerator() {
 		return new DoubleGenerator();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static EnumGenerator enumGenerator(Class<? extends Enum> enumClass) {
+		return new EnumGenerator(enumClass);
 	}
 	
 	public static IdGenerator idGenerator() {
