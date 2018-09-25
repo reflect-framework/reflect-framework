@@ -32,37 +32,37 @@ public class LocalDateGenerator extends RandomGenerator<LocalDate> {
 	
 	/**
 	 * e.g. for generating birthday dates for people between a given age.
-	 * @param minYearsBack
-	 * @param maxYearsBack
+	 * @param minPeriodBack from to now
+	 * @param maxPeriodBack from to now
 	 * @return {@link RandomGenerator} that generates a random date in the past
 	 */
-	public LocalDateGenerator forYearsBack(int minYearsBack, int maxYearsBack) {
-		if (minYearsBack>maxYearsBack) {
-			int temp = minYearsBack;
-			minYearsBack=maxYearsBack;
-			maxYearsBack=temp;
+	public LocalDateGenerator forPeriodInThePast(Period minPeriodBack, Period maxPeriodBack) {
+		if (minPeriodBack.getDays()>maxPeriodBack.getDays()) {
+			Period temp = minPeriodBack;
+			minPeriodBack=maxPeriodBack;
+			maxPeriodBack=temp;
 		}
 		LocalDate now = LocalDate.now();
-		LocalDate endDate=now.minus(Period.ofYears(minYearsBack));
-		LocalDate startDate=now.minus(Period.ofYears(maxYearsBack));
+		LocalDate endDate=now.minus(minPeriodBack);
+		LocalDate startDate=now.minus(maxPeriodBack);
 		return new LocalDateGenerator(startDate, endDate);
 	}
 	
 	/**
 	 * e.g. for generating due dates
-	 * @param minYearsForward
-	 * @param maxYearsForward
+	 * @param minPeriodForward from to now
+	 * @param maxPeriodForward from to now
 	 * @return {@link RandomGenerator} that generates a random date in the future
 	 */
-	public LocalDateGenerator forYearsForward(int minYearsForward, int maxYearsForward) {
-		if (minYearsForward>maxYearsForward) {
-			int temp = minYearsForward;
-			minYearsForward=maxYearsForward;
-			maxYearsForward=temp;
+	public LocalDateGenerator forPeriodInTheFuture(Period minPeriodForward, Period maxPeriodForward) {
+		if (minPeriodForward.getDays() > maxPeriodForward.getDays()) {
+			Period temp = maxPeriodForward;
+			minPeriodForward=maxPeriodForward;
+			maxPeriodForward=temp;
 		}
 		LocalDate now = LocalDate.now();
-		LocalDate startDate=now.plus(Period.ofYears(minYearsForward));
-		LocalDate endDate=now.plus(Period.ofYears(maxYearsForward));
+		LocalDate startDate=now.plus(minPeriodForward);
+		LocalDate endDate=now.plus(maxPeriodForward);
 		return new LocalDateGenerator(startDate, endDate);
 	}
 	
