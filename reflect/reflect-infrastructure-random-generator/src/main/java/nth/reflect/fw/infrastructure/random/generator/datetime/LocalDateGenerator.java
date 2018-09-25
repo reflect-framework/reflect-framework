@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class LocalDateGenerator implements RandomGenerator<LocalDate> {
+public class LocalDateGenerator extends RandomGenerator<LocalDate> {
 
 	private final LocalDate min;
 	private final LocalDate max;

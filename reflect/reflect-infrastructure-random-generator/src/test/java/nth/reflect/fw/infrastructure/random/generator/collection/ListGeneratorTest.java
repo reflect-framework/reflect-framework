@@ -7,9 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.collection.ListGenerator;
-import nth.reflect.fw.infrastructure.random.generator.collection.product.Product;
-import nth.reflect.fw.infrastructure.random.generator.collection.product.ProductGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.Product;
+import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.ProductGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 
 public class ListGeneratorTest {
@@ -17,7 +16,7 @@ public class ListGeneratorTest {
 	@Test
 	public void testRandomProductListFactoryWithSize() {
 		int size = 10;
-		ListGenerator<Product> productListGenerator = new ListGenerator<>(size, new ProductGenerator());
+		ListGenerator<Product> productListGenerator = new ListGenerator<>(new ProductGenerator(),size);
 		List<Product> list = productListGenerator.generate();
 		assertTrue(list.size() == size);
 		assertListContainsValidProducts(list);
@@ -27,8 +26,8 @@ public class ListGeneratorTest {
 	public void testRandomProductListFactoryWithMinMax() {
 		int min = 10;
 		int max = 50;
-		ListGenerator<Product> productListGenerator = new ListGenerator<>(min, max,
-				new ProductGenerator());
+		ListGenerator<Product> productListGenerator = new ListGenerator<>(
+				new ProductGenerator(),min, max);
 		List<Product> list = productListGenerator.generate();
 		assertTrue(list.size() >= min);
 		assertTrue(list.size() <= max);
@@ -38,8 +37,8 @@ public class ListGeneratorTest {
 	@Test
 	public void testRandomIntListFactoryWithSize() {
 		int listSize = 10;
-		ListGenerator<Integer> productListGenerator = new ListGenerator<>(listSize,
-				new IntGenerator(5, 10));
+		ListGenerator<Integer> productListGenerator = new ListGenerator<>(new IntGenerator(5, 10),listSize
+				);
 		List<Integer> list = productListGenerator.generate();
 		assertTrue(list.size() == listSize);
 		assertListContainsValidIntegers(list);
@@ -49,8 +48,7 @@ public class ListGeneratorTest {
 	public void testRandomIntListFactoryWithMinMax() {
 		int min = 10;
 		int max = 50;
-		ListGenerator<Integer> productListGenerator = new ListGenerator<>(min, max,
-				new IntGenerator(5, 10));
+		ListGenerator<Integer> productListGenerator = new ListGenerator<>(new IntGenerator(5, 10),min, max);
 		List<Integer> list = productListGenerator.generate();
 		assertTrue(list.size() >= min);
 		assertTrue(list.size() <= max);

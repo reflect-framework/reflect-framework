@@ -7,10 +7,9 @@ import java.util.GregorianCalendar;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class CalendarGenerator implements RandomGenerator<Calendar> {
+public class CalendarGenerator extends RandomGenerator<Calendar> {
 
-	private final LocalDateTime min;
-	private final LocalDateTime max;
+	private final LocalDateTimeGenerator localDateTimeGenerator;
 
 	public CalendarGenerator() {
 		this(LocalDateTime.now(),LocalDateTime.now().plusDays(1));
@@ -22,13 +21,16 @@ public class CalendarGenerator implements RandomGenerator<Calendar> {
 			min=max;
 			max=temp;
 		}
-		this.min = min;
-		this.max = max;
+		localDateTimeGenerator = new LocalDateTimeGenerator(min, max);
+	}
+	
+	public CalendarGenerator forRange(LocalDateTime min, LocalDateTime max) {
+		return new CalendarGenerator(min, max);
 	}
 
 	@Override
 	public Calendar generate() {
-		LocalDateTime randomLocalDateTime = new LocalDateTimeGenerator(min, max).generate();
+		LocalDateTime randomLocalDateTime = localDateTimeGenerator.generate();
 		ZoneId zoneId = getZoneId();
 		Calendar randomCalendar = GregorianCalendar.from(randomLocalDateTime.atZone(zoneId));
 		return randomCalendar;

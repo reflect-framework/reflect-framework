@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.generator.collection.product;
+package nth.reflect.fw.infrastructure.random.generator.collection.testobjects;
 
 import java.math.BigDecimal;
 
@@ -6,7 +6,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.RandomLoremIpsumFactory;
 
-public class ProductGenerator implements RandomGenerator<Product> {
+public class ProductGenerator extends RandomGenerator<Product> {
 /**
  * FIXME replace {@link #CODE_12345} with a {@link RandomGenerator} (e.g. a FormatGenerator)
  */

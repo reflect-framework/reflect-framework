@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.generator.collection.ArrayGenerator;
-import nth.reflect.fw.infrastructure.random.generator.collection.product.Product;
-import nth.reflect.fw.infrastructure.random.generator.collection.product.ProductGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.Product;
+import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.ProductGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 
 public class ArrayGeneratorTest {
@@ -16,7 +16,8 @@ public class ArrayGeneratorTest {
 	@Test
 	public void testRandomProductArrayGeneratorWithSize() {
 		int size = 10;
-		ArrayGenerator<Product> randomProductArrayGenerator = new ArrayGenerator<>(Product.class, size, new ProductGenerator());
+		ArrayGenerator<Product> randomProductArrayGenerator = new ArrayGenerator<>(Product.class,
+				new ProductGenerator(), size);
 		Object o[] = randomProductArrayGenerator.generate();
 		System.out.println(o[0]);
 		Product[] array = (Product[]) randomProductArrayGenerator.generate();
@@ -28,8 +29,8 @@ public class ArrayGeneratorTest {
 	public void testRandomProductArrayGeneratorWithMinMax() {
 		int min = 10;
 		int max = 50;
-		ArrayGenerator<Product> randomProductArrayGenerator = new ArrayGenerator<>( Product.class,min, max,
-				new ProductGenerator());
+		ArrayGenerator<Product> randomProductArrayGenerator = new ArrayGenerator<>(Product.class,
+				new ProductGenerator(), min, max);
 		Product[] array = randomProductArrayGenerator.generate();
 		assertTrue(array.length >= min);
 		assertTrue(array.length <= max);
@@ -39,8 +40,8 @@ public class ArrayGeneratorTest {
 	@Test
 	public void testRandomIntArrayGeneratorWithSize() {
 		int listSize = 10;
-		ArrayGenerator<Integer> randomProductArrayGenerator = new ArrayGenerator<>(Integer.class, listSize,
-				new IntGenerator(5, 10));
+		ArrayGenerator<Integer> randomProductArrayGenerator = new ArrayGenerator<>(Integer.class,
+				new IntGenerator(5, 10), listSize);
 		Integer[] array = randomProductArrayGenerator.generate();
 		assertTrue(array.length == listSize);
 		assertArrayContainsValidIntegers(array);
@@ -50,8 +51,8 @@ public class ArrayGeneratorTest {
 	public void testRandomIntArrayGeneratorWithMinMax() {
 		int min = 10;
 		int max = 50;
-		ArrayGenerator<Integer> randomProductArrayGenerator = new ArrayGenerator<>(Integer.class, min, max,
-				new IntGenerator(5, 10));
+		ArrayGenerator<Integer> randomProductArrayGenerator = new ArrayGenerator<>(Integer.class,
+				new IntGenerator(5, 10), min, max);
 		Integer[] array = randomProductArrayGenerator.generate();
 		assertTrue(array.length >= min);
 		assertTrue(array.length <= max);

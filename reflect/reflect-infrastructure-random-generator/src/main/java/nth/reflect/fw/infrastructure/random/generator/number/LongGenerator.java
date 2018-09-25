@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class LongGenerator implements RandomGenerator<Long> {
+public class LongGenerator extends RandomGenerator<Long> {
 
 	private final long min;
 	private final long max;
@@ -23,12 +23,8 @@ public class LongGenerator implements RandomGenerator<Long> {
 		this.max = max;
 	}
 
-	public LongGenerator forMin(long min) {
-		return new LongGenerator(min, max);
-	}
-
 	public LongGenerator forMax(long max) {
-		return new LongGenerator(min, max);
+		return new LongGenerator(0, max);
 	}
 
 	public LongGenerator forRange(long min, long max) {

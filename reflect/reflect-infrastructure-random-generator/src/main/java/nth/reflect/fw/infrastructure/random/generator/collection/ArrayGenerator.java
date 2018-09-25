@@ -5,22 +5,24 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class ArrayGenerator<T> implements RandomGenerator<T[]> {
+/**
+ * Generates a {@link Array} of generated results.
+ * @author nilsth
+ *
+ * @param <T> the result type of the generator
+ */
+public class ArrayGenerator<T> extends RandomGenerator<T[]> {
 
 	private final Class<T> typeOfT;
 	private final int min;
 	private final int max;
 	private final RandomGenerator<T> randomGenerator;
 
-	public ArrayGenerator(Class<T> typeOfT, RandomGenerator<T> randomGenerator) {
-		this(typeOfT, 50, randomGenerator);
+	public ArrayGenerator(Class<T> typeOfT,  RandomGenerator<T> randomGenerator, int size) {
+		this(typeOfT, randomGenerator, size, size);
 	}
 
-	public ArrayGenerator(Class<T> typeOfT, int size, RandomGenerator<T> randomGenerator) {
-		this(typeOfT, size, size, randomGenerator);
-	}
-
-	public ArrayGenerator(Class<T> typeOfT, int min, int max, RandomGenerator<T> randomGenerator) {
+	public ArrayGenerator(Class<T> typeOfT, RandomGenerator<T> randomGenerator, int min, int max) {
 		if (min > max) {
 			int temp = min;
 			min = max;
@@ -32,7 +34,14 @@ public class ArrayGenerator<T> implements RandomGenerator<T[]> {
 		this.randomGenerator = randomGenerator;
 	}
 
+	public ArrayGenerator<T> forSize(int size) {
+		return new ArrayGenerator<T>(typeOfT, randomGenerator, size);
+	}
 
+	public ArrayGenerator<T> forRange(int min, int max) {
+		return new ArrayGenerator<T>(typeOfT, randomGenerator, min,max);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public T[] generate() {

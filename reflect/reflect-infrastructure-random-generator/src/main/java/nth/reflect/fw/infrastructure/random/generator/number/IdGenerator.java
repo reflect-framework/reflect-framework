@@ -11,7 +11,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  * @author nilsth
  *
  */
-public class IdGenerator implements RandomGenerator<Integer> {
+public class IdGenerator extends RandomGenerator<Integer> {
 
 	private int integer = 0;
 

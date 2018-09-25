@@ -12,7 +12,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  * 
  * Generates a string from a given pool of strings
  */
-public class StringGenerator implements RandomGenerator<String> {
+public class StringGenerator extends RandomGenerator<String> {
 
 	private final List<String> pool;
 

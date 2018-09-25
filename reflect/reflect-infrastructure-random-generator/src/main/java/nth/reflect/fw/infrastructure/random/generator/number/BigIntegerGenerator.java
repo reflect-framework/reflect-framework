@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class BigIntegerGenerator implements RandomGenerator<BigInteger> {
+public class BigIntegerGenerator extends RandomGenerator<BigInteger> {
 
 	private final BigInteger min;
 	private final BigInteger max;
@@ -24,18 +24,14 @@ public class BigIntegerGenerator implements RandomGenerator<BigInteger> {
 		this.max = max;
 	}
 
-	public BigIntegerGenerator forMin(BigInteger min) {
-		return new BigIntegerGenerator(min,max);
-	}
-	
 	public BigIntegerGenerator forMax(BigInteger max) {
-		return new BigIntegerGenerator(min,max);
+		return new BigIntegerGenerator(BigInteger.ZERO, max);
 	}
-	
+
 	public BigIntegerGenerator forRange(BigInteger min, BigInteger max) {
-		return new BigIntegerGenerator(min,max);
+		return new BigIntegerGenerator(min, max);
 	}
-	
+
 	@Override
 	public BigInteger generate() {
 		BigDecimal range = new BigDecimal(max.subtract(min));

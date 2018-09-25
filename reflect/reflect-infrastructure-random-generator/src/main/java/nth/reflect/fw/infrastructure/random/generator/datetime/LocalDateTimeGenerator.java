@@ -6,10 +6,10 @@ import java.time.LocalTime;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class LocalDateTimeGenerator implements RandomGenerator<LocalDateTime> {
+public class LocalDateTimeGenerator extends RandomGenerator<LocalDateTime> {
 
-	private final LocalDateTime min;
-	private final LocalDateTime max;
+	private final LocalTimeGenerator localTimeGenerator;
+	private final LocalDateGenerator localDateGenerator;
 	
 	public LocalDateTimeGenerator() {
 		this(LocalDateTime.now(),LocalDateTime.now().plusDays(1));
@@ -21,8 +21,8 @@ public class LocalDateTimeGenerator implements RandomGenerator<LocalDateTime> {
 			min=max;
 			max=temp;
 		}
-		this.min = min;
-		this.max = max;
+		localTimeGenerator = new LocalTimeGenerator(min.toLocalTime(), max.toLocalTime());
+		localDateGenerator = new LocalDateGenerator(min.toLocalDate(), max.toLocalDate());
 	}
 
 	public LocalDateTimeGenerator forRange(LocalDateTime min, LocalDateTime max) {
@@ -31,8 +31,8 @@ public class LocalDateTimeGenerator implements RandomGenerator<LocalDateTime> {
 	
 	@Override
 	public LocalDateTime generate() {
-		LocalTime randomTime = new LocalTimeGenerator(min.toLocalTime(), max.toLocalTime()).generate();
-		LocalDate randomDate=new LocalDateGenerator(min.toLocalDate(), max.toLocalDate()).generate();
+		LocalTime randomTime = localTimeGenerator.generate();
+		LocalDate randomDate=localDateGenerator.generate();
 		return LocalDateTime.of(randomDate, randomTime);
 	}
 

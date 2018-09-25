@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class BoolGenerator implements RandomGenerator<Boolean> {
+public class BoolGenerator extends RandomGenerator<Boolean> {
 
 	private final int probability;
 

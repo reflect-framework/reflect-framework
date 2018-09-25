@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.generator.collection.product;
+package nth.reflect.fw.infrastructure.random.generator.collection.testobjects;
 
 import java.math.BigDecimal;
 

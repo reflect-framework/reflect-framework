@@ -6,21 +6,23 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class ListGenerator<T> implements RandomGenerator<List<T>> {
+/**
+ * Generates a {@link ArrayList} of generated results.
+ * @author nilsth
+ *
+ * @param <T> the result type of the generator
+ */
+public class ListGenerator<T> extends RandomGenerator<List<T>> {
 
 	private final int min;
 	private final int max;
-	private RandomGenerator<T> randomGenerator;
+	private final RandomGenerator<T> randomGenerator;
 
-	public ListGenerator(RandomGenerator<T> randomGenerator) {
-		this(50, randomGenerator);
+	public ListGenerator( RandomGenerator<T> randomGenerator, int size) {
+		this( randomGenerator,size, size);
 	}
 
-	public ListGenerator(int size, RandomGenerator<T> randomGenerator) {
-		this(size, size, randomGenerator);
-	}
-
-	public ListGenerator(int min, int max, RandomGenerator<T> randomGenerator) {
+	public ListGenerator(RandomGenerator<T> randomGenerator, int min, int max) {
 		if (min > max) {
 			int temp = min;
 			min = max;
@@ -31,12 +33,12 @@ public class ListGenerator<T> implements RandomGenerator<List<T>> {
 		this.randomGenerator = randomGenerator;
 	}
 
-	public ListGenerator<T> forMin(int min) {
-		return new ListGenerator<>(min, max, randomGenerator);
+	public ListGenerator<T> forSize(int size) {
+		return new ListGenerator<>( randomGenerator, size);
 	}
 
-	public ListGenerator<T> forMax(int max) {
-		return new ListGenerator<>(min, max, randomGenerator);
+	public ListGenerator<T> forRange(int min, int max) {
+		return new ListGenerator<>( randomGenerator, min, max);
 	}
 
 	@Override
@@ -57,4 +59,5 @@ public class ListGenerator<T> implements RandomGenerator<List<T>> {
 			return randomSize;
 		}
 	}
+
 }

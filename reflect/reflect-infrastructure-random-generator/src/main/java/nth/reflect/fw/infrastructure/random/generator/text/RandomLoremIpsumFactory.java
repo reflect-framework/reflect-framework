@@ -8,7 +8,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  * 
  * @deprecated extend StringGenerator
  */
-public class RandomLoremIpsumFactory implements RandomGenerator<String> {
+public class RandomLoremIpsumFactory extends RandomGenerator<String> {
 	public static final String LOREM_IPSUM = "lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet";
 	private String[] loremIpsumWords = LOREM_IPSUM.split("\\s");
 	public static final String PARAGRAPH_SEPERATOR = "\n\n";
