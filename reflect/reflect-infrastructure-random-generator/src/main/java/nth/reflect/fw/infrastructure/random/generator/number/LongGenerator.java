@@ -16,8 +16,8 @@ public class LongGenerator extends RandomGenerator<Long> {
 	public LongGenerator(long min, long max) {
 		if (min > max) {
 			long temp = min;
-			min = temp;
-			max = min;
+			min = max;
+			max = temp;
 		}
 		this.min = min;
 		this.max = max;

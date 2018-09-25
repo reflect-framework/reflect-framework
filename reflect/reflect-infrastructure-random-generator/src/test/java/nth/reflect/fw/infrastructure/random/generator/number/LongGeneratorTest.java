@@ -1,23 +1,57 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.junit.Assert.assertThat;
+
+import java.util.List;
 
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
+import nth.reflect.fw.infrastructure.random.Random;
 
 public class LongGeneratorTest {
 
 	@Test
-	public void testRandomIntFactory() {
-		long min=10;
-		long max=20;
-		LongGenerator longGenerator=new LongGenerator(min, max);
-		for (int j=0;j<10;j++) {
-			long l = longGenerator.generate();
-			assertTrue(l>=min);
-			assertTrue(l<=max);
-		}
+	public void testForNoParameter() {
+		long min=0;
+		long max=Long.MAX_VALUE;
+		List<Long> randomLongs = Random.longGenerator().generateList(20);
+		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
+
+	@Test
+	public void testForMax() {
+		long min=0;
+		long max=1;
+		List<Long> randomLongs = Random.longGenerator().forMax( max).generateList(20);
+		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		
+		max=10;
+		randomLongs = Random.longGenerator().forMax( max).generateList(20);
+		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+	}
+
+	
+	@Test
+	public void testForRange() {
+		long min=0;
+		long max=1;
+		List<Long> randomLongs = Random.longGenerator().forRange(min, max).generateList(20);
+		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		
+		min=5;
+		max=10;
+		randomLongs = Random.longGenerator().forRange(min, max).generateList(20);
+		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		
+		min=10;
+		max=5;
+		randomLongs = Random.longGenerator().forRange(min, max).generateList(20);
+		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
+	}
+
 
 }

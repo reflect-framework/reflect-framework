@@ -1,63 +1,67 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator;
+import nth.reflect.fw.infrastructure.random.Random;
 
 public class BigDecimalGeneratorTest {
+	@Test
+	public void testForNoParams() {
+		List<BigDecimal> randomBigDecimals = Random.bigDecimalGenerator().generateList(20);
+		BigDecimal min = BigDecimal.ZERO;
+		BigDecimal max = BigDecimal.valueOf(Double.MAX_VALUE);
+		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+	}
 
 	@Test
-	public void testLeftSmallerOrEqualToRight() {
-		assertTrue(leftSmallerOrEqualToRight(BigDecimal.valueOf(10),BigDecimal.valueOf(20)));
-		assertTrue(leftSmallerOrEqualToRight(BigDecimal.valueOf(20),BigDecimal.valueOf(20)));
-		assertFalse(leftSmallerOrEqualToRight(BigDecimal.valueOf(20),BigDecimal.valueOf(10)));
+	public void testForMax() {
+		testForMax(BigDecimal.valueOf(10));
+		testForMax(BigDecimal.valueOf(-10));
+		testForMax(BigDecimal.valueOf(-20));
+		testForMax(BigDecimal.valueOf(10));
+
+		testForMax(new BigDecimal("10.5"));
+		testForMax(new BigDecimal("-10.4"));
+		testForMax(new BigDecimal("-20.3"));
+		testForMax(new BigDecimal("10.9"));
 	}
-	
-	@Test
-	public void testBigDecimalCreation() {
-		BigDecimalGenerator bigDecimalGenerator=new BigDecimalGenerator();
-		BigDecimal maxValue=BigDecimal.valueOf(Double.MAX_VALUE);
-		for (int i=0;i<20;i++) {
-			BigDecimal random = bigDecimalGenerator.generate();
-			assertTrue(leftSmallerOrEqualToRight(random,maxValue));
+
+	private void testForMax(BigDecimal max) {
+		List<BigDecimal> randomBigDecimals = Random.bigDecimalGenerator().forMax(max).generateList(20);
+		BigDecimal min = BigDecimal.ZERO;
+		if (min.compareTo(max) > 0) {
+			BigDecimal temp = min;
+			min = max;
+			max = temp;
 		}
-	}
-
-	private boolean leftSmallerOrEqualToRight(BigDecimal left, BigDecimal right) {
-		return left.compareTo(right)<1;
+		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
 	@Test
-	public void testBigDecimalCreationWithMinMaxIntegers() {
-		assertRandomNumbersBetweenMinMax(BigDecimal.valueOf(10), BigDecimal.valueOf(20));
-		assertRandomNumbersBetweenMinMax(BigDecimal.valueOf(-10), BigDecimal.valueOf(10));
-		assertRandomNumbersBetweenMinMax(BigDecimal.valueOf(-20), BigDecimal.valueOf(-10));
-		assertRandomNumbersBetweenMinMax(BigDecimal.valueOf(10), BigDecimal.valueOf(10));
+	public void testForRange() {
+		testForRange(BigDecimal.valueOf(10), BigDecimal.valueOf(20));
+		testForRange(BigDecimal.valueOf(-10), BigDecimal.valueOf(10));
+		testForRange(BigDecimal.valueOf(-20), BigDecimal.valueOf(-10));
+		testForRange(BigDecimal.valueOf(10), BigDecimal.valueOf(10));
+
+		testForRange(new BigDecimal("10.5"), new BigDecimal("20.3"));
+		testForRange(new BigDecimal("-10.4"), new BigDecimal("10.9"));
+		testForRange(new BigDecimal("-20.3"), new BigDecimal("-10.4"));
+		testForRange(new BigDecimal("10.9"), new BigDecimal("10.9"));
 	}
 
-	
-	@Test
-	public void testBigDecimalCreationWithMinMaxDecimals() {
-		assertRandomNumbersBetweenMinMax(new BigDecimal("10.5"), new BigDecimal("20.3"));
-		assertRandomNumbersBetweenMinMax(new BigDecimal("-10.4"), new BigDecimal("10.9"));
-		assertRandomNumbersBetweenMinMax(new BigDecimal("-20.3"), new BigDecimal("-10.4"));
-		assertRandomNumbersBetweenMinMax(new BigDecimal("10.9"), new BigDecimal("10.9"));
-	}
-
-	private void assertRandomNumbersBetweenMinMax(BigDecimal min, BigDecimal max) {
-
-		BigDecimalGenerator bigDecimalGenerator=new BigDecimalGenerator(min,max );
-	
-		for (int i=0;i<20;i++) {
-			BigDecimal random = bigDecimalGenerator.generate();
-			assertTrue(leftSmallerOrEqualToRight( min, random));
-			assertTrue(leftSmallerOrEqualToRight( random, max));
-		}
+	private void testForRange(BigDecimal min, BigDecimal max) {
+		List<BigDecimal> randomBigDecimals = Random.bigDecimalGenerator().forRange(min, max).generateList(20);
+		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
 }

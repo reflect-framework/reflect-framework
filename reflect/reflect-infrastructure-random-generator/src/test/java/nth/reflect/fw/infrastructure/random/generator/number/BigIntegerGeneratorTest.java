@@ -1,55 +1,61 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.junit.Assert.assertThat;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.number.BigIntegerGenerator;
+import nth.reflect.fw.infrastructure.random.Random;
 
 public class BigIntegerGeneratorTest {
 
-	
 	@Test
-	public void testLeftSmallerOrEqualToRight() {
-		assertTrue(leftSmallerOrEqualToRight(BigInteger.valueOf(10),BigInteger.valueOf(20)));
-		assertTrue(leftSmallerOrEqualToRight(BigInteger.valueOf(20),BigInteger.valueOf(20)));
-		assertFalse(leftSmallerOrEqualToRight(BigInteger.valueOf(20),BigInteger.valueOf(10)));
+	public void testForNoParam() {
+		List<BigInteger> randomBigIntegers = Random.bigIntegerGenerator().generateList(10);
+		BigInteger min = BigInteger.ZERO;
+		BigInteger max = BigInteger.valueOf(Long.MAX_VALUE);
+		assertThat(randomBigIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
-	
+
 	@Test
-	public void testBigInt() {
-		BigIntegerGenerator bigIntegerGenerator=new BigIntegerGenerator();
-		for (int i=0;i<20;i++) {
-			BigInteger random = bigIntegerGenerator.generate();
-			assertTrue(leftSmallerOrEqualToRight(random,BigInteger.valueOf(Long.MAX_VALUE)));
+	public void testForMax() {
+		testForMax(10);
+		testForMax(-10);
+		testForMax(-20);
+		testForMax(10);
+	}
+
+	private void testForMax(int maxInt) {
+		BigInteger min = BigInteger.ZERO;
+		BigInteger max = BigInteger.valueOf(maxInt);
+		List<BigInteger> randomBigIntegers = Random.bigIntegerGenerator().forMax(max).generateList(20);
+		if (min.compareTo(max) == 1) {
+			BigInteger temp = min;
+			min = max;
+			max = temp;
 		}
-	}
-
-	private boolean leftSmallerOrEqualToRight(BigInteger left, BigInteger right) {
-		return left.compareTo(right)<1;
+		assertThat(randomBigIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
 	@Test
-	public void testBigIntCreationWithMinAndMaxValue() {
-		assertRandomNumbersBetweenMinMax(10, 20);
-		assertRandomNumbersBetweenMinMax(-10, 10);
-		assertRandomNumbersBetweenMinMax(-20, -10);
-		assertRandomNumbersBetweenMinMax(10, 10);
+	public void testForRange() {
+		testForRange(10, 20);
+		testForRange(-10, 10);
+		testForRange(-20, -10);
+		testForRange(10, 10);
 	}
 
-	private void assertRandomNumbersBetweenMinMax(int minInt, int maxInt) {
-		BigInteger min=BigInteger.valueOf(minInt);
-		BigInteger max=BigInteger.valueOf(maxInt);
-
-		BigIntegerGenerator bigIntegerGenerator=new BigIntegerGenerator(min,max );
-	
-		for (int i=0;i<20;i++) {
-			BigInteger random = bigIntegerGenerator.generate();
-			assertTrue(leftSmallerOrEqualToRight( min, random));
-			assertTrue(leftSmallerOrEqualToRight( random, max));
-		}
+	private void testForRange(int minInt, int maxInt) {
+		BigInteger min = BigInteger.valueOf(minInt);
+		BigInteger max = BigInteger.valueOf(maxInt);
+		List<BigInteger> randomBigIntegers = Random.bigIntegerGenerator().forRange(min, max).generateList(20);
+		assertThat(randomBigIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
+
 }
