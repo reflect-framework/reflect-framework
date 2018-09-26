@@ -11,12 +11,10 @@ public class ProductGenerator extends RandomGenerator<Product> {
  * FIXME replace {@link #CODE_12345} with a {@link RandomGenerator} (e.g. a FormatGenerator)
  */
 private static final String CODE_12345 = "CODE-12345";
-	private final RandomLoremIpsumFactory nameFactory;
 	private final RandomLoremIpsumFactory detailFactory;
 	
 	public ProductGenerator() {
 //		idFactory=new StringFactory(5, false, true);
-		nameFactory=new RandomLoremIpsumFactory(1,4);
 		detailFactory=new RandomLoremIpsumFactory(5, 10, 1, 5, 1, 3);
 	}
 	
@@ -24,8 +22,9 @@ private static final String CODE_12345 = "CODE-12345";
 	public Product generate() {
 		Product product=new Product();
 		product.setCode(CODE_12345);
-		product.setName(nameFactory.generate());
+		product.setName(Random.productNameGenerator().generate());
 		product.setDetails(detailFactory.generate());
+		product.setCompanyName(detailFactory.generate());
 		product.setPrice(Random.bigDecimalGenerator().forRange(new BigDecimal("10.0"),new BigDecimal("1000.0")) .generate());
 		return product;
 	}

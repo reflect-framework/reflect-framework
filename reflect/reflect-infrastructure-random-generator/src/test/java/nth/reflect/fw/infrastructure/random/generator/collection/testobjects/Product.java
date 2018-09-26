@@ -6,6 +6,7 @@ public class Product {
 	private String code;
 	private String name;
 	private String details;
+	private String companyName;
 	private BigDecimal price;
 	
 	public String getCode() {
@@ -25,6 +26,13 @@ public class Product {
 	}
 	public void setDetails(String details) {
 		this.details = details;
+	}
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	//TODO formatting
 	public BigDecimal getPrice() {

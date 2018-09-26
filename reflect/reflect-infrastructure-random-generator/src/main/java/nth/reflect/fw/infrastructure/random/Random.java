@@ -1,7 +1,5 @@
 package nth.reflect.fw.infrastructure.random;
 
-import java.util.List;
-
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateTimeGenerator;
@@ -15,6 +13,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
@@ -81,6 +80,10 @@ public class Random {
 
 	public static StringGenerator stringGenerator() {
 		return new StringGenerator();
+	}
+
+	public static ProductNameGenerator productNameGenerator() {
+		return new ProductNameGenerator();
 	}
 	
 	

@@ -3,7 +3,6 @@ package nth.reflect.fw.infrastructure.random.generator.text;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -14,7 +13,7 @@ public class ResourceFile {
 		private final String[] cells;
 
 		public Row(String line) {
-			cells = line.split(",");
+			cells = line.split(";");
 		}
 
 		public String getCell(int columnNr) {
@@ -66,16 +65,13 @@ public class ResourceFile {
 
 	private List<String> readResourceFileLines(String fileName) {
 		InputStream inputStream = getClass().getResourceAsStream(fileName);
-		List<String> lines = new ArrayList<>();
+		List<String> lines=new ArrayList<>();
 		if (fileName != null && !fileName.isEmpty() && inputStream != null) {
-			Scanner scanner = new Scanner(inputStream);
-			while (scanner.hasNext()) {
-				lines.add(scanner.next());
-			}
-			scanner.close();
+			lines=StringGenerator.readFileLines(inputStream);
 		}
 		return lines;
 	}
+
 
 	public List<String> getValues() {
 		return values;

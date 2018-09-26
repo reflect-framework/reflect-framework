@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
@@ -59,12 +60,13 @@ public class StringGenerator extends RandomGenerator<String> {
 	 *            a new values item to generate from.
 	 */
 	public StringGenerator(InputStream inputStream) {
-		Scanner scanner = new Scanner(inputStream);
-		values = new ArrayList<>();
-		while (scanner.hasNext()) {
-			values.add(scanner.next());
-		}
-		scanner.close();
+//		Scanner scanner = new Scanner(inputStream);
+//		values = new ArrayList<>();
+//		while (scanner.hasNext()) {
+//			values.add(scanner.next());
+//		}
+//		scanner.close();
+		values=readFileLines(inputStream);
 	}
 
 	public StringGenerator forValues(ResourceFile resourceFile) {
@@ -133,6 +135,23 @@ public class StringGenerator extends RandomGenerator<String> {
             .toString();
 	}
 
+	public static List<String> readFileLines(InputStream inputStream) {
+		List<String> lines = new ArrayList<>();
+		if (inputStream != null) {
+			Scanner scanner = new Scanner(inputStream, "UTF-8");
+			scanner.useDelimiter(Pattern.compile("[\\r\\n]"));
+			while (scanner.hasNext()) {
+				String line = scanner.next();
+				if (!line.isEmpty()) {
+					lines.add(line);
+				}
+			}
+			scanner.close();
+		}
+		return lines;
+	}
+
+	
 	
 	@Override
 	public String generate() {

@@ -35,7 +35,7 @@ public class ResourceFileTest {
 		resourceFile = new ResourceFile(RESOURCE_FILE_TEST_TXT);
 		values = resourceFile.getValues();
 		assertThat(values, hasSize(3));
-		assertThat(values, hasItems("1a,1b,1c", "2a,2b,2c", "3a,3b,3c"));
+		assertThat(values, hasItems("1a;1b;1c", "2a;2b;2c", "3a;3b;3c"));
 	}
 
 	@Test
