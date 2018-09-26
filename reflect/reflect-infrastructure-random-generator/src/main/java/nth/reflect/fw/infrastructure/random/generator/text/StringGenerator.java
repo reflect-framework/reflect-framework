@@ -10,75 +10,86 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
 /**
  * 
- * Generates a string from a given pool of strings
+ * Generates a string from a given values of strings
  */
 public class StringGenerator extends RandomGenerator<String> {
 
-	private final List<String> pool;
+	private final List<String> values;
 
 	public StringGenerator() {
-		this.pool = new ArrayList<>();
+		this.values = new ArrayList<>();
 	}
 
 	/**
-	 * @param pool of items to generate from
+	 * @param resourceFile
+	 *            that is translated to a list of strings to generate from
 	 */
-	public StringGenerator(List<String> pool) {
-		this.pool = pool;
+	public StringGenerator(ResourceFile resourceFile) {
+		this.values = resourceFile.getValues();
 	}
 
 	/**
-	 * @param textWithMultipleLines Gets a pool from a {@link String}. This {@link String} can be from a text
-	 * (file) where each line is a new pool item to generate from.
+	 * @param values
+	 *            of items to generate from
+	 */
+	public StringGenerator(List<String> values) {
+		this.values = values;
+	}
+
+	/**
+	 * @param textWithMultipleLines
+	 *            Gets a values from a {@link String}. This {@link String} can
+	 *            be from a text (file) where each line is a new values item to
+	 *            generate from.
 	 */
 	public StringGenerator(String textWithMultipleLines) {
 		Scanner scanner = new Scanner(textWithMultipleLines);
-		pool = new ArrayList<>();
+		values = new ArrayList<>();
 		while (scanner.hasNextLine()) {
-			pool.add(scanner.nextLine());
+			values.add(scanner.nextLine());
 		}
 		scanner.close();
 	}
 
 	/**
-	 * @param inputStream Gets a pool from a {@link InputStream} (only during the creation of the
-	 * {@link StringGenerator}!). This {@link InputStream} can be from a text
-	 * file where each line is a new pool item to generate from.
+	 * @param inputStream
+	 *            Gets a values from a {@link InputStream} (only during the
+	 *            creation of the {@link StringGenerator}!). This
+	 *            {@link InputStream} can be from a text file where each line is
+	 *            a new values item to generate from.
 	 */
 	public StringGenerator(InputStream inputStream) {
 		Scanner scanner = new Scanner(inputStream);
-		pool = new ArrayList<>();
+		values = new ArrayList<>();
 		while (scanner.hasNext()) {
-			pool.add(scanner.next());
+			values.add(scanner.next());
 		}
 		scanner.close();
 	}
 
-	public StringGenerator forPoolFromGeneratorResourceFile() {
-		String fileName = createGeneratorResourceFileName();
-		InputStream inputStream = getClass().getResourceAsStream(fileName);
-		return new StringGenerator(inputStream);
-	}
-	
-	public StringGenerator forPool(String textWithMultipleLines) {
-		return new StringGenerator(textWithMultipleLines);
-	}
-	
-	public StringGenerator forPool(List<String> pool) {
-		return new StringGenerator(pool);
-	}
-	
-	public StringGenerator forPool(InputStream inputStream) {
-		return new StringGenerator(inputStream);
+	public StringGenerator forValues(ResourceFile resourceFile) {
+		return new StringGenerator(resourceFile);
 	}
 
-	private String createGeneratorResourceFileName() {
-		return this.getClass().getSimpleName() + ".txt";
+	public StringGenerator forValues(String textWithMultipleLines) {
+		return new StringGenerator(textWithMultipleLines);
+	}
+
+	public StringGenerator forValues(List<String> values) {
+		return new StringGenerator(values);
+	}
+
+	public StringGenerator forValues(InputStream inputStream) {
+		return new StringGenerator(inputStream);
 	}
 
 	@Override
 	public String generate() {
-		int randomIndex = ThreadLocalRandom.current().nextInt(pool.size());
-		return pool.get(randomIndex);
+		if (values.size() == 0) {
+			return "";
+		} else {
+			int randomIndex = ThreadLocalRandom.current().nextInt(values.size());
+			return values.get(randomIndex);
+		}
 	}
 }

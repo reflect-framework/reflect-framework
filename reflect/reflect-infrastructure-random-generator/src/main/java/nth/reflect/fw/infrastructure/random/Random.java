@@ -1,5 +1,7 @@
 package nth.reflect.fw.infrastructure.random;
 
+import java.util.List;
+
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateTimeGenerator;
@@ -12,6 +14,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.EnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
@@ -39,6 +42,10 @@ public class Random {
 		return new CalendarGenerator();
 	}
 
+	public static ColorNameGenerator colorNameGenerator() {
+		return new ColorNameGenerator();
+	}
+	
 	public static DoubleGenerator doubleGenerator() {
 		return new DoubleGenerator();
 	}
@@ -51,11 +58,11 @@ public class Random {
 	public static IdGenerator idGenerator() {
 		return new IdGenerator();
 	}
-	
+
 	public static IntGenerator intGenerator() {
 		return new IntGenerator();
 	}
-
+	
 	public static LocalDateGenerator localDateGenerator() {
 		return new LocalDateGenerator();
 	}
@@ -67,7 +74,7 @@ public class Random {
 	public static LocalTimeGenerator localTimeGenerator() {
 		return new LocalTimeGenerator();
 	}
-	
+
 	public static LongGenerator longGenerator() {
 		return new LongGenerator();
 	}

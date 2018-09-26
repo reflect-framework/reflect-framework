@@ -2,8 +2,8 @@ package nth.reflect.fw.infrastructure.random.generator.collection.testobjects;
 
 import java.math.BigDecimal;
 
+import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
-import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.RandomLoremIpsumFactory;
 
 public class ProductGenerator extends RandomGenerator<Product> {
@@ -13,13 +13,11 @@ public class ProductGenerator extends RandomGenerator<Product> {
 private static final String CODE_12345 = "CODE-12345";
 	private final RandomLoremIpsumFactory nameFactory;
 	private final RandomLoremIpsumFactory detailFactory;
-	private final BigDecimalGenerator priceFactory;
 	
 	public ProductGenerator() {
 //		idFactory=new StringFactory(5, false, true);
 		nameFactory=new RandomLoremIpsumFactory(1,4);
 		detailFactory=new RandomLoremIpsumFactory(5, 10, 1, 5, 1, 3);
-		priceFactory=new BigDecimalGenerator(new BigDecimal("10.0"),new BigDecimal("1000.0"));
 	}
 	
 	@Override
@@ -28,7 +26,7 @@ private static final String CODE_12345 = "CODE-12345";
 		product.setCode(CODE_12345);
 		product.setName(nameFactory.generate());
 		product.setDetails(detailFactory.generate());
-		product.setPrice(priceFactory.generate());
+		product.setPrice(Random.bigDecimalGenerator().forRange(new BigDecimal("10.0"),new BigDecimal("1000.0")) .generate());
 		return product;
 	}
 
