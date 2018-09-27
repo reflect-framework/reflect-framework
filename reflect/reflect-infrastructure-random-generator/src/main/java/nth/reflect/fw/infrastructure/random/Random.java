@@ -14,6 +14,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.CompanyNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
 
 /**
@@ -45,6 +46,10 @@ public class Random {
 		return new ColorNameGenerator();
 	}
 	
+	public static  CompanyNameGenerator companyNameGenerator() {
+		return new CompanyNameGenerator();
+	}
+	
 	public static DoubleGenerator doubleGenerator() {
 		return new DoubleGenerator();
 	}
@@ -53,11 +58,15 @@ public class Random {
 	public static FromEnumGenerator fromEnumGenerator(Class<? extends Enum> enumClass) {
 		return new FromEnumGenerator(enumClass);
 	}
+
+	public static FromStringListGenerator fromStringListGenerator() {
+		return new FromStringListGenerator();
+	}
 	
 	public static IdGenerator idGenerator() {
 		return new IdGenerator();
 	}
-
+	
 	public static IntGenerator intGenerator() {
 		return new IntGenerator();
 	}
@@ -65,21 +74,17 @@ public class Random {
 	public static LocalDateGenerator localDateGenerator() {
 		return new LocalDateGenerator();
 	}
-	
+
 	public static LocalDateTimeGenerator localDateTimeGenerator() {
 		return new LocalDateTimeGenerator();
 	}
-	
+
 	public static LocalTimeGenerator localTimeGenerator() {
 		return new LocalTimeGenerator();
 	}
 
 	public static LongGenerator longGenerator() {
 		return new LongGenerator();
-	}
-
-	public static FromStringListGenerator fromStringListGenerator() {
-		return new FromStringListGenerator();
 	}
 
 	public static ProductNameGenerator productNameGenerator() {
