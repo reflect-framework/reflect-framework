@@ -3,7 +3,9 @@ package nth.reflect.fw.infrastructure.random.generator.text;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ResourceFile {
@@ -67,11 +69,26 @@ public class ResourceFile {
 		InputStream inputStream = getClass().getResourceAsStream(fileName);
 		List<String> lines=new ArrayList<>();
 		if (fileName != null && !fileName.isEmpty() && inputStream != null) {
-			lines=StringGenerator.readFileLines(inputStream);
+			lines=readFileLines(inputStream);
 		}
 		return lines;
 	}
 
+	private List<String> readFileLines(InputStream inputStream) {
+		List<String> lines = new ArrayList<>();
+		if (inputStream != null) {
+			Scanner scanner = new Scanner(inputStream, "UTF-8");
+			scanner.useDelimiter(Pattern.compile("[\\r\\n]"));
+			while (scanner.hasNext()) {
+				String line = scanner.next();
+				if (!line.isEmpty()) {
+					lines.add(line);
+				}
+			}
+			scanner.close();
+		}
+		return lines;
+	}
 
 	public List<String> getValues() {
 		return values;

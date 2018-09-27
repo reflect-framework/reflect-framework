@@ -1,6 +1,8 @@
 package nth.reflect.fw.infrastructure.random.generator.text;
 
-public class ColorNameGenerator extends StringGenerator {
+import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+
+public class ColorNameGenerator extends FromStringListGenerator {
 	public ColorNameGenerator() {
 		super(new ResourceFile("ColorNames.txt"));
 	}

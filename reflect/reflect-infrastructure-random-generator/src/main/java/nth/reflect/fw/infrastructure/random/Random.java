@@ -1,5 +1,7 @@
 package nth.reflect.fw.infrastructure.random;
 
+import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateTimeGenerator;
@@ -8,13 +10,11 @@ import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator
 import nth.reflect.fw.infrastructure.random.generator.number.BigIntegerGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.DoubleGenerator;
-import nth.reflect.fw.infrastructure.random.generator.number.EnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * A Factory (Convenience class) for creating {@link RandomGenerator}s using a
@@ -50,8 +50,8 @@ public class Random {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public static EnumGenerator enumGenerator(Class<? extends Enum> enumClass) {
-		return new EnumGenerator(enumClass);
+	public static FromEnumGenerator fromEnumGenerator(Class<? extends Enum> enumClass) {
+		return new FromEnumGenerator(enumClass);
 	}
 	
 	public static IdGenerator idGenerator() {
@@ -78,8 +78,8 @@ public class Random {
 		return new LongGenerator();
 	}
 
-	public static StringGenerator stringGenerator() {
-		return new StringGenerator();
+	public static FromStringListGenerator fromStringListGenerator() {
+		return new FromStringListGenerator();
 	}
 
 	public static ProductNameGenerator productNameGenerator() {

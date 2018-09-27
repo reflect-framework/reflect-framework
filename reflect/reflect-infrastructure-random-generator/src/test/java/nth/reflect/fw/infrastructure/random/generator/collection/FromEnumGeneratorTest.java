@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.generator.number;
+package nth.reflect.fw.infrastructure.random.generator.collection;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasItems;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
 
-public class EnumGeneratorTest {
+public class FromEnumGeneratorTest {
 
 	public enum TestEnum {
 		ONE, TWO, THREE
@@ -19,7 +19,7 @@ public class EnumGeneratorTest {
 	@Test
 	public void testEnumGenerator() {
 		@SuppressWarnings("rawtypes")
-		Set<Enum> result = Random.enumGenerator(TestEnum.class).generateSet(100);
+		Set<Enum> result = Random.fromEnumGenerator(TestEnum.class).generateSet(100);
 		assertThat(result, hasSize(3));
 		assertThat(result, hasItems(TestEnum.values()));
 	}

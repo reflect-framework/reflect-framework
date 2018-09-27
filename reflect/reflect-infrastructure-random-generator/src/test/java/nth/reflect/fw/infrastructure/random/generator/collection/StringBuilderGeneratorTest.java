@@ -9,28 +9,28 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.allOf;
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.TestStringGenerator;
+import nth.reflect.fw.infrastructure.random.ValueGenerator;
 
 public class StringBuilderGeneratorTest {
 
-	private TestStringGenerator testStringGenerator;
+	private ValueGenerator<String> valueGenerator;
 
 	@Before
 	public void setup() {
-		testStringGenerator = new TestStringGenerator("1");
+		valueGenerator = new ValueGenerator<String>("1");
 	}
 	
 	@Test
 	public void testStringBuilderGeneratorRandomGeneratorOfTInt() {
 		int generationTimes = 5;
-		String result = new StringBuilderGenerator<>(testStringGenerator, generationTimes).generate();
+		String result = new StringBuilderGenerator<>(valueGenerator, generationTimes).generate();
 		assertEquals("1, 1, 1, 1, 1", result);
 	}
 
 	@Test
 	public void testStringBuilderGeneratorRandomGeneratorOfTIntString() {
 		int generationTimes = 5;
-		String result = new StringBuilderGenerator<>(testStringGenerator, generationTimes, "-").generate();
+		String result = new StringBuilderGenerator<>(valueGenerator, generationTimes, "-").generate();
 		assertEquals("1-1-1-1-1", result);
 	}
 
@@ -40,23 +40,23 @@ public class StringBuilderGeneratorTest {
 		int max = 0;
 		String seperator = StringBuilderGenerator.DEFAULT_SEPERATOR;
 
-		StringBuilderGenerator<String> stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min,
+		StringBuilderGenerator<String> stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min,
 				max);
 		validateResult(min, max, stringBuilderGenerator, seperator);
 
 		min = 0;
 		max = 1;
-		stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min, max);
+		stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min, max);
 		validateResult(min, max, stringBuilderGenerator, seperator);
 
 		min = 5;
 		max = 10;
-		stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min, max);
+		stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min, max);
 		validateResult(min, max, stringBuilderGenerator, seperator);
 
 		min = 10;
 		max = 5;
-		stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min, max);
+		stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min, max);
 		validateResult(max, min, stringBuilderGenerator, seperator);
 	}
 
@@ -77,23 +77,23 @@ public class StringBuilderGeneratorTest {
 		int max = 0;
 		String seperator = "--\n--";
 
-		StringBuilderGenerator<String> stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min,
+		StringBuilderGenerator<String> stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min,
 				max, seperator);
 		validateResult(min, max, stringBuilderGenerator, seperator);
 
 		min = 0;
 		max = 1;
-		stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min, max, seperator);
+		stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min, max, seperator);
 		validateResult(min, max, stringBuilderGenerator, seperator);
 
 		min = 5;
 		max = 10;
-		stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min, max, seperator);
+		stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min, max, seperator);
 		validateResult(min, max, stringBuilderGenerator, seperator);
 
 		min = 10;
 		max = 5;
-		stringBuilderGenerator = new StringBuilderGenerator<>(testStringGenerator, min, max, seperator);
+		stringBuilderGenerator = new StringBuilderGenerator<>(valueGenerator, min, max, seperator);
 		validateResult(max, min, stringBuilderGenerator, seperator);
 	}
 

@@ -1,14 +1,14 @@
-package nth.reflect.fw.infrastructure.random.generator.number;
+package nth.reflect.fw.infrastructure.random.generator.collection;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
 @SuppressWarnings("rawtypes")
-public class EnumGenerator extends RandomGenerator<Enum> {
+public class FromEnumGenerator extends RandomGenerator<Enum> {
 
 	private Enum<?>[] enumerationValues;
 
-	public EnumGenerator(Class<? extends Enum> enumClass) {
+	public FromEnumGenerator(Class<? extends Enum> enumClass) {
 		enumerationValues = enumClass.getEnumConstants();
 	}
 

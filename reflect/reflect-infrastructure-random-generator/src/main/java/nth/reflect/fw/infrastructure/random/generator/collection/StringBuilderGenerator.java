@@ -3,6 +3,7 @@ package nth.reflect.fw.infrastructure.random.generator.collection;
 import java.util.concurrent.ThreadLocalRandom;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * Generates a {@link String} of generated results.
@@ -12,7 +13,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  * @param <T>
  *            the result type of the generator
  */
-public class StringBuilderGenerator<T> extends RandomGenerator<String> {
+public class StringBuilderGenerator<T> extends StringGenerator {
 	public static final String DEFAULT_SEPERATOR = ", ";
 	private final int min;
 	private final int max;

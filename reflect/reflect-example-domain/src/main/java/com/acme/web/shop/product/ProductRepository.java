@@ -9,10 +9,8 @@ public class ProductRepository {
 
 	private final List<Product> products;
 
-	public ProductRepository() {
-		ListGenerator<Product> randomProductListFactory = new ListGenerator<Product>(20, 50,
-				new RandomProductFactory());
-		products = randomProductListFactory.generate();
+	public ProductRepository(ProductGenerator productGenerator) {
+		products = productGenerator.generateSet(300);
 	}
 
 	public List<Product> findProduct(ProductSearchCritiria searchCritiria) {
