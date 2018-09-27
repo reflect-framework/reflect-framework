@@ -21,7 +21,7 @@ public class CompanyNameGeneratorTest {
 	}
 	
 	@Test
-	public void testForCompanyName() {
+	public void testForProductName() {
 		Set<String> companyNames = Random.companyNameGenerator().forProductName(ProductNameProductDescriptionCompanyNameFile.A_PRODUCT_NAME).generateSet(20);
 		assertThat(companyNames, hasSize(1));
 		assertThat(companyNames, hasItem(ProductNameProductDescriptionCompanyNameFile.A_COMPANY_NAME));
