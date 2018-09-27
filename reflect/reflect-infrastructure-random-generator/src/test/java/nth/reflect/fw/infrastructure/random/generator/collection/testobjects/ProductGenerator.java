@@ -4,18 +4,18 @@ import java.math.BigDecimal;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.RandomLoremIpsumFactory;
+import nth.reflect.fw.infrastructure.random.generator.text.WordLineParagraphChapterExample;
 
 public class ProductGenerator extends RandomGenerator<Product> {
 /**
  * FIXME replace {@link #CODE_12345} with a {@link RandomGenerator} (e.g. a FormatGenerator)
  */
 private static final String CODE_12345 = "CODE-12345";
-	private final RandomLoremIpsumFactory detailFactory;
+	private final WordLineParagraphChapterExample detailFactory;
 	
 	public ProductGenerator() {
 //		idFactory=new StringFactory(5, false, true);
-		detailFactory=new RandomLoremIpsumFactory(5, 10, 1, 5, 1, 3);
+		detailFactory=new WordLineParagraphChapterExample(5, 10, 1, 5, 1, 3);
 	}
 	
 	@Override

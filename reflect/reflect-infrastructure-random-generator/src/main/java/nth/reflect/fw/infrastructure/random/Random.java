@@ -15,6 +15,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CompanyNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.LoremIpsumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductDescriptionGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
 
@@ -46,15 +47,15 @@ public class Random {
 	public static ColorNameGenerator colorNameGenerator() {
 		return new ColorNameGenerator();
 	}
-	
-	public static  CompanyNameGenerator companyNameGenerator() {
+
+	public static CompanyNameGenerator companyNameGenerator() {
 		return new CompanyNameGenerator();
 	}
-	
+
 	public static DoubleGenerator doubleGenerator() {
 		return new DoubleGenerator();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public static FromEnumGenerator fromEnumGenerator(Class<? extends Enum> enumClass) {
 		return new FromEnumGenerator(enumClass);
@@ -63,15 +64,15 @@ public class Random {
 	public static FromStringListGenerator fromStringListGenerator() {
 		return new FromStringListGenerator();
 	}
-	
+
 	public static IdGenerator idGenerator() {
 		return new IdGenerator();
 	}
-	
+
 	public static IntGenerator intGenerator() {
 		return new IntGenerator();
 	}
-	
+
 	public static LocalDateGenerator localDateGenerator() {
 		return new LocalDateGenerator();
 	}
@@ -88,6 +89,10 @@ public class Random {
 		return new LongGenerator();
 	}
 
+	public static LoremIpsumGenerator loremIpsumGenerator() {
+		return new LoremIpsumGenerator();
+	}
+
 	public static ProductDescriptionGenerator productDescriptionGenerator() {
 		return new ProductDescriptionGenerator();
 	}
@@ -95,6 +100,5 @@ public class Random {
 	public static ProductNameGenerator productNameGenerator() {
 		return new ProductNameGenerator();
 	}
-	
-	
+
 }

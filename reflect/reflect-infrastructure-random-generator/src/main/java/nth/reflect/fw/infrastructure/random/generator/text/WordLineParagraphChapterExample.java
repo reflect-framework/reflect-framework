@@ -8,14 +8,14 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  * 
  * @deprecated extend FromStringListGenerator
  */
-public class RandomLoremIpsumFactory extends RandomGenerator<String> {
+public class WordLineParagraphChapterExample extends RandomGenerator<String> {
 	public static final String LOREM_IPSUM = "lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren no sea takimata sanctus est lorem ipsum dolor sit amet";
 	private String[] loremIpsumWords = LOREM_IPSUM.split("\\s");
 	public static final String PARAGRAPH_SEPERATOR = "\n\n";
 
 	private final RandomGenerator<String> randomLoremIpsumFactory;
 
-	public RandomLoremIpsumFactory(int numberOfWords) {
+	public WordLineParagraphChapterExample(int numberOfWords) {
 		randomLoremIpsumFactory = new RandomGenerator<String>() {
 
 			@Override
@@ -25,7 +25,7 @@ public class RandomLoremIpsumFactory extends RandomGenerator<String> {
 		};
 	}
 
-	public RandomLoremIpsumFactory(int minNumberOfWords, int maxNumberOfWords) {
+	public WordLineParagraphChapterExample(int minNumberOfWords, int maxNumberOfWords) {
 		randomLoremIpsumFactory = new RandomGenerator<String>() {
 
 			@Override
@@ -35,7 +35,7 @@ public class RandomLoremIpsumFactory extends RandomGenerator<String> {
 		};
 	}
 
-	public RandomLoremIpsumFactory(int minNumberOfWordsInSentence, int maxNumberOfWordsInSentence,
+	public WordLineParagraphChapterExample(int minNumberOfWordsInSentence, int maxNumberOfWordsInSentence,
 			int minNumberOfSentences, int maxNumberOfSentences) {
 		randomLoremIpsumFactory = new RandomGenerator<String>() {
 
@@ -47,7 +47,7 @@ public class RandomLoremIpsumFactory extends RandomGenerator<String> {
 		};
 	}
 
-	public RandomLoremIpsumFactory(int minNumberOfWordsInSentence, int maxNumberOfWordsInSentence,
+	public WordLineParagraphChapterExample(int minNumberOfWordsInSentence, int maxNumberOfWordsInSentence,
 			int minNumberOfSentences, int maxNumberOfSentences, int minNumberOfParagraphs, int maxNumberOfParagraphs) {
 		randomLoremIpsumFactory = new RandomGenerator<String>() {
 
