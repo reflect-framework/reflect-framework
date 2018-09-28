@@ -1,15 +1,17 @@
 package nth.reflect.fw.infrastructure.random.generator.text;
 
 import nth.reflect.fw.infrastructure.random.Random;
+import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
 
 /**
- * Generates random list of typical English names, using
+ * Generates typical English person names, using other {@link RandomGenerator}s
  * 
  * @author nilsth
  *
  */
 public class FirstNameGenerator extends StringGenerator {
+
 
 	private final BoolGenerator isMaleGenerator;
 	private final FirstNameFemaleGenerator femaleNameGenerator;
@@ -37,4 +39,5 @@ public class FirstNameGenerator extends StringGenerator {
 			return femaleNameGenerator.generate();
 		}
 	}
+
 }

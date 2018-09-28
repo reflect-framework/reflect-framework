@@ -23,7 +23,7 @@ public class FirstNameGeneratorTest {
 
 	@Before
 	public void setup() {
-		allMaleNames = Random.firstNameMaleGenerator().generateSet(1000);
+		allMaleNames = Random.firstNameMaleGenerator().generateSet(100*1000);
 	}
 
 	@Test

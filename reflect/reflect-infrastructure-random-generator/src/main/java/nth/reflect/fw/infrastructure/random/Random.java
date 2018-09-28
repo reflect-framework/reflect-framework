@@ -20,6 +20,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.FirstNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameMaleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.LastNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.LoremIpsumGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.PersonNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductDescriptionGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
 
@@ -111,6 +112,10 @@ public class Random {
 
 	public static LoremIpsumGenerator loremIpsumGenerator() {
 		return new LoremIpsumGenerator();
+	}
+
+	public static PersonNameGenerator personNameGenerator() {
+		return new PersonNameGenerator();
 	}
 
 	public static ProductDescriptionGenerator productDescriptionGenerator() {
