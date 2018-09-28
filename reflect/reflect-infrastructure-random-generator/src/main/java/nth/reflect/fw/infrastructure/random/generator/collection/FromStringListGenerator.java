@@ -1,13 +1,9 @@
 package nth.reflect.fw.infrastructure.random.generator.collection;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.regex.Pattern;
 
-import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
 import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
