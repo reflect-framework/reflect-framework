@@ -77,7 +77,7 @@ public class ProbabilityGeneratorTest {
 		} else {
 			double givenRatio = trueProbability / (double) falseProbability;
 			double actualRatio = trueCount / falseCount;
-			assertThat(actualRatio, IsCloseTo.closeTo(givenRatio, 0.2));
+			assertThat(actualRatio, IsCloseTo.closeTo(givenRatio, 0.3));
 		}
 	}
 

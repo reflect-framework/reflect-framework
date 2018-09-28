@@ -16,6 +16,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CompanyNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameFemaleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.FirstNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameMaleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.LoremIpsumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductDescriptionGenerator;
@@ -109,6 +110,10 @@ public class Random {
 
 	public static ProductNameGenerator productNameGenerator() {
 		return new ProductNameGenerator();
+	}
+
+	public static FirstNameGenerator firstNameGenerator() {
+		return new FirstNameGenerator();		
 	}
 
 }
