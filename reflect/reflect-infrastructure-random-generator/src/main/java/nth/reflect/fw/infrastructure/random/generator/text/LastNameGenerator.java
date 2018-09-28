@@ -4,13 +4,13 @@ import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListG
 
 /**
  * Generates random list of typical English first names for males. Source:
- * https://names.mongabay.com/male_names_alpha.htm
+ * https://names.mongabay.com/data/1000.html
  * 
  * @author nilsth
  *
  */
-public class FirstNameMaleGenerator extends FromStringListGenerator {
-	public FirstNameMaleGenerator() {
-		super(new ResourceFile("FirstNameMale.txt"));
+public class LastNameGenerator extends FromStringListGenerator {
+	public LastNameGenerator() {
+		super(new ResourceFile("LastNames.txt"));
 	}
 }

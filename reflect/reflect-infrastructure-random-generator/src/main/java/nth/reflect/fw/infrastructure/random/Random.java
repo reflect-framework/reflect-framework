@@ -18,6 +18,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.CompanyNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameFemaleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameMaleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.LastNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.LoremIpsumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductDescriptionGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
@@ -63,6 +64,10 @@ public class Random {
 		return new FirstNameFemaleGenerator();
 	}
 
+	public static FirstNameGenerator firstNameGenerator() {
+		return new FirstNameGenerator();		
+	}
+
 	public static FirstNameMaleGenerator firstNameMaleGenerator() {
 		return new FirstNameMaleGenerator();
 	}
@@ -82,6 +87,10 @@ public class Random {
 
 	public static IntGenerator intGenerator() {
 		return new IntGenerator();
+	}
+
+	public static LastNameGenerator lastNameGenerator() {
+		return new LastNameGenerator();
 	}
 
 	public static LocalDateGenerator localDateGenerator() {
@@ -110,10 +119,6 @@ public class Random {
 
 	public static ProductNameGenerator productNameGenerator() {
 		return new ProductNameGenerator();
-	}
-
-	public static FirstNameGenerator firstNameGenerator() {
-		return new FirstNameGenerator();		
 	}
 
 }

@@ -15,9 +15,9 @@ public class FirstNameMaleGeneratorTest {
 
 	@Test
 	public void testGenerate() {
-		Set<String> result = Random.firstNameMaleGenerator().generateSet(300);
-		assertThat(result, hasSize(greaterThan(99)));
-		assertThat(result, hasItem("Oliver"));
+		Set<String> result = Random.firstNameMaleGenerator().generateSet(100000);
+		assertThat(result, hasSize(greaterThan(999)));
+		assertThat(result, hasItem("Josh"));
 		assertThat(result, hasItem("Jamie"));
 	}
 

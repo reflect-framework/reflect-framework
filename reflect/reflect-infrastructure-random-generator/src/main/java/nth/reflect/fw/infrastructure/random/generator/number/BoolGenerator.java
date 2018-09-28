@@ -16,8 +16,8 @@ public class BoolGenerator extends RandomGenerator<Boolean> {
 		this.probability = probability;
 	}
 	
-	public BoolGenerator forProbability(int probability) {
-		return new BoolGenerator(probability);
+	public BoolGenerator forProbability(int probabilityInPercent) {
+		return new BoolGenerator(probabilityInPercent);
 	}
 
 	@Override

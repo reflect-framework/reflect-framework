@@ -15,10 +15,10 @@ public class FirstNameFemaleGeneratorTest {
 
 	@Test
 	public void testGenerate() {
-		Set<String> result = Random.firstNameFemaleGenerator().generateSet(300);
-		assertThat(result, hasSize(greaterThan(99)));
-		assertThat(result, hasItem("Angel"));
-		assertThat(result, hasItem("Zara"));
+		Set<String> result = Random.firstNameFemaleGenerator().generateSet(100*1000);
+		assertThat(result, hasSize(greaterThan(999)));
+		assertThat(result, hasItem("Cher"));
+		assertThat(result, hasItem("Valerie"));
 	}
 
 }
