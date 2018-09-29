@@ -13,6 +13,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.DoubleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.CharacterGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CompanyNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.DomainNameGenerator;
@@ -49,6 +50,10 @@ public class Random {
 
 	public static CalendarGenerator calendarGenerator() {
 		return new CalendarGenerator();
+	}
+
+	public static CharacterGenerator characterGenerator() {
+		return new CharacterGenerator();
 	}
 
 	public static ColorNameGenerator colorNameGenerator() {

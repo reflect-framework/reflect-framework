@@ -161,6 +161,12 @@ public class CharacterSetTest {
 	}
 
 	@Test
+	public void testCommon() {
+		CharacterSet characterSet = CharacterSet.common();
+		assertThat(characterSet, hasItems(charactersOf(CharacterSet.LETTERS+CharacterSet.LETTERS.toUpperCase()+CharacterSet.SYMBOLS+CharacterSet.NUMBERS)));
+	}
+	
+	@Test
 	public void testFormatPlaceHolders() {
 		Map<Character, CharacterSet> actual = CharacterSet.formatPlaceHolders();
 		
@@ -178,4 +184,6 @@ public class CharacterSetTest {
 		assertThat(actual, is(expected));
 	}
 
+	
+	
 }

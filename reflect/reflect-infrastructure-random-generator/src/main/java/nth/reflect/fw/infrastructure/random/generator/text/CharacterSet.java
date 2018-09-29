@@ -1,5 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -48,17 +49,15 @@ public class CharacterSet extends HashSet<Character> {
 		return new CharacterSet(string);
 	}
 
-	
 	public CharacterSet withString(String string) {
 		addAll(new CharacterSet(string));
 		return this;
 	}
 
-	
 	public static CharacterSet fromString(String string, LetterCase letterCase) {
 		return new CharacterSet(string, letterCase);
 	}
-	
+
 	public CharacterSet withString(String string, LetterCase letterCase) {
 		addAll(new CharacterSet(string, letterCase));
 		return this;
@@ -68,27 +67,24 @@ public class CharacterSet extends HashSet<Character> {
 		return new CharacterSet(LETTERS, letterCase);
 	}
 
-	
 	public CharacterSet withLetters(LetterCase letterCase) {
-		addAll(letters( letterCase));
+		addAll(letters(letterCase));
 		return this;
 	}
 
-	
 	public static CharacterSet vowels(LetterCase letterCase) {
 		return new CharacterSet(VOWELS, letterCase);
 	}
 
-	
 	public CharacterSet withVowels(LetterCase letterCase) {
-		addAll(vowels( letterCase));
+		addAll(vowels(letterCase));
 		return this;
 	}
 
 	public static CharacterSet consonants(LetterCase letterCase) {
 		return new CharacterSet(CONSONANTS, letterCase);
 	}
-	
+
 	public CharacterSet withConsonants(LetterCase letterCase) {
 		addAll(consonants(letterCase));
 		return this;
@@ -97,25 +93,27 @@ public class CharacterSet extends HashSet<Character> {
 	public static CharacterSet symbols() {
 		return new CharacterSet(SYMBOLS);
 	}
-	
+
 	public CharacterSet withSymbols() {
 		addAll(symbols());
 		return this;
 	}
 
-
 	public static CharacterSet numbers() {
 		return new CharacterSet(NUMBERS);
 	}
 
-	
 	public CharacterSet withNumbers() {
 		addAll(numbers());
 		return this;
 	}
 
+	public static CharacterSet common() {
+		return CharacterSet.letters(LetterCase.UPPER_AND_LOWER).withNumbers().withSymbols();
+	}
+	
 	public static Map<Character, CharacterSet> formatPlaceHolders() {
-		Map<Character, CharacterSet> formatPlaceHolders=new HashMap<>();
+		Map<Character, CharacterSet> formatPlaceHolders = new HashMap<>();
 		formatPlaceHolders.put('A', letters(LetterCase.UPPER));
 		formatPlaceHolders.put('a', letters(LetterCase.LOWER));
 		formatPlaceHolders.put('V', vowels(LetterCase.UPPER));
@@ -128,4 +126,16 @@ public class CharacterSet extends HashSet<Character> {
 		return formatPlaceHolders;
 	}
 
+	public String toCharacterString() {
+		StringBuilder characters = new StringBuilder();
+		for (Character character : this) {
+			characters.append(character);
+		}
+		return characters.toString();
+	}
+
+	public Character[] toCharacterArray() {
+		Character[] characterArray = new Character[size()];
+		return new ArrayList<Character>(this).toArray(characterArray);
+	}
 }
