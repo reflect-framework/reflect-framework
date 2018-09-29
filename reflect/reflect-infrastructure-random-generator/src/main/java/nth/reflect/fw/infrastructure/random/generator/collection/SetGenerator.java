@@ -54,7 +54,7 @@ public class SetGenerator<T> extends RandomGenerator<Set<T>> {
 		int size = getSize();
 		// maxGenerationCount prevents a deadlock since the generator may not
 		// generate enough unique results.
-		int maxGenerationCount = size * 3;
+		int maxGenerationCount = size * 10;
 		Set<T> result = new HashSet<>();
 		int generationCount = 0;
 		while (result.size() < size && generationCount++ < maxGenerationCount) {

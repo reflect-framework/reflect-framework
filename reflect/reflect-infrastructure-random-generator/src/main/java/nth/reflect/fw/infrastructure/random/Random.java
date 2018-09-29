@@ -16,6 +16,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CompanyNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.DomainNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.EmailAddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameFemaleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameMaleGenerator;
@@ -58,8 +59,16 @@ public class Random {
 		return new CompanyNameGenerator();
 	}
 
+	public static DomainNameGenerator domainNameGenerator() {
+		return new DomainNameGenerator();
+	}
+
 	public static DoubleGenerator doubleGenerator() {
 		return new DoubleGenerator();
+	}
+
+	public static EmailAddressGenerator emailAddressGenerator() {
+		return new EmailAddressGenerator();
 	}
 
 	public static FirstNameFemaleGenerator firstNameFemaleGenerator() {
@@ -74,7 +83,7 @@ public class Random {
 		return new FirstNameMaleGenerator();
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static FromEnumGenerator fromEnumGenerator(Class<? extends Enum> enumClass) {
 		return new FromEnumGenerator(enumClass);
 	}
@@ -125,10 +134,6 @@ public class Random {
 
 	public static ProductNameGenerator productNameGenerator() {
 		return new ProductNameGenerator();
-	}
-
-	public static DomainNameGenerator domainNameGenerator() {
-		return new DomainNameGenerator();
 	}
 
 }

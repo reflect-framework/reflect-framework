@@ -4,16 +4,16 @@ import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
 @SuppressWarnings("rawtypes")
-public class FromEnumGenerator extends RandomGenerator<Enum> {
+public class FromEnumGenerator<T extends Enum> extends RandomGenerator<T> {
 
-	private Enum<?>[] enumerationValues;
+	private T[] enumerationValues;
 
-	public FromEnumGenerator(Class<? extends Enum> enumClass) {
+	public FromEnumGenerator(Class<? extends T> enumClass) {
 		enumerationValues = enumClass.getEnumConstants();
 	}
 
 	@Override
-	public Enum generate() {
+	public T generate() {
 		int randomIndex = Random.intGenerator().forMax(enumerationValues.length).generate();
 		return enumerationValues[randomIndex];
 	}
