@@ -1,8 +1,9 @@
-package nth.reflect.fw.infrastructure.random.generator.text;
+package nth.reflect.fw.infrastructure.random.generator.name;
 
 import java.util.function.Predicate;
 
 import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
 import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile.Row;
 
 public class ProductNameGenerator extends FromStringListGenerator {

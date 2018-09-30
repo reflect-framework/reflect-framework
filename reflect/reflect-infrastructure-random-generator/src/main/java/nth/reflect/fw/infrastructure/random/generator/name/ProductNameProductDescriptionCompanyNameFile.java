@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.generator.text;
+package nth.reflect.fw.infrastructure.random.generator.name;
 
 /**
  * Source: https://en.wikipedia.org/wiki/List_of_generic_and_genericized_trademarks

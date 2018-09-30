@@ -1,11 +1,22 @@
 package nth.reflect.fw.infrastructure.random;
 
+import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateTimeGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalTimeGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.ColorNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.CompanyNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.DomainNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.FirstNameFemaleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.FirstNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.FirstNameMaleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.LastNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.PersonNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.ProductDescriptionGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.ProductNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigIntegerGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
@@ -14,19 +25,8 @@ import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.ColorNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.CompanyNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.DomainNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.EmailAddressGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.FirstNameFemaleGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.FirstNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.FirstNameMaleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FormatGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.LastNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.LoremIpsumGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.PersonNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.ProductDescriptionGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.word.LoremIpsumGenerator;
 
 /**
  * A Factory (convenience class) for creating {@link RandomGenerator}s using a

@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.generator.text;
+package nth.reflect.fw.infrastructure.random.generator.word;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItem;

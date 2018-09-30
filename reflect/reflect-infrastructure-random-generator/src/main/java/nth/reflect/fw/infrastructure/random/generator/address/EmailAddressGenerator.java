@@ -1,8 +1,11 @@
-package nth.reflect.fw.infrastructure.random.generator.text;
+package nth.reflect.fw.infrastructure.random.generator.address;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.ValueGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.CompanyNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.DomainNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * Generates random list of typical English names, using

@@ -71,6 +71,9 @@ public class ResourceFile {
 		if (fileName != null && !fileName.isEmpty() && inputStream != null) {
 			lines=readFileLines(inputStream);
 		}
+		if (lines.size()==0) {
+			throw new RuntimeException("Could not read resource file: "+ fileName);
+		}
 		return lines;
 	}
 

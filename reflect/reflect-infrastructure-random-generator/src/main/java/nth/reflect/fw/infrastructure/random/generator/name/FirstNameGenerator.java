@@ -1,8 +1,9 @@
-package nth.reflect.fw.infrastructure.random.generator.text;
+package nth.reflect.fw.infrastructure.random.generator.name;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * Generates typical English person names, using other {@link RandomGenerator}s

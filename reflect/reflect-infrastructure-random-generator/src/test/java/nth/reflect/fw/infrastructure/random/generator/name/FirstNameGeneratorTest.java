@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.generator.text;
+package nth.reflect.fw.infrastructure.random.generator.name;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;

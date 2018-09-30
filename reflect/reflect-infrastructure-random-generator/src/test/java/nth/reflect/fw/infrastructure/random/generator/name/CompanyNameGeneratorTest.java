@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.generator.text;
+package nth.reflect.fw.infrastructure.random.generator.name;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItem;
@@ -12,6 +12,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
+import nth.reflect.fw.infrastructure.random.generator.name.ProductNameProductDescriptionCompanyNameFile;
 
 public class CompanyNameGeneratorTest {
 

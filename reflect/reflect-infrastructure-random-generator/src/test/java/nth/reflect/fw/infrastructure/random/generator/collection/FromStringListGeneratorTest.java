@@ -46,13 +46,20 @@ public class FromStringListGeneratorTest {
 		assertThat(list, hasItems(EMPTY_STRING));
 	}
 
-	@Test
-	public void testForValuesResourceFile() {
+	
+		
+	@Test(expected= RuntimeException.class)
+	public void testForValuesResourceFileBogus() {
 		Set<String> result = Random.fromStringListGenerator().forValues(new ResourceFile(BOGUS_FILE_NAME)).generateSet(100);
 		assertThat(result, hasSize(1));
 		assertThat(result, hasItems(EMPTY_STRING));
 
-		result = Random.fromStringListGenerator().forValues(new ResourceFile("FromStringListGeneratorTest.txt")).generateSet(100);
+	}
+	
+	
+	@Test
+	public void testForValuesResourceFile() {
+		Set<String> result = Random.fromStringListGenerator().forValues(new ResourceFile("FromStringListGeneratorTest.txt")).generateSet(100);
 		assertThat(result, hasSize(3));
 		assertThat(result, hasItems(VALUES_ARRAY));
 	}
