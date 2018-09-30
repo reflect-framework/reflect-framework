@@ -1,12 +1,12 @@
 package nth.reflect.fw.infrastructure.random.generator.collection;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.ValueGenerator;

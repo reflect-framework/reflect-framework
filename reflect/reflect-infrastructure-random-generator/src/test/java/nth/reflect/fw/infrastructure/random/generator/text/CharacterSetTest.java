@@ -168,7 +168,7 @@ public class CharacterSetTest {
 	
 	@Test
 	public void testFormatPlaceHolders() {
-		Map<Character, CharacterSet> actual = CharacterSet.formatPlaceHolders();
+		Map<Character, CharacterSet> actual = CharacterSet.placeHoldersAndCharacterSets();
 		
 		Map<Character, CharacterSet> expected=new HashMap<>();
 		expected.put('A', CharacterSet.letters(LetterCase.UPPER));

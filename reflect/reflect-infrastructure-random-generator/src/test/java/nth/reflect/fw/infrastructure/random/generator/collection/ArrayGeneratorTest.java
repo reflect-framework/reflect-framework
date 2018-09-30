@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.collection.ArrayGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.Product;
 import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.ProductGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;

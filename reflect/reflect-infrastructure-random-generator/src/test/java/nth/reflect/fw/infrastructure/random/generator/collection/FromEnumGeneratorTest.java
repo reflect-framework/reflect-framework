@@ -1,8 +1,8 @@
 package nth.reflect.fw.infrastructure.random.generator.collection;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasItems;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
 
 import java.util.Set;
 
@@ -18,7 +18,7 @@ public class FromEnumGeneratorTest {
 	
 	@Test
 	public void testEnumGenerator() {
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		Set<Enum> result = Random.fromEnumGenerator(TestEnum.class).generateSet(100);
 		assertThat(result, hasSize(3));
 		assertThat(result, hasItems(TestEnum.values()));

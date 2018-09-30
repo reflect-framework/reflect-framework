@@ -1,15 +1,15 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 
 public class IdGeneratorTest {
 

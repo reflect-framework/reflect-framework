@@ -21,6 +21,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.EmailAddressGenerator
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameFemaleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FirstNameMaleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.FormatGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.LastNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.LoremIpsumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.PersonNameGenerator;
@@ -28,7 +29,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.ProductDescriptionGen
 import nth.reflect.fw.infrastructure.random.generator.text.ProductNameGenerator;
 
 /**
- * A Factory (Convenience class) for creating {@link RandomGenerator}s using a
+ * A Factory (convenience class) for creating {@link RandomGenerator}s using a
  * fluent interface
  * 
  * @author nilsth
@@ -86,6 +87,10 @@ public class Random {
 
 	public static FirstNameMaleGenerator firstNameMaleGenerator() {
 		return new FirstNameMaleGenerator();
+	}
+
+	public static FormatGenerator formatGenerator() {
+		return new FormatGenerator();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

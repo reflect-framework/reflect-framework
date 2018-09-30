@@ -112,7 +112,7 @@ public class CharacterSet extends HashSet<Character> {
 		return CharacterSet.letters(LetterCase.UPPER_AND_LOWER).withNumbers().withSymbols();
 	}
 	
-	public static Map<Character, CharacterSet> formatPlaceHolders() {
+	public static Map<Character, CharacterSet> placeHoldersAndCharacterSets() {
 		Map<Character, CharacterSet> formatPlaceHolders = new HashMap<>();
 		formatPlaceHolders.put('A', letters(LetterCase.UPPER));
 		formatPlaceHolders.put('a', letters(LetterCase.LOWER));

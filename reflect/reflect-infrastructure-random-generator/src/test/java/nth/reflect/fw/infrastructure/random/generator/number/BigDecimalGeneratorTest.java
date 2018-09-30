@@ -1,9 +1,9 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.everyItem;
 import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;

@@ -10,7 +10,7 @@ public class CharacterGenerator extends RandomGenerator<Character> {
 	private final RandomGenerator<Character> characterGenerator;
 
 	public CharacterGenerator() {
-		this(new ValueGenerator<String>(CharacterSet.common().toCharacterString()));
+		this(CharacterSet.common().toCharacterString());
 	}
 
 
@@ -30,13 +30,21 @@ public class CharacterGenerator extends RandomGenerator<Character> {
 		};
 	}
 
+	public CharacterGenerator(CharacterSet characterSet) {
+		this(characterSet.toCharacterString());
+	}
+
+	public CharacterGenerator(String characters) {
+		this(new ValueGenerator<String>(characters));
+	}
+
 	@Override
 	public Character generate() {
 		return characterGenerator.generate();
 	}
 	
 	public RandomGenerator<Character> forCharacters(String characters) {
-		return new CharacterGenerator(new ValueGenerator<String>(characters));
+		return new CharacterGenerator(characters);
 	}
 	
 	public RandomGenerator<Character> forCharacters(RandomGenerator<String> stringGenerator) {
@@ -44,7 +52,7 @@ public class CharacterGenerator extends RandomGenerator<Character> {
 	}
 	
 	public RandomGenerator<Character> forCharacters(CharacterSet characterSet) {
-		return forCharacters(characterSet.toCharacterString());
+		return new CharacterGenerator(characterSet);
 	}
 
 }

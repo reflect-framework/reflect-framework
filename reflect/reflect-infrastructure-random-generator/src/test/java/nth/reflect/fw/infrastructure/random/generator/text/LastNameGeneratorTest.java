@@ -1,9 +1,10 @@
 package nth.reflect.fw.infrastructure.random.generator.text;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
+
 import java.util.Set;
 
 import org.junit.Test;

@@ -1,14 +1,12 @@
 package nth.reflect.fw.infrastructure.random.generator.collection;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sound.sampled.DataLine;
-
-import static org.hamcrest.Matchers.equalTo;
 import org.hamcrest.number.IsCloseTo;
 import org.junit.Before;
 import org.junit.Rule;
