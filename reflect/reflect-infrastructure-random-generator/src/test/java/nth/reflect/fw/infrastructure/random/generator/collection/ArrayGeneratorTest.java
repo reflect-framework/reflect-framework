@@ -17,8 +17,6 @@ public class ArrayGeneratorTest {
 		int size = 10;
 		ArrayGenerator<Product> randomProductArrayGenerator = new ArrayGenerator<>(Product.class,
 				new ProductGenerator(), size);
-		Object o[] = randomProductArrayGenerator.generate();
-		System.out.println(o[0]);
 		Product[] array = (Product[]) randomProductArrayGenerator.generate();
 		assertTrue(array.length == size);
 		assertArrayContainsValidProduct(array);
