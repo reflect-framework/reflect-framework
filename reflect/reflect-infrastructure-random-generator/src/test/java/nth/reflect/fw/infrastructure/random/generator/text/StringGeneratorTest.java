@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
 public class StringGeneratorTest {
 
@@ -22,8 +22,8 @@ public class StringGeneratorTest {
 			CCC.toLowerCase() };
 	private static final String[] VALUES_ARRAY_UPPER_CASE = new String[] { AAA.toUpperCase(), BBB.toUpperCase(),
 			CCC.toUpperCase() };
-	private static final String[] VALUES_ARRAY_CAPITAL_CASE = new String[] { FromStringListGenerator.capitalize(AAA), FromStringListGenerator.capitalize(BBB),
-			FromStringListGenerator.capitalize(CCC) };
+	private static final String[] VALUES_ARRAY_CAPITAL_CASE = new String[] { StringUtil.capitalize(AAA), StringUtil.capitalize(BBB),
+			StringUtil.capitalize(CCC) };
 
 	@Test
 	public void testForLowerCase() {

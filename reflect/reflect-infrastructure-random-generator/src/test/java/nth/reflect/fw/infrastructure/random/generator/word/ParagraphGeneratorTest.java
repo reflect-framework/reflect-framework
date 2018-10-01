@@ -11,33 +11,22 @@ import java.util.List;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
+import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
+import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
 public class ParagraphGeneratorTest {
 
-	private static final String SENTENCE_DELIMITERS = ".!?";
-	private static final String REG_EXP_SPACES = "\\s+";
+	private static CharacterSet SENTENCE_DELIMITERS = CharacterSet.fromString(".!?");
 
 
 	@Test
 	public void testForNoParameters() {
-		int minSentences = 5;
-		int maxSentences = 25;
 		List<String> paragraphs = Random.paragraphGenerator().generateList(100);
 		for (String paragraph : paragraphs) {
-			int nrOfSentences = countCharacters(paragraph,SENTENCE_DELIMITERS);
-			assertThat(nrOfSentences, greaterThanOrEqualTo(minSentences));
-			assertThat(nrOfSentences, lessThanOrEqualTo(maxSentences));
+			int nrOfSentences = StringUtil.countMatches(paragraph,SENTENCE_DELIMITERS)+1;
+			assertThat(nrOfSentences, greaterThanOrEqualTo(ParagraphGenerator.MIN_SENTENCES_DEFAULT));
+			assertThat(nrOfSentences, lessThanOrEqualTo(ParagraphGenerator.MAX_SENTENCES_DEFAULT));
 		}
-	}
-
-	private int countCharacters(String characters, String charactersToFind) {
-		int count = 0;
-		for (Character character : characters.toCharArray()) {
-			if (charactersToFind.contains(String.valueOf(character))) {
-				count++;
-			}
-		}
-		return count;
 	}
 
 	@Test
@@ -46,7 +35,7 @@ public class ParagraphGeneratorTest {
 		List<String> paragraphs = Random.paragraphGenerator().forSentenceGenerator(sentenceGenerator)
 				.forSentenceSeperator("").generateList(100);
 		for (String paragraph : paragraphs) {
-			assertEquals(0, countCharacters(paragraph, " "));
+			assertEquals(0, StringUtil.countMatches(paragraph, " "));
 		}
 	}
 
@@ -56,7 +45,7 @@ public class ParagraphGeneratorTest {
 		List<String> paragraphs = Random.paragraphGenerator().forNumberOfSentences(expectedNrOfSentences)
 				.generateList(100);
 		for (String paragraph : paragraphs) {
-			int nrOfSentences = countCharacters(paragraph,SENTENCE_DELIMITERS);
+			int nrOfSentences = StringUtil.countMatches(paragraph,SENTENCE_DELIMITERS);
 			assertThat(nrOfSentences, equalTo(expectedNrOfSentences));
 		}
 	}
@@ -68,7 +57,7 @@ public class ParagraphGeneratorTest {
 		List<String> paragraphs = Random.paragraphGenerator().forNumberOfSentences(minSentences, maxSentences)
 				.generateList(100);
 		for (String paragraph : paragraphs) {
-			int nrOfSentences = countCharacters(paragraph,SENTENCE_DELIMITERS);
+			int nrOfSentences = StringUtil.countMatches(paragraph,SENTENCE_DELIMITERS);
 			assertThat(nrOfSentences, greaterThanOrEqualTo(minSentences));
 			assertThat(nrOfSentences, lessThanOrEqualTo(maxSentences));
 		}
@@ -81,7 +70,7 @@ public class ParagraphGeneratorTest {
 		List<String> paragraphs = Random.paragraphGenerator().forSentenceSeperator(sentenceSeperator)
 				.forNumberOfSentences(expectednumberOfSentences).generateList(100);
 		for (String paragraph : paragraphs) {
-			assertEquals(expectednumberOfSentences,countCharacters(paragraph, sentenceSeperator)+1);
+			assertEquals(expectednumberOfSentences,StringUtil.countMatches(paragraph, sentenceSeperator)+1);
 		}
 	}
 

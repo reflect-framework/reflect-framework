@@ -26,6 +26,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FormatGenerator;
+import nth.reflect.fw.infrastructure.random.generator.word.ChapterGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.LoremIpsumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.ParagraphGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.SentenceGenerator;
@@ -55,6 +56,10 @@ public class Random {
 
 	public static CalendarGenerator calendarGenerator() {
 		return new CalendarGenerator();
+	}
+
+	public static ChapterGenerator chapterGenerator() {
+		return new ChapterGenerator();
 	}
 
 	public static CharacterGenerator characterGenerator() {

@@ -5,6 +5,7 @@ import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
+import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
 public class SentenceGenerator extends StringGenerator {
 
@@ -58,7 +59,7 @@ public class SentenceGenerator extends StringGenerator {
 
 	private void appendWords(StringBuilder sentence) {
 		String words = wordGenerator.generateString(numberOfWords.getMin(), numberOfWords.getMax(), " ");
-		 String wordstWithFirstLetterCaplitalized = StringGenerator.capitalize(words);
+		 String wordstWithFirstLetterCaplitalized = StringUtil.capitalize(words);
 		sentence.append(wordstWithFirstLetterCaplitalized);
 	}
 

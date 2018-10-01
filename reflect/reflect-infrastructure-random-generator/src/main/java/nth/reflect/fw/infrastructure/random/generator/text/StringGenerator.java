@@ -1,6 +1,7 @@
 package nth.reflect.fw.infrastructure.random.generator.text;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
+import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
 public abstract class StringGenerator extends RandomGenerator<String> {
 
@@ -38,21 +39,10 @@ public abstract class StringGenerator extends RandomGenerator<String> {
 			@Override
 			public String generate() {
 				String result = stringGenerator.generate();
-				return capitalize(result);
+				return StringUtil.capitalize(result);
 			}
 
 		};
-	}
-	
-	public static String capitalize(String result) {
-		int strLen;
-        if (result == null || (strLen = result.length()) == 0) {
-            return result;
-        }
-        return new StringBuilder(strLen)
-            .append(Character.toTitleCase(result.charAt(0)))
-            .append(result.substring(1))
-            .toString();
 	}
 
 }
