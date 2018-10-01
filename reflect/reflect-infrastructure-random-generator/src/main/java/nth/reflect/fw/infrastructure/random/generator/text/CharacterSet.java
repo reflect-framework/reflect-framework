@@ -138,4 +138,5 @@ public class CharacterSet extends HashSet<Character> {
 		Character[] characterArray = new Character[size()];
 		return new ArrayList<Character>(this).toArray(characterArray);
 	}
+
 }
