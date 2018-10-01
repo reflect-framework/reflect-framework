@@ -14,14 +14,19 @@ import nth.reflect.fw.infrastructure.random.Random;
 
 public class WordGeneratorTest {
 
+	private static final int MIN_SYLABLES_DEFAULT = 1;
+	private static final int MIN_SYLABLES_CHARACTERS_DEFAULT = 2;
+	private static final int MAX_SYLABLES_CHARACTERS_DEFAULT = 4;
+	private static final int MAX_SYLABLES_DEFAULT = 4;
+
 	@Test
 	public void testNoParameters() {
 		int size = 100;
 		List<String> words = Random.wordGenerator().generateList(size);
 		assertThat(words,hasSize(size));
 		for (String word : words) {
-			assertThat(word.length(), greaterThan(1*2-1));
-			assertThat(word.length(), lessThan(3*3+1));
+			assertThat(word.length(), greaterThan(MIN_SYLABLES_DEFAULT*MIN_SYLABLES_CHARACTERS_DEFAULT-1));
+			assertThat(word.length(), lessThan(MAX_SYLABLES_DEFAULT*3+1));
 		}		
 	}
 	
@@ -43,8 +48,8 @@ public class WordGeneratorTest {
 		int size = 100;
 		List<String> words = Random.wordGenerator().forSyllables(minSyllables, maxSyllables) .generateList(size);
 		for (String word : words) {
-			assertThat(word.length(), greaterThan(minSyllables*2-1));
-			assertThat(word.length(), lessThan(maxSyllables*3+1));
+			assertThat(word.length(), greaterThan(minSyllables*MIN_SYLABLES_CHARACTERS_DEFAULT-1));
+			assertThat(word.length(), lessThan(maxSyllables*MAX_SYLABLES_CHARACTERS_DEFAULT+1));
 		}		
 	}
 

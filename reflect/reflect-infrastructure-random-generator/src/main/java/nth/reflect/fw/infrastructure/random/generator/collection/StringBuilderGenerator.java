@@ -1,7 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.collection;
 
-import java.util.concurrent.ThreadLocalRandom;
-
+import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
@@ -15,8 +14,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
  */
 public class StringBuilderGenerator<T> extends StringGenerator {
 	public static final String DEFAULT_SEPERATOR = ", ";
-	private final int min;
-	private final int max;
+	private final IntRange generationTimesRange;
 	private final RandomGenerator<T> randomGenerator;
 	private final String seperator;
 
@@ -34,14 +32,8 @@ public class StringBuilderGenerator<T> extends StringGenerator {
 
 	public StringBuilderGenerator(RandomGenerator<T> randomGenerator, int generationTimesMin, int generationTimesMax,
 			String seperator) {
-		if (generationTimesMin > generationTimesMax) {
-			int temp = generationTimesMin;
-			generationTimesMin = generationTimesMax;
-			generationTimesMax = temp;
-		}
 		this.randomGenerator = randomGenerator;
-		this.min = generationTimesMin;
-		this.max = generationTimesMax;
+		this.generationTimesRange=new IntRange(generationTimesMin, generationTimesMax);
 		this.seperator = seperator;
 
 	}
@@ -49,7 +41,7 @@ public class StringBuilderGenerator<T> extends StringGenerator {
 	@Override
 	public String generate() {
 		StringBuilder result = new StringBuilder();
-		int size = getSize();
+		int size = generationTimesRange.getRandomInt();
 		for (int i = 0; i < size; i++) {
 			T generatedResult = randomGenerator.generate();
 			if (generatedResult != null) {
@@ -62,12 +54,4 @@ public class StringBuilderGenerator<T> extends StringGenerator {
 		return result.toString();
 	}
 
-	private int getSize() {
-		if (min == max) {
-			return max;
-		} else {
-			int randomSize = ThreadLocalRandom.current().nextInt(min, max);
-			return randomSize;
-		}
-	}
 }

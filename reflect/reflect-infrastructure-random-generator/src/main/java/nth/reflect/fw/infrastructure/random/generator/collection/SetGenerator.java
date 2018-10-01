@@ -2,8 +2,8 @@ package nth.reflect.fw.infrastructure.random.generator.collection;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
+import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
 /**
@@ -22,8 +22,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  */
 public class SetGenerator<T> extends RandomGenerator<Set<T>> {
 
-	private final int min;
-	private final int max;
+	private final IntRange range;
 	private final RandomGenerator<T> randomGenerator;
 
 	public SetGenerator(RandomGenerator<T> randomGenerator, int size) {
@@ -31,13 +30,7 @@ public class SetGenerator<T> extends RandomGenerator<Set<T>> {
 	}
 
 	public SetGenerator(RandomGenerator<T> randomGenerator, int min, int max) {
-		if (min > max) {
-			int temp = min;
-			min = max;
-			max = temp;
-		}
-		this.min = min;
-		this.max = max;
+		this.range=new IntRange(min, max);
 		this.randomGenerator = randomGenerator;
 	}
 
@@ -51,7 +44,7 @@ public class SetGenerator<T> extends RandomGenerator<Set<T>> {
 
 	@Override
 	public Set<T> generate() {
-		int size = getSize();
+		int size = range.getRandomInt();
 		// maxGenerationCount prevents a deadlock since the generator may not
 		// generate enough unique results.
 		int maxGenerationCount = size * 10;
@@ -63,13 +56,5 @@ public class SetGenerator<T> extends RandomGenerator<Set<T>> {
 		return result;
 	}
 
-	private int getSize() {
-		if (min == max) {
-			return max;
-		} else {
-			int randomSize = ThreadLocalRandom.current().nextInt(min, max);
-			return randomSize;
-		}
-	}
 
 }

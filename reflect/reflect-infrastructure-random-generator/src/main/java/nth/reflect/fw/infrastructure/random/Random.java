@@ -27,6 +27,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FormatGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.LoremIpsumGenerator;
+import nth.reflect.fw.infrastructure.random.generator.word.SentenceGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.SyllableGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.WordGenerator;
 
@@ -146,6 +147,10 @@ public class Random {
 
 	public static ProductNameGenerator productNameGenerator() {
 		return new ProductNameGenerator();
+	}
+
+	public static SentenceGenerator sentenceGenerator() {
+		return new SentenceGenerator();
 	}
 
 	public static SyllableGenerator syllableGenerator() {

@@ -2,8 +2,8 @@ package nth.reflect.fw.infrastructure.random.generator.collection;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
+import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
 /**
@@ -14,8 +14,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  */
 public class ListGenerator<T> extends RandomGenerator<List<T>> {
 
-	private final int min;
-	private final int max;
+	private final IntRange range;
 	private final RandomGenerator<T> randomGenerator;
 
 	public ListGenerator( RandomGenerator<T> randomGenerator, int size) {
@@ -23,13 +22,7 @@ public class ListGenerator<T> extends RandomGenerator<List<T>> {
 	}
 
 	public ListGenerator(RandomGenerator<T> randomGenerator, int min, int max) {
-		if (min > max) {
-			int temp = min;
-			min = max;
-			max = temp;
-		}
-		this.min = min;
-		this.max = max;
+		this.range=new IntRange(min, max);
 		this.randomGenerator = randomGenerator;
 	}
 
@@ -43,7 +36,7 @@ public class ListGenerator<T> extends RandomGenerator<List<T>> {
 
 	@Override
 	public List<T> generate() {
-		int size = getSize();
+		int size = range.getRandomInt();
 		List<T> list = new ArrayList<>();
 		for (int i = 0; i < size; i++) {
 			list.add(randomGenerator.generate());
@@ -51,13 +44,5 @@ public class ListGenerator<T> extends RandomGenerator<List<T>> {
 		return list;
 	}
 
-	private int getSize() {
-		if (min == max) {
-			return max;
-		} else {
-			int randomSize = ThreadLocalRandom.current().nextInt(min, max);
-			return randomSize;
-		}
-	}
 
 }
