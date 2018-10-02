@@ -1,7 +1,7 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
+import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
 
 /**
  * Generates random typical English first names for females. Source:
@@ -10,8 +10,8 @@ import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
  * @author nilsth
  *
  */
-public class FirstNameFemaleGenerator extends FromStringListGenerator {
-	public FirstNameFemaleGenerator() {
-		super(new ResourceFile("FirstNameFemale.txt"));
+public class FemaleNameGenerator extends FromStringListGenerator {
+	public FemaleNameGenerator() {
+		super(Repositories.femaleNameRepository().getFemaleNames());
 	}
 }

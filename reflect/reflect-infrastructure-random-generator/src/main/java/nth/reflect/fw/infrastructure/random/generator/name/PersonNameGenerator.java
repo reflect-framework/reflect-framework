@@ -13,8 +13,8 @@ import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 public class PersonNameGenerator extends StringGenerator {
 	private static final String SPACE = " ";
 	private final BoolGenerator isMaleGenerator;
-	private final FirstNameFemaleGenerator femaleNameGenerator;
-	private final FirstNameMaleGenerator maleNameGenerator;
+	private final FemaleNameGenerator femaleNameGenerator;
+	private final MaleNameGenerator maleNameGenerator;
 	private final int maleProbabilityInPercent;
 	private final int middleNameProbabilityPercent;
 	private final BoolGenerator hasMiddleNameGenerator;
@@ -29,8 +29,8 @@ public class PersonNameGenerator extends StringGenerator {
 		this.middleNameProbabilityPercent = middleNameProbabilityPercent;
 		isMaleGenerator = Random.boolGenerator().forProbability(maleProbabilityInPercent);
 		hasMiddleNameGenerator = Random.boolGenerator().forProbability(maleProbabilityInPercent);
-		femaleNameGenerator = Random.firstNameFemaleGenerator();
-		maleNameGenerator = Random.firstNameMaleGenerator();
+		femaleNameGenerator = Random.femaleNameGenerator();
+		maleNameGenerator = Random.maleNameGenerator();
 		lastNameGenerator = Random.lastNameGenerator();
 	}
 

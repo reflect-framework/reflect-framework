@@ -10,10 +10,10 @@ import nth.reflect.fw.infrastructure.random.generator.datetime.LocalTimeGenerato
 import nth.reflect.fw.infrastructure.random.generator.name.ColorNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.CompanyNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.DomainNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.name.FirstNameFemaleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.FemaleNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.FirstNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.name.FirstNameMaleGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.LastNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.MaleNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.PersonNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.ProductDescriptionGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.ProductNameGenerator;
@@ -86,16 +86,16 @@ public class Random {
 		return new EmailAddressGenerator();
 	}
 
-	public static FirstNameFemaleGenerator firstNameFemaleGenerator() {
-		return new FirstNameFemaleGenerator();
+	public static FemaleNameGenerator femaleNameGenerator() {
+		return new FemaleNameGenerator();
 	}
 
 	public static FirstNameGenerator firstNameGenerator() {
 		return new FirstNameGenerator();
 	}
 
-	public static FirstNameMaleGenerator firstNameMaleGenerator() {
-		return new FirstNameMaleGenerator();
+	public static MaleNameGenerator maleNameGenerator() {
+		return new MaleNameGenerator();
 	}
 
 	public static FormatGenerator formatGenerator() {

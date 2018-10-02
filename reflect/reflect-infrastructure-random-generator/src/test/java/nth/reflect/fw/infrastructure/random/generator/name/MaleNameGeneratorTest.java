@@ -11,11 +11,11 @@ import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
 
-public class FirstNameMaleGeneratorTest {
+public class MaleNameGeneratorTest {
 
 	@Test
 	public void testGenerate() {
-		Set<String> result = Random.firstNameMaleGenerator().generateSet(100000);
+		Set<String> result = Random.maleNameGenerator().generateSet(100000);
 		assertThat(result, hasSize(greaterThan(999)));
 		assertThat(result, hasItem("Josh"));
 		assertThat(result, hasItem("Jamie"));

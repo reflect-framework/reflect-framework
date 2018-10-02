@@ -1,7 +1,7 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
+import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
 
 /**
  * Generates random typical English first names for males. Source:
@@ -10,8 +10,8 @@ import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
  * @author nilsth
  *
  */
-public class FirstNameMaleGenerator extends FromStringListGenerator {
-	public FirstNameMaleGenerator() {
-		super(new ResourceFile("FirstNameMale.txt"));
+public class MaleNameGenerator extends FromStringListGenerator {
+	public MaleNameGenerator() {
+		super(Repositories.maleNameRepository().getMaleNames());
 	}
 }

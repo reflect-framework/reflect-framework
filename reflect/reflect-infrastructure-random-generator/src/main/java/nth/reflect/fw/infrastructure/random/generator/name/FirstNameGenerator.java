@@ -15,8 +15,8 @@ public class FirstNameGenerator extends StringGenerator {
 
 
 	private final BoolGenerator isMaleGenerator;
-	private final FirstNameFemaleGenerator femaleNameGenerator;
-	private final FirstNameMaleGenerator maleNameGenerator;
+	private final FemaleNameGenerator femaleNameGenerator;
+	private final MaleNameGenerator maleNameGenerator;
 
 	public FirstNameGenerator() {
 		this(50);
@@ -24,8 +24,8 @@ public class FirstNameGenerator extends StringGenerator {
 
 	public FirstNameGenerator(int maleProbabilityInPercent) {
 		isMaleGenerator = Random.boolGenerator().forProbability(maleProbabilityInPercent);
-		femaleNameGenerator = Random.firstNameFemaleGenerator();
-		maleNameGenerator = Random.firstNameMaleGenerator();
+		femaleNameGenerator = Random.femaleNameGenerator();
+		maleNameGenerator = Random.maleNameGenerator();
 	}
 
 	public FirstNameGenerator forMaleProbability(int maleProbabilityInPercent) {

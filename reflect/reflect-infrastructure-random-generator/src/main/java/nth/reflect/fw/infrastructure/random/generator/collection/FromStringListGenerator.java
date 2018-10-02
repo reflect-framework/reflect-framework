@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
 import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
@@ -29,24 +28,10 @@ public class FromStringListGenerator extends StringGenerator {
 	}
 
 
-	public FromStringListGenerator(ResourceFile resourceFile) {
-		values=resourceFile.getValues();
-	}
-
-
-	public FromStringListGenerator forValues(ResourceFile resourceFile) {
-		return new FromStringListGenerator(resourceFile);
-	}
-
-
 	public FromStringListGenerator forValues(List<String> values) {
 		return new FromStringListGenerator(values);
 	}
 
-
-
-	
-	
 	@Override
 	public String generate() {
 		if (values.size() == 0) {

@@ -10,22 +10,23 @@ import java.util.Set;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.generator.name.ProductNameProductDescriptionCompanyNameFile;
 
 public class ProductNameGeneratorTest {
 
+	static final String A_PRODUCT_NAME = "Durex";
+	
 	@Test
 	public void testForNoParameter() {
 		Set<String> productNames = Random.productNameGenerator().generateSet(500);
 		assertThat(productNames, hasSize(greaterThan(110)));
-		assertThat(productNames, hasItem(ProductNameProductDescriptionCompanyNameFile.A_PRODUCT_NAME));
+		assertThat(productNames, hasItem(A_PRODUCT_NAME));
 	}
 	
 	@Test
 	public void testForCompanyName() {
-		Set<String> productNames = Random.productNameGenerator().forCompanyName(ProductNameProductDescriptionCompanyNameFile.A_COMPANY_NAME).generateSet(20);
+		Set<String> productNames = Random.productNameGenerator().forCompanyName(CompanyNameGeneratorTest.A_COMPANY_NAME).generateSet(20);
 		assertThat(productNames, hasSize(greaterThan(2)));
-		assertThat(productNames, hasItem(ProductNameProductDescriptionCompanyNameFile.A_PRODUCT_NAME));
+		assertThat(productNames, hasItem(A_PRODUCT_NAME));
 	}
 
 }

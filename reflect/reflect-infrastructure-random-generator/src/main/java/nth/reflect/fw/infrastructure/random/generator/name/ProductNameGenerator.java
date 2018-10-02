@@ -1,28 +1,23 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import java.util.function.Predicate;
+import java.util.List;
 
+import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile;
-import nth.reflect.fw.infrastructure.random.generator.text.ResourceFile.Row;
 
 public class ProductNameGenerator extends FromStringListGenerator {
 
+	
+	
 	public ProductNameGenerator() {
-		super(new ResourceFile(ProductNameProductDescriptionCompanyNameFile.NAME,
-				ProductNameProductDescriptionCompanyNameFile.PRODUCT_NAME_COLUMN));
+		super(Repositories.productNameAndDescriptionAndCompanyRepository().getProductNames());
 	}
 
-	public ProductNameGenerator(Predicate<? super Row> filter) {
-		super(new ResourceFile(ProductNameProductDescriptionCompanyNameFile.NAME, filter,
-				ProductNameProductDescriptionCompanyNameFile.PRODUCT_NAME_COLUMN));
+	public ProductNameGenerator(List<String> productNames) {
+		super(productNames);
 	}
 
 	public ProductNameGenerator forCompanyName(String companyName) {
-		String companyNameToFind = companyName.trim().toLowerCase();
-		Predicate<? super Row> filter = row -> row
-				.getCell(ProductNameProductDescriptionCompanyNameFile.COMPANY_NAME_COLUMN).trim().toLowerCase()
-				.equals(companyNameToFind);
-		return new ProductNameGenerator(filter);
+		return new ProductNameGenerator(Repositories.productNameAndDescriptionAndCompanyRepository().getProductNames(companyName));
 	}
 }
