@@ -1,5 +1,6 @@
 package nth.reflect.fw.infrastructure.random;
 
+import nth.reflect.fw.infrastructure.random.generator.address.CountryGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
@@ -74,6 +75,10 @@ public class Random {
 		return new CompanyNameGenerator();
 	}
 
+	public static CountryGenerator countryGenerator() {
+return new CountryGenerator();		
+	}
+
 	public static DomainNameGenerator domainNameGenerator() {
 		return new DomainNameGenerator();
 	}
@@ -92,10 +97,6 @@ public class Random {
 
 	public static FirstNameGenerator firstNameGenerator() {
 		return new FirstNameGenerator();
-	}
-
-	public static MaleNameGenerator maleNameGenerator() {
-		return new MaleNameGenerator();
 	}
 
 	public static FormatGenerator formatGenerator() {
@@ -141,6 +142,10 @@ public class Random {
 
 	public static LoremIpsumGenerator loremIpsumGenerator() {
 		return new LoremIpsumGenerator();
+	}
+
+	public static MaleNameGenerator maleNameGenerator() {
+		return new MaleNameGenerator();
 	}
 
 	public static ParagraphGenerator paragraphGenerator() {
