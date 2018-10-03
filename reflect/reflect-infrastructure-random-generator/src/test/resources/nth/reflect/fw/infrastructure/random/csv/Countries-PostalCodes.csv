@@ -2,7 +2,7 @@ AD;Andorra;AD999
 AE;United Arab Emirates;-
 AF;Afghanistan;9999
 AG;Antigua and Barbuda;-
-AI;Anguilla;"""AI-2640"""
+AI;Anguilla;AI-2640
 AL;Albania;9999
 AM;Armenia;9999
 AO;Angola;-
@@ -20,7 +20,7 @@ BD;Bangladesh;9999
 BE;Belgium;9999
 BF;Burkina Faso;-
 BG;Bulgaria;9999
-BH;Bahrain;[9]999
+BH;Bahrain;9999
 BI;Burundi;-
 BJ;Benin;-
 BL;Saint Barthélemy;99999
@@ -70,7 +70,7 @@ ES;Spain;99999
 ET;Ethiopia;9999
 FI;Finland;99999
 FJ;Fiji;-
-FK;Falkland Islands;"""FIQQ 1ZZ"""
+FK;Falkland Islands;FIQQ 1ZZ
 FM;Micronesia;99999
 FO;Faroe Islands;999
 FR;France;99999
@@ -81,14 +81,14 @@ GE;Georgia;9999
 GF;French Guiana;99999
 GG;Guernsey;GY9 9AA
 GH;Ghana;-
-GI;Gibraltar;"""GX11 1AA"""
+GI;Gibraltar;GX11 1AA
 GL;Greenland;9999
 GM;Gambia;-
 GN;Guinea;-
 GP;Guadeloupe;99999
 GQ;Equatorial Guinea;-
 GR;Greece;999 99
-GS;South Georgia & Sandwich;"""SIQQ 1ZZ"""
+GS;South Georgia & Sandwich;SIQQ 1ZZ
 GT;Guatemala;99999
 GU;Guam;99999
 GW;Guinea-Bissau;9999
@@ -104,7 +104,7 @@ IE;Ireland;D99
 IL;Israel;9999999
 IM;Isle of Man;IM9 9AA
 IN;India;999999
-IO;British Indian Ocean Terr.;"""BB9D 1ZZ"""
+IO;British Indian Ocean Terr.;BB9D 1ZZ
 IQ;Iraq;99999
 IR;Iran;99999-99999
 IS;Iceland;999
@@ -136,7 +136,7 @@ LU;Luxembourg;9999
 LV;Latvia;LV-9999
 LY;Libya;99999
 MA;Morocco;99999
-MC;Monaco;"""98000"""
+MC;Monaco;98000
 MD;Moldova;9999
 ME;Montenegro;99999
 MF;Saint Martin;99999
@@ -180,7 +180,7 @@ PH;Philippines;9999
 PK;Pakistan;99999
 PL;Poland;99-999
 PM;Saint Pierre & Miquelon;99999
-PN;Pitcairn Islands;"""PCR9 1ZZ"""
+PN;Pitcairn Islands;PCR9 1ZZ
 PR;Puerto Rico;99999
 PS;Gaza Strip;-
 PT;Portugal;9999-999
@@ -199,7 +199,7 @@ SC;Seychelles;-
 SD;Sudan;99999
 SE;Sweden;999 99
 SG;Singapore;999999
-SH;Saint Helena;"""TDCU 1ZZ"""
+SH;Saint Helena;TDCU 1ZZ
 SI;Slovenia;9999
 SJ;Svalbard and Jan Mayen;9999
 SK;Slovakia;999 99
@@ -214,7 +214,7 @@ SV;El Salvador;9999
 SX;Sint Maarten;-
 SY;Syria;-
 SZ;Swaziland;A999
-TC;Turks and Caicos Islands;"""TKCA 1ZZ"""
+TC;Turks and Caicos Islands;TKCA 1ZZ
 TD;Chad;99999
 TF;French Southern Territories;-
 TG;Togo;-
@@ -236,7 +236,7 @@ UM;Minor Outlying Islands;-
 US;United States;99999
 UY;Uruguay;99999
 UZ;Uzbekistan;999999
-VA;Vatican;"""00120"""
+VA;Vatican;00120
 VC;St Vincent & the Grenadines;VC9999
 VE;Venezuela;9999
 VG;British Virgin Islands;VG9999
