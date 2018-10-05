@@ -26,6 +26,7 @@ import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FormatGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.ChapterGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.LoremIpsumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.ParagraphGenerator;
@@ -161,6 +162,10 @@ return new CountryGenerator();
 
 	public static SentenceGenerator sentenceGenerator() {
 		return new SentenceGenerator();
+	}
+
+	public static StringGenerator stringGenerator() {
+		return new StringGenerator();
 	}
 
 	public static SyllableGenerator syllableGenerator() {
