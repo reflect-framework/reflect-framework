@@ -4,7 +4,6 @@ import nth.reflect.fw.infrastructure.random.generator.address.CountryGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PostalCodeGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
-import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateTimeGenerator;
@@ -17,8 +16,7 @@ import nth.reflect.fw.infrastructure.random.generator.name.FirstNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.LastNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.MaleNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.PersonNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.name.ProductDescriptionGenerator;
-import nth.reflect.fw.infrastructure.random.generator.name.ProductNameGenerator;
+import nth.reflect.fw.infrastructure.random.generator.name.ProductGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigIntegerGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
@@ -109,10 +107,6 @@ return new CountryGenerator();
 		return new FromEnumGenerator(enumClass);
 	}
 
-	public static FromStringListGenerator fromStringListGenerator() {
-		return new FromStringListGenerator();
-	}
-
 	public static IdGenerator idGenerator() {
 		return new IdGenerator();
 	}
@@ -161,12 +155,8 @@ return new CountryGenerator();
 		return new PostalCodeGenerator();
 	}
 
-	public static ProductDescriptionGenerator productDescriptionGenerator() {
-		return new ProductDescriptionGenerator();
-	}
-
-	public static ProductNameGenerator productNameGenerator() {
-		return new ProductNameGenerator();
+	public static ProductGenerator productGenerator() {
+		return new ProductGenerator();
 	}
 
 	public static SentenceGenerator sentenceGenerator() {
@@ -180,5 +170,6 @@ return new CountryGenerator();
 	public static WordGenerator wordGenerator() {
 		return new WordGenerator();
 	}
+
 
 }

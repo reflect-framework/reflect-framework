@@ -15,6 +15,7 @@ import org.junit.rules.ExpectedException;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.ValueGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.ProbabilityGenerator;
 
 public class ProbabilityGeneratorTest {
 

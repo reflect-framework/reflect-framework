@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
+import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 
 public class IdGeneratorTest {
 

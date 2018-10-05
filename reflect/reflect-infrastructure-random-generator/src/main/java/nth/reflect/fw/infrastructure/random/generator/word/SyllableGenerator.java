@@ -6,9 +6,8 @@ import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerat
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
 import nth.reflect.fw.infrastructure.random.generator.text.LetterCase;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
-public class SyllableGenerator extends StringGenerator {
+public class SyllableGenerator extends RandomGenerator<String> {
 
 	private final RandomGenerator<Character> consonantGenerator;
 	private final RandomGenerator<Character> vowelGenerator;

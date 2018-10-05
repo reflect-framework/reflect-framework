@@ -1,15 +1,12 @@
 package nth.reflect.fw.infrastructure.random.generator.word;
 
-import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
-import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
-/**
- * Generates random Lorem Ipsum words. See https://en.wikipedia.org/wiki/Lorem_ipsum
- * @author nilsth
- *
- */
-public class LoremIpsumGenerator extends FromStringListGenerator {
+public class LoremIpsumGenerator extends FromListGenerator<String> {
+
 	public LoremIpsumGenerator() {
-		super(Repositories.loremIpsumGenerator().getLoremIpsumWords());
+		super(Resources.loremIpsumRepository());
 	}
+
 }

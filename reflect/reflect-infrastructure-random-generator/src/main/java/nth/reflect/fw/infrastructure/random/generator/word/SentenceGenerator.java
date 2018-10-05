@@ -4,10 +4,9 @@ import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
-public class SentenceGenerator extends StringGenerator {
+public class SentenceGenerator extends RandomGenerator<String> {
 
 	private static final int MAX_WORD_DEFAULT = 15;
 	private static final int MIN_WORD_DEFAULT = 7;

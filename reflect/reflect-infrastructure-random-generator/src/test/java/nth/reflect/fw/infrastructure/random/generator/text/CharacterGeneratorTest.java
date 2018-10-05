@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.ValueGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
 
 public class CharacterGeneratorTest {
 

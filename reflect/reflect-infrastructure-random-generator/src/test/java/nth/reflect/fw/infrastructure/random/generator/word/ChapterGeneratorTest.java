@@ -10,6 +10,9 @@ import java.util.List;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
+import nth.reflect.fw.infrastructure.random.generator.word.ChapterGenerator;
+import nth.reflect.fw.infrastructure.random.generator.word.ParagraphGenerator;
+import nth.reflect.fw.infrastructure.random.generator.word.SentenceGenerator;
 import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
 public class ChapterGeneratorTest {

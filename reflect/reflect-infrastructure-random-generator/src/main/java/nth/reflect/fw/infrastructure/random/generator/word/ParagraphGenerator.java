@@ -2,9 +2,9 @@ package nth.reflect.fw.infrastructure.random.generator.word;
 
 import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
+import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class ParagraphGenerator extends StringGenerator {
+public class ParagraphGenerator extends RandomGenerator<String> {
 
 	public static final int MIN_SENTENCES_DEFAULT = 5;
 	public static final int MAX_SENTENCES_DEFAULT = 25;

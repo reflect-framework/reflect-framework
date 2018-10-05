@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.ValueGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.StringBuilderGenerator;
 
 public class StringBuilderGeneratorTest {
 

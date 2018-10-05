@@ -2,7 +2,6 @@ package nth.reflect.fw.infrastructure.random.generator.collection;
 
 import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * Generates a {@link String} of generated results.
@@ -12,7 +11,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
  * @param <T>
  *            the result type of the generator
  */
-public class StringBuilderGenerator<T> extends StringGenerator {
+public class StringBuilderGenerator<T> extends RandomGenerator<String> {
 	public static final String DEFAULT_SEPERATOR = ", ";
 	private final IntRange generationTimesRange;
 	private final RandomGenerator<T> randomGenerator;

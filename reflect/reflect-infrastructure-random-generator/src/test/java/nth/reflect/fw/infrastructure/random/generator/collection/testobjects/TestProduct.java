@@ -2,7 +2,7 @@ package nth.reflect.fw.infrastructure.random.generator.collection.testobjects;
 
 import java.math.BigDecimal;
 
-public class Product {
+public class TestProduct {
 	private String code;
 	private String name;
 	private String details;

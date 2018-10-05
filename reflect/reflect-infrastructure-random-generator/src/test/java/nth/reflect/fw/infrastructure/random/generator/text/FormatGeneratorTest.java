@@ -11,6 +11,8 @@ import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.CharacterGenerator;
+import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
 
 public class FormatGeneratorTest {
 

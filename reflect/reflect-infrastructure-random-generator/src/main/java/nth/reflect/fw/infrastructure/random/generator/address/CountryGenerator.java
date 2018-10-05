@@ -1,11 +1,14 @@
 package nth.reflect.fw.infrastructure.random.generator.address;
 
-import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
-import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
-public class CountryGenerator extends FromStringListGenerator {
+public class CountryGenerator extends FromListGenerator<Country>{
+
 
 	public CountryGenerator() {
-		super(Repositories.countryAndPostalCodeRepository().getCountries());
+		super(Resources.countryRepository());
 	}
+
+	
 }

@@ -5,7 +5,6 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.ValueGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.CompanyNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.name.DomainNameGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * Generates random list of typical English names, using
@@ -13,7 +12,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
  * @author nilsth
  *
  */
-public class EmailAddressGenerator extends StringGenerator {
+public class EmailAddressGenerator extends RandomGenerator<String> {
 
 	private static final String REG_EXP_SPACES = "\\s+";
 	private final CompanyNameGenerator companyNameGenerator;

@@ -5,24 +5,39 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.StringBuilderGenerator;
+import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
 public class RandomGeneratorTest {
 
 	private static final String DASH = "-";
 	private static final String ONE = "1";
 	private ValueGenerator<String> valueGenerator;
+	private static final String CCC = "ccC";
+	private static final String BBB = "bbB";
+	private static final String AAA = "aaA";
+	private static final String[] VALUES_ARRAY = new String[] { AAA, BBB, CCC };
+	private static final String[] VALUES_ARRAY_LOWER_CASE = new String[] { AAA.toLowerCase(), BBB.toLowerCase(),
+			CCC.toLowerCase() };
+	private static final String[] VALUES_ARRAY_UPPER_CASE = new String[] { AAA.toUpperCase(), BBB.toUpperCase(),
+			CCC.toUpperCase() };
+	private static final String[] VALUES_ARRAY_CAPITAL_CASE = new String[] { StringUtil.capitalize(AAA), StringUtil.capitalize(BBB),
+			StringUtil.capitalize(CCC) };
+
 
 	@Before
 	public void setup() {
@@ -229,5 +244,28 @@ public class RandomGeneratorTest {
 			}
 		}
 	}
+	
+	@Test
+	public void testForLowerCase() {
+		Set<String> result = new FromListGenerator<String>(Arrays.asList(VALUES_ARRAY)).forLowerCase().generateSet(100);
+		assertThat(result, hasSize(3));
+		assertThat(result, hasItems(VALUES_ARRAY_LOWER_CASE));
+	}
+
+	@Test
+	public void testForUpperCase() {
+		Set<String> result = new FromListGenerator<String>(Arrays.asList(VALUES_ARRAY)).forUpperCase().generateSet(100);
+		assertThat(result, hasSize(3));
+		assertThat(result, hasItems(VALUES_ARRAY_UPPER_CASE));
+	}
+
+	
+	@Test
+	public void testForCapitalCase() {
+		Set<String> result = new FromListGenerator<String>(Arrays.asList(VALUES_ARRAY)).forFirstCharCapitalCase().generateSet(100);
+		assertThat(result, hasSize(3));
+		assertThat(result, hasItems(VALUES_ARRAY_CAPITAL_CASE));
+	}
+
 
 }

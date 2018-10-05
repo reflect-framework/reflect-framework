@@ -1,11 +1,14 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
-import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
-public class ColorNameGenerator extends FromStringListGenerator {
-	
+public class ColorNameGenerator extends FromListGenerator<String> {
+
 	public ColorNameGenerator() {
-		super(Repositories.colorNameRepository().getColorNames());
+		super(Resources.colorNameRepository());
 	}
+	
+	
+	
 }

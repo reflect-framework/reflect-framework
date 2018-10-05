@@ -2,9 +2,9 @@ package nth.reflect.fw.infrastructure.random.generator.word;
 
 import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
+import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
-public class WordGenerator extends StringGenerator {
+public class WordGenerator extends RandomGenerator<String> {
 	private final SyllableGenerator syllableGenerator;
 	private final IntRange numberOfSyllables;
 	private final int length;

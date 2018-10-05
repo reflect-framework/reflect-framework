@@ -1,10 +1,13 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
-import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
-public class DomainNameGenerator extends FromStringListGenerator {
+public class DomainNameGenerator extends FromListGenerator<String> {
+
 	public DomainNameGenerator() {
-		super(Repositories.domainNameRepository().getDomainNames());
+		super(Resources.domainNameRepository());
 	}
+
+	
 }

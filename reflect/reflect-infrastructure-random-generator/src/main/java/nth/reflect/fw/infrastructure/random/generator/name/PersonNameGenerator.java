@@ -1,8 +1,8 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
 import nth.reflect.fw.infrastructure.random.Random;
+import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * Generates random list of typical English names, using
@@ -10,7 +10,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
  * @author nilsth
  *
  */
-public class PersonNameGenerator extends StringGenerator {
+public class PersonNameGenerator extends RandomGenerator<String> {
 	private static final String SPACE = " ";
 	private final BoolGenerator isMaleGenerator;
 	private final FemaleNameGenerator femaleNameGenerator;

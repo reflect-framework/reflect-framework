@@ -3,7 +3,6 @@ package nth.reflect.fw.infrastructure.random.generator.name;
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
-import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
 
 /**
  * Generates typical English person names, using other {@link RandomGenerator}s
@@ -11,7 +10,7 @@ import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
  * @author nilsth
  *
  */
-public class FirstNameGenerator extends StringGenerator {
+public class FirstNameGenerator extends RandomGenerator<String> {
 
 
 	private final BoolGenerator isMaleGenerator;

@@ -18,7 +18,7 @@ public enum Display {
 	/**
 	 * Displays an element as an inline-level block container. The element
 	 * itself is formatted as an inline element, but you can apply height and
-	 * width values
+	 * width allValues
 	 */
 	FLEX;
 

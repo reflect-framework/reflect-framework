@@ -9,6 +9,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
+import nth.reflect.fw.infrastructure.random.generator.text.LetterCase;
+
 public class CharacterSetTest {
 
 	private static final String TEST1 = "abCDe12@#";

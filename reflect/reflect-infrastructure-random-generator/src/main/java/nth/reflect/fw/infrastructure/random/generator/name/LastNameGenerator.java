@@ -1,17 +1,12 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import nth.reflect.fw.infrastructure.random.csv.repository.Repositories;
-import nth.reflect.fw.infrastructure.random.generator.collection.FromStringListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
+import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
-/**
- * Generates random list of typical English first names for males. Source:
- * https://names.mongabay.com/data/1000.html
- * 
- * @author nilsth
- *
- */
-public class LastNameGenerator extends FromStringListGenerator {
+public class LastNameGenerator extends FromListGenerator<String> {
+
 	public LastNameGenerator() {
-		super(Repositories.lastNameRepository().getLastNames());
+		super(Resources.lastNameRepository());
 	}
+
 }

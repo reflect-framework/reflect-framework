@@ -6,8 +6,9 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.Product;
-import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.ProductGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.ArrayGenerator;
+import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.TestProduct;
+import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.TestProductGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 
 public class ArrayGeneratorTest {
@@ -15,9 +16,9 @@ public class ArrayGeneratorTest {
 	@Test
 	public void testRandomProductArrayGeneratorWithSize() {
 		int size = 10;
-		ArrayGenerator<Product> randomProductArrayGenerator = new ArrayGenerator<>(Product.class,
-				new ProductGenerator(), size);
-		Product[] array = (Product[]) randomProductArrayGenerator.generate();
+		ArrayGenerator<TestProduct> randomProductArrayGenerator = new ArrayGenerator<>(TestProduct.class,
+				new TestProductGenerator(), size);
+		TestProduct[] array = (TestProduct[]) randomProductArrayGenerator.generate();
 		assertTrue(array.length == size);
 		assertArrayContainsValidProduct(array);
 	}
@@ -26,9 +27,9 @@ public class ArrayGeneratorTest {
 	public void testRandomProductArrayGeneratorWithMinMax() {
 		int min = 10;
 		int max = 50;
-		ArrayGenerator<Product> randomProductArrayGenerator = new ArrayGenerator<>(Product.class,
-				new ProductGenerator(), min, max);
-		Product[] array = randomProductArrayGenerator.generate();
+		ArrayGenerator<TestProduct> randomProductArrayGenerator = new ArrayGenerator<>(TestProduct.class,
+				new TestProductGenerator(), min, max);
+		TestProduct[] array = randomProductArrayGenerator.generate();
 		assertTrue(array.length >= min);
 		assertTrue(array.length <= max);
 		assertArrayContainsValidProduct(array);
@@ -63,12 +64,12 @@ public class ArrayGeneratorTest {
 		}
 	}
 
-	private void assertArrayContainsValidProduct(Product[] array) {
-		for (Product product : array) {
-			assertTrue(product.getCode().length() > 0);
-			assertTrue(product.getName().length() > 0);
-			assertTrue(product.getDetails().length() > 0);
-			assertTrue(product.getPrice().compareTo(BigDecimal.ZERO) == 1);
+	private void assertArrayContainsValidProduct(TestProduct[] array) {
+		for (TestProduct testProduct : array) {
+			assertTrue(testProduct.getCode().length() > 0);
+			assertTrue(testProduct.getName().length() > 0);
+			assertTrue(testProduct.getDetails().length() > 0);
+			assertTrue(testProduct.getPrice().compareTo(BigDecimal.ZERO) == 1);
 		}
 	}
 

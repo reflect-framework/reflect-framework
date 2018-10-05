@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
+import nth.reflect.fw.infrastructure.random.generator.word.SentenceGenerator;
 
 public class SentenceGeneratorTest {
 	private static final String END_DELIMITERS = ".!?";

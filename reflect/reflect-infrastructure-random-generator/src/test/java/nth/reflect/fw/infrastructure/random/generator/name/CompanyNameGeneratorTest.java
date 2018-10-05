@@ -26,11 +26,5 @@ public class CompanyNameGeneratorTest {
 		assertThat(companyNames, not(hasItem(isEmptyString())));
 	}
 	
-	@Test
-	public void testForProductName() {
-		Set<String> companyNames = Random.companyNameGenerator().forProductName(ProductNameGeneratorTest.A_PRODUCT_NAME).generateSet(20);
-		assertThat(companyNames, hasSize(1));
-		assertThat(companyNames, hasItem(A_COMPANY_NAME));
-	}
 
 }

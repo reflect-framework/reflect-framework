@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.csv;
+package nth.reflect.fw.infrastructure.random.generator.resource;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -6,29 +6,28 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class CsvFile {
+public class ResourceFile {
 
-	private List<CsvRow> rows;
+	private final Class<?> ownerClass;
 
-	public CsvFile(String fileName) {
-		rows=readResourceFileRows(fileName);
+	public ResourceFile(Class<?> ownerClass) {
+		this.ownerClass = ownerClass;
 	}
 
-	private List<CsvRow> readResourceFileRows(String fileName) {
-		List<String> lines = readResourceFileLines(fileName);
-		List<CsvRow> rows = new ArrayList<>();
-		for (String line : lines) {
-			CsvRow row = new CsvRow(line);
-			rows.add(row);
-		}
-		return rows;
+	private String createFileName(Class<?> ownerClass) {
+		StringBuilder fileName=new StringBuilder();
+		fileName.append(ownerClass.getSimpleName());
+		fileName.append(".txt");
+		return fileName.toString();
 	}
 
-	private List<String> readResourceFileLines(String fileName) {
-		InputStream inputStream = getClass().getResourceAsStream(fileName);
+
+	public List<String> readLines() {
+		String fileName = createFileName(ownerClass);
+		InputStream inputStream = ownerClass.getResourceAsStream(fileName);
 		List<String> lines=new ArrayList<>();
 		if (fileName != null && !fileName.isEmpty() && inputStream != null) {
-			lines=readFileLines(inputStream);
+			lines=readLines(inputStream);
 		}
 		if (lines.size()==0) {
 			throw new RuntimeException("Could not read resource file: "+ fileName);
@@ -36,7 +35,7 @@ public class CsvFile {
 		return lines;
 	}
 
-	private List<String> readFileLines(InputStream inputStream) {
+	private List<String> readLines(InputStream inputStream) {
 		List<String> lines = new ArrayList<>();
 		if (inputStream != null) {
 			Scanner scanner = new Scanner(inputStream, "UTF-8");
@@ -53,8 +52,5 @@ public class CsvFile {
 	}
 
 
-	public List<CsvRow> getRows() {
-		return rows;
-	}
 
 }

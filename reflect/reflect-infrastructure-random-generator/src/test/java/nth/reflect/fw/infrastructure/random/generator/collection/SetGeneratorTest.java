@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import nth.reflect.fw.infrastructure.random.generator.collection.SetGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 

@@ -16,7 +16,7 @@ import nth.reflect.fw.infrastructure.random.RandomGenerator;
  * @author nilsth
  *
  */
-public class FormatGenerator extends StringGenerator {
+public class FormatGenerator extends RandomGenerator<String> {
 	private final String format;
 	private final Map<Character, RandomGenerator<Character>> placeHoldersAndGenerators;
 

@@ -1,9 +1,9 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -13,20 +13,21 @@ import nth.reflect.fw.infrastructure.random.Random;
 
 public class ProductNameGeneratorTest {
 
-	static final String A_PRODUCT_NAME = "Durex";
 	
 	@Test
 	public void testForNoParameter() {
-		Set<String> productNames = Random.productNameGenerator().generateSet(500);
-		assertThat(productNames, hasSize(greaterThan(110)));
-		assertThat(productNames, hasItem(A_PRODUCT_NAME));
+		Set<Product> products = Random.productGenerator().generateSet(500);
+		assertThat(products, hasSize(greaterThan(110)));
+		for (Product product : products) {
+			assertValidProduct(product);
+		}
 	}
 	
-	@Test
-	public void testForCompanyName() {
-		Set<String> productNames = Random.productNameGenerator().forCompanyName(CompanyNameGeneratorTest.A_COMPANY_NAME).generateSet(20);
-		assertThat(productNames, hasSize(greaterThan(2)));
-		assertThat(productNames, hasItem(A_PRODUCT_NAME));
+	private void assertValidProduct(Product product) {
+		assertTrue(!product.getName().trim().isEmpty());
+		assertTrue(!product.getDescription().trim().isEmpty());
+		assertTrue(!product.getCompany().trim().isEmpty());
 	}
+
 
 }
