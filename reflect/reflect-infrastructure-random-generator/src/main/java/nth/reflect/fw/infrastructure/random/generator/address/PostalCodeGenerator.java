@@ -11,6 +11,7 @@ import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
 public class PostalCodeGenerator extends RandomGenerator<String> {
 
+	public static String DEFAULT_POSTAL_CODE_FORMAT="#####";
 	private final RandomGenerator<String> postalCodeFormatGenerator;
 
 	public PostalCodeGenerator() {

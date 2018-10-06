@@ -1,8 +1,5 @@
 package nth.reflect.fw.infrastructure.random.generator.address;
 
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -20,13 +17,12 @@ import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
 
 public class PostalCodeGeneratorTest {
 
-	private static final String ANGOLA = "Angola";
 	private static final String NETHERLANDS = "Netherlands";
 
 	@Test
 	public void testForNoParameters() {
 		Set<String> allPostalCodeFormats = Resources.countryRepository().getAll().stream()
-				.map(Country::getPhoneCode).collect(Collectors.toSet());
+				.map(Country::getPostalCodeFormat).collect(Collectors.toSet());
 		List<String> postalCodes = Random.postalCodeGenerator().generateList(10);
 		assertPostalCode(postalCodes, allPostalCodeFormats);
 	}
@@ -42,15 +38,6 @@ public class PostalCodeGeneratorTest {
 		assertPostalCode(postalCodes, allPostalCodeFormats);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testForCountryWithoutPostalCode() {
-		Optional<Country> amgola = Resources.countryRepository().getAll().stream()
-				.filter(country -> country.getName().equals(ANGOLA)).findFirst();
-		assertTrue(amgola.isPresent());
-		List<String> postalCodes = Random.postalCodeGenerator().forCountry(amgola.get()).generateList(10);
-		assertThat(postalCodes, hasItems(isEmptyString()));
-	}
 
 	private void assertPostalCode(List<String> postalCodes, Set<String> allPostalCodeFormats) {
 		for (String postalCode : postalCodes) {

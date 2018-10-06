@@ -181,8 +181,7 @@ public class CharacterSetTest {
 		expected.put('C', CharacterSet.consonants(LetterCase.UPPER));
 		expected.put('c', CharacterSet.consonants(LetterCase.LOWER));
 		expected.put('!', CharacterSet.symbols());
-		expected.put('0', CharacterSet.numbers());
-		expected.put('9', CharacterSet.numbers());
+		expected.put('#', CharacterSet.numbers());
 		
 		assertThat(actual, is(expected));
 	}

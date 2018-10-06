@@ -121,8 +121,7 @@ public class CharacterSet extends HashSet<Character> {
 		formatPlaceHolders.put('C', consonants(LetterCase.UPPER));
 		formatPlaceHolders.put('c', consonants(LetterCase.LOWER));
 		formatPlaceHolders.put('!', symbols());
-		formatPlaceHolders.put('0', numbers());
-		formatPlaceHolders.put('9', numbers());
+		formatPlaceHolders.put('#', numbers());
 		return formatPlaceHolders;
 	}
 

@@ -1,22 +1,18 @@
 package nth.reflect.fw.infrastructure.random.generator.address;
 
-import static org.junit.Assert.*;
+import static nth.reflect.fw.infrastructure.random.LambdaMatcher.lambdaMatcher;
 import static org.hamcrest.Matchers.*;
-import static nth.reflect.fw.infrastructure.random.LambdaMatcher.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.function.Function;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.text.IsEmptyString;
 import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 public class CountryGeneratorTest {
+
 
 	@Test
 	public void testForNorParamaters() {
@@ -29,16 +25,15 @@ public class CountryGeneratorTest {
 	}
 
 	private void assertValidCountry(Country country) {
-		assertThat(country.getCode().trim().length(), equalTo(2));
+		assertThat(country.getCode(), lambdaMatcher(code -> code.length()==2));
 		assertThat(country.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(0))));
 		assertThat(country.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(1))));
 		assertThat(country.getName(), not(isEmptyOrNullString()));
+		assertThat(country.getPostalCodeFormat(),not(isEmptyOrNullString()));
 		assertThat(country.getPhoneCode(),not(isEmptyOrNullString()));
+		assertThat(country.getPhoneNumberFormat(),not(isEmptyOrNullString()));
 		assertThat(country.getPhoneDigitsAfterCallingCode(), greaterThan(1));
 	}
-
-
-	
 	
 	
 }

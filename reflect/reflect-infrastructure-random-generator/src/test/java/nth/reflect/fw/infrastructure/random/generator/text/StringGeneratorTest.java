@@ -3,7 +3,6 @@ package nth.reflect.fw.infrastructure.random.generator.text;
 import static nth.reflect.fw.infrastructure.random.LambdaMatcher.lambdaMatcher;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 import java.util.List;
 
