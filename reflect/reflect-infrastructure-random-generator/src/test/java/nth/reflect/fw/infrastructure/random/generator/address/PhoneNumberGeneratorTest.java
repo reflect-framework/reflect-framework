@@ -15,16 +15,16 @@ import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
 
-public class PostalCodeGeneratorTest {
+public class PhoneNumberGeneratorTest {
 
 	private static final String NETHERLANDS = "Netherlands";
 
 	@Test
 	public void testForNoParameters() {
-		Set<String> postalCodeFormats = Resources.countryRepository().getAll().stream()
-				.map(Country::getPostalCodeFormat).collect(Collectors.toSet());
-		List<String> postalCodes = Random.postalCodeGenerator().generateList(10);
-		assertPostalCode(postalCodes, postalCodeFormats);
+		Set<String> allPhoneNumberFormats = Resources.countryRepository().getAll().stream()
+				.map(Country::getPhoneNumberFormat).collect(Collectors.toSet());
+		List<String> phoneNumbers = Random.phoneNumberGenerator().generateList(10);
+		assertPhoneNumber(phoneNumbers, allPhoneNumberFormats);
 	}
 
 	@Test
@@ -32,33 +32,33 @@ public class PostalCodeGeneratorTest {
 		Optional<Country> netherlands = Resources.countryRepository().getAll().stream()
 				.filter(country -> country.getName().equals(NETHERLANDS)).findFirst();
 		assertTrue(netherlands.isPresent());
-		List<String> postalCodes = Random.postalCodeGenerator().forCountry(netherlands.get()).generateList(10);
-		Set<String> postalCodeFormats = new HashSet<>();
-		postalCodeFormats.add(netherlands.get().getPostalCodeFormat());
-		assertPostalCode(postalCodes, postalCodeFormats);
+		List<String> randomPhoneNumbers = Random.phoneNumberGenerator().forCountry(netherlands.get()).generateList(10);
+		Set<String> phoneNumberFormats = new HashSet<>();
+		phoneNumberFormats.add(netherlands.get().getPhoneNumberFormat());
+		assertPhoneNumber(randomPhoneNumbers, phoneNumberFormats);
 	}
 
 
-	private void assertPostalCode(List<String> postalCodes, Set<String> postalCodeFormats) {
-		for (String postalCode : postalCodes) {
-			assertTrue("Invalid postal code: " + postalCode, isValid(postalCode, postalCodeFormats));
+	private void assertPhoneNumber(List<String> phoneNumbers, Set<String> phoneNumberFormats) {
+		for (String phoneNumber : phoneNumbers) {
+			assertTrue("Invalid phone number: " + phoneNumber, isValid(phoneNumber, phoneNumberFormats));
 		}
 	}
 
-	private boolean isValid(String postalCode, Set<String> postalCodeFormats) {
-		for (String format : postalCodeFormats) {
-			if (isValid(postalCode, format)) {
+	private boolean isValid(String phoneNumber, Set<String> phoneNumberFormats) {
+		for (String format : phoneNumberFormats) {
+			if (isValid(phoneNumber, format)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private boolean isValid(String postalCode, String format) {
-		if (postalCode.length()==0) {
+	private boolean isValid(String phoneNumber, String format) {
+		if (phoneNumber.length()==0) {
 			return true;
 		}
-		if (postalCode.length() != format.length()) {
+		if (phoneNumber.length() != format.length()) {
 			return false;
 		}
 		Map<Character, CharacterSet> placeHoldersAndCharacterSets = CharacterSet.placeHoldersAndCharacterSets();
@@ -67,12 +67,12 @@ public class PostalCodeGeneratorTest {
 		for (Character formatCharacter : format.toCharArray()) {
 			if (placeHolders.contains(formatCharacter)) {
 				CharacterSet characterSet = placeHoldersAndCharacterSets.get(formatCharacter);
-				if (!characterSet.contains(postalCode.charAt(index))) {
+				if (!characterSet.contains(phoneNumber.charAt(index))) {
 					return false;
 				}
 				;
 			} else {
-				if (format.charAt(index) != postalCode.charAt(index)) {
+				if (format.charAt(index) != phoneNumber.charAt(index)) {
 					return false;
 				}
 				;

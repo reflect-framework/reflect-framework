@@ -45,7 +45,7 @@ public class Resources {
 		return COMPANY_NAME_REPOSITORY;
 	}
 
-	public static Repository<Country> countryRepository() {
+	public static CountryRepository countryRepository() {
 		return COUNTRY_REPOSITORY;
 	}
 

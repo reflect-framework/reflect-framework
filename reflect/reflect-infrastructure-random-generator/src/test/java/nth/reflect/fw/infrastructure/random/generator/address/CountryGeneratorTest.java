@@ -17,7 +17,7 @@ public class CountryGeneratorTest {
 	@Test
 	public void testForNorParamaters() {
 		 List<Country> allCountries = Resources.countryRepository().getAll();
-		List<Country> countries = Random.countryGenerator().generateList(100);
+		List<Country> countries = Random.countryGenerator().generateList(1000);
 		for (Country country : countries) {
 			assertValidCountry(country);
 			assertTrue(allCountries.contains(country));
@@ -25,7 +25,10 @@ public class CountryGeneratorTest {
 	}
 
 	private void assertValidCountry(Country country) {
-		assertThat(country.getCode(), lambdaMatcher(code -> code.length()==2));
+		if (country.getCode().length()>2) {
+			System.out.println();
+		}
+		assertThat(country.getCode(), lambdaMatcher(code -> code.length()==2,"Only 2 characters"));
 		assertThat(country.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(0))));
 		assertThat(country.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(1))));
 		assertThat(country.getName(), not(isEmptyOrNullString()));

@@ -1,9 +1,7 @@
 package nth.reflect.fw.infrastructure.random.generator.address;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -36,4 +34,16 @@ public class CountryRepositoryTest {
 		}
 	}
 
+	@Test
+	public void testAllWithCities() {
+		List<Country> countries = Resources.countryRepository().getAllWithCities();
+		for (Country country : countries) {
+			assertThat(country.getRegions().isEmpty(), is(false));
+
+			long regionsWithoutCities = country.getRegions().stream().filter(r->r.getCities().isEmpty()).count();
+			assertThat(regionsWithoutCities, equalTo(0l));
+		}
+	}
+
+	
 }

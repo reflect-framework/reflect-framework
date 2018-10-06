@@ -14,9 +14,10 @@ public class FromListGenerator<T> extends RandomGenerator<T> {
 
 	private final Repository<T> repository;
 
-public FromListGenerator(Repository<T> repository) {
-	this.repository=repository;
-}
+	public FromListGenerator(Repository<T> repository) {
+		this.repository = repository;
+	}
+
 	/**
 	 * @param allValues
 	 *            of items to generate from
@@ -30,7 +31,6 @@ public FromListGenerator(Repository<T> repository) {
 			}
 		});
 	}
-
 
 	public FromListGenerator<T> forValues(List<T> allValues) {
 		return new FromListGenerator<T>(allValues);

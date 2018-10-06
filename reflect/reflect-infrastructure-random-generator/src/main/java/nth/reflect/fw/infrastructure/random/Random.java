@@ -2,6 +2,7 @@ package nth.reflect.fw.infrastructure.random;
 
 import nth.reflect.fw.infrastructure.random.generator.address.CountryGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenerator;
+import nth.reflect.fw.infrastructure.random.generator.address.PhoneNumberGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PostalCodeGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
@@ -150,6 +151,10 @@ return new CountryGenerator();
 
 	public static PersonNameGenerator personNameGenerator() {
 		return new PersonNameGenerator();
+	}
+
+	public static PhoneNumberGenerator phoneNumberGenerator() {
+		return new PhoneNumberGenerator();
 	}
 
 	public static PostalCodeGenerator postalCodeGenerator() {
