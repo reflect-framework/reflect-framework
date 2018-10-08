@@ -18,7 +18,7 @@ public class IntGeneratorTest {
 	public void testForNoParameter() {
 		int min=0;
 		int max=Integer.MAX_VALUE;
-		List<Integer> randomIntegers = Random.intGenerator().generateList(20);
+		List<Integer> randomIntegers = Random.integer().generateList(20);
 		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
@@ -26,11 +26,11 @@ public class IntGeneratorTest {
 	public void testForMax() {
 		int min=0;
 		int max=1;
-		List<Integer> randomIntegers = Random.intGenerator().forMax( max).generateList(20);
+		List<Integer> randomIntegers = Random.integer().forMax( max).generateList(20);
 		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		max=10;
-		randomIntegers = Random.intGenerator().forMax( max).generateList(20);
+		randomIntegers = Random.integer().forMax( max).generateList(20);
 		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
@@ -39,17 +39,17 @@ public class IntGeneratorTest {
 	public void testForRange() {
 		int min=0;
 		int max=1;
-		List<Integer> randomIntegers = Random.intGenerator().forRange(min, max).generateList(20);
+		List<Integer> randomIntegers = Random.integer().forRange(min, max).generateList(20);
 		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		min=5;
 		max=10;
-		randomIntegers = Random.intGenerator().forRange(min, max).generateList(20);
+		randomIntegers = Random.integer().forRange(min, max).generateList(20);
 		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		min=10;
 		max=5;
-		randomIntegers = Random.intGenerator().forRange(min, max).generateList(20);
+		randomIntegers = Random.integer().forRange(min, max).generateList(20);
 		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
 	}
 

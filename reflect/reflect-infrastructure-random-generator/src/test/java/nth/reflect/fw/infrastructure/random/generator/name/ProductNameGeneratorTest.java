@@ -16,7 +16,7 @@ public class ProductNameGeneratorTest {
 	
 	@Test
 	public void testForNoParameter() {
-		Set<Product> products = Random.productGenerator().generateSet(500);
+		Set<Product> products = Random.product().generateSet(500);
 		assertThat(products, hasSize(greaterThan(110)));
 		for (Product product : products) {
 			assertValidProduct(product);

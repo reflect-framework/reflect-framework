@@ -19,7 +19,7 @@ public class FromEnumGeneratorTest {
 	@Test
 	public void testEnumGenerator() {
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		Set<Enum> result = Random.fromEnumGenerator(TestEnum.class).generateSet(100);
+		Set<Enum> result = Random.fromEnum(TestEnum.class).generateSet(100);
 		assertThat(result, hasSize(3));
 		assertThat(result, hasItems(TestEnum.values()));
 	}

@@ -21,11 +21,11 @@ public class StringGenerator extends RandomGenerator<String> {
 	}
 
 	public StringGenerator(CharacterSet characterSet, int length) {
-		this(Random.characterGenerator().forCharacters(characterSet), length);
+		this(Random.character().forCharacters(characterSet), length);
 	}
 
 	public StringGenerator(CharacterSet characterSet, int minLength, int maxLength) {
-		this(Random.characterGenerator().forCharacters(characterSet), minLength, maxLength);
+		this(Random.character().forCharacters(characterSet), minLength, maxLength);
 	}
 	
 	public StringGenerator(RandomGenerator<Character> randomGenerator, int length) {

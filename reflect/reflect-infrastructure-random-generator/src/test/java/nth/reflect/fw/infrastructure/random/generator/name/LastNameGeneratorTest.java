@@ -15,7 +15,7 @@ public class LastNameGeneratorTest {
 
 	@Test
 	public void testForNoParameters() {
-		Set<String> lastNames = Random.lastNameGenerator().generateSet(100*1000);
+		Set<String> lastNames = Random.lastName().generateSet(100*1000);
 		assertThat(lastNames, hasSize(greaterThan(999)));
 		assertThat(lastNames, hasItem("Johnson"));
 		assertThat(lastNames, hasItem("Smith"));

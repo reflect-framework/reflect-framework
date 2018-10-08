@@ -22,9 +22,9 @@ public class FirstNameGenerator extends RandomGenerator<String> {
 	}
 
 	public FirstNameGenerator(int maleProbabilityInPercent) {
-		isMaleGenerator = Random.boolGenerator().forProbability(maleProbabilityInPercent);
-		femaleNameGenerator = Random.femaleNameGenerator();
-		maleNameGenerator = Random.maleNameGenerator();
+		isMaleGenerator = Random.bool().forProbability(maleProbabilityInPercent);
+		femaleNameGenerator = Random.femaleName();
+		maleNameGenerator = Random.maleName();
 	}
 
 	public FirstNameGenerator forMaleProbability(int maleProbabilityInPercent) {

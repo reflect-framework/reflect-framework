@@ -16,7 +16,7 @@ import nth.reflect.fw.infrastructure.random.Random;
 public class BigDecimalGeneratorTest {
 	@Test
 	public void testForNoParams() {
-		List<BigDecimal> randomBigDecimals = Random.bigDecimalGenerator().generateList(20);
+		List<BigDecimal> randomBigDecimals = Random.bigDecimal().generateList(20);
 		BigDecimal min = BigDecimal.ZERO;
 		BigDecimal max = BigDecimal.valueOf(Double.MAX_VALUE);
 		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
@@ -36,7 +36,7 @@ public class BigDecimalGeneratorTest {
 	}
 
 	private void testForMax(BigDecimal max) {
-		List<BigDecimal> randomBigDecimals = Random.bigDecimalGenerator().forMax(max).generateList(20);
+		List<BigDecimal> randomBigDecimals = Random.bigDecimal().forMax(max).generateList(20);
 		BigDecimal min = BigDecimal.ZERO;
 		if (min.compareTo(max) > 0) {
 			BigDecimal temp = min;
@@ -60,7 +60,7 @@ public class BigDecimalGeneratorTest {
 	}
 
 	private void testForRange(BigDecimal min, BigDecimal max) {
-		List<BigDecimal> randomBigDecimals = Random.bigDecimalGenerator().forRange(min, max).generateList(20);
+		List<BigDecimal> randomBigDecimals = Random.bigDecimal().forRange(min, max).generateList(20);
 		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 

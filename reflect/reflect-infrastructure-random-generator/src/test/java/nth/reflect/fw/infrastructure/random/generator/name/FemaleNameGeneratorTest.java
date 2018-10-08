@@ -15,7 +15,7 @@ public class FemaleNameGeneratorTest {
 
 	@Test
 	public void testGenerate() {
-		Set<String> result = Random.femaleNameGenerator().generateSet(100*1000);
+		Set<String> result = Random.femaleName().generateSet(100*1000);
 		assertThat(result, hasSize(greaterThan(999)));
 		assertThat(result, hasItem("Cher"));
 		assertThat(result, hasItem("Valerie"));

@@ -18,7 +18,7 @@ public class LongGeneratorTest {
 	public void testForNoParameter() {
 		long min=0;
 		long max=Long.MAX_VALUE;
-		List<Long> randomLongs = Random.longGenerator().generateList(20);
+		List<Long> randomLongs = Random.long_().generateList(20);
 		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
@@ -26,11 +26,11 @@ public class LongGeneratorTest {
 	public void testForMax() {
 		long min=0;
 		long max=1;
-		List<Long> randomLongs = Random.longGenerator().forMax( max).generateList(20);
+		List<Long> randomLongs = Random.long_().forMax( max).generateList(20);
 		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		max=10;
-		randomLongs = Random.longGenerator().forMax( max).generateList(20);
+		randomLongs = Random.long_().forMax( max).generateList(20);
 		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
@@ -39,17 +39,17 @@ public class LongGeneratorTest {
 	public void testForRange() {
 		long min=0;
 		long max=1;
-		List<Long> randomLongs = Random.longGenerator().forRange(min, max).generateList(20);
+		List<Long> randomLongs = Random.long_().forRange(min, max).generateList(20);
 		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		min=5;
 		max=10;
-		randomLongs = Random.longGenerator().forRange(min, max).generateList(20);
+		randomLongs = Random.long_().forRange(min, max).generateList(20);
 		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		min=10;
 		max=5;
-		randomLongs = Random.longGenerator().forRange(min, max).generateList(20);
+		randomLongs = Random.long_().forRange(min, max).generateList(20);
 		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
 	}
 

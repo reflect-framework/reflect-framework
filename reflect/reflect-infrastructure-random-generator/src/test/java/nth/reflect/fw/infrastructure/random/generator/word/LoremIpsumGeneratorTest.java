@@ -15,7 +15,7 @@ public class LoremIpsumGeneratorTest {
 
 	@Test
 	public void testGenerate() {
-		Set<String> result = Random.loremIpsumGenerator().generateSet(200);
+		Set<String> result = Random.loremIpsum().generateSet(200);
 		assertThat(result, hasSize(greaterThan(60)));
 		assertThat(result, hasItem("lorem"));
 		assertThat(result, hasItem("ipsum"));

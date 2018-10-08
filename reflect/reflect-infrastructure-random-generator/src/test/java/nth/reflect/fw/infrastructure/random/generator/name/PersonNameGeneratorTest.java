@@ -17,7 +17,7 @@ public class PersonNameGeneratorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testPersonNameGenerator() {
-		Set<String> personNames = Random.personNameGenerator().generateSet(1000);
+		Set<String> personNames = Random.personName().generateSet(1000);
 		assertThat(personNames,hasSize(greaterThan(900)));
 		assertThat(personNames,hasItems(containsString(" ")));
 	}

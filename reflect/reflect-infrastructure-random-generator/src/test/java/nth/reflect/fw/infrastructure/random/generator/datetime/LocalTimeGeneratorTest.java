@@ -15,7 +15,7 @@ public class LocalTimeGeneratorTest {
 	public void testForRange() {
 		LocalTime min = LocalTime.of(9, 10, 12);
 		LocalTime max = LocalTime.of(15,45,22,99);
-		List<LocalTime> randomTimes = Random.localTimeGenerator().forRange(min, max).generateList(20);
+		List<LocalTime> randomTimes = Random.localTime().forRange(min, max).generateList(20);
 		for (LocalTime randomTime : randomTimes) {
 			assertTrue(randomTime.isAfter(min));
 			assertTrue(randomTime.isBefore(max));

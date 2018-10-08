@@ -25,7 +25,7 @@ public class SentenceGeneratorTest {
 
 	@Before
 	public void init() {
-		loremIpsumWords = Random.loremIpsumGenerator().generateSet(1000);
+		loremIpsumWords = Random.loremIpsum().generateSet(1000);
 	}
 
 	@Test
@@ -34,7 +34,7 @@ public class SentenceGeneratorTest {
 		int expectMaxWords = 15;
 		boolean expectEndDelimiter = true;
 		boolean expectLoremIpsum = false;
-		SentenceGenerator sentenceGenerator = Random.sentenceGenerator();
+		SentenceGenerator sentenceGenerator = Random.sentence();
 		assertResult(sentenceGenerator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 	}
 
@@ -80,7 +80,7 @@ public class SentenceGeneratorTest {
 		int expectMaxWords = 15;
 		boolean expectEndDelimiter = true;
 		boolean expectLoremIpsum = true;
-		SentenceGenerator forLoremIpsum = Random.sentenceGenerator().forLoremIpsum();
+		SentenceGenerator forLoremIpsum = Random.sentence().forLoremIpsum();
 		assertResult(forLoremIpsum, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 	}
 
@@ -91,15 +91,15 @@ public class SentenceGeneratorTest {
 		boolean expectLoremIpsum = false;
 		
 		int expectWords = 0;
-		SentenceGenerator generator = Random.sentenceGenerator().forNumberOfWords( -1);
+		SentenceGenerator generator = Random.sentence().forNumberOfWords( -1);
 		assertResult(generator, expectWords, expectWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectWords = 0;
-		generator = Random.sentenceGenerator().forNumberOfWords(0);
+		generator = Random.sentence().forNumberOfWords(0);
 		assertResult(generator, expectWords, expectWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectWords = 10;
-		generator = Random.sentenceGenerator().forNumberOfWords(10);
+		generator = Random.sentence().forNumberOfWords(10);
 		assertResult(generator, expectWords, expectWords, expectEndDelimiter, expectLoremIpsum);
 	}
 
@@ -110,37 +110,37 @@ public class SentenceGeneratorTest {
 
 		int expectMinWords = 0;
 		int expectMaxWords = 0;
-		SentenceGenerator generator = Random.sentenceGenerator().forNumberOfWords(-1, -1);
+		SentenceGenerator generator = Random.sentence().forNumberOfWords(-1, -1);
 		assertResult(generator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectMinWords = 0;
 		expectMaxWords = 0;
-		generator = Random.sentenceGenerator().forNumberOfWords(0, -1);
+		generator = Random.sentence().forNumberOfWords(0, -1);
 		assertResult(generator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectMinWords = 0;
 		expectMaxWords = 0;
-		generator = Random.sentenceGenerator().forNumberOfWords(-1, 0);
+		generator = Random.sentence().forNumberOfWords(-1, 0);
 		assertResult(generator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectMinWords = 0;
 		expectMaxWords = 10;
-		generator = Random.sentenceGenerator().forNumberOfWords(10, 0);
+		generator = Random.sentence().forNumberOfWords(10, 0);
 		assertResult(generator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectMinWords = 10;
 		expectMaxWords = 10;
-		generator = Random.sentenceGenerator().forNumberOfWords(10, 10);
+		generator = Random.sentence().forNumberOfWords(10, 10);
 		assertResult(generator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectMinWords = 10;
 		expectMaxWords = 15;
-		generator = Random.sentenceGenerator().forNumberOfWords(10, 15);
+		generator = Random.sentence().forNumberOfWords(10, 15);
 		assertResult(generator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 
 		expectMinWords = 10;
 		expectMaxWords = 15;
-		generator = Random.sentenceGenerator().forNumberOfWords(15, 10);
+		generator = Random.sentence().forNumberOfWords(15, 10);
 		assertResult(generator, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 
 	}
@@ -151,7 +151,7 @@ public class SentenceGeneratorTest {
 		int expectMaxWords = 15;
 		boolean expectEndDelimiter = false;
 		boolean expectLoremIpsum = false;
-		SentenceGenerator forLoremIpsum = Random.sentenceGenerator().forNoEndPunctuation();
+		SentenceGenerator forLoremIpsum = Random.sentence().forNoEndPunctuation();
 		assertResult(forLoremIpsum, expectMinWords, expectMaxWords, expectEndDelimiter, expectLoremIpsum);
 	}
 

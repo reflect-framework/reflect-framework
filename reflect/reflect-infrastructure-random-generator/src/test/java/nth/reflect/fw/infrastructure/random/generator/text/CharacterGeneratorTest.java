@@ -19,7 +19,7 @@ public class CharacterGeneratorTest {
 	@Test
 	public void testForNoParameters() {
 		int size = 10 * COMMON_CHARACTERS.size();
-		List<Character> characters = Random.characterGenerator().generateList(size);
+		List<Character> characters = Random.character().generateList(size);
 		assertThat(characters, hasSize(size));
 		assertThat(characters, hasItems(COMMON_CHARACTERS.toCharacterArray()));
 	}
@@ -28,7 +28,7 @@ public class CharacterGeneratorTest {
 	public void testForCharactersString() {
 		String commonCharacters = COMMON_CHARACTERS.toCharacterString();
 		int size = 10 * COMMON_CHARACTERS.size();
-		List<Character> characters = Random.characterGenerator().forCharacters(commonCharacters).generateList(size);
+		List<Character> characters = Random.character().forCharacters(commonCharacters).generateList(size);
 		assertThat(characters, hasSize(size));
 		assertThat(characters, hasItems(COMMON_CHARACTERS.toCharacterArray()));
 
@@ -39,7 +39,7 @@ public class CharacterGeneratorTest {
 		String commonCharacters = COMMON_CHARACTERS.toCharacterString();
 		ValueGenerator<String> stringGenerator = new ValueGenerator<String>(commonCharacters);
 		int size = 2000;
-		List<Character> characters = Random.characterGenerator().forCharacters(stringGenerator).generateList(size);
+		List<Character> characters = Random.character().forCharacters(stringGenerator).generateList(size);
 		assertThat(characters, hasSize(size));
 		assertThat(characters, hasItems(COMMON_CHARACTERS.toCharacterArray()));
 	}
@@ -47,7 +47,7 @@ public class CharacterGeneratorTest {
 	@Test
 	public void testForCharactersCharacterSet() {
 		int size = 2000;
-		List<Character> characters = Random.characterGenerator().forCharacters(COMMON_CHARACTERS).generateList(size);
+		List<Character> characters = Random.character().forCharacters(COMMON_CHARACTERS).generateList(size);
 		assertThat(characters, hasSize(size));
 		assertThat(characters, hasItems(COMMON_CHARACTERS.toCharacterArray()));
 	}

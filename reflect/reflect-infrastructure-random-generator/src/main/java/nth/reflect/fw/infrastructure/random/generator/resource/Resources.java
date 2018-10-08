@@ -1,7 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.resource;
 
 import nth.reflect.fw.infrastructure.random.generator.address.CityRepository;
-import nth.reflect.fw.infrastructure.random.generator.address.Country;
 import nth.reflect.fw.infrastructure.random.generator.address.CountryRepository;
 import nth.reflect.fw.infrastructure.random.generator.name.ColorNameRepository;
 import nth.reflect.fw.infrastructure.random.generator.name.CompanyNameRepository;

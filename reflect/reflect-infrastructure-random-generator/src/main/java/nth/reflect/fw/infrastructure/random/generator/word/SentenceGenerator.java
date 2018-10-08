@@ -25,8 +25,8 @@ public class SentenceGenerator extends RandomGenerator<String> {
 		this.wordGenerator = wordGenerator;
 		this.numberOfWords=new IntRange(minWords, maxWords);
 		this.hasPunctuation = hasPunctuation;
-		hasDotGenerator=Random.boolGenerator().forProbability(90);
-		hasQuestionMarkGenerator=Random.boolGenerator();
+		hasDotGenerator=Random.bool().forProbability(90);
+		hasQuestionMarkGenerator=Random.bool();
 	}
 	
 	public SentenceGenerator forLoremIpsum() {

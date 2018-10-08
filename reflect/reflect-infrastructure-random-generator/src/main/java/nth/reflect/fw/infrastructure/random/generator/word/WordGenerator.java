@@ -14,13 +14,13 @@ public class WordGenerator extends RandomGenerator<String> {
 	}
 
 	public WordGenerator(int length) {
-		syllableGenerator = Random.syllableGenerator();
+		syllableGenerator = Random.syllable();
 		this.numberOfSyllables = null;
 		this.length = length;
 	}
 
 	public WordGenerator(int minSyllables, int maxSyllables) {
-		syllableGenerator = Random.syllableGenerator();
+		syllableGenerator = Random.syllable();
 		this.numberOfSyllables = new IntRange(minSyllables, maxSyllables);
 		this.length = -1;
 	}

@@ -14,7 +14,7 @@ public class ChapterGenerator extends RandomGenerator<String> {
 	private final String paragraphSeperator;
 
 	public ChapterGenerator() {
-		this(Random.paragraphGenerator(), MIN_PARAGRAPHS_DEFAULT, MAX_PARAGRAPHS_DEFAULT, PARAGRAPH_SEPERATOR_DEFAULT);
+		this(Random.paragraph(), MIN_PARAGRAPHS_DEFAULT, MAX_PARAGRAPHS_DEFAULT, PARAGRAPH_SEPERATOR_DEFAULT);
 	}
 
 	public ChapterGenerator(ParagraphGenerator paragraphGenerator, int minParagraphs, int maxParagraphs,

@@ -33,7 +33,7 @@ public class PostalCodeGenerator extends RandomGenerator<String> {
 	@Override
 	public String generate() {
 		String postCodeFormat = postalCodeFormatGenerator.generate();
-		String postalCode = Random.formatGenerator().forFormat(postCodeFormat).generate();
+		String postalCode = Random.format().forFormat(postCodeFormat).generate();
 		return postalCode;
 	}
 

@@ -44,142 +44,141 @@ import nth.reflect.fw.infrastructure.random.generator.word.WordGenerator;
  */
 public class Random {
 
-	public static BigDecimalGenerator bigDecimalGenerator() {
+	public static BigDecimalGenerator bigDecimal() {
 		return new BigDecimalGenerator();
 	}
 
-	public static BigIntegerGenerator bigIntegerGenerator() {
+	public static BigIntegerGenerator bigInteger() {
 		return new BigIntegerGenerator();
 	}
 
-	public static BoolGenerator boolGenerator() {
+	public static BoolGenerator bool() {
 		return new BoolGenerator();
 	}
 
-	public static CalendarGenerator calendarGenerator() {
+	public static CalendarGenerator calendar() {
 		return new CalendarGenerator();
 	}
 
-	public static ChapterGenerator chapterGenerator() {
+	public static ChapterGenerator chapter() {
 		return new ChapterGenerator();
 	}
 
-	public static CharacterGenerator characterGenerator() {
+	public static CharacterGenerator character() {
 		return new CharacterGenerator();
 	}
 
-	public static ColorNameGenerator colorNameGenerator() {
+	public static ColorNameGenerator colorName() {
 		return new ColorNameGenerator();
 	}
 
-	public static CompanyNameGenerator companyNameGenerator() {
+	public static CompanyNameGenerator companyName() {
 		return new CompanyNameGenerator();
 	}
 
-	public static CountryGenerator countryGenerator() {
-return new CountryGenerator();		
+	public static CountryGenerator country() {
+		return new CountryGenerator();
 	}
 
-	public static DomainNameGenerator domainNameGenerator() {
+	public static DomainNameGenerator domainName() {
 		return new DomainNameGenerator();
 	}
 
-	public static DoubleGenerator doubleGenerator() {
+	public static DoubleGenerator double_() {
 		return new DoubleGenerator();
 	}
 
-	public static EmailAddressGenerator emailAddressGenerator() {
+	public static EmailAddressGenerator emailAddress() {
 		return new EmailAddressGenerator();
 	}
 
-	public static FemaleNameGenerator femaleNameGenerator() {
+	public static FemaleNameGenerator femaleName() {
 		return new FemaleNameGenerator();
 	}
 
-	public static FirstNameGenerator firstNameGenerator() {
+	public static FirstNameGenerator firstName() {
 		return new FirstNameGenerator();
 	}
 
-	public static FormatGenerator formatGenerator() {
+	public static FormatGenerator format() {
 		return new FormatGenerator();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static FromEnumGenerator fromEnumGenerator(Class<? extends Enum> enumClass) {
+	public static FromEnumGenerator fromEnum(Class<? extends Enum> enumClass) {
 		return new FromEnumGenerator(enumClass);
 	}
 
-	public static IdGenerator idGenerator() {
+	public static IdGenerator id() {
 		return new IdGenerator();
 	}
 
-	public static IntGenerator intGenerator() {
+	public static IntGenerator integer() {
 		return new IntGenerator();
 	}
 
-	public static LastNameGenerator lastNameGenerator() {
+	public static LastNameGenerator lastName() {
 		return new LastNameGenerator();
 	}
 
-	public static LocalDateGenerator localDateGenerator() {
+	public static LocalDateGenerator localDate() {
 		return new LocalDateGenerator();
 	}
 
-	public static LocalDateTimeGenerator localDateTimeGenerator() {
+	public static LocalDateTimeGenerator localDateTime() {
 		return new LocalDateTimeGenerator();
 	}
 
-	public static LocalTimeGenerator localTimeGenerator() {
+	public static LocalTimeGenerator localTime() {
 		return new LocalTimeGenerator();
 	}
 
-	public static LongGenerator longGenerator() {
+	public static LongGenerator long_() {
 		return new LongGenerator();
 	}
 
-	public static LoremIpsumGenerator loremIpsumGenerator() {
+	public static LoremIpsumGenerator loremIpsum() {
 		return new LoremIpsumGenerator();
 	}
 
-	public static MaleNameGenerator maleNameGenerator() {
+	public static MaleNameGenerator maleName() {
 		return new MaleNameGenerator();
 	}
 
-	public static ParagraphGenerator paragraphGenerator() {
+	public static ParagraphGenerator paragraph() {
 		return new ParagraphGenerator();
 	}
 
-	public static PersonNameGenerator personNameGenerator() {
+	public static PersonNameGenerator personName() {
 		return new PersonNameGenerator();
 	}
 
-	public static PhoneNumberGenerator phoneNumberGenerator() {
+	public static PhoneNumberGenerator phoneNumber() {
 		return new PhoneNumberGenerator();
 	}
 
-	public static PostalCodeGenerator postalCodeGenerator() {
+	public static PostalCodeGenerator postalCode() {
 		return new PostalCodeGenerator();
 	}
 
-	public static ProductGenerator productGenerator() {
+	public static ProductGenerator product() {
 		return new ProductGenerator();
 	}
 
-	public static SentenceGenerator sentenceGenerator() {
+	public static SentenceGenerator sentence() {
 		return new SentenceGenerator();
 	}
 
-	public static StringGenerator stringGenerator() {
+	public static StringGenerator string() {
 		return new StringGenerator();
 	}
 
-	public static SyllableGenerator syllableGenerator() {
+	public static SyllableGenerator syllable() {
 		return new SyllableGenerator();
 	}
 
-	public static WordGenerator wordGenerator() {
+	public static WordGenerator word() {
 		return new WordGenerator();
 	}
-
 
 }

@@ -14,7 +14,7 @@ public class ParagraphGenerator extends RandomGenerator<String> {
 	private final String sentenceSeperator;
 
 	public ParagraphGenerator() {
-		this(Random.sentenceGenerator(), MIN_SENTENCES_DEFAULT, MAX_SENTENCES_DEFAULT, SENTENCE_SEPERATOR_DEFAULT);
+		this(Random.sentence(), MIN_SENTENCES_DEFAULT, MAX_SENTENCES_DEFAULT, SENTENCE_SEPERATOR_DEFAULT);
 	}
 	
 	public ParagraphGenerator(SentenceGenerator sentenceGenerator, int minSentences, int maxSentences, String sentenceSeperator) {

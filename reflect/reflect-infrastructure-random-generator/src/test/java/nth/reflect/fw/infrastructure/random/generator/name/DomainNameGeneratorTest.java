@@ -17,7 +17,7 @@ public class DomainNameGeneratorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testForNoParameter() {
-		Set<String> domainNames = Random.domainNameGenerator().generateSet(50);
+		Set<String> domainNames = Random.domainName().generateSet(50);
 		assertThat(domainNames,hasSize(greaterThan(5)));
 		assertThat(domainNames,hasItems(startsWith(".")));
 	}

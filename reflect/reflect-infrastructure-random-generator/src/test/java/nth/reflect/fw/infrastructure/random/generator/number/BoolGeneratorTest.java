@@ -15,17 +15,17 @@ public class BoolGeneratorTest {
 
 	@Test
 	public void testForNoParameters() {
-		List<Boolean> randomBools = Random.boolGenerator().generateList(20);
+		List<Boolean> randomBools = Random.bool().generateList(20);
 		assertThat(randomBools, hasItem(true));
 		assertThat(randomBools, hasItem(false));
 	}
 
 	@Test
 	public void testForProbability() {
-		List<Boolean> randomBools = Random.boolGenerator().forProbability(0).generateList(20);
+		List<Boolean> randomBools = Random.bool().forProbability(0).generateList(20);
 		assertThat(randomBools, everyItem(equalTo(false)));
 		
-		randomBools = Random.boolGenerator().forProbability(100).generateList(20);
+		randomBools = Random.bool().forProbability(100).generateList(20);
 		assertThat(randomBools, everyItem(equalTo(true)));
 	}
 	

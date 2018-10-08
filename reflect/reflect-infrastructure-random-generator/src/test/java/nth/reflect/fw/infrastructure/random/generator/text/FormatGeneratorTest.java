@@ -18,14 +18,14 @@ public class FormatGeneratorTest {
 
 	@Test
 	public void testForNoParamater() {
-		String result = Random.formatGenerator().generate();
+		String result = Random.format().generate();
 		assertEquals("", result);
 	}
 
 	@Test
 	public void forFormat() {
 		String format=CharacterSet.common().toCharacterString();
-		String result = Random.formatGenerator().forFormat(format).generate();
+		String result = Random.format().forFormat(format).generate();
 		Map<Character, CharacterSet> placeHoldersAndCharacterSets = CharacterSet.placeHoldersAndCharacterSets();
 		Set<Character> placeHolders = placeHoldersAndCharacterSets.keySet();
 		int index=0;
@@ -45,7 +45,7 @@ public class FormatGeneratorTest {
 		Map<Character, RandomGenerator<Character>> placeHoldersAndGenerators=new HashMap<>();
 		placeHoldersAndGenerators.put('1', new CharacterGenerator("A"));
 		placeHoldersAndGenerators.put('2', new CharacterGenerator("B"));
-		String result = Random.formatGenerator().forPlaceHoldersAndGenerators(placeHoldersAndGenerators).forFormat("112212").generate();
+		String result = Random.format().forPlaceHoldersAndGenerators(placeHoldersAndGenerators).forFormat("112212").generate();
 		assertEquals("AABBAB", result);
 	}
 
@@ -56,7 +56,7 @@ public class FormatGeneratorTest {
 		Map<Character, CharacterSet> placeHoldersAndCharacterSets=new HashMap<>();
 		placeHoldersAndCharacterSets.put('1', CharacterSet.fromString("A"));
 		placeHoldersAndCharacterSets.put('2', CharacterSet.fromString("B"));
-		String result = Random.formatGenerator().forPlaceHoldersAndCharacterSets(placeHoldersAndCharacterSets).forFormat("112212").generate();
+		String result = Random.format().forPlaceHoldersAndCharacterSets(placeHoldersAndCharacterSets).forFormat("112212").generate();
 		assertEquals("AABBAB", result);
 	}
 }

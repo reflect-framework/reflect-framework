@@ -22,7 +22,7 @@ public class WordGeneratorTest {
 	@Test
 	public void testNoParameters() {
 		int size = 100;
-		List<String> words = Random.wordGenerator().generateList(size);
+		List<String> words = Random.word().generateList(size);
 		assertThat(words,hasSize(size));
 		for (String word : words) {
 			assertThat(word.length(), greaterThan(MIN_SYLABLES_DEFAULT*MIN_SYLABLES_CHARACTERS_DEFAULT-1));
@@ -32,9 +32,9 @@ public class WordGeneratorTest {
 	
 	@Test
 	public void testForLength() {
-		int length=Random.intGenerator().forRange(10, 100).generate();
+		int length=Random.integer().forRange(10, 100).generate();
 		int size = 100;
-		List<String> words = Random.wordGenerator().forLength(length).generateList(size);
+		List<String> words = Random.word().forLength(length).generateList(size);
 		assertThat(words,hasSize(size));
 		for (String word : words) {
 			assertThat(word.length(), equalTo(length));
@@ -46,7 +46,7 @@ public class WordGeneratorTest {
 		int minSyllables=1;
 		int maxSyllables=10;
 		int size = 100;
-		List<String> words = Random.wordGenerator().forSyllables(minSyllables, maxSyllables) .generateList(size);
+		List<String> words = Random.word().forSyllables(minSyllables, maxSyllables) .generateList(size);
 		for (String word : words) {
 			assertThat(word.length(), greaterThan(minSyllables*MIN_SYLABLES_CHARACTERS_DEFAULT-1));
 			assertThat(word.length(), lessThan(maxSyllables*MAX_SYLABLES_CHARACTERS_DEFAULT+1));

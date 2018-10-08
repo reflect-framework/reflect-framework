@@ -27,11 +27,11 @@ public class PersonNameGenerator extends RandomGenerator<String> {
 	public PersonNameGenerator(int maleProbabilityInPercent, int middleNameProbabilityPercent) {
 		this.maleProbabilityInPercent = maleProbabilityInPercent;
 		this.middleNameProbabilityPercent = middleNameProbabilityPercent;
-		isMaleGenerator = Random.boolGenerator().forProbability(maleProbabilityInPercent);
-		hasMiddleNameGenerator = Random.boolGenerator().forProbability(maleProbabilityInPercent);
-		femaleNameGenerator = Random.femaleNameGenerator();
-		maleNameGenerator = Random.maleNameGenerator();
-		lastNameGenerator = Random.lastNameGenerator();
+		isMaleGenerator = Random.bool().forProbability(maleProbabilityInPercent);
+		hasMiddleNameGenerator = Random.bool().forProbability(maleProbabilityInPercent);
+		femaleNameGenerator = Random.femaleName();
+		maleNameGenerator = Random.maleName();
+		lastNameGenerator = Random.lastName();
 	}
 
 	public PersonNameGenerator forMaleProbability(int maleProbabilityInPercent) {

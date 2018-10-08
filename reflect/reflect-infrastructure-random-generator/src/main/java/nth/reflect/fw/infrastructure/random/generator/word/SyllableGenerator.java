@@ -22,10 +22,10 @@ public class SyllableGenerator extends RandomGenerator<String> {
 
 	@SuppressWarnings("unchecked")
 	public SyllableGenerator() {
-		syllableTypeGenerator=Random.fromEnumGenerator(SyllableType.class);
-		hasDoubleVowelGenerator=Random.boolGenerator().forProbability(20);
-		vowelGenerator=Random.characterGenerator().forCharacters(CharacterSet.vowels(LetterCase.LOWER));
-		consonantGenerator=Random.characterGenerator().forCharacters(CharacterSet.consonants(LetterCase.LOWER));
+		syllableTypeGenerator=Random.fromEnum(SyllableType.class);
+		hasDoubleVowelGenerator=Random.bool().forProbability(20);
+		vowelGenerator=Random.character().forCharacters(CharacterSet.vowels(LetterCase.LOWER));
+		consonantGenerator=Random.character().forCharacters(CharacterSet.consonants(LetterCase.LOWER));
 	}
 	
 	

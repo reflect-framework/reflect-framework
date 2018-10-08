@@ -14,7 +14,7 @@ public class FromEnumGenerator<T extends Enum> extends RandomGenerator<T> {
 
 	@Override
 	public T generate() {
-		int randomIndex = Random.intGenerator().forMax(enumerationValues.length).generate();
+		int randomIndex = Random.integer().forMax(enumerationValues.length).generate();
 		return enumerationValues[randomIndex];
 	}
 

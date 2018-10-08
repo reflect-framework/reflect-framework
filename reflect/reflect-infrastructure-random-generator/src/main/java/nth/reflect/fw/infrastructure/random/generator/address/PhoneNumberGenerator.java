@@ -33,7 +33,7 @@ public class PhoneNumberGenerator extends RandomGenerator<String> {
 	@Override
 	public String generate() {
 		String phoneNumberFormat = phoneNumberFormatGenerator.generate();
-		String phoneNumber = Random.formatGenerator().forFormat(phoneNumberFormat).generate();
+		String phoneNumber = Random.format().forFormat(phoneNumberFormat).generate();
 		return phoneNumber;
 	}
 

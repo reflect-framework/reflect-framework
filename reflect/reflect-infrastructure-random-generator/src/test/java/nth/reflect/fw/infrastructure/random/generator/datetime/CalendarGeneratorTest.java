@@ -17,7 +17,7 @@ public class CalendarGeneratorTest {
 	public void testForRange() {
 		LocalDateTime min = LocalDateTime.of(1970, 1, 1, 9, 10, 12);
 		LocalDateTime max = LocalDateTime.of(2015, 12, 31, 15, 45, 22, 99);
-		List<Calendar> randomCalanders = Random.calendarGenerator().forRange(min, max).generateList(10);
+		List<Calendar> randomCalanders = Random.calendar().forRange(min, max).generateList(10);
 		for (Calendar randomCalendar : randomCalanders) {
 			LocalDateTime randomLocalDateTime = LocalDateTime.ofInstant(randomCalendar.toInstant(),
 			            CalendarGenerator.getZoneId());

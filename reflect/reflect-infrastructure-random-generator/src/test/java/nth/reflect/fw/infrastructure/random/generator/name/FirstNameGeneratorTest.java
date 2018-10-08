@@ -23,13 +23,13 @@ public class FirstNameGeneratorTest {
 
 	@Before
 	public void setup() {
-		allMaleNames = Random.maleNameGenerator().generateSet(100*1000);
+		allMaleNames = Random.maleName().generateSet(100*1000);
 	}
 
 	@Test
 	public void testForNoParameters() {
 		int size = 100;
-		Set<String> randomNames = Random.firstNameGenerator().generateSet(size);
+		Set<String> randomNames = Random.firstName().generateSet(size);
 		long maleNameCount = randomNames.stream().filter(name -> allMaleNames.contains(name)).count();
 		assertThat(randomNames, hasSize(size));
 		double ratio = maleNameCount / (double)size;
@@ -58,7 +58,7 @@ public class FirstNameGeneratorTest {
 
 	private void testForProbability(int maleProbabilityInPercent) {
 		int size = 100;
-		Set<String> randomNames = Random.firstNameGenerator().forMaleProbability(maleProbabilityInPercent)
+		Set<String> randomNames = Random.firstName().forMaleProbability(maleProbabilityInPercent)
 				.generateSet(size);
 		long maleNameCount = randomNames.stream().filter(name -> allMaleNames.contains(name)).count();
 		assertThat(randomNames, hasSize(size));

@@ -23,7 +23,7 @@ public class PhoneNumberGeneratorTest {
 	public void testForNoParameters() {
 		Set<String> allPhoneNumberFormats = Resources.countryRepository().getAll().stream()
 				.map(Country::getPhoneNumberFormat).collect(Collectors.toSet());
-		List<String> phoneNumbers = Random.phoneNumberGenerator().generateList(10);
+		List<String> phoneNumbers = Random.phoneNumber().generateList(10);
 		assertPhoneNumber(phoneNumbers, allPhoneNumberFormats);
 	}
 
@@ -32,7 +32,7 @@ public class PhoneNumberGeneratorTest {
 		Optional<Country> netherlands = Resources.countryRepository().getAll().stream()
 				.filter(country -> country.getName().equals(NETHERLANDS)).findFirst();
 		assertTrue(netherlands.isPresent());
-		List<String> randomPhoneNumbers = Random.phoneNumberGenerator().forCountry(netherlands.get()).generateList(10);
+		List<String> randomPhoneNumbers = Random.phoneNumber().forCountry(netherlands.get()).generateList(10);
 		Set<String> phoneNumberFormats = new HashSet<>();
 		phoneNumberFormats.add(netherlands.get().getPhoneNumberFormat());
 		assertPhoneNumber(randomPhoneNumbers, phoneNumberFormats);

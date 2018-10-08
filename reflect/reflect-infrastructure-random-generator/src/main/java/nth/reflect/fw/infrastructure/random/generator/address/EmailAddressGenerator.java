@@ -20,15 +20,15 @@ public class EmailAddressGenerator extends RandomGenerator<String> {
 	private final DomainNameGenerator domainNameGenerator;
 
 	public EmailAddressGenerator() {
-		this.personNameGenerator = Random.personNameGenerator();
-		companyNameGenerator = Random.companyNameGenerator();
-		domainNameGenerator = Random.domainNameGenerator();
+		this.personNameGenerator = Random.personName();
+		companyNameGenerator = Random.companyName();
+		domainNameGenerator = Random.domainName();
 	}
 
 	public EmailAddressGenerator(RandomGenerator<String> personNameGenerator) {
 		this.personNameGenerator = personNameGenerator;
-		companyNameGenerator = Random.companyNameGenerator();
-		domainNameGenerator = Random.domainNameGenerator();
+		companyNameGenerator = Random.companyName();
+		domainNameGenerator = Random.domainName();
 	}
 
 	public EmailAddressGenerator forName(String name) {
@@ -36,7 +36,7 @@ public class EmailAddressGenerator extends RandomGenerator<String> {
 	}
 
 	public EmailAddressGenerator forMaleProbability(int maleProbabilityInPercent) {
-		return new EmailAddressGenerator(Random.personNameGenerator().forMaleProbability(maleProbabilityInPercent));
+		return new EmailAddressGenerator(Random.personName().forMaleProbability(maleProbabilityInPercent));
 	}
 
 	@Override
@@ -63,12 +63,12 @@ public class EmailAddressGenerator extends RandomGenerator<String> {
 			lastName = names[names.length-1];
 		}
 
-		Boolean firstLetterOnly = Random.boolGenerator().forProbability(33).generate();
+		Boolean firstLetterOnly = Random.bool().forProbability(33).generate();
 		if (!lastName.isEmpty() && firstLetterOnly && firstName.length() > 1) {
 			firstName = firstName.substring(0, 1);
 		}
 
-		Boolean firstNameLowerCase = Random.boolGenerator().forProbability(33).generate();
+		Boolean firstNameLowerCase = Random.bool().forProbability(33).generate();
 		if (firstNameLowerCase) {
 			firstName = firstName.toLowerCase();
 		}
@@ -76,14 +76,14 @@ public class EmailAddressGenerator extends RandomGenerator<String> {
 		appendValidCharacters(emailAddress, firstName);
 
 		if (!lastName.isEmpty()) {
-			Boolean dotBetweenNames = Random.boolGenerator().forProbability(33).generate();
+			Boolean dotBetweenNames = Random.bool().forProbability(33).generate();
 
 			if (dotBetweenNames) {
 				emailAddress.append(".");
 			}
 
 			boolean firstNameIsUpperCase = Character.isUpperCase(firstName.charAt(0));
-			Boolean lastNameLowerCase = !firstNameIsUpperCase && Random.boolGenerator().forProbability(33).generate();
+			Boolean lastNameLowerCase = !firstNameIsUpperCase && Random.bool().forProbability(33).generate();
 			if (lastNameLowerCase) {
 				lastName = lastName.toLowerCase();
 			}
@@ -101,7 +101,7 @@ public class EmailAddressGenerator extends RandomGenerator<String> {
 		String[] companyNameWords = companyName.split(REG_EXP_SPACES);
 		String providerName = companyNameWords[0];
 		
-		if (Random.boolGenerator().generate()) {
+		if (Random.bool().generate()) {
 			providerName = providerName.toLowerCase();
 		}
 		appendValidCharacters(emailAddress, providerName);

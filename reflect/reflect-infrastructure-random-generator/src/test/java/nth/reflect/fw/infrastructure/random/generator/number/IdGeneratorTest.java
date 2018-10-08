@@ -16,7 +16,7 @@ public class IdGeneratorTest {
 
 	@Test
 	public void testGenerate() {
-		IdGenerator idGenerator=Random.idGenerator();
+		IdGenerator idGenerator=Random.id();
 		int integer1=idGenerator.generate();
 		int integer2=idGenerator.generate();
 		int integer3=idGenerator.generate();
@@ -28,7 +28,7 @@ public class IdGeneratorTest {
 	@Test
 	public void testGenerateList() {
 		int size = 8;
-		List<Integer> ids = Random.idGenerator().generateList(size);
+		List<Integer> ids = Random.id().generateList(size);
 		assertThat(ids, hasSize(size));
 		assertThat(ids, contains(0,1,2,3,4,5,6,7));
 	}

@@ -23,7 +23,7 @@ public class PostalCodeGeneratorTest {
 	public void testForNoParameters() {
 		Set<String> postalCodeFormats = Resources.countryRepository().getAll().stream()
 				.map(Country::getPostalCodeFormat).collect(Collectors.toSet());
-		List<String> postalCodes = Random.postalCodeGenerator().generateList(10);
+		List<String> postalCodes = Random.postalCode().generateList(10);
 		assertPostalCode(postalCodes, postalCodeFormats);
 	}
 
@@ -32,7 +32,7 @@ public class PostalCodeGeneratorTest {
 		Optional<Country> netherlands = Resources.countryRepository().getAll().stream()
 				.filter(country -> country.getName().equals(NETHERLANDS)).findFirst();
 		assertTrue(netherlands.isPresent());
-		List<String> postalCodes = Random.postalCodeGenerator().forCountry(netherlands.get()).generateList(10);
+		List<String> postalCodes = Random.postalCode().forCountry(netherlands.get()).generateList(10);
 		Set<String> postalCodeFormats = new HashSet<>();
 		postalCodeFormats.add(netherlands.get().getPostalCodeFormat());
 		assertPostalCode(postalCodes, postalCodeFormats);

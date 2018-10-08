@@ -18,7 +18,7 @@ public class DoubleGeneratorTest {
 	public void testForNoParameter() {
 		double min=0;
 		double max=Double.MAX_VALUE;
-		List<Double> randomDoubles = Random.doubleGenerator().generateList(20);
+		List<Double> randomDoubles = Random.double_().generateList(20);
 		assertThat(randomDoubles, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
@@ -26,11 +26,11 @@ public class DoubleGeneratorTest {
 	public void testForMax() {
 		double min=0;
 		double max=1;
-		List<Double> randomDoubles = Random.doubleGenerator().forMax( max).generateList(20);
+		List<Double> randomDoubles = Random.double_().forMax( max).generateList(20);
 		assertThat(randomDoubles, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		max=10;
-		randomDoubles = Random.doubleGenerator().forMax( max).generateList(20);
+		randomDoubles = Random.double_().forMax( max).generateList(20);
 		assertThat(randomDoubles, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
@@ -39,17 +39,17 @@ public class DoubleGeneratorTest {
 	public void testForRange() {
 		double min=0;
 		double max=1;
-		List<Double> randomDoubles = Random.doubleGenerator().forRange(min, max).generateList(20);
+		List<Double> randomDoubles = Random.double_().forRange(min, max).generateList(20);
 		assertThat(randomDoubles, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		min=5;
 		max=10;
-		randomDoubles = Random.doubleGenerator().forRange(min, max).generateList(20);
+		randomDoubles = Random.double_().forRange(min, max).generateList(20);
 		assertThat(randomDoubles, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 		
 		min=10;
 		max=5;
-		randomDoubles = Random.doubleGenerator().forRange(min, max).generateList(20);
+		randomDoubles = Random.double_().forRange(min, max).generateList(20);
 		assertThat(randomDoubles, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
 	}
 }

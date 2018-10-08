@@ -19,7 +19,7 @@ public class ChapterGeneratorTest {
 
 	@Test
 	public void testForNoParameters() {
-		List<String> chapters = Random.chapterGenerator().generateList(100);
+		List<String> chapters = Random.chapter().generateList(100);
 		for (String chapter : chapters) {
 			int nrOfParagraphs = StringUtil.countMatches(chapter, ChapterGenerator.PARAGRAPH_SEPERATOR_DEFAULT) + 1;
 			assertThat(nrOfParagraphs, greaterThanOrEqualTo(ChapterGenerator.MIN_PARAGRAPHS_DEFAULT));
@@ -30,10 +30,10 @@ public class ChapterGeneratorTest {
 
 	@Test
 	public void testForParagraphGenerator() {
-		SentenceGenerator sentenceGenerator = Random.sentenceGenerator().forNumberOfWords(1);
-		ParagraphGenerator paragraphGenerator = Random.paragraphGenerator().forSentenceGenerator(sentenceGenerator)
+		SentenceGenerator sentenceGenerator = Random.sentence().forNumberOfWords(1);
+		ParagraphGenerator paragraphGenerator = Random.paragraph().forSentenceGenerator(sentenceGenerator)
 				.forNumberOfSentences(1).forSentenceSeperator("");
-		List<String> paragraphs = Random.chapterGenerator().forParagraphGenerator(paragraphGenerator)
+		List<String> paragraphs = Random.chapter().forParagraphGenerator(paragraphGenerator)
 				.generateList(100);
 		for (String paragraph : paragraphs) {
 			assertEquals(0, StringUtil.countMatches(paragraph, " "));
@@ -43,7 +43,7 @@ public class ChapterGeneratorTest {
 	@Test
 	public void testForNumberOfParagraphsInt() {
 		int expectedParagraphs = 10;
-		List<String> chapters = Random.chapterGenerator().forNumberOfParagraphs(expectedParagraphs)
+		List<String> chapters = Random.chapter().forNumberOfParagraphs(expectedParagraphs)
 				.generateList(100);
 		for (String chapter : chapters) {
 			int nrOfParagraps = StringUtil.countMatches(chapter,ChapterGenerator.PARAGRAPH_SEPERATOR_DEFAULT)+1;
@@ -55,7 +55,7 @@ public class ChapterGeneratorTest {
 	public void testForNumberOfParagraphsIntInt() {
 		int minParagraphs = 10;
 		int maxParagraphs = 100;
-		List<String> chapters = Random.chapterGenerator().forNumberOfParagraphs(minParagraphs, maxParagraphs)
+		List<String> chapters = Random.chapter().forNumberOfParagraphs(minParagraphs, maxParagraphs)
 				.generateList(100);
 		for (String chapter : chapters) {
 			int nrOfParagraphs = StringUtil.countMatches(chapter,ChapterGenerator.PARAGRAPH_SEPERATOR_DEFAULT)+1;
@@ -68,7 +68,7 @@ public class ChapterGeneratorTest {
 	public void testForParagraphsSeperator() {
 		String paragraphSeperator = "-";
 		int expectedParagraphs = 10;
-		List<String> chapters = Random.chapterGenerator().forParagraphsSeperator(paragraphSeperator)
+		List<String> chapters = Random.chapter().forParagraphsSeperator(paragraphSeperator)
 				.forNumberOfParagraphs(expectedParagraphs).generateList(100);
 		for (String chapter : chapters) {
 			assertEquals(expectedParagraphs,StringUtil.countMatches(chapter, paragraphSeperator)+1);

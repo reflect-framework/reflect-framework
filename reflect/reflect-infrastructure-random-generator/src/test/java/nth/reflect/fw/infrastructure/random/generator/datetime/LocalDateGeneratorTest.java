@@ -16,7 +16,7 @@ public class LocalDateGeneratorTest {
 	public void testForRange() {
 		LocalDate min = LocalDate.of(1970, 1, 1);
 		LocalDate max = LocalDate.of(2015, 12, 31);
-		List<LocalDate> randomDates = Random.localDateGenerator().forRange(min, max).generateList(10);
+		List<LocalDate> randomDates = Random.localDate().forRange(min, max).generateList(10);
 		for (LocalDate randomDate : randomDates) {
 			assertTrue(randomDate.isAfter(min));
 			assertTrue(randomDate.isBefore(max));
@@ -26,9 +26,9 @@ public class LocalDateGeneratorTest {
 	@Test
 	public void testForPeriodInThePast() {
 		LocalDate now = LocalDate.now();
-		Period minPeriodBack = Period.ofYears(Random.intGenerator().forRange(10, 20).generate());
-		Period maxPeriodBack = Period.ofYears(Random.intGenerator().forRange(30, 50).generate());
-		List<LocalDate> randomDatesBack = Random.localDateGenerator().forPeriodInThePast(minPeriodBack, maxPeriodBack)
+		Period minPeriodBack = Period.ofYears(Random.integer().forRange(10, 20).generate());
+		Period maxPeriodBack = Period.ofYears(Random.integer().forRange(30, 50).generate());
+		List<LocalDate> randomDatesBack = Random.localDate().forPeriodInThePast(minPeriodBack, maxPeriodBack)
 				.generateList(10);
 		for (LocalDate randomDateBack : randomDatesBack) {
 			LocalDate min = now.minus(maxPeriodBack);
@@ -39,7 +39,7 @@ public class LocalDateGeneratorTest {
 
 		minPeriodBack = Period.ofYears(20);
 		maxPeriodBack = Period.ofYears(10);
-		LocalDate randomDateBack = Random.localDateGenerator().forPeriodInThePast(minPeriodBack, maxPeriodBack)
+		LocalDate randomDateBack = Random.localDate().forPeriodInThePast(minPeriodBack, maxPeriodBack)
 				.generate();
 		LocalDate min = now.minus(minPeriodBack);
 		LocalDate max = now.minus(maxPeriodBack);
@@ -51,9 +51,9 @@ public class LocalDateGeneratorTest {
 	@Test
 	public void testForPeriodInTheFuture() {
 		LocalDate now = LocalDate.now();
-		Period minPeriodForward = Period.ofYears(Random.intGenerator().forRange(10, 20).generate());
-		Period maxPeriodForward = Period.ofYears(Random.intGenerator().forRange(30, 50).generate());
-		List<LocalDate> randomDatesForward = Random.localDateGenerator()
+		Period minPeriodForward = Period.ofYears(Random.integer().forRange(10, 20).generate());
+		Period maxPeriodForward = Period.ofYears(Random.integer().forRange(30, 50).generate());
+		List<LocalDate> randomDatesForward = Random.localDate()
 				.forPeriodInTheFuture(minPeriodForward, maxPeriodForward).generateList(10);
 		for (LocalDate randomDateForward : randomDatesForward) {
 			LocalDate min = now.plus(minPeriodForward);
@@ -64,7 +64,7 @@ public class LocalDateGeneratorTest {
 
 		minPeriodForward = Period.ofYears(20);
 		maxPeriodForward = Period.ofYears(10);
-		LocalDate randomDateForward = Random.localDateGenerator()
+		LocalDate randomDateForward = Random.localDate()
 				.forPeriodInTheFuture(minPeriodForward, maxPeriodForward).generate();
 		LocalDate min = now.plus(maxPeriodForward);
 		LocalDate max = now.plus(minPeriodForward);

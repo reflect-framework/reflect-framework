@@ -15,7 +15,7 @@ public class ColorNameGeneratorTest {
 
 	@Test
 	public void testGenerate() {
-		Set<String> result = Random.colorNameGenerator().generateSet(100);
+		Set<String> result = Random.colorName().generateSet(100);
 		assertThat(result, hasSize(greaterThan(15)));
 		assertThat(result, hasItem("Red"));
 		assertThat(result, hasItem("Green"));

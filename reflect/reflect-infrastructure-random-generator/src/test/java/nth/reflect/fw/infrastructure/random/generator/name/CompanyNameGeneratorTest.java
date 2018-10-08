@@ -20,7 +20,7 @@ public class CompanyNameGeneratorTest {
 	
 	@Test
 	public void testForNoParameter() {
-		Set<String> companyNames = Random.companyNameGenerator().generateSet(100*1000);
+		Set<String> companyNames = Random.companyName().generateSet(100*1000);
 		assertThat(companyNames, hasSize(greaterThan(100)));
 		assertThat(companyNames, hasItem(A_COMPANY_NAME));
 		assertThat(companyNames, not(hasItem(isEmptyString())));
