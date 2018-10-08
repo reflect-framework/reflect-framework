@@ -1,5 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.address;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class CountryRepository extends ResourceFileRepository<Country> {
 	 *         cities for all countries. This method returns all countries with
 	 *         {@link Region}s
 	 */
-	public List<Country> getWithAllKnownRegions() {
+	public List<Country> getCountriesThatHaveRegions() {
 		List<Country> allCountries = getAll();
 		List<Country> countriesWithKnwonRegions = allCountries.stream().filter(c -> !c.getRegions().isEmpty())
 				.collect(Collectors.toList());
@@ -37,8 +38,8 @@ public class CountryRepository extends ResourceFileRepository<Country> {
 	 * 
 	 */
 
-	public List<Country> getWithAllKnownCities() {
-		List<Country> countriesWithKnownRegions = getWithAllKnownRegions();
+	public List<Country> getCountriesThatHaveCities() {
+		List<Country> countriesWithKnownRegions = getCountriesThatHaveRegions();
 		List<Country> countriesWithKnownCities = countriesWithKnownRegions.stream()
 				.filter(c -> c.getRegions().stream().filter(r -> !r.getCities().isEmpty()).count() > 0)
 				.collect(Collectors.toList());
@@ -98,6 +99,24 @@ public class CountryRepository extends ResourceFileRepository<Country> {
 			postalCodeFormat = PostalCodeGenerator.DEFAULT_POSTAL_CODE_FORMAT;
 		}
 		return postalCodeFormat;
+	}
+
+	public List<Region> getAllKnowRegions() {
+		List<Region> allKnownRegions = new ArrayList<>();
+		List<Country> countries= getAll();
+		for (Country country : countries) {
+			allKnownRegions.addAll(country.getRegions());
+		}
+		return allKnownRegions;
+	}
+	
+	public List<City> getAllKnowCities() {
+		List<Region> allKnownRegions = getAllKnowRegions();
+		List<City> allKnownCities = new ArrayList<>();
+		for (Region knownRegions : allKnownRegions) {
+			allKnownCities.addAll(knownRegions.getCities());
+		}
+		return allKnownCities;
 	}
 
 }

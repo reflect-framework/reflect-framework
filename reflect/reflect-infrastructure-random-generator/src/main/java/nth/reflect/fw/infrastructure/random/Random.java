@@ -1,5 +1,6 @@
 package nth.reflect.fw.infrastructure.random;
 
+import nth.reflect.fw.infrastructure.random.generator.address.CityGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.CountryGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PhoneNumberGenerator;
@@ -67,6 +68,10 @@ public class Random {
 
 	public static CharacterGenerator character() {
 		return new CharacterGenerator();
+	}
+
+	public static CityGenerator city() {
+		return new CityGenerator();
 	}
 
 	public static ColorNameGenerator colorName() {

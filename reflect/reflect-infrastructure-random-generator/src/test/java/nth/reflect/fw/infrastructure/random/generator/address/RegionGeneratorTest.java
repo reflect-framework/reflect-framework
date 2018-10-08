@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.isIn;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +20,7 @@ public class RegionGeneratorTest {
 	
 	@Before
 	public void init() {
-		allRegions=getAllRegions();
+		allRegions=Resources.countryRepository().getAllKnowRegions();
 	}
 
 	@Test
@@ -32,15 +31,6 @@ public class RegionGeneratorTest {
 		
 	}
 	
-	private static List<Region> getAllRegions() {
-		List<Region> allRegions = new ArrayList<>();
-		List<Country> countriesWithRegions = Resources.countryRepository().getWithAllKnownRegions();
-		for (Country country : countriesWithRegions) {
-			allRegions.addAll(country.getRegions());
-		}
-		return allRegions;
-	}
-
 	@Test
 	public void testForCountry() {
 		Country netherlands=Resources.countryRepository().getAll().stream().filter(c -> c.getCode().equals("NL")).findFirst().get();
