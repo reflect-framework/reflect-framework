@@ -36,7 +36,7 @@ public class CountryRepositoryTest {
 
 	@Test
 	public void testAllWithCities() {
-		List<Country> countries = Resources.countryRepository().getAllWithCities();
+		List<Country> countries = Resources.countryRepository().getWithAllKnownCities();
 		for (Country country : countries) {
 			assertThat(country.getRegions().isEmpty(), is(false));
 

@@ -23,7 +23,7 @@ public class CountryRepository extends ResourceFileRepository<Country> {
 	 *         cities for all countries. This method returns all countries with
 	 *         {@link Region}s
 	 */
-	public List<Country> getAllWithKnownRegions() {
+	public List<Country> getWithAllKnownRegions() {
 		List<Country> allCountries = getAll();
 		List<Country> countriesWithKnwonRegions = allCountries.stream().filter(c -> !c.getRegions().isEmpty())
 				.collect(Collectors.toList());
@@ -37,8 +37,8 @@ public class CountryRepository extends ResourceFileRepository<Country> {
 	 * 
 	 */
 
-	public List<Country> getAllWithCities() {
-		List<Country> countriesWithKnownRegions = getAllWithKnownRegions();
+	public List<Country> getWithAllKnownCities() {
+		List<Country> countriesWithKnownRegions = getWithAllKnownRegions();
 		List<Country> countriesWithKnownCities = countriesWithKnownRegions.stream()
 				.filter(c -> c.getRegions().stream().filter(r -> !r.getCities().isEmpty()).count() > 0)
 				.collect(Collectors.toList());

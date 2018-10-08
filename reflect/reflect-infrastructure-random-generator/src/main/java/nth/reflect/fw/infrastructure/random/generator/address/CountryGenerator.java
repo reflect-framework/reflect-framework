@@ -16,6 +16,6 @@ public class CountryGenerator extends FromListGenerator<Country> {
 	}
 
 	public CountryGenerator forCountriesWithKnownCities() {
-		return new CountryGenerator(Resources.countryRepository().getAllWithCities());
+		return new CountryGenerator(Resources.countryRepository().getWithAllKnownCities());
 	}
 }

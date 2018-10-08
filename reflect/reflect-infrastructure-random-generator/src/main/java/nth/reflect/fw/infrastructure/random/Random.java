@@ -4,6 +4,7 @@ import nth.reflect.fw.infrastructure.random.generator.address.CountryGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PhoneNumberGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PostalCodeGenerator;
+import nth.reflect.fw.infrastructure.random.generator.address.RegionGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
@@ -163,6 +164,10 @@ public class Random {
 
 	public static ProductGenerator product() {
 		return new ProductGenerator();
+	}
+
+	public static RegionGenerator region() {
+		return new RegionGenerator();
 	}
 
 	public static SentenceGenerator sentence() {

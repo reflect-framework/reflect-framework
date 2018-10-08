@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import nth.reflect.fw.infrastructure.random.generator.resource.Repository;
 import nth.reflect.fw.infrastructure.random.generator.resource.ResourceFileRepository;
 
 /**
@@ -76,6 +77,11 @@ public class CityRepository extends ResourceFileRepository<List<String>> {
 			return 0;
 		}
 		return Integer.parseInt(population);
+	}
+
+	public List<Region> getAllRegions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
