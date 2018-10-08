@@ -2,6 +2,7 @@ package nth.reflect.fw.infrastructure.random.generator.resource;
 
 import nth.reflect.fw.infrastructure.random.generator.address.CityRepository;
 import nth.reflect.fw.infrastructure.random.generator.address.CountryRepository;
+import nth.reflect.fw.infrastructure.random.generator.address.StreetNameRepository;
 import nth.reflect.fw.infrastructure.random.generator.name.ColorNameRepository;
 import nth.reflect.fw.infrastructure.random.generator.name.CompanyNameRepository;
 import nth.reflect.fw.infrastructure.random.generator.name.DomainNameRepository;
@@ -31,6 +32,7 @@ public class Resources {
 	private static final LoremIpsumRepository LOREM_IPSUM_REPOSITORY = new LoremIpsumRepository();
 	private static final MaleNameRepository MALE_NAME_REPOSITORY = new MaleNameRepository();
 	private static final ProductRepository PRODUCT_REPOSITORY = new ProductRepository();
+	private static final StreetNameRepository STREET_NAME_REPOSITORY = new StreetNameRepository();
 
 	public static CityRepository cityRepository() {
 		return CITY_REPOSITORY;
@@ -72,4 +74,7 @@ public class Resources {
 		return PRODUCT_REPOSITORY;
 	}
 
+	public static StreetNameRepository streetNameRepository() {
+		return STREET_NAME_REPOSITORY;
+	}
 }

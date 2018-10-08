@@ -6,6 +6,7 @@ import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenera
 import nth.reflect.fw.infrastructure.random.generator.address.PhoneNumberGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PostalCodeGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.RegionGenerator;
+import nth.reflect.fw.infrastructure.random.generator.address.StreetNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
@@ -177,6 +178,10 @@ public class Random {
 
 	public static SentenceGenerator sentence() {
 		return new SentenceGenerator();
+	}
+
+	public static StreetNameGenerator streetName() {
+		return new StreetNameGenerator();
 	}
 
 	public static StringGenerator string() {
