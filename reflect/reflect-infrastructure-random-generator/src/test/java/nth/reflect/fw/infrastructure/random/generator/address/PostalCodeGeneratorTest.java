@@ -22,14 +22,14 @@ public class PostalCodeGeneratorTest {
 	@Test
 	public void testForNoParameters() {
 		Set<String> postalCodeFormats = Resources.countryRepository().getAll().stream()
-				.map(Country::getPostalCodeFormat).collect(Collectors.toSet());
+				.map(RandomCountry::getPostalCodeFormat).collect(Collectors.toSet());
 		List<String> postalCodes = Random.postalCode().generateList(10);
 		assertPostalCode(postalCodes, postalCodeFormats);
 	}
 
 	@Test
 	public void testForCountryWithPostalCode() {
-		Optional<Country> netherlands = Resources.countryRepository().getAll().stream()
+		Optional<RandomCountry> netherlands = Resources.countryRepository().getAll().stream()
 				.filter(country -> country.getName().equals(NETHERLANDS)).findFirst();
 		assertTrue(netherlands.isPresent());
 		List<String> postalCodes = Random.postalCode().forCountry(netherlands.get()).generateList(10);

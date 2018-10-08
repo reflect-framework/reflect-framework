@@ -3,7 +3,7 @@ package nth.reflect.fw.infrastructure.random.generator.address;
 import java.util.HashSet;
 import java.util.Optional;
 
-public class Country {
+public class RandomCountry {
 	/**
 	 * 2 capital letter country code according to ISO 3166-1.
 	 */
@@ -15,16 +15,16 @@ public class Country {
 	 */
 	private final String phoneCode;
 	private final int phoneDigitsAfterCallingCode;
-	private final HashSet<Region> regions;
+	private final HashSet<RandomRegion> randomRegions;
 	
-	public Country(String code, String name, String postalCodeFormat, String phoneCode,
+	public RandomCountry(String code, String name, String postalCodeFormat, String phoneCode,
 			int phoneDigitsAfterCallingCode) {
 		this.code = code;
 		this.name = name;
 		this.postalCodeFormat = postalCodeFormat;
 		this.phoneCode = phoneCode;
 		this.phoneDigitsAfterCallingCode = phoneDigitsAfterCallingCode;
-		regions=new HashSet<Region>();
+		randomRegions=new HashSet<RandomRegion>();
 	}
 
 	public String getCode() {
@@ -62,13 +62,13 @@ public class Country {
 		return format.toString();
 	}
 
-	public Optional<Region> findRegion(String regionName) {
+	public Optional<RandomRegion> findRegion(String regionName) {
 		String regionNameToFind=regionName.trim().toLowerCase();
-		return regions.stream().filter(region-> region.getName().toLowerCase().equals(regionNameToFind)).findFirst();
+		return randomRegions.stream().filter(region-> region.getName().toLowerCase().equals(regionNameToFind)).findFirst();
 	}
 
-	public  HashSet<Region> getRegions() {
-		return regions;
+	public  HashSet<RandomRegion> getRegions() {
+		return randomRegions;
 	}
 	
 	

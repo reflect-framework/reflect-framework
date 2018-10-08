@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
 import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
-public class RegionGenerator extends FromListGenerator<Region> {
+public class RegionGenerator extends FromListGenerator<RandomRegion> {
 
 	public RegionGenerator() {
 		super (Resources.countryRepository().getAllKnowRegions());
 	}
 	
-	public RegionGenerator(Country country) {
+	public RegionGenerator(RandomCountry country) {
 		super (new ArrayList<>(country.getRegions()));
 	}
 
-	public RegionGenerator forCountry(Country country) {
+	public RegionGenerator forCountry(RandomCountry country) {
 		return new RegionGenerator(country);
 	}
 	

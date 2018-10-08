@@ -17,7 +17,7 @@ import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 public class CityGeneratorTest {
 
 	private static final int NR_OF_REGIONS_IN_THE_NETHERLANDS = 12;
-	private List<City> allCities;
+	private List<RandomCity> allCities;
 
 	@Before
 	public void init() {
@@ -28,33 +28,33 @@ public class CityGeneratorTest {
 	
 	@Test
 	public void testForNoParamaters() {
-		Set<City> city = Random.city().generateSet(500);
-		assertThat(city, hasSize(500));
-		assertThat(city, hasItem(isIn(allCities)));
+		Set<RandomCity> randomCity = Random.city().generateSet(500);
+		assertThat(randomCity, hasSize(500));
+		assertThat(randomCity, hasItem(isIn(allCities)));
 	}
 
 	@Test
 	public void testForCountry() {
-		Country netherlands=getTheNetherlands();
-		Set<City> cities = Random.city().forCountry(netherlands).generateSet(50);
-		List<City> citiesInTheNetherlands = getCities(netherlands);
-		assertThat(cities, hasSize(greaterThan(NR_OF_REGIONS_IN_THE_NETHERLANDS)));
-		assertThat(cities, hasItem(isIn(citiesInTheNetherlands)));
+		RandomCountry netherlands=getTheNetherlands();
+		Set<RandomCity> randomCities = Random.city().forCountry(netherlands).generateSet(50);
+		List<RandomCity> citiesInTheNetherlands = getCities(netherlands);
+		assertThat(randomCities, hasSize(greaterThan(NR_OF_REGIONS_IN_THE_NETHERLANDS)));
+		assertThat(randomCities, hasItem(isIn(citiesInTheNetherlands)));
 	}
 
 
 
-	private List<City> getCities(Country netherlands) {
-		List<City> citiesInTheNetherlands=new ArrayList<>();
-		for (Region region : netherlands.getRegions()) {
-			citiesInTheNetherlands.addAll(region.getCities());
+	private List<RandomCity> getCities(RandomCountry netherlands) {
+		List<RandomCity> citiesInTheNetherlands=new ArrayList<>();
+		for (RandomRegion randomRegion : netherlands.getRegions()) {
+			citiesInTheNetherlands.addAll(randomRegion.getCities());
 		}
 		return citiesInTheNetherlands;
 	}
 
 
 
-	private Country getTheNetherlands() {
+	private RandomCountry getTheNetherlands() {
 		return Resources.countryRepository().getAll().stream().filter(c -> c.getCode().equals("NL")).findFirst().get();
 	}
 

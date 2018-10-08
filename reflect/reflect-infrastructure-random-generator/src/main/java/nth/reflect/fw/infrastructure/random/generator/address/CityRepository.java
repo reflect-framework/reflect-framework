@@ -35,40 +35,40 @@ public class CityRepository extends ResourceFileRepository<List<String>> {
 		return Arrays.asList(values);
 	}
 
-	public Set<Region> getRegionsOfCountry(String countryCodeIso2) {
+	public Set<RandomRegion> getRegionsOfCountry(String countryCodeIso2) {
 		List<List<String>> lines = getAll();
 		List<List<String>> linesForCountry = lines.stream()
 				.filter(line -> line.get(COUNTRY_CODE_ISO2).equals(countryCodeIso2)).collect(Collectors.toList());
 
 		Set<String> regionsNames = linesForCountry.stream().map(line -> line.get(COUNTRY_REGION))
 				.collect(Collectors.toSet());
-		Set<Region> regions = new HashSet<>();
+		Set<RandomRegion> randomRegions = new HashSet<>();
 		for (String regionName : regionsNames) {
-			Region region = new Region(regionName);
+			RandomRegion randomRegion = new RandomRegion(regionName);
 			List<List<String>> cityLines = linesForCountry.stream()
 					.filter(line -> line.get(COUNTRY_REGION).equals(regionName)).collect(Collectors.toList());
-			Set<City> cities = createCities(cityLines);
-			region.getCities().addAll(cities);
-			regions.add(region);
+			Set<RandomCity> randomCities = createCities(cityLines);
+			randomRegion.getCities().addAll(randomCities);
+			randomRegions.add(randomRegion);
 		}
-		return regions;
+		return randomRegions;
 	}
 
-	private Set<City> createCities(List<List<String>> cityLines) {
-		Set<City> cities = new HashSet<>();
+	private Set<RandomCity> createCities(List<List<String>> cityLines) {
+		Set<RandomCity> randomCities = new HashSet<>();
 		for (List<String> cityLine : cityLines) {
 			String cityName = cityLine.get(CITY_NAME);
 			try {
 				double latitude = Double.parseDouble(cityLine.get(CITY_LATITUDE));
 				double longitude = Double.parseDouble(cityLine.get(CITY_LONGITUDE));
 				int population = parseToInt(cityLine.get(POPULATION));
-				City city = new City(cityName, latitude, longitude, population);
-				cities.add(city);
+				RandomCity randomCity = new RandomCity(cityName, latitude, longitude, population);
+				randomCities.add(randomCity);
 			} catch (Exception e) {
 				System.out.println("Error:" + cityLine);
 			}
 		}
-		return cities;
+		return randomCities;
 	}
 
 	private int parseToInt(String population) {
@@ -78,7 +78,7 @@ public class CityRepository extends ResourceFileRepository<List<String>> {
 		return Integer.parseInt(population);
 	}
 
-	public List<Region> getAllRegions() {
+	public List<RandomRegion> getAllRegions() {
 		// TODO Auto-generated method stub
 		return null;
 	}

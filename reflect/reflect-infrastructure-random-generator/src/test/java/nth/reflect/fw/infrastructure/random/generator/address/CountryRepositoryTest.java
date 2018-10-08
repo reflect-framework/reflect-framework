@@ -13,34 +13,34 @@ public class CountryRepositoryTest {
 
 	@Test
 	public void testMoreThen100Countries() {
-		List<Country> countries = Resources.countryRepository().getAll();
-		assertThat(countries, hasSize(greaterThan(200)));
+		List<RandomCountry> randomCountries = Resources.countryRepository().getAll();
+		assertThat(randomCountries, hasSize(greaterThan(200)));
 	}
 
 	
 	@Test
 	public void testMoreThen100Regions() {
-		List<Country> countries = Resources.countryRepository().getAll();
-		long nrOfCountriesWithRegions=countries.stream().filter(country -> !country.getRegions().isEmpty()).count();
+		List<RandomCountry> randomCountries = Resources.countryRepository().getAll();
+		long nrOfCountriesWithRegions=randomCountries.stream().filter(country -> !country.getRegions().isEmpty()).count();
 		assertThat(nrOfCountriesWithRegions, greaterThan(100l));
 	}
 
 	@Test
 	public void testAllRegionsHaveCities() {
-		List<Country> countries = Resources.countryRepository().getAll();
-		for (Country country : countries) {
-			long regionsWithoutCities = country.getRegions().stream().filter(r->r.getCities().isEmpty()).count();
+		List<RandomCountry> randomCountries = Resources.countryRepository().getAll();
+		for (RandomCountry randomCountry : randomCountries) {
+			long regionsWithoutCities = randomCountry.getRegions().stream().filter(r->r.getCities().isEmpty()).count();
 			assertThat(regionsWithoutCities, equalTo(0l));
 		}
 	}
 
 	@Test
 	public void testAllWithCities() {
-		List<Country> countries = Resources.countryRepository().getCountriesThatHaveCities();
-		for (Country country : countries) {
-			assertThat(country.getRegions().isEmpty(), is(false));
+		List<RandomCountry> randomCountries = Resources.countryRepository().getCountriesThatHaveCities();
+		for (RandomCountry randomCountry : randomCountries) {
+			assertThat(randomCountry.getRegions().isEmpty(), is(false));
 
-			long regionsWithoutCities = country.getRegions().stream().filter(r->r.getCities().isEmpty()).count();
+			long regionsWithoutCities = randomCountry.getRegions().stream().filter(r->r.getCities().isEmpty()).count();
 			assertThat(regionsWithoutCities, equalTo(0l));
 		}
 	}

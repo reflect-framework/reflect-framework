@@ -16,23 +16,23 @@ public class CountryGeneratorTest {
 
 	@Test
 	public void testForNorParamaters() {
-		 List<Country> allCountries = Resources.countryRepository().getAll();
-		List<Country> countries = Random.country().generateList(1000);
-		for (Country country : countries) {
-			assertValidCountry(country);
-			assertTrue(allCountries.contains(country));
+		 List<RandomCountry> allCountries = Resources.countryRepository().getAll();
+		List<RandomCountry> randomCountries = Random.country().generateList(1000);
+		for (RandomCountry randomCountry : randomCountries) {
+			assertValidCountry(randomCountry);
+			assertTrue(allCountries.contains(randomCountry));
 		}
 	}
 
-	private void assertValidCountry(Country country) {
-		assertThat(country.getCode(), lambdaMatcher(code -> code.length()==2,"Only 2 characters"));
-		assertThat(country.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(0))));
-		assertThat(country.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(1))));
-		assertThat(country.getName(), not(isEmptyOrNullString()));
-		assertThat(country.getPostalCodeFormat(),not(isEmptyOrNullString()));
-		assertThat(country.getPhoneCode(),not(isEmptyOrNullString()));
-		assertThat(country.getPhoneNumberFormat(),not(isEmptyOrNullString()));
-		assertThat(country.getPhoneDigitsAfterCallingCode(), greaterThan(1));
+	private void assertValidCountry(RandomCountry randomCountry) {
+		assertThat(randomCountry.getCode(), lambdaMatcher(code -> code.length()==2,"Only 2 characters"));
+		assertThat(randomCountry.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(0))));
+		assertThat(randomCountry.getCode(), lambdaMatcher(code -> Character.isUpperCase(code.charAt(1))));
+		assertThat(randomCountry.getName(), not(isEmptyOrNullString()));
+		assertThat(randomCountry.getPostalCodeFormat(),not(isEmptyOrNullString()));
+		assertThat(randomCountry.getPhoneCode(),not(isEmptyOrNullString()));
+		assertThat(randomCountry.getPhoneNumberFormat(),not(isEmptyOrNullString()));
+		assertThat(randomCountry.getPhoneDigitsAfterCallingCode(), greaterThan(1));
 	}
 	
 	

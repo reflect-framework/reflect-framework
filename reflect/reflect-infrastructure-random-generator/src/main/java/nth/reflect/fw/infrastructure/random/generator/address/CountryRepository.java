@@ -12,59 +12,59 @@ import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
 import nth.reflect.fw.infrastructure.random.generator.text.LetterCase;
 
 /**
- * Creates a list of {@link Country} objects from a resource file. Source:
+ * Creates a list of {@link RandomCountry} objects from a resource file. Source:
  * https://en.wikipedia.org/wiki/List_of_mobile_telephone_prefixes_by_country
  * 
  * @author nilsth
  *
  */
-public class CountryRepository extends ResourceFileRepository<Country> {
+public class CountryRepository extends ResourceFileRepository<RandomCountry> {
 	/**
-	 * @return The {@link City} {@link ResourceFile} does not have regions and
+	 * @return The {@link RandomCity} {@link ResourceFile} does not have regions and
 	 *         cities for all countries. This method returns all countries with
-	 *         {@link Region}s
+	 *         {@link RandomRegion}s
 	 */
-	public List<Country> getCountriesThatHaveRegions() {
-		List<Country> allCountries = getAll();
-		List<Country> countriesWithKnwonRegions = allCountries.stream().filter(c -> !c.getRegions().isEmpty())
+	public List<RandomCountry> getCountriesThatHaveRegions() {
+		List<RandomCountry> allCountries = getAll();
+		List<RandomCountry> countriesWithKnwonRegions = allCountries.stream().filter(c -> !c.getRegions().isEmpty())
 				.collect(Collectors.toList());
 		return countriesWithKnwonRegions;
 	}
 
 	/**
-	 * @return The {@link City} {@link ResourceFile} does not have regions and
+	 * @return The {@link RandomCity} {@link ResourceFile} does not have regions and
 	 *         cities for all countries. This method returns all countries that
-	 *         have {@link City}s in the {@link Region}s
+	 *         have {@link RandomCity}s in the {@link RandomRegion}s
 	 * 
 	 */
 
-	public List<Country> getCountriesThatHaveCities() {
-		List<Country> countriesWithKnownRegions = getCountriesThatHaveRegions();
-		List<Country> countriesWithKnownCities = countriesWithKnownRegions.stream()
+	public List<RandomCountry> getCountriesThatHaveCities() {
+		List<RandomCountry> countriesWithKnownRegions = getCountriesThatHaveRegions();
+		List<RandomCountry> countriesWithKnownCities = countriesWithKnownRegions.stream()
 				.filter(c -> c.getRegions().stream().filter(r -> !r.getCities().isEmpty()).count() > 0)
 				.collect(Collectors.toList());
 		return countriesWithKnownCities;
 	}
 
 	@Override
-	public Country create(String line) {
+	public RandomCountry create(String line) {
 		String[] values = line.split(";");
 		return createCountry(values);
 	}
 
-	private Country createCountry(String[] values) {
+	private RandomCountry createCountry(String[] values) {
 		String countryCodeIso2 = getCountryCode(values[0]);
 		String countryName = values[1].trim();
 		String postalCodeFormat = getPostalCodeFormat(values[2]).trim();
 		String phoneCode = values[3].trim();
 		int phoneDigitsAfterCallingCode = getPhoneDigitsAfterCallingCode(values[4]);
-		Country country = new Country(countryCodeIso2, countryName, postalCodeFormat, phoneCode,
+		RandomCountry randomCountry = new RandomCountry(countryCodeIso2, countryName, postalCodeFormat, phoneCode,
 				phoneDigitsAfterCallingCode);
 
-		Set<Region> regions = createRegions(country);
-		country.getRegions().addAll(regions);
+		Set<RandomRegion> randomRegions = createRegions(randomCountry);
+		randomCountry.getRegions().addAll(randomRegions);
 
-		return country;
+		return randomCountry;
 	}
 
 	private String getCountryCode(String value) {
@@ -81,9 +81,9 @@ public class CountryRepository extends ResourceFileRepository<Country> {
 		return countryCode.toString();
 	}
 
-	private Set<Region> createRegions(Country country) {
-		Set<Region> regions = Resources.cityRepository().getRegionsOfCountry(country.getCode());
-		return regions;
+	private Set<RandomRegion> createRegions(RandomCountry country) {
+		Set<RandomRegion> randomRegions = Resources.cityRepository().getRegionsOfCountry(country.getCode());
+		return randomRegions;
 	}
 
 	private int getPhoneDigitsAfterCallingCode(String phoneDigitsAfterCallingCode) {
@@ -101,19 +101,19 @@ public class CountryRepository extends ResourceFileRepository<Country> {
 		return postalCodeFormat;
 	}
 
-	public List<Region> getAllKnowRegions() {
-		List<Region> allKnownRegions = new ArrayList<>();
-		List<Country> countries= getAll();
-		for (Country country : countries) {
-			allKnownRegions.addAll(country.getRegions());
+	public List<RandomRegion> getAllKnowRegions() {
+		List<RandomRegion> allKnownRegions = new ArrayList<>();
+		List<RandomCountry> randomCountries= getAll();
+		for (RandomCountry randomCountry : randomCountries) {
+			allKnownRegions.addAll(randomCountry.getRegions());
 		}
 		return allKnownRegions;
 	}
 	
-	public List<City> getAllKnowCities() {
-		List<Region> allKnownRegions = getAllKnowRegions();
-		List<City> allKnownCities = new ArrayList<>();
-		for (Region knownRegions : allKnownRegions) {
+	public List<RandomCity> getAllKnowCities() {
+		List<RandomRegion> allKnownRegions = getAllKnowRegions();
+		List<RandomCity> allKnownCities = new ArrayList<>();
+		for (RandomRegion knownRegions : allKnownRegions) {
 			allKnownCities.addAll(knownRegions.getCities());
 		}
 		return allKnownCities;

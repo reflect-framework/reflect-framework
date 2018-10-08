@@ -15,8 +15,8 @@ public class PhoneNumberGenerator extends RandomGenerator<String> {
 	private final RandomGenerator<String> phoneNumberFormatGenerator;
 
 	public PhoneNumberGenerator() {
-		 List<Country> countries = Resources.countryRepository().getAll();
-		List<String> phoneNumberFormats = countries.stream().map(Country::getPhoneNumberFormat).collect(Collectors.toList());
+		 List<RandomCountry> randomCountries = Resources.countryRepository().getAll();
+		List<String> phoneNumberFormats = randomCountries.stream().map(RandomCountry::getPhoneNumberFormat).collect(Collectors.toList());
 		phoneNumberFormatGenerator = new FromListGenerator<String>(phoneNumberFormats);
 	}
 
@@ -24,7 +24,7 @@ public class PhoneNumberGenerator extends RandomGenerator<String> {
 		this.phoneNumberFormatGenerator = phoneNumberFormatGenerator;
 	}
 
-	public PhoneNumberGenerator forCountry(Country country) {
+	public PhoneNumberGenerator forCountry(RandomCountry country) {
 		String phoneNumberFormatFormat = country.getPhoneNumberFormat();
 		RandomGenerator<String> phoneNumberFormatGenerator = new ValueGenerator<String>(phoneNumberFormatFormat);
 		return new PhoneNumberGenerator(phoneNumberFormatGenerator);

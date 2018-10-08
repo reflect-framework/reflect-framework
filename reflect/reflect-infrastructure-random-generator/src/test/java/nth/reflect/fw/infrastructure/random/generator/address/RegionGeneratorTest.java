@@ -16,7 +16,7 @@ import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 
 public class RegionGeneratorTest {
 
-	private List<Region> allRegions;
+	private List<RandomRegion> allRegions;
 	
 	@Before
 	public void init() {
@@ -25,18 +25,18 @@ public class RegionGeneratorTest {
 
 	@Test
 	public void testForNoParameters() {
-		Set<Region> regions = Random.region().generateSet(500);
-		assertThat(regions, hasSize(500));
-		assertThat(regions, hasItem(isIn(allRegions)));
+		Set<RandomRegion> randomRegions = Random.region().generateSet(500);
+		assertThat(randomRegions, hasSize(500));
+		assertThat(randomRegions, hasItem(isIn(allRegions)));
 		
 	}
 	
 	@Test
 	public void testForCountry() {
-		Country netherlands=Resources.countryRepository().getAll().stream().filter(c -> c.getCode().equals("NL")).findFirst().get();
-		Set<Region> regions = Random.region().forCountry(netherlands).generateSet(50);
-		assertThat(regions, hasSize(12));
-		assertThat(regions, hasItem(isIn(netherlands.getRegions())));
+		RandomCountry netherlands=Resources.countryRepository().getAll().stream().filter(c -> c.getCode().equals("NL")).findFirst().get();
+		Set<RandomRegion> randomRegions = Random.region().forCountry(netherlands).generateSet(50);
+		assertThat(randomRegions, hasSize(12));
+		assertThat(randomRegions, hasItem(isIn(netherlands.getRegions())));
 	}
 
 }

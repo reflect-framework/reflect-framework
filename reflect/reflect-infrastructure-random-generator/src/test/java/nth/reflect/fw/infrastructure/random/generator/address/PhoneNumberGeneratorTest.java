@@ -22,14 +22,14 @@ public class PhoneNumberGeneratorTest {
 	@Test
 	public void testForNoParameters() {
 		Set<String> allPhoneNumberFormats = Resources.countryRepository().getAll().stream()
-				.map(Country::getPhoneNumberFormat).collect(Collectors.toSet());
+				.map(RandomCountry::getPhoneNumberFormat).collect(Collectors.toSet());
 		List<String> phoneNumbers = Random.phoneNumber().generateList(10);
 		assertPhoneNumber(phoneNumbers, allPhoneNumberFormats);
 	}
 
 	@Test
 	public void testForCountryWithPostalCode() {
-		Optional<Country> netherlands = Resources.countryRepository().getAll().stream()
+		Optional<RandomCountry> netherlands = Resources.countryRepository().getAll().stream()
 				.filter(country -> country.getName().equals(NETHERLANDS)).findFirst();
 		assertTrue(netherlands.isPresent());
 		List<String> randomPhoneNumbers = Random.phoneNumber().forCountry(netherlands.get()).generateList(10);

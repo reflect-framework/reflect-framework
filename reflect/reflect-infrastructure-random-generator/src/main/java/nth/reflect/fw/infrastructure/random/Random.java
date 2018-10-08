@@ -1,10 +1,14 @@
 package nth.reflect.fw.infrastructure.random;
 
+import java.util.List;
+
+import nth.reflect.fw.infrastructure.random.generator.address.AddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.CityGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.CountryGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.EmailAddressGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PhoneNumberGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.PostalCodeGenerator;
+import nth.reflect.fw.infrastructure.random.generator.address.RandomAddress;
 import nth.reflect.fw.infrastructure.random.generator.address.RegionGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.StreetNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
@@ -46,6 +50,10 @@ import nth.reflect.fw.infrastructure.random.generator.word.WordGenerator;
  *
  */
 public class Random {
+
+	public static AddressGenerator address() {
+		return new AddressGenerator();
+	}
 
 	public static BigDecimalGenerator bigDecimal() {
 		return new BigDecimalGenerator();

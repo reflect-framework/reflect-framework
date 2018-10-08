@@ -15,8 +15,8 @@ public class PostalCodeGenerator extends RandomGenerator<String> {
 	private final RandomGenerator<String> postalCodeFormatGenerator;
 
 	public PostalCodeGenerator() {
-		 List<Country> countries = Resources.countryRepository().getAll();
-		List<String> postalCodeFormats = countries.stream().map(Country::getPostalCodeFormat).collect(Collectors.toList());
+		 List<RandomCountry> randomCountries = Resources.countryRepository().getAll();
+		List<String> postalCodeFormats = randomCountries.stream().map(RandomCountry::getPostalCodeFormat).collect(Collectors.toList());
 		postalCodeFormatGenerator = new FromListGenerator<String>(postalCodeFormats);
 	}
 
@@ -24,7 +24,7 @@ public class PostalCodeGenerator extends RandomGenerator<String> {
 		this.postalCodeFormatGenerator = postalCodeFormatGenerator;
 	}
 
-	public PostalCodeGenerator forCountry(Country country) {
+	public PostalCodeGenerator forCountry(RandomCountry country) {
 		String postalCodeFormat = country.getPostalCodeFormat();
 		RandomGenerator<String> postalCodeFormatGenerator = new ValueGenerator<String>(postalCodeFormat);
 		return new PostalCodeGenerator(postalCodeFormatGenerator);
