@@ -29,12 +29,11 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.commandline.domain.command.Command;
 import nth.reflect.fw.ui.commandline.domain.command.CommandService;
-import nth.reflect.fw.ui.commandline.domain.command.ReflectCommandLineException;
 import nth.reflect.fw.ui.commandline.domain.command.Parameter;
+import nth.reflect.fw.ui.commandline.domain.command.ReflectCommandLineException;
 import nth.reflect.fw.ui.commandline.view.FormView;
 import nth.reflect.fw.ui.commandline.view.HelpView;
 import nth.reflect.fw.ui.commandline.view.TableView;
-import nth.reflect.fw.ui.view.FormMode;
 
 public class UserInterfaceControllerForCommandLine extends UserInterfaceController {
 

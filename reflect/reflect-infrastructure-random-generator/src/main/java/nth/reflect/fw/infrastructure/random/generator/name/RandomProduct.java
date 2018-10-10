@@ -1,10 +1,10 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-public class Product {
+public class RandomProduct {
 private final String name;
 private final String description;
 private final String company;
-public Product(String name, String description, String company) {
+public RandomProduct(String name, String description, String company) {
 	super();
 	this.name = name;
 	this.description = description;

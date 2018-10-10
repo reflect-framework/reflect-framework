@@ -1,8 +1,6 @@
 package nth.reflect.fw.javafx.control.view.form;
 
 import javafx.geometry.Pos;
-import nth.reflect.fw.javafx.control.button.RfxContentBottomToolbarButton;
-import nth.reflect.fw.javafx.control.button.RfxContentButton;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.toolbar.RfxToolbar;

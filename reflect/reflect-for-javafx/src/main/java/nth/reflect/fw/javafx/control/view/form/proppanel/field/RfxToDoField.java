@@ -2,7 +2,6 @@ package nth.reflect.fw.javafx.control.view.form.proppanel.field;
 
 import javafx.scene.control.Label;
 import nth.reflect.fw.ui.view.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.view.form.propertypanel.PropertyFieldWidth;
 
 public abstract class RfxToDoField extends Label implements PropertyField {
 

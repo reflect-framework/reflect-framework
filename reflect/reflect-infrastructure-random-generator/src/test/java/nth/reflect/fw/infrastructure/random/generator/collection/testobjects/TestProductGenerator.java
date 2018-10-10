@@ -11,7 +11,7 @@ public class TestProductGenerator extends RandomGenerator<TestProduct> {
 	public TestProduct generate() {
 		TestProduct testProduct = new TestProduct();
 		testProduct.setCode(Random.format().forFormat("AA-999-999-999").generate());
-		nth.reflect.fw.infrastructure.random.generator.name.Product randomProduct = Random.product().generate();
+		nth.reflect.fw.infrastructure.random.generator.name.RandomProduct randomProduct = Random.product().generate();
 		testProduct.setName(randomProduct.getName());
 		testProduct.setDetails(randomProduct.getDescription());
 		testProduct.setCompanyName(randomProduct.getCompany());

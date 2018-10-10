@@ -1,7 +1,5 @@
 package nth.reflect.fw.javafx.control.popup;
 
-import com.jfoenix.effects.JFXDepthManager;
-
 import javafx.scene.Node;
 import javafx.stage.Popup;
 import javafx.stage.Window;

@@ -3,10 +3,9 @@ package nth.reflect.fw.javafx.control.style;
 import java.util.HashMap;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Labeled;
 import javafx.scene.text.FontWeight;
-import nth.reflect.fw.ui.style.ReflectColorSet;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorSet;
 import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.fw.ui.style.basic.Font;
 

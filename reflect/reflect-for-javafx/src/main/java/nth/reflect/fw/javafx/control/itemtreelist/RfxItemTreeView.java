@@ -10,7 +10,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
@@ -18,7 +17,6 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.HierarchicalItem;
-import nth.reflect.fw.ui.item.ItemFactory;
 import nth.reflect.fw.ui.item.method.MethodItem;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 

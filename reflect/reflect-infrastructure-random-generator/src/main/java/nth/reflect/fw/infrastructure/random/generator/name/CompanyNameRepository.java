@@ -10,8 +10,8 @@ public class CompanyNameRepository implements Repository<String> {
 
 	@Override
 	public List<String> getAll() {
-		List<Product> allProducts = Resources.productRepository().getAll();
-		List<String> allCompanyNames = allProducts.stream().map(Product::getCompany).collect(Collectors.toList());
+		List<RandomProduct> allProducts = Resources.productRepository().getAll();
+		List<String> allCompanyNames = allProducts.stream().map(RandomProduct::getCompany).collect(Collectors.toList());
 		return allCompanyNames;
 	}
 

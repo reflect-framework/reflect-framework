@@ -2,15 +2,9 @@ package nth.reflect.fw.javafx.control.view.form.proppanel;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import nth.reflect.fw.javafx.control.style.RfxColorFactory;
-import nth.reflect.fw.javafx.control.style.RfxFontFactory;
-import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.javafx.control.toolbar.RfxToolbar;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
-import nth.reflect.fw.ui.style.MaterialFont;
-import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.fw.ui.style.component.PropertyLabelStyle;
 import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
 

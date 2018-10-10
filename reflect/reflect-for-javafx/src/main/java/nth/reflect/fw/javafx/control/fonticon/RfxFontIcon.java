@@ -2,7 +2,6 @@ package nth.reflect.fw.javafx.control.fonticon;
 
 import javafx.scene.text.Text;
 import nth.reflect.fw.javafx.control.RfxControl;
-import nth.reflect.fw.javafx.control.button.RfxContentButton;
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 

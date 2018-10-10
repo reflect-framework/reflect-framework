@@ -125,6 +125,12 @@ public class XmlFileRepository {
 		persistAll();
 	}
 	
+	/**
+	 * TODO return generic type
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
 	public List<?> getAll(final Class<?> type) throws Exception {
 		Filter<Object> typeFilter = new Filter<Object>() {
 

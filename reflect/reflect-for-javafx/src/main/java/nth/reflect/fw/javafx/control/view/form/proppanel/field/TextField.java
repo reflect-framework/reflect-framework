@@ -8,7 +8,6 @@ import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
 import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
-import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.view.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.view.form.propertypanel.PropertyFieldWidth;

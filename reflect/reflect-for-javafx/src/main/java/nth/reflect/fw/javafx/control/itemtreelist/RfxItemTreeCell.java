@@ -5,9 +5,6 @@ import java.net.URL;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeView;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -15,7 +12,6 @@ import nth.reflect.fw.javafx.control.RfxControl;
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.javafx.control.view.table.RfxTableView;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 import nth.reflect.fw.ui.item.HierarchicalItem;

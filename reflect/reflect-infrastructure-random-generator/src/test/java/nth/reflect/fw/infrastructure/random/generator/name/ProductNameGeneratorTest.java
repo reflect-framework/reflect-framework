@@ -16,14 +16,14 @@ public class ProductNameGeneratorTest {
 	
 	@Test
 	public void testForNoParameter() {
-		Set<Product> products = Random.product().generateSet(500);
+		Set<RandomProduct> products = Random.product().generateSet(500);
 		assertThat(products, hasSize(greaterThan(110)));
-		for (Product product : products) {
+		for (RandomProduct product : products) {
 			assertValidProduct(product);
 		}
 	}
 	
-	private void assertValidProduct(Product product) {
+	private void assertValidProduct(RandomProduct product) {
 		assertTrue(!product.getName().trim().isEmpty());
 		assertTrue(!product.getDescription().trim().isEmpty());
 		assertTrue(!product.getCompany().trim().isEmpty());

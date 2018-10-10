@@ -7,9 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
-import nth.reflect.fw.javafx.RfxUserinterfaceController;
 import nth.reflect.fw.javafx.control.button.RfxContentBottomToolbarButton;
 import nth.reflect.fw.javafx.control.button.RfxContentButton;
 import nth.reflect.fw.javafx.control.button.RfxPrimaryButton;
@@ -18,8 +16,8 @@ import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeView;
 import nth.reflect.fw.javafx.control.list.RfxList;
 import nth.reflect.fw.javafx.control.table.RfxTable;
 import nth.reflect.fw.javafx.control.toolbar.RfxToolbar;
-import nth.reflect.fw.javafx.control.view.form.RfxContentBottomToolbar;
 import nth.reflect.fw.javafx.control.view.form.PropertiesPanel;
+import nth.reflect.fw.javafx.control.view.form.RfxContentBottomToolbar;
 import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyLabel;
 import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyLabelAndFieldPanel;
 import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyPanel;
@@ -28,8 +26,6 @@ import nth.reflect.fw.javafx.control.view.form.proppanel.field.ManyToOneOrManyFi
 import nth.reflect.fw.javafx.control.view.form.proppanel.field.TextField;
 import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.ui.style.MaterialColorPalette;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;

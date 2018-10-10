@@ -7,7 +7,6 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.ui.item.ItemFactory;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.view.FormView;
 

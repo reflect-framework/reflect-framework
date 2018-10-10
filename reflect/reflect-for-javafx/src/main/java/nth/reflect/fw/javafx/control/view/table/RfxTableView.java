@@ -1,47 +1,19 @@
 package nth.reflect.fw.javafx.control.view.table;
 
 import java.net.URL;
-import java.text.Format;
 import java.util.List;
 
-import com.sun.javafx.collections.ObservableListWrapper;
-
-import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SetProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.FontWeight;
-import javafx.util.Callback;
 import nth.reflect.fw.generic.util.TitleUtil;
-import nth.reflect.fw.generic.util.TypeUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.javafx.control.button.RfxPrimaryButton;
-import nth.reflect.fw.javafx.control.fonticon.RfxFontIcon;
-import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeCell;
-import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
-import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
-import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.table.RfxTable;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.item.ItemFactory;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
-import nth.reflect.fw.ui.style.MaterialFont;
 
 public class RfxTableView extends BorderPane implements nth.reflect.fw.ui.view.TableView {
 

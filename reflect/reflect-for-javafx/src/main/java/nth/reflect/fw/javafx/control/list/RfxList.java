@@ -1,7 +1,5 @@
 package nth.reflect.fw.javafx.control.list;
 
-import javafx.beans.property.SetProperty;
-import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
 import nth.reflect.fw.javafx.control.RfxControl;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
