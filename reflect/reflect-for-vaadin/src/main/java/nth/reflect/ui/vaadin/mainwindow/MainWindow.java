@@ -2,6 +2,7 @@ package nth.reflect.ui.vaadin.mainwindow;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,8 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
-import nth.reflect.fw.ui.item.ItemFactory;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
+import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
 import nth.reflect.ui.vaadin.css.Cursor;
 import nth.reflect.ui.vaadin.css.Display;
 import nth.reflect.ui.vaadin.css.Overflow;
@@ -118,7 +119,7 @@ public class MainWindow extends Div {
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
 
-		List<MethodOwnerItem> serviceObjectItems = ItemFactory.createMainMenuItems(userInterfaceContainer);
+		Collection<MethodOwnerItem> serviceObjectItems = new MainMenuItems(userInterfaceContainer);
 
 		List<Item> items = new ArrayList<>();
 		// TODO wait for Vaadin10 to release a TreeGrid (current state: planned

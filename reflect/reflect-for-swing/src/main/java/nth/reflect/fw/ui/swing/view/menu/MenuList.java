@@ -11,9 +11,9 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
-import nth.reflect.fw.ui.swing.view.menu.item.Item;
 
 public class MenuList extends JList<Item> {
 
@@ -56,7 +56,7 @@ public class MenuList extends JList<Item> {
 	public void onActionEvent() {
 		Item selectedItem = getSelectedValue();
 		System.out.println("Action: " + selectedItem.getText());
-		selectedItem.onAction();
+		selectedItem.getAction().run();
 	}
 
 }

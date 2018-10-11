@@ -1,7 +1,7 @@
 package nth.reflect.fw.javafx.control.view.table;
 
 import java.net.URL;
-import java.util.List;
+import java.util.Collection;
 
 import javafx.scene.layout.BorderPane;
 import nth.reflect.fw.generic.util.TitleUtil;
@@ -13,7 +13,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.ui.item.ItemFactory;
+import nth.reflect.fw.ui.item.method.menu.TableRowMenuItems;
 
 public class RfxTableView extends BorderPane implements nth.reflect.fw.ui.view.TableView {
 
@@ -102,7 +102,7 @@ public class RfxTableView extends BorderPane implements nth.reflect.fw.ui.view.T
 	// }
 
 	protected void onTableRowSelect(int x, int y) {
-		List<Item> menuItems = ItemFactory.createTableViewRowMenuItems(RfxTableView.this);
+		Collection<Item> menuItems = new TableRowMenuItems(RfxTableView.this);
 		// menuPopUp.repopulate(menuItems);
 		// menuPopUp.show(table, x, y);
 	}

@@ -1,13 +1,13 @@
 package nth.reflect.fw.javafx.control.table;
 
-import java.util.List;
+import java.util.Collection;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.ui.item.ItemFactory;
+import nth.reflect.fw.ui.item.method.menu.TableRowMenuItems;
 import nth.reflect.fw.ui.view.TableView;
 
 public class RfxTableInfoForTableView extends RfxTableInfo{
@@ -64,8 +64,8 @@ public class RfxTableInfoForTableView extends RfxTableInfo{
 	}
 
 	@Override
-	public List<Item> getRowMenuItems(Object selectedObject) {
-		List<Item> items = ItemFactory.createTableViewRowMenuItems(tableView,
+	public Collection<Item> getRowMenuItems(Object selectedObject) {
+		Collection<Item> items = new TableRowMenuItems(tableView,
 				selectedObject);
 		return items;
 	}

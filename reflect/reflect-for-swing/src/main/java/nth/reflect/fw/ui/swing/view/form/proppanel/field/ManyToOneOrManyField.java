@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
@@ -21,7 +21,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.ui.item.ItemFactory;
+import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
@@ -59,7 +59,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
 
-		List<Item> menuItems = ItemFactory.createFormViewRelationalFieldItems(formView, getSelectedRowModel(),
+		Collection<Item> menuItems = new FormFieldMenuItems(formView, getSelectedRowModel(),
 				propertyValueModel.getPropertyInfo());
 		menuPopUp = createPopUpMenu(menuItems);
 		// menuBar = createMenuBar(menuItems);
@@ -154,7 +154,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 		return table;
 	}
 
-	public PopupMenu createPopUpMenu(final List<Item> menuItems) {
+	public PopupMenu createPopUpMenu(final Collection<Item> menuItems) {
 		return new PopupMenu(menuItems);
 	}
 
@@ -207,7 +207,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 	}
 
 	private void showPopupMenu(int x, int y) {
-		List<Item> menuItems = ItemFactory.createFormViewRelationalFieldItems(formView, getSelectedRowModel(),
+		Collection<Item> menuItems = new FormFieldMenuItems(formView, getSelectedRowModel(),
 				propertyValueModel.getPropertyInfo());
 		menuPopUp.repopulate(menuItems);
 		menuPopUp.show(table, x, y);

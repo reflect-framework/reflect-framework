@@ -1,6 +1,7 @@
 package nth.reflect.fw.javafx.control.table;
 
 import java.text.Format;
+import java.util.Collection;
 import java.util.List;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -158,7 +159,7 @@ public class RfxTable extends TableView<Object> {
 
 	private RfxItemTreeView createRowMenu() {
 		Object selectedObject = getSelectionModel().getSelectedItem();
-		List<Item> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
+		Collection<Item> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
 		RfxItemTreeView rowMenuContent = new RfxItemTreeView(serviceObjectItems, rfxTableInfo.getLanguageProvider());
 		return rowMenuContent;
 	}

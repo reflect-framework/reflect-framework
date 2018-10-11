@@ -1,5 +1,6 @@
 package nth.reflect.fw.javafx.control.itemtreelist;
 
+import java.util.Collection;
 import java.util.List;
 
 import javafx.event.EventHandler;
@@ -43,11 +44,11 @@ public class RfxItemTreeView extends TreeView {
 		setOnMouseClicked(createMouseHandler());
 	}
 
-	public RfxItemTreeView(List<Item> items, LanguageProvider languageProvider) {
+	public RfxItemTreeView(Collection<Item> items, LanguageProvider languageProvider) {
 		this(createRootItem(items, languageProvider));
 	}
 
-	private static TreeItem<Item> createRootItem(List<Item> items, LanguageProvider languageProvider) {
+	private static TreeItem<Item> createRootItem(Collection<Item> items, LanguageProvider languageProvider) {
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
 		for (Item item : items) {

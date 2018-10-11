@@ -1,40 +1,28 @@
 package nth.reflect.fw.ui.swing.view.menu;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.DefaultListModel;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer2service.ServiceContainer;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.reflect.fw.ui.swing.view.menu.item.Item;
-import nth.reflect.fw.ui.swing.view.menu.item.ServiceObjectItem;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.ui.item.method.MethodOwnerItem;
+import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
 
-public class MenuListModel extends DefaultListModel<Item> {
+public class MenuListModel extends DefaultListModel<nth.reflect.fw.layer1userinterface.item.Item> {
 
 	private static final long serialVersionUID = 1676652394002556458L;
 
-	public MenuListModel(DependencyInjectionContainer userInterfaceContainer) {
+	public MenuListModel(UserInterfaceContainer userInterfaceContainer) {
 		populateListModel(userInterfaceContainer);
 	}
 
-	private void populateListModel(DependencyInjectionContainer userInterfaceContainer) {
-		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
-		List<Object> serviceObjects = serviceContainer.getServiceObjects();
-		ReflectionProvider reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
-		UserInterfaceController userInterfaceController = userInterfaceContainer
-				.get(UserInterfaceController.class);
+	private void populateListModel(UserInterfaceContainer userInterfaceContainer) {
+		Collection<MethodOwnerItem> serviceObjectItems = new MainMenuItems(userInterfaceContainer);
 
-		for (Object serviceObject : serviceObjects) {
-			ClassInfo serviceObjectInfo = reflectionProvider.getClassInfo(serviceObject.getClass());
-			ServiceObjectItem serviceObjectItem = new ServiceObjectItem(userInterfaceController,
-					serviceObject, serviceObjectInfo);
+		for (MethodOwnerItem serviceObjectItem : serviceObjectItems) {
 			addElement(serviceObjectItem);
-			List<Item> actionMethodItems = serviceObjectItem.getActionMethodItems();
-			for (Item actionMethoditem : actionMethodItems) {
+
+			for (nth.reflect.fw.layer1userinterface.item.Item actionMethoditem : serviceObjectItem.getChildren()) {
 				addElement(actionMethoditem);
 			}
 

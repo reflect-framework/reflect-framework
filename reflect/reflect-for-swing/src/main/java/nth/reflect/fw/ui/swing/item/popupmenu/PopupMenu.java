@@ -2,7 +2,7 @@ package nth.reflect.fw.ui.swing.item.popupmenu;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -20,16 +20,16 @@ public class PopupMenu extends JPopupMenu {
 
 	private static final long serialVersionUID = -2383997305229801062L;
 
-	public PopupMenu(List<Item> items) {
+	public PopupMenu(Collection<Item> items) {
 		populate(items);
 	}
 
-	public void repopulate(List<Item> items) {
+	public void repopulate(Collection<Item> items) {
 		removeAll();
 		populate(items);
 	}
 
-	private void populate(List<Item> items) {
+	private void populate(Collection<Item> items) {
 		for (Item item : items) {
 			JMenuItem menuItem = MenuItemFactory.create(item);
 			add(menuItem);

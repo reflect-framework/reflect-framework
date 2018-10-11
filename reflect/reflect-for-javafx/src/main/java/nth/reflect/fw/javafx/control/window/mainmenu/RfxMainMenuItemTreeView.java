@@ -1,5 +1,6 @@
 package nth.reflect.fw.javafx.control.window.mainmenu;
 
+import java.util.Collection;
 import java.util.List;
 
 import javafx.beans.binding.BooleanBinding;
@@ -13,8 +14,8 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.item.ItemFactory;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
+import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
 
 public class RfxMainMenuItemTreeView extends RfxItemTreeView {
@@ -43,8 +44,7 @@ public class RfxMainMenuItemTreeView extends RfxItemTreeView {
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
 
-		List<MethodOwnerItem> serviceObjectItems = ItemFactory
-				.createMainMenuItems(userInterfaceContainer);
+		Collection<MethodOwnerItem> serviceObjectItems = new MainMenuItems(userInterfaceContainer);
 
 		for (Item serviceObjectItem : serviceObjectItems) {
 			createAndAppendTreeItemChild(rootNode, serviceObjectItem);

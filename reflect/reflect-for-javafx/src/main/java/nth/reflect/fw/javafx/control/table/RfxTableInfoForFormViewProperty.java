@@ -1,12 +1,9 @@
 package nth.reflect.fw.javafx.control.table;
 
-import java.util.List;
-
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.ui.item.ItemFactory;
+import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.view.FormView;
 
@@ -47,8 +44,8 @@ public class RfxTableInfoForFormViewProperty extends RfxTableInfo {
 	}
 
 	@Override
-	public List<Item> getRowMenuItems(Object selectedObject) {
-		List<Item> items = ItemFactory.createFormViewRelationalFieldItems(formView, propertyValueModel, propertyValueModel.getPropertyInfo());
+	public FormFieldMenuItems getRowMenuItems(Object selectedObject) {
+		FormFieldMenuItems items = new FormFieldMenuItems(formView, propertyValueModel, propertyValueModel.getPropertyInfo());
 		return items;
 	}
 

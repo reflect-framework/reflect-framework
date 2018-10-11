@@ -28,7 +28,7 @@ public abstract class RfxTableInfo {
 
 	public abstract LanguageProvider getLanguageProvider();
 
-	public abstract List<Item> getRowMenuItems(Object selectedObject);
+	public abstract Collection<Item> getRowMenuItems(Object selectedObject);
 
 	public List<TableColumn<Object, ?>> getTableColumns() {
 		Class<?> itemType = getValuesType();

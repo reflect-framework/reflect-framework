@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -21,7 +21,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.reflect.fw.ui.item.ItemFactory;
+import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.view.FormView;
@@ -50,8 +50,7 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				List<Item> items = ItemFactory
-						.createFormViewRelationalFieldItems(formView,
+				Collection<Item> items = new FormFieldMenuItems(formView,
 								propertyValueModel,
 								propertyValueModel.getPropertyInfo());
 				PopupMenu popupmenu = new PopupMenu(items);

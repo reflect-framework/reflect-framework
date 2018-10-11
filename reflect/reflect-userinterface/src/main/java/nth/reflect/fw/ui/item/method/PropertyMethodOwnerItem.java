@@ -13,43 +13,48 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.Paramet
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.item.HierarchicalItem;
+import nth.reflect.fw.ui.view.FormMode;
 import nth.reflect.fw.ui.view.FormView;
 
+/**
+ * Represents open {@link FormView}s that are in {@link FormMode#EDIT_MODE} and
+ * have {@link PropertyMethodItem}s that take a given parameter type.
+ * 
+ * @author nilsth
+ *
+ */
 public class PropertyMethodOwnerItem extends HierarchicalItem {
 
 	private FormView formView;
 
-	public PropertyMethodOwnerItem (FormView formView, ReadOnlyValueModel parameterValueModel) {
-		this(formView, parameterValueModel,null);
+	public PropertyMethodOwnerItem(FormView formView, ReadOnlyValueModel parameterValueModel) {
+		this(formView, parameterValueModel, null);
 	}
 
-	public PropertyMethodOwnerItem(FormView formView,
-			ReadOnlyValueModel parameterValueModel,
+	public PropertyMethodOwnerItem(FormView formView, ReadOnlyValueModel parameterValueModel,
 			PropertyInfo propertyToExclude) {
 		super(formView.getUserInterfaceContainer().get(LanguageProvider.class));
 		this.formView = formView;
 		pupulateChildren(formView, parameterValueModel, propertyToExclude);
 	}
 
-	public void pupulateChildren(FormView formView,
-			ReadOnlyValueModel parameterValueModel,
-			PropertyInfo propertyInfo) {
+	public void pupulateChildren(FormView formView, ReadOnlyValueModel parameterValueModel, PropertyInfo propertyInfo) {
 		ReadOnlyValueModel domainValueModel = formView.getDomainValueModel();
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		ReflectionProvider reflectionProvider=formView.getUserInterfaceContainer().get(ReflectionProvider.class);
+		ReflectionProvider reflectionProvider = formView.getUserInterfaceContainer().get(ReflectionProvider.class);
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
 			if (otherPropertyInfo != propertyInfo) {
-				Predicate<ActionMethodInfo> filter=new LinkedToPropertyFilter(otherPropertyInfo).and(new ParameterTypeFilter(parameterClass));
+				Predicate<ActionMethodInfo> filter = new LinkedToPropertyFilter(otherPropertyInfo)
+						.and(new ParameterTypeFilter(parameterClass));
 				List<ActionMethodInfo> propertyMethods = classInfo.getActionMethodInfos(filter);
 				for (ActionMethodInfo propertyMethodInfo : propertyMethods) {
-					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(
-							formView, otherPropertyInfo, propertyMethodInfo,
-							parameterValueModel, true);
+					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(formView, otherPropertyInfo,
+							propertyMethodInfo, parameterValueModel, true);
 					getChildren().add(propertyMethodItem);
 				}
 			}
@@ -65,8 +70,10 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	public String getText() {
 		// TODO return TitleUtil.createTitle(methodInfo, methodParameter,
 		// false);
-		return formView.getViewTitle();// using description instead of MaterialAppBarTitle
-										// because the MaterialAppBarTitle could be truncated
+		return formView.getViewTitle();// using description instead of
+										// MaterialAppBarTitle
+										// because the MaterialAppBarTitle could
+										// be truncated
 	}
 
 	@Override

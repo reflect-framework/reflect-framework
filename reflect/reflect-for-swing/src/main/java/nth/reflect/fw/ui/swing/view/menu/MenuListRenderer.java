@@ -8,13 +8,12 @@ import javax.swing.JLabel;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
+import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.style.component.GridStyle;
 import nth.reflect.fw.ui.swing.util.AwtFontFactory;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
-import nth.reflect.fw.ui.swing.view.menu.item.ActionMethodItem;
-import nth.reflect.fw.ui.swing.view.menu.item.Item;
-import nth.reflect.fw.ui.swing.view.menu.item.ServiceObjectItem;
 
 public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 
@@ -31,16 +30,16 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 	@Override
 	public Component getListCellRendererComponent(javax.swing.JList<? extends Item> list, Item item,
 			int index, boolean isSelected, boolean hasFocus) {
-		if (item instanceof ServiceObjectItem) {
-			ServiceObjectItem serviceObjectItem = (ServiceObjectItem) item;
+		if (item instanceof MethodOwnerItem) {
+			MethodOwnerItem serviceObjectItem = (MethodOwnerItem) item;
 			return getCellRendererComponent(serviceObjectItem, isSelected, hasFocus);
 		} else {
-			ActionMethodItem actionMethodItem = (ActionMethodItem) item;
+			Item actionMethodItem = (Item) item;
 			return getCellRendererComponent(actionMethodItem, isSelected, hasFocus);
 		}
 	}
 
-	private Component getCellRendererComponent(ServiceObjectItem serviceObjectItem,
+	private Component getCellRendererComponent(MethodOwnerItem serviceObjectItem,
 			boolean isSelected, boolean hasFocus) {
 		// TODO Color separatorColor =
 		EmptyBorder padding = new EmptyBorder(0, GridStyle.getPaddingLeft(), 0,
@@ -64,7 +63,7 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 		return this;
 	};
 
-	private Component getCellRendererComponent(ActionMethodItem actionMethodItem,
+	private Component getCellRendererComponent(Item actionMethodItem,
 			boolean isSelected, boolean hasFocus) {
 		setBorder(new EmptyBorder(0,
 				GridStyle.getPaddingLeft()

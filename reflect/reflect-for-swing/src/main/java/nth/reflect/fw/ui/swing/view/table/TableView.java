@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
-import java.util.List;
+import java.util.Collection;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
@@ -23,7 +23,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.ui.item.ItemFactory;
+import nth.reflect.fw.ui.item.method.menu.TableRowMenuItems;
 import nth.reflect.fw.ui.swing.item.menubar.MenuBar;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.view.SwingView;
@@ -63,7 +63,7 @@ public class TableView extends SwingView implements
 //		tableContainer.setFocusable(false); TODO test
 //		tableContainer.addMouseListener TODO test		
 
-		List<Item> menuItems = ItemFactory.createTableViewRowMenuItems(this);
+		Collection<Item> menuItems = new TableRowMenuItems(this);
 		menuPopUp = createPopUpMenu(menuItems);
 		menuBar = createMenuBar(menuItems);
 		add(menuBar, BorderLayout.NORTH);
@@ -124,17 +124,16 @@ public class TableView extends SwingView implements
 	}
 
 	protected void onTableRowSelect(int x, int y) {
-		List<Item> menuItems = ItemFactory
-				.createTableViewRowMenuItems(TableView.this);
+		Collection<Item> menuItems = new TableRowMenuItems(TableView.this);
 		menuPopUp.repopulate(menuItems);
 		menuPopUp.show(table, x, y);
 	}
 
-	public PopupMenu createPopUpMenu(final List<Item> menuItems) {
+	public PopupMenu createPopUpMenu(final Collection<Item> menuItems) {
 		return new PopupMenu(menuItems);
 	}
 
-	private MenuBar createMenuBar(List<Item> menuItems) {
+	private MenuBar createMenuBar(Collection<Item> menuItems) {
 		return new MenuBar(menuItems);
 	}
 
@@ -165,7 +164,7 @@ public class TableView extends SwingView implements
 		// update table
 		tableModel.refresh();
 		// update menus
-		List<Item> menuItems = ItemFactory.createTableViewRowMenuItems(this);
+		Collection<Item> menuItems = new TableRowMenuItems(this);
 		menuPopUp.repopulate(menuItems);
 		menuBar.repopulate(menuItems);
 		// set focus (preferably on the same domain object)
