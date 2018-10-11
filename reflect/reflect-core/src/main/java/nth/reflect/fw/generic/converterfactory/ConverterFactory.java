@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import nth.reflect.fw.generic.exception.TypeNotSupportedException;
 import nth.reflect.fw.generic.util.TypeUtil;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 /**
  * Abstract factory class to help create a converter of type <T> (I.E. a
@@ -20,9 +21,9 @@ import nth.reflect.fw.generic.util.TypeUtil;
  */
 public abstract class ConverterFactory<T> extends
 		NumberConverterFactory<T> {
-
+	
 	@SuppressWarnings("unchecked")
-	public T createConverter(Class<?> type_) {
+	public T createConverter(LanguageProvider languageProvider, Class<?> type_) {
 		// boolean
 		if (Boolean.class.isAssignableFrom(type_)) {
 			return createBooleanConverter();
@@ -31,7 +32,7 @@ public abstract class ConverterFactory<T> extends
 		// numbers
 
 		if (Number.class.isAssignableFrom(type_)) {
-			return createNumberConverter((Class<? extends Number>) type_);
+			return createNumberConverter(languageProvider, (Class<? extends Number>) type_);
 		} else
 
 		// text
@@ -77,7 +78,7 @@ public abstract class ConverterFactory<T> extends
 		}
 
 		// Not supported
-		throw new TypeNotSupportedException(type_, this.getClass());
+		throw new TypeNotSupportedException(languageProvider, type_, this.getClass());
 	}
 
 	public abstract T  createLocalTimeConverter();

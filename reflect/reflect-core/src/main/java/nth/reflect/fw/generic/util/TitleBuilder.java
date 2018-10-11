@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.NumericFormat;
 
 /**
@@ -42,14 +44,21 @@ public class TitleBuilder {
 	public static final String DEFAULT_SEPARATOR = COMMA_SPACE_SEPARATOR;
 	private final String defaultSeparator;
 	private final StringBuilder titleBuilder;
+	private final LanguageProvider languageProvider;
 
 	public TitleBuilder() {
 		this(DEFAULT_SEPARATOR);
 	}
 
+	/**
+	 * YUK: We create a new {@link DefaultLanguageProvider} here because the {@link NumericFormat} needs it to be able to throw a error message in the correct language. We do not want to pass a {@link LanguageProvider} to the {@link TitleBuilder} everytime it is needed.
+
+	 * @param defaultSeparator
+	 */
 	public TitleBuilder(String defaultSeparator) {
 		this.defaultSeparator = defaultSeparator;
 		this.titleBuilder = new StringBuilder();
+		this.languageProvider=new DefaultLanguageProvider();
 	}
 
 	//TODO: create title of object using reflection (using @Order, @Hidden notation and ignoring properties of type collection). This requires the ReflectionProvider. This is no problem if the TitleBuilder is injected into the object (improves peformance because titlebuilder does not have to be instantiated every toString call)
@@ -104,7 +113,7 @@ public class TitleBuilder {
 	public TitleBuilder append(final String separator, final Number number,
 			final String formatPattern) {
 		if (number != null) {
-			NumericFormat numberFormat = new NumericFormat(number.getClass(),
+			NumericFormat numberFormat = new NumericFormat(languageProvider, number.getClass(),
 					formatPattern);
 			String text = numberFormat.format(number);
 			append(separator, text);
@@ -150,7 +159,7 @@ public class TitleBuilder {
 
 	public TitleBuilder contact(Number number, String formatPattern) {
 		if (number != null) {
-			NumericFormat numberFormat = new NumericFormat(number.getClass(),
+			NumericFormat numberFormat = new NumericFormat(languageProvider, number.getClass(),
 					formatPattern);
 			String text = numberFormat.format(number);
 			contact(text);

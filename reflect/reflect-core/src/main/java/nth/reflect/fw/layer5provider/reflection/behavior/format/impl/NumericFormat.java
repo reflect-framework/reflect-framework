@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.reflect.fw.generic.exception.TypeNotSupportedException;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 /**
  * Adapter for {@link DecimalFormat} to return the correct {@link #numberType}
@@ -22,12 +23,14 @@ public class NumericFormat extends Format {
 	private static final long serialVersionUID = 5081082083122386923L;
 	private final DecimalFormat decimalFormat;
 	private Class<? extends Number> numberType;
+	private final LanguageProvider languageProvider;
 
-	public NumericFormat(Class<? extends Number> numberType) {
-		this(numberType, null);
+	public NumericFormat(LanguageProvider languageProvider, Class<? extends Number> numberType) {
+		this(languageProvider, numberType, null);
 	}
 
-	public NumericFormat(Class<? extends Number> numberType, String format) {
+	public NumericFormat(LanguageProvider languageProvider, Class<? extends Number> numberType, String format) {
+		this.languageProvider = languageProvider;
 		this.numberType = numberType;
 		if (format == null || format.trim().length() == 0) {
 			decimalFormat = new DecimalFormat();
@@ -70,7 +73,7 @@ public class NumericFormat extends Format {
 			} else if (Short.class.isAssignableFrom(numberType)) {
 				return number.shortValue();
 			}
-			throw new TypeNotSupportedException(numberType, this.getClass());
+			throw new TypeNotSupportedException(languageProvider, numberType, this.getClass());
 		}
 	}
 

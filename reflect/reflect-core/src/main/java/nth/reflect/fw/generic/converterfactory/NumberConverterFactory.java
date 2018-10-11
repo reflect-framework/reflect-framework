@@ -6,10 +6,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.reflect.fw.generic.exception.TypeNotSupportedException;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 public abstract class NumberConverterFactory<T> {
 
-	public T createNumberConverter(Class<? extends Number> type_) {
+	public T createNumberConverter(LanguageProvider languageProvider, Class<? extends Number> type_) {
 
 		if (AtomicInteger.class.isAssignableFrom(type_)) {
 			return createAtomicIntegerConverter();
@@ -31,14 +32,14 @@ public abstract class NumberConverterFactory<T> {
 			return createLongConverter();
 		} else if (Short.class.isAssignableFrom(type_)) {
 			return createShortConverter();
-		} 
-		throw new TypeNotSupportedException(type_, this.getClass());
+		}
+		throw new TypeNotSupportedException(languageProvider, type_, this.getClass());
 	}
-	
+
 	public abstract T createAtomicIntegerConverter();
 
 	public abstract T createAtomicLongConverter();
-	
+
 	public abstract T createBigDecimalConverter();
 
 	public abstract T createBigIntegerConverter();

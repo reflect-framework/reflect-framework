@@ -62,7 +62,7 @@ public class FormatFactory extends ConverterFactory<Format> {
 	 *         string to property
 	 */
 	public Format getFormat() {
-		return createConverter(propertyType);	
+		return createConverter(languageProvider, propertyType);	
 	}
 
 	@Override
@@ -110,53 +110,53 @@ public class FormatFactory extends ConverterFactory<Format> {
 
 	@Override
 	public Format createShortConverter() {
-		return new NumericFormat(Short.class, formatPattern);
+		return new NumericFormat(languageProvider,Short.class, formatPattern);
 	}
 
 	@Override
 	public Format createLongConverter() {
-		return new NumericFormat(Long.class, formatPattern);
+		return new NumericFormat(languageProvider,Long.class, formatPattern);
 	}
 
 	@Override
 	public Format createIntegerConverter() {
-		return new NumericFormat(Integer.class, formatPattern);
+		return new NumericFormat(languageProvider,Integer.class, formatPattern);
 	}
 
 	@Override
 	public Format createFloatCoverter() {
-		return new NumericFormat(Float.class, formatPattern);
+		return new NumericFormat(languageProvider,Float.class, formatPattern);
 	}
 
 	@Override
 	public Format createDoubleConverter() {
-		return new NumericFormat(Double.class, formatPattern);
+		return new NumericFormat(languageProvider,Double.class, formatPattern);
 	}
 
 	@Override
 	public Format createByteConverter() {
-		return new NumericFormat(Byte.class, formatPattern);
+		return new NumericFormat(languageProvider,Byte.class, formatPattern);
 	}
 
 	@Override
 	public Format createBigIntegerConverter() {
-		return new NumericFormat(BigInteger.class, formatPattern);
+		return new NumericFormat(languageProvider,BigInteger.class, formatPattern);
 
 	}
 
 	@Override
 	public Format createBigDecimalConverter() {
-		return new NumericFormat(BigDecimal.class, formatPattern);
+		return new NumericFormat(languageProvider,BigDecimal.class, formatPattern);
 	}
 
 	@Override
 	public Format createAtomicLongConverter() {
-		return new NumericFormat(AtomicLong.class, formatPattern);
+		return new NumericFormat(languageProvider,AtomicLong.class, formatPattern);
 	}
 
 	@Override
 	public Format createAtomicIntegerConverter() {
-		return new NumericFormat(AtomicInteger.class, formatPattern);
+		return new NumericFormat(languageProvider,AtomicInteger.class, formatPattern);
 	}
 
 	@Override

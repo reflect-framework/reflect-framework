@@ -35,7 +35,7 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 	 *         string to property
 	 */
 	public Format create(Class<?> type) {
-		return createConverter(type);	
+		return createConverter(languageProvider, type);	
 	}
 
 
@@ -76,53 +76,53 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 
 	@Override
 	public Format createShortConverter() {
-		return new NumericFormat(Short.class, null);
+		return new NumericFormat(languageProvider, Short.class, null);
 	}
 
 	@Override
 	public Format createLongConverter() {
-		return new NumericFormat(Long.class, null);
+		return new NumericFormat(languageProvider,Long.class, null);
 	}
 
 	@Override
 	public Format createIntegerConverter() {
-		return new NumericFormat(Integer.class, null);
+		return new NumericFormat(languageProvider,Integer.class, null);
 	}
 
 	@Override
 	public Format createFloatCoverter() {
-		return new NumericFormat(Float.class, null);
+		return new NumericFormat(languageProvider,Float.class, null);
 	}
 
 	@Override
 	public Format createDoubleConverter() {
-		return new NumericFormat(Double.class, null);
+		return new NumericFormat(languageProvider,Double.class, null);
 	}
 
 	@Override
 	public Format createByteConverter() {
-		return new NumericFormat(Byte.class, null);
+		return new NumericFormat(languageProvider,Byte.class, null);
 	}
 
 	@Override
 	public Format createBigIntegerConverter() {
-		return new NumericFormat(BigInteger.class, null);
+		return new NumericFormat(languageProvider,BigInteger.class, null);
 
 	}
 
 	@Override
 	public Format createBigDecimalConverter() {
-		return new NumericFormat(BigDecimal.class, null);
+		return new NumericFormat(languageProvider,BigDecimal.class, null);
 	}
 
 	@Override
 	public Format createAtomicLongConverter() {
-		return new NumericFormat(AtomicLong.class, null);
+		return new NumericFormat(languageProvider,AtomicLong.class, null);
 	}
 
 	@Override
 	public Format createAtomicIntegerConverter() {
-		return new NumericFormat(AtomicInteger.class, null);
+		return new NumericFormat(languageProvider,AtomicInteger.class, null);
 	}
 
 	@Override
