@@ -1,9 +1,10 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter;
 
-import nth.reflect.fw.generic.filter.Filter;
+import java.util.function.Predicate;
+
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class MethodNameFilter implements Filter<ActionMethodInfo> {
+public class MethodNameFilter implements Predicate<ActionMethodInfo> {
 
 	private final String name;
 	public MethodNameFilter(String name) {
@@ -11,7 +12,7 @@ public class MethodNameFilter implements Filter<ActionMethodInfo> {
 	}
 
 	@Override
-	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+	public boolean test(ActionMethodInfo  actionMethodInfo) {
 		return actionMethodInfo.getSimpleName().equals(name);
 	}
 

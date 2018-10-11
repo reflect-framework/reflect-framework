@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.generic.filter.Filter;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.NoParameterOrParameterFactoryFilter;
@@ -63,7 +62,7 @@ public class ServiceObjectItem implements Item {
 	}
 
 	public List<Item> createActionMethodItems(UserInterfaceController userInterfaceController) {
-		Filter<ActionMethodInfo> filter = new NoParameterOrParameterFactoryFilter();
+		 NoParameterOrParameterFactoryFilter filter = new NoParameterOrParameterFactoryFilter();
 		List<ActionMethodInfo> actionMethodInfos = serviceObjectInfo.getActionMethodInfos(filter);
 		List<Item> actionMethodItems = new ArrayList<>();
 		for (ActionMethodInfo methodInfo : actionMethodInfos) {

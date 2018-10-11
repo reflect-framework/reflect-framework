@@ -2,8 +2,8 @@ package nth.reflect.fw.ui.item.method;
 
 import java.net.URL;
 import java.util.List;
+import java.util.function.Predicate;
 
-import nth.reflect.fw.generic.filter.LogicFilter;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -44,11 +44,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
 			if (otherPropertyInfo != propertyInfo) {
-
-				LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
-						new LinkedToPropertyFilter(otherPropertyInfo));
-				filter.and(new ParameterTypeFilter(parameterClass));
-
+				Predicate<ActionMethodInfo> filter=new LinkedToPropertyFilter(otherPropertyInfo).and(new ParameterTypeFilter(parameterClass));
 				List<ActionMethodInfo> propertyMethods = classInfo.getActionMethodInfos(filter);
 				for (ActionMethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(

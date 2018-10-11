@@ -3,10 +3,9 @@ package nth.reflect.fw.layer5provider.reflection.info.classinfo;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import nth.reflect.fw.generic.filter.Filter;
-import nth.reflect.fw.generic.filter.FilterUtil;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
@@ -134,9 +133,10 @@ public class ClassInfo implements NameInfo {
 		return null;
 	}
 
-	public List<ActionMethodInfo> getActionMethodInfos(Filter<ActionMethodInfo> methodInfoFilter) {
-		List<ActionMethodInfo> foundMethodInfos = FilterUtil.filter(actionMethodInfosSorted, methodInfoFilter);
-		return foundMethodInfos;
+	public List<ActionMethodInfo> getActionMethodInfos(Predicate<ActionMethodInfo> filter) {
+		List<ActionMethodInfo> filteredActionMethods = actionMethodInfosSorted.stream().filter(filter)
+				.collect(Collectors.toList());
+		return filteredActionMethods;
 	}
 
 	public Class<?>[] getServiceObjectChildren() {

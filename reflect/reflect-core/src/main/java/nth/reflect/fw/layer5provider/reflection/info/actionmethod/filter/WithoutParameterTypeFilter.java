@@ -1,9 +1,10 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter;
 
-import nth.reflect.fw.generic.filter.Filter;
+import java.util.function.Predicate;
+
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class WithoutParameterTypeFilter implements Filter<ActionMethodInfo> {
+public class WithoutParameterTypeFilter implements Predicate<ActionMethodInfo> {
 
 	private final Class<?> parameterType;
 
@@ -17,7 +18,7 @@ public class WithoutParameterTypeFilter implements Filter<ActionMethodInfo> {
 	 * @return True if the method does not require a given parameter to be invoked. In other words: If the methods has no parameter or if the parameter has a parameter factory method
 	 */
 	@Override
-	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+	public boolean test(ActionMethodInfo actionMethodInfo) {
 		Class<?> methodParameterClass = actionMethodInfo.getParameterType();
 		return methodParameterClass == null || !actionMethodInfo.getParameterType().isAssignableFrom(parameterType);
 	}

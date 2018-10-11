@@ -1,12 +1,13 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter;
 
-import nth.reflect.fw.generic.filter.Filter;
+import java.util.function.Predicate;
+
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class NoParameterOrParameterFactoryFilter implements Filter<ActionMethodInfo> {
+public class NoParameterOrParameterFactoryFilter implements Predicate<ActionMethodInfo> {
 
 	@Override
-	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+	public boolean test(ActionMethodInfo actionMethodInfo) {
 		return !actionMethodInfo.hasParameter() || actionMethodInfo.hasParameterFactory();
 	}
 

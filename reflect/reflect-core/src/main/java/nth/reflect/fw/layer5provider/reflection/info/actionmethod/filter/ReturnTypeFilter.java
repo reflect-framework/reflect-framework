@@ -1,9 +1,10 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter;
 
-import nth.reflect.fw.generic.filter.Filter;
+import java.util.function.Predicate;
+
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class ReturnTypeFilter implements Filter<ActionMethodInfo>{
+public class ReturnTypeFilter implements Predicate<ActionMethodInfo>{
 
 	private final Class<?> returnType;
 
@@ -13,7 +14,7 @@ public class ReturnTypeFilter implements Filter<ActionMethodInfo>{
 
 
 	@Override
-	public boolean isMatch(ActionMethodInfo actionMethodInfo) {
+	public boolean test(ActionMethodInfo actionMethodInfo) {
 		Class<?> methodReturnClass = actionMethodInfo.getGenericReturnType();
 		return methodReturnClass!=null && returnType.isAssignableFrom(methodReturnClass);
 	}

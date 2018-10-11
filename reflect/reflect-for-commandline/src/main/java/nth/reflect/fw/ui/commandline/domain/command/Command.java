@@ -4,8 +4,8 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import nth.reflect.fw.generic.filter.FilterUtil;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.NoParameterFactoryException;
@@ -37,13 +37,12 @@ public class Command {
 
 		if (parameterClass != null) {
 
-			// get propertyInfos
 			Class<?> returnClass = actionMethodInfo.getGenericParameterType();
 			ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
 			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
-			propertyInfos = FilterUtil.filter(propertyInfos, new CommandLineParameterFilter());
+			List<PropertyInfo> editableSimplePropertyInfos = propertyInfos.stream().filter(propertyInfo-> propertyInfo.isVisibleInTable() && !propertyInfo.isReadOnly()).collect(Collectors.toList());
 
-			for (PropertyInfo propertyInfo : propertyInfos) {
+			for (PropertyInfo propertyInfo : editableSimplePropertyInfos) {
 				Parameter parameter = new Parameter(propertyInfo);
 				parameters.add(parameter);
 			}

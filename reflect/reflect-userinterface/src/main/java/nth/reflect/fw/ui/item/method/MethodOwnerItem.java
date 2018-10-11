@@ -2,8 +2,8 @@ package nth.reflect.fw.ui.item.method;
 
 import java.net.URL;
 import java.util.List;
+import java.util.function.Predicate;
 
-import nth.reflect.fw.generic.filter.Filter;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -20,7 +20,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 	private final Object methodOwner;
 
 	public MethodOwnerItem(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
-			Filter<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
+			Predicate<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
 		ReflectionProvider reflectionProvider = userInterfaceContainer
@@ -44,7 +44,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 	}
 
 	private void addServiceObjectChildren(UserInterfaceContainer userInterfaceContainer,
-			Object methodOwner, Filter<ActionMethodInfo> methodFilter,
+			Object methodOwner, Predicate<ActionMethodInfo> methodFilter,
 			ReadOnlyValueModel methodParameterValueModel) {
 		Class<?>[] serviceObjectChildren = methodOwnerInfo.getServiceObjectChildren();
 		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
@@ -57,7 +57,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 	}
 
 	private void addActionMethods(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
-			Filter<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel,
+			Predicate<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel,
 			ReflectionProvider reflectionProvider) {
 		ClassInfo classInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
 		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos(methodFilter);

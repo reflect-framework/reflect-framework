@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
-import nth.reflect.fw.generic.filter.EqualsFilter;
-import nth.reflect.fw.generic.filter.Filter;
-import nth.reflect.fw.generic.filter.LogicFilter;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -77,6 +75,7 @@ public class ItemFactory {
 		return nestedServiceClasses;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Item> createFormViewRelationalFieldItems(FormView formView,
 			ReadOnlyValueModel parameterModel, PropertyInfo propertyInfo) {
 		List<Item> items = new ArrayList<Item>();
@@ -92,11 +91,7 @@ public class ItemFactory {
 				.get(ReflectionProvider.class);
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
-		Object methodOwner = formView.getDomainValueModel().getValue();
-		LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
-				new NoParameterOrParameterFactoryFilter());
-		filter.or(new ParameterTypeFilter(parameterType));
-		filter.and(new LinkedToPropertyFilter(propertyInfo));
+		Predicate<ActionMethodInfo> filter=new NoParameterOrParameterFactoryFilter().or(new ParameterTypeFilter(parameterType)).and(new LinkedToPropertyFilter(propertyInfo));
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainType);
 		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos(filter);
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
@@ -107,14 +102,13 @@ public class ItemFactory {
 			items.add(item);
 		}
 
+		@SuppressWarnings("rawtypes")
 		ViewController viewController = formView.getUserInterfaceContainer()
 				.get(GraphicalUserinterfaceController.class).getViewController();
 		items.addAll(createPropertyOwnerItems(viewController, parameterModel, propertyInfo));
 
 		// service object methods
-		filter = new LogicFilter<ActionMethodInfo>(new ParameterTypeFilter(parameterType));
-		filter.or(new ReturnTypeFilter(parameterType));
-		filter.andNot(new EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
+		filter=new ParameterTypeFilter(parameterType).or(new ReturnTypeFilter(parameterType)).and(actionMethod -> !actionMethod.equals(methodInfoToExclude));
 		UserInterfaceContainer userInterfaceContainer = formView.getUserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
@@ -123,24 +117,23 @@ public class ItemFactory {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Item> createTableViewRowMenuItems(TableView tableView) {
 		List<Item> items = new ArrayList<Item>();
 
 		// get info from table view
 		ActionMethodInfo methodInfoToExclude = tableView.getMethodInfo();
 		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
-		Class<?> parameterType = parameterModel.getValueType();
 		Object serviceObject = tableView.getMethodOwner();
 
+		@SuppressWarnings("rawtypes")
 		ViewController viewController = tableView.getUserInterfaceContainer()
 				.get(GraphicalUserinterfaceController.class).getViewController();
 		items.addAll(createPropertyOwnerItems(viewController, parameterModel, null));
 
 		// create filter for service object items
 		Class<?> domainType = parameterModel.getValueType();
-		LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
-				new ParameterTypeFilter(domainType));
-		filter.andNot(new EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
+		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(domainType).and(actionMethod -> !actionMethod.equals(methodInfoToExclude));
 		UserInterfaceContainer userInterfaceContainer = tableView.getUserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
@@ -148,6 +141,7 @@ public class ItemFactory {
 		return items;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Item> createTableViewRowMenuItems(TableView tableView,
 			Object domainObject) {
 		List<Item> items = new ArrayList<>();
@@ -157,16 +151,14 @@ public class ItemFactory {
 		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
 		Object serviceObject = tableView.getMethodOwner();
 
+		@SuppressWarnings("rawtypes")
 		ViewController viewController = tableView.getUserInterfaceContainer()
 				.get(GraphicalUserinterfaceController.class).getViewController();
 		items.addAll(createPropertyOwnerItems(viewController, parameterModel, null));
 
 		// create filter for service object items
 		Class<?> domainType = domainObject.getClass();
-		LogicFilter<ActionMethodInfo> filter = new LogicFilter<ActionMethodInfo>(
-				new ParameterTypeFilter(domainType));
-		// filter.andNot(new
-		// EqualsFilter<ActionMethodInfo>(methodInfoToExclude));
+		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(domainType);
 		UserInterfaceContainer userInterfaceContainer = tableView.getUserInterfaceContainer();
 		items.addAll(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel,
 				filter));
@@ -176,7 +168,7 @@ public class ItemFactory {
 
 	private static List<MethodOwnerItem> createServiceObjectItems(
 			UserInterfaceContainer userInterfaceContainer, Object serviceObjectToStartWith,
-			ReadOnlyValueModel parameterModel, Filter<ActionMethodInfo> filter) {
+			ReadOnlyValueModel parameterModel, Predicate<ActionMethodInfo> filter) {
 
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 

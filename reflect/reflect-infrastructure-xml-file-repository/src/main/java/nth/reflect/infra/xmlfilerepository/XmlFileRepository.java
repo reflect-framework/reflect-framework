@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.InvalidAlgorithmParameterException;
@@ -13,13 +12,12 @@ import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 
 import nth.reflect.fw.ReflectFramework;
-import nth.reflect.fw.generic.filter.Filter;
-import nth.reflect.fw.generic.filter.FilterUtil;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
 import nth.reflect.infra.generic.xml.XmlConverter;
 
@@ -82,11 +80,6 @@ public class XmlFileRepository {
 		return domainObjects;
 	}
 
-	public List<?> getAll(Filter<Object> filter) throws Exception {
-		domainObjects = getAll();
-		return FilterUtil.filter(domainObjects, filter);
-	}
-
 	private String readXmlDatabaseFile() throws InvalidKeyException,
 			InvalidAlgorithmParameterException, Exception {
 		if (databaseFile.exists()) {
@@ -132,14 +125,8 @@ public class XmlFileRepository {
 	 * @throws Exception
 	 */
 	public List<?> getAll(final Class<?> type) throws Exception {
-		Filter<Object> typeFilter = new Filter<Object>() {
-
-			@Override
-			public boolean isMatch(Object obj) {
-				return type == obj.getClass();
-			}
-		};
-		return getAll(typeFilter);
+		List<Object> allObjectsOfGivenType = getAll().stream().filter(obj -> obj.getClass()==type).collect(Collectors.toList());
+		return allObjectsOfGivenType;
 	}
 
 }

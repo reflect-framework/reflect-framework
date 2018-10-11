@@ -17,7 +17,8 @@ public class DefaultLanguageProvider implements LanguageProvider {
 		resourceBundleClassLoader = new ResourceBundleClassLoader();
 	}
 
-	private String getLanguageFileComments() {
+	//TODO use when generating language files
+	public String getLanguageFileComments() {
 		StringBuffer MESSAGE = new StringBuffer();
 		MESSAGE.append("This file contains information for a specific language. Follow the following rules when modifying this file:\n");
 		MESSAGE.append("#- DO NOT modify or remove lines that start with a # character. These lines contain important rules\n");

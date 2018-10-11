@@ -1,6 +1,5 @@
 package nth.reflect.fw.layer5provider.url.fonticon;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -69,15 +68,6 @@ public class FontIconUrl implements ReflectUrl {
 		if (character==null || character.trim().length()==0   ) {
 			throw new MalformedURLException(
 					"No unicode character defined in FontIconUrl. URL should end with #\\<unicode character in Hex>: ");
-		}
-	}
-
-	private boolean urlExists(URL url) {
-		try {
-			url.openStream();
-			return true;
-		} catch (IOException e) {
-			return false;
 		}
 	}
 
