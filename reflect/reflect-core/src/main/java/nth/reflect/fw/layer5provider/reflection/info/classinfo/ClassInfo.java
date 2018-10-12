@@ -15,7 +15,6 @@ import nth.reflect.fw.layer5provider.reflection.behavior.description.Description
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModelFactory;
-import nth.reflect.fw.layer5provider.reflection.behavior.serviceobjectchildren.ServiceObjectChildrenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
@@ -42,7 +41,6 @@ public class ClassInfo implements NameInfo {
 	private final List<Method> validationMethods;
 	private final List<PropertyInfo> propertyInfosSorted;
 	private final List<ActionMethodInfo> actionMethodInfosSorted;
-	private final ServiceObjectChildrenModel serviceObjectChildrenModel;
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
@@ -56,7 +54,6 @@ public class ClassInfo implements NameInfo {
 		this.descriptionModel = new DescriptionModel(languageProvider, objectClass, simpleName, canonicalName);
 		this.titleModel = new TitleModel(reflectionProvider);
 		this.fontIconModel = FontIconModelFactory.create(objectClass);
-		this.serviceObjectChildrenModel = new ServiceObjectChildrenModel(providerContainer, objectClass);
 		this.validationMethods = ValidationMethodFactory.create(objectClass);
 		this.propertyInfosSorted = PropertyInfoFactory.createSorted(providerContainer, objectClass);
 		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, this);
@@ -139,12 +136,5 @@ public class ClassInfo implements NameInfo {
 		return filteredActionMethods;
 	}
 
-	public Class<?>[] getServiceObjectChildren() {
-		return serviceObjectChildrenModel.getServiceObjectChildren();
-	}
-
-	public boolean getServiceObjectChildrenBeforeActionMethods() {
-		return serviceObjectChildrenModel.isBeforeActionMethods();
-	}
 
 }

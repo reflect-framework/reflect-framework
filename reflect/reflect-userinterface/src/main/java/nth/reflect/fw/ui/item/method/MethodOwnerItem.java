@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer2service.ServiceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -23,37 +22,12 @@ public class MethodOwnerItem extends HierarchicalItem {
 			Predicate<ActionMethodInfo> methodFilter, ReadOnlyValueModel methodParameterValueModel) {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
-		ReflectionProvider reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
+		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		methodOwnerInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
-		boolean serviceObjectChildrenBeforeActionMethods = methodOwnerInfo
-				.getServiceObjectChildrenBeforeActionMethods();
 
-		if (serviceObjectChildrenBeforeActionMethods) {
-			addServiceObjectChildren(userInterfaceContainer, methodOwner, methodFilter,
-					methodParameterValueModel);
-			addActionMethods(userInterfaceContainer, methodOwner, methodFilter,
-					methodParameterValueModel, reflectionProvider);
-		} else {
-			addActionMethods(userInterfaceContainer, methodOwner, methodFilter,
-					methodParameterValueModel, reflectionProvider);
-			addServiceObjectChildren(userInterfaceContainer, methodOwner, methodFilter,
-					methodParameterValueModel);
-		}
+		addActionMethods(userInterfaceContainer, methodOwner, methodFilter, methodParameterValueModel,
+				reflectionProvider);
 
-	}
-
-	private void addServiceObjectChildren(UserInterfaceContainer userInterfaceContainer,
-			Object methodOwner, Predicate<ActionMethodInfo> methodFilter,
-			ReadOnlyValueModel methodParameterValueModel) {
-		Class<?>[] serviceObjectChildren = methodOwnerInfo.getServiceObjectChildren();
-		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
-		for (Class<?> serviceClass : serviceObjectChildren) {
-			Object serviceObject = serviceContainer.get(serviceClass);
-			MethodOwnerItem methodOwnerItem = new MethodOwnerItem(userInterfaceContainer,
-					serviceObject, methodFilter, methodParameterValueModel);
-			addItem(methodOwnerItem);
-		}
 	}
 
 	private void addActionMethods(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
@@ -62,8 +36,8 @@ public class MethodOwnerItem extends HierarchicalItem {
 		ClassInfo classInfo = reflectionProvider.getClassInfo(methodOwner.getClass());
 		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos(methodFilter);
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
-			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner,
-					actionMethodInfo, methodParameterValueModel);
+			MethodItem methodItem = new MethodItem(userInterfaceContainer, methodOwner, actionMethodInfo,
+					methodParameterValueModel);
 			addItem(methodItem);
 		}
 	}
