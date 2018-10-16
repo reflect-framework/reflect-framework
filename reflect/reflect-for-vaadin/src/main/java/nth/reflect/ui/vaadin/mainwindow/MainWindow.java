@@ -51,9 +51,10 @@ import nth.reflect.ui.vaadin.view.container.TabViewController;
  * @author nilsth
  *
  */
-@HtmlImport("styles/reflect-resize.html")
+
 @HtmlImport("bower_components/font-roboto/roboto.html")
 @JavaScript("bower_components/jquery/3.3.1-1/jquery.js")
+@JavaScript("js/main-window.js")
 public class MainWindow extends Div {
 
 	private static final long serialVersionUID = -1026778643991244247L;
@@ -83,11 +84,11 @@ public class MainWindow extends Div {
 	 * @return An mainMenu element. The menu element is a placeholder (a
 	 *         container) for the main menu. The mainMenu element and all its
 	 *         children will be repositioned and resized with javascript (see
-	 *         reflect-resize.html)
+	 *         main-window.js)
 	 */
 	private Div createMainMenu() {
 		Div mainMenu = new Div();
-		mainMenu.setId("main-menu");
+		mainMenu.setId("mainMenu");
 		new StyleBuilder().setProperty("border-right", "1px solid lightgray").setZIndex(Z_INDEX_MAIN_MENU)
 				.setBackground(Color.WHITE).setFor(mainMenu);
 
@@ -137,11 +138,11 @@ public class MainWindow extends Div {
 	 * @return An content element. The content element is a placeholder (a
 	 *         container) for the tab contents. The content element and all its
 	 *         children will be repositioned and resized with javascript (see
-	 *         reflect-resize.html)
+	 *         main-window.js)
 	 */
 	private Div createTabViewContainer() {
 		Div tabViewContainer = new Div();
-		tabViewContainer.setId("tab-view-container");
+		tabViewContainer.setId("tabViewContainer");
 		return tabViewContainer;
 	}
 
@@ -149,10 +150,11 @@ public class MainWindow extends Div {
 	 * @return An contentOverlay element. It covers the other content when the
 	 *         mainMenu element is visible in drawer mode. The contentOverlay
 	 *         element's visibility, position and size is set with javascript
-	 *         (see reflect-resize.html)
+	 *         (see main-window.js)
 	 */
 	private Div createOverlay() {
 		Div contentOverlay = new Div();
+		contentOverlay.getElement().setAttribute("onclick", "closeMainMenu()");
 		new StyleBuilder().setPosition(Position.FIXED).setDisplay(Display.NONE).setBackground(BLACK_WITH_OPACITY)
 				.setZIndex(Z_INDEX_CONTENT_OVERLAY).setCursor(Cursor.POINTER).setFor(contentOverlay);
 		contentOverlay.setId("overlay");
@@ -163,7 +165,7 @@ public class MainWindow extends Div {
 	 * @return An header element. The header element is a placeholder (a
 	 *         container) for the title bar with tab headers. The header element
 	 *         and its children will be repositioned and resized with javascript
-	 *         (see reflect-resize.html)
+	 *         (see main-window.js)
 	 */
 	private HorizontalLayout createHeader() {
 		HorizontalLayout header = new HorizontalLayout();
@@ -189,7 +191,7 @@ public class MainWindow extends Div {
 
 	private Button createContextMenuButton() {
 		Button contextMenuButton = new Button(new Icon(VaadinIcon.ELLIPSIS_DOTS_V));
-		contextMenuButton.setId("context-menu-button");
+		contextMenuButton.setId("contextMenuButton");
 		new StyleBuilder().setColor(Color.WHITE).setPosition(Position.ABSOLUTE).setRight(0, SizeUnit.PX)
 				.setFor(contextMenuButton);
 		return contextMenuButton;
@@ -197,7 +199,8 @@ public class MainWindow extends Div {
 
 	private Button createMainMenuButton() {
 		Button mainMenuButton = new Button(new Icon(VaadinIcon.MENU));
-		mainMenuButton.setId("main-menu-button");
+		mainMenuButton.setId("mainMenuButton");
+		mainMenuButton.getElement().setAttribute("onclick", "toggleMainMenu()");
 		new StyleBuilder().setColor(Color.WHITE).setFor(mainMenuButton);
 		return mainMenuButton;
 	}
@@ -220,7 +223,7 @@ public class MainWindow extends Div {
 		tabsToViews.put(tab3, view3);
 
 		tabsBar = new Tabs(tab1, tab2, tab3);
-		tabsBar.setId("tab-headers");
+		tabsBar.setId("tabHeaders");
 
 		tabViewContainer.add(view1, view2, view3);
 		selectedTabView = Stream.of(view1).collect(Collectors.toSet());
