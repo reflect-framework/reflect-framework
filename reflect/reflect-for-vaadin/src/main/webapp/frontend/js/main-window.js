@@ -74,7 +74,7 @@ function updateGui() {
 }
 
 function updateHeader(windowSizeHorizontal, windowSizeVertical) {
-	header = document.getElementById("header")
+	header = document.getElementById("headerBar")
 	if (header) {
 		header.style.position = "fixed";
 		header.style.top = "0px";
@@ -97,7 +97,7 @@ function updateTitle(windowSizeHorizontal) {
 }
 
 function updateTabHeaders(windowSizeHorizontal) {
-	tabHeaders = document.getElementById("tabHeaders");
+	tabHeaders = document.getElementById("tabHeaderBar");
 	title = document.getElementById("title");
 	contextMenuButton = document.getElementById("contextMenuButton");
 	if (tabHeaders && title && contextMenuButton) {
@@ -137,7 +137,7 @@ function updateContent(windowSizeHorizontal, windowSizeVertical) {
 }
 
 function updateMainMenu(windowSizeHorizontal, windowSizeVertical) {
-	header = document.getElementById("header")
+	header = document.getElementById("headerBar")
 	mainMenu = document.getElementById("mainMenu");
 	if (header && mainMenu) {
 		mainMenu.style.alignSelf = null;
