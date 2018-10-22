@@ -8,66 +8,69 @@ import java.util.function.Predicate;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.view.TableView;
+import nth.reflect.fw.ui.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.tab.table.TableTab;
 
 public class TableRowMenuItems extends UnmodifiableCollection<Item> {
 
 	private static final long serialVersionUID = 6211256666484535772L;
 
-	public TableRowMenuItems(TableView tableView) {
-		super(createTableMenuItems(tableView));
+	public TableRowMenuItems(TableTab tableTab) {
+		super(createTableMenuItems(tableTab));
 	}
 
-	public TableRowMenuItems(TableView tableView, Object domainObject) {
-		super(createTableMenuItems(tableView, domainObject));
+	public TableRowMenuItems(TableTab tableTab, Object domainObject) {
+		super(createTableMenuItems(tableTab, domainObject));
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Collection<? extends Item> createTableMenuItems(TableView tableView) {
+	private static Collection<? extends Item> createTableMenuItems(TableTab tableTab) {
 		List<Item> items = new ArrayList<Item>();
 
-		// get info from table view
-		ActionMethodInfo methodInfoToExclude = tableView.getMethodInfo();
-		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
-		Object serviceObject = tableView.getMethodOwner();
+		// get info from table tab
+		ActionMethodInfo methodInfoToExclude = tableTab.getMethodInfo();
+		ReadOnlyValueModel parameterModel = tableTab.getSelectedRowModel();
+		Object serviceObject = tableTab.getMethodOwner();
 
 		@SuppressWarnings("rawtypes")
-		ViewController viewController = tableView.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class).getViewController();
-		items.addAll(new PropertyMethodOwnerItems(viewController, parameterModel, null));
+		GraphicalUserinterfaceController userinterfaceController = tableTab.getUserInterfaceContainer()
+				.get(GraphicalUserinterfaceController.class);
+		Tabs<Tab> tabs = userinterfaceController.getTabs();
+		items.addAll(new PropertyMethodOwnerItems(tabs, parameterModel, null));
 
 		// create filter for service object items
 		Class<?> domainType = parameterModel.getValueType();
 		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(domainType)
 				.and(actionMethod -> !actionMethod.equals(methodInfoToExclude));
-		UserInterfaceContainer userInterfaceContainer = tableView.getUserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer = tableTab.getUserInterfaceContainer();
 		items.addAll(new ServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
 
 		return items;
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Collection<? extends Item> createTableMenuItems(TableView tableView, Object domainObject) {
+	private static Collection<? extends Item> createTableMenuItems(TableTab tableTab, Object domainObject) {
 		List<Item> items = new ArrayList<>();
 
-		// get info from table view
-		// ActionMethodInfo methodInfoToExclude = tableView.getMethodInfo();
-		ReadOnlyValueModel parameterModel = tableView.getSelectedRowModel();
-		Object serviceObject = tableView.getMethodOwner();
+		// get info from table tab
+		ReadOnlyValueModel parameterModel = tableTab.getSelectedRowModel();
+		Object serviceObject = tableTab.getMethodOwner();
 
 		@SuppressWarnings("rawtypes")
-		ViewController viewController = tableView.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class).getViewController();
-		items.addAll(new PropertyMethodOwnerItems(viewController, parameterModel, null));
+		GraphicalUserinterfaceController userinterfaceController = tableTab.getUserInterfaceContainer()
+				.get(GraphicalUserinterfaceController.class);
+		@SuppressWarnings("rawtypes")
+		Tabs tab = userinterfaceController.getTabs();
+		items.addAll(new PropertyMethodOwnerItems(tab, parameterModel, null));
 
 		// create filter for service object items
 		Class<?> domainType = domainObject.getClass();
 		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(domainType);
-		UserInterfaceContainer userInterfaceContainer = tableView.getUserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer = tableTab.getUserInterfaceContainer();
 		items.addAll(new ServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
 
 		return items;

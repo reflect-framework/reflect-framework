@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 
 public class RfxUtils {
 
+	@SuppressWarnings("unchecked")
 	public static <T extends Object> Optional<T>  findParent(Parent parentNode,
 			Class<T> classToFind) {
 		Parent parent = parentNode.getParent();

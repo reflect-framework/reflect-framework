@@ -6,24 +6,39 @@ import javax.swing.JPanel;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.ui.style.ReflectColors;
+import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
-import nth.reflect.fw.ui.swing.view.SwingView;
+import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.tab.TabsListener;
 
-public class ContentPanel extends JPanel {
+public class ContentPanel extends JPanel implements TabsListener<Tab> {
 
 	private static final long serialVersionUID = 8212219054026076354L;
 
-	public ContentPanel(UserInterfaceContainer userInterfaceContainer) {
+	public ContentPanel(UserInterfaceContainer userInterfaceContainer, Tabs<Tab> tabs) {
+		tabs.addListener(this);
 		ReflectColors reflectColors = ReflectColors.getFrom(userInterfaceContainer);
 		setBackground(ColorFactory.create(reflectColors.getContentColors().getBackground()));
 		setLayout(new BorderLayout());
 	}
 
-	public void setView(SwingView currentView) {
+	@Override
+	public void onRemoveTab(Tab removedTab) {
+		// do nothing
+	}
+
+	@Override
+	public void onAddTab(Tab newTab) {
+		// do nothing
+	}
+
+	@Override
+	public void onSelectTab(Tab selectedTab) {
 		removeAll();
-		if (currentView != null) {
-			add(currentView, BorderLayout.CENTER);
+		if (selectedTab != null) {
+			add(selectedTab, BorderLayout.CENTER);
 		}
 		repaint();
+
 	}
 }

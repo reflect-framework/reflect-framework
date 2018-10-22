@@ -10,9 +10,6 @@ import nth.reflect.fw.ui.swing.component.button.MaterialButton;
 public class MaterialTabBarContextMenuButton extends MaterialButton {
 
 	private static final long serialVersionUID = -1862078530902019839L;
-	private static final int PADDING = 16;
-	private static final int SIZE = 20;
-	private static Object getIconPadding;
 
 	public MaterialTabBarContextMenuButton(ReflectColors reflectColors) throws MalformedURLException {
 		super(ApplicationBarStyle.getForeground1(reflectColors), ApplicationBarStyle.getBackgroundHighLighted(reflectColors), ApplicationBarStyle.getIconPadding(), ApplicationBarStyle.getIconSize(), FontAwesomeUrl.ELLIPSIS_V);

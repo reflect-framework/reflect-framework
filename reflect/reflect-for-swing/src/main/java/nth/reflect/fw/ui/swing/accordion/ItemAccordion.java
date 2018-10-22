@@ -15,7 +15,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.item.method.MethodItem;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
-import nth.reflect.fw.ui.swing.view.menu.MenuSearchListRenderer;
+import nth.reflect.fw.ui.swing.tab.menu.MenuSearchListRenderer;
 
 @SuppressWarnings("serial")
 public class ItemAccordion extends Accordion {

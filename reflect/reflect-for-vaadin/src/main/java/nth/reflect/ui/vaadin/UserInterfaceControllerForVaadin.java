@@ -18,25 +18,23 @@ import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
-import nth.reflect.ui.vaadin.view.container.TabView;
-import nth.reflect.ui.vaadin.view.container.TabViewController;
-import nth.reflect.ui.vaadin.view.form.FormView;
-import nth.reflect.ui.vaadin.view.form.row.PropertyPanel;
-import nth.reflect.ui.vaadin.view.table.TableView;
-import nth.reflect.ui.vaadin.view.treetable.TreeTableView;
+import nth.reflect.ui.vaadin.tab.form.FormTab;
+import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;
+import nth.reflect.ui.vaadin.tab.table.TableTab;
+import nth.reflect.ui.vaadin.tab.treetable.TreeTableTab;
 
-public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceController<TabView, PropertyPanel> {
+public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceController<nth.reflect.ui.vaadin.tab.Tab, PropertyPanel> {
 
 	private final ReflectApplicationForVaadin reflectAppForVaadin;
-	private final nth.reflect.ui.vaadin.view.form.row.PropertyPanelFactory propertyPanelFactory;
+	private final nth.reflect.ui.vaadin.tab.form.row.PropertyPanelFactory propertyPanelFactory;
 
 	public UserInterfaceControllerForVaadin(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin.class);
-		propertyPanelFactory = new nth.reflect.ui.vaadin.view.form.row.PropertyPanelFactory();
+		propertyPanelFactory = new nth.reflect.ui.vaadin.tab.form.row.PropertyPanelFactory();
 	}
 
 	/**
@@ -118,32 +116,28 @@ public class UserInterfaceControllerForVaadin extends GraphicalUserinterfaceCont
 
 	}
 
-	@Override
-	public TabViewController getViewController() {
-		return getMainWindow().getTabViewController();
-	}
 
 	private MainWindow getMainWindow() {
 		return reflectAppForVaadin.getMainWindow();
 	}
 
 	@Override
-	public TabView createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+	public FormTab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
+		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
 				formMode);
 	}
 
 	@Override
-	public TabView createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+	public TableTab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new TableView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
+		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override
-	public TabView createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public  TreeTableTab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		return new TreeTableView(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
+		return new TreeTableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override

@@ -26,14 +26,14 @@ import nth.reflect.fw.ui.GraphicalUserinterfaceController;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast.Style;
 import nth.reflect.fw.ui.swing.mainwindow.MainWindow;
-import nth.reflect.fw.ui.swing.view.SwingView;
-import nth.reflect.fw.ui.swing.view.form.FormView;
-import nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanel;
-import nth.reflect.fw.ui.swing.view.table.TableView;
-import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.ui.swing.tab.Tab;
+import nth.reflect.fw.ui.swing.tab.form.FormTab;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
+import nth.reflect.fw.ui.swing.tab.table.TableTab;
+import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
 
-public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<SwingView, PropertyPanel> {
+public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
 	private MainWindow mainWindow;
 
@@ -119,27 +119,23 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		}
 	}
 
-	@Override
-	public nth.reflect.fw.layer1userinterface.view.ViewController<SwingView> getViewController() {
-		return mainWindow.getViewContainer();
-	}
 
 	@Override
-	public SwingView createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new FormView(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
-	public SwingView createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		return new TableView(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue);
 	}
 
 	@Override
-	public SwingView createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
 		// TODO Auto-generated method stub
 		return null;
@@ -197,7 +193,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 
 	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		return new nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanelFactory();
+		return new nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory();
 	}
 
 }

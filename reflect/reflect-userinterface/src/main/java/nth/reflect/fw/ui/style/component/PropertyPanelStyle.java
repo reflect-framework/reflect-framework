@@ -1,6 +1,6 @@
 package nth.reflect.fw.ui.style.component;
 
-import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanel;
+import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel;
 
 /**
  * {@link PropertyPanelStyle} is a {@link ReflectStyleClass} for a {@link PropertyPanel}

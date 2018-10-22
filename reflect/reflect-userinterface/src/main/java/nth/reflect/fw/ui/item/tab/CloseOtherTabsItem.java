@@ -4,19 +4,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
+import nth.reflect.fw.ui.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
 
-public class CloseOtherTabsItem extends Item {
+public class CloseOtherTabsItem<TAB extends Tab> extends Item {
 
 	private static final String CLOSE_OTHER_TABS = "Close other tabs";
-	private final ViewController<View> viewController;
+	private final Tabs<TAB> tabs;
 
-	public CloseOtherTabsItem(LanguageProvider languageProvider, final ViewController<View> viewContainer, final View tabNotToBeClosed ) {
+	public CloseOtherTabsItem(LanguageProvider languageProvider, final Tabs<TAB> tabs, final TAB tabNotToBeClosed ) {
 		super(languageProvider);
-		this.viewController=viewContainer;
+		this.tabs=tabs;
 		setText(CLOSE_OTHER_TABS);
 		setDescription(CLOSE_OTHER_TABS);
 		try {
@@ -26,10 +26,10 @@ public class CloseOtherTabsItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				for (int i = viewContainer.getViewCount() - 1; i >= 0; i--) {
-					View view = viewContainer.getView(i);
-					if (view != tabNotToBeClosed) {
-						viewContainer.removeView(view);
+				for (int i = tabs.size() - 1; i >= 0; i--) {
+					TAB tab = tabs.get(i);
+					if (tab != tabNotToBeClosed) {
+						tabs.remove(tab);
 					}
 				}
 			}
@@ -38,7 +38,7 @@ public class CloseOtherTabsItem extends Item {
 	
 	@Override
 	public boolean isEnabled() {
-		return viewController.getViewCount() > 1;
+		return tabs.size() > 1;
 	}
 
 }

@@ -4,17 +4,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
+import nth.reflect.fw.ui.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
 
-public class CloseThisTabItem extends Item {
+public class CloseThisTabItem<TAB extends Tab> extends Item {
 
 	private static final String CLOSE_THIS_TAB = "Close this tab";
 
 	public CloseThisTabItem(LanguageProvider languageProvider,
-			final ViewController<View> viewContainer, final View tabToClose) {
+			final Tabs<TAB> tabs, final TAB tabToClose) {
 		super(languageProvider);
 		setText(CLOSE_THIS_TAB);
 		setDescription(CLOSE_THIS_TAB);
@@ -25,7 +25,7 @@ public class CloseThisTabItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				viewContainer.removeView(tabToClose);
+				tabs.remove(tabToClose);
 			}
 		});
 	}

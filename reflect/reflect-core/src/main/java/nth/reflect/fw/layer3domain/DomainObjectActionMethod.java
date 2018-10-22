@@ -11,7 +11,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </p>
  * <h3>Domain Object Menu</h3>
  * <p>
- * {@insert FormViewMenu}
+ * {@insert FormMenu}
  */
 public interface DomainObjectActionMethod extends ReflectDocumentationInterface {
 

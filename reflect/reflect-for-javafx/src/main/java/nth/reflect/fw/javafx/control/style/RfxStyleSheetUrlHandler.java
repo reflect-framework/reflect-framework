@@ -12,18 +12,18 @@ import nth.reflect.fw.javafx.control.button.RfxContentBottomToolbarButton;
 import nth.reflect.fw.javafx.control.button.RfxContentButton;
 import nth.reflect.fw.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeCell;
-import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeView;
+import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreePanel;
 import nth.reflect.fw.javafx.control.list.RfxList;
+import nth.reflect.fw.javafx.control.tab.form.PropertiesPanel;
+import nth.reflect.fw.javafx.control.tab.form.RfxContentBottomToolbar;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyLabel;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyLabelAndFieldPanel;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyValidationMessages;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyField;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextField;
 import nth.reflect.fw.javafx.control.table.RfxTable;
 import nth.reflect.fw.javafx.control.toolbar.RfxToolbar;
-import nth.reflect.fw.javafx.control.view.form.PropertiesPanel;
-import nth.reflect.fw.javafx.control.view.form.RfxContentBottomToolbar;
-import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyLabel;
-import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyLabelAndFieldPanel;
-import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyPanel;
-import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyValidationMessages;
-import nth.reflect.fw.javafx.control.view.form.proppanel.field.ManyToOneOrManyField;
-import nth.reflect.fw.javafx.control.view.form.proppanel.field.TextField;
 import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
@@ -54,7 +54,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 		appendButtons(styleSheet);
 		appendPropertyPanel(styleSheet);
 		appendFields(styleSheet);
-		RfxItemTreeView.appendStyleGroups(styleSheet);
+		RfxItemTreePanel.appendStyleGroups(styleSheet);
 		RfxItemTreeCell.appendStyleGroups(styleSheet);
 	}
 

@@ -36,7 +36,7 @@ import nth.reflect.fw.documentation.ReflectDocumentation;
  * local GitHub repositories. These GitHub repositories will ten be committed
  * and pushed onto the GitHub server (effectively publishing the documentation).
  * </p>
- * <h3>Viewing the Reflect Documentation</h3>
+ * <h3>Reading the Reflect Documentation</h3>
  * <p>
  * When the GitHubPageGenerator has published/updated the documentation it can be found at:
  * </p>

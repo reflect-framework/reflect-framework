@@ -15,7 +15,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * <a href="http://en.wikipedia.org/wiki/Application_framework">Application
  * Framework</a> for creating
  * <a href="https://en.wikipedia.org/wiki/Business_software">business like
- * applications</a> that can view and manipulate information by using
+ * applications</a> that can read and manipulate information by using
  * <a href="https://en.wikipedia.org/wiki/Form_(document)">forms</a> and
  * <a href="https://en.wikipedia.org/wiki/Table_(information)">tables</a>.
  * </p>

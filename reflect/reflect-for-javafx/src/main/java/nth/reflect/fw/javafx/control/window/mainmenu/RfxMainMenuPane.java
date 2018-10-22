@@ -1,7 +1,7 @@
 package nth.reflect.fw.javafx.control.window.mainmenu;
 
 import javafx.scene.layout.BorderPane;
-import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeView;
+import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreePanel;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.window.RfxWindow;
@@ -17,7 +17,7 @@ public class RfxMainMenuPane extends BorderPane {
 		setMinWidth(RfxWindow.MENU_WIDTH);
 		setMaxWidth(RfxWindow.MENU_WIDTH);
 
-		RfxItemTreeView mainMenuList = new RfxMainMenuItemTreeView(userInterfaceContainer);
+		RfxItemTreePanel mainMenuList = new RfxMainMenuItemTreePanel(userInterfaceContainer);
 		setCenter(mainMenuList);
 	}
 	

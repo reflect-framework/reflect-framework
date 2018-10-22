@@ -6,8 +6,8 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.fw.ui.view.FormView;
+import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.tab.form.FormTab;
 
 public class PropertyMethodItem extends MethodItem {
 
@@ -15,16 +15,16 @@ public class PropertyMethodItem extends MethodItem {
 	private ReadOnlyValueModel propertyOwnerModel;
 	private ActionMethodInfo propertyMethodInfo;
 	private ReadOnlyValueModel parameterValueModel;
-	private FormView formView;
+	private FormTab formTab;
 	private boolean showPropertyName;
 
-	public PropertyMethodItem(FormView formView, PropertyInfo propertyInfo,
+	public PropertyMethodItem(FormTab formTab, PropertyInfo propertyInfo,
 			ActionMethodInfo propertyMethodInfo,
 			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
-		super(formView.getUserInterfaceContainer(),  formView.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
-		this.formView = formView;
+		super(formTab.getUserInterfaceContainer(),  formTab.getDomainValueModel().getValue(), propertyMethodInfo, parameterValueModel);
+		this.formTab = formTab;
 		this.showPropertyName = showPropertyName;
-		this.propertyOwnerModel = formView.getDomainValueModel();
+		this.propertyOwnerModel = formTab.getDomainValueModel();
 		this.propertyInfo = propertyInfo;
 		this.propertyMethodInfo = propertyMethodInfo;
 		this.parameterValueModel = parameterValueModel;
@@ -38,11 +38,11 @@ public class PropertyMethodItem extends MethodItem {
 			@Override
 			public void run() {
 				@SuppressWarnings("rawtypes")
-				GraphicalUserinterfaceController userInterfaceController = formView.getUserInterfaceContainer().get(GraphicalUserinterfaceController.class);
+				GraphicalUserinterfaceController userInterfaceController = formTab.getUserInterfaceContainer().get(GraphicalUserinterfaceController.class);
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 				
- 				userInterfaceController.getViewController().setSelectedView(formView);
+ 				userInterfaceController.getTabs().setSelected(formTab);
 				userInterfaceController.processActionMethod(propertyOwner, propertyMethodInfo, methodParameter);
 			}
 		};
@@ -61,7 +61,7 @@ public class PropertyMethodItem extends MethodItem {
 		if (!propertyMethodInfo.hasParameterFactory() &&   propertyMethodInfo.hasParameter() ) {
 			parameterValue = parameterValueModel.getValue();
 		}
-		ReflectionProvider reflectionProvider=formView.getUserInterfaceContainer().get(ReflectionProvider.class);
+		ReflectionProvider reflectionProvider=formTab.getUserInterfaceContainer().get(ReflectionProvider.class);
 		text.append(TitleUtil.createTitle(reflectionProvider,propertyMethodInfo,
 				parameterValue));
 		return text.toString();
@@ -82,7 +82,7 @@ public class PropertyMethodItem extends MethodItem {
 	 */
 	@Override
 	public boolean isVisible() {
-		return FormMode.EDIT_MODE== formView.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+		return FormMode.EDIT_MODE== formTab.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
 	}
 	
 

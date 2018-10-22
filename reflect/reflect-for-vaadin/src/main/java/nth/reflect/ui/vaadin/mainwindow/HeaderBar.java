@@ -12,7 +12,6 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
 import nth.reflect.ui.vaadin.css.Overflow;
-import nth.reflect.ui.vaadin.css.Position;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
@@ -23,8 +22,9 @@ public class HeaderBar extends HorizontalLayout {
 
 	/**
 	 * The {@link HeaderBar} HTML element is a placeholder (a container) for the
-	 * title bar with tab headers. The {@link HeaderBar} element and its children
-	 * will be repositioned and resized with javascript (see main-window.js)
+	 * title bar with tab headers. The {@link HeaderBar} element and its
+	 * children will be repositioned and resized with javascript (see
+	 * main-window.js)
 	 */
 
 	public HeaderBar(UserInterfaceContainer userInterfaceContainer, MainWindow mainWindow) {
@@ -35,25 +35,15 @@ public class HeaderBar extends HorizontalLayout {
 				.setHeight(55, SizeUnit.PX).setPadding(5, 5, 0, 5).setZIndex(MainWindow.Z_INDEX_HEADER).setFor(this);
 
 		Button mainMenuButton = createMainMenuButton();
-		
+
 		Span title = createTitle();
-		TabHeaderBar tabHeaderBar = mainWindow.getTabHeaderBar();
-		Button contextMenuButton = createContextMenuButton();
-		
+		TabHeaderBar2 tabHeaderBar = mainWindow.getTabHeaderBar();
 
-		add(mainMenuButton, title, tabHeaderBar, contextMenuButton);
-//		setVerticalComponentAlignment(Alignment.CENTER, mainMenuButton, title, contextMenuButton);
-//		setVerticalComponentAlignment(Alignment.END, tabHeaderBar);
+		add(mainMenuButton, title, tabHeaderBar);
+		// setVerticalComponentAlignment(Alignment.CENTER, mainMenuButton,
+		// title, contextMenuButton);
+		// setVerticalComponentAlignment(Alignment.END, tabHeaderBar);
 
-	}
-	
-	// TODO improve button and icon appearance
-	private Button createContextMenuButton() {
-		Button contextMenuButton = new Button(new Icon(VaadinIcon.ELLIPSIS_DOTS_V));
-		contextMenuButton.setId("contextMenuButton");
-		new StyleBuilder().setColor(Color.WHITE).setPosition(Position.ABSOLUTE).setRight(0, SizeUnit.PX)
-				.setFor(contextMenuButton);
-		return contextMenuButton;
 	}
 
 	// TODO improve button and icon appearance
@@ -64,7 +54,6 @@ public class HeaderBar extends HorizontalLayout {
 		new StyleBuilder().setColor(Color.WHITE).setFor(mainMenuButton);
 		return mainMenuButton;
 	}
-
 
 	private Span createTitle() {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);

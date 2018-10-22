@@ -53,7 +53,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * Each application type (e.g. for the command line, desktop, mobile devices or
  * the web) has its own implementation of {@link ReflectApplication} to help
  * initializing the framework. See the type hierarchy of
- * {@link ReflectApplication} to learn which classes can be used and view their
+ * {@link ReflectApplication} to learn which classes can be used and read their
  * java doc to learn how to use them.
  * </p>
  * 

@@ -12,7 +12,6 @@ import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -25,43 +24,33 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.item.about.AboutItem;
-import nth.reflect.fw.ui.style.MenuType;
-import nth.reflect.fw.ui.swing.component.tabpanel.SwingViewContainer2;
+import nth.reflect.fw.ui.swing.UserinterfaceControllerForSwing;
+import nth.reflect.fw.ui.swing.component.tabpanel.TabPane;
 import nth.reflect.fw.ui.swing.component.toolbar.MaterialAppBar;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
 import nth.reflect.fw.ui.swing.image.ReflectImage;
-import nth.reflect.fw.ui.swing.item.button.ItemIconButton;
 import nth.reflect.fw.ui.swing.style.SwingStyleConstant;
-import nth.reflect.fw.ui.swing.view.container.ViewController;
-import nth.reflect.fw.ui.swing.view.menu.MenuList;
+import nth.reflect.fw.ui.swing.tab.Tab;
+import nth.reflect.fw.ui.swing.tab.menu.MenuList;
+import nth.reflect.fw.ui.tab.Tabs;
 
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 7688708437355470674L;
 	private JSplitPane splitPanel;
 	private JScrollPane menuPanel;
-	private SwingViewContainer2 viewContainer;
+	private TabPane tabPane;
 	private JButton menuButton;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
-	private final GraphicalUserinterfaceController userInterfaceController;
 	private final ReflectionProvider reflectionProvider;
-	private final AboutProvider aboutProvider;
 
 	public MainWindow(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.userInterfaceController = userInterfaceContainer
-				.get(GraphicalUserinterfaceController.class);
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		;
-		this.aboutProvider = userInterfaceContainer.get(AboutProvider.class);
-		;
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		// Set style
 		try {
@@ -79,11 +68,16 @@ public class MainWindow extends JFrame {
 		setIcon(application, applicationInfo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		
+		UserinterfaceControllerForSwing userInterfaceController = userInterfaceContainer
+				.get(UserinterfaceControllerForSwing.class);
+		Tabs<Tab> tabs = userInterfaceController.getTabs();
+		
 		// Create window contents
 		menuPanel = createMenuTabPanel();
-		// viewContainer = createContentTabPanel();
-		viewContainer = new SwingViewContainer2(userInterfaceContainer);
-		splitPanel = createSplitPanel(menuPanel, viewContainer);
+		// tabPane = createContentTabPanel();
+		tabPane = new TabPane(userInterfaceContainer, tabs);
+		splitPanel = createSplitPanel(menuPanel, tabPane);
 		getContentPane().add(splitPanel, BorderLayout.CENTER);
 
 		menuButton = createMenuButton();
@@ -97,7 +91,7 @@ public class MainWindow extends JFrame {
 
 		// add generic keyboard listener
 		KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-		manager.addKeyEventDispatcher(new KeyboardDispatcher(viewContainer));
+		manager.addKeyEventDispatcher(new KeyboardDispatcher(tabs));
 
 		// Display the window.
 		showMenu();
@@ -108,7 +102,9 @@ public class MainWindow extends JFrame {
 
 	private void setIcon(ReflectApplication application, ClassInfo applicationInfo) {
 		try {
-			URL iconUrl = applicationInfo.getFontIconUrl(application);//FIXME: use applicationInfo.getApplicationIconFile()
+			URL iconUrl = applicationInfo.getFontIconUrl(application);// FIXME:
+																		// use
+																		// applicationInfo.getApplicationIconFile()
 			Image image = Toolkit.getDefaultToolkit().getImage(iconUrl);
 			setIconImage(image);
 		} catch (Exception exception) {
@@ -197,15 +193,9 @@ public class MainWindow extends JFrame {
 	// }
 
 	private JSplitPane createSplitPanel(Component menuTabPanel, Component contentTabPanel) {
-		JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuTabPanel,
-				contentTabPanel);
+		JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuTabPanel, contentTabPanel);
 		splitPanel.setResizeWeight(0.25);
 		return splitPanel;
-	}
-
-	private ViewController createContentTabPanel() {
-		ViewController viewController = new ViewController(userInterfaceContainer);
-		return viewController;
 	}
 
 	private JScrollPane createMenuTabPanel() {
@@ -222,8 +212,7 @@ public class MainWindow extends JFrame {
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(false);
 		// set menu button
 		menuButton.setToolTipText(languageProvider.getText("Show Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(ReflectImage.MENU_OPENED,
-				SwingStyleConstant.ICON_SIZE));
+		menuButton.setIcon(IconFactory.create(ReflectImage.MENU_OPENED, SwingStyleConstant.ICON_SIZE));
 	}
 
 	public void showMenu() {
@@ -233,20 +222,19 @@ public class MainWindow extends JFrame {
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(true);
 		// hide menu button
 		menuButton.setToolTipText(languageProvider.getText("Hide Menu (F2)"));
-		menuButton.setIcon(IconFactory.create(ReflectImage.MENU_CLOSED,
-				SwingStyleConstant.ICON_SIZE));
+		menuButton.setIcon(IconFactory.create(ReflectImage.MENU_CLOSED, SwingStyleConstant.ICON_SIZE));
 	}
 
 	public boolean isMenuVisible() {
 		return menuPanel.isVisible();
 	}
 
-	public SwingViewContainer2 getViewContainer() {
-		return viewContainer;
+	public TabPane getTabContentPane() {
+		return tabPane;
 	}
 
 	public void setMenuVisible(boolean menuVisible) {
-		//TODO drawer style
+		// TODO drawer style
 		menuPanel.setVisible(menuVisible);
 	}
 }

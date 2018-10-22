@@ -5,32 +5,29 @@ import java.util.Collection;
 import java.util.List;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.item.method.PropertyMethodOwnerItem;
-import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.fw.ui.view.FormView;
+import nth.reflect.fw.ui.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.tab.form.FormTab;
 
 public class PropertyMethodOwnerItems extends UnmodifiableCollection<PropertyMethodOwnerItem> {
 
 	private static final long serialVersionUID = 5020795698213380376L;
 
-	public PropertyMethodOwnerItems(ViewController<View> viewContainer, ReadOnlyValueModel paramaterModel,
-			PropertyInfo propertyInfo) {
-		super(createPropertyMethodOwnerItems(viewContainer, paramaterModel, propertyInfo));
+	public PropertyMethodOwnerItems(Tabs<Tab> tabs, ReadOnlyValueModel paramaterModel, PropertyInfo propertyInfo) {
+		super(createPropertyMethodOwnerItems(tabs, paramaterModel, propertyInfo));
 	}
 
-	private static Collection<? extends PropertyMethodOwnerItem> createPropertyMethodOwnerItems(
-			ViewController<View> viewContainer, ReadOnlyValueModel paramaterModel, PropertyInfo propertyInfo) {
+	private static Collection<? extends PropertyMethodOwnerItem> createPropertyMethodOwnerItems(Tabs<Tab> tabs,
+			ReadOnlyValueModel paramaterModel, PropertyInfo propertyInfo) {
 		List<PropertyMethodOwnerItem> items = new ArrayList<>();
-
-		for (int index = 0; index < viewContainer.getViewCount(); index++) {
-			View view = (View) viewContainer.getView(index);
-			if (view instanceof FormView) {
-				FormView formView = (FormView) view;
-				if (FormMode.EDIT_MODE == formView.getFormMode()) {
-					PropertyMethodOwnerItem item = new PropertyMethodOwnerItem(formView, paramaterModel, propertyInfo);
+		for (Tab tab : tabs) {
+			if (tab instanceof FormTab) {
+				FormTab formTab = (FormTab) tab;
+				if (FormMode.EDIT_MODE == formTab.getFormMode()) {
+					PropertyMethodOwnerItem item = new PropertyMethodOwnerItem(formTab, paramaterModel, propertyInfo);
 					items.add(item);
 				}
 			}

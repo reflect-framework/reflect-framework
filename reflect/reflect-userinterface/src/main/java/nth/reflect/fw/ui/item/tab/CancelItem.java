@@ -3,17 +3,19 @@ package nth.reflect.fw.ui.item.tab;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import nth.reflect.fw.generic.translatablestring.ReflectTranslatable;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
+import nth.reflect.fw.ui.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
 
-public class CancelItem extends Item {
 
+public class CancelItem<TAB extends Tab> extends Item {
+	@ReflectTranslatable
 	private static final String CANCEL = "Cancel";
 
-	public CancelItem(LanguageProvider languageProvider, final ViewController<View> viewContainer,  final View tabToClose ) {
+	public CancelItem(LanguageProvider languageProvider, final Tabs<TAB> tabs,  final TAB tabToClose ) {
 		super(languageProvider);
 		setText(CANCEL);
 		setDescription(CANCEL);
@@ -24,7 +26,7 @@ public class CancelItem extends Item {
 		setAction(new Action() {
 			@Override
 			public void run() {
-				viewContainer.removeView(tabToClose);
+				tabs.remove(tabToClose);
 			}
 		});
 	}

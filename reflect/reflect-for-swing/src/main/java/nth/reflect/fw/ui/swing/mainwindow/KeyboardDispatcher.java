@@ -2,15 +2,19 @@ package nth.reflect.fw.ui.swing.mainwindow;
 
 import java.awt.KeyEventDispatcher;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import nth.reflect.fw.ui.swing.component.tabpanel.SwingViewContainer2;
+import nth.reflect.fw.ui.swing.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
 
 public class KeyboardDispatcher implements KeyEventDispatcher {
 
-	private final SwingViewContainer2 viewContainer;
+	private final Tabs<Tab> tabs;
 
-	public KeyboardDispatcher(SwingViewContainer2 viewContainer) {
-		this.viewContainer = viewContainer;
+	public KeyboardDispatcher(Tabs<Tab> tabs) {
+		this.tabs = tabs;
 	}
 
 	@Override
@@ -27,23 +31,40 @@ public class KeyboardDispatcher implements KeyEventDispatcher {
 			}
 			if (e.getKeyCode() == KeyEvent.VK_F4 && e.isControlDown()) {
 				if (e.isShiftDown()) {
-					viewContainer.closeOtherViews();
+					closeOtherTabs();
 					return true;
 				} else {
-					viewContainer.closeCurrentView();
+					closeCurrentTab();
 					return true;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_F6 && e.isControlDown()) {
 				if (e.isShiftDown()) {
-					viewContainer.selectPreviousView();
+					tabs.selectPrevious();
 					return true;
 				} else {
-					viewContainer.selectNextView();
+					tabs.selectNext();
 					return true;
 				}
 			}
 		}
 		return false;
 	}
+
+	private void closeCurrentTab() {
+		tabs.remove(tabs.getSelected());
+	}
+
+	public void closeOtherTabs() {
+		Tab selectedTab = tabs.getSelected();
+		Iterator<Tab> iterator = tabs.iterator();
+		while (iterator.hasNext()) {
+			Tab tab = iterator.next();
+			if (tab != selectedTab) {
+				tabs.remove(tab);
+			}
+		}
+	}
+
+	
 
 }

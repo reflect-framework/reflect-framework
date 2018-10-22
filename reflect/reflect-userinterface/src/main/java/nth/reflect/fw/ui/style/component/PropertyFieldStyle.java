@@ -4,7 +4,7 @@ import nth.reflect.fw.ui.style.MaterialFont;
 import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.fw.ui.style.basic.Font;
-import nth.reflect.fw.ui.view.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 
 /**
  * A {@link ReflectStyleClass} for a {@link PropertyField}

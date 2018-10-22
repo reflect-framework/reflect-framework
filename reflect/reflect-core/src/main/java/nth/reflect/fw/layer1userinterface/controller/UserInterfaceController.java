@@ -141,7 +141,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * This method is called from
 	 * {@link #startMethodExecutionThread(Object, ActionMethodInfo, Object)}
 	 * when the thread is completed.<br>
-	 * It will open a new view or InfoDialog to show the method return value
+	 * It will open a new Tab or InfoDialog to show the method return value
 	 * 
 	 * @param serviceObject
 	 * @param actionMethodInfo

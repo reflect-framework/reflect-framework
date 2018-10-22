@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import nth.reflect.fw.ui.swing.style.ColorUtil;
-import nth.reflect.fw.ui.swing.view.form.proppanel.PropertyPanel;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
 
 public class PropertyGrid extends JScrollPane {
 	private static final long serialVersionUID = 1821162902242037807L;

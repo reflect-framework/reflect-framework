@@ -1,6 +1,5 @@
 package nth.reflect.fw.ui.item.method;
 
-import java.net.URL;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -13,11 +12,11 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.Paramet
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.item.HierarchicalItem;
-import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.fw.ui.view.FormView;
+import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.tab.form.FormTab;
 
 /**
- * Represents open {@link FormView}s that are in {@link FormMode#EDIT_MODE} and
+ * Represents open {@link FormTab}s that are in {@link FormMode#EDIT_MODE} and
  * have {@link PropertyMethodItem}s that take a given parameter type.
  * 
  * @author nilsth
@@ -25,25 +24,25 @@ import nth.reflect.fw.ui.view.FormView;
  */
 public class PropertyMethodOwnerItem extends HierarchicalItem {
 
-	private FormView formView;
+	private FormTab formTab;
 
-	public PropertyMethodOwnerItem(FormView formView, ReadOnlyValueModel parameterValueModel) {
-		this(formView, parameterValueModel, null);
+	public PropertyMethodOwnerItem(FormTab formTab, ReadOnlyValueModel parameterValueModel) {
+		this(formTab, parameterValueModel, null);
 	}
 
-	public PropertyMethodOwnerItem(FormView formView, ReadOnlyValueModel parameterValueModel,
+	public PropertyMethodOwnerItem(FormTab formTab, ReadOnlyValueModel parameterValueModel,
 			PropertyInfo propertyToExclude) {
-		super(formView.getUserInterfaceContainer().get(LanguageProvider.class));
-		this.formView = formView;
-		pupulateChildren(formView, parameterValueModel, propertyToExclude);
+		super(formTab.getUserInterfaceContainer().get(LanguageProvider.class));
+		this.formTab = formTab;
+		pupulateChildren(formTab, parameterValueModel, propertyToExclude);
 	}
 
-	public void pupulateChildren(FormView formView, ReadOnlyValueModel parameterValueModel, PropertyInfo propertyInfo) {
-		ReadOnlyValueModel domainValueModel = formView.getDomainValueModel();
+	public void pupulateChildren(FormTab formTab, ReadOnlyValueModel parameterValueModel, PropertyInfo propertyInfo) {
+		ReadOnlyValueModel domainValueModel = formTab.getDomainValueModel();
 		Class<?> domainClass = domainValueModel.getValueType();
 		Class<?> parameterClass = parameterValueModel.getValueType();
 
-		ReflectionProvider reflectionProvider = formView.getUserInterfaceContainer().get(ReflectionProvider.class);
+		ReflectionProvider reflectionProvider = formTab.getUserInterfaceContainer().get(ReflectionProvider.class);
 		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
@@ -53,7 +52,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 						.and(new ParameterTypeFilter(parameterClass));
 				List<ActionMethodInfo> propertyMethods = classInfo.getActionMethodInfos(filter);
 				for (ActionMethodInfo propertyMethodInfo : propertyMethods) {
-					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(formView, otherPropertyInfo,
+					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(formTab, otherPropertyInfo,
 							propertyMethodInfo, parameterValueModel, true);
 					getChildren().add(propertyMethodItem);
 				}
@@ -62,15 +61,10 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	}
 
 	@Override
-	public URL getIconURL() {
-		return formView.getViewIconURL();
-	}
-
-	@Override
 	public String getText() {
 		// TODO return TitleUtil.createTitle(methodInfo, methodParameter,
 		// false);
-		return formView.getViewTitle();// using description instead of
+		return formTab.getDisplayName();// using description instead of
 										// MaterialAppBarTitle
 										// because the MaterialAppBarTitle could
 										// be truncated
@@ -83,7 +77,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 
 	@Override
 	public String getDescription() {
-		return formView.getViewDescription();
+		return formTab.getDescription();
 	}
 
 }

@@ -2,9 +2,9 @@ package nth.reflect.fw.ui.form.field;
 
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.ui.tab.form.FormMode;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.view.FormMode;
 
 public abstract class AbstractFormRowFactory<T> {
 

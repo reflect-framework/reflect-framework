@@ -4,7 +4,7 @@ import nth.reflect.fw.generic.util.CloneUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.ui.view.FormMode;
+import nth.reflect.fw.ui.tab.form.FormMode;
 
 public class BufferedDomainValueModel implements ReadOnlyValueModel {
 

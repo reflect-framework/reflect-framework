@@ -79,8 +79,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>nth.reflect.framework</groupId>
-			<artifactId>reflect-example-domain</artifactId>
+			<groupId>nth.reflect.framework.example</groupId>
+			<artifactId>reflect-web-shop-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

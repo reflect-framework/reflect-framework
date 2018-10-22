@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.acme.web.shop.product.ProductGenerator;
 import com.acme.web.shop.product.ProductRepository;
 import com.acme.web.shop.product.ProductService;
 import com.acme.web.shop.shopingcart.ShoppingCartService;
@@ -12,7 +13,6 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
-import nth.reflect.example.domain.person.PersonService;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -142,14 +142,14 @@ public class ReflectApplicationForVaadin extends Div implements ReflectApplicati
 	// TODO remove reflect-example-domain from pom.xml
 	@Override
 	public List<Class<?>> getServiceClasses() {
-		return Arrays.asList(ProductService.class, ShoppingCartService.class, PersonService.class);
+		return Arrays.asList(ProductService.class, ShoppingCartService.class);
 	}
 
 	// TODO remove later so other ReflectApplicationForVaadin implementations
 	// can implement it
 	@Override
 	public List<Class<?>> getInfrastructureClasses() {
-		return Arrays.asList(ProductRepository.class);
+		return Arrays.asList(ProductRepository.class, ProductGenerator.class);
 	}
 
 

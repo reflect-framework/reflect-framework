@@ -1,20 +1,13 @@
 package nth.reflect.fw.javafx.control.window;
 
 import java.net.MalformedURLException;
-import java.util.List;
 
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.BooleanPropertyBase;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ObjectPropertyBase;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener.Change;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -23,13 +16,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import nth.reflect.fw.javafx.RfxUserinterfaceController;
 import nth.reflect.fw.javafx.control.RfxControl;
+import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.javafx.control.window.appbar.RfxAppBar;
 import nth.reflect.fw.javafx.control.window.appbar.RfxAppButtonBar;
 import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.view.View;
+import nth.reflect.fw.ui.tab.Tabs;
 
 /**
  * TODO merge {@link RfxMenuAndContentPane} with {@link RfxWindow}
@@ -42,8 +37,6 @@ public class RfxWindow extends StackPane implements RfxControl {
 	private final BooleanBinding extraHighBinding;
 	private final BooleanBinding extraWideBinding;
 	private final BooleanProperty mainMenuVisibleProperty;
-	private final ObservableList<View> tabsProperty;
-	private final ObjectPropertyBase<View> selectedTabProperty;
 
 	private RfxMainMenuPane mainMenuPane;
 
@@ -54,23 +47,22 @@ public class RfxWindow extends StackPane implements RfxControl {
 	private RfxAppBar appBar;
 	private RfxContentPane contentPane;
 	private final UserInterfaceContainer userInterfaceContainer;
+	private final Tabs<Tab> tabs;
 
 	public RfxWindow(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
 		super();
 		this.userInterfaceContainer = userInterfaceContainer;
-
+		tabs = getTabs(userInterfaceContainer);
 		extraHighBinding = heightProperty().greaterThan(WINDOW_FAIRLY_HIGH_BINDING);
 		extraWideBinding = widthProperty().greaterThan(WINDOW_FAIRLY_WIDE_BINDING);
 		mainMenuVisibleProperty = createMainMenuVisibleProperty();
-		tabsProperty = createTabsPropery();
-		selectedTabProperty = createSelectedTabProperty();
 
 		userInterfaceContainer.add(this);
 
 		setMinWidth(300);
 		setMinHeight(500);
 
-		contentPane = new RfxContentPane(userInterfaceContainer);
+		contentPane = new RfxContentPane(tabs);
 		getChildren().add(contentPane);
 
 		mainMenuPane = new RfxMainMenuPane(userInterfaceContainer);
@@ -81,6 +73,13 @@ public class RfxWindow extends StackPane implements RfxControl {
 
 		mainMenuPane.translateXProperty().addListener(this::onMenuMovingLeftOrRight);
 		setOnKeyPressed(createKeyEventHandler());
+	}
+
+	private Tabs<Tab> getTabs(UserInterfaceContainer userInterfaceContainer) {
+		RfxUserinterfaceController userinterfaceController = userInterfaceContainer
+				.get(RfxUserinterfaceController.class);
+		Tabs<Tab> tabs = userinterfaceController.getTabs();
+		return tabs;
 	}
 
 	/**
@@ -95,8 +94,8 @@ public class RfxWindow extends StackPane implements RfxControl {
 	 * @param oldXValue
 	 * @param newXValue
 	 */
-	public void onMenuMovingLeftOrRight(ObservableValue<? extends Number> observable,
-			Number oldXValue, Number newXValue) {
+	public void onMenuMovingLeftOrRight(ObservableValue<? extends Number> observable, Number oldXValue,
+			Number newXValue) {
 		requestLayout();
 		appBar.getButtonBar().requestLayout();
 	}
@@ -118,8 +117,7 @@ public class RfxWindow extends StackPane implements RfxControl {
 				} else if (event.getCode() == KeyCode.F4 && event.isControlDown()) {
 					closeSelectedTab();
 					event.consume();
-				} else if ((event.getCode() == KeyCode.F6 || event.getCode() == KeyCode.TAB)
-						&& event.isControlDown()) {
+				} else if ((event.getCode() == KeyCode.F6 || event.getCode() == KeyCode.TAB) && event.isControlDown()) {
 					if (event.isShiftDown()) {
 						selectPreviousTab();
 					} else {
@@ -132,30 +130,15 @@ public class RfxWindow extends StackPane implements RfxControl {
 	}
 
 	protected void selectPreviousTab() {
-		View selectedTab = selectedTabProperty.get();
-		int selectedTabIndex = tabsProperty.indexOf(selectedTab);
-		int previousTabIndex = selectedTabIndex - 1;
-		if (previousTabIndex < 0) {
-			previousTabIndex = tabsProperty.size() - 1;
-		}
-		View previousTab = tabsProperty.get(previousTabIndex);
-		selectedTabProperty.set(previousTab);
+		tabs.selectPrevious();
 	}
 
 	protected void selectNextTab() {
-		View selectedTab = selectedTabProperty.get();
-		int selectedTabIndex = tabsProperty.indexOf(selectedTab);
-		int nextTabIndex = selectedTabIndex + 1;
-		if (nextTabIndex >= tabsProperty.size()) {
-			nextTabIndex = 0;
-		}
-		View nextTab = tabsProperty.get(nextTabIndex);
-		selectedTabProperty.set(nextTab);
+		tabs.selectNext();
 	}
 
 	private void closeSelectedTab() {
-		View selectedTab = selectedTabProperty.get();
-		tabsProperty.remove(selectedTab);
+		tabs.remove(tabs.getSelected());
 	}
 
 	private void toggleMainMenuVisibility() {
@@ -164,9 +147,10 @@ public class RfxWindow extends StackPane implements RfxControl {
 
 	/**
 	 * Custom layout: {@link #getContentBias()} moves next to
-	 * {@link #mainMenuPane} when the {@link #extraWideBinding}==true. <br>This
-	 * method is also called when then {@link #mainMenuPane} slides in or out
-	 * (see {@link #onMenuMovingLeftOrRight(ObservableValue, Number, Number)})
+	 * {@link #mainMenuPane} when the {@link #extraWideBinding}==true. <br>
+	 * This method is also called when then {@link #mainMenuPane} slides in or
+	 * out (see
+	 * {@link #onMenuMovingLeftOrRight(ObservableValue, Number, Number)})
 	 */
 	@Override
 	protected void layoutChildren() {
@@ -178,8 +162,8 @@ public class RfxWindow extends StackPane implements RfxControl {
 
 		double appBarHeight = appBar.calculateHeight();
 		appBar.resize(width, appBarHeight);
-		positionInArea(appBar, x, y, width, appBarHeight, 0/* ignore baseline */, Insets.EMPTY,
-				HPos.LEFT, VPos.TOP, snapToPixel);
+		positionInArea(appBar, x, y, width, appBarHeight, 0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP,
+				snapToPixel);
 		y += appBarHeight;
 
 		if (extraWideBinding.get()) {
@@ -195,51 +179,6 @@ public class RfxWindow extends StackPane implements RfxControl {
 		mainMenuPane.resize(MENU_WIDTH, height - y);
 		positionInArea(mainMenuPane, x, y, MENU_WIDTH, height - y,
 				0/* ignore baseline */, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
-	}
-
-	private SimpleObjectProperty<View> createSelectedTabProperty() {
-		SimpleObjectProperty<View> selectedTabProperty = new SimpleObjectProperty<>();
-		return selectedTabProperty;
-	}
-
-	private ObservableList<View> createTabsPropery() {
-		ObservableList<View> tabsProperty = FXCollections.<View>observableArrayList();
-		tabsProperty.addListener(this::onTabsChanged);
-		return tabsProperty;
-	}
-
-	public void onTabsChanged(Change change) {
-		if (tabsProperty.size() == 0) {
-			selectedTabProperty.set(null);
-		} else {
-			selectNewTab(change);
-		}
-	}
-
-	private void selectNewTab(Change<View> change) {
-		while (change.next()) {
-
-			if (change.wasAdded()) {
-				List<View> added = change.getAddedSubList();
-				View lastAdded = added.get(added.size() - 1);
-				selectedTabProperty.set(lastAdded);
-			} else if (change.wasRemoved()) {
-				int newIndex = tabsProperty.indexOf(selectedTabProperty.get()) - 1;
-				if (newIndex < 0) {
-					newIndex = 0;
-				}
-				View selectedTab = change.getList().get(newIndex);
-				selectedTabProperty.set(selectedTab);
-			}
-		}
-	}
-
-	public ObjectProperty<View> getSelectedTabProperty() {
-		return selectedTabProperty;
-	}
-
-	public ObservableList<View> getTabsProperty() {
-		return tabsProperty;
 	}
 
 	private BooleanProperty createMainMenuVisibleProperty() {
@@ -258,11 +197,10 @@ public class RfxWindow extends StackPane implements RfxControl {
 		};
 		mainMenuVisibleProperty.addListener(new ChangeListener<Boolean>() {
 			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-					Boolean newValue) {
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (newValue) {
 					onMainMenuShow();
-				} else if (tabsProperty.size() > 0) {
+				} else if (tabs.size() > 0) {
 					onMainMenuHide();
 				}
 			}

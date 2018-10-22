@@ -23,7 +23,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * Parameters:
  * <ul>
  * <li>{@link #propertyHiddenFor()}: optional and for properties only: to indicate if
- * the property should be hidden in {@link FormView}s, {@link TableView}s or
+ * the property should be hidden in {@link FormTab}s, {@link TableTab}s or
  * both (hidden for both is default).</li>
  * <li>{@link #exceptForRoleNames()} : optional comma separated string of user
  * roles that are allowed to see the {@link DomainObjectProperty} or

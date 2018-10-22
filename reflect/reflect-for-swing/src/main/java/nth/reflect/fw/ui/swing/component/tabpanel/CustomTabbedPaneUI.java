@@ -21,7 +21,6 @@ public class CustomTabbedPaneUI extends BasicTabbedPaneUI {
     private Color selectColor;
     private Color deSelectColor;
     private int inclTab = 4;
-    private int anchoFocoV = inclTab;
     private int anchoFocoH = 4;
     private int anchoCarpetas = 18;
     private Polygon shape;
@@ -164,7 +163,7 @@ public class CustomTabbedPaneUI extends BasicTabbedPaneUI {
     }
     /*protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title, Rectangle textRect, boolean isSelected) {
     g.setFont(font);
-    View v = getTextViewForTab(tabIndex);
+    Tab v = getTextViewForTab(tabIndex);
     if (v != null) {
     // html
     v.paint(g, textRect);

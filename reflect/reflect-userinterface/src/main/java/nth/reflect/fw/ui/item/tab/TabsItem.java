@@ -4,31 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.HierarchicalItem;
+import nth.reflect.fw.ui.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
 /**
  * TODO remove this class???
  * @author nilsth
  *
  */
-public class TabsItem extends HierarchicalItem {
+public class TabsItem<TAB extends Tab> extends HierarchicalItem {
 
-	public TabsItem(LanguageProvider languageProvider, ViewController<View> viewContainer, View view) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public TabsItem(LanguageProvider languageProvider, Tabs<? extends Tab> tabs, Tab tab) {
 		super(languageProvider);
 		setText("Tabs");
 		setDescription("Tabs menu");
 
-		@SuppressWarnings("unchecked")
 		List<Item> children = new ArrayList<Item>();
-		children.add(new CloseThisTabItem(languageProvider, viewContainer, view));
-		children.add(new CloseOtherTabsItem(languageProvider,viewContainer,view));
-		children.add(new CloseAllTabsItem(languageProvider,viewContainer));
-		if (viewContainer.getViewCount() > 1) {
-			for (int i = 0; i < viewContainer.getViewCount(); i++) {
-				view = viewContainer.getView(i);
-				children.add(new SelectTabItem(languageProvider,viewContainer,view));
+		children.add(new CloseThisTabItem(languageProvider, tabs, tab));
+		children.add(new CloseOtherTabsItem(languageProvider,tabs,tab));
+		children.add(new CloseAllTabsItem(languageProvider,tabs));
+		if (tabs.size() > 1) {
+			for (int i = 0; i < tabs.size(); i++) {
+				tab = tabs.get(i);
+				children.add(new SelectTabItem(languageProvider,tabs,tab));
 			}
 		}
 

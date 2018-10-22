@@ -1,21 +1,18 @@
 package nth.reflect.ui.vaadin.mainwindow;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.tabs.Tab;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.ui.vaadin.view.container.TabView;
-import nth.reflect.ui.vaadin.view.container.TabViewController;
+import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.tab.TabsListener;
+import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
+import nth.reflect.ui.vaadin.tab.Tab;
 
 /**
  * The {@link MainWindow} represents the Graphical UserTestObject Interface with
@@ -28,120 +25,78 @@ import nth.reflect.ui.vaadin.view.container.TabViewController;
 @HtmlImport("bower_components/font-roboto/roboto.html")
 @JavaScript("bower_components/jquery/3.3.1-1/jquery.js")
 @JavaScript("js/main-window.js")
-public class MainWindow extends Div {
+public class MainWindow extends Div implements TabsListener<Tab> {
 
 	private static final long serialVersionUID = -1026778643991244247L;
 	static final int Z_INDEX_HEADER = 9998;
 	static final int Z_INDEX_MAIN_MENU = 9999;
 	static final int Z_INDEX_CONTENT_OVERLAY = Z_INDEX_MAIN_MENU;
 	static final Color BLACK_WITH_OPACITY = new Color(0f, 0f, 0f, 0.5f);
-	private final TabViewController tabViewController;
-	private final TabHeaderBar tabHeaderBar;
-	private final Div tabViewContainer;
-	private Map<Tab, TabView> tabsAndViews;
-	private Set<TabView> selectedTabView;
+	private final TabHeaderBar2 tabHeaderBar;
+	private final Div tabContentPanel;
+	private final Tabs<Tab> tabs;
 
 	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
-		selectedTabView=new HashSet<>();
+
+		UserInterfaceControllerForVaadin userInterfaceController = userInterfaceContainer
+				.get(UserInterfaceControllerForVaadin.class);
+		tabs = userInterfaceController.getTabs();
+
 		MainMenu mainMenu = new MainMenu(userInterfaceContainer);
-		tabViewContainer = new TabViewContainer();
+		tabContentPanel = new TabContaintPanel(tabs);
 		Overlay overlay = new Overlay();
-		tabHeaderBar = new TabHeaderBar(this);
-		HeaderBar header = new HeaderBar(userInterfaceContainer, this);
+		tabHeaderBar = new TabHeaderBar2(tabs);
+		HeaderBar headerBar = new HeaderBar(userInterfaceContainer, this);
+
+		// TODO add both tabHeaderBar and headerBar to MainWindow
+		add(headerBar, mainMenu, tabContentPanel, overlay);
+
+		// add the MainMenu last as TabsListener: The resizeChildrenOnBrowser
+		// method needs to called AFTER other childeren are updated
+		tabs.addListener(this);
 
 		createTabs();
 
-		add(header, mainMenu, tabViewContainer, overlay);
-
-		tabViewController = new TabViewController(this);
-	}
-
-	
-
-	public TabViewController getTabViewController() {
-		return tabViewController;
-	}
-
-	public void onRemoveTab(TabView view) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void onAddTab(TabView newView) {
-		Tab tab = new Tab(newView.getViewTitle());
-		tabsAndViews.put(tab, newView);
-		tabHeaderBar.add(tab);
-		tabViewContainer.add(newView);
-		onSelectTabView(newView);
-	}
-
-	/**
-	 * TODO: this method can be called by
-	 * {@link TabViewController#setSelectedView(TabView)}, e.g. when an existing
-	 * tabView should regain focus. In this case we should also select the tab
-	 * with
-	 * {@link #onSelectTab(com.vaadin.flow.component.tabs.Tabs.SelectedChangeEvent)},
-	 * but this would case a endless loop!!!!
-	 * 
-	 * @param selectedView
-	 */
-	public void onSelectTabView(TabView selectedView) {
-		selectedTabView.forEach(tabView -> tabView.setVisible(false));
-		selectedTabView.clear();
-		selectedView.setVisible(true);
-		selectedTabView.add(selectedView);
-		for (Tab tab : tabsAndViews.keySet()) {
-			if (tabsAndViews.get(tab) == selectedView) {
-				tabHeaderBar.setSelectedTab(tab);
-				break;
-			}
-		}
-		selectedView.onViewActivate();
-		resizeChildernOnBrowser();
+		UI.getCurrent().getPage().executeJavaScript("document.documentElement.style.setProperty($0, $1);", "--abc",
+				"green");
 	}
 
 	private void createTabs() {
-		Tab tab1 = new Tab("Tab one");
-		LoremIpsumTabView view1 = new LoremIpsumTabView(tab1);
+		LoremIpsumTab tab1 = new LoremIpsumTab("Tab one");
+		tabs.add(tab1);
 
-		Tab tab2 = new Tab("Tab two");
-		LoremIpsumTabView view2 = new LoremIpsumTabView(tab2);
-		view2.setVisible(false);
+		LoremIpsumTab tab2 = new LoremIpsumTab("Tab two");
+		tabs.add(tab2);
 
-		Tab tab3 = new Tab("Tab three");
-		LoremIpsumTabView view3 = new LoremIpsumTabView(tab3);
-		view3.setVisible(false);
-
-		tabsAndViews = new HashMap<>();
-		tabsAndViews.put(tab1, view1);
-		tabsAndViews.put(tab2, view2);
-		tabsAndViews.put(tab3, view3);
-
-		tabHeaderBar.add(tab1, tab2, tab3);
-
-		tabViewContainer.add(view1, view2, view3);
-
-		selectedTabView.add(view1);
+		LoremIpsumTab tab3 = new LoremIpsumTab("Tab three");
+		tabs.add(tab3);
 	}
 
 	private void resizeChildernOnBrowser() {
 		UI.getCurrent().getPage().executeJavaScript("updateGui()");
 	}
 
-	public Map<Tab, TabView> getTabsAndViews() {
-		return tabsAndViews;
+	public Div getTabContentPanel() {
+		return tabContentPanel;
 	}
 
-	public Div getTabViewContainer() {
-		return tabViewContainer;
-	}
-
-	public Set<TabView> getSelectedTabView() {
-		return selectedTabView;
-	}
-
-	public TabHeaderBar getTabHeaderBar() {
+	public TabHeaderBar2 getTabHeaderBar() {
 		return tabHeaderBar;
+	}
+
+	@Override
+	public void onRemoveTab(Tab removedTab) {
+		// Do nothing
+	}
+
+	@Override
+	public void onAddTab(Tab newTab) {
+		// Do nothing }
+	}
+
+	@Override
+	public void onSelectTab(Tab selectedTab) {
+		resizeChildernOnBrowser();
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import com.vaadin.flow.component.Component;
 
+import nth.reflect.ui.vaadin.mainwindow.BorderStyle;
+
 /**
  * Style properties class in fluent interface style, because JavaFx does not
  * have a CSS API yet.
@@ -44,11 +46,13 @@ public class StyleBuilder extends HashMap<String, String> {
 	public String toString() {
 		StringBuilder css = new StringBuilder();
 		for (String propertyName : keySet()) {
+			if (css.length()>0) {
+				css.append(";");
+			}
 			css.append(propertyName);
 			css.append(": ");
 			String propertyValue = get(propertyName);
 			css.append(propertyValue);
-			css.append(";");
 		}
 		return css.toString();
 	}
@@ -85,7 +89,11 @@ public class StyleBuilder extends HashMap<String, String> {
 	}
 
 	public StyleBuilder setBackground(String colorVariableName) {
-		put("background-color", colorVariableName);
+		StringBuilder colorVariable=new StringBuilder(); 
+		colorVariable.append("var(");
+		colorVariable.append(colorVariableName);
+		colorVariable.append(")");
+		put("background-color", colorVariable.toString());
 		return this;
 	}
 
@@ -260,10 +268,6 @@ public class StyleBuilder extends HashMap<String, String> {
 	// return this;
 	// }
 	//
-	public StyleBuilder setOverflow(Overflow overflow) {
-		put("overflow", overflow.toString());
-		return this;
-	}
 
 	public StyleBuilder setPosition(Position position) {
 		put("position", position.toString());
@@ -288,6 +292,81 @@ public class StyleBuilder extends HashMap<String, String> {
 
 	public StyleBuilder setRight(int size, SizeUnit sizeUnit) {
 		put("right", sizeUnit.asString(size));
+		return this;
+	}
+
+	public StyleBuilder setWhiteSpace(WhiteSpace whiteSpace) {
+		put("white-space", whiteSpace.toString());
+		return this;
+	}
+
+	public StyleBuilder setOverflow(Overflow overflow) {
+		put("overflow", overflow.toString());
+		return this;
+	}
+
+	public StyleBuilder setBorderStyle(BorderStyle borderStyle) {
+		put("border-style", borderStyle.toString());
+		return this;
+	}
+
+	public StyleBuilder setBorderColor(Color color) {
+		put("border-color", getRGB(color));
+		return this;
+	}
+
+	public StyleBuilder setBorderWidth(int size, SizeUnit sizeUnit) {
+		put("border-width", sizeUnit.asString(size));
+		return this;
+	}
+
+	public StyleBuilder setBorderRadius(int size, SizeUnit sizeUnit) {
+		put("border-radius", sizeUnit.asString(size));
+		return this;
+	}
+
+	public StyleBuilder setBorderRadius(int topLeft, int topRight, int bottomRight, int bottonLeft) {
+		StringBuilder radius = new StringBuilder();
+		radius.append(SizeUnit.PX.asString(topLeft));
+		radius.append(" ");
+		radius.append(SizeUnit.PX.asString(topRight));
+		radius.append(" ");
+		radius.append(SizeUnit.PX.asString(bottomRight));
+		radius.append(" ");
+		radius.append(SizeUnit.PX.asString(bottonLeft));
+		put("border-radius", radius.toString());
+		return this;
+	}
+
+	public StyleBuilder setBorderWidth(int top, int right, int bottom, int left) {
+		StringBuilder width = new StringBuilder();
+		width.append(SizeUnit.PX.asString(top));
+		width.append(" ");
+		width.append(SizeUnit.PX.asString(right));
+		width.append(" ");
+		width.append(SizeUnit.PX.asString(bottom));
+		width.append(" ");
+		width.append(SizeUnit.PX.asString(left));
+		put("border-width", width.toString());
+		return this;
+	}
+
+	public StyleBuilder setTop(int size, SizeUnit sizeUnit) {
+		put("top", sizeUnit.asString(size));
+		return this;
+	}
+	public StyleBuilder setLeft(int size, SizeUnit sizeUnit) {
+		put("left", sizeUnit.asString(size));
+		return this;
+	}
+
+	public StyleBuilder setTextAlign(TextAlign align) {
+		put("text-align", align.toString());
+		return this;
+	}
+
+	public StyleBuilder setFloat(FloatType floatType) {
+		put("float", floatType.toString());
 		return this;
 	}
 

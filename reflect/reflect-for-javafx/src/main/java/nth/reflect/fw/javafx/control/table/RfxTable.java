@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeCell;
-import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeView;
+import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreePanel;
 import nth.reflect.fw.javafx.control.popup.RfxPopup;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
@@ -27,8 +27,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatF
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
 import nth.reflect.fw.ui.style.MaterialFont;
+import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.view.FormView;
 
 public class RfxTable extends TableView<Object> {
 
@@ -63,12 +63,12 @@ public class RfxTable extends TableView<Object> {
 		initColumns(rfxTableInfo.getTableColumns());
 	}
 	
-	public RfxTable(nth.reflect.fw.ui.view.TableView tableView) {
-		this(new RfxTableInfoForTableView(tableView));
+	public RfxTable(nth.reflect.fw.ui.tab.table.TableTab tableTab) {
+		this(new RfxTableInfoForTableTab(tableTab));
 	}
 
-	public RfxTable(FormView formView, PropertyValueModel propertyValueModel) {
-		this(new RfxTableInfoForFormViewProperty(formView,propertyValueModel)); 
+	public RfxTable(FormTab formTab, PropertyValueModel propertyValueModel) {
+		this(new RfxTableInfoForFormTabProperty(formTab,propertyValueModel)); 
 	}
 
 	private void initColumns(List<TableColumn<Object, ?>> tableColumns) {
@@ -157,10 +157,10 @@ public class RfxTable extends TableView<Object> {
 		}
 	}
 
-	private RfxItemTreeView createRowMenu() {
+	private RfxItemTreePanel createRowMenu() {
 		Object selectedObject = getSelectionModel().getSelectedItem();
 		Collection<Item> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
-		RfxItemTreeView rowMenuContent = new RfxItemTreeView(serviceObjectItems, rfxTableInfo.getLanguageProvider());
+		RfxItemTreePanel rowMenuContent = new RfxItemTreePanel(serviceObjectItems, rfxTableInfo.getLanguageProvider());
 		return rowMenuContent;
 	}
 
@@ -194,7 +194,7 @@ public class RfxTable extends TableView<Object> {
 	//
 	// TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 	// rootNode.setExpanded(true);
-	// RfxItemTreeView itemTreeView = new RfxItemTreeView(rootNode);
+	// RfxItemTreePanel itemTreeView = new RfxItemTreePanel(rootNode);
 	//
 	// for (Item rowMenuItem : rowMenuItems) {
 	// TreeItem<Item> rowMenuNode = new TreeItem<>(rowMenuItem);

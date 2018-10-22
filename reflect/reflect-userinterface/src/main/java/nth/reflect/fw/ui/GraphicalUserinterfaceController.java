@@ -14,8 +14,6 @@ import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -29,24 +27,38 @@ import nth.reflect.fw.ui.item.dialog.DialogShowStackTraceItem;
 import nth.reflect.fw.ui.style.MaterialColorPalette;
 import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.style.basic.Color;
-import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.fw.ui.view.FormView;
-import nth.reflect.fw.ui.view.TableView;
-import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.ui.tab.Tab;
+import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.tab.form.FormTab;
+import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.ui.tab.table.TableTab;
 
 /**
  * 
  * @author nilsth
  * 
- * @param <TAB_VIEW>
+ * @param <TAB>
  *            A user interface specific class (often a component container/
- *            layout) that implements {@link View}
+ *            layout) that implements {@link Tab}
  */
-public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PROPERTY_PANEL>
+public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY_PANEL>
 		extends UserInterfaceController {
+
+	private static final int PERCENT_0 = 0;
+	private static final int PERCENT_100 = 100;
+	private final Tabs<TAB> tabs;
+
+	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
+		super(userInterfaceContainer);
+		tabs = new Tabs<TAB>();
+		NotificationProvider notificationProvider = userInterfaceContainer.get(NotificationProvider.class);
+		notificationProvider.addListener(this);
+	}
 
 	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		// create the dialog items/ buttons
+
 		List<Item> items = new ArrayList<Item>();
 		DialogMethodItem methodExecuteItem = new DialogMethodItem(userInterfaceContainer, methodOwner, methodInfo,
 				methodParameter);
@@ -83,18 +95,9 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 
 	}
 
-	private static final int PERCENT_0 = 0;
-	private static final int PERCENT_100 = 100;
-
-	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
-		super(userInterfaceContainer);
-		NotificationProvider notificationProvider = userInterfaceContainer.get(NotificationProvider.class);
-		notificationProvider.addListener(this);
-	}
-
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object actionMethodParameterValue) {
-		openFormView(actionMethodOwner, actionMethodInfo, actionMethodParameterValue, actionMethodParameterValue,
+		openFormTab(actionMethodOwner, actionMethodInfo, actionMethodParameterValue, actionMethodParameterValue,
 				FormMode.EDIT_MODE);
 	}
 
@@ -156,11 +159,11 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 			public void run() {
 				try {
 					Object methodReturnValue = actionMethodInfo.invoke(methodOwner, methodParameterValue);
-					// update current view (calling a method on a object is most
+					// update current tab (calling a method on a object is most
 					// likely to change its state
-					View selectedView = getViewController().getSelectedView();
-					if (selectedView != null) {
-						selectedView.onViewActivate();
+					Tab selectedTab = getTabs().getSelected();
+					if (selectedTab != null) {
+						selectedTab.onSelected();
 					}
 					// show method result
 					processActionMethodResult(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
@@ -183,77 +186,73 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 	 */
 	public abstract void executeInThread(Runnable methodExecutionRunnable);
 
-	public void openFormView(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+	@SuppressWarnings("unchecked")
+	public void openFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		ViewController<TAB_VIEW> viewContainer = getViewController();
-
-		for (int i = 0; i < viewContainer.getViewCount(); i++) {
-			TAB_VIEW view = viewContainer.getView(i);
-			if (view instanceof FormView) {
-				FormView formView = (FormView) view;
-				// identical formView?
-				if (methodOwner == formView.getMethodOwner() && actionMethodInfo == formView.getMethodInfo()
-						&& methodParameterValue == formView.getMethodParameter()
-						&& domainObject == formView.getDomainObject() && formMode == formView.getFormMode()) {
-					// activate identical formView
-					viewContainer.setSelectedView((TAB_VIEW) formView);
+		Tabs<TAB> tabs = getTabs();
+		for (Tab tab : tabs) {
+			if (tab instanceof FormTab) {
+				FormTab formTab = (FormTab) tab;
+				// identical FormTab?
+				if (methodOwner == formTab.getMethodOwner() && actionMethodInfo == formTab.getMethodInfo()
+						&& methodParameterValue == formTab.getMethodParameter()
+						&& domainObject == formTab.getDomainObject() && formMode == formTab.getFormMode()) {
+					// activate identical FormTab
+					tabs.setSelected((TAB) formTab);
 					return;
 				}
 			}
 		}
-		// formView not found so create and show a new formView
-		TAB_VIEW formView = createFormView(methodOwner, actionMethodInfo, methodParameterValue, domainObject, formMode);
-		viewContainer.addView(formView);
+		// FormTab not found so create and show a new FormTab
+		TAB formTab = createFormTab(methodOwner, actionMethodInfo, methodParameterValue, domainObject, formMode);
+		tabs.add(formTab);
 	}
 
-	public void openTableView(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+	@SuppressWarnings("unchecked")
+	public void openTableTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		ViewController<TAB_VIEW> viewContainer = getViewController();
-
-		for (int i = 0; i < viewContainer.getViewCount(); i++) {
-			TAB_VIEW view = viewContainer.getView(i);
-			if (view instanceof TableView) {
-				TableView tableView = (TableView) view;
-				// identical tableView?
-				if (methodOwner == tableView.getMethodOwner() && actionMethodInfo == tableView.getMethodInfo()
-						&& methodParameterValue == tableView.getMethodParameter()) {
-					// activate identical tableView
-					viewContainer.setSelectedView((TAB_VIEW) tableView);
+		Tabs<TAB> tabs = getTabs();
+		for (Tab tab : tabs) {
+			if (tab instanceof TableTab) {
+				TableTab tableTab = (TableTab) tab;
+				// identical TableTab?
+				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
+						&& methodParameterValue == tableTab.getMethodParameter()) {
+					// activate identical TableTab
+					tabs.setSelected((TAB) tableTab);
 					return;
 				}
 			}
 		}
-		// tableView not found so create and show a new tableView
-		TAB_VIEW tableView = createTableView(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
-		viewContainer.addView(tableView);
+		// TableTab not found so create and show a new TableTab
+		TAB tableTab = createTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
+		tabs.add(tableTab);
 	}
 
-	public void openTreeTableView(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+	@SuppressWarnings("unchecked")
+	public void openTreeTableTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		ViewController<TAB_VIEW> viewContainer = getViewController();
-
-		for (int i = 0; i < viewContainer.getViewCount(); i++) {
-			TAB_VIEW view = viewContainer.getView(i);
-			if (view instanceof TableView) {
-				TableView tableView = (TableView) view;
-				// identical tableView?
-				if (methodOwner == tableView.getMethodOwner() && actionMethodInfo == tableView.getMethodInfo()
-						&& methodParameterValue == tableView.getMethodParameter()) {
-					// activate identical tableView
-					viewContainer.setSelectedView((TAB_VIEW) tableView);
+		Tabs<TAB> tabs = getTabs();
+		for (Tab tab : tabs) {
+			if (tab instanceof TableTab) {
+				TableTab tableTab = (TableTab) tab;
+				// identical TableTab?
+				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
+						&& methodParameterValue == tableTab.getMethodParameter()) {
+					// activate identical TableTab
+					tabs.setSelected((TAB) tableTab);
 					return;
 				}
 			}
 		}
-		// tableView not found so create and show a new tableView
-		TAB_VIEW treeTableView = createTreeTableView(methodOwner, actionMethodInfo, methodParameterValue,
-				methodReturnValue);
-		viewContainer.addView(treeTableView);
+		// TableTab not found so create and show a new TableTab
+		TAB treeTableTab = createTreeTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
+		tabs.add(treeTableTab);
 	}
 
 	/**
-	 * NOTE that the FormOkItem linked to the OK button of the FormView will
-	 * need to call
+	 * NOTE that the FormOkItem linked to the OK button of the FormTab will need
+	 * to call
 	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
 	 * 
 	 * @param actionMethodOwner
@@ -262,16 +261,14 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 	 * @param domainObject
 	 * @return
 	 */
-	public abstract TAB_VIEW createFormView(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
+	public abstract TAB createFormTab(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode);
 
-	public abstract TAB_VIEW createTableView(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
+	public abstract TAB createTableTab(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue);
 
-	public abstract TAB_VIEW createTreeTableView(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
+	public abstract TAB createTreeTableTab(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue);
-
-	// TODO public abstract T createMenuView();
 
 	@Override
 	public void showErrorDialog(String title, String message, Throwable throwable) {
@@ -321,7 +318,7 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
 		Object domainObject = methodResult;
-		openFormView(methodOwner, methodInfo, methodParameter, domainObject, FormMode.READ_ONLY_MODE);
+		openFormTab(methodOwner, methodInfo, methodParameter, domainObject, FormMode.READ_ONLY_MODE);
 
 	}
 
@@ -337,7 +334,7 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			List<?> methodResult) {
-		openTableView(methodOwner, methodInfo, methodParameter, methodResult);
+		openTableTab(methodOwner, methodInfo, methodParameter, methodResult);
 	}
 
 	/**
@@ -413,10 +410,10 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 	}
 
 	public void refresh() {
-		// refresh current view
-		View view = getViewController().getSelectedView();
-		if (view != null) {
-			view.onViewActivate();
+		// refresh current tab
+		Tab tab = getTabs().getSelected();
+		if (tab != null) {
+			tab.onSelected();
 		}
 	}
 
@@ -452,8 +449,9 @@ public abstract class GraphicalUserinterfaceController<TAB_VIEW extends View, PR
 
 	public abstract void downloadFile(DownloadStream downloadStream);
 
-	@SuppressWarnings("rawtypes")
-	public abstract ViewController getViewController();
+	public Tabs<TAB> getTabs() {
+		return tabs;
+	}
 
 	/**
 	 * TODO get color from {@link ReflectApplication} {@link Annotation}, so

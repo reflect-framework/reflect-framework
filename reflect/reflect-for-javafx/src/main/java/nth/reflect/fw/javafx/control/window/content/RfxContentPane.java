@@ -1,29 +1,19 @@
 package nth.reflect.fw.javafx.control.window.content;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.javafx.control.window.RfxWindow;
-import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.view.View;
+import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.tab.TabsListener;
 
-public class RfxContentPane extends BorderPane {
+public class RfxContentPane extends BorderPane implements TabsListener<Tab> {
 
-	public RfxContentPane(UserInterfaceContainer userInterfaceContainer) {
+	public RfxContentPane(Tabs<Tab> tabs) {
 		super();
 		addStyleClass();
-		RfxWindow window = userInterfaceContainer.get(RfxWindow.class);
-		ObjectProperty<View> selectedTabProperty = window.getSelectedTabProperty();
-		selectedTabProperty.addListener(this::onSelectedTabChange);
-	}
-
-	public void onSelectedTabChange(ObservableValue<? extends View> observable, View oldValue,
-			View newValue) {
-		setCenter((Node) newValue);
+		tabs.addListener(this);
 	}
 
 	protected void addStyleClass() {
@@ -34,5 +24,20 @@ public class RfxContentPane extends BorderPane {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentPane.class)).getProperties()
 				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
 				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1());
+	}
+
+	@Override
+	public void onRemoveTab(Tab removedTab) {
+		// Do nothing
+	}
+
+	@Override
+	public void onAddTab(Tab newTab) {
+		// Do nothing
+	}
+
+	@Override
+	public void onSelectTab(Tab selectedTab) {
+		setCenter(selectedTab);
 	}
 }

@@ -9,7 +9,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * The {@link DomainObjectPropertyMenu} is displayed as a <a
  * href="https://en.wikipedia.org/wiki/Context_menu">context menu</a> in a
- * formview when the menu button of a referenceProperty or a row of a
+ * {@link FormTab} when the menu button of a referenceProperty or a row of a
  * collectionproperty is clicked. The propertyMenu allows a user to manipulate a
  * {@link DomainObjectProperty}. It contains all
  * {@link DomainObjectPropertyActionMethod}s of and all {@link ActionMethod}s of

@@ -114,7 +114,7 @@ function updateTabHeaders(windowSizeHorizontal) {
 }
 
 function updateContent(windowSizeHorizontal, windowSizeVertical) {
-	content = document.getElementById("tabViewContainer");
+	content = document.getElementById("tabContentPanel");
 	if (content) {
 		// content fixed under header, with the remaining height
 		content.style.alignSelf = null;

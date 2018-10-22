@@ -26,24 +26,24 @@ import javafx.stage.Stage;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.javafx.control.view.form.FormView;
-import nth.reflect.fw.javafx.control.view.form.proppanel.PropertyPanel;
-import nth.reflect.fw.javafx.control.view.table.RfxTableView;
+import nth.reflect.fw.javafx.control.tab.Tab;
+import nth.reflect.fw.javafx.control.tab.form.FormTab;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
+import nth.reflect.fw.javafx.control.tab.table.RfxTableTab;
 import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.view.FormMode;
-import nth.reflect.fw.ui.view.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
 
-public class RfxUserinterfaceController extends GraphicalUserinterfaceController<View, PropertyPanel> {
+public class RfxUserinterfaceController extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
 	private RfxWindow mainWindow;
 
@@ -52,21 +52,21 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	}
 
 	@Override
-	public View createFormView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new FormView(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
-	public View createTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		return new RfxTableView(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new RfxTableTab(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue);
 	}
 
 	@Override
-	public View createTreeTableView(Object serviceObject, ActionMethodInfo actionMethodInfo,
+	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
 		// TODO Auto-generated method stub
 		return null;
@@ -158,11 +158,6 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	}
 
 	@Override
-	public RfxViewContainer getViewController() {
-		return new RfxViewContainer(mainWindow);
-	}
-
-	@Override
 	public void launch() {
 		ReflectApplicationForJavaFX application = userInterfaceContainer
 				.get(ReflectApplicationForJavaFX.class);
@@ -229,7 +224,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 
 	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		return new nth.reflect.fw.javafx.control.view.form.proppanel.PropertyPanelFactory();
+		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory();
 	}
 
 	

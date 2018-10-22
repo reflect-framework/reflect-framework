@@ -1,7 +1,9 @@
 package nth.reflect.fw.javafx.control.window.appbar;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
@@ -9,10 +11,7 @@ import com.jfoenix.controls.JFXPopup;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener.Change;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -24,28 +23,29 @@ import javafx.stage.PopupWindow.AnchorLocation;
 import nth.reflect.fw.javafx.RfxUserinterfaceController;
 import nth.reflect.fw.javafx.control.button.RfxPrimaryButton;
 import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;
-import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeView;
+import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreePanel;
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
-import nth.reflect.fw.javafx.control.view.form.FormView;
-import nth.reflect.fw.javafx.control.view.table.RfxTableView;
+import nth.reflect.fw.javafx.control.tab.Tab;
+import nth.reflect.fw.javafx.control.tab.table.RfxTableTab;
 import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer1userinterface.view.View;
-import nth.reflect.fw.layer1userinterface.view.ViewController;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.tab.SelectTabItem;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.tab.TabsListener;
+import nth.reflect.fw.ui.tab.form.FormTab;
 
 /**
  * Button bar as part of the {@link RfxAppBar} which contains the main
  * navigation buttons:
  * <ul>
  * <li>the MainMenu button (see {@link RfxMainMenuPane})</li>
- * <li>the {@link RfxtabHeader}'s that navigate to the content views (e.g. See
- * {@link FormView} and {@link RfxTableView})</li>
+ * <li>the {@link RfxtabHeader}'s that navigate to the content {@link Tab}s (e.g. See
+ * {@link FormTab} and {@link RfxTableTab})</li>
  * <li>a tab menu button when not all {@link RfxtabHeader}'s can be displayed on
  * the {@link RfxAppButtonBar}. It shows a list of all {@link RfxtabHeader}'s
  * when clicked)</li>
@@ -55,32 +55,29 @@ import nth.reflect.fw.ui.style.MaterialColorSetCssName;
  *
  */
 
-public class RfxAppButtonBar extends Pane {
+public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 
 	private static final int IGNORE_BASE_LINE = 0;
 	public static final int BAR_HEIGHT = 42;//must be 38 according to material design but we added a bit because to tab button onderline...
 	private final BooleanProperty mainMenuVisibleProperty;
 	private final JFXButton mainMenuButton;
-	private final ObservableList<View> tabsProperty;
 	private final RfxWindow rfxWindow;
 	private final BooleanBinding extraWideBinding;
-	private final ObjectProperty<View> selectedTabProperty;
 	private final JFXButton tabSelectionButton;
 	private RfxMainMenuPane mainMenuPane;
 	private final UserInterfaceContainer userInterfaceContainer;
+	private final Tabs<Tab> tabs;
 
 	public RfxAppButtonBar(UserInterfaceContainer userInterfaceContainer,
 			RfxMainMenuPane mainMenuPane) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.mainMenuPane = mainMenuPane;
 		rfxWindow = userInterfaceContainer.get(RfxWindow.class);
+		tabs = getTabs(userInterfaceContainer);
+		tabs.addListener(this);
 		mainMenuVisibleProperty = rfxWindow.getMainMenuVisibleProperty();
 		mainMenuVisibleProperty.addListener(this::onMainMenuVisibleChanged);
 		extraWideBinding = rfxWindow.getExtraWideBinding();
-		tabsProperty = rfxWindow.getTabsProperty();
-		tabsProperty.addListener(this::onTabsChanged);
-		selectedTabProperty = rfxWindow.getSelectedTabProperty();
-		selectedTabProperty.addListener(this::onSelectedTabChanged);
 
 		mainMenuButton = createMainMenuButtton();
 		getChildren().add(mainMenuButton);
@@ -104,77 +101,64 @@ public class RfxAppButtonBar extends Pane {
 		// rightButtonPane.getChildren().add(tabMenuButton);
 	}
 
+	private Tabs<Tab> getTabs(UserInterfaceContainer userInterfaceContainer) {
+		RfxUserinterfaceController userInterfaceController=userInterfaceContainer.get(RfxUserinterfaceController.class);
+		Tabs<Tab> tabs = (Tabs<Tab>) userInterfaceController.getTabs();
+		return tabs;
+	}
+
 	public void onMainMenuVisibleChanged(ObservableValue<? extends Boolean> observable,
 			Boolean oldValue, Boolean newValue) {
 		requestLayout();
 	}
 
-	public void onTabsChanged(Change<? extends View> change) {
-		if (tabsProperty.size() == 0) {
-			selectedTabProperty.set(null);
-			updatetabHeaders();
-		} else if (!change.getList().contains(selectedTabProperty.get())) {
-			// TODO selectNewTab(change);
-		} else {
-			updatetabHeaders();
-		}
-	}
+//	public void onTabsChanged(Change<? extends Tab> change) {
+//		if (tabsProperty.size() == 0) {
+//			selectedTabProperty.set(null);
+//			updatetabHeaders();
+//		} else if (!change.getList().contains(selectedTabProperty.get())) {
+//			// TODO selectNewTab(change);
+//		} else {
+//			updatetabHeaders();
+//		}
+//	}
 
-	public void onSelectedTabChanged(ObservableValue<? extends View> observable, View oldValue,
-			View newValue) {
-		requestLayout();
-	}
+//	public void onSelectedTabChanged(ObservableValue<? extends Tab> observable, Tab oldValue,
+//			Tab newValue) {
+//		requestLayout();
+//	}
 
-	public void updatetabHeaders() {
-		List<RfxTabHeader> tabHeader = getTabHeaders();
-		addNewtabHeaders(tabHeader);
-		removeOldtabHeaders(tabHeader);
-		layout();
-	}
+//	public void updatetabHeaders() {
+//		List<RfxTabHeader> tabHeader = getTabHeaders();
+//		addNewtabHeaders(tabHeader);
+//		removeOldtabHeaders(tabHeader);
+//		layout();
+//	}
 
-	private List<RfxTabHeader> getTabHeaders() {
-		List<RfxTabHeader> tabHeaders = new ArrayList<>();
-		for (Node child : getChildren()) {
-			if (child instanceof RfxTabHeader) {
-				RfxTabHeader tabHeader = (RfxTabHeader) child;
-				tabHeaders.add(tabHeader);
-			}
-		}
-		return tabHeaders;
-	}
-
-	private List<RfxTabHeader> getTabHeader() {
-		List<RfxTabHeader> tabHeaders = new ArrayList<>();
-		for (Node child : getChildren()) {
-			if (child instanceof RfxTabHeader) {
-				RfxTabHeader tabHeader = (RfxTabHeader) child;
-				tabHeaders.add(tabHeader);
-			}
-		}
-		return tabHeaders;
-	}
 
 	
-	private void addNewtabHeaders(List<RfxTabHeader> tabHeaders) {
-		List<View> tabs = new ArrayList<>();
-		for (RfxTabHeader tabHeader : tabHeaders) {
-			tabs.add(tabHeader.getTab());
-		}
-		for (View tab : tabsProperty) {
-			if (!tabs.contains(tab)) {
-				RfxTabHeader tabHeader = new RfxTabHeader(rfxWindow, tab);
-				getChildren().add(tabHeader);
-			}
-		}
-	}
-
-	private void removeOldtabHeaders(List<RfxTabHeader> tabHeaders) {
-		for (RfxTabHeader tabHeader : tabHeaders) {
-			if (!tabsProperty.contains(tabHeader.getTab())) {
-				getChildren().remove(tabHeader);
-			}
-		}
-	}
+	
+	
+//	private void addNewtabHeaders(List<RfxTabHeader> tabHeaders) {
+//		List<Tab> tabs = new ArrayList<>();
+//		for (RfxTabHeader tabHeader : tabHeaders) {
+//			tabs.add(tabHeader.getTab());
+//		}
+//		for (Tab tab : tabs) {
+//			if (!tabs.contains(tab)) {
+//				RfxTabHeader tabHeader = new RfxTabHeader(rfxWindow, tab);
+//				getChildren().add(tabHeader);
+//			}
+//		}
+//	}
+//
+//	private void removeOldtabHeaders(List<RfxTabHeader> tabHeaders) {
+//		for (RfxTabHeader tabHeader : tabHeaders) {
+//			if (!tabsProperty.contains(tabHeader.getTab())) {
+//				getChildren().remove(tabHeader);
+//			}
+//		}
+//	}
 
 	/**
 	 * Custom layout: to position its children:
@@ -219,7 +203,7 @@ public class RfxAppButtonBar extends Pane {
 			x = mainMenuButton.getWidth();
 		}
 
-		List<RfxTabHeader> tabHeaders = getTabHeader();
+		List<RfxTabHeader> tabHeaders = getTabHeaders();
 		resizeTabHeaders(tabHeaders);
 
 		tabSelectionButton.autosize();
@@ -264,13 +248,24 @@ public class RfxAppButtonBar extends Pane {
 	}
 
 
+	private List<RfxTabHeader> getTabHeaders() {
+		List<RfxTabHeader> tabHeaders=new ArrayList<>();
+		for ( Node node : getChildren()) {
+			if (node instanceof RfxTabHeader) {
+				RfxTabHeader tabHeader = (RfxTabHeader) node;
+				tabHeaders.add(tabHeader);
+			}
+		}
+	return tabHeaders;
+}
+
 	private List<RfxTabHeader> getVisibleTabHeaders(List<RfxTabHeader> tabHeaders,
 			double availableWidth) {
 		List<RfxTabHeader> visibleTabHeaders = new ArrayList<>(tabHeaders);
 		int selectedTabHeaderIndex = 0;
-		RfxTabHeader selectedTabHeader = getTabHeader(selectedTabProperty.get());
-		if (selectedTabHeader != null) {
-			selectedTabHeaderIndex = visibleTabHeaders.indexOf(selectedTabHeader);
+		Optional<RfxTabHeader> selectedTabHeader = getTabHeader(tabHeaders, tabs.getSelected());
+		if (selectedTabHeader.isPresent()) {
+			selectedTabHeaderIndex = visibleTabHeaders.indexOf(selectedTabHeader.get());
 		}
 
 		double visibleTabHeaderWidth = gettabHeadersWidth(visibleTabHeaders);
@@ -298,6 +293,10 @@ public class RfxAppButtonBar extends Pane {
 
 	}
 
+	private Optional<RfxTabHeader> getTabHeader(List<RfxTabHeader> tabHeaders, Tab tabToFind) {
+		return tabHeaders.stream().filter(tabHeader -> tabHeader.getTab().equals(tabToFind)).findFirst();
+	}
+
 	private double gettabHeadersWidth(List<RfxTabHeader> visibletabHeaders) {
 		double totaltabHeadersWidth = 0;
 		for (RfxTabHeader tabHeader : visibletabHeaders) {
@@ -312,15 +311,15 @@ public class RfxAppButtonBar extends Pane {
 		}
 	}
 
-	private RfxTabHeader getTabHeader(View tabToFind) {
-		List<RfxTabHeader> tabHeaders = getTabHeader();
-		for (RfxTabHeader tabHeader : tabHeaders) {
-			if (tabHeader.getTab().equals(tabToFind)) {
-				return tabHeader; // TODO create tabHeadersAndTabs HashMap
-			}
-		}
-		return null;
-	}
+//	private RfxTabHeader getTabHeader(Tab tabToFind) {
+//		List<RfxTabHeader> tabHeaders = getTabHeader();
+//		for (RfxTabHeader tabHeader : tabHeaders) {
+//			if (tabHeader.getTab().equals(tabToFind)) {
+//				return tabHeader; // TODO create tabHeadersAndTabs HashMap
+//			}
+//		}
+//		return null;
+//	}
 
 //	private RfxPrimaryButton createTabMenuButton() {
 //		RfxPrimaryButton tabMenuButton = new RfxPrimaryButton(FontAwesomeIconName.ELLIPSIS_V);
@@ -344,22 +343,20 @@ public class RfxAppButtonBar extends Pane {
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(RfxUserinterfaceController.class);
-		ViewController<View> viewContainer = userInterfaceController.getViewController();
+		Tabs<Tab> tabs = userInterfaceController.getTabs();
 
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
-		RfxItemTreeView itemTreeView = new RfxItemTreeView(rootNode);
+		RfxItemTreePanel itemTreePanel = new RfxItemTreePanel(rootNode);
 
-		for (int i = 0; i < viewContainer.getViewCount(); i++) {
-			View view = viewContainer.getView(i);
-			SelectTabItem selectTabItem = new SelectTabItem(languageProvider, viewContainer, view);
+		for (Tab tab : tabs) {
+			SelectTabItem<Tab> selectTabItem = new SelectTabItem<>(languageProvider, tabs, tab);
 			TreeItem<Item> selectTabNode = new TreeItem<>(selectTabItem);
 			rootNode.getChildren().add(selectTabNode);
 		}
-		;
 
 		JFXPopup popup = new JFXPopup();
-		popup.setPopupContent(itemTreeView);
+		popup.setPopupContent(itemTreePanel);
 		popup.setAnchorLocation(AnchorLocation.CONTENT_TOP_RIGHT);
 		popup.show(tabSelectionButton);
 	}
@@ -391,6 +388,39 @@ public class RfxAppButtonBar extends Pane {
 
 	private void onMainMenuButton(ActionEvent event) {
 		mainMenuVisibleProperty.set(!mainMenuVisibleProperty.get());
+	}
+
+	@Override
+	public void onRemoveTab(Tab removedTab) {
+		Iterator<Node> iterator = getChildren().iterator();
+		while (iterator.hasNext()) {
+			Node child = iterator.next();
+			if (child instanceof RfxTabHeader) {
+				RfxTabHeader tabHeader = (RfxTabHeader) child;
+				Tab tab = tabHeader.getTab();
+				if (tab.equals(removedTab)) {
+					iterator.remove();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onAddTab(Tab newTab) {
+		RfxTabHeader tabHeader=new RfxTabHeader(tabs, newTab);
+		getChildren().add(tabHeader);
+	}
+
+	@Override
+	public void onSelectTab(Tab selectedTab) {
+		for (Node child : getChildren()) {
+			if (child instanceof RfxTabHeader) {
+				RfxTabHeader tabHeader = (RfxTabHeader) child;
+				Tab tab = tabHeader.getTab();
+				boolean isSelectedTab = tab.equals(selectedTab);
+				tabHeader.setSelected(isSelectedTab);
+			}
+		}
 	}
 
 }

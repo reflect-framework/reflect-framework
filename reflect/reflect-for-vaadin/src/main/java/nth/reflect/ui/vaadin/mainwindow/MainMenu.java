@@ -20,7 +20,7 @@ import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 /**
- * The {@link MainMenu} element is a HTML placeholder (a container) for the main
+ * The {@link MainMenu} HTML element is a placeholder (a container) for the main
  * menu. The {@link MainMenu} element and all its children will be repositioned
  * and resized with javascript (see main-window.js)
  */

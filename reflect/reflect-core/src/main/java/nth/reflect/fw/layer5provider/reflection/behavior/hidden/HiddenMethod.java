@@ -15,7 +15,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * {@link DomainObjectProperty} or {@link ActionMethod}. 
  * </p>
  * <p>
- * Note that you can not change the visibility with a ...Hidden method for {@link DomainObjectProperty} in a {@link TableView}!
+ * Note that you can not change the visibility with a ...Hidden method for {@link DomainObjectProperty} in a {@link TableTab}!
  * </p>
  * <p>
  * Syntax: public boolean &lt;property name or actionMethodName&gtHidden;()

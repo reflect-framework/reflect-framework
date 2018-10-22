@@ -3,9 +3,9 @@ package nth.reflect.fw.javafx.control.window.appbar;
 import com.jfoenix.controls.JFXRippler;
 
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
-import nth.reflect.fw.javafx.control.window.RfxWindow;
-import nth.reflect.fw.layer1userinterface.view.View;
+import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.tab.Tabs;
 
 /**
  * Wraps {@link RfxTabHeaderContent} into a {@link JFXRippler} to give it a rippler effect
@@ -14,10 +14,10 @@ import nth.reflect.fw.ui.style.MaterialColorSetCssName;
  */
 public class RfxTabHeader extends JFXRippler {
 
-	private final View tab;
+	private final Tab tab;
 
-	public RfxTabHeader(RfxWindow rfxWindow, View tab) {
-		super(new RfxTabHeaderContent(rfxWindow, tab));
+	public RfxTabHeader(Tabs<Tab> tabs, Tab tab) {
+		super(new RfxTabHeaderContent(tabs, tab));
 		this.tab = tab;
 		initStyle();
 	}
@@ -28,8 +28,13 @@ public class RfxTabHeader extends JFXRippler {
 		setStyle(properties.toString());
 	}
 
-	public View getTab() {
+	public Tab getTab() {
 		return tab;
+	}
+
+	public void setSelected(boolean isSelectedTab) {
+		RfxTabHeaderContent tabHeaderContent= (RfxTabHeaderContent) getControl();
+		tabHeaderContent.setSelected(isSelectedTab);
 	}
 	
 }
