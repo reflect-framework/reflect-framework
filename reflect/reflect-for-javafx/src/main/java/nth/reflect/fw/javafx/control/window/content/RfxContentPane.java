@@ -4,7 +4,7 @@ import javafx.scene.layout.BorderPane;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.fw.ui.tab.TabsListener;
 
@@ -22,8 +22,8 @@ public class RfxContentPane extends BorderPane implements TabsListener<Tab> {
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentPane.class)).getProperties()
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1());
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND());
 	}
 
 	@Override

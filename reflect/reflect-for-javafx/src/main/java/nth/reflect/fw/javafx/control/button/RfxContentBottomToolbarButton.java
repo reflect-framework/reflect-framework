@@ -12,7 +12,7 @@ import nth.reflect.fw.javafx.control.fonticon.RfxFontIconName;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.MaterialFont;
 
 /**
@@ -79,8 +79,8 @@ public class RfxContentBottomToolbarButton extends JFXButton implements RfxContr
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class))
 				.getProperties()
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED())
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1()).setMinHeight(MIN_HEIGHT)
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setMinHeight(MIN_HEIGHT)
 				.setPadding(0, PADDING_SIDE, 0, PADDING_SIDE)
 				.setFont(MaterialFont.getRobotoMedium(FONT_SIZE));
 		// rippler color
@@ -88,13 +88,13 @@ public class RfxContentBottomToolbarButton extends JFXButton implements RfxContr
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class)
 						.appendChild("jfx-rippler"))
 				.getProperties()
-				.put("-jfx-rippler-fill", MaterialColorSetCssName.CONTENT.BACKGROUND());
+				.put("-jfx-rippler-fill", ReflectColorName.CONTENT.BACKGROUND());
 		
 		// icon color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbarButton.class)
 						.appendChild(RfxFontIcon.class))
-				.getProperties().setFill(MaterialColorSetCssName.CONTENT.FOREGROUND1());
+				.getProperties().setFill(ReflectColorName.CONTENT.FOREGROUND());
 	}
 
 }

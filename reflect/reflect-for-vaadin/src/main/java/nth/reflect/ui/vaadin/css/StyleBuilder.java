@@ -1,10 +1,10 @@
 package nth.reflect.ui.vaadin.css;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 import com.vaadin.flow.component.Component;
 
+import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.ui.vaadin.mainwindow.BorderStyle;
 
 /**
@@ -89,12 +89,16 @@ public class StyleBuilder extends HashMap<String, String> {
 	}
 
 	public StyleBuilder setBackground(String colorVariableName) {
-		StringBuilder colorVariable=new StringBuilder(); 
-		colorVariable.append("var(");
-		colorVariable.append(colorVariableName);
-		colorVariable.append(")");
-		put("background-color", colorVariable.toString());
+		put("background-color", getCssVariable(colorVariableName));
 		return this;
+	}
+
+	private String getCssVariable(String variableName) {
+		StringBuilder variable=new StringBuilder(); 
+		variable.append("var(--");
+		variable.append(variableName);
+		variable.append(")");
+		return variable.toString();
 	}
 
 	public StyleBuilder setPadding(int padding) {
@@ -181,7 +185,7 @@ public class StyleBuilder extends HashMap<String, String> {
 	}
 
 	public StyleBuilder setColor(String colorVariableName) {
-		put("color", colorVariableName);
+		put("color", getCssVariable(colorVariableName));
 		return this;
 	}
 
@@ -310,6 +314,12 @@ public class StyleBuilder extends HashMap<String, String> {
 		return this;
 	}
 
+	
+	public StyleBuilder setBorderColor(String colorVariableName) {
+		put("border-color", getCssVariable(colorVariableName));
+		return this;
+	}
+	
 	public StyleBuilder setBorderColor(Color color) {
 		put("border-color", getRGB(color));
 		return this;

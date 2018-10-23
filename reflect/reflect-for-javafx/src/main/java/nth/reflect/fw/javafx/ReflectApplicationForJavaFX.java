@@ -26,6 +26,7 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
 
 /**
  * <p>
@@ -62,7 +63,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  *
  */
 public abstract class ReflectApplicationForJavaFX extends Application
-		implements ReflectApplication {
+		implements GraphicalUserInterfaceApplication {
 
 	private Stage primaryStage;
 

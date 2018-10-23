@@ -41,7 +41,7 @@ public class MaterialTabBarButton extends JButton {
 			label.setBorder(padding);
 		}
 		label.setFont(AwtFontFactory.create(MaterialFont.getRobotoMedium(12)));
-		label.setForeground(ColorFactory.create(reflectColors.getPrimaryColors().getForeground1()));
+		label.setForeground(ColorFactory.create(reflectColors.getPrimaryColors().getForeground()));
 		add(label);
 	}
 	

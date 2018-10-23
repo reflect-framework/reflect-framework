@@ -34,7 +34,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.tab.SelectTabItem;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.fw.ui.tab.TabsListener;
 import nth.reflect.fw.ui.tab.form.FormTab;
@@ -373,7 +373,7 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 		icon.setIcon(de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.BARS);
 		icon.setSize("17px");
 		String iconStyle = icon.getStyle() + ";" + new RfxStyleProperties()
-				.setFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1()).toString();
+				.setFill(ReflectColorName.PRIMARY.FOREGROUND()).toString();
 		icon.setStyle(iconStyle);
 
 		// RfxFontIcon icon=new RfxFontIcon(FontAwesomeIconName.BARS, 16,

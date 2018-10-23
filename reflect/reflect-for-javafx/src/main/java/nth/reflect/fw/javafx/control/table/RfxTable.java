@@ -25,8 +25,8 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
 import nth.reflect.fw.ui.style.MaterialFont;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
@@ -235,7 +235,7 @@ public class RfxTable extends TableView<Object> {
 	}
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		appendStyleGroups( styleSheet,RfxTable.class, MaterialColorSetCssName.CONTENT.BACKGROUND(), MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED()  );
+		appendStyleGroups( styleSheet,RfxTable.class, ReflectColorName.CONTENT.BACKGROUND(), ReflectColorName.CONTENT.BACKGROUND_12()  );
 	}
 
 	public static void appendStyleGroups( RfxStyleSheet styleSheet, Class<? extends RfxTable> componentClass, String backGroundColor, String backGroundHighLighted) {
@@ -247,10 +247,10 @@ public class RfxTable extends TableView<Object> {
 				.addStyleGroup(
 						RfxStyleSelector.createFor(componentClass).appendChild("column-header"))
 				.getProperties().setBackground(backGroundColor)
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
+						ReflectColorName.CONTENT.TRANSPARENT(),
 						backGroundHighLighted,
-						MaterialColorSetCssName.CONTENT.TRANSPARENT())
+						ReflectColorName.CONTENT.TRANSPARENT())
 				.setSize(ROW_HEIGHT);
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
@@ -262,32 +262,32 @@ public class RfxTable extends TableView<Object> {
 				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
 						.appendChild("column-header-background").appendChild("filler"))
 				.getProperties().setBackground(backGroundColor)
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
+						ReflectColorName.CONTENT.TRANSPARENT(),
 						backGroundHighLighted,
-						MaterialColorSetCssName.CONTENT.TRANSPARENT());
+						ReflectColorName.CONTENT.TRANSPARENT());
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
 						.appendChild("column-header").appendChild(Label.class))
 				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND2())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
 				.setFontWeight(FontWeight.NORMAL).setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-column")).getProperties()
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT()).setProperty("-fx-alignment", "CENTER-LEFT");
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT()).setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell")).getProperties()
-				.setBackground(backGroundColor)
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
+						ReflectColorName.CONTENT.TRANSPARENT(),
 						backGroundHighLighted,
-						MaterialColorSetCssName.CONTENT.TRANSPARENT())
+						ReflectColorName.CONTENT.TRANSPARENT())
 				.setCellSize(ROW_HEIGHT);
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell").appendFocused())
-				.getProperties().setBackground(MaterialColorSetCssName.CONTENT.FOREGROUND3())
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
-				.setBorderColor(MaterialColorSetCssName.CONTENT.TRANSPARENT(),
-						MaterialColorSetCssName.CONTENT.TRANSPARENT(),
+				.getProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND_12())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
+						ReflectColorName.CONTENT.TRANSPARENT(),
 						backGroundHighLighted,
-						MaterialColorSetCssName.CONTENT.TRANSPARENT());
+						ReflectColorName.CONTENT.TRANSPARENT());
 	}
 }

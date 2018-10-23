@@ -101,8 +101,6 @@ public interface ReflectApplication {
 
 	public Class<? extends AboutProvider> getAboutProviderClass();
 
-	// public Class<? extends PathProvider> getPathProviderClass();
-
 	public Class<? extends LanguageProvider> getLanguageProviderClass();
 
 	public Class<? extends AuthorizationProvider> getAuthorizationProviderClass();

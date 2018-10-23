@@ -17,7 +17,7 @@ public class PropertyLabelStyle implements ReflectStyleClass {
 	}
 	
 	public static Color getForeground1(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getForeground1();
+		return reflectColors.getContentColors().getForeground();
 	}
 
 }

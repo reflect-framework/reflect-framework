@@ -26,7 +26,7 @@ public class PropertyFieldStyle implements ReflectStyleClass {
 	}
 	
 	public static Color getForeground1(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getForeground1();
+		return reflectColors.getContentColors().getForeground();
 	}
 	
 	public static Color getBackground(ReflectColors reflectColors) {
@@ -34,7 +34,7 @@ public class PropertyFieldStyle implements ReflectStyleClass {
 	}
 
 	public static Color getBackgroundHighLighted(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getBackgroundHighLighted();
+		return reflectColors.getContentColors().getBackground20();
 	}
 
 }

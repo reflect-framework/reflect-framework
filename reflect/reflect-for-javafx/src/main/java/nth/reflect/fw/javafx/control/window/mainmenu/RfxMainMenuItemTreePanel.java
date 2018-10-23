@@ -16,7 +16,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.Tabs;
 
 public class RfxMainMenuItemTreePanel extends RfxItemTreePanel {
@@ -35,7 +35,7 @@ public class RfxMainMenuItemTreePanel extends RfxItemTreePanel {
 		RfxWindow rfxWindow = userInterfaceContainer.get(RfxWindow.class);
 		this.windowExtraWideBinding = rfxWindow.getExtraWideBinding();
 		this.mainMenuVisibleProperty=rfxWindow.getMainMenuVisibleProperty();
-		setStyle(new RfxStyleProperties().setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED()).toString());
+		setStyle(new RfxStyleProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND()).toString());
 	}
 	
 	

@@ -13,7 +13,6 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
@@ -33,6 +32,9 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
+import nth.reflect.fw.ui.style.MaterialColorPalette;
+import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 
 /**
@@ -82,7 +84,7 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 
 @SuppressWarnings("serial")
 @Route("")
-public class ReflectApplicationForVaadin extends Div implements ReflectApplication {
+public class ReflectApplicationForVaadin extends Div implements GraphicalUserInterfaceApplication {
 
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final MainWindow mainWindow;	
@@ -150,6 +152,11 @@ public class ReflectApplicationForVaadin extends Div implements ReflectApplicati
 	@Override
 	public List<Class<?>> getInfrastructureClasses() {
 		return Arrays.asList(ProductRepository.class, ProductGenerator.class);
+	}
+
+	@Override
+	public ReflectColors getColors() {
+		return new ReflectColors(MaterialColorPalette.blue700(), MaterialColorPalette.orange500(), MaterialColorPalette.white());
 	}
 
 

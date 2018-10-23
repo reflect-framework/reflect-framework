@@ -14,7 +14,7 @@ import nth.reflect.fw.ui.style.basic.Font;
 public class GridStyle implements ReflectStyleClass {
 
 	public static Color getTextColor(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getForeground1();
+		return reflectColors.getContentColors().getForeground();
 	}
 	
 	public static Color getBackground(ReflectColors reflectColors) {
@@ -22,7 +22,7 @@ public class GridStyle implements ReflectStyleClass {
 	}
 
 	public static Color getBackgroundHighLighted(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getBackgroundHighLighted();
+		return reflectColors.getContentColors().getBackground20();
 	}
 
 	public static int getMinHeight() {

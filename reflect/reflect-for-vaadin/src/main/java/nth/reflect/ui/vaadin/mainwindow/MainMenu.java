@@ -1,6 +1,5 @@
 package nth.reflect.ui.vaadin.mainwindow;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +15,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
@@ -33,7 +33,7 @@ public class MainMenu extends Div {
 		this.userInterfaceContainer = userInterfaceContainer;
 		setId("mainMenu");
 		new StyleBuilder().setProperty("border-right", "1px solid lightgray").setZIndex(MainWindow.Z_INDEX_MAIN_MENU)
-				.setBackground(Color.WHITE).setFor(this);
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setFor(this);
 
 		Grid<Item> mainMenuContent = createMainMenuContent();
 		add(mainMenuContent);

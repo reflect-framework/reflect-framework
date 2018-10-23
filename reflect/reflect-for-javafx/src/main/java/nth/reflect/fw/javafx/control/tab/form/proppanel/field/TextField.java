@@ -6,7 +6,7 @@ import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
@@ -34,9 +34,9 @@ public class TextField extends JFXTextField implements PropertyField {
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TextField.class)).getProperties()
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
-				.setProperty("-jfx-focus-color", MaterialColorSetCssName.ACCENT.BACKGROUND())
-				.setProperty("-jfx-unfocus-color", MaterialColorSetCssName.CONTENT.FOREGROUND2())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+				.setProperty("-jfx-focus-color", ReflectColorName.ACCENT.BACKGROUND())
+				.setProperty("-jfx-unfocus-color", ReflectColorName.CONTENT.BACKGROUND_12())
 				.setFont(PropertyFieldStyle.getFont());
 				//TODO but with line over full PropertyPanel: .setPadding(0, PropertyPanelStyle.getPaddingLeftRight(), 0, PropertyPanelStyle.getPaddingLeftRight());
 

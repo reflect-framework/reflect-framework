@@ -3,6 +3,7 @@ package nth.reflect.ui.vaadin.mainwindow;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.fw.ui.tab.TabsListener;
 import nth.reflect.ui.vaadin.css.Cursor;
@@ -46,13 +47,13 @@ public class TabSelectionButton extends Div implements TabsListener<Tab> {
 		numberOfTabs = createNumberOfTabs();
 		add(numberOfTabs);
 		new StyleBuilder().setWidth(SIZE, SizeUnit.PX).setHeight(SIZE, SizeUnit.PX).setBorderStyle(BorderStyle.SOLID)
-				.setBorderColor(java.awt.Color.BLACK).setBorderWidth(2, SizeUnit.PX).setBorderRadius(7, SizeUnit.PX)
+				.setBorderColor(ReflectColorName.PRIMARY.FOREGROUND()).setBorderWidth(2, SizeUnit.PX).setBorderRadius(7, SizeUnit.PX)
 				.setFor(this);
 	}
 
 	private Span createNumberOfTabs() {
 		Span span = new Span();
-		new StyleBuilder().setCursor(Cursor.DEFAULT).setMargin(0).setPosition(Position.RELATIVE)
+		new StyleBuilder().setColor(ReflectColorName.PRIMARY.FOREGROUND()).setCursor(Cursor.DEFAULT).setMargin(0).setPosition(Position.RELATIVE)
 				.setFloat(FloatType.LEFT).setTop(50, SizeUnit.PERCENT).setLeft(50, SizeUnit.PERCENT)
 				.setProperty("transform", "translate(-50%, -50%)").setFor(span);
 		return span;

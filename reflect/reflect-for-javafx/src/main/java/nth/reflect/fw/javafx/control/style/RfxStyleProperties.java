@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import javafx.geometry.Pos;
 import javafx.scene.text.FontWeight;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.ReflectColorSet;
 import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.fw.ui.style.basic.Font;
@@ -194,12 +194,11 @@ public class RfxStyleProperties extends HashMap<String,String> {
 	}
 
 	
-	public void setColorVariables(MaterialColorSetCssName colorSetName, ReflectColorSet colorSet) {
-		put(colorSetName.FOREGROUND1(), getRGB(colorSet.getForeground1()));
-		put(colorSetName.FOREGROUND2(), getRGB(colorSet.getForeground2()));
-		put(colorSetName.FOREGROUND3(), getRGB(colorSet.getForeground3()));
+	public void setColorVariables(ReflectColorName colorSetName, ReflectColorSet colorSet) {
 		put(colorSetName.BACKGROUND(), getRGB(colorSet.getBackground()));
-		put(colorSetName.BACKGROUND_HIGHLIGHTED(), getRGB(colorSet.getBackgroundHighLighted()));
+		put(colorSetName.BACKGROUND_12(), getRGB(colorSet.getBackground12()));
+		put(colorSetName.BACKGROUND_20(), getRGB(colorSet.getBackground20()));
+		put(colorSetName.FOREGROUND(), getRGB(colorSet.getForeground()));
 	}
 
 	public  RfxStyleProperties setBorderColor(String color) {

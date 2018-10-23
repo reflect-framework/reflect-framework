@@ -23,6 +23,7 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
 
 /**
  * {@link ReflecttApplicationForSwing} is an implementation of the {@link ReflectFramework} for desktop computers such as ...  
@@ -43,7 +44,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
 //TODO see https://github.com/atarw/material-ui-swing
 public abstract class ReflecttApplicationForSwing implements
-ReflectApplication {
+GraphicalUserInterfaceApplication {
 
 	
 	@Override

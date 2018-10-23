@@ -453,18 +453,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		return tabs;
 	}
 
-	/**
-	 * TODO get color from {@link ReflectApplication} {@link Annotation}, so
-	 * that the {@link GraphicalUserinterfaceController} does not have to be
-	 * overridden when different colors are needed
-	 * 
-	 * @return
-	 */
-	public ReflectColors getColors() {
-		ReflectColors reflectColors = new ReflectColors(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE,
-				Color.WHITE);
-		return reflectColors;
-	}
 
 	public abstract PropertyPanelFactory<PROPERTY_PANEL> getPropertyPanelFactory();
 }

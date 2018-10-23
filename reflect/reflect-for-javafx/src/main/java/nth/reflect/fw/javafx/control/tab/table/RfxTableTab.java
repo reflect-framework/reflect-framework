@@ -33,7 +33,6 @@ public class RfxTableTab extends Tab implements nth.reflect.fw.ui.tab.table.Tabl
 		this.methodParameterValue = methodParameterValue;
 
 		reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 
 		table = new RfxTable(this);
 		setCenter(table);

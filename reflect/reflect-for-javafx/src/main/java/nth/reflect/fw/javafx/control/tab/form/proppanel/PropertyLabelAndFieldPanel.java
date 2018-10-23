@@ -7,7 +7,7 @@ import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.PropertiesPanel;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
@@ -58,7 +58,7 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyLabelAndFieldPanel.class)).getProperties()
-		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED()).setProperty("-fx-background-radius", "10 10 0 0");
+		.setBackground(ReflectColorName.CONTENT.BACKGROUND_20()).setProperty("-fx-background-radius", "10 10 0 0");
 	}
 
 }

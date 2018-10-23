@@ -16,7 +16,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 import nth.reflect.fw.ui.item.HierarchicalItem;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.MaterialFont;
 
 /**
@@ -84,7 +84,7 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 		//TODO add RfxItemTree.class in style selector
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class).appendSelected())
 				.getProperties()
-				.setBackground(MaterialColorSetCssName.CONTENT.FOREGROUND3());
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND_12());
 
 	}
 

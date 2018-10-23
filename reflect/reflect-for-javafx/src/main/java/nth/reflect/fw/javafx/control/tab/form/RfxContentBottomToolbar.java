@@ -4,7 +4,7 @@ import javafx.geometry.Pos;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.toolbar.RfxToolbar;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class RfxContentBottomToolbar extends RfxToolbar {
 
@@ -17,7 +17,7 @@ public class RfxContentBottomToolbar extends RfxToolbar {
 	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentBottomToolbar.class)).getProperties()
-		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED())
+		.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
 		.setMinHeight(MIN_HEIGHT)
 		.setSpacing(SPACING)
 		.setAlignment(Pos.CENTER);

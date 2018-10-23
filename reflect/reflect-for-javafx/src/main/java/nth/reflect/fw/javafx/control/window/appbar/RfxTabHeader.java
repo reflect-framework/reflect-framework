@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXRippler;
 
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.Tabs;
 
 /**
@@ -24,7 +24,7 @@ public class RfxTabHeader extends JFXRippler {
 
 	private void initStyle() {
 		RfxStyleProperties properties=new RfxStyleProperties();
-		properties.put("-jfx-rippler-fill", MaterialColorSetCssName.PRIMARY.BACKGROUND_HIGHLIGHTED());
+		properties.put("-jfx-rippler-fill", ReflectColorName.PRIMARY.BACKGROUND_20());
 		setStyle(properties.toString());
 	}
 

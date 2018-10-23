@@ -2,7 +2,7 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.table.RfxTable;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
@@ -35,7 +35,7 @@ public class ManyToOneOrManyField extends RfxTable implements PropertyField {
 	}
 	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		appendStyleGroups( styleSheet,ManyToOneOrManyField.class, MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED(), MaterialColorSetCssName.CONTENT.BACKGROUND());
+		appendStyleGroups( styleSheet,ManyToOneOrManyField.class, ReflectColorName.CONTENT.BACKGROUND_20(), ReflectColorName.CONTENT.BACKGROUND());
 	}
 
 }

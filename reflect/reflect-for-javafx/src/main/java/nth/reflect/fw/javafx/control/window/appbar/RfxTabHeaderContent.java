@@ -10,7 +10,7 @@ import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.fw.javafx.control.style.RfxFontFactory;
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.MaterialFont;
 import nth.reflect.fw.ui.tab.Tabs;
 
@@ -50,7 +50,7 @@ public class RfxTabHeaderContent extends HBox {
 	private Label createLabel(Tab tab) {
 		Label label = new Label(tab.getDisplayName());
 		label.setFont(RfxFontFactory.create(MaterialFont.getRobotoMedium(14)));
-		String style = new RfxStyleProperties().setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1())
+		String style = new RfxStyleProperties().setTextFill(ReflectColorName.PRIMARY.FOREGROUND())
 				.setAlignment(Pos.CENTER_LEFT).toString();
 		label.setStyle(style);
 		label.setMinHeight(MIN_HEIGHT);
@@ -75,17 +75,17 @@ public class RfxTabHeaderContent extends HBox {
 	}
 
 	private static String createUnselectedStyle() {
-		String unselectedTabStyle = new RfxStyleProperties().setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND2())
+		String unselectedTabStyle = new RfxStyleProperties().setTextFill(ReflectColorName.PRIMARY.FOREGROUND())
 				.setPadding(0, PADDING, 0, PADDING).setMinHeight(MIN_HEIGHT).setBorderWidth(0, 0, 4, 0)
-				.setBorderColor(MaterialColorSetCssName.PRIMARY.BACKGROUND()).setFont(MaterialFont.getRobotoMedium(14))
+				.setBorderColor(ReflectColorName.PRIMARY.BACKGROUND()).setFont(MaterialFont.getRobotoMedium(14))
 				.toString();
 		return unselectedTabStyle;
 	}
 
 	private static String createSelectedStyle() {
-		String selectedTabStyle = new RfxStyleProperties().setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1())
+		String selectedTabStyle = new RfxStyleProperties().setTextFill(ReflectColorName.PRIMARY.FOREGROUND())
 				.setPadding(0, 0, 0, PADDING).setMinHeight(MIN_HEIGHT).setBorderWidth(0, 0, 4, 0)
-				.setBorderColor(MaterialColorSetCssName.ACCENT.BACKGROUND()).setFont(MaterialFont.getRobotoMedium(14))
+				.setBorderColor(ReflectColorName.ACCENT.BACKGROUND()).setFont(MaterialFont.getRobotoMedium(14))
 				.toString();
 		return selectedTabStyle;
 	}

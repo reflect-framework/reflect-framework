@@ -31,7 +31,6 @@ public class MainWindow extends Div implements TabsListener<Tab> {
 	static final int Z_INDEX_HEADER = 9998;
 	static final int Z_INDEX_MAIN_MENU = 9999;
 	static final int Z_INDEX_CONTENT_OVERLAY = Z_INDEX_MAIN_MENU;
-	static final Color BLACK_WITH_OPACITY = new Color(0f, 0f, 0f, 0.5f);
 	private final TabHeaderBar2 tabHeaderBar;
 	private final Div tabContentPanel;
 	private final Tabs<Tab> tabs;
@@ -57,9 +56,11 @@ public class MainWindow extends Div implements TabsListener<Tab> {
 
 		createTabs();
 
-		UI.getCurrent().getPage().executeJavaScript("document.documentElement.style.setProperty($0, $1);", "--abc",
-				"green");
+		System.out.println(JavaScriptToSetCssColors.createFor(userInterfaceContainer));
+		//UI.getCurrent().getPage().executeJavaScript("document.documentElement.style.setProperty($0, $1);", "--abc","green");
+		UI.getCurrent().getPage().executeJavaScript(JavaScriptToSetCssColors.createFor(userInterfaceContainer));
 	}
+
 
 	private void createTabs() {
 		LoremIpsumTab tab1 = new LoremIpsumTab("Tab one");

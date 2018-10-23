@@ -6,7 +6,7 @@ import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.PropertiesPanel;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
@@ -82,7 +82,7 @@ public class PropertyPanel extends BorderPane implements
 	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyPanel.class)).getProperties()
-		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND());
+		.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 
 }

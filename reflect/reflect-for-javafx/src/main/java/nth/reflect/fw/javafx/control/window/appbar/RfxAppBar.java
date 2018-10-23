@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class RfxAppBar extends BorderPane {
 
@@ -16,7 +16,7 @@ public class RfxAppBar extends BorderPane {
 
 	public RfxAppBar(UserInterfaceContainer userInterfaceContainer, RfxMainMenuPane mainMenuPane) {
 		String style = new RfxStyleProperties()
-				.setBackground(MaterialColorSetCssName.PRIMARY.BACKGROUND())
+				.setBackground(ReflectColorName.PRIMARY.BACKGROUND())
 				// .setMinHeight(BAR_HEIGHT)
 				// .setMinWidth(300)
 				.setPadding(0).setAlignment(Pos.CENTER_LEFT).toString();

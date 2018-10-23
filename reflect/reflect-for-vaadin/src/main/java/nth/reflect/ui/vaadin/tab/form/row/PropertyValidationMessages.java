@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.vaadin.flow.component.html.Div;
 
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")
@@ -14,7 +15,7 @@ public class PropertyValidationMessages extends Div implements  nth.reflect.fw.u
 	private static final String LINE_BREAK = "<BR>";
 
 	public PropertyValidationMessages() {
-		new StyleBuilder().setFont("font-size: 8px").setPadding(0,10,0,10).setColor(Color.RED).setFor(this);
+		new StyleBuilder().setFont("font-size: 8px").setPadding(0,10,0,10).setColor(ReflectColorName.ERROR.BACKGROUND()).setFor(this);
 		setText("Required");//TODO works
 	}
 

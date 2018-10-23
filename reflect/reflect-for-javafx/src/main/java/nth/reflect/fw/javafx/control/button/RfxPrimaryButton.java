@@ -7,7 +7,7 @@ import nth.reflect.fw.javafx.control.fonticon.RfxFontIconName;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 
 
 /**
@@ -36,21 +36,21 @@ public class RfxPrimaryButton extends RfxContentButton implements RfxControl {
 	}
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)).getProperties()
-				.setBackground(MaterialColorSetCssName.PRIMARY.BACKGROUND())
-				.setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1())
+				.setBackground(ReflectColorName.PRIMARY.BACKGROUND())
+				.setTextFill(ReflectColorName.PRIMARY.FOREGROUND())
 				.setPadding(8, 16, 8, 16);
 		//rippler color
 		styleSheet
 				.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)
 						.appendChild("jfx-rippler"))
 				.getProperties()
-				.put("-jfx-rippler-fill", MaterialColorSetCssName.PRIMARY.BACKGROUND_HIGHLIGHTED());
+				.put("-jfx-rippler-fill", ReflectColorName.PRIMARY.BACKGROUND_20());
 		//icon color
 		styleSheet
 		.addStyleGroup(RfxStyleSelector.createFor(RfxPrimaryButton.class)
 				.appendChild(RfxFontIcon.class))
 		.getProperties()
-		.setFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1());
+		.setFill(ReflectColorName.PRIMARY.FOREGROUND());
 		//TODO font???
 	}
 }

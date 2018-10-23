@@ -2,6 +2,7 @@ package nth.reflect.ui.vaadin.mainwindow;
 
 import com.vaadin.flow.component.html.Div;
 
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.css.Cursor;
 import nth.reflect.ui.vaadin.css.Display;
 import nth.reflect.ui.vaadin.css.Position;
@@ -21,7 +22,7 @@ public class Overlay extends Div {
 	public Overlay() {
 		getElement().setAttribute("onclick", "closeMainMenu()");
 		new StyleBuilder().setPosition(Position.FIXED).setDisplay(Display.NONE)
-				.setBackground(MainWindow.BLACK_WITH_OPACITY).setZIndex(MainWindow.Z_INDEX_CONTENT_OVERLAY)
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20()).setZIndex(MainWindow.Z_INDEX_CONTENT_OVERLAY)
 				.setCursor(Cursor.POINTER).setFor(this);
 		setId("overlay");
 	}

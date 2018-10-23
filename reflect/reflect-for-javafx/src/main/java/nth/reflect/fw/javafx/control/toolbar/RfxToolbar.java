@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import nth.reflect.fw.javafx.control.RfxControl;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 
 public abstract class RfxToolbar extends HBox implements RfxControl {//ToolBar {
 
@@ -25,7 +25,7 @@ public abstract class RfxToolbar extends HBox implements RfxControl {//ToolBar {
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxToolbar.class)).getProperties()
-		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND_HIGHLIGHTED())
+		.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
 		.setHeight(60)
 		.setMinWidth(300)
 		.setPadding(0)

@@ -3,6 +3,7 @@ package nth.reflect.fw.ui.style;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
 import nth.reflect.fw.ui.style.basic.Color;
 
@@ -45,25 +46,25 @@ public class ReflectColors {
 	private final ReflectColorSet primaryColors;
 	private final ReflectColorSet accentColors;
 	private final ReflectColorSet contentColors;
+	private final ReflectColorSet errorColors;
 
 	/**
 	 * Convenience method to get the {@link ReflectColors} form the
 	 * {@link UserInterfaceContainer}
 	 */
 	public static ReflectColors getFrom(UserInterfaceContainer userInterfaceContainer) {
-		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userinterfaceController = userInterfaceContainer
-				.get(GraphicalUserinterfaceController.class);
-		return userinterfaceController.getColors();
+		GraphicalUserInterfaceApplication application = userInterfaceContainer
+				.get(GraphicalUserInterfaceApplication.class);
+		return application.getColors();
 	}
 
 	/**
 	 * @param primaryBackgroundColor
 	 *            a color that is prominent visible, e.g.: the background color
-	 *            of the application tool bar
+	 *            of the application tool bar. This color should preferably be a darkish color (<50%)
 	 * @param accentBackGroundColor
-	 *            a color that is used for thinks that need attention (i.e.
-	 *            important buttons or controls that have focus
+	 *            a color that is used for things that need attention (i.e.
+	 *            important buttons or controls that have focus)
 	 * @param contentBackgroundColor
 	 *            a color used for the background of the content. This color
 	 *            should preferably either be very light (e.g. White) or very
@@ -73,6 +74,7 @@ public class ReflectColors {
 		this.primaryColors = new ReflectColorSet(primaryBackgroundColor);
 		this.accentColors = new ReflectColorSet(accentBackGroundColor);
 		this.contentColors = new ReflectColorSet(contentBackgroundColor);
+		this.errorColors=new ReflectColorSet(MaterialColorPalette.error());
 	}
 
 	public ReflectColorSet getPrimaryColors() {
@@ -87,185 +89,9 @@ public class ReflectColors {
 		return contentColors;
 	}
 
-	// public ApplicationToolbarStyle getApplicationToolbarStyle() {
-	// return new ApplicationToolbarStyle() {
-	//
-	// @Override
-	// public Color getBackgroundColor() {
-	// return primaryColors.getBackground();
-	// }
-	//
-	// @Override
-	// public int getHeight() {
-	// return displayScale.scale(56);
-	// }
-	// };
-	// }
-	//
-	// public ToolbarIconStyle getApplicationToolbarIconStyle() {
-	// return new ToolbarIconStyle() {
-	//
-	// @Override
-	// public int getPadding() {
-	// return displayScale.scale(16);
-	// }
-	//
-	// @Override
-	// public Color getColor() {
-	// return primaryColors.getForeground1();
-	// }
-	//
-	// @Override
-	// public Color getPressedColor() {
-	// return primaryColors.getBackgroundHighLighted();
-	// }
-	//
-	// @Override
-	// public int getSize() {
-	// return displayScale.scale(20);
-	// }
-	//
-	// @Override
-	// public Font getFont() {
-	// return MaterialFont.getFontAwesome();
-	// }
-	//
-	// };
-	// }
-	//
-	// public ApplicationToolbarTitleStyle getApplicationToolbarTitleStyle() {
-	// return new ApplicationToolbarTitleStyle() {
-	//
-	// @Override
-	// public Color getTextColor() {
-	// return primaryColors.getForeground1();
-	// }
-	//
-	// @Override
-	// public Font getFont() {
-	// return MaterialFont.getTitle(displayScale);
-	// }
-	//
-	// };
-	// }
-	//
-	// public MenuStyle getMenuStyle() {
-	// return new MenuStyle() {
-	//
-	// @Override
-	// public MenuType getMenuType() {
-	// return MenuType.getForDisplaySize(displaySize);
-	// }
-	// };
-	//
-	// }
-	//
-	// public ListStyle getListSingleLineStyle() {
-	// return new ListStyle() {
-	//
-	// @Override
-	// public int getMinHeight() {
-	// return displayScale.scale(48);
-	// }
-	//
-	// @Override
-	// public int getPaddingLeft() {
-	// return displayScale.scale(16);
-	// }
-	//
-	// @Override
-	// public int getPaddingRight() {
-	// return displayScale.scale(16);
-	// }
-	//
-	// @Override
-	// public int getIndent() {
-	// return displayScale.scale(32);
-	// }
-	//
-	// @Override
-	// public Color getBackgroundColor() {
-	// return contentColors.getBackground();
-	// }
-	//
-	// @Override
-	// public Color getSelectedBackGroundColor() {
-	// return contentColors.getBackgroundHighLighted();
-	// }
-	//
-	// @Override
-	// public Color getTextColor() {
-	// return contentColors.getForeground1();
-	// }
-	//
-	// @Override
-	// public Font getTitleFont() {
-	// return MaterialFont.getTitle(displayScale);
-	// }
-	//
-	// @Override
-	// public Font getSubHeadingFont() {
-	// return MaterialFont.getSubHeading(displayScale);
-	// }
-	//
-	// };
-	// }
-	//
-	// public TabContainerStyle getTabContainerStyle() {
-	// return new TabContainerStyle() {
-	//
-	// @Override
-	// public Color getBackground() {
-	// return contentColors.getBackground();
-	// }
-	// };
-	// }
-	//
-	
-	//
-	// public TabToolbarButtonStyle getTabToolbarButtonStyle() {
-	// return new TabToolbarButtonStyle() {
-	//
-	// @Override
-	// public Font getFont() {
-	// return MaterialFont.getButton(displayScale);
-	// }
-	//
-	// @Override
-	// public Color getTextColor() {
-	// return primaryLightColors.getForeground1();
-	// }
-	// };
-	// }
-	//
-	// public ToolbarIconStyle getTabToolbarIconStyle() {
-	// return new ToolbarIconStyle() {
-	//
-	// @Override
-	// public int getPadding() {
-	// return displayScale.scale(16);
-	// }
-	//
-	// @Override
-	// public Color getColor() {
-	// return primaryLightColors.getForeground1();
-	// }
-	//
-	// @Override
-	// public Color getPressedColor() {
-	// return primaryLightColors.getBackgroundHighLighted();
-	// }
-	//
-	// @Override
-	// public int getSize() {
-	// return displayScale.scale(20);
-	// }
-	//
-	// @Override
-	// public Font getFont() {
-	// return MaterialFont.getFontAwesome();
-	// }
-	// };
-	// }
+	public ReflectColorSet getErrorColors() {
+		return errorColors;
+	}
 
+	
 }

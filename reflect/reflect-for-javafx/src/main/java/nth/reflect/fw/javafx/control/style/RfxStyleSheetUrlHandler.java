@@ -28,7 +28,7 @@ import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.ui.style.MaterialColorPalette;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.style.basic.Color;
 
@@ -40,7 +40,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 		
 		RfxStyleSheet styleSheet = new RfxStyleSheet();
 
-		appendColorDefinitions(styleSheet);
+		appendColorDefinitions(styleSheet, applicationForJavaFX);
 		appendPanes(styleSheet);
 		appendControls(styleSheet);
 		
@@ -92,16 +92,15 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	/**
 	 * Fixme: get colors from {@link ReflectionProvider#getApplicationInfo().getColors() with annotaions in ReflectApplication class}
 	 * @param styleSheet
+	 * @param applicationForJavaFX 
 	 * @param userInterfaceController
 	 */
-	private void appendColorDefinitions(RfxStyleSheet styleSheet) {
-		//Fixme ReflectColors reflectColors = userInterfaceController.getColors();
-		ReflectColors reflectColors = new ReflectColors(MaterialColorPalette.TEAL, MaterialColorPalette.ORANGE,
-				Color.WHITE);
+	private void appendColorDefinitions(RfxStyleSheet styleSheet, ReflectApplicationForJavaFX applicationForJavaFX) {
+		ReflectColors colors = applicationForJavaFX.getColors();
 		RfxStyleGroup colorDefintion = styleSheet.addStyleGroup(RfxStyleSelector.createFor("*"));
-		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.PRIMARY,reflectColors.getPrimaryColors());
-		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.ACCENT,reflectColors.getAccentColors());
-		colorDefintion.getProperties().setColorVariables(MaterialColorSetCssName.CONTENT, reflectColors.getContentColors());
+		colorDefintion.getProperties().setColorVariables(ReflectColorName.PRIMARY,colors.getPrimaryColors());
+		colorDefintion.getProperties().setColorVariables(ReflectColorName.ACCENT,colors.getAccentColors());
+		colorDefintion.getProperties().setColorVariables(ReflectColorName.CONTENT, colors.getContentColors());
 	}
 
 	@Override

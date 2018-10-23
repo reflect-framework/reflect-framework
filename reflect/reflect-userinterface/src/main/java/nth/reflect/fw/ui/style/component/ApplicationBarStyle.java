@@ -18,7 +18,7 @@ public class ApplicationBarStyle {
 	}
 
 	public static Color getForeground1(ReflectColors reflectColors) {
-		return reflectColors.getPrimaryColors().getForeground1();
+		return reflectColors.getPrimaryColors().getForeground();
 	}
 	
 	public static Color getBackGround(ReflectColors reflectColors) {
@@ -26,7 +26,7 @@ public class ApplicationBarStyle {
 	}
 
 	public static Color getBackgroundHighLighted(ReflectColors reflectColors) {
-		return reflectColors.getPrimaryColors().getBackgroundHighLighted();
+		return reflectColors.getPrimaryColors().getBackground20();
 	}
 
 	public static int getIconPadding() {

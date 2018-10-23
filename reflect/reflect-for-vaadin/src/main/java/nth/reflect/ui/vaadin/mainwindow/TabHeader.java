@@ -1,9 +1,8 @@
 package nth.reflect.ui.vaadin.mainwindow;
 
-import java.awt.Color;
-
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 import nth.reflect.ui.vaadin.tab.Tab;
@@ -48,11 +47,10 @@ public class TabHeader extends HorizontalLayout {
 			// UI.getCurrent().getPage().executeJavaScript("", parameters)//set
 			// color parameters, see
 			// https://medium.com/@_bengarrison/accessing-and-modifying-css-variables-with-javascript-2ccb735bbff0
-			new StyleBuilder().setBorderStyle(BorderStyle.SOLID).setBorderWidth(0, 0, 4, 0).setBorderColor(Color.ORANGE)
-					.setProperty("--abc", "red").setBackground("--abc").setFor(this);
+			new StyleBuilder().setBorderStyle(BorderStyle.SOLID).setBorderWidth(0, 0, 4, 0).setBorderColor(ReflectColorName.ACCENT.BACKGROUND()).setBackground(ReflectColorName.PRIMARY.BACKGROUND_20()).setFor(this);
 		} else {
 			new StyleBuilder().setBorderStyle(BorderStyle.SOLID).setBorderWidth(0, 0, 4, 0)
-					.setBorderColor(new Color(255, 255, 255, 1)).setFor(this);
+					.setBorderColor(ReflectColorName.PRIMARY.BACKGROUND()).setFor(this);
 		}
 	}
 

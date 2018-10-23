@@ -5,7 +5,7 @@ import nth.reflect.fw.javafx.control.RfxControl;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.MaterialFont;
 
 /**
@@ -56,13 +56,13 @@ public class RfxList<T> extends ListView<T> implements RfxControl {
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class)).getProperties()
-				.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND())
-				.setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND1())
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
 				.setFont(MaterialFont.getRobotoRegular(FONT_SIZE))
 				.setPadding(0);
 		
 //TODO set row background color transparent, not intermediate
-//TODO set focused row		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class,"cell").appendSelected()).getProperties().setBackground(MaterialColorSetCssName.ACCENT.BACKGROUND());
+//TODO set focused row		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxList.class,"cell").appendSelected()).getProperties().setBackground(ReflectColorName.ACCENT.BACKGROUND());
 //TODO remove focus border
 		//				.setProperty("-fx-background-color", "transparent,-fx-box-border,-fx-control-inner-background")
 //				.setProperty("-fx-background-insets", "-1.4, 0, 1")

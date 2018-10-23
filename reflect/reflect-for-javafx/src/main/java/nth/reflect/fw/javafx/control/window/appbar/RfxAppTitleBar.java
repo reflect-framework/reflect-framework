@@ -12,7 +12,7 @@ import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.MaterialFont;
 
 /**
@@ -46,7 +46,7 @@ public class RfxAppTitleBar extends HBox {
 		String title = getTitle(userInterfaceContainer);
 		Label titleLabel = new Label(title);
 		String style = new RfxStyleProperties()
-				.setTextFill(MaterialColorSetCssName.PRIMARY.FOREGROUND1())
+				.setTextFill(ReflectColorName.PRIMARY.FOREGROUND())
 				.setAlignment(Pos.CENTER_LEFT).setFont(MaterialFont.getRobotoMedium(20))
 				.setPadding(0, 0, 0, 16).toString();
 		titleLabel.setStyle(style);

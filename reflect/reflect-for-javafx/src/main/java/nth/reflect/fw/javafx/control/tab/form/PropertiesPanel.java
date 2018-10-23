@@ -24,7 +24,7 @@ import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.ui.style.MaterialColorSetCssName;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.component.FormTabStyle;
 import nth.reflect.fw.ui.tab.form.FormMode;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
@@ -158,7 +158,7 @@ public class PropertiesPanel extends VBox {
 //		label.setFont(font);
 //		label.setPrefHeight(Label.USE_COMPUTED_SIZE);
 //		label.setWrapText(true);
-//		label.setStyle(new RfxStyleProperties().setTextFill(MaterialColorSetCssName.CONTENT.FOREGROUND2()).toString());
+//		label.setStyle(new RfxStyleProperties().setTextFill(ReflectColorName.CONTENT.FOREGROUND2()).toString());
 //		getChildren().add(label);
 //		return label;
 //	}
@@ -317,7 +317,7 @@ public class PropertiesPanel extends VBox {
 	
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertiesPanel.class)).getProperties()
-		.setBackground(MaterialColorSetCssName.CONTENT.BACKGROUND()).setSpacing(FormTabStyle.getSpacing());
+		.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setSpacing(FormTabStyle.getSpacing());
 	}
 
 }

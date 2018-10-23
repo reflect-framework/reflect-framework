@@ -4,41 +4,36 @@ import nth.reflect.fw.ui.style.basic.Color;
 
 /**
  * A {@link ReflectColorSet} is a group of background and foreground colors,
- * based on a given background color and a predefined set of rules. 
+ * based on a given background color and a predefined set of rules.
  * 
  * @author nilsth
  *
  */
 public class ReflectColorSet implements MaterialDesign {
 
-	private static final double LIGHTER = 1 + 0.5;
-	private static final double DARKER = 1 - 0.1;
 	private final Color backgroundColor;
-	private final Color foregroundColor1;
-	private final Color foregroundColor2;
-	private final Color foregroundColor3;
-	private final Color backgroundColorHighLighted;
+	private final Color foregroundColor;
+	private final Color backgroundColor12;
+	private final Color backgroundColor20;
 
 	/**
 	 * 
 	 * @param backgroundColor
 	 *            : the backgroundColor color for a specific theme color. Note
 	 *            that you should use predefined colors by the
-	 *            {@link MaterialDesign}. 
+	 *            {@link MaterialDesign}.
 	 */
 
 	public ReflectColorSet(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 		if (backgroundColor.isDark()) {
-			backgroundColorHighLighted = backgroundColor.deriveDarknes(LIGHTER);
-			foregroundColor1 = Color.WHITE.deriveAlpha(1.0);
-			foregroundColor2 = Color.WHITE.deriveAlpha(0.70);
-			foregroundColor3 = Color.WHITE.deriveAlpha(0.30);
+			foregroundColor = Color.WHITE;
+			backgroundColor12 = foregroundColor.deriveAlpha(0.12);
+			backgroundColor20 = foregroundColor.deriveAlpha(0.20);
 		} else {
-			backgroundColorHighLighted = backgroundColor.deriveDarknes(DARKER);
-			foregroundColor1 = Color.BLACK.deriveAlpha(0.87);
-			foregroundColor2 = Color.BLACK.deriveAlpha(0.54);
-			foregroundColor3 = Color.BLACK.deriveAlpha(0.38);
+			foregroundColor = Color.BLACK;
+			backgroundColor12 = foregroundColor.deriveAlpha(0.12);
+			backgroundColor20 = foregroundColor.deriveAlpha(0.20);
 		}
 	}
 
@@ -51,12 +46,21 @@ public class ReflectColorSet implements MaterialDesign {
 
 	/**
 	 * 
+	 * @return color of background for buttons and separators. Note do not use
+	 *         for mouse over: mouse overs confuses the user what has focus.
+	 */
+	public Color getBackground12() {
+		return backgroundColor12;
+	}
+
+	/**
+	 * 
 	 * @return color of background for when the object is activated by the user
-	 *         (pressed\ clicked) Note do not use for mouse over: mouse overs
+	 *         (pressed\ clicked). Note do not use for mouse over: mouse overs
 	 *         confuses the user what has focus.
 	 */
-	public Color getBackgroundHighLighted() {
-		return backgroundColorHighLighted;
+	public Color getBackground20() {
+		return backgroundColor20;
 	}
 
 	/**
@@ -64,32 +68,10 @@ public class ReflectColorSet implements MaterialDesign {
 	 *         texts or icons. Note that you should use predefined colors by the
 	 *         {@link MaterialDesign}. This color should either be black or
 	 *         white (depending on the backgroundColor color) and have a certain
-	 *         transparency. 
+	 *         transparency.
 	 */
-	public Color getForeground1() {
-		return foregroundColor1;
-	}
-
-	/**
-	 * @return the primary foreground color i.e. used for the less important
-	 *         texts or icons. Note that you should use predefined colors by the
-	 *         {@link MaterialDesign}. This color should either be black or
-	 *         white (depending on the backgroundColor color) and have a certain
-	 *         transparency. 
-	 */
-	public Color getForeground2() {
-		return foregroundColor2;
-	}
-
-	/**
-	 * @return the primary foreground color i.e. used for the least important or
-	 *         disabled texts or icons. Note that you should use predefined
-	 *         colors by the {@link MaterialDesign}. This color should either be
-	 *         black or white (depending on the backgroundColor color) and have
-	 *         a certain transparency. 
-	 */
-	public Color getForeground3() {
-		return foregroundColor3;
+	public Color getForeground() {
+		return foregroundColor;
 	}
 
 }
