@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.formlayout.FormLayout.ResponsiveStep;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -18,12 +17,14 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.item.method.FormOkItem;
 import nth.reflect.fw.ui.item.tab.CancelItem;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.fw.ui.tab.form.FormMode;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
+import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
@@ -94,17 +95,11 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 		Tabs<Tab> tabs = userInterfaceController.getTabs();
 
 		FormOkItem okItem = new FormOkItem(this, actionMethodOwner, actionMethodInfo, domainValueModel);
-		Button okButton = new Button(okItem.getText());
-		okButton.addClickListener(event -> {
-			okItem.getAction().run();
-		});
+		Button okButton = new Button(ReflectColorName.PRIMARY, okItem);
 		okCancelButtonGroup.add(okButton);
 
 		CancelItem<Tab> cancelItem = new CancelItem<>(languageProvider, tabs, this);
-		Button cancelButton = new Button(cancelItem.getText());
-		cancelButton.addClickListener(event -> {
-			cancelItem.getAction().run();
-		});
+		Button cancelButton = new Button(ReflectColorName.PRIMARY,cancelItem);
 		okCancelButtonGroup.add(cancelButton);
 
 		return okCancelButtonGroup;

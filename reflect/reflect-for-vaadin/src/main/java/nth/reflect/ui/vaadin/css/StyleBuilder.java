@@ -8,6 +8,7 @@ import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.ui.vaadin.mainwindow.BorderStyle;
 
 /**
+ * @deprecated use style sheets
  * Style properties class in fluent interface style, because JavaFx does not
  * have a CSS API yet.
  * 
@@ -377,6 +378,11 @@ public class StyleBuilder extends HashMap<String, String> {
 
 	public StyleBuilder setFloat(FloatType floatType) {
 		put("float", floatType.toString());
+		return this;
+	}
+
+	public StyleBuilder setUserSelectNone() {
+		put("user-select","none");
 		return this;
 	}
 

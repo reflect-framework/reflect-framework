@@ -1,6 +1,5 @@
 package nth.reflect.ui.vaadin.mainwindow;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -10,6 +9,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
 import nth.reflect.fw.ui.style.ReflectColorName;
+import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
@@ -34,27 +34,16 @@ public class HeaderBar extends HorizontalLayout {
 		new StyleBuilder().setBackground(ReflectColorName.PRIMARY.BACKGROUND()).setOverflow(Overflow.HIDDEN).setWidth(100, SizeUnit.PERCENT)
 				.setHeight(55, SizeUnit.PX).setPadding(5, 5, 0, 5).setZIndex(MainWindow.Z_INDEX_HEADER).setFor(this);
 
-		System.out.println(	new StyleBuilder().setBackground(ReflectColorName.PRIMARY.BACKGROUND()).setOverflow(Overflow.HIDDEN).setWidth(100, SizeUnit.PERCENT)
-				.setHeight(55, SizeUnit.PX).setPadding(5, 5, 0, 5).setZIndex(MainWindow.Z_INDEX_HEADER).toString());
-		Button mainMenuButton = createMainMenuButton();
+		Button mainMenuButton = new MainMenuButton();
 
 		Span title = createTitle();
-		TabHeaderBar2 tabHeaderBar = mainWindow.getTabHeaderBar();
+		TabHeaderBar tabHeaderBar = mainWindow.getTabHeaderBar();
 
 		add(mainMenuButton, title, tabHeaderBar);
 		// setVerticalComponentAlignment(Alignment.CENTER, mainMenuButton,
 		// title, contextMenuButton);
 		// setVerticalComponentAlignment(Alignment.END, tabHeaderBar);
 
-	}
-
-	// TODO improve button and icon appearance
-	private Button createMainMenuButton() {
-		Button mainMenuButton = new Button(new Icon(VaadinIcon.MENU));
-		mainMenuButton.setId("mainMenuButton");
-		mainMenuButton.getElement().setAttribute("onclick", "toggleMainMenu()");
-		new StyleBuilder().setColor(ReflectColorName.PRIMARY.FOREGROUND()).setFor(mainMenuButton);
-		return mainMenuButton;
 	}
 
 	private Span createTitle() {

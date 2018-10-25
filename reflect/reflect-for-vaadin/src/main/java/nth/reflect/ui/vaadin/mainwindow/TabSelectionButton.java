@@ -16,7 +16,7 @@ import nth.reflect.ui.vaadin.tab.Tab;
 /**
  * <p>
  * The tab selection button is displayed in the right hand side of the
- * {@link TabHeaderBar2} when there is not enough width to display all
+ * {@link TabHeaderBar} when there is not enough width to display all
  * {@link TabHeader}s. This is done with javascript, (see tabHeaderBar.js).
  * </p>
  * <p>

@@ -11,17 +11,17 @@ import nth.reflect.fw.ui.tab.TabsListener;
 import nth.reflect.ui.vaadin.tab.Tab;
 
 /**
- * The {@link TabHeaderBar2} HTML element is a placeholder (a container) for the
- * {@link TabHeader}s. The {@link TabHeaderBar2} element and all its children will be
+ * The {@link TabHeaderBar} HTML element is a placeholder (a container) for the
+ * {@link TabHeader}s. The {@link TabHeaderBar} element and all its children will be
  * repositioned, resized, hidden or displayed with javascript (see tabHeaderBar.js)
  */
-public class TabHeaderBar2 extends HorizontalLayout implements TabsListener<Tab> {
+public class TabHeaderBar extends HorizontalLayout implements TabsListener<Tab> {
 
 	private static final long serialVersionUID = 6459272335586683593L;
 	private final TabSelectionButton tabSelectionButton;
 	private final Tabs<Tab> tabs;
 	
-	public TabHeaderBar2(Tabs<Tab> tabs) {
+	public TabHeaderBar(Tabs<Tab> tabs) {
 		this.tabs = tabs;
 		tabs.addListener(this);
 		tabSelectionButton=new TabSelectionButton(tabs);
@@ -43,7 +43,7 @@ public class TabHeaderBar2 extends HorizontalLayout implements TabsListener<Tab>
 
 
 	/**
-	 * Adds tab header at the end of the {@link TabHeaderBar2}, just before the {@link TabSelectionButton}
+	 * Adds tab header at the end of the {@link TabHeaderBar}, just before the {@link TabSelectionButton}
 	 */
 	@Override
 	public void onAddTab(Tab newTab) {

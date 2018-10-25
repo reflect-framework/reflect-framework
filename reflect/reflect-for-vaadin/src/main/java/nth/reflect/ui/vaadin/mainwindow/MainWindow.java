@@ -1,7 +1,5 @@
 package nth.reflect.ui.vaadin.mainwindow;
 
-import java.awt.Color;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -31,7 +29,7 @@ public class MainWindow extends Div implements TabsListener<Tab> {
 	static final int Z_INDEX_HEADER = 9998;
 	static final int Z_INDEX_MAIN_MENU = 9999;
 	static final int Z_INDEX_CONTENT_OVERLAY = Z_INDEX_MAIN_MENU;
-	private final TabHeaderBar2 tabHeaderBar;
+	private final TabHeaderBar tabHeaderBar;
 	private final Div tabContentPanel;
 	private final Tabs<Tab> tabs;
 
@@ -44,7 +42,7 @@ public class MainWindow extends Div implements TabsListener<Tab> {
 		MainMenu mainMenu = new MainMenu(userInterfaceContainer);
 		tabContentPanel = new TabContaintPanel(tabs);
 		Overlay overlay = new Overlay();
-		tabHeaderBar = new TabHeaderBar2(tabs);
+		tabHeaderBar = new TabHeaderBar(tabs);
 		HeaderBar headerBar = new HeaderBar(userInterfaceContainer, this);
 
 		// TODO add both tabHeaderBar and headerBar to MainWindow
@@ -56,8 +54,6 @@ public class MainWindow extends Div implements TabsListener<Tab> {
 
 		createTabs();
 
-		System.out.println(JavaScriptToSetCssColors.createFor(userInterfaceContainer));
-		//UI.getCurrent().getPage().executeJavaScript("document.documentElement.style.setProperty($0, $1);", "--abc","green");
 		UI.getCurrent().getPage().executeJavaScript(JavaScriptToSetCssColors.createFor(userInterfaceContainer));
 	}
 
@@ -81,7 +77,7 @@ public class MainWindow extends Div implements TabsListener<Tab> {
 		return tabContentPanel;
 	}
 
-	public TabHeaderBar2 getTabHeaderBar() {
+	public TabHeaderBar getTabHeaderBar() {
 		return tabHeaderBar;
 	}
 

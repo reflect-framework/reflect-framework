@@ -1,0 +1,48 @@
+<custom-style>
+<style>
+
+.reflect-button-container {
+	display: table;
+	height: 36px;
+	overflow: hidden;
+	border-radius: 5px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.reflect-button-inner {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 0px 16px 0px 16px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.reflect-button-primary {
+	color: var(--reflect-color-primary-foreground);
+	background-color: var(--reflect-color-primary-background);
+}
+
+.reflect-button-inner.reflect-button-primary:active {
+	background-color: var(--reflect-color-primary-background20);
+}
+
+.reflect-button-accent {
+	color: var(--reflect-color-accent-foreground);
+	background-color: var(--reflect-color-accent-background);
+}
+
+.reflect-button-inner.reflect-button-accent:active {
+	background-color: var(--reflect-color-accent-background20);
+}
+
+.reflect-button-content {
+	color: var(--reflect-color-content-foreground);
+	background-color: var(--reflect-color-content-background12);
+}
+
+.reflect-button-inner.reflect-button-content:active {
+	background-color: var(--reflect-color-content-background20);
+}
+</style>
+</custom-style>
