@@ -79,8 +79,7 @@ public class Color {
 
 	public boolean isDark() {
 		int brightness = getBrightness();
-		//boolean dark = brightness < 130;
-		boolean dark = brightness < 170;
+		boolean dark = brightness < 220;
 		return dark;
 	}
 

@@ -11,6 +11,7 @@
 }
 
 .reflect-button-inner {
+	outline: none; /* remove default focus border */
 	display: table-cell;
 	vertical-align: middle;
 	padding: 0px 16px 0px 16px;
@@ -27,14 +28,12 @@
 	background-color: var(--reflect-color-primary-background20);
 }
 
-.reflect-button-accent {
+.reflect-button-inner.reflect-button-primary:focus {
 	color: var(--reflect-color-accent-foreground);
-	background-color: var(--reflect-color-accent-background);
+	background-color: var(--reflect-color-accent-background); 
 }
 
-.reflect-button-inner.reflect-button-accent:active {
-	background-color: var(--reflect-color-accent-background20);
-}
+
 
 .reflect-button-content {
 	color: var(--reflect-color-content-foreground);
@@ -44,5 +43,11 @@
 .reflect-button-inner.reflect-button-content:active {
 	background-color: var(--reflect-color-content-background20);
 }
+
+.reflect-button-inner.reflect-button-content:focus {
+	color: var(--reflect-color-accent-foreground);
+	background-color: var(--reflect-color-accent-background); 
+}
+
 </style>
 </custom-style>

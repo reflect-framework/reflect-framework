@@ -6,28 +6,25 @@ import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.HasText;
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.dom.Element;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.style.ReflectColorName;
 
 @SuppressWarnings("serial")
 @HtmlImport("/frontend/styles/button.html")
+//TODO convert this element to a button so that event is triggered when space is pressed and component has focus. Use @Tag("button") and remove inner div and fix stylling
 public class Button extends Div implements HasSize, HasEnabled, HasStyle, HasText, Focusable<Button> {
 	private static final String INNER = "inner";
 	private static final String CONTAINER = "container";
 	private static final String CLASS_NAME_PREFIX = "reflect-button";
 	private final Div innerDiv;
 
-	// TODO (split button up in PrimaryTextButton, PrimaryIconButton, ContentTextButton, ContentIconButton)
-//	TODO focusable color 
-//	TODO font
-//	TODO iconButton (See mainmenubutton and tab selection button)
-
 	public Button(ReflectColorName colorSetName) {
 		super();
-		setTabIndex(0);
 		getClassNames().add(getClassName(CONTAINER));
 		getClassNames().add(getClassName(colorSetName.name().toLowerCase()));
 		innerDiv = createInnerDiv(colorSetName);
@@ -41,10 +38,11 @@ public class Button extends Div implements HasSize, HasEnabled, HasStyle, HasTex
 	 *         {@link Button} content (e.g. text and or icon) .
 	 */
 	private Div createInnerDiv(ReflectColorName colorSetName) {
-		Div contentDiv = new Div();
-		contentDiv.getClassNames().add(getClassName(INNER));
-		contentDiv.getClassNames().add(getClassName(colorSetName.name().toLowerCase()));
-		return contentDiv;
+		Div innerDiv = new Div();
+		innerDiv.getClassNames().add(getClassName(INNER));
+		innerDiv.getClassNames().add(getClassName(colorSetName.name().toLowerCase()));
+		innerDiv.getElement().setAttribute("tabindex", String.valueOf(0));
+		return innerDiv;
 	}
 
 	/**
