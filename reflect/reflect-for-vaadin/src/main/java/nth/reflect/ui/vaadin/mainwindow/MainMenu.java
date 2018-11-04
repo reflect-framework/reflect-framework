@@ -50,7 +50,7 @@ public class MainMenu extends Div {
 
 	private void onMainMenuItemSelected(SelectionEvent<Grid<Item>, Item> event) {
 		Optional<Item> item = event.getFirstSelectedItem();
-		if (item.isPresent()) {
+		if (item.isPresent() && item.get().getAction()!=null) {
 			item.get().getAction().run();
 		}
 	}

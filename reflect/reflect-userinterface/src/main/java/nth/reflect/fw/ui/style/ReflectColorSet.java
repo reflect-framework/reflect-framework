@@ -11,6 +11,8 @@ import nth.reflect.fw.ui.style.basic.Color;
  */
 public class ReflectColorSet implements MaterialDesign {
 
+	private static final double _20_PERCENT = 0.20;
+	private static final double _12_PERCENT = 0.12;
 	private final Color backgroundColor;
 	private final Color foregroundColor;
 	private final Color backgroundColor12;
@@ -28,12 +30,12 @@ public class ReflectColorSet implements MaterialDesign {
 		this.backgroundColor = backgroundColor;
 		if (backgroundColor.isDark()) {
 			foregroundColor = Color.WHITE;
-			backgroundColor12 = foregroundColor.deriveAlpha(0.12);
-			backgroundColor20 = foregroundColor.deriveAlpha(0.20);
+			backgroundColor12 = backgroundColor.deriveDarknes(1+_12_PERCENT);//foregroundColor.deriveAlpha(0.12);
+			backgroundColor20 = backgroundColor.deriveDarknes(1+_20_PERCENT);//foregroundColor.deriveAlpha(0.20);
 		} else {
 			foregroundColor = Color.BLACK;
-			backgroundColor12 = foregroundColor.deriveAlpha(0.12);
-			backgroundColor20 = foregroundColor.deriveAlpha(0.20);
+			backgroundColor12 = backgroundColor.deriveDarknes(1-_12_PERCENT);//foregroundColor.deriveAlpha(0.12);
+			backgroundColor20 = backgroundColor.deriveDarknes(1-_20_PERCENT);//foregroundColor.deriveAlpha(0.20);
 		}
 	}
 

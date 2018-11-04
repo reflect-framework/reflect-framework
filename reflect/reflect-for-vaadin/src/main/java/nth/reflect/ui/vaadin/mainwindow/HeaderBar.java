@@ -10,6 +10,7 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
 import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.button.Button;
+import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
