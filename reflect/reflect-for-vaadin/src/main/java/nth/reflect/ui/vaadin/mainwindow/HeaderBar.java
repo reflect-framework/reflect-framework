@@ -14,6 +14,7 @@ import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
+import nth.reflect.ui.vaadin.tab.TabHeaderBar;
 
 public class HeaderBar extends HorizontalLayout {
 

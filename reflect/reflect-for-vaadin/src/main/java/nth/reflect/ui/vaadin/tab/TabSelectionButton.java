@@ -1,4 +1,4 @@
-package nth.reflect.ui.vaadin.mainwindow;
+package nth.reflect.ui.vaadin.tab;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
@@ -11,13 +11,13 @@ import nth.reflect.ui.vaadin.css.FloatType;
 import nth.reflect.ui.vaadin.css.Position;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
-import nth.reflect.ui.vaadin.tab.Tab;
+import nth.reflect.ui.vaadin.mainwindow.BorderStyle;
 
 /**
  * <p>
  * The tab selection button is displayed in the right hand side of the
  * {@link TabHeaderBar} when there is not enough width to display all
- * {@link TabHeader}s. This is done with javascript, (see tabHeaderBar.js).
+ * {@link TabHeaderButton}s. This is done with javascript, (see tabHeaderBar.js).
  * </p>
  * <p>
  * The {@link TabSelectionButton} is a rounded square with the numberOfTabs of

@@ -22,7 +22,6 @@ public class MainMenuButton extends Button {
 		
 		add(icon);
 		setId("mainMenuButton");
-		setFocusable(false);
-		getElement().setAttribute("onclick", "this.blur();toggleMainMenu()");
+		getElement().setAttribute("onclick", "toggleMainMenu()");
 	}
 }

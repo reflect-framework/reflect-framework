@@ -1,4 +1,4 @@
-package nth.reflect.ui.vaadin.mainwindow;
+package nth.reflect.ui.vaadin.tab;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,7 +8,6 @@ import com.vaadin.flow.component.html.Div;
 
 import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.fw.ui.tab.TabsListener;
-import nth.reflect.ui.vaadin.tab.Tab;
 
 public class TabContaintPanel extends Div implements TabsListener<Tab> {
 

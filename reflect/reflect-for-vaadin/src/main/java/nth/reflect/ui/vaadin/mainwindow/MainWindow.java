@@ -11,6 +11,8 @@ import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.fw.ui.tab.TabsListener;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
 import nth.reflect.ui.vaadin.tab.Tab;
+import nth.reflect.ui.vaadin.tab.TabContaintPanel;
+import nth.reflect.ui.vaadin.tab.TabHeaderBar;
 
 /**
  * The {@link MainWindow} represents the Graphical UserTestObject Interface with
