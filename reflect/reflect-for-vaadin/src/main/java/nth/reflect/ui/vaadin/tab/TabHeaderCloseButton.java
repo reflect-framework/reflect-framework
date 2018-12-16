@@ -11,7 +11,7 @@ public class TabHeaderCloseButton extends Icon {
 
 	public TabHeaderCloseButton(TabHeaderButton tabHeaderButton) {
 		super(VaadinIcon.CLOSE_SMALL);
-		new StyleBuilder().setColor(ReflectColorName.PRIMARY.FOREGROUND()) .setPadding(0).setMargin(0).setFor(this);
+//		new StyleBuilder().setColor(ReflectColorName.PRIMARY.FOREGROUND()) .setPadding(0).setMargin(0).setFor(this);
 		getElement().addEventListener("click", e-> tabHeaderButton.onCloseButtonClick());
 	}
 

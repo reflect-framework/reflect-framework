@@ -14,7 +14,7 @@ import nth.reflect.fw.ui.style.basic.Color;
  * <li>PrimaryBackgroundColor: A color that is prominent visible, e.g.: the
  * background color of the application tool bar</li>
  * <li>AccentBackGroundColor: A color that is used for thinks that need
- * attention (i.e. important buttons or controls that have focus</li>
+ * attention (i.e. important buttons or controls that have focus)</li>
  * <li>ContentBackgroundColor: A color used for the background of the content.
  * This color should preferably either be very light (e.g. White) or very dark
  * (e.g.Black)</li>
@@ -61,7 +61,8 @@ public class ReflectColors {
 	/**
 	 * @param primaryBackgroundColor
 	 *            a color that is prominent visible, e.g.: the background color
-	 *            of the application tool bar. This color should preferably be a darkish color (<50%)
+	 *            of the application tool bar. This color should preferably be a
+	 *            darkish color (<50%)
 	 * @param accentBackGroundColor
 	 *            a color that is used for things that need attention (i.e.
 	 *            important buttons or controls that have focus)
@@ -74,7 +75,7 @@ public class ReflectColors {
 		this.primaryColors = new ReflectColorSet(primaryBackgroundColor);
 		this.accentColors = new ReflectColorSet(accentBackGroundColor);
 		this.contentColors = new ReflectColorSet(contentBackgroundColor);
-		this.errorColors=new ReflectColorSet(MaterialColorPalette.error());
+		this.errorColors = new ReflectColorSet(MaterialColorPalette.error());
 	}
 
 	public ReflectColorSet getPrimaryColors() {
@@ -93,5 +94,4 @@ public class ReflectColors {
 		return errorColors;
 	}
 
-	
 }

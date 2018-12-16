@@ -9,7 +9,7 @@ import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
-public class PropertyPanel extends VerticalLayout implements nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationMessages> {
+public class PropertyPanel extends VerticalLayout implements nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 
 	private final PropertyValueModel propertyValueModel;
 	private final PropertyField propertyField;
@@ -22,7 +22,7 @@ public class PropertyPanel extends VerticalLayout implements nth.reflect.fw.ui.t
 		
 		add(getPropertyLabel());
 		add((Component)propertyField);//FIXME YUK!!!
-		add(getPropertyValidationMessages());
+		add(getPropertyValidationLabel());
 
 	}
 	
@@ -37,8 +37,8 @@ public class PropertyPanel extends VerticalLayout implements nth.reflect.fw.ui.t
 	}
 
 	@Override
-	public PropertyValidationMessages getPropertyValidationMessages() {
-		return new PropertyValidationMessages();
+	public PropertyValidationLabel getPropertyValidationLabel() {
+		return new PropertyValidationLabel();
 	}
 
 	@Override

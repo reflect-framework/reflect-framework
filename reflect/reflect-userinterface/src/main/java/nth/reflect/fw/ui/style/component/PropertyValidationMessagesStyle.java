@@ -2,10 +2,10 @@ package nth.reflect.fw.ui.style.component;
 
 import nth.reflect.fw.ui.style.basic.Color;
 import nth.reflect.fw.ui.style.basic.Font;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyValidationMessages;
+import nth.reflect.fw.ui.tab.form.propertypanel.PropertyValidationLabel;
 
 /**
- * A {@link ReflectStyleClass} for a {@link PropertyValidationMessages}
+ * A {@link ReflectStyleClass} for a {@link PropertyValidationLabel}
  * @author nilsth
  *
  */

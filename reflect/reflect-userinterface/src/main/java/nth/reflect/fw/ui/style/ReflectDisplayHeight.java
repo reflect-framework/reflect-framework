@@ -7,30 +7,28 @@ package nth.reflect.fw.ui.style;
 
 public enum ReflectDisplayHeight {
 
-	
 	/**
 	 * {@link ReflectDisplayHeight#SMALL} is when the display is smaller than 10
 	 * centimeter. This often corresponds with a
-	 * <a href="https://en.wikipedia.org/wiki/Smartphone">smart phones</a>
-	 * in a <a href="https://en.wikipedia.org/wiki/Page_orientation">portrait or
+	 * <a href="https://en.wikipedia.org/wiki/Smartphone">smart phones</a> in a
+	 * <a href="https://en.wikipedia.org/wiki/Page_orientation">portrait or
 	 * landscape orientation</a>.
 	 */
 	SMALL(10),
 	/**
 	 * {@link ReflectDisplayHeight#MEDIUM} is when the display is bigger than
-	 * {@link ReflectDisplayHeight#SMALL} and is smaller than 20 centimeter. This
-	 * often corresponds with
-	 * <a href="https://en.wikipedia.org/wiki/Tablet_computer">tablet
-	 * computer</a> in a
+	 * {@link ReflectDisplayHeight#SMALL} and is smaller than 20 centimeter.
+	 * This often corresponds with
+	 * <a href="https://en.wikipedia.org/wiki/Tablet_computer">tablet</a> in a
 	 * <a href="https://en.wikipedia.org/wiki/Page_orientation">portrait or
 	 * landscape orientation</a>.
 	 */
 	MEDIUM(20),
 	/**
 	 * {@link ReflectDisplayHeight#LARGE} is when the display is bigger than
-	 * {@link ReflectDisplayHeight#MEDIUM}. This
-	 * often corresponds with
-	 * <a href="https://en.wikipedia.org/wiki/Computer_monitor">computer monitor</a> in a
+	 * {@link ReflectDisplayHeight#MEDIUM}. This often corresponds with
+	 * <a href="https://en.wikipedia.org/wiki/Computer_monitor">desktop
+	 * monitor</a> in a
 	 * <a href="https://en.wikipedia.org/wiki/Page_orientation">portrait or
 	 * landscape orientation</a>.
 	 */
@@ -47,12 +45,12 @@ public enum ReflectDisplayHeight {
 	}
 
 	public int getMaxSizeInPixels() {
-		return (int) (maxSizeInCentimeters*37.7952755906);
+		return (int) (maxSizeInCentimeters * 37.7952755906);
 	}
-	
+
 	public static ReflectDisplayHeight forCentimeters(int heightInCentimeters) {
 		for (ReflectDisplayHeight reflectDisplayHeight : values()) {
-			if (heightInCentimeters<reflectDisplayHeight.getMaxSizeInCentimeters() ) {
+			if (heightInCentimeters < reflectDisplayHeight.getMaxSizeInCentimeters()) {
 				return reflectDisplayHeight;
 			}
 		}

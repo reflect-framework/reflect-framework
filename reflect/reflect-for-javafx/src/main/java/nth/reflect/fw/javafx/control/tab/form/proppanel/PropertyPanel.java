@@ -13,9 +13,9 @@ import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class PropertyPanel extends BorderPane implements
-		nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationMessages> {
+		nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 
-	private final PropertyValidationMessages propertyValidationMessages;
+	private final PropertyValidationLabel propertyValidationLabel;
 	private final PropertyValueModel propertyValueModel;
 	private final FormTab formTab;
 	private final PropertyLabelAndFieldPanel labelAndFieldPanel;
@@ -23,22 +23,22 @@ public class PropertyPanel extends BorderPane implements
 	public PropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel, PropertyField propertyField) {
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(PropertyPanel.class));
 
-		labelAndFieldPanel=new PropertyLabelAndFieldPanel(formTab, propertyValueModel, propertyField);
+		labelAndFieldPanel = new PropertyLabelAndFieldPanel(formTab, propertyValueModel, propertyField);
 		setCenter(labelAndFieldPanel);
-		
-		this.formTab = (FormTab) formTab;
+
+		this.formTab = formTab;
 		this.propertyValueModel = propertyValueModel;
 
-		propertyValidationMessages = new PropertyValidationMessages();
-		setBottom(propertyValidationMessages);
-		
+		propertyValidationLabel = new PropertyValidationLabel();
+		setBottom(propertyValidationLabel);
+
 		setWidth(propertyField.getPropertyFieldWidth());
 	}
 
 	private void setWidth(PropertyFieldWidth propertyFieldWidth) {
 		switch (propertyFieldWidth) {
 		case FULL:
-			DoubleBinding fullWidth = formTab.widthProperty().subtract(2*PropertiesPanel.HORIZONTAL_GAP);
+			DoubleBinding fullWidth = formTab.widthProperty().subtract(2 * PropertiesPanel.HORIZONTAL_GAP);
 			prefWidthProperty().bind(fullWidth);
 			break;
 		case SMALL:
@@ -47,7 +47,7 @@ public class PropertyPanel extends BorderPane implements
 			setMinWidth(PropertyPanelStyle.getMinSmallWidth());
 			break;
 		}
-		
+
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class PropertyPanel extends BorderPane implements
 	}
 
 	@Override
-	public PropertyValidationMessages getPropertyValidationMessages() {
-		return propertyValidationMessages;
+	public PropertyValidationLabel getPropertyValidationLabel() {
+		return propertyValidationLabel;
 	}
 
 	@Override
@@ -79,10 +79,10 @@ public class PropertyPanel extends BorderPane implements
 	public void setDescription(String description) {
 		// Does nothing: Borderpanel does not have a setToolTip method
 	}
-	
+
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyPanel.class)).getProperties()
-		.setBackground(ReflectColorName.CONTENT.BACKGROUND());
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 
 }

@@ -27,10 +27,12 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
  * </p>
  * 
  * <p>
- * The implementations of the {@link PropertyField} interface must update the {@link PropertyValueModel} by calling the
- * {@link PropertyValueModel#setValue(Object)} every time when the user edits (manipulates)
- * the {@link PropertyField} value. The {@link PropertyValueModel} is normally passed to
- * a {@link PropertyField} as a {@link Constructor} {@link Parameter}.
+ * The implementations of the {@link PropertyField} interface must update the
+ * {@link PropertyValueModel} by calling the
+ * {@link PropertyValueModel#setValue(Object)} every time when the user edits
+ * (manipulates) the {@link PropertyField} value. The {@link PropertyValueModel}
+ * is normally passed to a {@link PropertyField} as a {@link Constructor}
+ * {@link Parameter}.
  * </p>
  * 
  * 
@@ -40,6 +42,9 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 public interface PropertyField extends ReflectGuiComponent {
 
 	public PropertyFieldWidth getPropertyFieldWidth();
+
 	public void setEnabled(boolean enabled);
+
 	public void setValueFromDomainProperty(Object propertyValue);
+
 }

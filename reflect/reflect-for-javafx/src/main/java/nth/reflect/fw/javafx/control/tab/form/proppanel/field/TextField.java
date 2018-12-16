@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
@@ -14,18 +13,16 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class TextField extends JFXTextField implements PropertyField {
 
-	private final PropertyInfo propertyInfo;
-	private Object domainObject;
+	private final PropertyValueModel propertyValueModel;
 
 	public TextField(PropertyValueModel propertyValueModel) {
+		this.propertyValueModel = propertyValueModel;
 		addStyleClass();
-		domainObject = propertyValueModel.getDomainObject();
-		propertyInfo = propertyValueModel.getPropertyInfo();
 		textProperty().addListener(this::onChange);
 	}
 
 	public void onChange(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-		propertyInfo.setValue(domainObject, newValue);
+		getPropertyValueModel().setValue(newValue);
 	}
 
 	protected void addStyleClass() {
@@ -38,7 +35,9 @@ public class TextField extends JFXTextField implements PropertyField {
 				.setProperty("-jfx-focus-color", ReflectColorName.ACCENT.BACKGROUND())
 				.setProperty("-jfx-unfocus-color", ReflectColorName.CONTENT.BACKGROUND_12())
 				.setFont(PropertyFieldStyle.getFont());
-				//TODO but with line over full PropertyPanel: .setPadding(0, PropertyPanelStyle.getPaddingLeftRight(), 0, PropertyPanelStyle.getPaddingLeftRight());
+		// TODO but with line over full PropertyPanel: .setPadding(0,
+		// PropertyPanelStyle.getPaddingLeftRight(), 0,
+		// PropertyPanelStyle.getPaddingLeftRight());
 
 	}
 
@@ -55,6 +54,10 @@ public class TextField extends JFXTextField implements PropertyField {
 	@Override
 	public void setValueFromDomainProperty(Object propertyValue) {
 		setText((String) propertyValue);
+	}
+
+	public PropertyValueModel getPropertyValueModel() {
+		return propertyValueModel;
 	}
 
 }

@@ -15,7 +15,7 @@ public class CheckBoxFieldFactory implements PropertyFieldFactory {
 
 	@Override
 	public boolean canCreateFor(PropertyValueModel propertyValueModel) {
-		return propertyValueModel.getPropertyInfo().getFieldMode()==FieldModeType.CHECK_BOX;
+		return propertyValueModel.getPropertyInfo().getFieldMode() == FieldModeType.CHECK_BOX;
 	}
 
 }

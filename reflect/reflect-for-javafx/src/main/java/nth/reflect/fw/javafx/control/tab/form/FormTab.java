@@ -3,10 +3,14 @@ package nth.reflect.fw.javafx.control.tab.form;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import nth.reflect.fw.generic.util.TitleUtil;
+import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
+import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.form.FormMode;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 
@@ -19,46 +23,43 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 	private final Object domainObject;
 	private final FormMode formMode;
 	private final ReflectionProvider reflectionProvider;
-	private BufferedDomainValueModel domainValueModel;
+	private final BufferedDomainValueModel domainValueModel;
 
-	public FormTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue, Object domainObject,
-			FormMode formMode) {
+	public FormTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue, Object domainObject, FormMode formMode) {
+
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.reflectionProvider=userInterfaceContainer.get(ReflectionProvider.class);
+		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
 		this.domainObject = domainObject;
 		this.formMode = formMode;
+		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, domainObject, formMode);
 
+		ValidationProvider validationProvider = userInterfaceContainer.get(ValidationProvider.class);
 
-		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer,
-				domainObject, formMode);
-
-		
-		PropertiesPanel domainPropertyPane = new PropertiesPanel(this);
-//		setCenter(domainPropertyPane);
-		ScrollPane scrollPane=new ScrollPane(domainPropertyPane);
-		//TODO new RfxVerticalFlingScroller(scrollPane);
+		PropertiesPanel domainPropertyPane = new PropertiesPanel(validationProvider, this);
+		// setCenter(domainPropertyPane);
+		ScrollPane scrollPane = new ScrollPane(domainPropertyPane);
+		scrollPane.getStyleClass().add(RfxStyleSheet.createStyleClassName(ScrollPane.class));
+		// TODO new RfxVerticalFlingScroller(scrollPane);
 		setCenter(scrollPane);
-		
-//		VBox vbox=new VBox();
-//		vbox.setPrefHeight(javafx.scene.control.Control.USE_COMPUTED_SIZE);
-//		vbox.setMaxHeight(Double.POSITIVE_INFINITY);
-//		vbox.getChildren().add(scrollPane);
-		
-		HBox bottomButtonPane=new RfxFormBottomToolBar(this);
+
+		// VBox vbox=new VBox();
+		// vbox.setPrefHeight(javafx.scene.control.Control.USE_COMPUTED_SIZE);
+		// vbox.setMaxHeight(Double.POSITIVE_INFINITY);
+		// vbox.getChildren().add(scrollPane);
+
+		HBox bottomButtonPane = new RfxFormBottomToolBar(this);
 		setBottom(bottomButtonPane);
 
 	}
 
 	@Override
 	public String getDisplayName() {
-		 return TitleUtil.createTitle(reflectionProvider, actionMethodInfo,
-				domainValueModel.getValue());
+		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, domainValueModel.getValue());
 	}
-
 
 	@Override
 	public void onSelected() {
@@ -105,6 +106,11 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 	@Override
 	public UserInterfaceContainer getUserInterfaceContainer() {
 		return userInterfaceContainer;
+	}
+
+	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(ScrollPane.class)).getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 
 }

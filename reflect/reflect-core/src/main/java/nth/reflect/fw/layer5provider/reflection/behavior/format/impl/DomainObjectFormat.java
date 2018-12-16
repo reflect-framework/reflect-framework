@@ -11,14 +11,17 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 public class DomainObjectFormat extends Format {
 
 	private static final long serialVersionUID = -6884382558884383775L;
-	private ClassInfo classInfo;
+	private final ReflectionProvider reflectionProvider;
+	private final Class<?> domainClass;
 
 	public DomainObjectFormat(ReflectionProvider reflectionProvider, Class<?> domainClass) {
-		classInfo = reflectionProvider.getClassInfo(domainClass);
+		this.reflectionProvider = reflectionProvider;
+		this.domainClass = domainClass;
 	}
 
 	@Override
 	public StringBuffer format(Object domainObject, StringBuffer toAppendTo, FieldPosition pos) {
+		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
 		String title = classInfo.getTitle(domainObject);
 		return toAppendTo.append(title);
 	}

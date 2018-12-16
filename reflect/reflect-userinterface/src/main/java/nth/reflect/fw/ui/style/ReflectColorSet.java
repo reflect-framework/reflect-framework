@@ -21,21 +21,21 @@ public class ReflectColorSet implements MaterialDesign {
 	/**
 	 * 
 	 * @param backgroundColor
-	 *            : the backgroundColor color for a specific theme color. Note
-	 *            that you should use predefined colors by the
-	 *            {@link MaterialDesign}.
+	 *            : the backgroundColor color for a specific theme color. This
+	 *            color should be either very light (wNote that you should use
+	 *            predefined colors by the {@link MaterialDesign}.
 	 */
 
 	public ReflectColorSet(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 		if (backgroundColor.isDark()) {
 			foregroundColor = Color.WHITE;
-			backgroundColor12 = backgroundColor.deriveDarknes(1+_12_PERCENT);//foregroundColor.deriveAlpha(0.12);
-			backgroundColor20 = backgroundColor.deriveDarknes(1+_20_PERCENT);//foregroundColor.deriveAlpha(0.20);
+			backgroundColor12 = backgroundColor.deriveDarknes(1 + _12_PERCENT);// foregroundColor.deriveAlpha(0.12);
+			backgroundColor20 = backgroundColor.deriveDarknes(1 + _20_PERCENT);// foregroundColor.deriveAlpha(0.20);
 		} else {
 			foregroundColor = Color.BLACK;
-			backgroundColor12 = backgroundColor.deriveDarknes(1-_12_PERCENT);//foregroundColor.deriveAlpha(0.12);
-			backgroundColor20 = backgroundColor.deriveDarknes(1-_20_PERCENT);//foregroundColor.deriveAlpha(0.20);
+			backgroundColor12 = backgroundColor.deriveDarknes(1 - _12_PERCENT);// foregroundColor.deriveAlpha(0.12);
+			backgroundColor20 = backgroundColor.deriveDarknes(1 - _20_PERCENT);// foregroundColor.deriveAlpha(0.20);
 		}
 	}
 

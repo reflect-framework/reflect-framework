@@ -13,14 +13,14 @@ import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
-public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationMessages> {
+public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 	private static final long serialVersionUID = -1361779111256295050L;
 	private FocusListener focusListener;
 	private final PropertyValueModel propertyValueModel;
 	public static final int HIGH_FIELD_HEIGHT = 200;
 	private final PropertyField propertyField;
 	private final PropertyLabel propertyLabel;
-	private final PropertyValidationMessages propertyValidationMessages;
+	private final PropertyValidationLabel propertyValidationLabel;
 
 	public PropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel, PropertyField propertyField) {
 		this.propertyValueModel = propertyValueModel;
@@ -36,8 +36,8 @@ public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.tab.form
 		this.propertyField = propertyField;
 		add((Component)propertyField);//FIXME Get rid of casting to Component!
 		
-		propertyValidationMessages=new PropertyValidationMessages();
-		add(propertyValidationMessages);
+		propertyValidationLabel=new PropertyValidationLabel();
+		add(propertyValidationLabel);
 		
 		// make sure that the propertyField is visible in the scroll pane when
 		// it (or one of its children) receives focus
@@ -86,8 +86,8 @@ public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.tab.form
 	}
 
 	@Override
-	public PropertyValidationMessages getPropertyValidationMessages() {
-		return propertyValidationMessages;
+	public PropertyValidationLabel getPropertyValidationLabel() {
+		return propertyValidationLabel;
 	}
 
 	@Override

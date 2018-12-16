@@ -80,7 +80,7 @@ public class PropertyGridLayout implements LayoutManager {
 
 				PropertyField field = propertyPanel.getPropertyField();
 				Component fieldComponent = (Component) field;
-				Component validator = propertyPanel.getPropertyValidationMessages();
+				Component validator = propertyPanel.getPropertyValidationLabel();
 				if (PropertyFieldWidth.FULL==field.getPropertyFieldWidth()) {
 					int propertyPanelWidth = propertyPanel.getWidth();
 					int fieldXPos = maxLabelWith+SPACING;

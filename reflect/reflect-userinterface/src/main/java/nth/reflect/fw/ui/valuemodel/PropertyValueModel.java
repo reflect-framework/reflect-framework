@@ -1,5 +1,8 @@
 package nth.reflect.fw.ui.valuemodel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nth.reflect.fw.generic.valuemodel.ReadWriteValueModel;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.tab.form.FormMode;
@@ -8,12 +11,14 @@ public class PropertyValueModel implements ReadWriteValueModel {
 
 	private final PropertyInfo propertyInfo;
 	private final BufferedDomainValueModel domainValueModel;
-	private FormMode formMode;
+	private final FormMode formMode;
+	private final List<PropertyValueChangeListener> listeners;
 
 	public PropertyValueModel(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
 		this.domainValueModel = domainValueModel;
 		this.propertyInfo = propertyInfo;
 		this.formMode = formMode;
+		listeners = new ArrayList<>();
 	}
 
 	@Override
@@ -25,14 +30,21 @@ public class PropertyValueModel implements ReadWriteValueModel {
 	public void setValue(Object value) {
 		if (canSetValue()) {
 			propertyInfo.setValue(domainValueModel.getValue(), value);
+			invokeListeners();
 		} else {
-			throw new RuntimeException("This method may not be called in read only mode!");// PropertyField should be disabled automatically
+			throw new RuntimeException("This method may not be called in read only mode!");
+		}
+	}
+
+	private void invokeListeners() {
+		for (PropertyValueChangeListener listener : listeners) {
+			listener.onPropertyValueChange();
 		}
 	}
 
 	@Override
 	public boolean canSetValue() {
-		return FormMode.EDIT_MODE==formMode && propertyInfo.isEnabled(domainValueModel.getValue());
+		return FormMode.EDIT_MODE == formMode && propertyInfo.isEnabled(domainValueModel.getValue());
 	}
 
 	public boolean isVisible() {
@@ -51,12 +63,15 @@ public class PropertyValueModel implements ReadWriteValueModel {
 
 	public PropertyInfo getPropertyInfo() {
 		return propertyInfo;
-		
+
 	}
 
 	public Object getDomainObject() {
 		return domainValueModel.getValue();
 	}
 
+	public void addListener(PropertyValueChangeListener listener) {
+		listeners.add(listener);
+	}
 
 }

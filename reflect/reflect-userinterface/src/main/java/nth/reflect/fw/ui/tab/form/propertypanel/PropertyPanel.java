@@ -6,12 +6,13 @@ import java.lang.reflect.Parameter;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationViolations;
+import nth.reflect.fw.ui.style.component.PropertyLabelStyle;
 import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 /**
- * A {@link FormTab} has one or more {@link PropertyPanel}s. Each {@link PropertyPanel}
- * represents a {@link DomainObjectProperty} and contains:
+ * A {@link FormTab} has one or more {@link PropertyPanel}s. Each
+ * {@link PropertyPanel} represents a {@link DomainObjectProperty} and contains:
  * <ul>
  * <li>a {@link PropertyLabelStyle}</li>
  * <li>a PropertyField</li>
@@ -27,14 +28,14 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
  * </p>
  * 
  * <p>
- * The PropertyPanelFactory will create a PropertyPanel, by passing all necessary
- * information as {@link Constructor} {@link Parameter}s.
+ * The PropertyPanelFactory will create a PropertyPanel, by passing all
+ * necessary information as {@link Constructor} {@link Parameter}s.
  * </p>
  * 
  * @author nilsth
  *
  */
-public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends PropertyField, VALIDATION_MSG extends PropertyValidationMessages> {
+public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends PropertyField, VALIDATION_MSG extends PropertyValidationLabel> {
 
 	default void updateFromPropertyValueModel() {
 		PropertyValueModel propertyValueModel = getPropertyValueModel();
@@ -47,7 +48,7 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 		if (visible) {
 			String description = propertyInfo.getDescription();
 			setDescription(description);
-			
+
 			PropertyLabel propertyLabel = getPropertyLabel();
 			String displayName = propertyInfo.getDisplayName();
 			propertyLabel.setText(displayName);
@@ -59,6 +60,7 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 
 			Object propertyValue = propertyInfo.getValue(domainObject);
 			propertyField.setValueFromDomainProperty(propertyValue);
+
 		}
 	}
 
@@ -66,12 +68,12 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 
 	public FIELD getPropertyField();
 
-	public VALIDATION_MSG getPropertyValidationMessages();
+	public VALIDATION_MSG getPropertyValidationLabel();
 
 	public PropertyValueModel getPropertyValueModel();
 
 	public void setVisible(Boolean visible);
-	
+
 	public void setDescription(String description);
 
 }
