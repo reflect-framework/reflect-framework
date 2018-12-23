@@ -2,6 +2,7 @@ package nth.reflect.infra.xmlfilerepository;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -22,8 +23,8 @@ import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
 import nth.reflect.infra.generic.xml.XmlConverter;
 
 /**
- * A very simple data access class for the {@link ReflectFramework} that can
- * be extended to store and read objects in an object database (an xml file)
+ * A very simple data access class for the {@link ReflectFramework} that can be
+ * extended to store and read objects in an object database (an xml file)
  * 
  * @author nilsth
  * 
@@ -37,11 +38,10 @@ public class XmlFileRepository {
 
 	private final XmlConverter xmlConverter;
 
-
 	private static final String PASS_PHRASE = "89evJEWIJ9$*&(#J @E2DD(*ehhlju,>/x hw**3rh1~~@();hye";
 	private List<Object> domainObjects;
-	private Boolean xmlIndent;
-	private File databaseFile;
+	private final Boolean xmlIndent;
+	private final File databaseFile;
 
 	/**
 	 * See {@link XmlFileRepository}
@@ -53,17 +53,17 @@ public class XmlFileRepository {
 	 *            True if the data in the XML file needs to be indented (indents
 	 *            make the XML easier to read by a human, but result in more
 	 *            data to store and process)
-	 * @throws MalformedURLException 
-	 * @throws URISyntaxException 
+	 * @throws MalformedURLException
+	 * @throws URISyntaxException
 	 */
 	// TODO add parameter String encryptionKey
-	public XmlFileRepository(XmlConverter xmlConverter, String databaseName,
-			Boolean xmlIndent) throws MalformedURLException, URISyntaxException {
+	public XmlFileRepository(XmlConverter xmlConverter, String databaseName, Boolean xmlIndent)
+			throws MalformedURLException, URISyntaxException {
 		this.xmlConverter = xmlConverter;
 		this.xmlIndent = xmlIndent;
 		String databaseFileName = databaseName + ".db";
 		String relativePath = "";
-		URL url=new ApplicationUrl(relativePath,databaseFileName).toInternalURL();
+		URL url = new ApplicationUrl(relativePath, databaseFileName).toInternalURL();
 		databaseFile = new File(url.toURI());
 		domainObjects = new ArrayList<Object>();
 	}
@@ -80,16 +80,13 @@ public class XmlFileRepository {
 		return domainObjects;
 	}
 
-	private String readXmlDatabaseFile() throws InvalidKeyException,
-			InvalidAlgorithmParameterException, Exception {
+	private String readXmlDatabaseFile() throws InvalidKeyException, InvalidAlgorithmParameterException, Exception {
 		if (databaseFile.exists()) {
-			FileInputStream fileInputStream = new FileInputStream(
-					databaseFile);
-			CipherInputStream cipherInputStream = CipherUtil
-					.createCipherInputStream(PASS_PHRASE, fileInputStream);
+			FileInputStream fileInputStream = new FileInputStream(databaseFile);
+			CipherInputStream cipherInputStream = CipherUtil.createCipherInputStream(PASS_PHRASE, fileInputStream);
 			return new Scanner(cipherInputStream).useDelimiter("\\Z").next();
 		} else {
-			return "";
+			throw new FileNotFoundException("Could not find file: " + databaseFile.getAbsolutePath());
 		}
 	}
 
@@ -104,10 +101,8 @@ public class XmlFileRepository {
 
 	public void persistAll() throws Exception {
 		String xml = xmlConverter.marshal(domainObjects, xmlIndent);
-		FileOutputStream fileOutputStream = new FileOutputStream(
-				databaseFile);
-		CipherOutputStream cipherOutputStream = CipherUtil
-				.createCipherOutputStream(PASS_PHRASE,fileOutputStream);
+		FileOutputStream fileOutputStream = new FileOutputStream(databaseFile);
+		CipherOutputStream cipherOutputStream = CipherUtil.createCipherOutputStream(PASS_PHRASE, fileOutputStream);
 		PrintWriter printWriter = new PrintWriter(cipherOutputStream);
 		printWriter.print(xml);
 		printWriter.close();
@@ -117,15 +112,17 @@ public class XmlFileRepository {
 		domainObjects.remove(domainObject);
 		persistAll();
 	}
-	
+
 	/**
 	 * TODO return generic type
+	 * 
 	 * @param type
 	 * @return
 	 * @throws Exception
 	 */
 	public List<?> getAll(final Class<?> type) throws Exception {
-		List<Object> allObjectsOfGivenType = getAll().stream().filter(obj -> obj.getClass()==type).collect(Collectors.toList());
+		List<Object> allObjectsOfGivenType = getAll().stream().filter(obj -> obj.getClass() == type)
+				.collect(Collectors.toList());
 		return allObjectsOfGivenType;
 	}
 
