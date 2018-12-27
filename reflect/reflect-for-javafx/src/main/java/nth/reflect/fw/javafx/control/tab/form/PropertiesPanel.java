@@ -87,6 +87,7 @@ public class PropertiesPanel extends VBox implements PropertyValueChangeListener
 	private void addOkAndCancelButtons(FormTab formTab) {
 		if (formTab.getFormMode() == FormMode.EDIT_MODE) {
 			HBox buttonBox = new HBox();
+			buttonBox.setSpacing(PADDING);
 			buttonBox.getChildren().add(new FormOkButton(formTab));
 			buttonBox.getChildren().add(new FormCancelButton(formTab));
 			getChildren().add(buttonBox);

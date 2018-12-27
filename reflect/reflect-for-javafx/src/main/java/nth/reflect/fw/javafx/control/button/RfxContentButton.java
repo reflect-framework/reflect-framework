@@ -12,8 +12,8 @@ import nth.reflect.fw.javafx.control.fonticon.RfxFontIconName;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.MaterialFont;
+import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * {@link RfxControl} button in the content color, see
@@ -76,19 +76,14 @@ public class RfxContentButton extends JFXButton implements RfxControl {
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setMinHeight(MIN_HEIGHT)
 				.setFont(MaterialFont.getRobotoMedium(FONT_SIZE));
 		// rippler color
-		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)
-						.appendChild("jfx-rippler"))
-				.getProperties()
-				.put("-jfx-rippler-fill", ReflectColorName.CONTENT.BACKGROUND_20());
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class).appendChild("jfx-rippler"))
+				.getProperties().put("-jfx-rippler-fill", ReflectColorName.CONTENT.BACKGROUND_12());
 		// icon color
-		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class)
-						.appendChild(RfxFontIcon.class))
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxContentButton.class).appendChild(RfxFontIcon.class))
 				.getProperties().setFill(ReflectColorName.CONTENT.FOREGROUND());
 	}
 
