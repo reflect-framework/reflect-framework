@@ -58,7 +58,9 @@ public class RfxItemTreePanel extends TreeView {
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
 		for (Item item : items) {
-			addItem(rootNode, item);
+			if (item.isVisible()) {
+				addItem(rootNode, item);
+			}
 		}
 		return rootNode;
 	}
@@ -66,6 +68,7 @@ public class RfxItemTreePanel extends TreeView {
 	private static void addItem(TreeItem<Item> parent, Item itemToAdd) {
 		TreeItem<Item> treeItem = new TreeItem<>(itemToAdd);
 		parent.getChildren().add(treeItem);
+		treeItem.setExpanded(true);
 		if (itemToAdd instanceof HierarchicalItem) {
 			HierarchicalItem hierarchicalItem = (HierarchicalItem) itemToAdd;
 			for (Item child : hierarchicalItem.getChildren()) {

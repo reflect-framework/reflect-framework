@@ -16,8 +16,8 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
 import nth.reflect.fw.ui.item.HierarchicalItem;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
-import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.MaterialFont;
+import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * TODO Bold text for {@link MethodOwnerItem}s <br>
@@ -31,8 +31,9 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 	private static final int FONTSIZE = 14;
 	public static final int ITEM_HEIGHT = 40;
 	public static final String FONT_WEIGHT_BOLD = new RfxStyleProperties().setFontWeight(FontWeight.BOLD).toString();
-	public static final String FONT_WEIGHT_NORMAL = new RfxStyleProperties().setFontWeight(FontWeight.NORMAL).toString();
-	
+	public static final String FONT_WEIGHT_NORMAL = new RfxStyleProperties().setFontWeight(FontWeight.NORMAL)
+			.toString();
+
 	public RfxItemTreeCell() {
 		setDisclosureNode(new Text(""));
 	}
@@ -41,7 +42,7 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 	protected void updateItem(Item item, boolean empty) {
 		super.updateItem(item, empty);
 
-		if (empty) {
+		if (empty || !item.isVisible()) {
 			setText(null);
 			setGraphic(null);
 		} else {
@@ -49,9 +50,9 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 			setIcon(item.getIconURL());
 			if (item instanceof HierarchicalItem) {
 				setStyle(FONT_WEIGHT_BOLD);
-			} else	{
+			} else {
 				setStyle(FONT_WEIGHT_NORMAL);
-			}				
+			}
 		}
 	}
 
@@ -72,18 +73,14 @@ public class RfxItemTreeCell extends TreeCell<Item> implements RfxControl {
 
 		}
 	}
-	
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		//TODO add RfxItemTree.class in style selector
+		// TODO add RfxItemTree.class in style selector
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class)).getProperties()
-				.setFont(MaterialFont.getRobotoRegular(FONTSIZE))
-				.setMaxHeight(ITEM_HEIGHT)
-				.setMinHeight(ITEM_HEIGHT)
+				.setFont(MaterialFont.getRobotoRegular(FONTSIZE)).setMaxHeight(ITEM_HEIGHT).setMinHeight(ITEM_HEIGHT)
 				.setBackground("transparent");
-		//TODO add RfxItemTree.class in style selector
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class).appendSelected())
-				.getProperties()
+		// TODO add RfxItemTree.class in style selector
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TreeCell.class).appendSelected()).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND_12());
 
 	}
