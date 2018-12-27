@@ -1,7 +1,6 @@
 package nth.reflect.fw.javafx.control.tab.form;
 
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
@@ -50,9 +49,6 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 		// vbox.setPrefHeight(javafx.scene.control.Control.USE_COMPUTED_SIZE);
 		// vbox.setMaxHeight(Double.POSITIVE_INFINITY);
 		// vbox.getChildren().add(scrollPane);
-
-		HBox bottomButtonPane = new RfxFormBottomToolBar(this);
-		setBottom(bottomButtonPane);
 
 	}
 

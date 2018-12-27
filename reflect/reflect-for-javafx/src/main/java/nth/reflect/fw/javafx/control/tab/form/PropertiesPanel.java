@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import nth.reflect.fw.javafx.RfxUserinterfaceController;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
@@ -76,9 +77,20 @@ public class PropertiesPanel extends VBox implements PropertyValueChangeListener
 
 		addAllPropertyPanels();
 
+		addOkAndCancelButtons(formTab);
+
 		updateAllPropertyPanels();
 
 		setPadding(new Insets(PADDING));
+	}
+
+	private void addOkAndCancelButtons(FormTab formTab) {
+		if (formTab.getFormMode() == FormMode.EDIT_MODE) {
+			HBox buttonBox = new HBox();
+			buttonBox.getChildren().add(new FormOkButton(formTab));
+			buttonBox.getChildren().add(new FormCancelButton(formTab));
+			getChildren().add(buttonBox);
+		}
 	}
 
 	private Map<String, PropertyValidationLabel> getPropertyValidationLabels(List<PropertyPanel> propertyPanels) {
