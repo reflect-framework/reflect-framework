@@ -62,13 +62,13 @@ public class RfxTable extends TableView<Object> {
 		setItems(rfxTableInfo.getObservableList());
 		initColumns(rfxTableInfo.getTableColumns());
 	}
-	
+
 	public RfxTable(nth.reflect.fw.ui.tab.table.TableTab tableTab) {
 		this(new RfxTableInfoForTableTab(tableTab));
 	}
 
 	public RfxTable(FormTab formTab, PropertyValueModel propertyValueModel) {
-		this(new RfxTableInfoForFormTabProperty(formTab,propertyValueModel)); 
+		this(new RfxTableInfoForFormTabProperty(formTab, propertyValueModel));
 	}
 
 	private void initColumns(List<TableColumn<Object, ?>> tableColumns) {
@@ -150,7 +150,7 @@ public class RfxTable extends TableView<Object> {
 	}
 
 	private void showRowPopupMenu(double x, double y) {
-		if (rfxTableInfo!=null) {
+		if (rfxTableInfo != null) {
 			popupMenu.getContent().clear();
 			popupMenu.getContent().add(createRowMenu());
 			popupMenu.show(this, x, y);
@@ -160,7 +160,8 @@ public class RfxTable extends TableView<Object> {
 	private RfxItemTreePanel createRowMenu() {
 		Object selectedObject = getSelectionModel().getSelectedItem();
 		Collection<Item> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
-		RfxItemTreePanel rowMenuContent = new RfxItemTreePanel(serviceObjectItems, rfxTableInfo.getLanguageProvider());
+		RfxItemTreePanel rowMenuContent = new RfxItemTreePanel(serviceObjectItems, rfxTableInfo.getLanguageProvider(),
+				popupMenu);
 		return rowMenuContent;
 	}
 
@@ -207,8 +208,6 @@ public class RfxTable extends TableView<Object> {
 	// popup.show(getSe);
 	// }
 
-
-
 	private Callback<CellDataFeatures<Object, String>, ObservableValue<String>> createCellValueFactoryForJavaTypeOrEnum(
 			LanguageProvider languageProvider, Class<?> objectClass) {
 		JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
@@ -235,59 +234,48 @@ public class RfxTable extends TableView<Object> {
 	}
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		appendStyleGroups( styleSheet,RfxTable.class, ReflectColorName.CONTENT.BACKGROUND(), ReflectColorName.CONTENT.BACKGROUND_12()  );
+		appendStyleGroups(styleSheet, RfxTable.class, ReflectColorName.CONTENT.BACKGROUND(),
+				ReflectColorName.CONTENT.BACKGROUND_12());
 	}
 
-	public static void appendStyleGroups( RfxStyleSheet styleSheet, Class<? extends RfxTable> componentClass, String backGroundColor, String backGroundHighLighted) {
+	public static void appendStyleGroups(RfxStyleSheet styleSheet, Class<? extends RfxTable> componentClass,
+			String backGroundColor, String backGroundHighLighted) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(componentClass)).getProperties()
 				.setFont(MaterialFont.getRobotoRegular(ROW_FONT_SIZE))
 				// remove focus border
 				.setBackground(backGroundColor);
-		styleSheet
-				.addStyleGroup(
-						RfxStyleSelector.createFor(componentClass).appendChild("column-header"))
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(componentClass).appendChild("column-header"))
 				.getProperties().setBackground(backGroundColor)
-				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
-						ReflectColorName.CONTENT.TRANSPARENT(),
-						backGroundHighLighted,
-						ReflectColorName.CONTENT.TRANSPARENT())
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),
+						backGroundHighLighted, ReflectColorName.CONTENT.TRANSPARENT())
 				.setSize(ROW_HEIGHT);
-		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
-						.appendChild("column-header-background"))
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(componentClass).appendChild("column-header-background"))
 				.getProperties()
 				// hide vertical line in header
 				.setBackground(backGroundColor);
 		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
-						.appendChild("column-header-background").appendChild("filler"))
-				.getProperties().setBackground(backGroundColor)
-				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
-						ReflectColorName.CONTENT.TRANSPARENT(),
-						backGroundHighLighted,
+				.addStyleGroup(RfxStyleSelector.createFor(componentClass).appendChild("column-header-background")
+						.appendChild("filler"))
+				.getProperties().setBackground(backGroundColor).setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
+						ReflectColorName.CONTENT.TRANSPARENT(), backGroundHighLighted,
 						ReflectColorName.CONTENT.TRANSPARENT());
 		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(componentClass)
-						.appendChild("column-header").appendChild(Label.class))
+				.addStyleGroup(RfxStyleSelector.createFor(componentClass).appendChild("column-header")
+						.appendChild(Label.class))
 				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
-				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
-				.setFontWeight(FontWeight.NORMAL).setProperty("-fx-alignment", "CENTER-LEFT");
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setFontWeight(FontWeight.NORMAL)
+				.setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-column")).getProperties()
 				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT()).setProperty("-fx-alignment", "CENTER-LEFT");
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell")).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
-				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
-				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
-						ReflectColorName.CONTENT.TRANSPARENT(),
-						backGroundHighLighted,
-						ReflectColorName.CONTENT.TRANSPARENT())
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),
+						backGroundHighLighted, ReflectColorName.CONTENT.TRANSPARENT())
 				.setCellSize(ROW_HEIGHT);
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell").appendFocused())
-				.getProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND_12())
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(".table-row-cell").appendFocused()).getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND_12())
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
-				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
-						ReflectColorName.CONTENT.TRANSPARENT(),
-						backGroundHighLighted,
-						ReflectColorName.CONTENT.TRANSPARENT());
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),
+						backGroundHighLighted, ReflectColorName.CONTENT.TRANSPARENT());
 	}
 }

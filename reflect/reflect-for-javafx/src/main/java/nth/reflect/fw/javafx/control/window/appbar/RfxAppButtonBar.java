@@ -44,8 +44,8 @@ import nth.reflect.fw.ui.tab.form.FormTab;
  * navigation buttons:
  * <ul>
  * <li>the MainMenu button (see {@link RfxMainMenuPane})</li>
- * <li>the {@link RfxtabHeader}'s that navigate to the content {@link Tab}s (e.g. See
- * {@link FormTab} and {@link RfxTableTab})</li>
+ * <li>the {@link RfxtabHeader}'s that navigate to the content {@link Tab}s
+ * (e.g. See {@link FormTab} and {@link RfxTableTab})</li>
  * <li>a tab menu button when not all {@link RfxtabHeader}'s can be displayed on
  * the {@link RfxAppButtonBar}. It shows a list of all {@link RfxtabHeader}'s
  * when clicked)</li>
@@ -58,18 +58,19 @@ import nth.reflect.fw.ui.tab.form.FormTab;
 public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 
 	private static final int IGNORE_BASE_LINE = 0;
-	public static final int BAR_HEIGHT = 42;//must be 38 according to material design but we added a bit because to tab button onderline...
+	public static final int BAR_HEIGHT = 42;// must be 38 according to material
+											// design but we added a bit because
+											// to tab button onderline...
 	private final BooleanProperty mainMenuVisibleProperty;
 	private final JFXButton mainMenuButton;
 	private final RfxWindow rfxWindow;
 	private final BooleanBinding extraWideBinding;
 	private final JFXButton tabSelectionButton;
-	private RfxMainMenuPane mainMenuPane;
+	private final RfxMainMenuPane mainMenuPane;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final Tabs<Tab> tabs;
 
-	public RfxAppButtonBar(UserInterfaceContainer userInterfaceContainer,
-			RfxMainMenuPane mainMenuPane) {
+	public RfxAppButtonBar(UserInterfaceContainer userInterfaceContainer, RfxMainMenuPane mainMenuPane) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.mainMenuPane = mainMenuPane;
 		rfxWindow = userInterfaceContainer.get(RfxWindow.class);
@@ -102,63 +103,61 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 	}
 
 	private Tabs<Tab> getTabs(UserInterfaceContainer userInterfaceContainer) {
-		RfxUserinterfaceController userInterfaceController=userInterfaceContainer.get(RfxUserinterfaceController.class);
-		Tabs<Tab> tabs = (Tabs<Tab>) userInterfaceController.getTabs();
+		RfxUserinterfaceController userInterfaceController = userInterfaceContainer
+				.get(RfxUserinterfaceController.class);
+		Tabs<Tab> tabs = userInterfaceController.getTabs();
 		return tabs;
 	}
 
-	public void onMainMenuVisibleChanged(ObservableValue<? extends Boolean> observable,
-			Boolean oldValue, Boolean newValue) {
+	public void onMainMenuVisibleChanged(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+			Boolean newValue) {
 		requestLayout();
 	}
 
-//	public void onTabsChanged(Change<? extends Tab> change) {
-//		if (tabsProperty.size() == 0) {
-//			selectedTabProperty.set(null);
-//			updatetabHeaders();
-//		} else if (!change.getList().contains(selectedTabProperty.get())) {
-//			// TODO selectNewTab(change);
-//		} else {
-//			updatetabHeaders();
-//		}
-//	}
+	// public void onTabsChanged(Change<? extends Tab> change) {
+	// if (tabsProperty.size() == 0) {
+	// selectedTabProperty.set(null);
+	// updatetabHeaders();
+	// } else if (!change.getList().contains(selectedTabProperty.get())) {
+	// // TODO selectNewTab(change);
+	// } else {
+	// updatetabHeaders();
+	// }
+	// }
 
-//	public void onSelectedTabChanged(ObservableValue<? extends Tab> observable, Tab oldValue,
-//			Tab newValue) {
-//		requestLayout();
-//	}
+	// public void onSelectedTabChanged(ObservableValue<? extends Tab>
+	// observable, Tab oldValue,
+	// Tab newValue) {
+	// requestLayout();
+	// }
 
-//	public void updatetabHeaders() {
-//		List<RfxTabHeader> tabHeader = getTabHeaders();
-//		addNewtabHeaders(tabHeader);
-//		removeOldtabHeaders(tabHeader);
-//		layout();
-//	}
+	// public void updatetabHeaders() {
+	// List<RfxTabHeader> tabHeader = getTabHeaders();
+	// addNewtabHeaders(tabHeader);
+	// removeOldtabHeaders(tabHeader);
+	// layout();
+	// }
 
-
-	
-	
-	
-//	private void addNewtabHeaders(List<RfxTabHeader> tabHeaders) {
-//		List<Tab> tabs = new ArrayList<>();
-//		for (RfxTabHeader tabHeader : tabHeaders) {
-//			tabs.add(tabHeader.getTab());
-//		}
-//		for (Tab tab : tabs) {
-//			if (!tabs.contains(tab)) {
-//				RfxTabHeader tabHeader = new RfxTabHeader(rfxWindow, tab);
-//				getChildren().add(tabHeader);
-//			}
-//		}
-//	}
-//
-//	private void removeOldtabHeaders(List<RfxTabHeader> tabHeaders) {
-//		for (RfxTabHeader tabHeader : tabHeaders) {
-//			if (!tabsProperty.contains(tabHeader.getTab())) {
-//				getChildren().remove(tabHeader);
-//			}
-//		}
-//	}
+	// private void addNewtabHeaders(List<RfxTabHeader> tabHeaders) {
+	// List<Tab> tabs = new ArrayList<>();
+	// for (RfxTabHeader tabHeader : tabHeaders) {
+	// tabs.add(tabHeader.getTab());
+	// }
+	// for (Tab tab : tabs) {
+	// if (!tabs.contains(tab)) {
+	// RfxTabHeader tabHeader = new RfxTabHeader(rfxWindow, tab);
+	// getChildren().add(tabHeader);
+	// }
+	// }
+	// }
+	//
+	// private void removeOldtabHeaders(List<RfxTabHeader> tabHeaders) {
+	// for (RfxTabHeader tabHeader : tabHeaders) {
+	// if (!tabsProperty.contains(tabHeader.getTab())) {
+	// getChildren().remove(tabHeader);
+	// }
+	// }
+	// }
 
 	/**
 	 * Custom layout: to position its children:
@@ -193,8 +192,8 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 		mainMenuButton.autosize();
 		double mainMenuButtonWidth = mainMenuButton.getWidth();
 		double mainMenuButtonHeight = mainMenuButton.getHeight();
-		positionInArea(mainMenuButton, x, y, mainMenuButtonWidth, mainMenuButtonHeight,
-				IGNORE_BASE_LINE, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
+		positionInArea(mainMenuButton, x, y, mainMenuButtonWidth, mainMenuButtonHeight, IGNORE_BASE_LINE, Insets.EMPTY,
+				HPos.LEFT, VPos.TOP, snapToPixel);
 
 		double menuIndent = RfxWindow.MENU_WIDTH + mainMenuPane.getTranslateX();
 		if (extraWideBinding.get() && menuIndent > mainMenuButton.getWidth()) {
@@ -212,13 +211,12 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 
 		double availableWidth = width - x - tabSelectionButtonWidth;
 		// minus tab selection button width?
-		
+
 		List<RfxTabHeader> visibletabHeaders = getVisibleTabHeaders(tabHeaders, availableWidth);
 
 		tabSelectionButton.setVisible(visibletabHeaders.size() < tabHeaders.size());
-		positionInArea(tabSelectionButton, width - tabSelectionButtonWidth, y,
-				tabSelectionButtonWidth, tabSelectionButtonHeight, IGNORE_BASE_LINE, Insets.EMPTY,
-				HPos.LEFT, VPos.TOP, snapToPixel);
+		positionInArea(tabSelectionButton, width - tabSelectionButtonWidth, y, tabSelectionButtonWidth,
+				tabSelectionButtonHeight, IGNORE_BASE_LINE, Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
 
 		for (RfxTabHeader tabHeader : tabHeaders) {
 			if (visibletabHeaders.contains(tabHeader)) {
@@ -236,9 +234,9 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 					}
 				}
 				tabHeader.resize(tabHeaderWidth, tabHeaderHeight);
-				positionInArea(tabHeader, x, y, tabHeaderWidth, tabHeaderHeight, IGNORE_BASE_LINE,
-						Insets.EMPTY, HPos.LEFT, VPos.TOP, snapToPixel);
-				
+				positionInArea(tabHeader, x, y, tabHeaderWidth, tabHeaderHeight, IGNORE_BASE_LINE, Insets.EMPTY,
+						HPos.LEFT, VPos.TOP, snapToPixel);
+
 				x += tabHeaderWidth;
 			} else {
 				tabHeader.setVisible(false);
@@ -247,20 +245,18 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 
 	}
 
-
 	private List<RfxTabHeader> getTabHeaders() {
-		List<RfxTabHeader> tabHeaders=new ArrayList<>();
-		for ( Node node : getChildren()) {
+		List<RfxTabHeader> tabHeaders = new ArrayList<>();
+		for (Node node : getChildren()) {
 			if (node instanceof RfxTabHeader) {
 				RfxTabHeader tabHeader = (RfxTabHeader) node;
 				tabHeaders.add(tabHeader);
 			}
 		}
-	return tabHeaders;
-}
+		return tabHeaders;
+	}
 
-	private List<RfxTabHeader> getVisibleTabHeaders(List<RfxTabHeader> tabHeaders,
-			double availableWidth) {
+	private List<RfxTabHeader> getVisibleTabHeaders(List<RfxTabHeader> tabHeaders, double availableWidth) {
 		List<RfxTabHeader> visibleTabHeaders = new ArrayList<>(tabHeaders);
 		int selectedTabHeaderIndex = 0;
 		Optional<RfxTabHeader> selectedTabHeader = getTabHeader(tabHeaders, tabs.getSelected());
@@ -283,8 +279,7 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 				visibleTabHeaderWidth -= firstVisibleTabHeader.getWidth();
 				visibleTabHeaders.remove(firstVisibleTabHeader);
 			} else {
-				RfxTabHeader lastVisibleTabHeader = visibleTabHeaders
-						.get(visibleTabHeaders.size() - 1);
+				RfxTabHeader lastVisibleTabHeader = visibleTabHeaders.get(visibleTabHeaders.size() - 1);
 				visibleTabHeaderWidth -= lastVisibleTabHeader.getWidth();
 				visibleTabHeaders.remove(lastVisibleTabHeader);
 			}
@@ -307,25 +302,26 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 
 	private void resizeTabHeaders(List<RfxTabHeader> tabHeaders) {
 		for (RfxTabHeader tabHeader : tabHeaders) {
-			tabHeader.autosize(); 
+			tabHeader.autosize();
 		}
 	}
 
-//	private RfxTabHeader getTabHeader(Tab tabToFind) {
-//		List<RfxTabHeader> tabHeaders = getTabHeader();
-//		for (RfxTabHeader tabHeader : tabHeaders) {
-//			if (tabHeader.getTab().equals(tabToFind)) {
-//				return tabHeader; // TODO create tabHeadersAndTabs HashMap
-//			}
-//		}
-//		return null;
-//	}
+	// private RfxTabHeader getTabHeader(Tab tabToFind) {
+	// List<RfxTabHeader> tabHeaders = getTabHeader();
+	// for (RfxTabHeader tabHeader : tabHeaders) {
+	// if (tabHeader.getTab().equals(tabToFind)) {
+	// return tabHeader; // TODO create tabHeadersAndTabs HashMap
+	// }
+	// }
+	// return null;
+	// }
 
-//	private RfxPrimaryButton createTabMenuButton() {
-//		RfxPrimaryButton tabMenuButton = new RfxPrimaryButton(FontAwesomeIconName.ELLIPSIS_V);
-//		// tabMenuButton.setOnAction(this::onMenuButtonAction);
-//		return tabMenuButton;
-//	}
+	// private RfxPrimaryButton createTabMenuButton() {
+	// RfxPrimaryButton tabMenuButton = new
+	// RfxPrimaryButton(FontAwesomeIconName.ELLIPSIS_V);
+	// // tabMenuButton.setOnAction(this::onMenuButtonAction);
+	// return tabMenuButton;
+	// }
 
 	private JFXButton createTabSelectionButton() {
 		RfxPrimaryButton tabSelectionButton = new RfxPrimaryButton(FontAwesomeIconName.FILES_ALT);
@@ -372,8 +368,8 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 		FontAwesomeIcon icon = new FontAwesomeIcon();
 		icon.setIcon(de.jensd.fx.glyphs.fontawesome.FontAwesomeIconName.BARS);
 		icon.setSize("17px");
-		String iconStyle = icon.getStyle() + ";" + new RfxStyleProperties()
-				.setFill(ReflectColorName.PRIMARY.FOREGROUND()).toString();
+		String iconStyle = icon.getStyle() + ";"
+				+ new RfxStyleProperties().setFill(ReflectColorName.PRIMARY.FOREGROUND()).toString();
 		icon.setStyle(iconStyle);
 
 		// RfxFontIcon icon=new RfxFontIcon(FontAwesomeIconName.BARS, 16,
@@ -407,7 +403,7 @@ public class RfxAppButtonBar extends Pane implements TabsListener<Tab> {
 
 	@Override
 	public void onAddTab(Tab newTab) {
-		RfxTabHeader tabHeader=new RfxTabHeader(tabs, newTab);
+		RfxTabHeader tabHeader = new RfxTabHeader(tabs, newTab);
 		getChildren().add(tabHeader);
 	}
 

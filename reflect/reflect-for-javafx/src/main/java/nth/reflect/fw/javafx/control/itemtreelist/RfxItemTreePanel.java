@@ -1,7 +1,6 @@
 package nth.reflect.fw.javafx.control.itemtreelist;
 
 import java.util.Collection;
-import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.TreeCell;
@@ -11,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import nth.reflect.fw.javafx.control.popup.RfxPopup;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.verticalflingscroller.RfxVerticalFlingScroller;
@@ -32,6 +32,7 @@ import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 public class RfxItemTreePanel extends TreeView {
 	private static final String ENTER = "\r";
 	private static final String SPACE = " ";
+	private RfxPopup popupMenu;
 
 	public RfxItemTreePanel(TreeItem<Item> rootItem) {
 		super();
@@ -48,6 +49,11 @@ public class RfxItemTreePanel extends TreeView {
 		this(createRootItem(items, languageProvider));
 	}
 
+	public RfxItemTreePanel(Collection<Item> items, LanguageProvider languageProvider, RfxPopup popupMenu) {
+		this(createRootItem(items, languageProvider));
+		this.popupMenu = popupMenu;
+	}
+
 	private static TreeItem<Item> createRootItem(Collection<Item> items, LanguageProvider languageProvider) {
 		TreeItem<Item> rootNode = new TreeItem<>(new Item(languageProvider));
 		rootNode.setExpanded(true);
@@ -56,14 +62,14 @@ public class RfxItemTreePanel extends TreeView {
 		}
 		return rootNode;
 	}
-	
+
 	private static void addItem(TreeItem<Item> parent, Item itemToAdd) {
 		TreeItem<Item> treeItem = new TreeItem<>(itemToAdd);
 		parent.getChildren().add(treeItem);
 		if (itemToAdd instanceof HierarchicalItem) {
 			HierarchicalItem hierarchicalItem = (HierarchicalItem) itemToAdd;
-			for (Item child:hierarchicalItem.getChildren()) {
-				addItem(treeItem,child);
+			for (Item child : hierarchicalItem.getChildren()) {
+				addItem(treeItem, child);
 			}
 		}
 	}
@@ -85,8 +91,7 @@ public class RfxItemTreePanel extends TreeView {
 				if (MouseButton.PRIMARY.equals(event.getButton()) && event.getClickCount() == 1) {
 					RfxItemTreePanel itemTreePanel = (RfxItemTreePanel) event.getSource();
 					@SuppressWarnings("unchecked")
-					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreePanel.getFocusModel()
-							.getFocusedItem();
+					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreePanel.getFocusModel().getFocusedItem();
 					onItemAction(treeItem);
 				}
 			}
@@ -101,8 +106,7 @@ public class RfxItemTreePanel extends TreeView {
 				String character = event.getCharacter();
 				if (SPACE.equals(character) || ENTER.equals(character)) {
 					RfxItemTreePanel itemTreePanel = (RfxItemTreePanel) event.getSource();
-					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreePanel.getFocusModel()
-							.getFocusedItem();
+					TreeItem<Item> treeItem = (TreeItem<Item>) itemTreePanel.getFocusModel().getFocusedItem();
 					onItemAction(treeItem);
 				}
 			}
@@ -114,10 +118,16 @@ public class RfxItemTreePanel extends TreeView {
 		if (item instanceof MethodOwnerItem) {
 			toggleIsExpanded(treeItem);
 		} else if (item instanceof MethodItem) {
+			if (popupMenu != null) {
+				popupMenu.hide();
+			}
 			executeAction(treeItem.getValue().getAction());
 		} else if (item instanceof Item) {
+			if (popupMenu != null) {
+				popupMenu.hide();
+			}
 			executeAction(treeItem.getValue().getAction());
-		}	
+		}
 		getSelectionModel().select(treeItem);
 	}
 
@@ -133,8 +143,8 @@ public class RfxItemTreePanel extends TreeView {
 	}
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxItemTreePanel.class)).getProperties()
-				.setPadding(0).setBackgroundInsets(0).setBackground("transparent");
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(RfxItemTreePanel.class)).getProperties().setPadding(0)
+				.setBackgroundInsets(0).setBackground("transparent");
 	}
 
 }
