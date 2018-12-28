@@ -2,8 +2,8 @@ package nth.reflect.fw.ui.item.tab;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.tab.Tab;
-import nth.reflect.fw.ui.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.Tab;
+import nth.reflect.fw.ui.component.tab.Tabs;
 
 public class SelectTabItem<TAB extends Tab> extends Item {
 

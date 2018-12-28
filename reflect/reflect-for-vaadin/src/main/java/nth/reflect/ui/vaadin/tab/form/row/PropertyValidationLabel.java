@@ -7,7 +7,7 @@ import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")
 public class PropertyValidationLabel extends Div
-		implements nth.reflect.fw.ui.tab.form.propertypanel.PropertyValidationLabel {
+		implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyValidationLabel {
 
 	private static final String LINE_BREAK = "<BR>";
 

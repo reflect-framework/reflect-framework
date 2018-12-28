@@ -21,10 +21,10 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.ui.component.tab.Tabs;
 import nth.reflect.fw.ui.item.tab.TabsItem;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.tab.Tab;
-import nth.reflect.fw.ui.tab.Tabs;
 
 /**
  * Component to be used as tabComponent; Contains a JLabel to show the text and

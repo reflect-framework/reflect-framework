@@ -21,14 +21,14 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldStyle;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
-import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
 import nth.reflect.fw.ui.swing.tab.table.MethodTableModel;
-import nth.reflect.fw.ui.tab.form.FormTab;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class ManyToOneOrManyField extends JPanel implements PropertyField {

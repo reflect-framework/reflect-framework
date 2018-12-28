@@ -7,8 +7,8 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.ui.component.tab.table.TableTab;
 import nth.reflect.fw.ui.item.method.menu.TableRowMenuItems;
-import nth.reflect.fw.ui.tab.table.TableTab;
 
 public class TableInfoForTableTab extends TableInfo{
 

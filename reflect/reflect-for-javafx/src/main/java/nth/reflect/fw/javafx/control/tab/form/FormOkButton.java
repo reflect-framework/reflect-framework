@@ -1,11 +1,11 @@
 package nth.reflect.fw.javafx.control.tab.form;
 
-import nth.reflect.fw.javafx.control.button.RfxContentButton;
+import nth.reflect.fw.javafx.control.button.ContentButton;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.item.method.FormOkItem;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 
-public class FormOkButton extends RfxContentButton {
+public class FormOkButton extends ContentButton {
 
 	public FormOkButton(FormTab formTab) {
 		super(createFormOkItem(formTab));

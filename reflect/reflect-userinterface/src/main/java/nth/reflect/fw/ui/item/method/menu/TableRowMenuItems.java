@@ -11,9 +11,9 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.tab.Tab;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.table.TableTab;
+import nth.reflect.fw.ui.component.tab.Tab;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.table.TableTab;
 
 public class TableRowMenuItems extends UnmodifiableCollection<Item> {
 

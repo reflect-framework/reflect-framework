@@ -29,7 +29,7 @@ import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.tab.Tab;
 
 public class TableTab extends Tab implements
-		nth.reflect.fw.ui.tab.table.TableTab {
+		nth.reflect.fw.ui.component.tab.table.TableTab {
 
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;

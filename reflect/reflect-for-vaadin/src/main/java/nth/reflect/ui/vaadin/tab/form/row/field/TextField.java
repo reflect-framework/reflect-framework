@@ -1,7 +1,7 @@
 package nth.reflect.ui.vaadin.tab.form.row.field;
 
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")

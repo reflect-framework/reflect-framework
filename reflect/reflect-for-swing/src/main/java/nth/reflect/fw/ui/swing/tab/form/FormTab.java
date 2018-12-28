@@ -19,6 +19,8 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
 import nth.reflect.fw.ui.item.method.FormOkItem;
 import nth.reflect.fw.ui.item.tab.CancelItem;
 import nth.reflect.fw.ui.item.tab.CloseThisTabItem;
@@ -27,14 +29,12 @@ import nth.reflect.fw.ui.swing.properygrid.PropertyGrid;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.form.FormMode;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
 public class FormTab extends Tab implements
-		nth.reflect.fw.ui.tab.form.FormTab { // implements ReadOnlyValueModel {
+		nth.reflect.fw.ui.component.tab.form.FormTab { // implements ReadOnlyValueModel {
 
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodOwner;

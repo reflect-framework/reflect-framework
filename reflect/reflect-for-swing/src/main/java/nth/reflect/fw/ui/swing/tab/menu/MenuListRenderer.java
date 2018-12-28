@@ -9,9 +9,9 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.ui.component.grid.GridStyle;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.component.GridStyle;
 import nth.reflect.fw.ui.swing.util.AwtFontFactory;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 

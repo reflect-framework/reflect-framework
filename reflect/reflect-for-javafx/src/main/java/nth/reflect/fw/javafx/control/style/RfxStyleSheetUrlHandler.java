@@ -8,12 +8,14 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
-import nth.reflect.fw.javafx.control.button.RfxContentBottomToolbarButton;
-import nth.reflect.fw.javafx.control.button.RfxContentButton;
-import nth.reflect.fw.javafx.control.button.RfxPrimaryButton;
-import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeCell;
-import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreePanel;
-import nth.reflect.fw.javafx.control.list.RfxList;
+import nth.reflect.fw.javafx.control.button.ContentBottomToolbarButton;
+import nth.reflect.fw.javafx.control.button.ContentButton;
+import nth.reflect.fw.javafx.control.button.PrimaryButton;
+import nth.reflect.fw.javafx.control.itemtreelist.ItemTreeCell;
+import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
+import nth.reflect.fw.javafx.control.list.List;
+import nth.reflect.fw.javafx.control.mainwindow.content.ContentPane;
+import nth.reflect.fw.javafx.control.mainwindow.mainmenu.MainMenuPane;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.PropertyGrid;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyLabel;
@@ -24,9 +26,7 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CheckBoxField;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyField;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextField;
 import nth.reflect.fw.javafx.control.table.Table;
-import nth.reflect.fw.javafx.control.toolbar.RfxToolbar;
-import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
-import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
+import nth.reflect.fw.javafx.control.toolbar.Toolbar;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.ReflectColors;
@@ -37,7 +37,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 
 	public RfxStyleSheetUrlHandler(ReflectApplicationForJavaFX applicationForJavaFX) {
 
-		RfxStyleSheet styleSheet = new RfxStyleSheet();
+		StyleSheet styleSheet = new StyleSheet();
 
 		appendColorDefinitions(styleSheet, applicationForJavaFX);
 		appendPanes(styleSheet);
@@ -48,22 +48,22 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 		css = styleSheet.toString();
 	}
 
-	private void appendControls(RfxStyleSheet styleSheet) {
+	private void appendControls(StyleSheet styleSheet) {
 		appendToolbars(styleSheet);
 		appendButtons(styleSheet);
 		appendPropertyPanel(styleSheet);
 		appendFields(styleSheet);
-		RfxItemTreePanel.appendStyleGroups(styleSheet);
-		RfxItemTreeCell.appendStyleGroups(styleSheet);
+		ItemTreePanel.appendStyleGroups(styleSheet);
+		ItemTreeCell.appendStyleGroups(styleSheet);
 	}
 
-	private void appendFields(RfxStyleSheet styleSheet) {
+	private void appendFields(StyleSheet styleSheet) {
 		TextField.appendStyleGroups(styleSheet);
 		CheckBoxField.appendStyleGroups(styleSheet);
 		ManyToOneOrManyField.appendStyleGroups(styleSheet);
 	}
 
-	private void appendPropertyPanel(RfxStyleSheet styleSheet) {
+	private void appendPropertyPanel(StyleSheet styleSheet) {
 		PropertyGrid.appendStyleGroups(styleSheet);
 		PropertyPanel.appendStyleGroups(styleSheet);
 		PropertyLabelAndFieldPanel.appendStyleGroups(styleSheet);
@@ -71,22 +71,22 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 		PropertyValidationLabel.appendStyleGroups(styleSheet);
 	}
 
-	private void appendToolbars(RfxStyleSheet styleSheet) {
-		RfxToolbar.appendStyleGroups(styleSheet);
+	private void appendToolbars(StyleSheet styleSheet) {
+		Toolbar.appendStyleGroups(styleSheet);
 	}
 
-	private void appendButtons(RfxStyleSheet styleSheet) {
-		RfxContentButton.appendStyleGroups(styleSheet);
-		RfxContentBottomToolbarButton.appendStyleGroups(styleSheet);
-		RfxPrimaryButton.appendStyleGroups(styleSheet);
+	private void appendButtons(StyleSheet styleSheet) {
+		ContentButton.appendStyleGroups(styleSheet);
+		ContentBottomToolbarButton.appendStyleGroups(styleSheet);
+		PrimaryButton.appendStyleGroups(styleSheet);
 	}
 
-	private void appendPanes(RfxStyleSheet styleSheet) {
-		RfxContentPane.appendStyleGroups(styleSheet);
+	private void appendPanes(StyleSheet styleSheet) {
+		ContentPane.appendStyleGroups(styleSheet);
 		FormTab.appendStyleGroups(styleSheet);
-		RfxList.appendStyleGroups(styleSheet);
+		List.appendStyleGroups(styleSheet);
 		Table.appendStyleGroups(styleSheet);
-		RfxMainMenuPane.appendStyleGroups(styleSheet);
+		MainMenuPane.appendStyleGroups(styleSheet);
 	}
 
 	/**
@@ -98,9 +98,9 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	 * @param applicationForJavaFX
 	 * @param userInterfaceController
 	 */
-	private void appendColorDefinitions(RfxStyleSheet styleSheet, ReflectApplicationForJavaFX applicationForJavaFX) {
+	private void appendColorDefinitions(StyleSheet styleSheet, ReflectApplicationForJavaFX applicationForJavaFX) {
 		ReflectColors colors = applicationForJavaFX.getColors();
-		RfxStyleGroup colorDefintion = styleSheet.addStyleGroup(RfxStyleSelector.createFor("*"));
+		StyleGroup colorDefintion = styleSheet.addStyleGroup(StyleSelector.createFor("*"));
 		colorDefintion.getProperties().setColorVariables(ReflectColorName.PRIMARY, colors.getPrimaryColors());
 		colorDefintion.getProperties().setColorVariables(ReflectColorName.ACCENT, colors.getAccentColors());
 		colorDefintion.getProperties().setColorVariables(ReflectColorName.CONTENT, colors.getContentColors());
@@ -108,7 +108,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 
 	@Override
 	public String getProtocol() {
-		return RfxStyleSheetUrl.PROTOCOL;
+		return StyleSheetUrl.PROTOCOL;
 	}
 
 	@Override

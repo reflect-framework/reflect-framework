@@ -6,7 +6,7 @@ import nth.reflect.fw.ui.swing.properygrid.WrapingLabel;
 
 @SuppressWarnings("serial")
 public class PropertyValidationLabel extends WrapingLabel
-		implements nth.reflect.fw.ui.tab.form.propertypanel.PropertyValidationLabel {
+		implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyValidationLabel {
 
 	public PropertyValidationLabel() {
 		setForeground(Color.RED);

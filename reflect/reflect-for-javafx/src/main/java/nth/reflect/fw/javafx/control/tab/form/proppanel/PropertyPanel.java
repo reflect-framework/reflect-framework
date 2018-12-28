@@ -1,15 +1,14 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
 import javafx.scene.layout.BorderPane;
-import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
-import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.javafx.control.tab.form.FormTab;
+import nth.reflect.fw.javafx.control.style.StyleSelector;
+import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 /**
@@ -28,16 +27,16 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
  * 
  */
 public class PropertyPanel extends BorderPane implements
-		nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
+		nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 
 	private final PropertyValidationLabel propertyValidationLabel;
 	private final PropertyValueModel propertyValueModel;
 	private final PropertyLabelAndFieldPanel labelAndFieldPanel;
 
-	public PropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel, PropertyField propertyField) {
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(PropertyPanel.class));
+	public PropertyPanel(PropertyValueModel propertyValueModel, PropertyField propertyField) {
+		getStyleClass().add(StyleSheet.createStyleClassName(PropertyPanel.class));
 
-		labelAndFieldPanel = new PropertyLabelAndFieldPanel(formTab, propertyValueModel, propertyField);
+		labelAndFieldPanel = new PropertyLabelAndFieldPanel(propertyValueModel, propertyField);
 		setCenter(labelAndFieldPanel);
 
 		this.propertyValueModel = propertyValueModel;
@@ -92,8 +91,8 @@ public class PropertyPanel extends BorderPane implements
 		// Does nothing: Borderpanel does not have a setToolTip method
 	}
 
-	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyPanel.class)).getProperties()
+	public static void appendStyleGroups(StyleSheet styleSheet) {
+		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyPanel.class)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 

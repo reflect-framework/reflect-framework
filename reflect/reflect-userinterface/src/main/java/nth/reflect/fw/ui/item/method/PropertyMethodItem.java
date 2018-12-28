@@ -6,8 +6,8 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.tab.form.FormMode;
-import nth.reflect.fw.ui.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
 
 public class PropertyMethodItem extends MethodItem {
 

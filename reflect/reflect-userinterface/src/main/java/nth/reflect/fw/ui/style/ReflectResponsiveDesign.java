@@ -3,15 +3,15 @@ package nth.reflect.fw.ui.style;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
-import nth.reflect.fw.layer2service.MainMenu;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.reflect.fw.ui.style.component.ApplicationBar;
-import nth.reflect.fw.ui.style.component.Grid;
-import nth.reflect.fw.ui.tab.Tab;
-import nth.reflect.fw.ui.tab.form.FormTab;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel;
+import nth.reflect.fw.ui.component.applicationbar.ApplicationBar;
+import nth.reflect.fw.ui.component.grid.Grid;
+import nth.reflect.fw.ui.component.mainmenu.MainMenu;
+import nth.reflect.fw.ui.component.tab.Tab;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel;
 
 /**
  * <p>

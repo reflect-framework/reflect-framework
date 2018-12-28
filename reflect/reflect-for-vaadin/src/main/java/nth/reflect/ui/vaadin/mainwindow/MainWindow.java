@@ -7,8 +7,8 @@ import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.html.Div;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.TabsListener;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.TabsListener;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
 import nth.reflect.ui.vaadin.tab.Tab;
 import nth.reflect.ui.vaadin.tab.TabContentPanel;

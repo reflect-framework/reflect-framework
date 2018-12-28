@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")

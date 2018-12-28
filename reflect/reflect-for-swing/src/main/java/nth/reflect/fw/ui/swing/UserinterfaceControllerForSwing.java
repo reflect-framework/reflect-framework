@@ -23,6 +23,8 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast.Style;
 import nth.reflect.fw.ui.swing.mainwindow.MainWindow;
@@ -30,8 +32,6 @@ import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.tab.form.FormTab;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.ui.swing.tab.table.TableTab;
-import nth.reflect.fw.ui.tab.form.FormMode;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
 
 public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 

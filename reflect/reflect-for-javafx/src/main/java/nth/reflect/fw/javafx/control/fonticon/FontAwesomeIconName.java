@@ -1,6 +1,6 @@
 package nth.reflect.fw.javafx.control.fonticon;
 
-public enum FontAwesomeIconName implements RfxFontIconName {
+public enum FontAwesomeIconName implements FontIconName {
 
     ADJUST('\uf042'),
     ADN('\uf170'),

@@ -2,8 +2,8 @@ package nth.reflect.fw.ui.swing.component.toolbar;
 
 import java.net.MalformedURLException;
 
+import nth.reflect.fw.ui.component.applicationbar.ApplicationBarStyle;
 import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.component.ApplicationBarStyle;
 import nth.reflect.fw.ui.swing.component.button.MaterialButton;
 
 public class MaterialAppBarIconButton extends MaterialButton {

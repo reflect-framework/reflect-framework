@@ -27,6 +27,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.ui.component.tab.Tabs;
 import nth.reflect.fw.ui.swing.UserinterfaceControllerForSwing;
 import nth.reflect.fw.ui.swing.component.tabpanel.TabPane;
 import nth.reflect.fw.ui.swing.component.toolbar.MaterialAppBar;
@@ -35,7 +36,6 @@ import nth.reflect.fw.ui.swing.image.ReflectImage;
 import nth.reflect.fw.ui.swing.style.SwingStyleConstant;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.tab.menu.MenuList;
-import nth.reflect.fw.ui.tab.Tabs;
 
 public class MainWindow extends JFrame {
 

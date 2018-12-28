@@ -3,7 +3,7 @@ package nth.reflect.fw.ui.item.method.menu;
 import java.util.Collection;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer2service.MainMenu;
+import nth.reflect.fw.ui.component.mainmenu.MainMenu;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 
 /**

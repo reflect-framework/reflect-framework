@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.ui.component.applicationbar.ApplicationBarStyle;
 import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.component.ApplicationBarStyle;
 import nth.reflect.fw.ui.swing.component.button.MaterialButton;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 

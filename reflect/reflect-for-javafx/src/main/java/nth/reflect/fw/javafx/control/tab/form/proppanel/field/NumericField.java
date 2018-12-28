@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class NumericField extends TextField {

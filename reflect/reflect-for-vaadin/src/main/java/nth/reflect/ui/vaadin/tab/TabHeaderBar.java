@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.TabsListener;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.TabsListener;
 
 /**
  * The {@link TabHeaderBar} HTML element is a placeholder (a container) for the

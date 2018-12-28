@@ -1,10 +1,9 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
-import nth.reflect.fw.ui.form.field.DateTimeMode;
-import nth.reflect.fw.ui.tab.form.FormTab;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldFactory;
+import nth.reflect.fw.ui.component.tab.form.DateTimeMode;import nth.reflect.fw.ui.component.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldFactory;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class DateTimeFieldFactory implements PropertyFieldFactory {
@@ -16,7 +15,7 @@ public class DateTimeFieldFactory implements PropertyFieldFactory {
 
 	@Override
 	public boolean canCreateFor(PropertyValueModel propertyValueModel) {
-		return propertyValueModel.getPropertyInfo().getFieldMode()==FieldModeType.DATE_TIME;
+		return propertyValueModel.getPropertyInfo().getFieldMode() == FieldModeType.DATE_TIME;
 	}
 
 }

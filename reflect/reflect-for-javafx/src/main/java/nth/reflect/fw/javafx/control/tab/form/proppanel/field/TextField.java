@@ -3,12 +3,12 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.beans.value.ObservableValue;
-import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
-import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
+import nth.reflect.fw.javafx.control.style.StyleSelector;
+import nth.reflect.fw.javafx.control.style.StyleSheet;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldStyle;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class TextField extends JFXTextField implements PropertyField {
@@ -26,11 +26,11 @@ public class TextField extends JFXTextField implements PropertyField {
 	}
 
 	protected void addStyleClass() {
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(TextField.class));
+		getStyleClass().add(StyleSheet.createStyleClassName(TextField.class));
 	}
 
-	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(TextField.class)).getProperties()
+	public static void appendStyleGroups(StyleSheet styleSheet) {
+		styleSheet.addStyleGroup(StyleSelector.createFor(TextField.class)).getProperties()
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
 				.setProperty("-jfx-focus-color", ReflectColorName.ACCENT.BACKGROUND())
 				.setProperty("-jfx-unfocus-color", ReflectColorName.CONTENT.BACKGROUND_12())

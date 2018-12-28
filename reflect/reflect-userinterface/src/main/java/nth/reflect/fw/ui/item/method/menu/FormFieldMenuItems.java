@@ -21,12 +21,12 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ReturnT
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
+import nth.reflect.fw.ui.component.tab.Tab;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.item.method.PropertyMethodItem;
-import nth.reflect.fw.ui.tab.Tab;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.form.FormTab;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 
 /**
  * <p>

@@ -11,9 +11,9 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.LinkedT
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.item.HierarchicalItem;
-import nth.reflect.fw.ui.tab.form.FormMode;
-import nth.reflect.fw.ui.tab.form.FormTab;
 
 /**
  * Represents open {@link FormTab}s that are in {@link FormMode#EDIT_MODE} and

@@ -1,18 +1,18 @@
 package nth.reflect.fw.javafx.control.tab.form;
 
 import nth.reflect.fw.generic.util.TitleUtil;
-import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
-import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
+import nth.reflect.fw.javafx.control.style.StyleSelector;
+import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.tab.form.FormMode;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 
-public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
+public class FormTab extends Tab implements nth.reflect.fw.ui.component.tab.form.FormTab {
 
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final Object methodOwner;
@@ -40,8 +40,8 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 		PropertyGrid domainPropertyPane = new PropertyGrid(validationProvider, this);
 		setCenter(domainPropertyPane);
 
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(FormTab.class));
-		// TODO new RfxVerticalFlingScroller(scrollPane);
+		getStyleClass().add(StyleSheet.createStyleClassName(FormTab.class));
+		// TODO new VerticalFlingScroller(scrollPane);
 
 		// VBox vbox=new VBox();
 		// vbox.setPrefHeight(javafx.scene.control.Control.USE_COMPUTED_SIZE);
@@ -102,8 +102,8 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 		return userInterfaceContainer;
 	}
 
-	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(FormTab.class)).getProperties()
+	public static void appendStyleGroups(StyleSheet styleSheet) {
+		styleSheet.addStyleGroup(StyleSelector.createFor(FormTab.class)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 

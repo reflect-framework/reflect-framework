@@ -8,10 +8,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import nth.reflect.fw.generic.valuemodel.ReadWriteValueModel;
-import nth.reflect.fw.ui.style.component.PropertyFieldStyle;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldStyle;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 
 @SuppressWarnings("serial")
 public class TextAreaField extends JTextArea implements  PropertyField {

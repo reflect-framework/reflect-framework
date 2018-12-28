@@ -3,7 +3,6 @@ package nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import nth.reflect.fw.layer2service.MainMenu;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
@@ -41,20 +40,19 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  *
  */
 public class ParameterFactoryModelFactory {
-	public static ParameterFactoryModel create( Method method, Class<?> methodParameterType) {
+	public static ParameterFactoryModel create(Method method, Class<?> methodParameterType) {
 		Optional<ParameterFactoryModel> methodModel = createMethodModel(method);
 		if (methodModel.isPresent()) {
 			return methodModel.get();
 		}
 
-		ParameterFactoryModel annotationModel = createAnnotationModel( method, methodParameterType);
+		ParameterFactoryModel annotationModel = createAnnotationModel(method, methodParameterType);
 		return annotationModel;
 	}
 
 	private static ParameterFactoryModel createAnnotationModel(Method method, Class<?> methodParameterType) {
-		if (hasParameterFactory(method )) {
-			return new ParameterFactoryAnnotationModel(
-					methodParameterType);
+		if (hasParameterFactory(method)) {
+			return new ParameterFactoryAnnotationModel(methodParameterType);
 		} else {
 			return null;
 		}
@@ -62,7 +60,7 @@ public class ParameterFactoryModelFactory {
 
 	private static boolean hasParameterFactory(Method method) {
 		ParameterFactory annotation = method.getAnnotation(ParameterFactory.class);
-		return annotation!=null;
+		return annotation != null;
 	}
 
 	private static Optional<ParameterFactoryModel> createMethodModel(Method method) {
@@ -73,5 +71,5 @@ public class ParameterFactoryModelFactory {
 			return Optional.empty();
 		}
 	}
-	
+
 }

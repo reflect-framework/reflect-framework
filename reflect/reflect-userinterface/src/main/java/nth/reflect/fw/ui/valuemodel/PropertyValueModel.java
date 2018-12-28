@@ -5,7 +5,7 @@ import java.util.List;
 
 import nth.reflect.fw.generic.valuemodel.ReadWriteValueModel;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.ui.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
 
 public class PropertyValueModel implements ReadWriteValueModel {
 

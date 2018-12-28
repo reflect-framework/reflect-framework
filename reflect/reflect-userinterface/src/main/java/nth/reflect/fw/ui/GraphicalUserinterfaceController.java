@@ -20,6 +20,12 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.ui.component.tab.Tab;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.ui.component.tab.table.TableTab;
 import nth.reflect.fw.ui.item.dialog.DialogCancelItem;
 import nth.reflect.fw.ui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.ui.item.dialog.DialogMethodItem;
@@ -27,12 +33,6 @@ import nth.reflect.fw.ui.item.dialog.DialogShowStackTraceItem;
 import nth.reflect.fw.ui.style.MaterialColorPalette;
 import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.style.basic.Color;
-import nth.reflect.fw.ui.tab.Tab;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.form.FormMode;
-import nth.reflect.fw.ui.tab.form.FormTab;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
-import nth.reflect.fw.ui.tab.table.TableTab;
 
 /**
  * 

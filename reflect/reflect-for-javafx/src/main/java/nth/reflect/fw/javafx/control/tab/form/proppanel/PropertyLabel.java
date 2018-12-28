@@ -2,17 +2,17 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
-import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
+import nth.reflect.fw.javafx.control.style.StyleSelector;
+import nth.reflect.fw.javafx.control.style.StyleSheet;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyLabelStyle;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.style.component.PropertyLabelStyle;
-import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
 
-public class PropertyLabel extends Label implements nth.reflect.fw.ui.tab.form.propertypanel.PropertyLabel {
+public class PropertyLabel extends Label implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyLabel {
 
 	
 	public PropertyLabel() {
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(PropertyLabel.class));
+		getStyleClass().add(StyleSheet.createStyleClassName(PropertyLabel.class));
 	}
 	
 	@Override
@@ -20,8 +20,8 @@ public class PropertyLabel extends Label implements nth.reflect.fw.ui.tab.form.p
 		setTooltip(new Tooltip(description));
 	}
 	
-	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyLabel.class)).getProperties()
+	public static void appendStyleGroups(StyleSheet styleSheet) {
+		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyLabel.class)).getProperties()
 		.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
 		.setFont(PropertyLabelStyle.getFont()).setWrapText(true).setPadding(0, PropertyPanelStyle.getPaddingLeftRight(), 0, PropertyPanelStyle.getPaddingLeftRight());
 	}

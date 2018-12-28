@@ -5,10 +5,9 @@ import java.util.List;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
+import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheetUrlHandler;
-import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -37,9 +36,9 @@ import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
  * <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop
  * environment</a>. It might also be used for mobile devices in the future as
  * well, but porting JavaFX for Android is still somewhat of a problem at the
- * time of this writing. {@link ReflectApplicationForJavaFX} tries to comply with the
- * <a href="https://material.io/guidelines/">Google Material Design</a> as much
- * as possible. The application can be used on a
+ * time of this writing. {@link ReflectApplicationForJavaFX} tries to comply
+ * with the <a href="https://material.io/guidelines/">Google Material Design</a>
+ * as much as possible. The application can be used on a
  * <a href="https://en.wikipedia.org/wiki/Desktop_computer">desktop</a>,
  * <a href="https://en.wikipedia.org/wiki/Laptop">lap-top</a>,
  * <a href="https://en.wikipedia.org/wiki/Tablet_computer">tablet</a> or
@@ -47,7 +46,7 @@ import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
  * has an
  * <a href="https://en.wikipedia.org/wiki/Responsive_web_design">responsive web
  * design</a>: It optimizes the user interface depending on the size of the
- * {@link RfxWindow}.
+ * {@link MainWindow}.
  * </p>
  * <h3>How to download a ReflectForJavaFX demo project</h3>
  * <p>
@@ -62,8 +61,7 @@ import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
  * @author nilsth
  *
  */
-public abstract class ReflectApplicationForJavaFX extends Application
-		implements GraphicalUserInterfaceApplication {
+public abstract class ReflectApplicationForJavaFX extends Application implements GraphicalUserInterfaceApplication {
 
 	private Stage primaryStage;
 
@@ -75,7 +73,7 @@ public abstract class ReflectApplicationForJavaFX extends Application
 
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
-		return RfxUserinterfaceController.class;
+		return UserinterfaceControllerForJavaFX.class;
 	}
 
 	@Override
@@ -110,44 +108,45 @@ public abstract class ReflectApplicationForJavaFX extends Application
 
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class,
-				FontIconUrlProvider.class, RfxStyleSheetUrlHandler.class);
+		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class,
+				RfxStyleSheetUrlHandler.class);
 	}
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-//
-//	/**
-//	 * @return A primary color is the color displayed most frequently across
-//	 *         your app’s screens and components. To create contrast between
-//	 *         elements, you can use lighter or darker tones of your primary
-//	 *         color. The contrast between lighter and darker tones helps show
-//	 *         division between surfaces, such as between the status bar and a
-//	 *         toolbar.
-//	 * 
-//	 *         TODO: 700 for AppBar, 500 for toolbar, 300 for secondary
-//	 *         information
-//	 */
-//	public abstract Color getPrimaryColor();
-//
-//	/**
-//	 * @return A accent color is used to accent select parts of your UI. It can
-//	 *         be complementary or analogous to your primary color, but it
-//	 *         should not simply be a light or dark variation of your primary
-//	 *         color. It should contrast with elements that surround it and be
-//	 *         applied sparingly as an accent. Accent colors can be used for
-//	 *         floating action buttons (e.g a plus to add a item) or to indicate
-//	 *         focus on elements such as buttons or text fields.
-//	 */
-//	public abstract Color getAccentColor();
-//
-//	/**
-//	 * 
-//	 * @return The content color is the back ground color of the content views
-//	 *         (e.g. the background color of a form view), The content color can
-//	 *         only be white or black
-//	 */
-//	public abstract ContentColor getContentColor();
+	//
+	// /**
+	// * @return A primary color is the color displayed most frequently across
+	// * your app’s screens and components. To create contrast between
+	// * elements, you can use lighter or darker tones of your primary
+	// * color. The contrast between lighter and darker tones helps show
+	// * division between surfaces, such as between the status bar and a
+	// * toolbar.
+	// *
+	// * TODO: 700 for AppBar, 500 for toolbar, 300 for secondary
+	// * information
+	// */
+	// public abstract Color getPrimaryColor();
+	//
+	// /**
+	// * @return A accent color is used to accent select parts of your UI. It
+	// can
+	// * be complementary or analogous to your primary color, but it
+	// * should not simply be a light or dark variation of your primary
+	// * color. It should contrast with elements that surround it and be
+	// * applied sparingly as an accent. Accent colors can be used for
+	// * floating action buttons (e.g a plus to add a item) or to indicate
+	// * focus on elements such as buttons or text fields.
+	// */
+	// public abstract Color getAccentColor();
+	//
+	// /**
+	// *
+	// * @return The content color is the back ground color of the content views
+	// * (e.g. the background color of a form view), The content color can
+	// * only be white or black
+	// */
+	// public abstract ContentColor getContentColor();
 
 }

@@ -11,9 +11,9 @@ import javax.validation.ConstraintViolation;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import nth.reflect.fw.javafx.RfxUserinterfaceController;
-import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
-import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
+import nth.reflect.fw.javafx.UserinterfaceControllerForJavaFX;
+import nth.reflect.fw.javafx.control.style.StyleSelector;
+import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyValidationLabel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -21,10 +21,10 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.FormTabStyle;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.style.component.FormTabStyle;
-import nth.reflect.fw.ui.tab.form.FormMode;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.ui.valuemodel.PropertyValueChangeListener;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
@@ -52,7 +52,7 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 		this.validationProvider = validationProvider;
 		domainValueModel = formTab.getDomainValueModel();
 
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(PropertyGrid.class));
+		getStyleClass().add(StyleSheet.createStyleClassName(PropertyGrid.class));
 		setFitToWidth(true);
 
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
@@ -71,7 +71,7 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 
 	private HBox createButtonBar(FormTab formTab) {
 		HBox buttonBox = new HBox();
-		buttonBox.setSpacing(FormTabStyle.getSpacing());
+		buttonBox.setSpacing(FormTabStyle.SPACING);
 		buttonBox.getChildren().add(new FormOkButton(formTab));
 		buttonBox.getChildren().add(new FormCancelButton(formTab));
 		return buttonBox;
@@ -97,7 +97,7 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 
 	private VBox createContent(FormTab formTab) {
 		VBox content = new VBox();
-		content.getStyleClass().add(RfxStyleSheet.createStyleClassName(PropertyGrid.class, CONTENT));
+		content.getStyleClass().add(StyleSheet.createStyleClassName(PropertyGrid.class, CONTENT));
 		for (PropertyPanel propertyPanel : propertyPanels) {
 			content.getChildren().add(propertyPanel);
 		}
@@ -137,8 +137,8 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 	private PropertyPanel createPropertyPanel(FormTab formTab, BufferedDomainValueModel domainValueModel,
 			FormMode formMode, PropertyInfo propertyInfo) {
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
-		RfxUserinterfaceController userinterfaceController = userInterfaceContainer
-				.get(RfxUserinterfaceController.class);
+		UserinterfaceControllerForJavaFX userinterfaceController = userInterfaceContainer
+				.get(UserinterfaceControllerForJavaFX.class);
 		PropertyPanelFactory<PropertyPanel> propertyPanelFactory = userinterfaceController.getPropertyPanelFactory();
 		PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 		propertyValueModel.addListener(this);
@@ -146,15 +146,15 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 		return propertyPanel;
 	}
 
-	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyGrid.class)).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setPadding(FormTabStyle.getPadding());
+	public static void appendStyleGroups(StyleSheet styleSheet) {
+		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyGrid.class)).getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setPadding(FormTabStyle.PADDING);
 		styleSheet
-				.addStyleGroup(RfxStyleSelector.createFor(PropertyGrid.class)
-						.append(RfxStyleSelector.createFor("> .viewport")))
+				.addStyleGroup(StyleSelector.createFor(PropertyGrid.class)
+						.append(StyleSelector.createFor("> .viewport")))
 				.getProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND());
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyGrid.class, CONTENT)).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setSpacing(FormTabStyle.getSpacing());
+		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyGrid.class, CONTENT)).getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setSpacing(FormTabStyle.SPACING);
 	}
 
 	@Override

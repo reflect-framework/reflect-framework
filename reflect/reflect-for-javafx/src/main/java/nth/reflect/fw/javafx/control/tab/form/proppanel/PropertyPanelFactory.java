@@ -15,16 +15,16 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.PasswordFieldFacto
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextAreaFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TimeFieldFactory;
-import nth.reflect.fw.ui.tab.form.FormTab;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldFactory;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldFactory;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
-public class PropertyPanelFactory extends nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {
+public class PropertyPanelFactory extends nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {
 
 	@Override
 	public List<PropertyFieldFactory> createFieldFactories() {
-		List<PropertyFieldFactory> fieldFactories=new ArrayList<>();
+		List<PropertyFieldFactory> fieldFactories = new ArrayList<>();
 		fieldFactories.add(new TextFieldFactory());
 		fieldFactories.add(new PasswordFieldFactory());
 		fieldFactories.add(new TextAreaFieldFactory());
@@ -43,7 +43,7 @@ public class PropertyPanelFactory extends nth.reflect.fw.ui.tab.form.propertypan
 	@Override
 	public PropertyPanel createPropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel) {
 		PropertyField propertyField = createPropertyField(formTab, propertyValueModel);
-		return new PropertyPanel((nth.reflect.fw.javafx.control.tab.form.FormTab) formTab,propertyValueModel, propertyField);
+		return new PropertyPanel(propertyValueModel, propertyField);
 	}
 
 }

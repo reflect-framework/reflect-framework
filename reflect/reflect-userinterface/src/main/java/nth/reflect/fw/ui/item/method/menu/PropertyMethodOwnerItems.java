@@ -6,11 +6,11 @@ import java.util.List;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.ui.component.tab.Tab;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.item.method.PropertyMethodOwnerItem;
-import nth.reflect.fw.ui.tab.Tab;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.form.FormMode;
-import nth.reflect.fw.ui.tab.form.FormTab;
 
 public class PropertyMethodOwnerItems extends UnmodifiableCollection<PropertyMethodOwnerItem> {
 

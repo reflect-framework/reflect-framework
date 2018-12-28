@@ -15,11 +15,11 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.item.method.FormOkItem;
 import nth.reflect.fw.ui.item.tab.CancelItem;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.form.FormMode;
-import nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
@@ -33,7 +33,7 @@ import nth.reflect.ui.vaadin.tab.Tab;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;
 
 @SuppressWarnings("serial")
-public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
+public class FormTab extends Tab implements nth.reflect.fw.ui.component.tab.form.FormTab {
 
 	private static final int PADDING = 20;
 	private final UserInterfaceContainer userInterfaceContainer;

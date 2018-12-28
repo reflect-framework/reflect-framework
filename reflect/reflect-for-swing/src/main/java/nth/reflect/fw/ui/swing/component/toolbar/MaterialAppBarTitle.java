@@ -6,8 +6,8 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.ui.component.applicationbar.ApplicationBarStyle;
 import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.component.ApplicationBarStyle;
 import nth.reflect.fw.ui.swing.util.AwtFontFactory;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 

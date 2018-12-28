@@ -3,9 +3,9 @@ package nth.reflect.ui.vaadin.tab;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 
+import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.ui.component.tab.TabsListener;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.tab.Tabs;
-import nth.reflect.fw.ui.tab.TabsListener;
 import nth.reflect.ui.vaadin.css.Cursor;
 import nth.reflect.ui.vaadin.css.FloatType;
 import nth.reflect.ui.vaadin.css.Position;
