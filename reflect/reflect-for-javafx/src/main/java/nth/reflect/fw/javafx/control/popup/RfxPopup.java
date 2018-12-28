@@ -1,8 +1,12 @@
 package nth.reflect.fw.javafx.control.popup;
 
+import com.jfoenix.effects.JFXDepthManager;
+
 import javafx.scene.Node;
 import javafx.stage.Popup;
 import javafx.stage.Window;
+import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
+import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * A pop up window that can be used for a context window or drop down menu. It
@@ -18,14 +22,13 @@ public class RfxPopup extends Popup {
 		setAutoFix(true);
 		setAutoHide(true);
 		setHideOnEscape(true);
-
 	}
 
 	@Override
 	public void show(Node ownerNode, double anchorX, double anchorY) {
 		Node content = getContent().get(0);// yuk
-		content.setStyle("-fx-background-color: lightgray; ");// yuk
-//	TODO	JFXDepthManager.createMaterialNode(content, 4);// yuk
+		content.setStyle(new RfxStyleProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND()).toString());
+		JFXDepthManager.setDepth(content, 3);
 		super.show(ownerNode, anchorX, anchorY);
 	}
 }

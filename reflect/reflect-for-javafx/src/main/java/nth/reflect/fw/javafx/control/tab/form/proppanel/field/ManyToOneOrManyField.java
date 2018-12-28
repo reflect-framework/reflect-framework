@@ -1,14 +1,14 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
-import nth.reflect.fw.javafx.control.table.RfxTable;
+import nth.reflect.fw.javafx.control.table.Table;
 import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
-public class ManyToOneOrManyField extends RfxTable implements PropertyField {
+public class ManyToOneOrManyField extends Table implements PropertyField {
 
 
 	private static final String READ_ONLY_STYLE = "read-only";

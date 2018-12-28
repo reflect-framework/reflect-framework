@@ -7,14 +7,14 @@ import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
-public class RfxTableInfoForFormTabProperty extends RfxTableInfo {
+public class TableInfoForFormTabProperty extends TableInfo {
 
 	private final PropertyValueModel propertyValueModel;
 	private final ReflectionProvider reflectionProvider;
 	private final LanguageProvider languageProvider;
 	private final FormTab formTab;
 
-	public RfxTableInfoForFormTabProperty(FormTab formTab,
+	public TableInfoForFormTabProperty(FormTab formTab,
 			PropertyValueModel propertyValueModel) {
 		this.formTab = formTab;
 		this.propertyValueModel = propertyValueModel;

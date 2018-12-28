@@ -29,7 +29,7 @@ import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
-import nth.reflect.fw.javafx.control.tab.table.RfxTableTab;
+import nth.reflect.fw.javafx.control.tab.table.TableTab;
 import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
@@ -61,7 +61,7 @@ public class RfxUserinterfaceController extends GraphicalUserinterfaceController
 	@Override
 	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue) {
-		return new RfxTableTab(userInterfaceContainer, serviceObject, actionMethodInfo,
+		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo,
 				methodParameterValue);
 	}
 

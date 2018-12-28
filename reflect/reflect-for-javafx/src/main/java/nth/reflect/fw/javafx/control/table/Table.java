@@ -30,16 +30,16 @@ import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.tab.form.FormTab;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
-public class RfxTable extends TableView<Object> {
+public class Table extends TableView<Object> {
 
 	// ROW_HEIGHT: Material design says 48 but we use same height as menu items
 	private static final int ROW_HEIGHT = RfxItemTreeCell.ITEM_HEIGHT;
 	private static final int ROW_FONT_SIZE = 14;
 	private static final int HEADER_FONT_SIZE = 13;
 	private final RfxPopup popupMenu;
-	private RfxTableInfo rfxTableInfo;
+	private TableInfo tableInfo;
 
-	public RfxTable() {
+	public Table() {
 		// TODO new RfxVerticalFlingScroller(this);
 		addStyleClass();
 		popupMenu = new RfxPopup();
@@ -56,24 +56,29 @@ public class RfxTable extends TableView<Object> {
 	 * @param methodParameterValue
 	 * @param tableView
 	 */
-	public RfxTable(RfxTableInfo rfxTableInfo) {
+	public Table(TableInfo tableInfo) {
 		this();
-		this.rfxTableInfo = rfxTableInfo;
-		setItems(rfxTableInfo.getObservableList());
-		initColumns(rfxTableInfo.getTableColumns());
+		this.tableInfo = tableInfo;
+		setItems(tableInfo.getObservableList());
+		initColumns(tableInfo.getTableColumns());
 	}
 
-	public RfxTable(nth.reflect.fw.ui.tab.table.TableTab tableTab) {
-		this(new RfxTableInfoForTableTab(tableTab));
+	public void updateData() {
+		setItems(tableInfo.getObservableList());
 	}
 
-	public RfxTable(FormTab formTab, PropertyValueModel propertyValueModel) {
-		this(new RfxTableInfoForFormTabProperty(formTab, propertyValueModel));
+	public Table(nth.reflect.fw.ui.tab.table.TableTab tableTab) {
+		this(new TableInfoForTableTab(tableTab));
 	}
 
+	public Table(FormTab formTab, PropertyValueModel propertyValueModel) {
+		this(new TableInfoForFormTabProperty(formTab, propertyValueModel));
+	}
+
+	@SuppressWarnings("unchecked")
 	private void initColumns(List<TableColumn<Object, ?>> tableColumns) {
 		if (tableColumns.isEmpty()) {
-			TableColumn<Object, String> singeColumn = new TableColumn("");
+			TableColumn<Object, String> singeColumn = new TableColumn<Object, String>("");
 			getColumns().addAll(singeColumn);
 			hideHeader();
 		} else {
@@ -150,7 +155,7 @@ public class RfxTable extends TableView<Object> {
 	}
 
 	private void showRowPopupMenu(double x, double y) {
-		if (rfxTableInfo != null) {
+		if (tableInfo != null) {
 			popupMenu.getContent().clear();
 			popupMenu.getContent().add(createRowMenu());
 			popupMenu.show(this, x, y);
@@ -159,8 +164,8 @@ public class RfxTable extends TableView<Object> {
 
 	private RfxItemTreePanel createRowMenu() {
 		Object selectedObject = getSelectionModel().getSelectedItem();
-		Collection<Item> serviceObjectItems = rfxTableInfo.getRowMenuItems(selectedObject);
-		RfxItemTreePanel rowMenuContent = new RfxItemTreePanel(serviceObjectItems, rfxTableInfo.getLanguageProvider(),
+		Collection<Item> serviceObjectItems = tableInfo.getRowMenuItems(selectedObject);
+		RfxItemTreePanel rowMenuContent = new RfxItemTreePanel(serviceObjectItems, tableInfo.getLanguageProvider(),
 				popupMenu);
 		return rowMenuContent;
 	}
@@ -230,15 +235,15 @@ public class RfxTable extends TableView<Object> {
 	}
 
 	protected void addStyleClass() {
-		getStyleClass().add(RfxStyleSheet.createStyleClassName(RfxTable.class));
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(Table.class));
 	}
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		appendStyleGroups(styleSheet, RfxTable.class, ReflectColorName.CONTENT.BACKGROUND(),
+		appendStyleGroups(styleSheet, Table.class, ReflectColorName.CONTENT.BACKGROUND(),
 				ReflectColorName.CONTENT.BACKGROUND_12());
 	}
 
-	public static void appendStyleGroups(RfxStyleSheet styleSheet, Class<? extends RfxTable> componentClass,
+	public static void appendStyleGroups(RfxStyleSheet styleSheet, Class<? extends Table> componentClass,
 			String backGroundColor, String backGroundHighLighted) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(componentClass)).getProperties()
 				.setFont(MaterialFont.getRobotoRegular(ROW_FONT_SIZE))

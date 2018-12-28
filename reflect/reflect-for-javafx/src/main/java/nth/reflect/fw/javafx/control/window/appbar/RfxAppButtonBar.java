@@ -26,7 +26,7 @@ import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreePanel;
 import nth.reflect.fw.javafx.control.style.RfxStyleProperties;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.javafx.control.tab.table.RfxTableTab;
+import nth.reflect.fw.javafx.control.tab.table.TableTab;
 import nth.reflect.fw.javafx.control.window.RfxWindow;
 import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
@@ -45,7 +45,7 @@ import nth.reflect.fw.ui.tab.form.FormTab;
  * <ul>
  * <li>the MainMenu button (see {@link RfxMainMenuPane})</li>
  * <li>the {@link RfxtabHeader}'s that navigate to the content {@link Tab}s
- * (e.g. See {@link FormTab} and {@link RfxTableTab})</li>
+ * (e.g. See {@link FormTab} and {@link TableTab})</li>
  * <li>a tab menu button when not all {@link RfxtabHeader}'s can be displayed on
  * the {@link RfxAppButtonBar}. It shows a list of all {@link RfxtabHeader}'s
  * when clicked)</li>

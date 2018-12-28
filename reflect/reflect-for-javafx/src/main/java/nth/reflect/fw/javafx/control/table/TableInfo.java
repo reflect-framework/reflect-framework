@@ -18,7 +18,7 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 @SuppressWarnings("restriction")
-public abstract class RfxTableInfo {
+public abstract class TableInfo {
 
 	public abstract Object getValues();
 

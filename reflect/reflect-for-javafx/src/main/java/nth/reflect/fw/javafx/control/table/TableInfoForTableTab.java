@@ -10,14 +10,14 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.ui.item.method.menu.TableRowMenuItems;
 import nth.reflect.fw.ui.tab.table.TableTab;
 
-public class RfxTableInfoForTableTab extends RfxTableInfo{
+public class TableInfoForTableTab extends TableInfo{
 
 	private TableTab tableTab;
 	private Class<?> itemType;
 	private ReflectionProvider reflectionProvider;
 	private LanguageProvider languageProvider;
 
-	public RfxTableInfoForTableTab(TableTab tableTab) {
+	public TableInfoForTableTab(TableTab tableTab) {
 		this.tableTab = tableTab;
 		UserInterfaceContainer userInterfaceContainer = tableTab.getUserInterfaceContainer();
 		this.reflectionProvider = userInterfaceContainer

@@ -146,7 +146,7 @@ public class TableTab extends Tab {
 
 	@Override
 	public void onSelected() {
-		// TODO Auto-generated method stub
+		grid.getDataProvider().refreshAll();
 	}
 
 }

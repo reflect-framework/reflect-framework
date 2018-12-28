@@ -23,7 +23,7 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyValidationLabel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CheckBoxField;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyField;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextField;
-import nth.reflect.fw.javafx.control.table.RfxTable;
+import nth.reflect.fw.javafx.control.table.Table;
 import nth.reflect.fw.javafx.control.toolbar.RfxToolbar;
 import nth.reflect.fw.javafx.control.window.content.RfxContentPane;
 import nth.reflect.fw.javafx.control.window.mainmenu.RfxMainMenuPane;
@@ -85,7 +85,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 		RfxContentPane.appendStyleGroups(styleSheet);
 		FormTab.appendStyleGroups(styleSheet);
 		RfxList.appendStyleGroups(styleSheet);
-		RfxTable.appendStyleGroups(styleSheet);
+		Table.appendStyleGroups(styleSheet);
 		RfxMainMenuPane.appendStyleGroups(styleSheet);
 	}
 

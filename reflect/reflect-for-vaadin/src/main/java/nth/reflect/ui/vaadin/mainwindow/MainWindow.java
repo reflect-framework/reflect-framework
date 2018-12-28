@@ -11,7 +11,7 @@ import nth.reflect.fw.ui.tab.Tabs;
 import nth.reflect.fw.ui.tab.TabsListener;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
 import nth.reflect.ui.vaadin.tab.Tab;
-import nth.reflect.ui.vaadin.tab.TabContaintPanel;
+import nth.reflect.ui.vaadin.tab.TabContentPanel;
 import nth.reflect.ui.vaadin.tab.TabHeaderBar;
 
 /**
@@ -42,7 +42,7 @@ public class MainWindow extends Div implements TabsListener<Tab> {
 		tabs = userInterfaceController.getTabs();
 
 		MainMenu mainMenu = new MainMenu(userInterfaceContainer);
-		tabContentPanel = new TabContaintPanel(tabs);
+		tabContentPanel = new TabContentPanel(tabs);
 		Overlay overlay = new Overlay();
 		tabHeaderBar = new TabHeaderBar(tabs);
 		HeaderBar headerBar = new HeaderBar(userInterfaceContainer, this);
