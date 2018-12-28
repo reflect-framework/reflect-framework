@@ -31,8 +31,8 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * user interfaces are available, or download all the sources of the
  * {@link ReflectFramework} projects and see the class hierarchy of the
  * {@link UserInterfaceController} class to find all the different user
- * interface implementations. 
- * </p> 
+ * interface implementations.
+ * </p>
  * 
  * @author Nils ten Hoeve
  * 
@@ -92,11 +92,10 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodParameterValue
 	 */
 
-	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter) {
+	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		try {
 
-			if (methodParameter == null && methodInfo.hasParameter()) {
+			if (methodParameter == null && methodInfo.hasParameter() || methodInfo.hasParameterFactory()) {
 				methodParameter = methodInfo.createMethodParameter(methodOwner);
 			}
 
@@ -113,11 +112,11 @@ public abstract class UserInterfaceController implements NotificationListener {
 				break;
 			}
 		} catch (Exception exception) {
-			String title = languageProvider.getText("Error while executing an action" );
-			String messageFormat = languageProvider.getText("Action: %s" );
+			String title = languageProvider.getText("Error while executing an action");
+			String messageFormat = languageProvider.getText("Action: %s");
 			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
-			String message=String.format(messageFormat, actionMethod);
-			showErrorDialog(title,  message, exception);
+			String message = String.format(messageFormat, actionMethod);
+			showErrorDialog(title, message, exception);
 		}
 
 	}
@@ -130,12 +129,13 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * <br>
 	 * It needs to validate the method parameter value before the method is
 	 * executed
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 * 
 	 */
 
-	public abstract void processActionMethodExecution(Object methodOwner,
-			ActionMethodInfo methodInfo, Object methodParameter) ;
+	public abstract void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter);
 
 	/**
 	 * This method is called from
@@ -149,17 +149,16 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodReturnValue
 	 */
 
-	public void processActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, Object methodResult) {
+	public void processActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			Object methodResult) {
 		try {
 			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
-		} catch (IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException exception) {
-			String title = languageProvider.getText("Error while displaying an action result" );
-			String messageFormat = languageProvider.getText("Action: %s" );
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
+			String title = languageProvider.getText("Error while displaying an action result");
+			String messageFormat = languageProvider.getText("Action: %s");
 			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
-			String message=String.format(messageFormat, actionMethod);
-			showErrorDialog(title,  message, exception);
+			String message = String.format(messageFormat, actionMethod);
+			showErrorDialog(title, message, exception);
 		}
 
 	}
@@ -169,7 +168,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * type {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
- 	 * @param methodOwner
+	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
@@ -181,37 +180,36 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * type {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
- 	 * @param methodOwner
+	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, Object methodResult);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			Object methodResult);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
 	 * type {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
- 	 * @param methodOwner
+	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, List<?> methodResult);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			List<?> methodResult);
 
-	
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return
 	 * type {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
- 	 * @param methodOwner
+	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, String methodResult);
+	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			String methodResult);
 
 	/**
 	 * Allows the user interface objects to be build (i.e. the creation of a
