@@ -15,7 +15,7 @@ import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreeCell;
 import nth.reflect.fw.javafx.control.itemtreelist.RfxItemTreePanel;
 import nth.reflect.fw.javafx.control.list.RfxList;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
-import nth.reflect.fw.javafx.control.tab.form.PropertiesPanel;
+import nth.reflect.fw.javafx.control.tab.form.PropertyGrid;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyLabel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyLabelAndFieldPanel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
@@ -64,7 +64,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	}
 
 	private void appendPropertyPanel(RfxStyleSheet styleSheet) {
-		PropertiesPanel.appendStyleGroups(styleSheet);
+		PropertyGrid.appendStyleGroups(styleSheet);
 		PropertyPanel.appendStyleGroups(styleSheet);
 		PropertyLabelAndFieldPanel.appendStyleGroups(styleSheet);
 		PropertyLabel.appendStyleGroups(styleSheet);

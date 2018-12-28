@@ -6,8 +6,8 @@ import javafx.scene.layout.BorderPane;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
-import nth.reflect.fw.javafx.control.tab.form.PropertiesPanel;
 import nth.reflect.fw.ui.style.ReflectColorName;
+import nth.reflect.fw.ui.style.component.FormTabStyle;
 import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
@@ -19,10 +19,11 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	private final PropertyField propertyField;
 	private final FormTab formTab;
 
-	public PropertyLabelAndFieldPanel(FormTab formTab, PropertyValueModel propertyValueModel, PropertyField propertyField) {
+	public PropertyLabelAndFieldPanel(FormTab formTab, PropertyValueModel propertyValueModel,
+			PropertyField propertyField) {
 		getStyleClass().add(RfxStyleSheet.createStyleClassName(PropertyLabelAndFieldPanel.class));
-		
-		this.formTab = (FormTab) formTab;
+
+		this.formTab = formTab;
 
 		propertyLabel = new PropertyLabel();
 		setTop(propertyLabel);
@@ -36,7 +37,7 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	private void setWidth(PropertyFieldWidth propertyFieldWidth) {
 		switch (propertyFieldWidth) {
 		case FULL:
-			DoubleBinding fullWidth = formTab.widthProperty().subtract(2*PropertiesPanel.HORIZONTAL_GAP);
+			DoubleBinding fullWidth = formTab.widthProperty().subtract(2 * FormTabStyle.getPadding());
 			prefWidthProperty().bind(fullWidth);
 			break;
 		case SMALL:
@@ -45,7 +46,7 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 			setMinWidth(PropertyPanelStyle.getMinSmallWidth());
 			break;
 		}
-		
+
 	}
 
 	public PropertyLabel getPropertyLabel() {
@@ -55,10 +56,11 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	public PropertyField getPropertyField() {
 		return propertyField;
 	}
-	
+
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
 		styleSheet.addStyleGroup(RfxStyleSelector.createFor(PropertyLabelAndFieldPanel.class)).getProperties()
-		.setBackground(ReflectColorName.CONTENT.BACKGROUND_20()).setProperty("-fx-background-radius", "10 10 0 0");
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
+				.setProperty("-fx-background-radius", "10 10 0 0");
 	}
 
 }

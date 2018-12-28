@@ -14,4 +14,8 @@ public class FormTabStyle implements ReflectStyleClass {
 		return 10;
 	}
 
+	public static int getPadding() {
+		return 8;
+	}
+
 }

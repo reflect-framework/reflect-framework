@@ -1,23 +1,37 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
-import javafx.beans.binding.DoubleBinding;
 import javafx.scene.layout.BorderPane;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
-import nth.reflect.fw.javafx.control.tab.form.PropertiesPanel;
+import nth.reflect.fw.layer3domain.DomainObjectProperty;
+import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
 import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.component.PropertyPanelStyle;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
+/**
+ * A {@link PropertyPanel} displays or edits a {@link DomainObjectProperty}. It
+ * contains::<br>
+ * <ul>
+ * <li>a label that represents the {@link DomainObjectProperty} name (above
+ * field for narrow window, left of field for wide window)</li>
+ * <li>a field to display or edit the {@link DomainObjectProperty} value</li>
+ * <li>a button to open a context menu with
+ * {@link DomainObjectPropertyActionMethod}s</li>
+ * </ul>
+ * For styling see <a href=
+ * "https://material.io/guidelines/components/text-fields.html#text-fields-layout">Google
+ * Material Design Guidelines</a>
+ * 
+ */
 public class PropertyPanel extends BorderPane implements
 		nth.reflect.fw.ui.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 
 	private final PropertyValidationLabel propertyValidationLabel;
 	private final PropertyValueModel propertyValueModel;
-	private final FormTab formTab;
 	private final PropertyLabelAndFieldPanel labelAndFieldPanel;
 
 	public PropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel, PropertyField propertyField) {
@@ -26,7 +40,6 @@ public class PropertyPanel extends BorderPane implements
 		labelAndFieldPanel = new PropertyLabelAndFieldPanel(formTab, propertyValueModel, propertyField);
 		setCenter(labelAndFieldPanel);
 
-		this.formTab = formTab;
 		this.propertyValueModel = propertyValueModel;
 
 		propertyValidationLabel = new PropertyValidationLabel();
@@ -38,8 +51,7 @@ public class PropertyPanel extends BorderPane implements
 	private void setWidth(PropertyFieldWidth propertyFieldWidth) {
 		switch (propertyFieldWidth) {
 		case FULL:
-			DoubleBinding fullWidth = formTab.widthProperty().subtract(2 * PropertiesPanel.HORIZONTAL_GAP);
-			prefWidthProperty().bind(fullWidth);
+			setWidth(USE_COMPUTED_SIZE);
 			break;
 		case SMALL:
 		default:

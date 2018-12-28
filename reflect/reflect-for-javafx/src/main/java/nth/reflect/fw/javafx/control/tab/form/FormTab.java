@@ -1,6 +1,5 @@
 package nth.reflect.fw.javafx.control.tab.form;
 
-import javafx.scene.control.ScrollPane;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.javafx.control.style.RfxStyleSelector;
 import nth.reflect.fw.javafx.control.style.RfxStyleSheet;
@@ -38,12 +37,11 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 
 		ValidationProvider validationProvider = userInterfaceContainer.get(ValidationProvider.class);
 
-		PropertiesPanel domainPropertyPane = new PropertiesPanel(validationProvider, this);
-		// setCenter(domainPropertyPane);
-		ScrollPane scrollPane = new ScrollPane(domainPropertyPane);
-		scrollPane.getStyleClass().add(RfxStyleSheet.createStyleClassName(ScrollPane.class));
+		PropertyGrid domainPropertyPane = new PropertyGrid(validationProvider, this);
+		setCenter(domainPropertyPane);
+
+		getStyleClass().add(RfxStyleSheet.createStyleClassName(FormTab.class));
 		// TODO new RfxVerticalFlingScroller(scrollPane);
-		setCenter(scrollPane);
 
 		// VBox vbox=new VBox();
 		// vbox.setPrefHeight(javafx.scene.control.Control.USE_COMPUTED_SIZE);
@@ -105,7 +103,7 @@ public class FormTab extends Tab implements nth.reflect.fw.ui.tab.form.FormTab {
 	}
 
 	public static void appendStyleGroups(RfxStyleSheet styleSheet) {
-		styleSheet.addStyleGroup(RfxStyleSelector.createFor(ScrollPane.class)).getProperties()
+		styleSheet.addStyleGroup(RfxStyleSelector.createFor(FormTab.class)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 
