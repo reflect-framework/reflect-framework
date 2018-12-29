@@ -4,7 +4,7 @@ import nth.reflect.fw.infrastructure.random.IntRange;
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
-import nth.reflect.fw.infrastructure.random.util.StringUtil;
+import nth.reflect.fw.infrastructure.random.generator.util.StringUtil;
 
 public class SentenceGenerator extends RandomGenerator<String> {
 

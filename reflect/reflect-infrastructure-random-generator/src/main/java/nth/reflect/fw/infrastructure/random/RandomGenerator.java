@@ -6,7 +6,7 @@ import java.util.Set;
 import nth.reflect.fw.infrastructure.random.generator.collection.ListGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.SetGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.StringBuilderGenerator;
-import nth.reflect.fw.infrastructure.random.util.StringUtil;
+import nth.reflect.fw.infrastructure.random.generator.util.StringUtil;
 
 public abstract class RandomGenerator<T> {
 

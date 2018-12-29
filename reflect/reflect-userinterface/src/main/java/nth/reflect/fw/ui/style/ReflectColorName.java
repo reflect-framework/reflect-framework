@@ -1,10 +1,7 @@
 package nth.reflect.fw.ui.style;
 
 public enum ReflectColorName {
-	PRIMARY, 
-	ACCENT, 
-	CONTENT,
-	ERROR;
+	PRIMARY, ACCENT, CONTENT, ERROR;
 
 	/**
 	 * @return CSS name for {@link ReflectColorSet#getForeground()}
@@ -26,22 +23,20 @@ public enum ReflectColorName {
 	public String BACKGROUND_12() {
 		return getColorSetCssName("background12");
 	}
-	
+
 	/**
 	 * @return CSS name for {@link ReflectColorSet#getBackground20()}
 	 */
 	public String BACKGROUND_20() {
 		return getColorSetCssName("background20");
 	}
-	
+
 	/**
 	 * @return CSS name for a transparent color
 	 */
 	public String TRANSPARENT() {
 		return "transparent";
 	}
-
-	
 
 	private String getColorSetCssName(String colorName) {
 		StringBuilder cssName = new StringBuilder();

@@ -12,9 +12,9 @@ import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
+import nth.reflect.fw.infrastructure.random.generator.util.StringUtil;
 import nth.reflect.fw.infrastructure.random.generator.word.ParagraphGenerator;
 import nth.reflect.fw.infrastructure.random.generator.word.SentenceGenerator;
-import nth.reflect.fw.infrastructure.random.util.StringUtil;
 
 public class ParagraphGeneratorTest {
 

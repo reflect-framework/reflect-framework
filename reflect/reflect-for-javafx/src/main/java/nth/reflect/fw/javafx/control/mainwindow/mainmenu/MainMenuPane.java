@@ -5,10 +5,11 @@ import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.ui.component.mainmenu.MainMenu;
 import nth.reflect.fw.ui.component.mainmenu.MainMenuStyle;
 import nth.reflect.fw.ui.style.ReflectColorName;
 
-public class MainMenuPane extends BorderPane {
+public class MainMenuPane extends BorderPane implements MainMenu {
 
 	public MainMenuPane(UserInterfaceContainer userInterfaceContainer) {
 		super();

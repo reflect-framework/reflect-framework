@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.infrastructure.random.generator.collection.FromListGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.StringBuilderGenerator;
-import nth.reflect.fw.infrastructure.random.util.StringUtil;
+import nth.reflect.fw.infrastructure.random.generator.util.StringUtil;
 
 public class RandomGeneratorTest {
 

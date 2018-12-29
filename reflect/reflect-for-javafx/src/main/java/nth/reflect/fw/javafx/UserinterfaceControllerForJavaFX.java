@@ -9,22 +9,15 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialog.DialogTransition;
-import com.jfoenix.controls.JFXDialogLayout;
-
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nth.reflect.fw.generic.util.TitleUtil;
-import nth.reflect.fw.javafx.control.button.PrimaryButton;
+import nth.reflect.fw.javafx.control.dialog.Dialog;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
@@ -52,22 +45,21 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	}
 
 	@Override
-	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo,
-				methodParameterValue, domainObject, formMode);
+	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object domainObject, FormMode formMode) {
+		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
+				formMode);
 	}
 
 	@Override
-	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue) {
-		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo,
-				methodParameterValue);
+	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object methodReturnValue) {
+		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override
-	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue) {
+	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object methodReturnValue) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -80,28 +72,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
-		JFXDialogLayout content = new JFXDialogLayout();
-		content.setHeading(new Text(title));
-		content.setBody(new Text(message));
-		
-		JFXDialog dialog = new JFXDialog(mainWindow, content, DialogTransition.CENTER, true);
-		dialog.setLayoutX(mainWindow.getWidth()/2);
-		dialog.setLayoutY(mainWindow.getHeight()/2);
-		
-		List<PrimaryButton>actionButtons=new ArrayList<>();
-		for (Item item : items) {
-			PrimaryButton button=new PrimaryButton(item);
-			button.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
-				@Override
-				public void handle(javafx.event.ActionEvent event) {
-					dialog.close();
-					item.getAction().run();
-				}
-			});
-			actionButtons.add(button);
-		}
-		content.setActions(actionButtons);
-		
+		Dialog dialog = new Dialog(mainWindow, title, message, items);
 		dialog.show(mainWindow);
 	}
 
@@ -132,11 +103,10 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		fileChooser.setTitle("Save File");
 		fileChooser.setInitialFileName(downloadStream.getFile().getName());
 		File directory = downloadStream.getFile().getParentFile();
-		if (directory!=null) {
+		if (directory != null) {
 			fileChooser.setInitialDirectory(directory);
 		}
-		ReflectApplicationForJavaFX application = userInterfaceContainer
-				.get(ReflectApplicationForJavaFX.class);
+		ReflectApplicationForJavaFX application = userInterfaceContainer.get(ReflectApplicationForJavaFX.class);
 		Stage stage = application.getPrimaryStage();
 		File file = fileChooser.showSaveDialog(stage);
 		if (file != null) {
@@ -159,8 +129,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public void launch() {
-		ReflectApplicationForJavaFX application = userInterfaceContainer
-				.get(ReflectApplicationForJavaFX.class);
+		ReflectApplicationForJavaFX application = userInterfaceContainer.get(ReflectApplicationForJavaFX.class);
 
 		Stage primaryStage = application.getPrimaryStage();
 
@@ -178,7 +147,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		primaryStage.setScene(scene);
 
 		ReflectionProvider reflectProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		ApplicationInfo applicationInfo=reflectProvider.getApplicationInfo();
+		ApplicationInfo applicationInfo = reflectProvider.getApplicationInfo();
 		initIcon(primaryStage, applicationInfo);
 		String title = applicationInfo.getDisplayName();
 		primaryStage.setTitle(title);
@@ -188,24 +157,21 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	private void initIcon(Stage primaryStage, ApplicationInfo applicationInfo) {
 		URL iconUrl = applicationInfo.getIcon();
-		if (iconUrl!=null) {
+		if (iconUrl != null) {
 			Image icon = new Image(iconUrl.toString());
 			primaryStage.getIcons().add(icon);
 		}
 	}
 
-
 	@Override
-	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
-			UploadStream uploadStream) {
+	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		FileChooser fileChooser = new FileChooser();
 		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream);
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
-				uploadStream.getFileTypeDescription(), uploadStream.fileExtentionFilters()));
-		ReflectApplicationForJavaFX application = userInterfaceContainer
-				.get(ReflectApplicationForJavaFX.class);
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),
+				uploadStream.fileExtentionFilters()));
+		ReflectApplicationForJavaFX application = userInterfaceContainer.get(ReflectApplicationForJavaFX.class);
 		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());
 		if (selectedFile != null) {
 			uploadStream.setFile(selectedFile);
@@ -215,7 +181,8 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	}
 
 	/**
-	 * JavaFX does not allow executing threads on the event thread, so we run it later.
+	 * JavaFX does not allow executing threads on the event thread, so we run it
+	 * later.
 	 */
 	@Override
 	public void executeInThread(Runnable methodExecutionRunnable) {
@@ -226,7 +193,5 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
 		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory();
 	}
-
-	
 
 }

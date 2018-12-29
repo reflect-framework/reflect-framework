@@ -11,6 +11,7 @@ import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.fw.javafx.control.button.ContentBottomToolbarButton;
 import nth.reflect.fw.javafx.control.button.ContentButton;
 import nth.reflect.fw.javafx.control.button.PrimaryButton;
+import nth.reflect.fw.javafx.control.dialog.Dialog;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreeCell;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.list.List;
@@ -31,11 +32,11 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.fw.ui.style.ReflectColors;
 
-public class RfxStyleSheetUrlHandler extends UrlProvider {
+public class StyleSheetUrlHandler extends UrlProvider {
 
 	private final String css;
 
-	public RfxStyleSheetUrlHandler(ReflectApplicationForJavaFX applicationForJavaFX) {
+	public StyleSheetUrlHandler(ReflectApplicationForJavaFX applicationForJavaFX) {
 
 		StyleSheet styleSheet = new StyleSheet();
 
@@ -82,6 +83,7 @@ public class RfxStyleSheetUrlHandler extends UrlProvider {
 	}
 
 	private void appendPanes(StyleSheet styleSheet) {
+		Dialog.appendStyleGroups(styleSheet);
 		ContentPane.appendStyleGroups(styleSheet);
 		FormTab.appendStyleGroups(styleSheet);
 		List.appendStyleGroups(styleSheet);

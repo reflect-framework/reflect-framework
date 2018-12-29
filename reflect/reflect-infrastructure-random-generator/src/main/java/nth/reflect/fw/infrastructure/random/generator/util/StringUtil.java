@@ -1,4 +1,4 @@
-package nth.reflect.fw.infrastructure.random.util;
+package nth.reflect.fw.infrastructure.random.generator.util;
 
 import java.util.Collection;
 

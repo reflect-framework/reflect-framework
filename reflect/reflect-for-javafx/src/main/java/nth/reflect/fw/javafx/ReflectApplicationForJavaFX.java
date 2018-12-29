@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
-import nth.reflect.fw.javafx.control.style.RfxStyleSheetUrlHandler;
+import nth.reflect.fw.javafx.control.style.StyleSheetUrlHandler;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -109,7 +109,7 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class,
-				RfxStyleSheetUrlHandler.class);
+				StyleSheetUrlHandler.class);
 	}
 
 	public Stage getPrimaryStage() {
