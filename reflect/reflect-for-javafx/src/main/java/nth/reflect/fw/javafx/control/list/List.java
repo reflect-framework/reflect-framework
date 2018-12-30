@@ -4,7 +4,6 @@ import javafx.scene.control.ListView;
 import nth.reflect.fw.javafx.control.ReflectJavaFxControl;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
-import nth.reflect.fw.javafx.control.verticalflingscroller.VerticalFlingScroller;
 import nth.reflect.fw.ui.component.grid.GridStyle;
 import nth.reflect.fw.ui.style.MaterialFont;
 import nth.reflect.fw.ui.style.ReflectColorName;
@@ -22,7 +21,6 @@ import nth.reflect.fw.ui.style.ReflectColorName;
 public class List<T> extends ListView<T> implements ReflectJavaFxControl {
 
 	public List() {
-		new VerticalFlingScroller(this);
 		// setBackground(ColorFactory.createBackGround(MaterialColors.getContentColorSet().getBackground()));
 		getStyleClass().add(StyleSheet.createStyleClassName(List.class));
 		// setPadding(Insets.EMPTY);
