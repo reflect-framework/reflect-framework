@@ -34,8 +34,8 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 			break;
 		case SMALL:
 		default:
-			setMaxWidth(PropertyPanelStyle.getMaxSmallWidth());
-			setMinWidth(PropertyPanelStyle.getMinSmallWidth());
+			setMaxWidth(PropertyPanelStyle.MAX_SMALL_WIDTH);
+			setMinWidth(PropertyPanelStyle.MIN_SMALL_WIDTH);
 			break;
 		}
 
@@ -52,7 +52,8 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	public static void appendStyleGroups(StyleSheet styleSheet) {
 		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyLabelAndFieldPanel.class)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
-				.setProperty("-fx-background-radius", "10 10 0 0");
+				.setProperty("-fx-background-radius", PropertyPanelStyle.BACKGROUND_RADIUS + "px")
+				.setPadding(0, PropertyPanelStyle.PADDING_LEFT_RIGHT, 0, PropertyPanelStyle.PADDING_LEFT_RIGHT);
 	}
 
 }

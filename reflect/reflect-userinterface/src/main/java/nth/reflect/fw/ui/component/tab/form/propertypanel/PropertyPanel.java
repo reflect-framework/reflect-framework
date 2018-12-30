@@ -5,7 +5,6 @@ import java.lang.reflect.Parameter;
 
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.validation.ValidationViolations;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
@@ -13,9 +12,10 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
  * A {@link FormTab} has one or more {@link PropertyPanel}s. Each
  * {@link PropertyPanel} represents a {@link DomainObjectProperty} and contains:
  * <ul>
- * <li>a {@link PropertyLabelStyle}</li>
- * <li>a PropertyField</li>
- * <li>{@link ValidationViolations} if any</li>
+ * <li>a {@link PropertyLabel}</li>
+ * <li>a {@link PropertyField}</li>
+ * <li>a {@link PropertyActionMethodMenu}</li>
+ * <li>{@link PropertyValidationLabel} if any</li>
  * </ul>
  * 
  * <p>
@@ -37,6 +37,7 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends PropertyField, VALIDATION_MSG extends PropertyValidationLabel> {
 
 	default void updateFromPropertyValueModel() {
+
 		PropertyValueModel propertyValueModel = getPropertyValueModel();
 		Object domainObject = propertyValueModel.getDomainObject();
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
@@ -45,6 +46,12 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 		setVisible(visible);
 
 		if (visible) {
+			// TODO properttPanel read-only: should have a different background
+			// color and field should be disabled when it is read only (disabled
+			// or when fromMode=readonly)
+			// TODO properttPanel should have a different background color when
+			// it is read only (disabled or when fromMode=readonly)
+
 			String description = propertyInfo.getDescription();
 			setDescription(description);
 

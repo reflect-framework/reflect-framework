@@ -28,7 +28,7 @@ public class PropertyValidationLabel extends Label
 	public static void appendStyleGroups(StyleSheet styleSheet) {
 		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyValidationLabel.class)).getProperties()
 				.setTextFill(Color.RED).setFont(PropertyValidationLabelStyle.getFont()).setWrapText(true)
-				.setPadding(0, PropertyPanelStyle.getPaddingLeftRight(), 0, PropertyPanelStyle.getPaddingLeftRight());
+				.setPadding(0, PropertyPanelStyle.PADDING_LEFT_RIGHT, 0, PropertyPanelStyle.PADDING_LEFT_RIGHT);
 	}
 
 	@Override

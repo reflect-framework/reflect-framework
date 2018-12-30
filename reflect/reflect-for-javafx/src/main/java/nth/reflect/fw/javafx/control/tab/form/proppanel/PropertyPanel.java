@@ -54,8 +54,8 @@ public class PropertyPanel extends BorderPane implements
 			break;
 		case SMALL:
 		default:
-			setMaxWidth(PropertyPanelStyle.getMaxSmallWidth());
-			setMinWidth(PropertyPanelStyle.getMinSmallWidth());
+			setMaxWidth(PropertyPanelStyle.MAX_SMALL_WIDTH);
+			setMinWidth(PropertyPanelStyle.MIN_SMALL_WIDTH);
 			break;
 		}
 

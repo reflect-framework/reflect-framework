@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldStyle;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
@@ -22,7 +21,8 @@ public class PropertyGridLayout implements LayoutManager {
 	private static final int SPACING = 3;
 	// public static final int DEFAULT_LOW_FIELD_HEIGHT = 14;
 	public static final int DEFAULT_HIGH_FIELD_HEIGHT = (int) (10 * new JTextField().getPreferredSize().getHeight());
-	// public static final int DEFAULT_ROW_HEIGHT = DEFAULT_LOW_FIELD_HEIGHT + 2 * SPACING;
+	// public static final int DEFAULT_ROW_HEIGHT = DEFAULT_LOW_FIELD_HEIGHT + 2
+	// * SPACING;
 
 	private int maxLabelWith;
 	private int y;
@@ -49,18 +49,22 @@ public class PropertyGridLayout implements LayoutManager {
 				PropertyPanel propertyPanel = (PropertyPanel) component;
 				Component propertyField = (Component) propertyPanel.getPropertyField();
 				rowHeight = (int) (SPACING + propertyField.getPreferredSize().getHeight() + SPACING);
-//				// make a temporary label and replace spaces with underscores to prevent line breaks
-//				JLabel tempLabel = new JLabel();
-//				tempLabel.setText(propertyPanel.getPropertyLabel().getText().replace(" ", "_"));
-//				tempLabel.setFont(propertyPanel.getPropertyLabel().getFont());
-//				maxLabelWith = (int) Math.max(tempLabel.getMinimumSize().getWidth(), maxLabelWith);
+				// // make a temporary label and replace spaces with underscores
+				// to prevent line breaks
+				// JLabel tempLabel = new JLabel();
+				// tempLabel.setText(propertyPanel.getPropertyLabel().getText().replace("
+				// ", "_"));
+				// tempLabel.setFont(propertyPanel.getPropertyLabel().getFont());
+				// maxLabelWith = (int)
+				// Math.max(tempLabel.getMinimumSize().getWidth(),
+				// maxLabelWith);
 			}
 			component.setLocation(new Point(x, y));
 			component.setSize(new Dimension(rowWidth, rowHeight));
 			// TODO set component border;
 			y += rowHeight;
 		}
-		maxLabelWith =150+ 3 * SPACING;
+		maxLabelWith = 150 + 3 * SPACING;
 		// if (maxLabelWith > MAX_LABEL_WIDTH) {
 		// maxLabelWith = MAX_LABEL_WIDTH;
 		// }
@@ -81,27 +85,27 @@ public class PropertyGridLayout implements LayoutManager {
 				PropertyField field = propertyPanel.getPropertyField();
 				Component fieldComponent = (Component) field;
 				Component validator = propertyPanel.getPropertyValidationLabel();
-				if (PropertyFieldWidth.FULL==field.getPropertyFieldWidth()) {
+				if (PropertyFieldWidth.FULL == field.getPropertyFieldWidth()) {
 					int propertyPanelWidth = propertyPanel.getWidth();
-					int fieldXPos = maxLabelWith+SPACING;
-					int fieldWidth= propertyPanelWidth-SPACING-fieldXPos;
+					int fieldXPos = maxLabelWith + SPACING;
+					int fieldWidth = propertyPanelWidth - SPACING - fieldXPos;
 
 					fieldComponent.setLocation(fieldXPos, SPACING);
-					fieldComponent.setSize(new Dimension(fieldWidth, ((Component)field).getPreferredSize().height));
-					
-					validator.setLocation(fieldXPos, ((Component)field).getPreferredSize().height+SPACING);
+					fieldComponent.setSize(new Dimension(fieldWidth, ((Component) field).getPreferredSize().height));
+
+					validator.setLocation(fieldXPos, ((Component) field).getPreferredSize().height + SPACING);
 					validator.setSize(new Dimension(fieldWidth, validator.getPreferredSize().height));
 
 				} else {
-					int fieldXPos = maxLabelWith+SPACING;
-					int fieldWidth= PropertyPanelStyle.getMaxSmallWidth();
-					
+					int fieldXPos = maxLabelWith + SPACING;
+					int fieldWidth = PropertyPanelStyle.MAX_SMALL_WIDTH;
+
 					fieldComponent.setLocation(fieldXPos, SPACING);
-					fieldComponent.setSize(new Dimension(fieldWidth,((Component)field).getPreferredSize().height ));
-					
-					validator.setLocation(fieldXPos, ((Component)field).getPreferredSize().height+SPACING);
-					validator.setSize(new Dimension(fieldWidth,validator.getPreferredSize().height ));
-									}
+					fieldComponent.setSize(new Dimension(fieldWidth, ((Component) field).getPreferredSize().height));
+
+					validator.setLocation(fieldXPos, ((Component) field).getPreferredSize().height + SPACING);
+					validator.setSize(new Dimension(fieldWidth, validator.getPreferredSize().height));
+				}
 			}
 			y += rowHeight;
 		}
