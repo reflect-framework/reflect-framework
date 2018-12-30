@@ -76,6 +76,13 @@ public class ContentButton extends JFXButton implements ReflectJavaFxControl {
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setMinHeight(ButtonStyle.MIN_HEIGHT)
 				.setFont(MaterialFont.getRobotoMedium(ButtonStyle.FONT_SIZE));
+		styleSheet.addStyleGroup(StyleSelector.createFor(ContentButton.class)).getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20());
+
+		// focused
+		styleSheet.addStyleGroup(StyleSelector.createFor(ContentButton.class).appendFocused()).getProperties()
+				.setBackground(ReflectColorName.ACCENT.BACKGROUND()).setTextFill(ReflectColorName.ACCENT.FOREGROUND());
+
 		// rippler color
 		styleSheet.addStyleGroup(StyleSelector.createFor(ContentButton.class).appendChild("jfx-rippler"))
 				.getProperties().put("-jfx-rippler-fill", ReflectColorName.CONTENT.BACKGROUND_12());

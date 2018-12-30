@@ -39,6 +39,9 @@ public class PrimaryButton extends ContentButton implements ReflectJavaFxControl
 		styleSheet.addStyleGroup(StyleSelector.createFor(PrimaryButton.class)).getProperties()
 				.setBackground(ReflectColorName.PRIMARY.BACKGROUND()).setTextFill(ReflectColorName.PRIMARY.FOREGROUND())
 				.setPadding(8, 16, 8, 16);
+		// focused
+		styleSheet.addStyleGroup(StyleSelector.createFor(ContentButton.class).appendFocused()).getProperties()
+				.setBackground(ReflectColorName.ACCENT.BACKGROUND()).setTextFill(ReflectColorName.ACCENT.FOREGROUND());
 		// rippler color
 		styleSheet.addStyleGroup(StyleSelector.createFor(PrimaryButton.class).appendChild("jfx-rippler"))
 				.getProperties().put("-jfx-rippler-fill", ReflectColorName.PRIMARY.BACKGROUND_20());

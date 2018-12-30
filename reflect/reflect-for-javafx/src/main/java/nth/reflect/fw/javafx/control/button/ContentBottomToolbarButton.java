@@ -77,16 +77,15 @@ public class ContentBottomToolbarButton extends JFXButton implements ReflectJava
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setMinHeight(ButtonStyle.MIN_HEIGHT)
 				.setPadding(0, ButtonStyle.PADDING_SIDE, 0, ButtonStyle.PADDING_SIDE)
 				.setFont(MaterialFont.getRobotoMedium(ButtonStyle.FONT_SIZE));
+		// focused
+		styleSheet.addStyleGroup(StyleSelector.createFor(ContentButton.class).appendFocused()).getProperties()
+				.setBackground(ReflectColorName.ACCENT.BACKGROUND()).setTextFill(ReflectColorName.ACCENT.FOREGROUND());
 		// rippler color
-		styleSheet
-				.addStyleGroup(
-						StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild("jfx-rippler"))
+		styleSheet.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild("jfx-rippler"))
 				.getProperties().put("-jfx-rippler-fill", ReflectColorName.CONTENT.BACKGROUND());
 
 		// icon color
-		styleSheet
-				.addStyleGroup(
-						StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild(FontIcon.class))
+		styleSheet.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild(FontIcon.class))
 				.getProperties().setFill(ReflectColorName.CONTENT.FOREGROUND());
 	}
 
