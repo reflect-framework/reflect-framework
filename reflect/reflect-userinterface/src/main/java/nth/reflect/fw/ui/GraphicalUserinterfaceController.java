@@ -1,11 +1,9 @@
 package nth.reflect.fw.ui;
 
 import java.net.URI;
-import java.text.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -20,6 +18,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.ui.component.mainwindow.MainWindow;
 import nth.reflect.fw.ui.component.tab.Tab;
 import nth.reflect.fw.ui.component.tab.Tabs;
 import nth.reflect.fw.ui.component.tab.form.FormMode;
@@ -30,11 +29,15 @@ import nth.reflect.fw.ui.item.dialog.DialogCancelItem;
 import nth.reflect.fw.ui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.ui.item.dialog.DialogMethodItem;
 import nth.reflect.fw.ui.item.dialog.DialogShowStackTraceItem;
-import nth.reflect.fw.ui.style.MaterialColorPalette;
-import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.basic.Color;
 
 /**
+ * <p>
+ * The {@link GraphicalUserinterfaceController} extends the
+ * {@link UserInterfaceController} and adds functionality needed for a
+ * <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">Graphical
+ * User Interface</a>. The {@link GraphicalUserinterfaceController} creates and
+ * manipulates a {@link MainWindow} for a person to interact with.
+ * </p>
  * 
  * @author nilsth
  * 
@@ -452,7 +455,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	public Tabs<TAB> getTabs() {
 		return tabs;
 	}
-
 
 	public abstract PropertyPanelFactory<PROPERTY_PANEL> getPropertyPanelFactory();
 }

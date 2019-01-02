@@ -30,11 +30,11 @@ import nth.reflect.fw.documentation.ReflectApplicationProjects;
  * interface design</a> rules in order to make them consistent across all
  * {@link ReflectApplicationProjects}.
  * </p>
- * <h2>Google's Material Design</h2> {@insert MaterialDesign}
+ * <h3>Google's Material Design</h3> {@insert MaterialDesign}
  * 
- * <h2>Responsive Design</h2> {@insert ReflectResponsiveDesign}
+ * <h3>Responsive Design</h3> {@insert ReflectResponsiveDesign}
  * 
- * <h2>Colors</h2> {@insert ReflectColors}
+ * <h3>Colors</h3> {@insert ReflectColors}
  * 
  * @author nilsth
  * 

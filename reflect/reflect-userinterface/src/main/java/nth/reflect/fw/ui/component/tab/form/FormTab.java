@@ -14,7 +14,10 @@ import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel;
  * {@link DomainObject} with {@link PropertyPanel}s. This {@link DomainObject}
  * is either a {@link ActionMethod} result (read-only) or a {@link ActionMethod}
  * parameter (can be edited by a user depending on the {@link ExecutionMode}
- * annotation of the {@link ActionMethod}
+ * annotation of the {@link ActionMethod}.
+ * 
+ * <h3>Property Panels</h3> {@insert PropertyPanel}
+ * 
  * 
  * @author nilsth
  *

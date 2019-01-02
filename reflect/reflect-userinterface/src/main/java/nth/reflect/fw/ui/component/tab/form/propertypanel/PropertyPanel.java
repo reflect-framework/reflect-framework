@@ -19,14 +19,6 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
  * </ul>
  * 
  * <p>
- * A {@link PropertyPanel} usually extends some kind of <a href=
- * "https://en.wikipedia.org/wiki/List_of_graphical_user_interface_elements">user
- * interface element (also known as component or element)</a>. The type of the
- * user interface element depends on the framework used (e.g. JavaFx Component,
- * Vaadin Component or Android Component).
- * </p>
- * 
- * <p>
  * The PropertyPanelFactory will create a PropertyPanel, by passing all
  * necessary information as {@link Constructor} {@link Parameter}s.
  * </p>

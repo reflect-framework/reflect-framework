@@ -28,7 +28,6 @@ import nth.reflect.fw.ui.component.mainmenu.MainMenuStyle;
 import nth.reflect.fw.ui.component.tab.Tabs;
 
 /**
- * TODO merge {@link RfxMenuAndContentPane} with {@link MainWindow}
  * 
  * @author nilsth
  *
@@ -39,13 +38,13 @@ public class MainWindow extends StackPane implements ReflectJavaFxControl {
 	private final BooleanBinding extraWideBinding;
 	private final BooleanProperty mainMenuVisibleProperty;
 
-	private MainMenuPane mainMenuPane;
+	private final MainMenuPane mainMenuPane;
 
 	private static final int WINDOW_FAIRLY_HIGH_BINDING = 700;
 	public static final double WINDOW_FAIRLY_WIDE_BINDING = MainMenuStyle.WIDTH * 3;
 	private static final int MENU_SLIDE_ANIMATION_DURATION = 500;
-	private AppBar appBar;
-	private ContentPane contentPane;
+	private final AppBar appBar;
+	private final ContentPane contentPane;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final Tabs<Tab> tabs;
 
@@ -84,11 +83,10 @@ public class MainWindow extends StackPane implements ReflectJavaFxControl {
 
 	/**
 	 * Hack to move {@link #contentPane} by calling {@link #layoutChildren()}
-	 * and to move {@link RfxTabButton}s in the {@link AppButtonBar} by
-	 * calling {@link AppButtonBar#requestLayout()} when the
-	 * {@link #mainMenuPane} slides in (when shown) or out (when hidden). This
-	 * method is called by registering a listener to the
-	 * {@link MainMenuPane#translateXProperty()}
+	 * and to move {@link RfxTabButton}s in the {@link AppButtonBar} by calling
+	 * {@link AppButtonBar#requestLayout()} when the {@link #mainMenuPane}
+	 * slides in (when shown) or out (when hidden). This method is called by
+	 * registering a listener to the {@link MainMenuPane#translateXProperty()}
 	 * 
 	 * @param observable
 	 * @param oldXValue

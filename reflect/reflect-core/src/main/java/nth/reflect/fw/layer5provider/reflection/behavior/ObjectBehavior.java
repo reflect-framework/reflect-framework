@@ -88,11 +88,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * <p>
  * {@insert ValidationMethodFactory}
  * </p>
- * 
- * <h2>Service Object Children</h2>
- * <p>
- * {@insert ServiceObjectChildrenModel}
- * </p>
+
  * @author nilsth
  *
  */

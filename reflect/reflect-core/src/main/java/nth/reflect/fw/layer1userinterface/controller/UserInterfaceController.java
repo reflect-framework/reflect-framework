@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.ReflectFramework;
-import nth.reflect.fw.documentation.ReflectApplicationProjects;
 import nth.reflect.fw.documentation.ReflectArchitecture;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -22,16 +20,19 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  *
  * <p>
  * The {@link UserInterfaceController} is responsible for showing information to
- * the user and processing the information from the user using the objects in
- * the lower layers (see {@link ReflectArchitecture}).
+ * the user (or other systems) and processing the information from the user
+ * using the objects in the lower layers (see {@link ReflectArchitecture}).
  * </p>
  * 
  * <p>
- * See the {@link ReflectApplicationProjects} section to learn what types of
- * user interfaces are available, or download all the sources of the
- * {@link ReflectFramework} projects and see the class hierarchy of the
- * {@link UserInterfaceController} class to find all the different user
- * interface implementations.
+ * The {@link UserInterfaceController} provides a basic interface for handling
+ * communication with other systems (e.g. a
+ * <a href="https://simple.wikipedia.org/wiki/SOAP_(protocol)">SOAP</a> or
+ * <a href=
+ * "https://en.wikipedia.org/wiki/Representational_state_transfer">RESTFULL
+ * interface</a>) or with a person or other system via a
+ * <a href="https://en.wikipedia.org/wiki/Command-line_interface">command line
+ * interface</a>.
  * </p>
  * 
  * @author Nils ten Hoeve

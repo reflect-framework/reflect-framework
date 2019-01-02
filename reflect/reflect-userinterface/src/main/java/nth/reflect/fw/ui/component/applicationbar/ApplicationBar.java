@@ -1,14 +1,16 @@
 package nth.reflect.fw.ui.component.applicationbar;
 
 import nth.reflect.fw.ui.component.ReflectGuiComponent;
+import nth.reflect.fw.ui.component.mainwindow.MainWindow;
 import nth.reflect.fw.ui.style.ReflectDisplayHeight;
 
 /**
+ * TODO PICTURE {@link ApplicationBar}
  * <p>
- * A {@link ApplicationBar} is a {@link ReflectGuiComponent}. It is located at the
- * top over the whole width of the application.It provides content and actions
- * related to the current screen. It’s used for branding, screen titles,
- * navigation, and actions.
+ * A {@link ApplicationBar} is a {@link ReflectGuiComponent}. It is located at
+ * the top over the whole width of the {@link MainWindow}. It provides content
+ * and actions related to the current screen. It’s used for branding, screen
+ * titles, navigation, and actions.
  * </p>
  * 
  * <h3>Principles</h3>

@@ -7,23 +7,22 @@ import nth.reflect.fw.ReflectFramework;
  * 
  * <h1>The Reflect Framework</h1> {@insert ReflectFramework}
  * 
- * <H1>The Domain Layer</H1> {@insert DomainLayer}
+ * <h1>The Domain Layer</H1> {@insert DomainLayer}
  * 
- * <H1>The Service Layer</H1> {@insert ServiceLayer}
+ * <h1>The Service Layer</H1> {@insert ServiceLayer}
  * 
- * <H1>The Infrastructure Layer</H1> {@insert InfrastructureLayer}
+ * <h1>The Infrastructure Layer</H1> {@insert InfrastructureLayer}
  * 
- * <H1>The Provider Layer</H1> {@insert ProviderLayer}
+ * <h1>The Provider Layer</H1> {@insert ProviderLayer}
  * 
- * <H1>The UserInterface Layer</H1> {@insert UserInterfaceLayer}
+ * <h1>The UserInterface Layer</H1> {@insert UserInterfaceLayer}
  * 
- * <H1>Action Methods</h1> {@insert ActionMethod}
+ * <h1>Action Methods</h1> {@insert ActionMethod}
  * 
- * <H1>Object behavior</h1> {@insert ObjectBehavior}
+ * <h1>Object behavior</h1> {@insert ObjectBehavior}
  * 
- * <H1>Graphical Design Rules</h1> {@insert ReflectGraphicalDesignRules}
- * 
- * <h1>Reflect Application Projects (Getting started)</h1> {@insert ReflectApplicationProjects}
+ * <h1>Reflect Application Projects (Getting started)</h1>
+ * {@insert ReflectApplicationProjects}
  * 
  * <h1>Reflect Provider Projects</h1> {@insert ReflectProviderProjects}
  * 

@@ -6,6 +6,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.FormMenu;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
+import nth.reflect.fw.ui.component.ReflectGuiComponent;
 import nth.reflect.fw.ui.component.applicationbar.ApplicationBar;
 
 /**
@@ -29,6 +30,6 @@ import nth.reflect.fw.ui.component.applicationbar.ApplicationBar;
  * @author nilsth
  *
  */
-public interface MainMenu extends ReflectDocumentationInterface {
+public interface MainMenu extends ReflectDocumentationInterface, ReflectGuiComponent {
 
 }
