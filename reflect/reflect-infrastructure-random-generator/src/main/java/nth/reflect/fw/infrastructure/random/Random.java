@@ -10,6 +10,7 @@ import nth.reflect.fw.infrastructure.random.generator.address.RegionGenerator;
 import nth.reflect.fw.infrastructure.random.generator.address.StreetNameGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.FromEnumGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.CalendarGenerator;
+import nth.reflect.fw.infrastructure.random.generator.datetime.DateGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalDateTimeGenerator;
 import nth.reflect.fw.infrastructure.random.generator.datetime.LocalTimeGenerator;
@@ -25,10 +26,13 @@ import nth.reflect.fw.infrastructure.random.generator.name.ProductGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigDecimalGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BigIntegerGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.BoolGenerator;
+import nth.reflect.fw.infrastructure.random.generator.number.ByteGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.DoubleGenerator;
+import nth.reflect.fw.infrastructure.random.generator.number.FloatGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IdGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.LongGenerator;
+import nth.reflect.fw.infrastructure.random.generator.number.ShortGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.FormatGenerator;
 import nth.reflect.fw.infrastructure.random.generator.text.StringGenerator;
@@ -199,6 +203,22 @@ public class Random {
 
 	public static WordGenerator word() {
 		return new WordGenerator();
+	}
+
+	public static ByteGenerator byte_() {
+		return new ByteGenerator();
+	}
+
+	public static FloatGenerator float_() {
+		return new FloatGenerator();
+	}
+
+	public static ShortGenerator short_() {
+		return new ShortGenerator();
+	}
+
+	public static DateGenerator date() {
+		return new DateGenerator();
 	}
 
 }
