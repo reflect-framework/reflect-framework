@@ -9,26 +9,25 @@ public class LocalTimeGenerator extends RandomGenerator<LocalTime> {
 
 	private final LocalTime min;
 	private final LocalTime max;
-	
-	
+
 	public LocalTimeGenerator() {
-		this(LocalTime.now(),LocalTime.now().plusHours(24));
+		this(LocalTime.MIN, LocalTime.MAX);
 	}
-	
+
 	public LocalTimeGenerator(LocalTime min, LocalTime max) {
 		if (min.isAfter(max)) {
 			LocalTime temp = min;
-			min=max;
-			max=temp;
+			min = max;
+			max = temp;
 		}
 		this.min = min;
 		this.max = max;
 	}
 
-	public  LocalTimeGenerator forRange(LocalTime min, LocalTime max) {
+	public LocalTimeGenerator forRange(LocalTime min, LocalTime max) {
 		return new LocalTimeGenerator(min, max);
 	}
-	
+
 	@Override
 	public LocalTime generate() {
 		long minNano = min.toNanoOfDay();
