@@ -53,7 +53,8 @@ public class TextField extends JFXTextField implements PropertyField {
 
 	@Override
 	public void setValueFromDomainProperty(Object propertyValue) {
-		setText((String) propertyValue);
+		String stringValue = propertyValueModel.getPropertyInfo().getFormatedValue(propertyValue);
+		setText(stringValue);
 	}
 
 	public PropertyValueModel getPropertyValueModel() {

@@ -96,4 +96,10 @@ public class PropertyPanel extends BorderPane implements
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 
+	@Override
+	public void setEnabled(Boolean enabled) {
+		labelAndFieldPanel.setEnabled(enabled);
+		System.out.println(enabled);
+	}
+
 }

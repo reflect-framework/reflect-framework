@@ -34,15 +34,13 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 		Object domainObject = propertyValueModel.getDomainObject();
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
 		Boolean visible = propertyInfo.isVisibleInForm(domainObject);
+		Boolean enabled = propertyInfo.isEnabled(domainObject);
+		// TODO include FormMode??
 
 		setVisible(visible);
 
 		if (visible) {
-			// TODO properttPanel read-only: should have a different background
-			// color and field should be disabled when it is read only (disabled
-			// or when fromMode=readonly)
-			// TODO properttPanel should have a different background color when
-			// it is read only (disabled or when fromMode=readonly)
+			setEnabled(enabled);
 
 			String description = propertyInfo.getDescription();
 			setDescription(description);
@@ -52,7 +50,6 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 			propertyLabel.setText(displayName);
 			propertyLabel.setDescription(description);
 
-			boolean enabled = propertyInfo.isEnabled(domainObject);
 			PropertyField propertyField = getPropertyField();
 			propertyField.setEnabled(enabled);
 
@@ -61,6 +58,18 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 
 		}
 	}
+
+	/**
+	 * The implementation will need to set the background depending if the
+	 * property can be edited:
+	 * 
+	 * @param enabled
+	 *            = true: background must be
+	 *            {@link ReflectColorName#CONTENT#BACKGROUND_20()}<br>
+	 *            = false: background must be
+	 *            {@link ReflectColorName#CONTENT#BACKGROUND()}
+	 */
+	public void setEnabled(Boolean enabled);
 
 	public LABEL getPropertyLabel();
 

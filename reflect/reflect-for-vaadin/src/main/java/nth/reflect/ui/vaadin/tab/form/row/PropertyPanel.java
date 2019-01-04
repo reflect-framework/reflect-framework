@@ -1,6 +1,5 @@
 package nth.reflect.ui.vaadin.tab.form.row;
 
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
@@ -9,7 +8,8 @@ import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
-public class PropertyPanel extends VerticalLayout implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
+public class PropertyPanel extends VerticalLayout implements
+		nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 
 	private final PropertyValueModel propertyValueModel;
 	private final PropertyField propertyField;
@@ -18,14 +18,14 @@ public class PropertyPanel extends VerticalLayout implements nth.reflect.fw.ui.c
 		this.propertyValueModel = propertyValueModel;
 		this.propertyField = propertyField;
 
-		getThemeList().clear();//remove theme "padding spacing"
-		
+		getThemeList().clear();// remove theme "padding spacing"
+
 		add(getPropertyLabel());
-		add((Component)propertyField);//FIXME YUK!!!
+		add((Component) propertyField);// FIXME YUK!!!
 		add(getPropertyValidationLabel());
 
 	}
-	
+
 	@Override
 	public PropertyLabel getPropertyLabel() {
 		return new PropertyLabel();
@@ -53,9 +53,13 @@ public class PropertyPanel extends VerticalLayout implements nth.reflect.fw.ui.c
 
 	@Override
 	public void setDescription(String description) {
-		//setTitle(description);
+		// setTitle(description);
 	}
 
+	@Override
+	public void setEnabled(Boolean enabled) {
+		// TODO update background color (see javadoc overridden method)
 
+	}
 
 }

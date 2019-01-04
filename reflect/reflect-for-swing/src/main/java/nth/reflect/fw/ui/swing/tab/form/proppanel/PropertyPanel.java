@@ -13,7 +13,8 @@ import nth.reflect.fw.ui.swing.properygrid.SwingUtil;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
-public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
+public class PropertyPanel extends JPanel implements
+		nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 	private static final long serialVersionUID = -1361779111256295050L;
 	private FocusListener focusListener;
 	private final PropertyValueModel propertyValueModel;
@@ -24,7 +25,7 @@ public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.componen
 
 	public PropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel, PropertyField propertyField) {
 		this.propertyValueModel = propertyValueModel;
-		
+
 		setLayout(null); // NOTE no layout manager! Layout is handled by the
 							// PropertyGridLayout
 		setToolTipText(propertyValueModel.getPropertyInfo().getDescription());
@@ -34,18 +35,18 @@ public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.componen
 		add(propertyLabel);
 
 		this.propertyField = propertyField;
-		add((Component)propertyField);//FIXME Get rid of casting to Component!
-		
-		propertyValidationLabel=new PropertyValidationLabel();
+		add((Component) propertyField);// FIXME Get rid of casting to Component!
+
+		propertyValidationLabel = new PropertyValidationLabel();
 		add(propertyValidationLabel);
-		
+
 		// make sure that the propertyField is visible in the scroll pane when
 		// it (or one of its children) receives focus
-		registerFocusListerner((Component)propertyField);//FIXME Get rid of casting to Component!
+		registerFocusListerner((Component) propertyField);// FIXME Get rid of
+															// casting to
+															// Component!
 
 	}
-
-
 
 	private void registerFocusListerner(Component component) {
 		component.addFocusListener(getFocusListerner());
@@ -76,7 +77,7 @@ public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.componen
 
 	@Override
 	public PropertyLabel getPropertyLabel() {
-		
+
 		return propertyLabel;
 	}
 
@@ -98,7 +99,7 @@ public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.componen
 	@Override
 	public void setVisible(Boolean visible) {
 		super.setVisible(visible);
-		
+
 	}
 
 	@Override
@@ -106,27 +107,25 @@ public  class PropertyPanel extends JPanel implements nth.reflect.fw.ui.componen
 		setToolTipText(description);
 	}
 
+	@Override
+	public void setEnabled(Boolean enabled) {
+		// TODO Auto-generated method stub
 
+	}
 
-//
-//	@Override
-//	public void updateVisibility() {
-//		SwingUtilities.invokeLater(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				boolean visible = propertyValueModel.getPropertyInfo().isEnabled(propertyValueModel.getDomainObject());
-//				label.setVisible(visible);
-//				valueComponent.setVisible(visible);
-//			}
-//		});
-//	}
+	//
+	// @Override
+	// public void updateVisibility() {
+	// SwingUtilities.invokeLater(new Runnable() {
+	//
+	// @Override
+	// public void run() {
+	// boolean visible =
+	// propertyValueModel.getPropertyInfo().isEnabled(propertyValueModel.getDomainObject());
+	// label.setVisible(visible);
+	// valueComponent.setVisible(visible);
+	// }
+	// });
+	// }
 
-
-
-
-
-	
-
-	
 }

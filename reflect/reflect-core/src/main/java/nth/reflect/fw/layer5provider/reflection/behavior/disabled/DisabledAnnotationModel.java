@@ -3,13 +3,13 @@ package nth.reflect.fw.layer5provider.reflection.behavior.disabled;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 
 /**
- Model that returns a value that is created with help of the {@link Disabled} annotation
+ * Model that returns a value that is created with help of the {@link Disabled}
+ * annotation
  * 
  * @author nilsth
  *
  */
 public class DisabledAnnotationModel implements DisabledModel {
-
 
 	private static final String SEPARATOR = ",";
 	private final AuthorizationProvider authorizationProvider;
@@ -17,14 +17,13 @@ public class DisabledAnnotationModel implements DisabledModel {
 
 	public DisabledAnnotationModel(AuthorizationProvider authorizationProvider, Disabled disabledAnnotation) {
 		this.authorizationProvider = authorizationProvider;
-		roleNames=disabledAnnotation.exceptForRoleNames().replace(" ", "").split(SEPARATOR);
+		roleNames = disabledAnnotation.exceptForRoleNames().replace(" ", "").split(SEPARATOR);
 	}
-
 
 	@Override
 	public boolean isDisabled(Object obj) {
 		for (String roleName : roleNames) {
-			if (authorizationProvider.userInRole(roleName)) {
+			if (!roleName.isEmpty() && authorizationProvider.userInRole(roleName)) {
 				return false;
 			}
 		}

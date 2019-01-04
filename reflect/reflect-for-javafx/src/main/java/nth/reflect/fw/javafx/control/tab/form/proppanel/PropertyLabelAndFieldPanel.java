@@ -12,12 +12,12 @@ import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class PropertyLabelAndFieldPanel extends BorderPane {
 
+	private static final String ENABLED = "enabled";
+	private static final String DISABLED = "disabled";
 	private final PropertyLabel propertyLabel;
 	private final PropertyField propertyField;
 
 	public PropertyLabelAndFieldPanel(PropertyValueModel propertyValueModel, PropertyField propertyField) {
-		getStyleClass().add(StyleSheet.createStyleClassName(PropertyLabelAndFieldPanel.class));
-
 		propertyLabel = new PropertyLabel();
 		setTop(propertyLabel);
 
@@ -50,10 +50,25 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyLabelAndFieldPanel.class)).getProperties()
+		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyLabelAndFieldPanel.class, ENABLED)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
 				.setProperty("-fx-background-radius", PropertyPanelStyle.BACKGROUND_RADIUS + "px")
 				.setPadding(0, PropertyPanelStyle.PADDING_LEFT_RIGHT, 0, PropertyPanelStyle.PADDING_LEFT_RIGHT);
+
+		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyLabelAndFieldPanel.class, DISABLED)).getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setProperty("-fx-background-radius", "0px")
+				.setPadding(0, PropertyPanelStyle.PADDING_LEFT_RIGHT, 0, PropertyPanelStyle.PADDING_LEFT_RIGHT);
+
+	}
+
+	public void setEnabled(Boolean enabled) {
+		getStyleClass().clear();
+		if (enabled) {
+			getStyleClass().add(StyleSheet.createStyleClassName(PropertyLabelAndFieldPanel.class, ENABLED));
+		} else {
+			getStyleClass().add(StyleSheet.createStyleClassName(PropertyLabelAndFieldPanel.class, DISABLED));
+		}
+
 	}
 
 }
