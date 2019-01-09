@@ -2,7 +2,9 @@ package nth.reflect.fw.ui.component.tab.form.propertypanel;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
+import java.util.Optional;
 
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.ui.component.ReflectGuiComponent;
 import nth.reflect.fw.ui.component.tab.form.FormMode;
@@ -46,5 +48,19 @@ public interface PropertyField extends ReflectGuiComponent {
 	public void setEnabled(boolean enabled);
 
 	public void setValueFromDomainProperty(Object propertyValue);
+
+	/**
+	 * Some {@link PropertyField} have a selection button e.g. for the
+	 * following:
+	 * <ul>
+	 * <li>CheckBox</li>
+	 * <li>Open a Drop down list for a combo box</li>
+	 * <li>Open a Color picker</li>
+	 * <li>Open a Date and or time picker</li>
+	 * </ul>
+	 * 
+	 * @return
+	 */
+	public Optional<Item> getSelectionItem();
 
 }

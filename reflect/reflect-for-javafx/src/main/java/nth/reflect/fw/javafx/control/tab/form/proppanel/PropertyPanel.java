@@ -33,10 +33,11 @@ public class PropertyPanel extends BorderPane implements
 	private final PropertyValueModel propertyValueModel;
 	private final PropertyLabelAndFieldPanel labelAndFieldPanel;
 
-	public PropertyPanel(PropertyValueModel propertyValueModel, PropertyField propertyField) {
+	public PropertyPanel(nth.reflect.fw.ui.component.tab.form.FormTab formTab, PropertyValueModel propertyValueModel,
+			PropertyField propertyField) {
 		getStyleClass().add(StyleSheet.createStyleClassName(PropertyPanel.class));
 
-		labelAndFieldPanel = new PropertyLabelAndFieldPanel(propertyValueModel, propertyField);
+		labelAndFieldPanel = new PropertyLabelAndFieldPanel(formTab, propertyValueModel, propertyField);
 		setCenter(labelAndFieldPanel);
 
 		this.propertyValueModel = propertyValueModel;

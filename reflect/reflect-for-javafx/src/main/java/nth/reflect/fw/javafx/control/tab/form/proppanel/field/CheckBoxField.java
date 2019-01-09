@@ -1,10 +1,13 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
+import java.util.Optional;
+
 import com.jfoenix.controls.JFXCheckBox;
 
 import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldStyle;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
@@ -55,5 +58,10 @@ public class CheckBoxField extends JFXCheckBox implements PropertyField {
 		// PropertyPanelStyle.getPaddingLeftRight(), 0,
 		// PropertyPanelStyle.getPaddingLeftRight());
 
+	}
+
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
 	}
 }

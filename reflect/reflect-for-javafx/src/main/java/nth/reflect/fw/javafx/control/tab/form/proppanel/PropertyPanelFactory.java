@@ -20,7 +20,8 @@ import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldFactory;
 import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
-public class PropertyPanelFactory extends nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {
+public class PropertyPanelFactory
+		extends nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {
 
 	@Override
 	public List<PropertyFieldFactory> createFieldFactories() {
@@ -43,7 +44,7 @@ public class PropertyPanelFactory extends nth.reflect.fw.ui.component.tab.form.p
 	@Override
 	public PropertyPanel createPropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel) {
 		PropertyField propertyField = createPropertyField(formTab, propertyValueModel);
-		return new PropertyPanel(propertyValueModel, propertyField);
+		return new PropertyPanel(formTab, propertyValueModel, propertyField);
 	}
 
 }

@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
+import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
@@ -17,12 +18,16 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	private final PropertyLabel propertyLabel;
 	private final PropertyField propertyField;
 
-	public PropertyLabelAndFieldPanel(PropertyValueModel propertyValueModel, PropertyField propertyField) {
+	public PropertyLabelAndFieldPanel(FormTab formTab, PropertyValueModel propertyValueModel,
+			PropertyField propertyField) {
 		propertyLabel = new PropertyLabel();
 		setTop(propertyLabel);
 
 		this.propertyField = propertyField;
 		setCenter((Node) propertyField);
+
+		PropertyButtonBar propertyButtonBar = new PropertyButtonBar(formTab, propertyValueModel, propertyField);
+		setRight(propertyButtonBar);
 
 		setWidth(propertyField.getPropertyFieldWidth());
 	}
