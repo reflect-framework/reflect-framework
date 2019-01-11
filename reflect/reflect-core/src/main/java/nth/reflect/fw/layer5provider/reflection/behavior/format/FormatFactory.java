@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javafx.util.StringConverter;
 import nth.reflect.fw.generic.converterfactory.ConverterFactory;
-import nth.reflect.fw.generic.util.TypeUtil;
+import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.BooleanFormat;
@@ -48,7 +48,7 @@ public class FormatFactory extends ConverterFactory<Format> {
 			LanguageProvider languageProvider, Method getterMethod) {
 		this.reflectionProvider = reflectionProvider;
 		this.languageProvider = languageProvider;
-		this.propertyType=TypeUtil.getComplexType(getterMethod.getReturnType());
+		this.propertyType=JavaTypeConverter.getComplexType(getterMethod.getReturnType());
 		this.formatPattern=createFormatPattern(getterMethod);
 	}
 

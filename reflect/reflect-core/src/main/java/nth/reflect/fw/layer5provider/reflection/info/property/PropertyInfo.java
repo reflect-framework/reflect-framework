@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.reflect.fw.generic.util.TypeUtil;
+import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
@@ -117,7 +117,7 @@ public class PropertyInfo implements NameInfo {
 		} catch (Exception e1) {
 			try {
 				// try to get setterMethod with a simple type parameter
-				Class<?> simplePropertyClass = TypeUtil.getSimpleType(propertyClass);
+				Class<?> simplePropertyClass = JavaTypeConverter.getSimpleType(propertyClass);
 				Method writeMethod = methodOwner.getMethod(getterMethodName.toString(),
 						simplePropertyClass);
 				return writeMethod;

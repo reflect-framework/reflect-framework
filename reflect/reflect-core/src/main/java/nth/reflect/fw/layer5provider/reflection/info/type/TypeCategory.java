@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.generic.util.TypeUtil;
+import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 
@@ -49,7 +49,7 @@ public enum TypeCategory {
 	}
 
 	public static boolean isJavaType(Class<?> type) {
-		return TypeUtil.getComplexType(type).getCanonicalName().startsWith("java");
+		return JavaTypeConverter.getComplexType(type).getCanonicalName().startsWith("java");
 	}
 
 	public static boolean isURI(Class<?> type) {

@@ -27,7 +27,7 @@ import org.w3c.dom.NodeList;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.container.InstanceFactory;
-import nth.reflect.fw.generic.util.TypeUtil;
+import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer4infrastructure.InfrastructureContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
@@ -345,7 +345,7 @@ public class XmlConverter {
 
 		// unify type to complex type
 		Class<?> propertyType = propertyInfo.getPropertyType().getType();
-		propertyType = TypeUtil.getComplexType(propertyType);
+		propertyType = JavaTypeConverter.getComplexType(propertyType);
 
 		// get xml transformer and transform value
 		Transform<Object> transform = null;
@@ -377,7 +377,7 @@ public class XmlConverter {
 	@SuppressWarnings("unchecked")
 	private String printElementValue(Class<?> type, Object value) {
 		// unify type to complex type
-		type = TypeUtil.getComplexType(type);
+		type = JavaTypeConverter.getComplexType(type);
 		// get xml transformer and transform value
 		Transform<Object> transform = null;
 		try {

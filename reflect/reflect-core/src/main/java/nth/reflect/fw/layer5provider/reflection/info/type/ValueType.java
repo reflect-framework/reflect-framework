@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import nth.reflect.fw.generic.util.TypeUtil;
+import nth.reflect.fw.generic.util.JavaTypeConverter;
 /**
  * FIXME: remove this class (see how we did the userinterface editActionMethodParameter confirmActionMethod and showActionMethodResult methods and do the same for field creation) 
  */
@@ -16,7 +16,7 @@ public abstract class ValueType {
 
 	public ValueType(Class<?> type, Method method,
 			TypeCategory[] noneSupportedCategories) {
-		this.type = TypeUtil.getComplexType(type);
+		this.type = JavaTypeConverter.getComplexType(type);
 		typeCategory = TypeCategory.getFor(type);
 
 		validateTypeCategory(typeCategory, noneSupportedCategories, method);
@@ -32,7 +32,7 @@ public abstract class ValueType {
 			return type;
 		} else {
 			Class<?> genericType = getGenericTypeOfReturnTypeOfCollection(method);
-			return TypeUtil.getComplexType(genericType);
+			return JavaTypeConverter.getComplexType(genericType);
 		}
 	}
 

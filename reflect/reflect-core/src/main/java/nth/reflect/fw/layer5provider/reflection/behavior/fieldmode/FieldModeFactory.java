@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import nth.reflect.fw.generic.util.StringUtil;
-import nth.reflect.fw.generic.util.TypeUtil;
+import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
@@ -29,7 +29,7 @@ public class FieldModeFactory {
 	// canRepresent(ProprertyInfomethod)
 	public static FieldModeType create(Method getterMethod, String formatPattern) {
 		Class<?> type = getterMethod.getReturnType();
-		type = TypeUtil.getComplexType(type);
+		type = JavaTypeConverter.getComplexType(type);
 		if (String.class.isAssignableFrom(type)) {
 			return getFieldModeForString(getterMethod);
 		} else if (Character.class.isAssignableFrom(type)) {

@@ -1,6 +1,6 @@
 package nth.reflect.fw.generic.util;
 
-public class TypeUtil {
+public class JavaTypeConverter {
 	public static Class<?> getComplexType(Class<?> type) {
 		if (type == boolean.class) {
 			return Boolean.class;
