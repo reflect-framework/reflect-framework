@@ -10,9 +10,9 @@ import java.awt.event.MouseListener;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
+import nth.reflect.fw.gui.style.ReflectColors;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 
 public class MenuList extends JList<Item> {

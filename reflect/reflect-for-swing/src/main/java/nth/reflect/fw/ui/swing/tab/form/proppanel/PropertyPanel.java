@@ -7,14 +7,14 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JPanel;
 
-import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.swing.properygrid.SwingUtil;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
 
 public class PropertyPanel extends JPanel implements
-		nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
+		nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 	private static final long serialVersionUID = -1361779111256295050L;
 	private FocusListener focusListener;
 	private final PropertyValueModel propertyValueModel;

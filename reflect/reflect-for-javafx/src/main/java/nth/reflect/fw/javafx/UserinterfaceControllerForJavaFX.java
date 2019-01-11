@@ -17,6 +17,9 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nth.reflect.fw.generic.util.TitleUtil;
+import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.javafx.control.dialog.Dialog;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
@@ -32,9 +35,6 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
-import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.component.tab.form.FormMode;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
 
 public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 

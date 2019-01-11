@@ -1,11 +1,11 @@
 package nth.reflect.fw.javafx.control.table;
 
+import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 
 public class TableInfoForFormTabProperty extends TableInfo {
 

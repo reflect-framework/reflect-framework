@@ -1,5 +1,6 @@
 package nth.reflect.fw.javafx.control.button;
 
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.fw.javafx.control.ReflectJavaFxControl;
 import nth.reflect.fw.javafx.control.fonticon.FontIcon;
@@ -7,7 +8,6 @@ import nth.reflect.fw.javafx.control.fonticon.FontIconName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * {@link ReflectJavaFxControl} button in the primary color, see

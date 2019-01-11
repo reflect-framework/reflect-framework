@@ -2,7 +2,7 @@ package nth.reflect.ui.vaadin.tab;
 
 import com.vaadin.flow.component.html.Span;
 
-import nth.reflect.fw.ui.style.ReflectColorName;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 import nth.reflect.ui.vaadin.css.WhiteSpace;

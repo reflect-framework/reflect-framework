@@ -6,6 +6,7 @@ import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
+import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -23,7 +24,6 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
-import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
 
 /**
  * {@link ReflecttApplicationForSwing} is an implementation of the {@link ReflectFramework} for desktop computers such as ...  

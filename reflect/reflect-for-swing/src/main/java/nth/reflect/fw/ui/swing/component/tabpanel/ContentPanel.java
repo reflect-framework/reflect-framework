@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.component.tab.TabsListener;
+import nth.reflect.fw.gui.style.ReflectColors;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.component.tab.TabsListener;
-import nth.reflect.fw.ui.style.ReflectColors;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 

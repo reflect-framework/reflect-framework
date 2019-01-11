@@ -9,7 +9,7 @@ import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class TableTab extends Tab implements nth.reflect.fw.ui.component.tab.table.TableTab {
+public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.table.TableTab {
 
 	private final Object methodOwner;
 	private final ActionMethodInfo actionMethodInfo;

@@ -20,7 +20,7 @@ package nth.reflect.fw.ui.swing.image;
 public class ReflectImage {
 
 	public static final String SCHEMA = nth.reflect.fw.ui.swing.image.IconUriClassResource.SCHEMA;
-	public static final String PATH = SCHEMA + "://nth.reflect.fw.ui.images.ReflectImage/";
+	public static final String PATH = SCHEMA + "://nth.reflect.fw.gui.images.ReflectImage/";
 	public static final String EDIT_COPY2 = PATH + "edit_copy.png";
 
 	public static final String EDIT_COPY = PATH + "edit_copy.png";

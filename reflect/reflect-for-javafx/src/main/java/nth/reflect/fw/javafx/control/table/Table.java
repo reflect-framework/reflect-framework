@@ -16,6 +16,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
+import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.style.MaterialFont;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreeCell;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.popup.PopupWindow;
@@ -25,10 +29,6 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.style.MaterialFont;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class Table extends TableView<Object> {
 
@@ -67,7 +67,7 @@ public class Table extends TableView<Object> {
 		setItems(tableInfo.getObservableList());
 	}
 
-	public Table(nth.reflect.fw.ui.component.tab.table.TableTab tableTab) {
+	public Table(nth.reflect.fw.gui.component.tab.table.TableTab tableTab) {
 		this(new TableInfoForTableTab(tableTab));
 	}
 

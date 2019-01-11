@@ -1,15 +1,15 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
 import javafx.scene.layout.BorderPane;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * A {@link PropertyPanel} displays or edits a {@link DomainObjectProperty}. It
@@ -27,13 +27,13 @@ import nth.reflect.fw.ui.style.ReflectColorName;
  * 
  */
 public class PropertyPanel extends BorderPane implements
-		nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
+		nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {
 
 	private final PropertyValidationLabel propertyValidationLabel;
 	private final PropertyValueModel propertyValueModel;
 	private final PropertyLabelAndFieldPanel labelAndFieldPanel;
 
-	public PropertyPanel(nth.reflect.fw.ui.component.tab.form.FormTab formTab, PropertyValueModel propertyValueModel,
+	public PropertyPanel(nth.reflect.fw.gui.component.tab.form.FormTab formTab, PropertyValueModel propertyValueModel,
 			PropertyField propertyField) {
 		getStyleClass().add(StyleSheet.createStyleClassName(PropertyPanel.class));
 

@@ -7,9 +7,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import nth.reflect.fw.generic.valuemodel.ReadWriteValueModel;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 
 @SuppressWarnings("serial")
 public class PasswordField extends JPasswordField implements PropertyField {

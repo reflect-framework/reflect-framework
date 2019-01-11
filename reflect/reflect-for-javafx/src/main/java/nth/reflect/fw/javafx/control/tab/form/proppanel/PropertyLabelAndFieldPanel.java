@@ -2,14 +2,14 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
-import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class PropertyLabelAndFieldPanel extends BorderPane {
 

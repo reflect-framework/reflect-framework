@@ -4,10 +4,10 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.ReflectJavaFxControl;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 public abstract class Toolbar extends HBox implements ReflectJavaFxControl {//ToolBar {
 

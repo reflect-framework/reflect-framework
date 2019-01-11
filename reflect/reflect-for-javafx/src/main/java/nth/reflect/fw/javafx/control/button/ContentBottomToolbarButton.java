@@ -5,6 +5,9 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import nth.reflect.fw.gui.component.button.ButtonStyle;
+import nth.reflect.fw.gui.style.MaterialFont;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.fw.javafx.control.ReflectJavaFxControl;
 import nth.reflect.fw.javafx.control.fonticon.FontIcon;
@@ -12,9 +15,6 @@ import nth.reflect.fw.javafx.control.fonticon.FontIconName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.component.button.ButtonStyle;
-import nth.reflect.fw.ui.style.MaterialFont;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * {@link ReflectJavaFxControl} button in the content color, see

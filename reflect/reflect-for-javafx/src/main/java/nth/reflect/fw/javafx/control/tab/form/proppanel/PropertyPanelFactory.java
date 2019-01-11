@@ -3,6 +3,10 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel;
 import java.util.ArrayList;
 import java.util.List;
 
+import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldFactory;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CharFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CheckBoxFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ComboBoxFieldFactory;
@@ -15,13 +19,9 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.PasswordFieldFacto
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextAreaFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TimeFieldFactory;
-import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldFactory;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 public class PropertyPanelFactory
-		extends nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {
+		extends nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {
 
 	@Override
 	public List<PropertyFieldFactory> createFieldFactories() {

@@ -12,20 +12,20 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
+import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.item.method.FormOkItem;
+import nth.reflect.fw.gui.item.tab.CancelItem;
+import nth.reflect.fw.gui.item.tab.CloseThisTabItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.component.tab.form.FormMode;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.BufferedDomainValueModel;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.item.method.FormOkItem;
-import nth.reflect.fw.ui.item.tab.CancelItem;
-import nth.reflect.fw.ui.item.tab.CloseThisTabItem;
 import nth.reflect.fw.ui.swing.item.button.ItemButton;
 import nth.reflect.fw.ui.swing.properygrid.PropertyGrid;
 import nth.reflect.fw.ui.swing.tab.Tab;
@@ -34,7 +34,7 @@ import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory;
 
 @SuppressWarnings("serial")
 public class FormTab extends Tab implements
-		nth.reflect.fw.ui.component.tab.form.FormTab { // implements ReadOnlyValueModel {
+		nth.reflect.fw.gui.component.tab.form.FormTab { // implements ReadOnlyValueModel {
 
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodOwner;

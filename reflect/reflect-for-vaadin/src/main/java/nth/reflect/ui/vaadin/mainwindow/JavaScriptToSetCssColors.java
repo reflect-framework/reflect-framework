@@ -1,10 +1,10 @@
 package nth.reflect.ui.vaadin.mainwindow;
 
+import nth.reflect.fw.gui.style.ReflectColorName;
+import nth.reflect.fw.gui.style.ReflectColorSet;
+import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.style.ReflectColorSet;
-import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.basic.Color;
 
 public class JavaScriptToSetCssColors {
 

@@ -1,9 +1,9 @@
 package nth.reflect.fw.javafx.control.tab.form;
 
+import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
+import nth.reflect.fw.gui.item.method.FormOkItem;
 import nth.reflect.fw.javafx.control.button.ContentButton;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.BufferedDomainValueModel;
-import nth.reflect.fw.ui.item.method.FormOkItem;
 
 public class FormOkButton extends ContentButton {
 

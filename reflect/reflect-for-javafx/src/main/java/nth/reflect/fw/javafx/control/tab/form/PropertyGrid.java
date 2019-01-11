@@ -11,6 +11,13 @@ import javax.validation.ConstraintViolation;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.FormTabStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueChangeListener;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.UserinterfaceControllerForJavaFX;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
@@ -21,13 +28,6 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
-import nth.reflect.fw.ui.component.tab.form.FormMode;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.FormTabStyle;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.BufferedDomainValueModel;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueChangeListener;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * {@link PropertyGrid} contains {@link PropertyPanel}s. It shows scroll bars if

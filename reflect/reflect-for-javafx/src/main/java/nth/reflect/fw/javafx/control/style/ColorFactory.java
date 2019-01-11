@@ -14,7 +14,7 @@ public class ColorFactory {
 
 
 
-	public static Color create(nth.reflect.fw.ui.style.basic.Color color) {
+	public static Color create(nth.reflect.fw.gui.style.basic.Color color) {
 		return new Color(asDouble(color.getRed()), asDouble(color.getGreen()), asDouble(color.getBlue()), asDouble(color.getAlpha()));
 	}
 
@@ -22,7 +22,7 @@ public class ColorFactory {
 		return value/255.0;
 	}
 
-	public static Background createBackGround(nth.reflect.fw.ui.style.basic.Color backgroundColor) {
+	public static Background createBackGround(nth.reflect.fw.gui.style.basic.Color backgroundColor) {
 		Color color = create(backgroundColor);
 		BackgroundFill backgroundFill=new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY);
 		Background background=new Background(backgroundFill);

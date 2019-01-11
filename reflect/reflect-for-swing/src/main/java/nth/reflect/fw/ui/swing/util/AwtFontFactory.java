@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 public class AwtFontFactory {
 
-	public static Font create(nth.reflect.fw.ui.style.basic.Font font) {
+	public static Font create(nth.reflect.fw.gui.style.basic.Font font) {
 		try {
 			InputStream inputStream = font.getUrl().openStream();
 			Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);

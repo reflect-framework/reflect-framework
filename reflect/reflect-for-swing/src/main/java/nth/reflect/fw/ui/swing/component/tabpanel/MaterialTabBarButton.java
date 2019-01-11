@@ -11,10 +11,10 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import nth.reflect.fw.ui.component.applicationbar.ApplicationBarStyle;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.style.MaterialFont;
-import nth.reflect.fw.ui.style.ReflectColors;
+import nth.reflect.fw.gui.component.applicationbar.ApplicationBarStyle;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.style.MaterialFont;
+import nth.reflect.fw.gui.style.ReflectColors;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.util.AwtFontFactory;
 import nth.reflect.fw.ui.swing.util.ColorFactory;

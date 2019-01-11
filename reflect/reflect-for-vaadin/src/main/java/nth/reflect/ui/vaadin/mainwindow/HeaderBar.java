@@ -5,10 +5,10 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
-import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.css.Overflow;

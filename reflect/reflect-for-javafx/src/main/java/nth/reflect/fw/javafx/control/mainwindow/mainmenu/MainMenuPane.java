@@ -1,13 +1,13 @@
 package nth.reflect.fw.javafx.control.mainwindow.mainmenu;
 
 import javafx.scene.layout.BorderPane;
+import nth.reflect.fw.gui.component.mainmenu.MainMenu;
+import nth.reflect.fw.gui.component.mainmenu.MainMenuStyle;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.component.mainmenu.MainMenu;
-import nth.reflect.fw.ui.component.mainmenu.MainMenuStyle;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class MainMenuPane extends BorderPane implements MainMenu {
 

@@ -8,16 +8,16 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import nth.reflect.fw.gui.item.HierarchicalItem;
+import nth.reflect.fw.gui.item.method.MethodOwnerItem;
+import nth.reflect.fw.gui.style.MaterialFont;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.ReflectJavaFxControl;
 import nth.reflect.fw.javafx.control.style.StyleProperties;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
-import nth.reflect.fw.ui.item.HierarchicalItem;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
-import nth.reflect.fw.ui.style.MaterialFont;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * TODO Bold text for {@link MethodOwnerItem}s <br>

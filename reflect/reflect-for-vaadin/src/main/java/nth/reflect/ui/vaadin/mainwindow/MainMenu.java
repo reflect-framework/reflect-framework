@@ -10,12 +10,12 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.data.selection.SelectionEvent;
 
 import javafx.scene.control.TreeItem;
+import nth.reflect.fw.gui.item.method.MethodOwnerItem;
+import nth.reflect.fw.gui.item.method.menu.MainMenuItems;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
-import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
-import nth.reflect.fw.ui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 

@@ -2,10 +2,10 @@ package nth.reflect.fw.javafx.control.mainwindow.appbar;
 
 import com.jfoenix.controls.JFXRippler;
 
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleProperties;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * Wraps {@link TabHeaderContent} into a {@link JFXRippler} to give it a rippler effect

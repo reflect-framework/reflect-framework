@@ -2,12 +2,12 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyLabelStyle;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyLabelStyle;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
-public class PropertyLabel extends Label implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyLabel {
+public class PropertyLabel extends Label implements nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyLabel {
 
 	public PropertyLabel() {
 		getStyleClass().add(StyleSheet.createStyleClassName(PropertyLabel.class));

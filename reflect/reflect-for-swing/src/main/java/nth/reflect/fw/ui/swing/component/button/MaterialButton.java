@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
-import nth.reflect.fw.ui.style.basic.Color;
+import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.fw.ui.swing.icon.FontAwesomeIcon;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
 

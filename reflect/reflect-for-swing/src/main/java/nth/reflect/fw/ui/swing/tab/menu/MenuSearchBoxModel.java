@@ -12,10 +12,10 @@ import javax.swing.ComboBoxEditor;
 import javax.swing.ComboBoxModel;
 import javax.swing.JTextField;
 
+import nth.reflect.fw.gui.item.HierarchicalItem;
+import nth.reflect.fw.gui.item.method.MethodItem;
+import nth.reflect.fw.gui.item.method.MethodOwnerItem;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.item.HierarchicalItem;
-import nth.reflect.fw.ui.item.method.MethodItem;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 
 @SuppressWarnings("serial")
 public class MenuSearchBoxModel extends AbstractListModel implements ComboBoxModel, KeyListener {

@@ -7,6 +7,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
+import nth.reflect.fw.gui.style.ReflectColorName;
+import nth.reflect.fw.gui.style.ReflectColors;
 import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.fw.javafx.control.button.ContentBottomToolbarButton;
 import nth.reflect.fw.javafx.control.button.ContentButton;
@@ -29,8 +31,6 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextField;
 import nth.reflect.fw.javafx.control.table.Table;
 import nth.reflect.fw.javafx.control.toolbar.Toolbar;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
-import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.style.ReflectColors;
 
 public class StyleSheetUrlHandler extends UrlProvider {
 

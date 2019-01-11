@@ -9,19 +9,19 @@ import com.vaadin.flow.component.formlayout.FormLayout.ResponsiveStep;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.item.method.FormOkItem;
+import nth.reflect.fw.gui.item.tab.CancelItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.component.tab.form.FormMode;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.BufferedDomainValueModel;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.item.method.FormOkItem;
-import nth.reflect.fw.ui.item.tab.CancelItem;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
 import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.button.ButtonColor;
@@ -33,7 +33,7 @@ import nth.reflect.ui.vaadin.tab.Tab;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;
 
 @SuppressWarnings("serial")
-public class FormTab extends Tab implements nth.reflect.fw.ui.component.tab.form.FormTab {
+public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.form.FormTab {
 
 	private static final int PADDING = 20;
 	private final UserInterfaceContainer userInterfaceContainer;

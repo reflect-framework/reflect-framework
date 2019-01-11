@@ -1,12 +1,12 @@
 package nth.reflect.fw.javafx.control.mainwindow.content;
 
 import javafx.scene.layout.BorderPane;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.component.tab.TabsListener;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.component.tab.TabsListener;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class ContentPane extends BorderPane implements TabsListener<Tab> {
 

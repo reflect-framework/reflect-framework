@@ -1,14 +1,14 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
 import javafx.scene.control.Label;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyValidationLabelStyle;
+import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyValidationLabelStyle;
-import nth.reflect.fw.ui.style.basic.Color;
 
 public class PropertyValidationLabel extends Label
-		implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyValidationLabel {
+		implements nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyValidationLabel {
 
 	private static final String NEW_LINE = "\n";
 

@@ -2,11 +2,11 @@ package nth.reflect.ui.vaadin.tab.form.row;
 
 import com.vaadin.flow.component.html.Span;
 
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")
-public class PropertyLabel extends Span implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyLabel {
+public class PropertyLabel extends Span implements nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyLabel {
 
 	/**
 	 * TODO: conform to Material Design: {@link PropertyLabelStyle} and

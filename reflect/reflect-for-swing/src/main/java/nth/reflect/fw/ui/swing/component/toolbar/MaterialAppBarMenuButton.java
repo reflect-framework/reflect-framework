@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 
-import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
+import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.ui.swing.mainwindow.MainWindow;
 import nth.reflect.fw.ui.swing.properygrid.SwingUtil;
 

@@ -10,13 +10,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import nth.reflect.fw.gui.component.grid.GridStyle;
+import nth.reflect.fw.gui.style.MaterialFont;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.button.PrimaryButton;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.component.grid.GridStyle;
-import nth.reflect.fw.ui.style.MaterialFont;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class Dialog extends JFXDialog {
 

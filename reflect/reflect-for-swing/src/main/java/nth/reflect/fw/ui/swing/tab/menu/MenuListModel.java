@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import javax.swing.DefaultListModel;
 
+import nth.reflect.fw.gui.item.method.MethodOwnerItem;
+import nth.reflect.fw.gui.item.method.menu.MainMenuItems;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
-import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
 
 public class MenuListModel extends DefaultListModel<nth.reflect.fw.layer1userinterface.item.Item> {
 

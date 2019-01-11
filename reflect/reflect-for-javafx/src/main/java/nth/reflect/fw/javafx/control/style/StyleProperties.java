@@ -4,10 +4,10 @@ import java.util.HashMap;
 
 import javafx.geometry.Pos;
 import javafx.scene.text.FontWeight;
-import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.style.ReflectColorSet;
-import nth.reflect.fw.ui.style.basic.Color;
-import nth.reflect.fw.ui.style.basic.Font;
+import nth.reflect.fw.gui.style.ReflectColorName;
+import nth.reflect.fw.gui.style.ReflectColorSet;
+import nth.reflect.fw.gui.style.basic.Color;
+import nth.reflect.fw.gui.style.basic.Font;
 
 /**
  * Style properties class in fluent interface style, because JavaFx does not have a CSS API yet. 

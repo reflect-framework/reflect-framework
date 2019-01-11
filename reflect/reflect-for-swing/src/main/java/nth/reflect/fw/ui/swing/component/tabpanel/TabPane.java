@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.component.tab.Tabs;
 import nth.reflect.fw.ui.swing.tab.Tab;
 
 public class TabPane extends JPanel {

@@ -2,13 +2,13 @@ package nth.reflect.fw.javafx.control.table;
 
 import java.util.Collection;
 
+import nth.reflect.fw.gui.component.tab.table.TableTab;
+import nth.reflect.fw.gui.item.method.menu.TableRowMenuItems;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.ui.component.tab.table.TableTab;
-import nth.reflect.fw.ui.item.method.menu.TableRowMenuItems;
 
 public class TableInfoForTableTab extends TableInfo{
 

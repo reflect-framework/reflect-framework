@@ -8,8 +8,8 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JMenu;
 
+import nth.reflect.fw.gui.item.HierarchicalItem;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.item.HierarchicalItem;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
 
 public class Menu extends JMenu {

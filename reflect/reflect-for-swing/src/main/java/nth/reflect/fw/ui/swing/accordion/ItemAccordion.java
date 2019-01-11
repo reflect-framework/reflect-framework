@@ -11,9 +11,9 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.ListModel;
 
+import nth.reflect.fw.gui.item.method.MethodItem;
+import nth.reflect.fw.gui.item.method.MethodOwnerItem;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.ui.item.method.MethodItem;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
 import nth.reflect.fw.ui.swing.tab.menu.MenuSearchListRenderer;
 

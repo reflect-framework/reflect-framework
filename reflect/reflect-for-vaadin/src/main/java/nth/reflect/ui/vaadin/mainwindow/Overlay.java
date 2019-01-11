@@ -2,7 +2,7 @@ package nth.reflect.ui.vaadin.mainwindow;
 
 import com.vaadin.flow.component.html.Div;
 
-import nth.reflect.fw.ui.style.ReflectColorName;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.css.Cursor;
 import nth.reflect.ui.vaadin.css.Display;
 import nth.reflect.ui.vaadin.css.Position;

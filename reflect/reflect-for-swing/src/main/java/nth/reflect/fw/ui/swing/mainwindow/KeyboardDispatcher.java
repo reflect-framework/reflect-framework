@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.ui.swing.tab.Tab;
 
 public class KeyboardDispatcher implements KeyEventDispatcher {

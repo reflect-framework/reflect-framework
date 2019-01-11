@@ -5,14 +5,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.style.MaterialFont;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.button.PrimaryButton;
 import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.fw.javafx.control.style.FontFactory;
 import nth.reflect.fw.javafx.control.style.StyleProperties;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.style.MaterialFont;
 
 /**
  * TODO: this is an experimental Class to try and replace {@link RfxTabButton}

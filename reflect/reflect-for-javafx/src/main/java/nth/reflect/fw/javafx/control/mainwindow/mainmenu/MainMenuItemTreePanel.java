@@ -6,6 +6,10 @@ import java.util.List;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.TreeItem;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.item.method.MethodOwnerItem;
+import nth.reflect.fw.gui.item.method.menu.MainMenuItems;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.UserinterfaceControllerForJavaFX;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
@@ -14,10 +18,6 @@ import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
-import nth.reflect.fw.ui.item.method.menu.MainMenuItems;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 public class MainMenuItemTreePanel extends ItemTreePanel {
 

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import nth.reflect.fw.gui.style.ReflectDisplayWidth;
+
 public class ReflectDisplayWidthTest {
 
 	@Test

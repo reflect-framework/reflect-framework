@@ -20,6 +20,13 @@ import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.PopupWindow.AnchorLocation;
+import nth.reflect.fw.gui.component.applicationbar.ApplicationBarStyle;
+import nth.reflect.fw.gui.component.mainmenu.MainMenuStyle;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.component.tab.TabsListener;
+import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.item.tab.SelectTabItem;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.UserinterfaceControllerForJavaFX;
 import nth.reflect.fw.javafx.control.button.PrimaryButton;
 import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;
@@ -33,13 +40,6 @@ import nth.reflect.fw.javafx.control.tab.table.TableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.component.applicationbar.ApplicationBarStyle;
-import nth.reflect.fw.ui.component.mainmenu.MainMenuStyle;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.component.tab.TabsListener;
-import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.item.tab.SelectTabItem;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * Button bar as part of the {@link AppBar} which contains the main navigation

@@ -7,7 +7,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 
-import nth.reflect.fw.ui.item.HierarchicalItem;
+import nth.reflect.fw.gui.item.HierarchicalItem;
 
 @SuppressWarnings("serial")
 public class MenuSearchBoxRenderer extends DefaultListCellRenderer {

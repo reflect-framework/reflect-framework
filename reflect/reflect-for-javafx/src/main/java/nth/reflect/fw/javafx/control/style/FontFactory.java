@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 public class FontFactory {
 
 	public static Font create(
-			nth.reflect.fw.ui.style.basic.Font font) {
+			nth.reflect.fw.gui.style.basic.Font font) {
 		String url = font.getUrl().toExternalForm();
 		return Font.loadFont(url, font.getSize());
 	}

@@ -5,10 +5,10 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.text.JTextComponent;
 
+import nth.reflect.fw.gui.item.HierarchicalItem;
+import nth.reflect.fw.gui.item.method.MethodOwnerItem;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.item.HierarchicalItem;
-import nth.reflect.fw.ui.item.method.MethodOwnerItem;
 import nth.reflect.fw.ui.swing.accordion.ItemAccordion;
 import nth.reflect.fw.ui.swing.textprompt.TextPrompt;
 

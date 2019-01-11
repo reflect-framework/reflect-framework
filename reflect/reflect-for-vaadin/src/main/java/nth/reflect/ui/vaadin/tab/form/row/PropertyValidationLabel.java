@@ -2,12 +2,12 @@ package nth.reflect.ui.vaadin.tab.form.row;
 
 import com.vaadin.flow.component.html.Div;
 
-import nth.reflect.fw.ui.style.ReflectColorName;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")
 public class PropertyValidationLabel extends Div
-		implements nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyValidationLabel {
+		implements nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyValidationLabel {
 
 	private static final String LINE_BREAK = "<BR>";
 

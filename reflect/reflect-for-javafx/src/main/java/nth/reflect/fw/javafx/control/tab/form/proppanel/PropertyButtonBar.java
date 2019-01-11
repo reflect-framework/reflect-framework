@@ -7,6 +7,11 @@ import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.stage.PopupWindow.AnchorLocation;
+import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.javafx.control.button.ContentButton;
 import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
@@ -14,11 +19,6 @@ import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
-import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 
 public class PropertyButtonBar extends HBox {
 

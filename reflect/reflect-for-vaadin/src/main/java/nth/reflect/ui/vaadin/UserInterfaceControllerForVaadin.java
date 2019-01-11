@@ -11,15 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.Command;
 
+import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.ui.GraphicalUserinterfaceController;
-import nth.reflect.fw.ui.component.tab.form.FormMode;
-import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.tab.form.FormTab;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;

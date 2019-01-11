@@ -2,7 +2,7 @@ package nth.reflect.ui.vaadin.tab;
 
 import com.vaadin.flow.component.dependency.HtmlImport;
 
-import nth.reflect.fw.ui.component.tab.Tabs;
+import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.button.ButtonColor;
 import nth.reflect.ui.vaadin.button.ButtonType;

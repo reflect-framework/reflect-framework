@@ -16,6 +16,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import nth.reflect.fw.gui.component.mainmenu.MainMenuStyle;
+import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.javafx.UserinterfaceControllerForJavaFX;
 import nth.reflect.fw.javafx.control.ReflectJavaFxControl;
 import nth.reflect.fw.javafx.control.mainwindow.appbar.AppBar;
@@ -24,8 +26,6 @@ import nth.reflect.fw.javafx.control.mainwindow.content.ContentPane;
 import nth.reflect.fw.javafx.control.mainwindow.mainmenu.MainMenuPane;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.ui.component.mainmenu.MainMenuStyle;
-import nth.reflect.fw.ui.component.tab.Tabs;
 
 /**
  * 

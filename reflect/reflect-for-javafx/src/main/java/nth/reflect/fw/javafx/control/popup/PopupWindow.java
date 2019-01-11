@@ -5,8 +5,8 @@ import com.jfoenix.effects.JFXDepthManager;
 import javafx.scene.Node;
 import javafx.stage.Popup;
 import javafx.stage.Window;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleProperties;
-import nth.reflect.fw.ui.style.ReflectColorName;
 
 /**
  * A pop up window that can be used for a context window or drop down menu. It

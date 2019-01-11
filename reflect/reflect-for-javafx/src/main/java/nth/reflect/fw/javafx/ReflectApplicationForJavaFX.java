@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nth.reflect.fw.ReflectFramework;
+import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.StyleSheetUrlHandler;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
@@ -25,7 +26,6 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
-import nth.reflect.fw.ui.GraphicalUserInterfaceApplication;
 
 /**
  * <p>

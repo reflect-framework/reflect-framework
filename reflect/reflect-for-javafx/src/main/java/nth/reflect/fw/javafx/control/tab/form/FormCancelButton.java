@@ -1,14 +1,14 @@
 package nth.reflect.fw.javafx.control.tab.form;
 
 import javafx.beans.binding.BooleanBinding;
+import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.item.tab.CancelItem;
 import nth.reflect.fw.javafx.UserinterfaceControllerForJavaFX;
 import nth.reflect.fw.javafx.control.button.ContentButton;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.ui.component.tab.Tabs;
-import nth.reflect.fw.ui.item.tab.CancelItem;
 
 public class FormCancelButton extends ContentButton {
 

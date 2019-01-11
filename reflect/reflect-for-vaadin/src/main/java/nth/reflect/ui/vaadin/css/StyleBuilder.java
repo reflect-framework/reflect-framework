@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import com.vaadin.flow.component.Component;
 
-import nth.reflect.fw.ui.style.basic.Color;
+import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.ui.vaadin.mainwindow.BorderStyle;
 
 /**

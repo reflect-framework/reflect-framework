@@ -2,9 +2,9 @@ package nth.reflect.fw.ui.swing.component.tabpanel;
 
 import java.net.MalformedURLException;
 
-import nth.reflect.fw.ui.component.applicationbar.ApplicationBarStyle;
-import nth.reflect.fw.ui.style.ReflectColors;
-import nth.reflect.fw.ui.style.fontawesome.FontAwesomeUrl;
+import nth.reflect.fw.gui.component.applicationbar.ApplicationBarStyle;
+import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.ui.swing.component.button.MaterialButton;
 
 public class MaterialTabBarContextMenuButton extends MaterialButton {
