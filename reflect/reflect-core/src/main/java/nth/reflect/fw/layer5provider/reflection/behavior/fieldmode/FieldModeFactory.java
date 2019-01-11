@@ -11,6 +11,7 @@ import java.util.Date;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.generic.util.TypeUtil;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 /**
  * <p>
@@ -49,7 +50,7 @@ public class FieldModeFactory {
 			return FieldModeType.NUMBER;
 		} else if (Boolean.class.isAssignableFrom(type)) {
 			return FieldModeType.CHECK_BOX;
-		} else if (TypeUtil.isDomainType(type)) {
+		} else if (TypeCategory.isDomainType(type)) {
 			return FieldModeType.ONE_TO_ONE_OR_MANY;
 		} else if (Collection.class.isAssignableFrom(type)) {
 			return FieldModeType.MANY_TO_ONE_OR_MANY;

@@ -10,12 +10,12 @@ import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import nth.reflect.fw.generic.util.TypeUtil;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 @SuppressWarnings("restriction")
 public abstract class TableInfo {
@@ -32,7 +32,7 @@ public abstract class TableInfo {
 
 	public List<TableColumn<Object, ?>> getTableColumns() {
 		Class<?> itemType = getValuesType();
-		if (TypeUtil.isJavaType(itemType) || TypeUtil.isEnum(itemType)) {
+		if (TypeCategory.isJavaType(itemType) || TypeCategory.isEnum(itemType)) {
 			return new ArrayList<>();
 		} else {
 			return createColumnsForObject();

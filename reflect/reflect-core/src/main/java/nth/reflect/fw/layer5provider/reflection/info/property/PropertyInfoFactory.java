@@ -6,14 +6,14 @@ import java.util.Collections;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.generic.util.TypeUtil;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 public class PropertyInfoFactory {
 
 	public static List<PropertyInfo> createSorted(ProviderContainer providerContainer, Class<?> objectClass) {
 		ReflectApplication reflectApplication = providerContainer.get(ReflectApplication.class);
-		if (!TypeUtil.isDomainType(objectClass, reflectApplication)) {
+		if (!TypeCategory.isDomainType(objectClass, reflectApplication)) {
 			//Only domain objects have property info's
 			return new ArrayList<>();
 		}

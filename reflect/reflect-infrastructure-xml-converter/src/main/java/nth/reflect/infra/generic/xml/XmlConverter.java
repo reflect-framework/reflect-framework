@@ -32,6 +32,7 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 import nth.reflect.infra.generic.xml.transform.DefaultMatcher;
 import nth.reflect.infra.generic.xml.transform.Transform;
 
@@ -163,7 +164,7 @@ public class XmlConverter {
 					// create a property element (if property value !=null)
 					Element propertyElement = document.createElement(propertyInfo.getSimpleName());
 					objectElement.appendChild(propertyElement);
-					if (TypeUtil.isColection(propertyType)) {
+					if (TypeCategory.isColection(propertyType)) {
 						// is a collection: add elements that reference to
 						// domain objects
 						Collection<?> propertyCollection = (Collection<?>) propertyValue;
@@ -173,7 +174,7 @@ public class XmlConverter {
 									propertyItem, marshaledObjects);
 							propertyElement.appendChild(collectionItemElement);
 						}
-					} else if (TypeUtil.isDomainType(propertyType)) {
+					} else if (TypeCategory.isDomainType(propertyType)) {
 						Element domainObjectElement = marshal(document, propertyElement,
 								propertyValue, marshaledObjects);
 						propertyElement.appendChild(domainObjectElement);
@@ -288,11 +289,11 @@ public class XmlConverter {
 		if (propertyElement != null) {
 			// get property value from element
 			Class<?> propertyType = propertyInfo.getPropertyType().getType();
-			if (TypeUtil.isColection(propertyType)) {
+			if (TypeCategory.isColection(propertyType)) {
 				// Is a collection
 				propertyValue = unMarshalPropertyOfCollectionType(unMarshaledObjects,
 						propertyElement, propertyValue, propertyType);
-			} else if (TypeUtil.isDomainType(propertyType) || propertyType == Object.class) {
+			} else if (TypeCategory.isDomainType(propertyType) || propertyType == Object.class) {
 				// Is a domain object
 				propertyValue = unMarshalPropertyOfDomainType(propertyElement, unMarshaledObjects);
 			} else {

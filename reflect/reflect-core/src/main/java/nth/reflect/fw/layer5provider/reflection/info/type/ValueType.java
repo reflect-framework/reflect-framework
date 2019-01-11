@@ -17,7 +17,7 @@ public abstract class ValueType {
 	public ValueType(Class<?> type, Method method,
 			TypeCategory[] noneSupportedCategories) {
 		this.type = TypeUtil.getComplexType(type);
-		typeCategory = TypeUtil.getTypeCategory(type);
+		typeCategory = TypeCategory.getFor(type);
 
 		validateTypeCategory(typeCategory, noneSupportedCategories, method);
 

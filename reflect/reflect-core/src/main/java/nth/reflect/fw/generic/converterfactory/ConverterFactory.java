@@ -9,8 +9,8 @@ import java.time.LocalTime;
 import java.util.Calendar;
 
 import nth.reflect.fw.generic.exception.TypeNotSupportedException;
-import nth.reflect.fw.generic.util.TypeUtil;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 /**
  * Abstract factory class to help create a converter of type <T> (I.E. a
@@ -69,11 +69,11 @@ public abstract class ConverterFactory<T> extends
 		//TODO URL!!!!	
 			
 		// domainObjects
-		if (TypeUtil.isDomainType(type_)) {
+		if (TypeCategory.isDomainType(type_)) {
 			return createDomainConverter();
 		} else
 		// collections
-		if (TypeUtil.isColection(type_)) {
+		if (TypeCategory.isColection(type_)) {
 			return createCollectionConverter();
 		}
 

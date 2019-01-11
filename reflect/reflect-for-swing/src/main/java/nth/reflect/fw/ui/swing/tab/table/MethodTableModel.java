@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import nth.reflect.fw.generic.util.TypeUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.controller.Refreshable;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -15,6 +14,7 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 public class MethodTableModel extends AbstractTableModel implements
 		DomainTableModel, Refreshable {
@@ -30,7 +30,7 @@ public class MethodTableModel extends AbstractTableModel implements
 	public MethodTableModel(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
 		this.valueModel = valueModel;
 		Class<?> objectClass = valueModel.getValueType();
-		if (TypeUtil.isJavaType(objectClass) || TypeUtil.isEnum(objectClass)) {
+		if (TypeCategory.isJavaType(objectClass) || TypeCategory.isEnum(objectClass)) {
 			JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
 			format = formatFactory.create(objectClass);
 		} else {
