@@ -1,4 +1,4 @@
-package nth.reflect.fw.ui.valuemodel;
+package nth.reflect.fw.ui.component.tab.form.valuemodel;
 
 import java.util.ArrayList;
 import java.util.List;

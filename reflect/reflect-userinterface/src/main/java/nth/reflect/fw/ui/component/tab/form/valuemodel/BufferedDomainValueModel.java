@@ -1,4 +1,4 @@
-package nth.reflect.fw.ui.valuemodel;
+package nth.reflect.fw.ui.component.tab.form.valuemodel;
 
 import nth.reflect.fw.generic.util.CloneUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
