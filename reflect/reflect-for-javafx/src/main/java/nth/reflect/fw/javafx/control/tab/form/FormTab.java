@@ -9,8 +9,8 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.ui.component.tab.form.FormMode;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
 
 public class FormTab extends Tab implements nth.reflect.fw.ui.component.tab.form.FormTab {
 

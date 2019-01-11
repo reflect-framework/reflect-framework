@@ -3,7 +3,7 @@ package nth.reflect.fw.ui.component.tab.form.propertypanel;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayName;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 /**
  * <p>

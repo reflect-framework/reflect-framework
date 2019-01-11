@@ -5,7 +5,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
 public class PropertyPanel extends VerticalLayout implements

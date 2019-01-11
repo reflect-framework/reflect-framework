@@ -24,10 +24,10 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.ui.component.tab.form.FormMode;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.FormTabStyle;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.BufferedDomainValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueChangeListener;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
-import nth.reflect.fw.ui.valuemodel.PropertyValueChangeListener;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 /**
  * {@link PropertyGrid} contains {@link PropertyPanel}s. It shows scroll bars if

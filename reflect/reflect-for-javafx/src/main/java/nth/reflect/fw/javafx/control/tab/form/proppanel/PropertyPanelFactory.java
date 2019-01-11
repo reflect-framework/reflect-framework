@@ -18,7 +18,7 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TimeFieldFactory;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldFactory;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 public class PropertyPanelFactory
 		extends nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {

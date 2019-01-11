@@ -15,6 +15,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.swing.icon.IconFactory;
 import nth.reflect.fw.ui.swing.image.ReflectImage;
 
@@ -46,7 +47,7 @@ public class DropDownTextfield<T extends JComponent> extends JPanel {
 	@SuppressWarnings("unchecked")
 	public T createTextField() {
 		JTextField textField = new JTextField();
-		textField.setBorder(BorderFactory.createEmptyBorder(1,2,1,1));
+		textField.setBorder(BorderFactory.createEmptyBorder(1, 2, 1, 1));
 		return (T) textField;
 	}
 
@@ -57,13 +58,15 @@ public class DropDownTextfield<T extends JComponent> extends JPanel {
 		}
 	}
 
+	/**
+	 * TODO see {@link PropertyField#getSelectionItem()}
+	 * 
+	 * @return
+	 */
 	public JButton createDropDownButton() {
-		final Icon icon1 = IconFactory
-				.create(ReflectImage.BUTTON_DROPDOWN_1);
-		final Icon icon2 = IconFactory
-				.create(ReflectImage.BUTTON_DROPDOWN_2);
-		final Icon icon3 = IconFactory
-				.create(ReflectImage.BUTTON_DROPDOWN_3);
+		final Icon icon1 = IconFactory.create(ReflectImage.BUTTON_DROPDOWN_1);
+		final Icon icon2 = IconFactory.create(ReflectImage.BUTTON_DROPDOWN_2);
+		final Icon icon3 = IconFactory.create(ReflectImage.BUTTON_DROPDOWN_3);
 		final Icon icon4 = null;// disabled: no MaterialAppBarIcon visible
 		JButton button = new JButton(icon1) {
 			@Override

@@ -5,7 +5,7 @@ import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
 import nth.reflect.fw.ui.component.ReflectGuiComponent;
 import nth.reflect.fw.ui.component.tab.form.FormMode;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 /**
  * <p>

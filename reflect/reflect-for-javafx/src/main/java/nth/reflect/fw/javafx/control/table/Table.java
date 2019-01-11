@@ -26,9 +26,9 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.style.MaterialFont;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class Table extends TableView<Object> {
 

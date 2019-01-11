@@ -4,7 +4,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.ui.GraphicalUserinterfaceController;
 import nth.reflect.fw.ui.component.tab.form.FormMode;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.valuemodel.BufferedDomainValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.BufferedDomainValueModel;
 
 public class FormOkItem extends MethodItem {
 

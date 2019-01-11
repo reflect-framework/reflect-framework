@@ -6,7 +6,7 @@ import java.lang.reflect.Parameter;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 /**
  * A {@link FormTab} has one or more {@link PropertyPanel}s. Each

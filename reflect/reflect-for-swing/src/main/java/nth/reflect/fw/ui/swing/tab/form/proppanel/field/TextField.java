@@ -1,17 +1,20 @@
 package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 
+import java.util.Optional;
+
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
 public class TextField extends JTextField implements PropertyField {
 
-	public TextField (PropertyValueModel propertyValueModel) {
+	public TextField(PropertyValueModel propertyValueModel) {
 		getDocument().addDocumentListener(createUpdater(propertyValueModel));
 	}
 
@@ -50,5 +53,9 @@ public class TextField extends JTextField implements PropertyField {
 		return PropertyFieldWidth.SMALL;
 	}
 
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
+	}
 
 }

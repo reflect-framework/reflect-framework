@@ -3,16 +3,18 @@ package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.component.tab.form.DateTimeMode;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
 public class DateTimeField extends JSpinner implements PropertyField {
@@ -111,6 +113,11 @@ public class DateTimeField extends JSpinner implements PropertyField {
 		if (value != null) {
 			setValue(value);
 		}
+	}
+
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
 	}
 
 }

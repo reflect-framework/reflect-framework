@@ -1,6 +1,7 @@
 package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 
 import java.awt.Dimension;
+import java.util.Optional;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -8,14 +9,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import nth.reflect.fw.generic.valuemodel.ReadWriteValueModel;
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldStyle;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
 
 @SuppressWarnings("serial")
-public class TextAreaField extends JTextArea implements  PropertyField {
-
+public class TextAreaField extends JTextArea implements PropertyField {
 
 	public TextAreaField(final ReadWriteValueModel propertyValueModel) {
 
@@ -24,8 +25,8 @@ public class TextAreaField extends JTextArea implements  PropertyField {
 		setFont(textFieldExample.getFont());
 		setBorder(textFieldExample.getBorder());
 
-		//set preferred HEIGHT (higher than most fields)
-		setPreferredSize(new Dimension(Integer.MAX_VALUE,PropertyFieldStyle.getMaxHeight()));
+		// set preferred HEIGHT (higher than most fields)
+		setPreferredSize(new Dimension(Integer.MAX_VALUE, PropertyFieldStyle.getMaxHeight()));
 
 		getDocument().addDocumentListener(createPropertyValueModelUpdater(propertyValueModel));
 	}
@@ -55,10 +56,10 @@ public class TextAreaField extends JTextArea implements  PropertyField {
 		};
 	}
 
-	
 	@Override
 	public void setEnabled(boolean enabled) {
-		// Overriding background color behavior (Default background color when disabled is white)
+		// Overriding background color behavior (Default background color when
+		// disabled is white)
 		super.setEnabled(enabled);
 		if (enabled) {
 			setBackground(ColorUtil.getLightColor());
@@ -77,4 +78,8 @@ public class TextAreaField extends JTextArea implements  PropertyField {
 		setText((String) propertyValue);
 	}
 
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
+	}
 }

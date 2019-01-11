@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -24,20 +25,19 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 //public class OneToOneField extends DropDownTextField implements Refreshable {
-public class OneToOneOrManyField extends DropDownTextfield<JTextField> implements  PropertyField {
+public class OneToOneOrManyField extends DropDownTextfield<JTextField> implements PropertyField {
 
 	private static final long serialVersionUID = -567238728222479488L;
 	private final PropertyValueModel propertyValueModel;
 	private final FormTab formTab;
 	private boolean allowTextChange;
 
-	public OneToOneOrManyField(FormTab formTab,
-			PropertyValueModel propertyValueModel) {
+	public OneToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
 		this.formTab = formTab;
 		this.propertyValueModel = propertyValueModel;
 		this.allowTextChange = false;
@@ -50,9 +50,8 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Collection<Item> items = new FormFieldMenuItems(formTab,
-								propertyValueModel,
-								propertyValueModel.getPropertyInfo());
+				Collection<Item> items = new FormFieldMenuItems(formTab, propertyValueModel,
+						propertyValueModel.getPropertyInfo());
 				PopupMenu popupmenu = new PopupMenu(items);
 				popupmenu.show((Component) e.getSource(), 17, -3);
 			}
@@ -60,23 +59,24 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 
 	}
 
-	
-	
 	@Override
 	public JButton createDropDownButton() {
-		JButton button=super.createDropDownButton();
+		JButton button = super.createDropDownButton();
 		button.setAction(createDropDownButtonAction());
 		return button;
 	}
 
+	@Override
 	public JTextField createTextField() {
 		final JTextField textField = super.createTextField();
-		
+
 		textField.addKeyListener(createKeyListenerToOpenPopUpMenu());
-		
+
 		textField.addMouseListener(createMouseListenerToOpenPopUpMenu());
-		
-		//add document filter so that the user can't manipulate the textfield, but still acts as a textfield (focusable, cursor, enabled disabled look, etc)
+
+		// add document filter so that the user can't manipulate the textfield,
+		// but still acts as a textfield (focusable, cursor, enabled disabled
+		// look, etc)
 		AbstractDocument document = (AbstractDocument) textField.getDocument();
 		document.setDocumentFilter(createImmutableDocumentFilter());
 		return textField;
@@ -86,16 +86,14 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 		return new DocumentFilter() {
 
 			@Override
-			public void remove(FilterBypass fb, int offset, int length)
-					throws BadLocationException {
+			public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
 				if (allowTextChange) {
 					super.remove(fb, offset, length);
 				}
 			}
 
 			@Override
-			public void insertString(FilterBypass fb, int offset,
-					String string, AttributeSet attr)
+			public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
 					throws BadLocationException {
 				if (allowTextChange) {
 					super.insertString(fb, offset, string, attr);
@@ -103,8 +101,7 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 			}
 
 			@Override
-			public void replace(FilterBypass fb, int offset, int length,
-					String text, AttributeSet attrs)
+			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
 					throws BadLocationException {
 				if (allowTextChange) {
 					super.replace(fb, offset, length, text, attrs);
@@ -116,36 +113,36 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 
 	private MouseListener createMouseListenerToOpenPopUpMenu() {
 		return new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JButton button = getDropDownButton();
 				Action action = button.getAction();
-				ActionEvent actionEvent=new ActionEvent(button, 0, "showDropDownMenu");
+				ActionEvent actionEvent = new ActionEvent(button, 0, "showDropDownMenu");
 				action.actionPerformed(actionEvent);
 			}
 		};
@@ -157,20 +154,19 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 			public void keyTyped(KeyEvent e) {
 				JButton button = getDropDownButton();
 				Action action = button.getAction();
-				ActionEvent actionEvent=new ActionEvent(button, 0, "showDropDownMenu");
+				ActionEvent actionEvent = new ActionEvent(button, 0, "showDropDownMenu");
 				action.actionPerformed(actionEvent);
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 			}
 		};
 	}
-
 
 	@Override
 	public PropertyFieldWidth getPropertyFieldWidth() {
@@ -181,19 +177,23 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	public void setValueFromDomainProperty(Object propertyValue) {
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		ClassInfo classInfo = reflectionProvider.getClassInfo(propertyValueModel
-				.getValueType());
+		ClassInfo classInfo = reflectionProvider.getClassInfo(propertyValueModel.getValueType());
 		String title = classInfo.getTitle(propertyValue);
 		allowTextChange = true;
 		getTextField().setText(title);
 		allowTextChange = false;
 		// TODO description?
 	}
-	
+
 	@Override
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
 		getTextField().setEnabled(enabled);
+	}
+
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
 	}
 
 }

@@ -8,8 +8,8 @@ import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.style.ReflectColorName;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class PropertyLabelAndFieldPanel extends BorderPane {
 

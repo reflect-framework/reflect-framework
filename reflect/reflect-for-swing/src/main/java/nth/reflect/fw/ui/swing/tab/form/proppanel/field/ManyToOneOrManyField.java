@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
@@ -25,21 +26,21 @@ import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldStyle;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
 import nth.reflect.fw.ui.swing.tab.table.MethodTableModel;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class ManyToOneOrManyField extends JPanel implements PropertyField {
 
 	private static final int ROW_HEIGHT = 22;
 	private static final long serialVersionUID = -3143477177672443570L;
 	private static final String ON_ROW_CLICK = "onRowClick";
-	private PropertyValueModel propertyValueModel;
-	private MethodTableModel tableModel;
-	private JTable table;
-	private PopupMenu menuPopUp;
+	private final PropertyValueModel propertyValueModel;
+	private final MethodTableModel tableModel;
+	private final JTable table;
+	private final PopupMenu menuPopUp;
 	// private MenuBar menuBar;
 	private final FormTab formTab;
 	private ReadOnlyValueModel selectedRowModel;
@@ -233,6 +234,11 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 		// so no need for menuPopUp.repopulate(menuItems);
 		// menuBar.repopulate(menuItems);
 
+	}
+
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
 	}
 
 }

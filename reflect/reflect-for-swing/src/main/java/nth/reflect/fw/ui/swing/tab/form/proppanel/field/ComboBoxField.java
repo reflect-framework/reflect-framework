@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.Format;
 import java.util.List;
+import java.util.Optional;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -14,27 +15,28 @@ import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 @SuppressWarnings({ "serial", "rawtypes" })
-public class ComboBoxField extends JComboBox implements  PropertyField {
+public class ComboBoxField extends JComboBox implements PropertyField {
 
 	private final PropertyValueModel propertyValueModel;
 
-	public ComboBoxField(FormTab formTab,PropertyValueModel propertyValueModel) {
+	public ComboBoxField(FormTab formTab, PropertyValueModel propertyValueModel) {
 		this.propertyValueModel = propertyValueModel;
 		Class<?> valueType = propertyValueModel.getValueType();
 		if (valueType.isEnum()) {
 			initForEnums(propertyValueModel, valueType);
 		} else {
 			UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
-			ReflectionProvider reflectionProvider=userInterfaceContainer.get(ReflectionProvider.class);
+			ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 			initForDomainObjects(propertyValueModel, reflectionProvider);
 		}
 
@@ -54,8 +56,7 @@ public class ComboBoxField extends JComboBox implements  PropertyField {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	private void initForDomainObjects(
-			final PropertyValueModel propertyValueModel,
+	private void initForDomainObjects(final PropertyValueModel propertyValueModel,
 			ReflectionProvider reflectionProvider) {
 		Vector<Object> listValues = new Vector<Object>();
 		listValues.add(null);
@@ -68,8 +69,7 @@ public class ComboBoxField extends JComboBox implements  PropertyField {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	private void initForEnums(final PropertyValueModel propertyValueModel,
-			Class<?> valueType) {
+	private void initForEnums(final PropertyValueModel propertyValueModel, Class<?> valueType) {
 		Format format = propertyValueModel.getPropertyInfo().getFormat();
 
 		Vector<Object> listValues = new Vector<Object>();
@@ -82,22 +82,18 @@ public class ComboBoxField extends JComboBox implements  PropertyField {
 		setRenderer(createEnumRenderer(format));
 	}
 
-	private ListCellRenderer createObjectRenderer(
-			final ReflectionProvider reflectionProvider) {
+	private ListCellRenderer createObjectRenderer(final ReflectionProvider reflectionProvider) {
 		return new BasicComboBoxRenderer() {
 
 			@Override
-			public Component getListCellRendererComponent(JList list,
-					Object value, int index, boolean isSelected,
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
 
-				super.getListCellRendererComponent(list, value, index,
-						isSelected, cellHasFocus);
+				super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
 				String text = "";
 				if (value != null) {
-					ClassInfo classInfo = reflectionProvider.getClassInfo(value
-							.getClass());
+					ClassInfo classInfo = reflectionProvider.getClassInfo(value.getClass());
 					text = classInfo.getTitle(value);
 				}
 				setText(text);
@@ -111,12 +107,10 @@ public class ComboBoxField extends JComboBox implements  PropertyField {
 		return new BasicComboBoxRenderer() {
 
 			@Override
-			public Component getListCellRendererComponent(JList list,
-					Object value, int index, boolean isSelected,
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
 					boolean cellHasFocus) {
 
-				super.getListCellRendererComponent(list, value, index,
-						isSelected, cellHasFocus);
+				super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
 				String text = format.format(value);
 				setText(text);
@@ -136,4 +130,10 @@ public class ComboBoxField extends JComboBox implements  PropertyField {
 	public void setValueFromDomainProperty(Object propertyValue) {
 		setSelectedItem(propertyValue);
 	}
+
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
+	}
+
 }

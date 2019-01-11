@@ -6,7 +6,7 @@ import nth.reflect.fw.generic.exception.ReflectTranslatableException;
 import nth.reflect.fw.generic.translatablestring.ReflectTranslatable;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 public abstract class  PropertyPanelFactory<PROPERTY_PANEL> {
 

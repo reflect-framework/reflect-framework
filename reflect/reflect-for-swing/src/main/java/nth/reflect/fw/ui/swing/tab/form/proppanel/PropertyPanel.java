@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.swing.properygrid.SwingUtil;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class PropertyPanel extends JPanel implements
 		nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanel<PropertyLabel, PropertyField, PropertyValidationLabel> {

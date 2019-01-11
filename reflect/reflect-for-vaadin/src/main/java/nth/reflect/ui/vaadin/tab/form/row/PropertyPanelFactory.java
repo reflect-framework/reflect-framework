@@ -6,7 +6,7 @@ import java.util.List;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldFactory;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.ui.vaadin.tab.form.row.field.TextFieldFactory;
 
 public class PropertyPanelFactory extends nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {

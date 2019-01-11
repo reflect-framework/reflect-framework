@@ -1,6 +1,5 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
-import java.util.Collection;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;
@@ -18,8 +17,8 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.ui.component.tab.form.FormTab;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.item.method.menu.FormFieldMenuItems;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
 
 public class PropertyButtonBar extends HBox {
 
@@ -60,9 +59,7 @@ public class PropertyButtonBar extends HBox {
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		PopupWindow popupMenu = new PopupWindow();
 		popupMenu.getContent().clear();
-		Collection<Item> serviceObjectItems = new FormFieldMenuItems(formTab, propertyValueModel,
-				propertyValueModel.getPropertyInfo());
-		ItemTreePanel itemPanel = new ItemTreePanel(serviceObjectItems, languageProvider, popupMenu);
+		ItemTreePanel itemPanel = new ItemTreePanel(items, languageProvider, popupMenu);
 		popupMenu.getContent().add(itemPanel);
 		Parent properyPanel = this.getParent();
 		double menuWidth = properyPanel.getBoundsInLocal().getWidth() - (PropertyPanelStyle.PADDING_LEFT_RIGHT * 2);

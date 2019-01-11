@@ -2,22 +2,24 @@ package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 
 import java.text.Format;
 import java.text.ParseException;
+import java.util.Optional;
 
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.ui.component.tab.form.propertypanel.PropertyFieldWidth;
-import nth.reflect.fw.ui.valuemodel.PropertyValueModel;
+import nth.reflect.fw.ui.component.tab.form.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
-public class NumericField extends JTextField implements  PropertyField {
+public class NumericField extends JTextField implements PropertyField {
 
 	private final PropertyValueModel propertyValueModel;
-	private boolean updatePropertyValue=false;
-	
+	private boolean updatePropertyValue = false;
+
 	public NumericField(PropertyValueModel propertyValueModel) {
 		this.propertyValueModel = propertyValueModel;
 		getDocument().addDocumentListener(createPropertyValueModelUpdater());
@@ -71,7 +73,6 @@ public class NumericField extends JTextField implements  PropertyField {
 	// };
 	// }
 
-
 	private void textToProperty() {
 		// text has changed, so update the valueModel
 		if (updatePropertyValue && propertyValueModel.canSetValue()) {
@@ -100,8 +101,7 @@ public class NumericField extends JTextField implements  PropertyField {
 			public void run() {
 				updatePropertyValue = false;
 
-				Format format = propertyValueModel.getPropertyInfo()
-						.getFormat();
+				Format format = propertyValueModel.getPropertyInfo().getFormat();
 				Object value = propertyValueModel.getValue();
 				String text = format.format(value);
 				setText(text);
@@ -109,7 +109,11 @@ public class NumericField extends JTextField implements  PropertyField {
 				updatePropertyValue = true;
 			}
 		});
-		
+
 	}
 
+	@Override
+	public Optional<Item> getSelectionItem() {
+		return Optional.empty();
+	}
 }
