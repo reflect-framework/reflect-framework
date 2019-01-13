@@ -207,7 +207,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.ta
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getGenericReturnType();
+					return actionMethodInfo.getReturnTypeInfo().getGenericType();
 				}
 
 				@Override
@@ -242,7 +242,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.ta
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getGenericReturnType();
+					return actionMethodInfo.getReturnTypeInfo().getGenericType();
 				}
 
 				@Override

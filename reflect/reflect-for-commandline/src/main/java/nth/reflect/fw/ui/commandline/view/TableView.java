@@ -14,14 +14,15 @@ public class TableView extends CommandLineView {
 
 	private final Table table;
 
-	public TableView(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo, Collection<?> collection) {
-		//get propertyInfos
-		Class<?> returnClass = actionMethodInfo.getGenericReturnType();
+	public TableView(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo,
+			Collection<?> collection) {
+		// get propertyInfos
+		Class<?> returnClass = actionMethodInfo.getReturnTypeInfo().getGenericType();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 
 		table = new Table();
-		
+
 		// empty row
 		Row row = table.addRow();
 		row.addCell("", Table.MAX_WIDTH_IN_COLS);
@@ -56,6 +57,5 @@ public class TableView extends CommandLineView {
 	public String toString() {
 		return table.toString();
 	}
-
 
 }

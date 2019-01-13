@@ -10,21 +10,20 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class TableInfoForTableTab extends TableInfo{
+public class TableInfoForTableTab extends TableInfo {
 
-	private TableTab tableTab;
-	private Class<?> itemType;
-	private ReflectionProvider reflectionProvider;
-	private LanguageProvider languageProvider;
+	private final TableTab tableTab;
+	private final Class<?> itemType;
+	private final ReflectionProvider reflectionProvider;
+	private final LanguageProvider languageProvider;
 
 	public TableInfoForTableTab(TableTab tableTab) {
 		this.tableTab = tableTab;
 		UserInterfaceContainer userInterfaceContainer = tableTab.getUserInterfaceContainer();
-		this.reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
+		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		ActionMethodInfo actionMethodInfo = tableTab.getMethodInfo();
-		this.itemType = actionMethodInfo.getGenericReturnType();
+		this.itemType = actionMethodInfo.getReturnTypeInfo().getGenericType();
 
 	}
 
@@ -40,14 +39,15 @@ public class TableInfoForTableTab extends TableInfo{
 			StringBuilder message = new StringBuilder(tableTab.getDisplayName());
 			message.append(": ");
 			message.append(languageProvider.getText("Error getting table values."));
-			throw new RuntimeException(message.toString(),e);
-//			UserInterfaceController userInterfaceController = tableTab.getUserInterfaceContainer()
-//					.get(UserInterfaceController.class);
-//			userInterfaceController.showErrorDialog(tableTab.getViewTitle(),
-//					"Error getting table values.", e);
+			throw new RuntimeException(message.toString(), e);
+			// UserInterfaceController userInterfaceController =
+			// tableTab.getUserInterfaceContainer()
+			// .get(UserInterfaceController.class);
+			// userInterfaceController.showErrorDialog(tableTab.getViewTitle(),
+			// "Error getting table values.", e);
 		}
 	}
-	
+
 	@Override
 	public Class<?> getValuesType() {
 		return itemType;
@@ -65,8 +65,7 @@ public class TableInfoForTableTab extends TableInfo{
 
 	@Override
 	public Collection<Item> getRowMenuItems(Object selectedObject) {
-		Collection<Item> items = new TableRowMenuItems(tableTab,
-				selectedObject);
+		Collection<Item> items = new TableRowMenuItems(tableTab, selectedObject);
 		return items;
 	}
 }

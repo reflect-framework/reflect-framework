@@ -2,20 +2,17 @@ package nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod;
 
 import java.lang.reflect.Method;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class ShowMethodFactory {
 
 	private final static String SHOW_ACTION_METHOD_RESULT = "showActionMethodResult";
 
-	public static Method create(ReflectApplication application,
-			Class<? extends UserInterfaceController> controllerClass, ExecutionModeType executionMode,
-			Method actionMethod) {
+	public static Method create(Class<? extends UserInterfaceController> controllerClass,
+			ExecutionModeType executionMode, Method actionMethod, TypeInfo typeInfo) {
 
 		Class<?> returnType = actionMethod.getReturnType();
 		Class<?>[] parameterTypes;
@@ -30,7 +27,6 @@ public class ShowMethodFactory {
 		} catch (Exception e) {
 			// method with specific result type not found found!
 			// try to find a method that takes a domainObject as argument
-			TypeInfo typeInfo = new ReturnTypeInfo(application, actionMethod);
 			if (typeInfo.isDomainClass()) {
 				parameterTypes = new Class[] { Object.class, ActionMethodInfo.class, Object.class, Object.class };
 				Method method = findMethod(controllerClass, parameterTypes, actionMethod);

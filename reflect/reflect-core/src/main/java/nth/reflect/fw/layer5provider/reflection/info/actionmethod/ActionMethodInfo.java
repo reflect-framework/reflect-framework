@@ -3,8 +3,6 @@ package nth.reflect.fw.layer5provider.reflection.info.actionmethod;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.net.URL;
 
 import nth.reflect.fw.ReflectApplication;
@@ -27,6 +25,9 @@ import nth.reflect.fw.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelFactory;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.ConfirmMethodFactory;
 import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.EditParameterMethodFactory;
 import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.ShowMethodFactory;
@@ -46,10 +47,6 @@ public class ActionMethodInfo implements NameInfo {
 	private final String canonicalName;
 	private final Method actionMethod;
 	private final String linkedPropertyName;
-	private final Class<?> parameterType;
-	private final Class<?> genericParameterType;
-	private final Class<?> returnType;
-	private final Class<?> genericReturnType;
 	private final double order;
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
@@ -61,6 +58,8 @@ public class ActionMethodInfo implements NameInfo {
 	private final Method editParameterMethod;
 	private final Method confirmMethod;
 	private final Method showResultMethod;
+	private final TypeInfo returnTypeInfo;
+	private final TypeInfo firstParameterTypeInfo;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		this(providerContainer, method, null);
@@ -76,10 +75,13 @@ public class ActionMethodInfo implements NameInfo {
 		ReflectApplication application = providerContainer.get(ReflectApplication.class);
 		Class<? extends UserInterfaceController> controllerClass = application.getUserInterfaceControllerClass();
 		this.executionMode = ExecutionModeFactory.create(method);
-		this.editParameterMethod = EditParameterMethodFactory.create(application, controllerClass, executionMode,
-				method);
-		this.confirmMethod = ConfirmMethodFactory.create(application, controllerClass, executionMode, method);
-		this.showResultMethod = ShowMethodFactory.create(application, controllerClass, executionMode, method);
+		this.returnTypeInfo = createReturnTypeInfo(application, method);
+		this.firstParameterTypeInfo = createFirstParameterTypeInfo(application, method);
+		this.editParameterMethod = EditParameterMethodFactory.create(controllerClass, executionMode, method,
+				firstParameterTypeInfo);
+		this.confirmMethod = ConfirmMethodFactory.create(controllerClass, executionMode, method,
+				firstParameterTypeInfo);
+		this.showResultMethod = ShowMethodFactory.create(controllerClass, executionMode, method, returnTypeInfo);
 
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
@@ -92,58 +94,40 @@ public class ActionMethodInfo implements NameInfo {
 				linkedPropertyName);
 		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName, canonicalName,
 				linkedPropertyName);
-		this.returnType = createReturnType(method);
-		this.genericReturnType = createGenericReturnType(method);
-		this.parameterType = createParameterType(method);
-		this.genericParameterType = createGenericParameterType(method);
 		this.order = OrderFactory.create(method);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, method);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, method);
-		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, parameterType);
+		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
-
 	}
 
-	private Class<?> createGenericReturnType(Method method) {
-		try {
-			Type type = method.getGenericReturnType();
-			ParameterizedType pType = (ParameterizedType) type;
-			Type actualType = pType.getActualTypeArguments()[0];
-			if (actualType.toString().equals("java.lang.Class<?>")) {
-				return Class.class;
-			}
-			Class<?> genericType = (Class<?>) actualType;
-			return genericType;
-		} catch (Exception exception) {
-			return parameterType;
+	/**
+	 * 
+	 * @param application
+	 * @param method
+	 * @return a {@link TypeInfo} for the return type of an
+	 *         {@link ActionMethod}<br>
+	 *         It will return a {@link TypeInfo} of type {@link Void} when the
+	 *         {@link ActionMethod} has no parameters
+	 */
+	private ReturnTypeInfo createReturnTypeInfo(ReflectApplication application, Method method) {
+		return new ReturnTypeInfo(application, method);
+	}
+
+	/**
+	 * @param application
+	 * @param actionMethod
+	 * @return a {@link TypeInfo} for the first parameter type of an
+	 *         {@link ActionMethod}<br>
+	 *         It will return a {@link TypeInfo} of type {@link Void} when the
+	 *         {@link ActionMethod} has no parameters
+	 */
+	private TypeInfo createFirstParameterTypeInfo(ReflectApplication application, Method actionMethod) {
+		if (actionMethod.getParameterTypes().length == 0) {
+			return new TypeInfo(application, Void.TYPE, Void.TYPE);
+		} else {
+			return new FirstParameterTypeInfo(application, actionMethod);
 		}
-	}
-
-	private Class<?> createReturnType(Method method) {
-		return method.getReturnType();
-	}
-
-	private Class<?> createGenericParameterType(Method method) {
-		try {
-			Type type = method.getGenericParameterTypes()[0];
-			ParameterizedType pType = (ParameterizedType) type;
-			Type actualType = pType.getActualTypeArguments()[0];
-			if (actualType.toString().equals("java.lang.Class<?>")) {
-				return Class.class;
-			}
-			Class<?> genericType = (Class<?>) actualType;
-			return genericType;
-		} catch (Exception exception) {
-			return parameterType;
-		}
-	}
-
-	private Class<?> createParameterType(Method method) {
-		Class<?>[] parameterTypes = method.getParameterTypes();
-		if (parameterTypes.length == 0) {
-			return null;
-		}
-		return parameterTypes[0];
 	}
 
 	private void validateNoOrSingleParameter(Method method) {
@@ -230,20 +214,17 @@ public class ActionMethodInfo implements NameInfo {
 		return executionMode;
 	}
 
-	public Class<?> getParameterType() {
-		return parameterType;
+	public TypeInfo getReturnTypeInfo() {
+		return returnTypeInfo;
 	}
 
-	public Class<?> getGenericParameterType() {
-		return genericParameterType;
-	}
-
-	public Class<?> getReturnType() {
-		return returnType;
-	}
-
-	public Class<?> getGenericReturnType() {
-		return genericReturnType;
+	/**
+	 * See {@link #createFirstParameterTypeInfo(ReflectApplication, Method)}
+	 * 
+	 * @return
+	 */
+	public TypeInfo getFirstParameterTypeInfo() {
+		return firstParameterTypeInfo;
 	}
 
 	public boolean hasParameterFactory() {

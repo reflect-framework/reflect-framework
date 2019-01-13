@@ -50,7 +50,7 @@ public class TableTab extends Tab {
 
 	private ClassInfo createDomainClassInfo() {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		Class<?> actionMethodReturnType = actionMethodInfo.getGenericReturnType();
+		Class<?> actionMethodReturnType = actionMethodInfo.getReturnTypeInfo().getGenericType();
 		ClassInfo domainClassInfo = reflectionProvider.getClassInfo(actionMethodReturnType);
 		return domainClassInfo;
 	}
@@ -131,7 +131,7 @@ public class TableTab extends Tab {
 		// TODO streams
 		throw new ReflectTranslatableException(userInterfaceContainer,
 				ERROR_INVOKING_ACTION_METHOD_THE_RETURN_TYPE_IS_NOT_SUPPORTED_FOR_A_TABLE_TAB,
-				actionMethodInfo.getCanonicalName(), actionMethodInfo.getReturnType());
+				actionMethodInfo.getCanonicalName(), actionMethodInfo.getReturnTypeInfo().getType());
 	}
 
 	@Override

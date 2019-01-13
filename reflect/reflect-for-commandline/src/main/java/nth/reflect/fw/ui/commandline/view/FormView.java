@@ -11,7 +11,7 @@ import nth.reflect.fw.ui.commandline.domain.table.Table;
 
 public class FormView extends CommandLineView {
 
-	private Table table;
+	private final Table table;
 
 	public FormView(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo, Object domainObject) {
 		table = new Table();
@@ -20,7 +20,7 @@ public class FormView extends CommandLineView {
 		row.addCell("", Table.MAX_WIDTH_IN_COLS);
 
 		// get propertyInfos
-		Class<?> returnClass = actionMethodInfo.getGenericReturnType();
+		Class<?> returnClass = actionMethodInfo.getReturnTypeInfo().getGenericType();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
 
@@ -36,6 +36,5 @@ public class FormView extends CommandLineView {
 	public String toString() {
 		return table.toString();
 	}
-
 
 }

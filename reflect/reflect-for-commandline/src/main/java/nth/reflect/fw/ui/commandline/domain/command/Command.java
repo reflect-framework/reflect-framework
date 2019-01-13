@@ -11,6 +11,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.NoParameterFactoryException;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class Command {
 	private String name;
@@ -18,9 +19,8 @@ public class Command {
 	private ActionMethodInfo actionMethodInfo;
 	private List<Parameter> parameters;
 
-	public Command(ReflectionProvider reflectionProvider, Object serviceObject,
-			ActionMethodInfo actionMethodInfo, boolean shortCommand)
-			throws ReflectCommandLineException {
+	public Command(ReflectionProvider reflectionProvider, Object serviceObject, ActionMethodInfo actionMethodInfo,
+			boolean shortCommand) throws ReflectCommandLineException {
 		this.serviceObject = serviceObject;
 		this.actionMethodInfo = actionMethodInfo;
 		// name
@@ -30,17 +30,19 @@ public class Command {
 
 	}
 
-	private List<Parameter> createParameters(ReflectionProvider reflectionProvider,
-			ActionMethodInfo actionMethodInfo) throws ReflectCommandLineException {
+	private List<Parameter> createParameters(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo)
+			throws ReflectCommandLineException {
 		List<Parameter> parameters = new ArrayList<Parameter>();
-		Class<?> parameterClass = actionMethodInfo.getParameterType();
+		TypeInfo typeInfo = actionMethodInfo.getFirstParameterTypeInfo();
 
-		if (parameterClass != null) {
+		if (!typeInfo.isVoid()) {
 
-			Class<?> returnClass = actionMethodInfo.getGenericParameterType();
+			Class<?> returnClass = typeInfo.getGenericType();
 			ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
 			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
-			List<PropertyInfo> editableSimplePropertyInfos = propertyInfos.stream().filter(propertyInfo-> propertyInfo.isVisibleInTable() && !propertyInfo.isReadOnly()).collect(Collectors.toList());
+			List<PropertyInfo> editableSimplePropertyInfos = propertyInfos.stream()
+					.filter(propertyInfo -> propertyInfo.isVisibleInTable() && !propertyInfo.isReadOnly())
+					.collect(Collectors.toList());
 
 			for (PropertyInfo propertyInfo : editableSimplePropertyInfos) {
 				Parameter parameter = new Parameter(propertyInfo);
@@ -50,8 +52,7 @@ public class Command {
 		return parameters;
 	}
 
-	private String createName(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			boolean shortCommand) {
+	private String createName(Object serviceObject, ActionMethodInfo actionMethodInfo, boolean shortCommand) {
 		StringBuffer name = new StringBuffer();
 		if (!shortCommand) {
 			name.append(serviceObject.getClass().getName());
@@ -113,8 +114,7 @@ public class Command {
 
 	private String getJarName() {
 		try {
-			File jarFile = new File(
-					Command.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+			File jarFile = new File(Command.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 			if ("bin".equals(jarFile.getName())) {// fix debug issue (when not
 													// executed from a jar.i.e.
 													// during debugging)
@@ -132,15 +132,13 @@ public class Command {
 			try {
 				return actionMethodInfo.createMethodParameter(serviceObject);
 			} catch (NoParameterFactoryException e) {
-				Class<?> parameterType = actionMethodInfo.getParameterType();
+				Class<?> parameterType = actionMethodInfo.getFirstParameterTypeInfo().getType();
 				return parameterType.newInstance();
 			}
 		} catch (Exception e) {
-			throw new ReflectCommandLineException(
-					"Could not create a new instance of method parameter: "
-							+ actionMethodInfo.getParameterType().getCanonicalName()
-							+ " for method: " + actionMethodInfo.getCanonicalName(),
-					e);
+			throw new ReflectCommandLineException("Could not create a new instance of method parameter: "
+					+ actionMethodInfo.getFirstParameterTypeInfo().getType().getCanonicalName() + " for method: "
+					+ actionMethodInfo.getCanonicalName(), e);
 		}
 	}
 
