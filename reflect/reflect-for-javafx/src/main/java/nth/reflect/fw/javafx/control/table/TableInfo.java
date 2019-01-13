@@ -15,7 +15,7 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 @SuppressWarnings("restriction")
 public abstract class TableInfo {
@@ -31,8 +31,8 @@ public abstract class TableInfo {
 	public abstract Collection<Item> getRowMenuItems(Object selectedObject);
 
 	public List<TableColumn<Object, ?>> getTableColumns() {
-		Class<?> itemType = getValuesType();
-		if (TypeCategory.isJavaType(itemType) || TypeCategory.isEnum(itemType)) {
+		Class<?> type = getValuesType();
+		if (TypeInfo.isJavaVariableType(type) || type.isEnum()) {
 			return new ArrayList<>();
 		} else {
 			return createColumnsForObject();
@@ -48,8 +48,7 @@ public abstract class TableInfo {
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>(propertyInfo.getDisplayName());
 			tableColumn.setMinWidth(100);
-			tableColumn
-					.setCellValueFactory(new PropertyValueFactory<>(propertyInfo.getSimpleName()));
+			tableColumn.setCellValueFactory(new PropertyValueFactory<>(propertyInfo.getSimpleName()));
 			tableColumns.add(tableColumn);
 		}
 		return tableColumns;
@@ -73,8 +72,7 @@ public abstract class TableInfo {
 			List<Object> list = Arrays.asList(values);
 			return new ObservableListWrapper<Object>(list);
 		} else {
-			String message = getLanguageProvider()
-					.getText("Error getting table values. Unsupported return type.");
+			String message = getLanguageProvider().getText("Error getting table values. Unsupported return type.");
 			throw new RuntimeException(message);
 		}
 

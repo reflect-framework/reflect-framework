@@ -1,6 +1,7 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.hidden;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Optional;
 
 import nth.reflect.fw.layer3domain.DomainObject;
@@ -8,7 +9,6 @@ import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 /**
  * A {@link DomainObjectProperty} or {@link ActionMethod} is visible on the user
@@ -53,12 +53,11 @@ public class HiddenModelFactory {
 	 * @return A {@link HiddenModel} that checks if an item is hidden or not (at
 	 *         runtime)
 	 */
-	public static HiddenModel create(
-			AuthorizationProvider authorizationProvider, Method method) {
+	public static HiddenModel create(AuthorizationProvider authorizationProvider, Method method) {
 
 		Optional<HiddenMethodModel> hiddenMethodModel = createHiddenMethodModel(method);
-		Optional<HiddenAnnotationModel> hiddenAnnotationModel = createHiddenAnnotationModel(
-				authorizationProvider, method);
+		Optional<HiddenAnnotationModel> hiddenAnnotationModel = createHiddenAnnotationModel(authorizationProvider,
+				method);
 
 		boolean hasMethod = hiddenMethodModel.isPresent();
 		boolean hasAnnotation = hiddenAnnotationModel.isPresent();
@@ -80,8 +79,7 @@ public class HiddenModelFactory {
 		if (hiddenAnnotation == null) {
 			return Optional.empty();
 		} else {
-			return Optional.of(new HiddenAnnotationModel(authorizationProvider,
-					hiddenAnnotation));
+			return Optional.of(new HiddenAnnotationModel(authorizationProvider, hiddenAnnotation));
 		}
 	}
 
@@ -94,12 +92,12 @@ public class HiddenModelFactory {
 		}
 	}
 
-	public static HiddenModel create(
-			AuthorizationProvider authorizationProvider, Method getterMethod,
-			Method setterMethod, TypeCategory typeCategory) {
+	public static HiddenModel create(AuthorizationProvider authorizationProvider, Method getterMethod,
+			Method setterMethod) {
 
 		HiddenModel hiddenModel = create(authorizationProvider, getterMethod);
-		if (typeCategory == TypeCategory.COLLECTION_TYPE) {
+		Class<?> returnType = getterMethod.getReturnType();
+		if (Collection.class.isAssignableFrom(returnType)) {
 			hiddenModel = new HiddenCollectionModel(hiddenModel);
 		}
 		return hiddenModel;

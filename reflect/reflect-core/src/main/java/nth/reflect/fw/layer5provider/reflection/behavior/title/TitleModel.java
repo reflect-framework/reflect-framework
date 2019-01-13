@@ -8,7 +8,6 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 /**
  * <p>
@@ -27,9 +26,9 @@ import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
  * 
  * <h3>Title Default</h3>
  * <p>
- * The {@link ReflectFramework} provides a default title based on the
- * properties that are normally displayed in tables. This is a best guess. It is
- * therefore recommended to always implement the toString method.
+ * The {@link ReflectFramework} provides a default title based on the properties
+ * that are normally displayed in tables. This is a best guess. It is therefore
+ * recommended to always implement the toString method.
  * </p>
  * 
  * <h3>Title (toString) method</h3>
@@ -76,12 +75,8 @@ public class TitleModel {
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			Object propertyValue = propertyInfo.getValue(obj);
 			Format format = propertyInfo.getFormat();
-			TypeCategory typeCatagory = propertyInfo.getPropertyType()
-					.getTypeCategory();
-			
-			
-			if (propertyValue != null
-					&& typeCatagory != TypeCategory.COLLECTION_TYPE) {
+
+			if (propertyValue != null && propertyInfo.getTypeInfo().isCollection()) {
 				StringBuffer propertyText = new StringBuffer();
 				String propertyValueText = format.format(propertyValue);
 				propertyText.append(propertyValueText);
@@ -97,8 +92,7 @@ public class TitleModel {
 	}
 
 	private String dafaultToStringValue(Object obj) {
-		String defaultToStringImplValue = obj.getClass().getName() + "@"
-				+ Integer.toHexString(obj.hashCode());
+		String defaultToStringImplValue = obj.getClass().getName() + "@" + Integer.toHexString(obj.hashCode());
 		return defaultToStringImplValue;
 	}
 }

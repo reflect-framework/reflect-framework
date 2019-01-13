@@ -8,10 +8,10 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
-import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.generic.util.JavaTypeConverter;
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
  * <p>
@@ -27,9 +27,8 @@ public class FieldModeFactory {
 	// (registered by the ReflectApp). These Field components should indicate if
 	// they can represent a property (e.g. with a boolean
 	// canRepresent(ProprertyInfomethod)
-	public static FieldModeType create(Method getterMethod, String formatPattern) {
-		Class<?> type = getterMethod.getReturnType();
-		type = JavaTypeConverter.getComplexType(type);
+	public static FieldModeType create(Method getterMethod, TypeInfo typeInfo, String formatPattern) {
+		Class<?> type = JavaTypeConverter.getComplexType(typeInfo.getType());
 		if (String.class.isAssignableFrom(type)) {
 			return getFieldModeForString(getterMethod);
 		} else if (Character.class.isAssignableFrom(type)) {
@@ -50,7 +49,7 @@ public class FieldModeFactory {
 			return FieldModeType.NUMBER;
 		} else if (Boolean.class.isAssignableFrom(type)) {
 			return FieldModeType.CHECK_BOX;
-		} else if (TypeCategory.isDomainType(type)) {
+		} else if (typeInfo.isDomainClass()) {
 			return FieldModeType.ONE_TO_ONE_OR_MANY;
 		} else if (Collection.class.isAssignableFrom(type)) {
 			return FieldModeType.MANY_TO_ONE_OR_MANY;

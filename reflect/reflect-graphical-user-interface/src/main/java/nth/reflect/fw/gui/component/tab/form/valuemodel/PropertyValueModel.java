@@ -53,7 +53,7 @@ public class PropertyValueModel implements ReadWriteValueModel {
 
 	@Override
 	public Class<?> getValueType() {
-		return propertyInfo.getPropertyType().getTypeOrGenericCollectionType();
+		return propertyInfo.getTypeInfo().getGenericType();
 	}
 
 	@Override

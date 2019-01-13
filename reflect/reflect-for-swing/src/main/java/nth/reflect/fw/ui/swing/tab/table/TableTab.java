@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.URL;
 import java.util.Collection;
 
 import javax.swing.AbstractAction;
@@ -15,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.item.method.menu.TableRowMenuItems;
@@ -28,25 +28,24 @@ import nth.reflect.fw.ui.swing.item.menubar.MenuBar;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.tab.Tab;
 
-public class TableTab extends Tab implements
-		nth.reflect.fw.gui.component.tab.table.TableTab {
+public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.table.TableTab {
 
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;
 	private final Object methodOwner;
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
-	private JTable table;
-	private MethodTableModel tableModel;
-	private MenuBar menuBar;
-	private PopupMenu menuPopUp;
+	private final JTable table;
+	private final MethodTableModel tableModel;
+	private final MenuBar menuBar;
+	private final PopupMenu menuPopUp;
 	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final ReflectionProvider reflectionProvider;
 
-	public TableTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue) {
+	public TableTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
@@ -54,14 +53,15 @@ public class TableTab extends Tab implements
 
 		setLayout(new BorderLayout());
 
-		reflectionProvider= userInterfaceContainer.get(ReflectionProvider.class);
-		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
-		tableModel = new MethodTableModel(reflectionProvider, languageProvider, getAllRowsModel());
+		reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+		ReflectApplication application = userInterfaceContainer.get(ReflectApplication.class);
+		tableModel = new MethodTableModel(application, reflectionProvider, languageProvider, getAllRowsModel());
 		table = createTable(tableModel);
 		JScrollPane tableContainer = new JScrollPane(table);
 		tableContainer.getViewport().setBackground(table.getBackground());
-//		tableContainer.setFocusable(false); TODO test
-//		tableContainer.addMouseListener TODO test		
+		// tableContainer.setFocusable(false); TODO test
+		// tableContainer.addMouseListener TODO test
 
 		Collection<Item> menuItems = new TableRowMenuItems(this);
 		menuPopUp = createPopUpMenu(menuItems);
@@ -103,10 +103,10 @@ public class TableTab extends Tab implements
 		// register space and enter keys to open the context menu. Note that we
 		// do not use the key listener because we want to override the default
 		// enter key behavior (go to next row)
-		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), ON_ROW_CLICK);
-		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(
-				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), ON_ROW_CLICK);
+		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), ON_ROW_CLICK);
+		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), ON_ROW_CLICK);
 		table.getActionMap().put(ON_ROW_CLICK, new AbstractAction() {
 
 			private static final long serialVersionUID = -7373360094398512228L;
@@ -114,8 +114,7 @@ public class TableTab extends Tab implements
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = table.getSelectedRow();
-				Rectangle positionInTable = table.getCellRect(selectedRow, 0,
-						true);
+				Rectangle positionInTable = table.getCellRect(selectedRow, 0, true);
 				onTableRowSelect(positionInTable.x + 20, positionInTable.y);
 
 			}
@@ -187,14 +186,13 @@ public class TableTab extends Tab implements
 						// single row selected
 						return tableModel.getDomainValue(selectedRows[0]);
 					default:
-						throw new RuntimeException(
-								"Table must be in single selection mode!!!");// TODO
-																				// in
-																				// future:
-																				// support
-																				// multi
-																				// selection
-																				// to!
+						throw new RuntimeException("Table must be in single selection mode!!!");// TODO
+																								// in
+																								// future:
+																								// support
+																								// multi
+																								// selection
+																								// to!
 						// // multiple rows selected
 						// List<Object> selectedDomainObjects = new
 						// ArrayList<Object>();
@@ -233,12 +231,11 @@ public class TableTab extends Tab implements
 				@Override
 				public Object getValue() {
 					try {
-						return actionMethodInfo.invoke(methodOwner,
-								methodParameterValue);
+						return actionMethodInfo.invoke(methodOwner, methodParameterValue);
 					} catch (Exception e) {
-						UserInterfaceController userInterfaceController = getUserInterfaceContainer().get(UserInterfaceController.class);
-						userInterfaceController.showErrorDialog(getDisplayName(),
-								"Error getting table values.", e);
+						UserInterfaceController userInterfaceController = getUserInterfaceContainer()
+								.get(UserInterfaceController.class);
+						userInterfaceController.showErrorDialog(getDisplayName(), "Error getting table values.", e);
 						return null;
 					}
 				}

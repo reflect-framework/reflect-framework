@@ -17,7 +17,7 @@ public class Parameter {
 
 	public Parameter(PropertyInfo propertyInfo) throws ReflectCommandLineException {
 		this.propertyInfo = propertyInfo;
-		type = propertyInfo.getPropertyType().getType();
+		type = propertyInfo.getTypeInfo().getType();
 
 		types = CommandService.getSupportedParameterPropertyTypes();
 		if (!types.containsKey(type)) {

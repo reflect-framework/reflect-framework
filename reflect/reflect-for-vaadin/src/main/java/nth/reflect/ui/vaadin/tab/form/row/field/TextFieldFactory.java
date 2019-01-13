@@ -6,7 +6,6 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldFactory;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.PropertyType;
 
 public class TextFieldFactory implements PropertyFieldFactory {
 
@@ -18,8 +17,8 @@ public class TextFieldFactory implements PropertyFieldFactory {
 	@Override
 	public boolean canCreateFor(PropertyValueModel propertyValueModel) {
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
-		PropertyType properyType = propertyInfo.getPropertyType();
-		boolean isCharSequence = CharSequence.class.isAssignableFrom(properyType.getType());
+		Class<?> properyType = propertyInfo.getTypeInfo().getType();
+		boolean isCharSequence = CharSequence.class.isAssignableFrom(properyType);
 		boolean isFieldModeText = propertyInfo.getFieldMode() == FieldModeType.TEXT;
 		return isCharSequence && isFieldModeText;
 	}

@@ -7,14 +7,17 @@ import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class PropertyInfoFactory {
-
 	public static List<PropertyInfo> createSorted(ProviderContainer providerContainer, Class<?> objectClass) {
 		ReflectApplication reflectApplication = providerContainer.get(ReflectApplication.class);
-		if (!TypeCategory.isDomainType(objectClass, reflectApplication)) {
-			//Only domain objects have property info's
+		// TODO: Split up {@link ClassInfo}, so that this method is only called
+		// for {@link DomainObject}s. See Issue #202. Then remove following 3
+		// lines
+		TypeInfo typeInfo = new TypeInfo(reflectApplication, objectClass, objectClass);
+		if (!typeInfo.isDomainClass()) {
+			// Only domain objects have property info's
 			return new ArrayList<>();
 		}
 		ArrayList<PropertyInfo> propertyInfos = new ArrayList<PropertyInfo>();

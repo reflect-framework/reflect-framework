@@ -1,14 +1,11 @@
 package nth.reflect.fw.layer5provider.reflection.info.property;
 
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
@@ -26,7 +23,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.PropertyType;
+import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
  * Provides information on a {@link DomainObject} property.<br>
@@ -47,7 +45,7 @@ public class PropertyInfo implements NameInfo {
 	private final Method setterMethod;
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
-	private final PropertyType propertyType;
+	private final TypeInfo typeInfo;
 	private final double order;
 	private final FieldModeType fieldMode;
 	private final String formatPattern;
@@ -59,50 +57,43 @@ public class PropertyInfo implements NameInfo {
 		checkGetterMethodReturnType(getterMethod);
 		checkGetterMethodHasNoParameter(getterMethod);
 
+		ReflectApplication reflectApplication = providerContainer.get(ReflectApplication.class);
 		ReflectionProvider reflectionProvider = providerContainer.get(ReflectionProvider.class);
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
-		AuthorizationProvider authorizationProvider = providerContainer
-				.get(AuthorizationProvider.class);
+		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
 
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(getterMethod, simpleName);
-		this.displayNameModel = new DisplayNameModel(languageProvider, getterMethod, simpleName,
-				canonicalName);
-		this.descriptionModel = new DescriptionModel(languageProvider, getterMethod, simpleName,
-				canonicalName);
-		this.propertyType = new PropertyType(getterMethod);
+		this.displayNameModel = new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
+		this.descriptionModel = new DescriptionModel(languageProvider, getterMethod, simpleName, canonicalName);
+		this.typeInfo = new ReturnTypeInfo(reflectApplication, getterMethod);
 		this.getterMethod = getterMethod;
-		this.setterMethod = getSetterMethod(getterMethod, simpleName, propertyType.getType());
+		this.setterMethod = getSetterMethod(getterMethod, simpleName, typeInfo.getType());
 		this.order = OrderFactory.create(getterMethod);
-		FormatFactory formatFactory = new FormatFactory(reflectionProvider, languageProvider,
-				getterMethod);
+		FormatFactory formatFactory = new FormatFactory(reflectionProvider, languageProvider, getterMethod, typeInfo);
 		this.format = formatFactory.getFormat();
 		this.formatPattern = formatFactory.getFormatPattern();
-		this.fieldMode = FieldModeFactory.create(getterMethod, formatPattern);
-		this.disabledModel = DisabledModelFactory.create(authorizationProvider, getterMethod,
-				setterMethod);
-		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, getterMethod,
-				setterMethod, propertyType.getTypeCategory());
+		this.fieldMode = FieldModeFactory.create(getterMethod, typeInfo, formatPattern);
+		this.disabledModel = DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
+		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 	}
 
 	private void checkGetterMethodHasNoParameter(Method getterMethod) {
 		if (getterMethod.getParameterTypes().length > 0) {
-			throw new RuntimeException(
-					"Getter method: " + getterMethod.getClass().getCanonicalName() + "."
-							+ getterMethod.getName() + " may not contain a parameter");
+			throw new RuntimeException("Getter method: " + getterMethod.getClass().getCanonicalName() + "."
+					+ getterMethod.getName() + " may not contain a parameter");
 		}
 	}
 
 	private void checkGetterMethodReturnType(Method getterMethod) {
 		if (getterMethod.getReturnType() == Void.class) {
-			throw new RuntimeException(
-					"Getter method: " + getterMethod.getClass().getCanonicalName() + "."
-							+ getterMethod.getName() + " must return a value");
+			throw new RuntimeException("Getter method: " + getterMethod.getClass().getCanonicalName() + "."
+					+ getterMethod.getName() + " must return a value");
 		}
 	}
 
-	public PropertyType getPropertyType() {
-		return propertyType;
+	public TypeInfo getTypeInfo() {
+		return typeInfo;
 	}
 
 	private Method getSetterMethod(Method getterMethod, String name, Class<?> propertyClass) {
@@ -118,8 +109,7 @@ public class PropertyInfo implements NameInfo {
 			try {
 				// try to get setterMethod with a simple type parameter
 				Class<?> simplePropertyClass = JavaTypeConverter.getSimpleType(propertyClass);
-				Method writeMethod = methodOwner.getMethod(getterMethodName.toString(),
-						simplePropertyClass);
+				Method writeMethod = methodOwner.getMethod(getterMethodName.toString(), simplePropertyClass);
 				return writeMethod;
 			} catch (Exception e2) {
 				return null;
@@ -153,6 +143,7 @@ public class PropertyInfo implements NameInfo {
 		}
 	}
 
+	@Override
 	public String getSimpleName() {
 		return simpleName;
 	}
@@ -200,21 +191,18 @@ public class PropertyInfo implements NameInfo {
 
 	public void setValue(Object domainObject, Object value) {
 		if (!isEnabled(domainObject)) {
-			throw new RuntimeException("Could not set value of property: " + canonicalName
-					+ " when it is disabled or read only");
+			throw new RuntimeException(
+					"Could not set value of property: " + canonicalName + " when it is disabled or read only");
 		}
 		try {
 			setterMethod.invoke(domainObject, new Object[] { value });
 		} catch (Exception e) {
 			if (value == null) {
-				throw new RuntimeException(
-						"Could not set value of property: " + canonicalName + " with value: null",
+				throw new RuntimeException("Could not set value of property: " + canonicalName + " with value: null",
 						e);
 			} else {
-				throw new RuntimeException(
-						"Could not set value of property: " + canonicalName + " with value: "
-								+ value + " of type" + value.getClass().getCanonicalName(),
-						e);
+				throw new RuntimeException("Could not set value of property: " + canonicalName + " with value: " + value
+						+ " of type" + value.getClass().getCanonicalName(), e);
 			}
 		}
 	}
@@ -230,45 +218,6 @@ public class PropertyInfo implements NameInfo {
 	@Override
 	public String toString() {
 		return canonicalName;
-	}
-
-	/**
-	 * @deprecated use getFormatter.setValue()
-	 * @param domainObject
-	 * @param stringValue
-	 */
-	public void setValueFromString(Object domainObject, String stringValue) {
-		Object value = null;
-		Class<?> propertyClass = propertyType.getType();
-		if (AtomicInteger.class.isAssignableFrom(propertyClass)) {
-			value = new AtomicInteger(Integer.parseInt(stringValue));
-		} else if (AtomicLong.class.isAssignableFrom(propertyClass)) {
-			value = new AtomicLong(Long.parseLong(stringValue));
-		} else if (BigDecimal.class.isAssignableFrom(propertyClass)) {
-			value = new BigDecimal(stringValue);
-		} else if (BigInteger.class.isAssignableFrom(propertyClass)) {
-			value = new BigInteger(stringValue);
-		} else if (Byte.class.isAssignableFrom(propertyClass)) {
-			value = new Byte(stringValue);
-		} else if (Double.class.isAssignableFrom(propertyClass)) {
-			value = new Double(stringValue);
-		} else if (Float.class.isAssignableFrom(propertyClass)) {
-			value = new Float(stringValue);
-		} else if (Integer.class.isAssignableFrom(propertyClass)) {
-			value = new Integer(stringValue);
-		} else if (Long.class.isAssignableFrom(propertyClass)) {
-			value = new Long(stringValue);
-		} else if (Short.class.isAssignableFrom(propertyClass)) {
-			value = new Short(stringValue);
-		} else if (String.class.isAssignableFrom(propertyClass)) {
-			value = stringValue;
-		} else if (Boolean.class.isAssignableFrom(propertyClass)) {
-			value = new Boolean(stringValue);
-		} else {
-			throw new IllegalArgumentException("Property type:" + propertyClass.getSimpleName()
-					+ " is not supported for property:" + canonicalName);
-		}
-		setValue(domainObject, value);
 	}
 
 	public boolean isReadOnly() {
@@ -305,8 +254,8 @@ public class PropertyInfo implements NameInfo {
 				&& "getDeclaringClass".equals(methodName);
 		boolean startsWithIs = methodName.startsWith(PropertyInfo.IS_PREFIX);
 		boolean startsWithGet = methodName.startsWith(PropertyInfo.GET_PREFIX);
-		boolean isGetterMethod = !isGetClassMethod && hasReturnValue && hasNoParameters
-				&& !isEnumGetDeclairingClass && (startsWithIs || startsWithGet);
+		boolean isGetterMethod = !isGetClassMethod && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass
+				&& (startsWithIs || startsWithGet);
 		return isGetterMethod;
 	}
 

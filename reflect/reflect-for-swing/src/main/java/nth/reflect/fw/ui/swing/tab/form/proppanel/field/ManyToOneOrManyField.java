@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
@@ -56,7 +57,8 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
-		tableModel = new MethodTableModel(reflectionProvider, languageProvider, propertyValueModel);
+		ReflectApplication application = userInterfaceContainer.get(ReflectApplication.class);
+		tableModel = new MethodTableModel(application, reflectionProvider, languageProvider, propertyValueModel);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
 
@@ -193,7 +195,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 
 				@Override
 				public Class<?> getValueType() {
-					return propertyValueModel.getPropertyInfo().getPropertyType().getTypeOrGenericCollectionType();
+					return propertyValueModel.getPropertyInfo().getTypeInfo().getGenericType();
 				}
 
 				@Override

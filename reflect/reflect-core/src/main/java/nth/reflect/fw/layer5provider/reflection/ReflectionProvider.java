@@ -11,9 +11,9 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
  * The {@link ReflectionProvider} provides information on objects (
- * {@link ApplicationInfo}), properties ({@link PropertyInfo}) of {@link ActionMethod}
- * ({@link ActionMethodInfo}) using <a
- * href="https://en.wikipedia.org/wiki/Reflection_(computer_programming)"
+ * {@link ApplicationInfo}), properties ({@link PropertyInfo}) of
+ * {@link ActionMethod} ({@link ActionMethodInfo}) using
+ * <a href="https://en.wikipedia.org/wiki/Reflection_(computer_programming)"
  * >reflection</a>. The {@link UserInterfaceController} uses this information to
  * know how the user interface should look like and behave.
  * 
@@ -28,7 +28,7 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 public interface ReflectionProvider extends Provider {
 
 	ClassInfo getClassInfo(Class<?> objectClass);
-	
+
 	ApplicationInfo getApplicationInfo();
-	
+
 }

@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javafx.util.StringConverter;
 import nth.reflect.fw.generic.converterfactory.ConverterFactory;
-import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.BooleanFormat;
@@ -28,11 +27,14 @@ import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.StringForma
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.UriFormat;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.UrlFormat;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
+
 /**
- * /**
- * Gets the pattern from the {@link Format} annotation and gets the {@link Format} for a {@link PropertyInfo}
+ * /** Gets the pattern from the {@link Format} annotation and gets the
+ * {@link Format} for a {@link PropertyInfo}
  * 
- * See also {@link StringConverter} for inspiration and alternative for {@link Format}
+ * See also {@link StringConverter} for inspiration and alternative for
+ * {@link Format}
  * 
  * @author nilsth
  *
@@ -42,14 +44,14 @@ public class FormatFactory extends ConverterFactory<Format> {
 	private final ReflectionProvider reflectionProvider;
 	private final LanguageProvider languageProvider;
 	private final String formatPattern;
-	private final Class<?> propertyType;
-	
-	public FormatFactory(ReflectionProvider reflectionProvider,
-			LanguageProvider languageProvider, Method getterMethod) {
+	private final TypeInfo typeInfo;
+
+	public FormatFactory(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, Method getterMethod,
+			TypeInfo typeInfo) {
 		this.reflectionProvider = reflectionProvider;
 		this.languageProvider = languageProvider;
-		this.propertyType=JavaTypeConverter.getComplexType(getterMethod.getReturnType());
-		this.formatPattern=createFormatPattern(getterMethod);
+		this.typeInfo = typeInfo;
+		this.formatPattern = createFormatPattern(getterMethod);
 	}
 
 	/**
@@ -62,7 +64,7 @@ public class FormatFactory extends ConverterFactory<Format> {
 	 *         string to property
 	 */
 	public Format getFormat() {
-		return createConverter(languageProvider, propertyType);	
+		return createConverter(languageProvider, typeInfo);
 	}
 
 	@Override
@@ -77,7 +79,7 @@ public class FormatFactory extends ConverterFactory<Format> {
 
 	@Override
 	public Format createDomainConverter() {
-		return new DomainObjectFormat(reflectionProvider, propertyType);
+		return new DomainObjectFormat(reflectionProvider, typeInfo.getType());
 	}
 
 	@Override
@@ -110,53 +112,53 @@ public class FormatFactory extends ConverterFactory<Format> {
 
 	@Override
 	public Format createShortConverter() {
-		return new NumericFormat(languageProvider,Short.class, formatPattern);
+		return new NumericFormat(languageProvider, Short.class, formatPattern);
 	}
 
 	@Override
 	public Format createLongConverter() {
-		return new NumericFormat(languageProvider,Long.class, formatPattern);
+		return new NumericFormat(languageProvider, Long.class, formatPattern);
 	}
 
 	@Override
 	public Format createIntegerConverter() {
-		return new NumericFormat(languageProvider,Integer.class, formatPattern);
+		return new NumericFormat(languageProvider, Integer.class, formatPattern);
 	}
 
 	@Override
 	public Format createFloatCoverter() {
-		return new NumericFormat(languageProvider,Float.class, formatPattern);
+		return new NumericFormat(languageProvider, Float.class, formatPattern);
 	}
 
 	@Override
 	public Format createDoubleConverter() {
-		return new NumericFormat(languageProvider,Double.class, formatPattern);
+		return new NumericFormat(languageProvider, Double.class, formatPattern);
 	}
 
 	@Override
 	public Format createByteConverter() {
-		return new NumericFormat(languageProvider,Byte.class, formatPattern);
+		return new NumericFormat(languageProvider, Byte.class, formatPattern);
 	}
 
 	@Override
 	public Format createBigIntegerConverter() {
-		return new NumericFormat(languageProvider,BigInteger.class, formatPattern);
+		return new NumericFormat(languageProvider, BigInteger.class, formatPattern);
 
 	}
 
 	@Override
 	public Format createBigDecimalConverter() {
-		return new NumericFormat(languageProvider,BigDecimal.class, formatPattern);
+		return new NumericFormat(languageProvider, BigDecimal.class, formatPattern);
 	}
 
 	@Override
 	public Format createAtomicLongConverter() {
-		return new NumericFormat(languageProvider,AtomicLong.class, formatPattern);
+		return new NumericFormat(languageProvider, AtomicLong.class, formatPattern);
 	}
 
 	@Override
 	public Format createAtomicIntegerConverter() {
-		return new NumericFormat(languageProvider,AtomicInteger.class, formatPattern);
+		return new NumericFormat(languageProvider, AtomicInteger.class, formatPattern);
 	}
 
 	@Override
@@ -179,7 +181,6 @@ public class FormatFactory extends ConverterFactory<Format> {
 		return new UrlFormat();
 	}
 
-
 	@Override
 	public Format createLocalTimeConverter() {
 		return new LocalTimeFormat(formatPattern);
@@ -197,7 +198,8 @@ public class FormatFactory extends ConverterFactory<Format> {
 	}
 
 	private String createFormatPattern(Method getterMethod) {
-		nth.reflect.fw.layer5provider.reflection.behavior.format.Format format = getterMethod.getAnnotation(nth.reflect.fw.layer5provider.reflection.behavior.format.Format.class);
+		nth.reflect.fw.layer5provider.reflection.behavior.format.Format format = getterMethod
+				.getAnnotation(nth.reflect.fw.layer5provider.reflection.behavior.format.Format.class);
 		if (format == null) {
 			return null;
 		} else {

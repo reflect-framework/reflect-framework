@@ -11,12 +11,14 @@ import nth.reflect.fw.generic.converterfactory.ConverterFactory;
 import nth.reflect.fw.generic.exception.MethodNotSupportedException;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatFactory;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
  * @deprecated use {@link FormatFactory} instead
  * @author nilsth
  *
  */
+@Deprecated
 public class JavaFormatFactory extends ConverterFactory<Format> {
 
 	private final LanguageProvider languageProvider;
@@ -24,7 +26,6 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 	public JavaFormatFactory(LanguageProvider languageProvider) {
 		this.languageProvider = languageProvider;
 	}
-
 
 	/**
 	 * Creates a formatter for a java type (Sting, Integer, boolean, etc)
@@ -34,10 +35,9 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 	 * @return a format that will format a property to a string or parse from a
 	 *         string to property
 	 */
-	public Format create(Class<?> type) {
-		return createConverter(languageProvider, type);	
+	public Format create(TypeInfo typeInfo) {
+		return createConverter(languageProvider, typeInfo);
 	}
-
 
 	@Override
 	public Format createCharConverter() {
@@ -61,12 +61,12 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 
 	@Override
 	public Format createCalendarConverter() {
-			return new CalendarFormat();
+		return new CalendarFormat();
 	}
 
 	@Override
 	public Format createDateConverter() {
-			return new SimpleDateFormat();
+		return new SimpleDateFormat();
 	}
 
 	@Override
@@ -81,48 +81,48 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 
 	@Override
 	public Format createLongConverter() {
-		return new NumericFormat(languageProvider,Long.class, null);
+		return new NumericFormat(languageProvider, Long.class, null);
 	}
 
 	@Override
 	public Format createIntegerConverter() {
-		return new NumericFormat(languageProvider,Integer.class, null);
+		return new NumericFormat(languageProvider, Integer.class, null);
 	}
 
 	@Override
 	public Format createFloatCoverter() {
-		return new NumericFormat(languageProvider,Float.class, null);
+		return new NumericFormat(languageProvider, Float.class, null);
 	}
 
 	@Override
 	public Format createDoubleConverter() {
-		return new NumericFormat(languageProvider,Double.class, null);
+		return new NumericFormat(languageProvider, Double.class, null);
 	}
 
 	@Override
 	public Format createByteConverter() {
-		return new NumericFormat(languageProvider,Byte.class, null);
+		return new NumericFormat(languageProvider, Byte.class, null);
 	}
 
 	@Override
 	public Format createBigIntegerConverter() {
-		return new NumericFormat(languageProvider,BigInteger.class, null);
+		return new NumericFormat(languageProvider, BigInteger.class, null);
 
 	}
 
 	@Override
 	public Format createBigDecimalConverter() {
-		return new NumericFormat(languageProvider,BigDecimal.class, null);
+		return new NumericFormat(languageProvider, BigDecimal.class, null);
 	}
 
 	@Override
 	public Format createAtomicLongConverter() {
-		return new NumericFormat(languageProvider,AtomicLong.class, null);
+		return new NumericFormat(languageProvider, AtomicLong.class, null);
 	}
 
 	@Override
 	public Format createAtomicIntegerConverter() {
-		return new NumericFormat(languageProvider,AtomicInteger.class, null);
+		return new NumericFormat(languageProvider, AtomicInteger.class, null);
 	}
 
 	@Override
@@ -135,30 +135,25 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 		return new NoFormat();
 	}
 
-
 	@Override
 	public Format createFileConverter() {
 		return new FileFormat();
 	}
-
 
 	@Override
 	public Format createUrlConverter() {
 		return new UrlFormat();
 	}
 
-
 	@Override
 	public Format createLocalTimeConverter() {
 		return new LocalTimeFormat();
 	}
 
-
 	@Override
 	public Format createLocalDateConverter() {
 		return new LocalDateFormat();
 	}
-
 
 	@Override
 	public Format createLocalDateTimeConverter() {

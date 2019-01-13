@@ -14,13 +14,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 public class ExcelFormWriter extends ExcelWriter {
 	private ReflectionProvider reflectionProvider;
 
-	public XSSFWorkbook write( XSSFWorkbook workbook, String title,
-			ReflectionProvider reflectionProvider, Object object) {
+	public XSSFWorkbook write(XSSFWorkbook workbook, String title, ReflectionProvider reflectionProvider,
+			Object object) {
 
 		this.reflectionProvider = reflectionProvider;
 		Sheet sheet = workbook.createSheet(title);
@@ -30,10 +29,8 @@ public class ExcelFormWriter extends ExcelWriter {
 		Date exportDateTime = new Date();
 		initFooter(sheet, exportDateTime);
 
-		ClassInfo classInfo = reflectionProvider
-				.getClassInfo(object.getClass());
-		List<PropertyInfo> propertyInfos = classInfo
-				.getPropertyInfosSortedAndVisibleInTable();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(object.getClass());
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 		int maxNumberOfColumns = getMaxNumberOfColumns(propertyInfos);
 
 		addTitlebar(workbook, sheet, title, maxNumberOfColumns - 1);
@@ -47,8 +44,7 @@ public class ExcelFormWriter extends ExcelWriter {
 		return workbook;
 	}
 
-	private void addPropertyRows(Object domainObject, Sheet sheet,
-			List<PropertyInfo> propertyInfos) {
+	private void addPropertyRows(Object domainObject, Sheet sheet, List<PropertyInfo> propertyInfos) {
 		int rowNr;
 		Workbook workbook = sheet.getWorkbook();
 		CellStyle PROPERTY_NAME_STYLE = getPropertyNameStyle(workbook);
@@ -69,13 +65,10 @@ public class ExcelFormWriter extends ExcelWriter {
 		}
 	}
 
-
 	@Override
-	protected void setCellValue(Object domainObject, PropertyInfo propertyInfo,
-			Cell cell) {
+	protected void setCellValue(Object domainObject, PropertyInfo propertyInfo, Cell cell) {
 
-		if (TypeCategory.COLLECTION_TYPE == propertyInfo.getPropertyType()
-				.getTypeCategory()) {
+		if (propertyInfo.getTypeInfo().isCollection()) {
 			Sheet sheet = cell.getSheet();
 			Object value = propertyInfo.getValue(domainObject);
 			addPropertyTable(sheet, cell, propertyInfo, value);
@@ -84,15 +77,13 @@ public class ExcelFormWriter extends ExcelWriter {
 		}
 	}
 
-	private void addPropertyTable(Sheet sheet, Cell cell,
-			PropertyInfo propertyInfo, Object value) {// TODO still used????
+	private void addPropertyTable(Sheet sheet, Cell cell, PropertyInfo propertyInfo, Object value) {
+		// TODO still used????
 		Row row = cell.getRow();
-		Class<?> objectClass = propertyInfo.getPropertyType()
-				.getTypeOrGenericCollectionType();
+		Class<?> objectClass = propertyInfo.getTypeInfo().getGenericType();
 
 		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-		List<PropertyInfo> propertyInfos = classInfo
-				.getPropertyInfosSortedAndVisibleInTable();
+		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
 
 		createPropertyTableHeader(sheet, row, propertyInfos);
 
@@ -103,8 +94,8 @@ public class ExcelFormWriter extends ExcelWriter {
 		}
 	}
 
-	private void createPropertyTableRows(Sheet sheet, int rowNr,
-			List<PropertyInfo> propertyInfos, Object domainObject) {
+	private void createPropertyTableRows(Sheet sheet, int rowNr, List<PropertyInfo> propertyInfos,
+			Object domainObject) {
 		Cell cell;
 		Row row = sheet.createRow(rowNr);
 		int cellNr = 0;
@@ -115,12 +106,9 @@ public class ExcelFormWriter extends ExcelWriter {
 		}
 	}
 
-	
-	private void createPropertyTableHeader(Sheet sheet, Row row,
-			List<PropertyInfo> propertyInfos) {
+	private void createPropertyTableHeader(Sheet sheet, Row row, List<PropertyInfo> propertyInfos) {
 		Cell cell;
-		CellStyle COLUMN_HEADER_STYLE = createColumnHeaderStyle(sheet
-				.getWorkbook());
+		CellStyle COLUMN_HEADER_STYLE = createColumnHeaderStyle(sheet.getWorkbook());
 		int cellNr = 0;
 		for (PropertyInfo columnInfo : propertyInfos) {
 			cellNr++;

@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.style.MaterialFont;
@@ -29,6 +30,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class Table extends TableView<Object> {
 
@@ -214,9 +216,10 @@ public class Table extends TableView<Object> {
 	// }
 
 	private Callback<CellDataFeatures<Object, String>, ObservableValue<String>> createCellValueFactoryForJavaTypeOrEnum(
-			LanguageProvider languageProvider, Class<?> objectClass) {
+			ReflectApplication reflectApplication, LanguageProvider languageProvider, Class<?> type) {
 		JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
-		Format format = formatFactory.create(objectClass);
+		TypeInfo typeInfo = new TypeInfo(reflectApplication, type, type);
+		Format format = formatFactory.create(typeInfo);
 		return new Callback<CellDataFeatures<Object, String>, ObservableValue<String>>() {
 
 			@Override
@@ -249,8 +252,8 @@ public class Table extends TableView<Object> {
 				.setFont(MaterialFont.getRobotoRegular(ROW_FONT_SIZE))
 				// remove focus border
 				.setBackground(backGroundColor);
-		styleSheet.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header"))
-				.getProperties().setBackground(backGroundColor)
+		styleSheet.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header")).getProperties()
+				.setBackground(backGroundColor)
 				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),
 						backGroundHighLighted, ReflectColorName.CONTENT.TRANSPARENT())
 				.setSize(ROW_HEIGHT);
@@ -265,8 +268,8 @@ public class Table extends TableView<Object> {
 						ReflectColorName.CONTENT.TRANSPARENT(), backGroundHighLighted,
 						ReflectColorName.CONTENT.TRANSPARENT());
 		styleSheet
-				.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header")
-						.appendChild(Label.class))
+				.addStyleGroup(
+						StyleSelector.createFor(componentClass).appendChild("column-header").appendChild(Label.class))
 				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setFontWeight(FontWeight.NORMAL)
 				.setProperty("-fx-alignment", "CENTER-LEFT");

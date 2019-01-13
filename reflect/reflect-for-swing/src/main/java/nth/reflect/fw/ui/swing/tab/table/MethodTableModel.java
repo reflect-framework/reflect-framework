@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.controller.Refreshable;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -14,10 +15,9 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
-public class MethodTableModel extends AbstractTableModel implements
-		DomainTableModel, Refreshable {
+public class MethodTableModel extends AbstractTableModel implements DomainTableModel, Refreshable {
 
 	// TODO move to Reflect package to replace domainTableModel?
 
@@ -27,12 +27,14 @@ public class MethodTableModel extends AbstractTableModel implements
 	private final ReadOnlyValueModel valueModel;
 	private Format format;
 
-	public MethodTableModel(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
+	public MethodTableModel(ReflectApplication reflectApplication, ReflectionProvider reflectionProvider,
+			LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
 		this.valueModel = valueModel;
 		Class<?> objectClass = valueModel.getValueType();
-		if (TypeCategory.isJavaType(objectClass) || TypeCategory.isEnum(objectClass)) {
+		if (TypeInfo.isJavaVariableType(objectClass) || objectClass.isEnum()) {
 			JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
-			format = formatFactory.create(objectClass);
+			TypeInfo typeInfo = new TypeInfo(reflectApplication, objectClass, objectClass);
+			format = formatFactory.create(typeInfo);
 		} else {
 			ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
 			propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
@@ -42,8 +44,8 @@ public class MethodTableModel extends AbstractTableModel implements
 
 	@Override
 	public int getColumnCount() {
-		if (propertyInfos==null) {
-			return 1;//table represents a java type
+		if (propertyInfos == null) {
+			return 1;// table represents a java type
 		}
 		return propertyInfos.size();
 	}
@@ -56,11 +58,11 @@ public class MethodTableModel extends AbstractTableModel implements
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object value = list.get(rowIndex);
-		if (propertyInfos==null) {
-			//java type 
+		if (propertyInfos == null) {
+			// java type
 			return format.format(value);
 		}
-		//domain object
+		// domain object
 		Object domainObject = value;
 		PropertyInfo propertyInfo = propertyInfos.get(columnIndex);
 		return propertyInfo.getFormatedValue(domainObject);
@@ -68,8 +70,8 @@ public class MethodTableModel extends AbstractTableModel implements
 
 	@Override
 	public String getColumnName(int column) {
-		if (propertyInfos==null) {
-			//java type
+		if (propertyInfos == null) {
+			// java type
 			return null;
 		}
 		// domain type
@@ -78,7 +80,7 @@ public class MethodTableModel extends AbstractTableModel implements
 	}
 
 	@Override
-	public Object getDomainValue(int rowIndex) {//TODO rename to value?
+	public Object getDomainValue(int rowIndex) {// TODO rename to value?
 		return list.get(rowIndex);
 	}
 

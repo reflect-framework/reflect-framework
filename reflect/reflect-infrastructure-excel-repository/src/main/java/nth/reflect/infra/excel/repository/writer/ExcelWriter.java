@@ -20,7 +20,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
 
 public abstract class ExcelWriter {
 
@@ -31,8 +30,7 @@ public abstract class ExcelWriter {
 	protected int getMaxNumberOfColumns(List<PropertyInfo> propertyInfos) {
 		int maxNumberOfColumns = 1;// single propertyValue
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			if (TypeCategory.COLLECTION_TYPE == propertyInfo.getPropertyType()
-					.getTypeCategory()) {
+			if (propertyInfo.getTypeInfo().isCollection()) {
 				// property is displayed as a table
 				int numberOfColumns = propertyInfos.size();
 				if (numberOfColumns > maxNumberOfColumns) {
@@ -44,8 +42,7 @@ public abstract class ExcelWriter {
 		return maxNumberOfColumns;
 	}
 
-	protected void addTitlebar(Workbook wb, Sheet sheet, String reportTitle,
-			int maxNumberOfColumns) {
+	protected void addTitlebar(Workbook wb, Sheet sheet, String reportTitle, int maxNumberOfColumns) {
 		CellStyle HEADER_TITLE_STYLE = createTitleBarStyle(wb);
 		Row row = sheet.createRow(0);
 		row.setHeightInPoints(25);
@@ -54,7 +51,7 @@ public abstract class ExcelWriter {
 		titleCell.setCellStyle(HEADER_TITLE_STYLE);
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, maxNumberOfColumns));
 	}
-	
+
 	private CellStyle createTitleBarStyle(Workbook wb) {
 		CellStyle style = wb.createCellStyle();
 		style.setAlignment(CellStyle.ALIGN_CENTER);
@@ -68,16 +65,13 @@ public abstract class ExcelWriter {
 		return style;
 	}
 
-	
-
 	public CellStyle getPropertyNameStyle(Workbook workbook) {
-		if (propertyNameStyle==null) {
-			propertyNameStyle=createPropertyNameStyle(workbook);
+		if (propertyNameStyle == null) {
+			propertyNameStyle = createPropertyNameStyle(workbook);
 		}
 		return propertyNameStyle;
 	}
 
-	
 	private CellStyle createPropertyNameStyle(Workbook wb) {
 		CellStyle style = wb.createCellStyle();
 		style.setAlignment(CellStyle.ALIGN_RIGHT);
@@ -115,7 +109,7 @@ public abstract class ExcelWriter {
 		style.setBorderLeft(CellStyle.BORDER_THIN);
 		return style;
 	}
-	
+
 	protected CellStyle getDateStyle(Workbook wb) {
 		if (dateStyle == null) {
 			dateStyle = createDateStyle(wb);
@@ -126,8 +120,7 @@ public abstract class ExcelWriter {
 	private CellStyle createDateStyle(Workbook wb) {
 		CreationHelper createHelper = wb.getCreationHelper();
 		CellStyle cellStyle = wb.createCellStyle();
-		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(
-				"yyyy-MM-dd HH:mm:ss"));
+		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("yyyy-MM-dd HH:mm:ss"));
 		cellStyle.setAlignment(CellStyle.ALIGN_LEFT);
 		return cellStyle;
 	}
@@ -144,25 +137,23 @@ public abstract class ExcelWriter {
 		printSetup.setFitHeight(Short.MAX_VALUE);
 		printSetup.setFitWidth((short) 1);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	protected void initPageSetup(Workbook wb, Sheet sheet) {
 		initPageSetup(sheet);
 		// repeat header when printing
-		
-		//sheet.setRepeatingRows(new CellRangeAddress(0, 1, 0, 0));
-		
+
+		// sheet.setRepeatingRows(new CellRangeAddress(0, 1, 0, 0));
+
 		wb.setRepeatingRowsAndColumns(0, 0, 0, 0, 1);
 	}
 
 	protected void initFooter(Sheet sheet, Date exportDateTime) {
 		Footer footer = sheet.getFooter();
 		// add a fixed export date and time (not a dynamic HeaderFooter.date() )
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		footer.setLeft(dateFormat.format(exportDateTime));
-		footer.setRight("Page " + HeaderFooter.page() + " of "
-				+ HeaderFooter.numPages());
+		footer.setRight("Page " + HeaderFooter.page() + " of " + HeaderFooter.numPages());
 	}
 
 	protected void autoSizeColumns(Sheet sheet, int lastColumn) {
@@ -170,17 +161,15 @@ public abstract class ExcelWriter {
 			sheet.autoSizeColumn(c);
 		}
 	}
-	
+
 	protected void mergePropertyNameCellsifNeeded(Sheet sheet, int rowNr) {
 		int lastRowNr = sheet.getPhysicalNumberOfRows();
 		if (rowNr < lastRowNr - 1) {
-			sheet.addMergedRegion(new CellRangeAddress(rowNr, lastRowNr - 1, 0,
-					0));
+			sheet.addMergedRegion(new CellRangeAddress(rowNr, lastRowNr - 1, 0, 0));
 		}
 	}
 
-	protected void setCellValue(Object domainObject, PropertyInfo propertyInfo,
-			Cell cell) {
+	protected void setCellValue(Object domainObject, PropertyInfo propertyInfo, Cell cell) {
 		Sheet sheet = cell.getSheet();
 		Workbook workbook = sheet.getWorkbook();
 		CellStyle PROPERTY_VALUE_STYLE = getPropertyValueStyle(workbook);
@@ -206,13 +195,10 @@ public abstract class ExcelWriter {
 				cell.setCellValue((Calendar) value);
 				cell.setCellStyle(DATE_STYLE);
 			} else {
-				String formatedValue = propertyInfo
-						.getFormatedValue(domainObject);
+				String formatedValue = propertyInfo.getFormatedValue(domainObject);
 				cell.setCellValue(formatedValue);
 			}
 		}
 	}
-	
-	
-	
+
 }
