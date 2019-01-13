@@ -62,13 +62,11 @@ public class ActionMethodInfo implements NameInfo {
 	private final Method confirmMethod;
 	private final Method showResultMethod;
 
-
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		this(providerContainer, method, null);
 	}
 
-	public ActionMethodInfo(ProviderContainer providerContainer, Method method,
-			String linkedPropertyName) {
+	public ActionMethodInfo(ProviderContainer providerContainer, Method method, String linkedPropertyName) {
 		validateNoObjectClassMethod(method);
 		validateNoGettersOrSetterMethod(method);
 		validateNoBehavioralMethod(method);
@@ -76,28 +74,26 @@ public class ActionMethodInfo implements NameInfo {
 		validateNoOrSingleParameter(method);
 
 		ReflectApplication application = providerContainer.get(ReflectApplication.class);
-		Class<? extends UserInterfaceController> controllerClass = application
-				.getUserInterfaceControllerClass();
+		Class<? extends UserInterfaceController> controllerClass = application.getUserInterfaceControllerClass();
 		this.executionMode = ExecutionModeFactory.create(method);
-		this.editParameterMethod = EditParameterMethodFactory.create(controllerClass,
-				executionMode, method);
-		this.confirmMethod = ConfirmMethodFactory.create(controllerClass, executionMode, method);
-		this.showResultMethod = ShowMethodFactory.create(controllerClass, executionMode, method);
+		this.editParameterMethod = EditParameterMethodFactory.create(application, controllerClass, executionMode,
+				method);
+		this.confirmMethod = ConfirmMethodFactory.create(application, controllerClass, executionMode, method);
+		this.showResultMethod = ShowMethodFactory.create(application, controllerClass, executionMode, method);
 
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
-		AuthorizationProvider authorizationProvider = providerContainer
-				.get(AuthorizationProvider.class);
+		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
 
 		this.actionMethod = method;
 		this.linkedPropertyName = linkedPropertyName;
 		this.simpleName = method.getName();
 		this.canonicalName = createCanonicalName(method);
-		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName,
-				canonicalName, linkedPropertyName);
-		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName,
-				canonicalName, linkedPropertyName);
-		this.returnType =createReturnType(method);
-		this.genericReturnType=createGenericReturnType(method);
+		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName, canonicalName,
+				linkedPropertyName);
+		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName, canonicalName,
+				linkedPropertyName);
+		this.returnType = createReturnType(method);
+		this.genericReturnType = createGenericReturnType(method);
 		this.parameterType = createParameterType(method);
 		this.genericParameterType = createGenericParameterType(method);
 		this.order = OrderFactory.create(method);
@@ -152,8 +148,7 @@ public class ActionMethodInfo implements NameInfo {
 
 	private void validateNoOrSingleParameter(Method method) {
 		if (method.getParameterTypes().length > 1) {
-			throw new InvalidActionMethodException("ActionMethod: %s has more than 1 parameter",
-					method);
+			throw new InvalidActionMethodException("ActionMethod: %s has more than 1 parameter", method);
 		}
 	}
 
@@ -165,8 +160,7 @@ public class ActionMethodInfo implements NameInfo {
 
 	private void validateNoBehavioralMethod(Method method) {
 		if (BehavioralMethods.isBehavioralMethod(method)) {
-			throw new InvalidActionMethodException(
-					"ActionMethod: %s may not be a BehavioralMethod", method);
+			throw new InvalidActionMethodException("ActionMethod: %s may not be a BehavioralMethod", method);
 		}
 	}
 
@@ -174,8 +168,8 @@ public class ActionMethodInfo implements NameInfo {
 		String methodName = method.getName();
 		for (Method methodOfObjectClass : Object.class.getMethods()) {
 			if (methodOfObjectClass.getName().equals(methodName)) {
-				throw new InvalidActionMethodException(
-						"ActionMethod: %s may not be a method of the Object Class", method);
+				throw new InvalidActionMethodException("ActionMethod: %s may not be a method of the Object Class",
+						method);
 			}
 		}
 	}
@@ -183,12 +177,10 @@ public class ActionMethodInfo implements NameInfo {
 	private void validateNoGettersOrSetterMethod(Method method) {
 		String methodName = method.getName();
 		if (methodName.startsWith("get") || methodName.startsWith("is")) {
-			throw new InvalidActionMethodException("ActionMethod: %s may not be a getter method",
-					method);
+			throw new InvalidActionMethodException("ActionMethod: %s may not be a getter method", method);
 		}
 		if (methodName.startsWith("set")) {
-			throw new InvalidActionMethodException("ActionMethod: %s may not be a setter method",
-					method);
+			throw new InvalidActionMethodException("ActionMethod: %s may not be a setter method", method);
 		}
 	}
 
@@ -205,6 +197,7 @@ public class ActionMethodInfo implements NameInfo {
 		return simpleName;
 	}
 
+	@Override
 	public String getCanonicalName() {
 		return canonicalName;
 	}
@@ -236,7 +229,7 @@ public class ActionMethodInfo implements NameInfo {
 	public ExecutionModeType getExecutionMode() {
 		return executionMode;
 	}
-		
+
 	public Class<?> getParameterType() {
 		return parameterType;
 	}
@@ -248,8 +241,8 @@ public class ActionMethodInfo implements NameInfo {
 	public Class<?> getReturnType() {
 		return returnType;
 	}
-	
-		public Class<?> getGenericReturnType() {
+
+	public Class<?> getGenericReturnType() {
 		return genericReturnType;
 	}
 
@@ -257,8 +250,7 @@ public class ActionMethodInfo implements NameInfo {
 		return parameterFactoryModel != null;
 	}
 
-	public Object createMethodParameter(Object obj) throws InstantiationException,
-			IllegalAccessException {
+	public Object createMethodParameter(Object obj) throws InstantiationException, IllegalAccessException {
 		if (hasParameterFactory()) {
 			return parameterFactoryModel.createNewMethodParameter(obj);
 		} else {
@@ -287,18 +279,17 @@ public class ActionMethodInfo implements NameInfo {
 	public boolean hasParameter() {
 		return actionMethod.getParameterTypes().length > 0;
 	}
-	
+
 	public boolean hasReturnValue() {
-		return actionMethod.getReturnType()!=Void.TYPE;
+		return actionMethod.getReturnType() != Void.TYPE;
 	}
 
 	/**
 	 * Method to invoke a editAtionMethodParameter method of the
 	 * {@link UserInterfaceController}
 	 */
-	public void invokeEditParameterMethod(UserInterfaceController userInterfaceController,
-			Object methodOwner, Object methodParameter) throws IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException {
+	public void invokeEditParameterMethod(UserInterfaceController userInterfaceController, Object methodOwner,
+			Object methodParameter) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		editParameterMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
 	}
 
@@ -307,9 +298,8 @@ public class ActionMethodInfo implements NameInfo {
 	 * {@link UserInterfaceController}
 	 */
 
-	public void invokeConfirmMethod(UserInterfaceController userInterfaceController,
-			Object methodOwner, Object methodParameter) throws IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException {
+	public void invokeConfirmMethod(UserInterfaceController userInterfaceController, Object methodOwner,
+			Object methodParameter) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		confirmMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
 
 	}
@@ -318,17 +308,15 @@ public class ActionMethodInfo implements NameInfo {
 	 * Method to invoke a ShowActionMethodResult method of the
 	 * {@link UserInterfaceController}
 	 */
-	public void invokeShowResult(UserInterfaceController userInterfaceController,
-			Object methodOwner, Object methodParameter, Object methodResult)
+	public void invokeShowResult(UserInterfaceController userInterfaceController, Object methodOwner,
+			Object methodParameter, Object methodResult)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (hasReturnValue()) {
-			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter,
-				methodResult);
+			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter, methodResult);
 		} else {
 			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
 		}
 
 	}
 
-	
 }

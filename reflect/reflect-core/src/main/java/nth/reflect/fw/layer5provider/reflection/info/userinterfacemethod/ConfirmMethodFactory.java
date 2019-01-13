@@ -2,42 +2,44 @@ package nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod;
 
 import java.lang.reflect.Method;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeCategory;
+import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class ConfirmMethodFactory {
 
 	private static final String CONFIRM_ACTION_METHOD = "confirmActionMethod";
 
-	public static Method create(Class<? extends UserInterfaceController> controllerClass,
-			ExecutionModeType executionMode, Method actionMethod) {
+	public static Method create(ReflectApplication application,
+			Class<? extends UserInterfaceController> controllerClass, ExecutionModeType executionMode,
+			Method actionMethod) {
 		if (executionMode != ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION) {
 			return null;
 		}
-		Method confirmMethod = findConfirmMethod(controllerClass, actionMethod);
+		Method confirmMethod = findConfirmMethod(application, controllerClass, actionMethod);
 		return confirmMethod;
 	}
 
-	private static Method findConfirmMethod(
+	private static Method findConfirmMethod(ReflectApplication application,
 			Class<? extends UserInterfaceController> controllerClass, Method actionMethod) {
 		Class<?> parameterType = getParameterType(actionMethod);
-		Class<?>[] parameterTypes = new Class[] { Object.class, ActionMethodInfo.class,
-				parameterType };
+		Class<?>[] parameterTypes = new Class[] { Object.class, ActionMethodInfo.class, parameterType };
 		try {
 			Method method = findMethod(controllerClass, parameterTypes, actionMethod);
 			return method;
 		} catch (Exception e) {
 			// method with specific parameter type not found found!
 			// try to find a method that takes a domainObject as argument
-			if (TypeCategory.isDomainType(parameterType)) {
+			TypeInfo typeInfo = new FirstParameterTypeInfo(application, actionMethod);
+			if (typeInfo.isDomainClass()) {
 				parameterTypes = new Class[] { Object.class, ActionMethodInfo.class, Object.class };
 				Method method = findMethod(controllerClass, parameterTypes, actionMethod);
 				return method;
 			} else {
-				throw new MethodParameterTypeNotSupported(controllerClass, CONFIRM_ACTION_METHOD,
-						actionMethod);
+				throw new MethodParameterTypeNotSupported(controllerClass, CONFIRM_ACTION_METHOD, actionMethod);
 			}
 		}
 	}
@@ -59,8 +61,7 @@ public class ConfirmMethodFactory {
 			Method method = controllerClass.getMethod(CONFIRM_ACTION_METHOD, parameterTypes);
 			return method;
 		} catch (NoSuchMethodException | SecurityException e1) {
-			throw new MethodParameterTypeNotSupported(controllerClass, CONFIRM_ACTION_METHOD,
-					actionMethod);
+			throw new MethodParameterTypeNotSupported(controllerClass, CONFIRM_ACTION_METHOD, actionMethod);
 		}
 	}
 
