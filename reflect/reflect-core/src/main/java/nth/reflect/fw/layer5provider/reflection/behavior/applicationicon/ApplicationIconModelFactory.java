@@ -10,8 +10,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 /**
  * <p>
  * With a {@link ApplicationIcon} the graphical user interface of a
- * {@link ReflectApplication} can easily identified by the user. This icon is a
- * file that contains an image. The type, size and depends on the
+ * {@link ReflectApplication} can easily be identified by the user. This icon is
+ * a file that contains an image. The type, size and depends on the
  * type(platforms) of your application. In example:
  * <ul>
  * <li><a href=
@@ -48,13 +48,13 @@ import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 public class ApplicationIconModelFactory {
 
 	public static ApplicationIconModel create(ReflectApplication reflectApplication) {
-		Optional<ApplicationIconMethodModel> applicationIconMethodModel = createIconMethodModel(
-				reflectApplication);
+		Optional<ApplicationIconMethodModel> applicationIconMethodModel = createIconMethodModel(reflectApplication);
 		if (applicationIconMethodModel.isPresent()) {
 			return applicationIconMethodModel.get();
 		}
 
-		Optional<ApplicationIconUrlModel> iconAnnotationModel = createIconAnnotationModel(reflectApplication.getClass());
+		Optional<ApplicationIconUrlModel> iconAnnotationModel = createIconAnnotationModel(
+				reflectApplication.getClass());
 		if (iconAnnotationModel.isPresent()) {
 			return iconAnnotationModel.get();
 		}
@@ -80,7 +80,7 @@ public class ApplicationIconModelFactory {
 
 	private static Optional<ApplicationIconMethodModel> createIconMethodModel(ReflectApplication reflectApplication) {
 		Optional<Method> iconMethod = BehavioralMethods.APPLICATION_ICON.findFor(reflectApplication.getClass());
-		if (iconMethod .isPresent()) {
+		if (iconMethod.isPresent()) {
 			return Optional.of(new ApplicationIconMethodModel(reflectApplication, iconMethod.get()));
 		} else {
 			return Optional.empty();

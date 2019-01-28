@@ -66,20 +66,24 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * An example of a desktop application:
  * 
  * <pre>
- * public class AcmeWebShop extends ReflectApplicationForJavaFx {
+ * public class WebShopForJavaFX extends ReflectApplicationForJavaFX {
  * 
- * 	// constructor not displayed
+ * 	private List&lt;Class&lt;?&gt;&gt; serviceClasses;
+ * 	private List&lt;Class&lt;?&gt;&gt; infrastructureClasses;
  * 
- * 	// main method
- * 
+ * 	public class WebShopForJavaFX() {
+ *		serviceClasses=Arrays.asList(ShoppingCartService.class, ProductService.class);
+ *		infrastructureClasses=Arrays.asList(ProductRepository.class, EmailClient.class, PaymentClient.class);
+ * 	}
+ *
  * 	&#064;Override
  * 	public List&lt;Class&lt;?&gt;&gt; getServiceClasses() {
- * 		return Arrays.asList(ShoppingCartService.class, ProductService.class);
+ * 		return serviceClasses;
  * 	}
  * 
  * 	&#064;Override
  * 	public List&lt;Class&lt;?&gt;&gt; getInfrastructureClasses() {
- * 		return Arrays.asList(ProductRepository.class, EmailClient.class, PaymentClient.class);
+ * 		return infrastructureClasses;
  * 	}
  * 
  * }

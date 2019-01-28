@@ -78,9 +78,9 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
  * Design</a>: An optimized user experience on a variety of devices and screen
  * sizes.</li>
  * <li><a href="https://en.wikipedia.org/wiki/Flat_design">Flat design</a>: A
- * minimalist graphical user interface that does not distract the user in
- * executing his or her tasks, e.g. like Google's
- * <a href="https://material.io/design/">Material Design</a></li>
+ * minimalist graphical user interface (e.g. like Google's
+ * <a href="https://material.io/design/">Material Design</a>) that does not distract the user in
+ * executing his or her tasks</li>
  * </ul>
  * 
  * <h3>Write once and deploy as different type of applications</h3>

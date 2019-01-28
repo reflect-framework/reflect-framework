@@ -28,16 +28,16 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
 
 /**
  * <p>
- * The {@link ReflectFramework} is a dependency injection framework and
- * consists of several <a
- * href="http://en.wikipedia.org/wiki/Dependency_injection">dependency injection
- * containers</a>.
+ * The {@link ReflectFramework} is a dependency injection framework and consists
+ * of several
+ * <a href="http://en.wikipedia.org/wiki/Dependency_injection">dependency
+ * injection containers</a>.
  * </p>
  * <p>
- * If you new to Dependency Injection I recommend reading <a
- * href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a>'s <a
- * href="http://martinfowler.com/articles/injection.html">article</a> in which
- * he explains the basics dependency injection.
+ * If you new to Dependency Injection I recommend reading
+ * <a href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a>'s
+ * <a href="http://martinfowler.com/articles/injection.html">article</a> in
+ * which he explains the basics dependency injection.
  * </p>
  * <p>
  * Each {@link DependencyInjectionContainer} is responsible for:
@@ -53,8 +53,8 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
  * </p>
  * <p>
  * The {@link ReflectArchitecture} consists of several layers. Each layer has
- * its own {@link DependencyInjectionContainer} that is for managing the objects
- * in the same layer:
+ * its own {@link DependencyInjectionContainer} that manages the objects in that
+ * layer:
  * <ul>
  * <li>{@link UserInterfaceLayer}: {@link UserInterfaceController} object is
  * managed by a {@link UserInterfaceContainer}. The
@@ -86,8 +86,7 @@ public abstract class DependencyInjectionContainer {
 		this(null);
 	}
 
-	public DependencyInjectionContainer(
-			DependencyInjectionContainer innerContainer) {
+	public DependencyInjectionContainer(DependencyInjectionContainer innerContainer) {
 		this.innerContainer = innerContainer;
 		this.typesAndInstances = new HashMap<Class<?>, Object>();
 	}
@@ -110,22 +109,19 @@ public abstract class DependencyInjectionContainer {
 		typesAndInstances.put(type, null);
 	}
 
-	public void add(Collection<Class<?>> types)
-			throws ReflectContainerException {
+	public void add(Collection<Class<?>> types) throws ReflectContainerException {
 		for (Class<?> type : types) {
 			add(type);
 		}
 	}
 
-	public <T extends Object> T get(Class<T> type)
-			throws ReflectContainerException {
+	public <T extends Object> T get(Class<T> type) throws ReflectContainerException {
 		List<Class<?>> classesWaitingToBeInstantiated = new ArrayList<Class<?>>();
 		return get(type, classesWaitingToBeInstantiated);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends Object> T get(Class<T> type,
-			List<Class<?>> classesWaitingToBeInstantiated)
+	public <T extends Object> T get(Class<T> type, List<Class<?>> classesWaitingToBeInstantiated)
 			throws ReflectContainerException {
 
 		if (DependencyInjectionContainer.class.isAssignableFrom(type)) {
@@ -133,8 +129,7 @@ public abstract class DependencyInjectionContainer {
 			return (T) getDependencyContainer(dependencyInjectionType);
 		} else if (innerContainer != null) {
 			// Try to get the object from one of the inner containers.
-			Object object = innerContainer.get(type,
-					classesWaitingToBeInstantiated);
+			Object object = innerContainer.get(type, classesWaitingToBeInstantiated);
 			if (object != null) {
 				return (T) object;
 			}
@@ -144,11 +139,9 @@ public abstract class DependencyInjectionContainer {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> T getObjectFromThisContainer(Class<T> typeToFind,
-			List<Class<?>> classesWaitingToBeInstantiated) {
-		
-		Class<?> typeToGet = NearestParentFinder.findParent(
-				typesAndInstances.keySet(), typeToFind);
+	private <T> T getObjectFromThisContainer(Class<T> typeToFind, List<Class<?>> classesWaitingToBeInstantiated) {
+
+		Class<?> typeToGet = NearestParentFinder.findParent(typesAndInstances.keySet(), typeToFind);
 
 		if (typeToGet == null) {
 			return null; // TODO throw exception?
@@ -156,10 +149,8 @@ public abstract class DependencyInjectionContainer {
 			Object storedObject = typesAndInstances.get(typeToGet);
 			if (storedObject == null) {
 				classesWaitingToBeInstantiated.add(typeToGet);
-				InstanceFactory instanceFactory = new InstanceFactory(
-						typeToGet, this);
-				Object newObject = instanceFactory
-						.createInstance(classesWaitingToBeInstantiated);
+				InstanceFactory instanceFactory = new InstanceFactory(typeToGet, this);
+				Object newObject = instanceFactory.createInstance(classesWaitingToBeInstantiated);
 				typesAndInstances.put(typeToGet, newObject);
 				classesWaitingToBeInstantiated.remove(typeToGet);
 				return (T) newObject;
@@ -169,8 +160,7 @@ public abstract class DependencyInjectionContainer {
 		}
 	}
 
-	private DependencyInjectionContainer getDependencyContainer(
-			Class<? extends DependencyInjectionContainer> type) {
+	private DependencyInjectionContainer getDependencyContainer(Class<? extends DependencyInjectionContainer> type) {
 		if (this.getClass() == type) {
 			return this;
 		} else if (innerContainer == null) {
