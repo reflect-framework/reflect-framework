@@ -21,11 +21,8 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.LinkedToPropertyFilter;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.NoParameterOrParameterFactoryFilter;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ReturnTypeFilter;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
@@ -69,10 +66,19 @@ public class FormFieldMenuItems extends UnmodifiableCollection<Item> {
 		ReflectionProvider reflectionProvider = formTab.getUserInterfaceContainer().get(ReflectionProvider.class);
 		// TODO does methodOwner needs to be a value model??? We now assume the
 		// menu will be created when a field is selected.
-		Predicate<ActionMethodInfo> filter = new NoParameterOrParameterFactoryFilter()
-				.or(new ParameterTypeFilter(parameterType)).and(new LinkedToPropertyFilter(propertyInfo));
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainType);
-		List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos(filter);
+
+		// TODO remove???? following code was replaced by
+		// propertyInfo.getActionMethodInfos();
+
+		// Predicate<ActionMethodInfo> filter = new
+		// NoParameterOrParameterFactoryFilter()
+		// .or(new ParameterTypeFilter(parameterType)).and(new
+		// LinkedToPropertyFilter(propertyInfo));
+		// ClassInfo classInfo = reflectionProvider.getClassInfo(domainType);
+		// List<ActionMethodInfo> actionMethodInfos =
+		// classInfo.getActionMethodInfos(filter);
+
+		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			PropertyMethodItem item = new PropertyMethodItem(formTab, propertyInfo, actionMethodInfo, parameterModel,
 					false);
@@ -89,8 +95,8 @@ public class FormFieldMenuItems extends UnmodifiableCollection<Item> {
 		items.addAll(new PropertyMethodOwnerItems(tabs, parameterModel, propertyInfo));
 
 		// service object methods
-		filter = new ParameterTypeFilter(parameterType).or(new ReturnTypeFilter(parameterType))
-				.and(actionMethod -> !actionMethod.equals(methodInfoToExclude));
+		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(parameterType)
+				.or(new ReturnTypeFilter(parameterType)).and(actionMethod -> !actionMethod.equals(methodInfoToExclude));
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
 		items.addAll(new ServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
 

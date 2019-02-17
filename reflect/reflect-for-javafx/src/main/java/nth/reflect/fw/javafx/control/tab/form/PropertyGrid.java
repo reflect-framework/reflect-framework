@@ -101,7 +101,7 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 		for (PropertyPanel propertyPanel : propertyPanels) {
 			content.getChildren().add(propertyPanel);
 		}
-		if (formTab.getFormMode() == FormMode.EDIT_MODE) {
+		if (formTab.getFormMode() == FormMode.EDIT) {
 			HBox buttonBar = createButtonBar(formTab);
 			content.getChildren().add(buttonBar);
 		}

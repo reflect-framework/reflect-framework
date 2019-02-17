@@ -56,7 +56,7 @@ public class ClassInfo implements NameInfo {
 		this.fontIconModel = FontIconModelFactory.create(objectClass);
 		this.validationMethods = ValidationMethodFactory.create(objectClass);
 		this.propertyInfosSorted = PropertyInfoFactory.createSorted(providerContainer, objectClass);
-		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, this);
+		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, objectClass);
 	}
 
 	@Override
@@ -135,6 +135,5 @@ public class ClassInfo implements NameInfo {
 				.collect(Collectors.toList());
 		return filteredActionMethods;
 	}
-
 
 }

@@ -20,10 +20,10 @@ public class PropertyInfoFactory {
 			// Only domain objects have property info's
 			return new ArrayList<>();
 		}
-		ArrayList<PropertyInfo> propertyInfos = new ArrayList<PropertyInfo>();
+		ArrayList<PropertyInfo> propertyInfos = new ArrayList<>();
 		List<Method> getterMethods = getGetterMethods(objectClass);
 		for (Method method : getterMethods) {
-			PropertyInfo propertyInfo = new PropertyInfo(providerContainer, method);
+			PropertyInfo propertyInfo = new PropertyInfo(providerContainer, objectClass, method);
 			propertyInfos.add(propertyInfo);
 		}
 

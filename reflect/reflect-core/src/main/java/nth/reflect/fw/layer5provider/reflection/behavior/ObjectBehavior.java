@@ -59,9 +59,9 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * {@insert DisabledModelFactory}
  * </p>
  * 
- * <h2>Order</h2>
+ * <h2>PropertyActionMethod</h2>
  * <p>
- * {@insert Order}
+ * {@insert PropertyActionMethod}
  * </p>
  * 
  * <h2>Format</h2>

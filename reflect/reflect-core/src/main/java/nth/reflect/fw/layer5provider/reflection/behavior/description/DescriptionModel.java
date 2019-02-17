@@ -45,11 +45,6 @@ public class DescriptionModel extends TextModel {
 	}
 
 	public DescriptionModel(LanguageProvider languageProvider, Method getterMethod, String simpleName,
-			String canonicalName, String linkedPropertyName) {
-		super(languageProvider, getterMethod, simpleName, canonicalName, linkedPropertyName);
-	}
-
-	public DescriptionModel(LanguageProvider languageProvider, Method getterMethod, String simpleName,
 			String canonicalName) {
 		super(languageProvider, getterMethod, simpleName, canonicalName);
 	}

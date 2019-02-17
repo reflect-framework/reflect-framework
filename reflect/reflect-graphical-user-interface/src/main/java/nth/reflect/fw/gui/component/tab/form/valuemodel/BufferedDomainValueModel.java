@@ -19,7 +19,7 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.domainObject = domainObject;
 		this.formMode = formMode;
-		if (FormMode.EDIT_MODE==formMode) {
+		if (FormMode.EDIT==formMode) {
 			this.domainObjectCopy = CloneUtil.clone(userInterfaceContainer, reflectionProvider, domainObject); //Do not deep clone! Properties with a value object(s) (such as Customer) need to be the actual object and may not contain cloned objects! 
 		}
 		comitted=false;
@@ -27,7 +27,7 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	
 	@Override
 	public Object getValue() {
-		if (FormMode.READ_ONLY_MODE==formMode || comitted) {
+		if (FormMode.READ_ONLY==formMode || comitted) {
 			return domainObject ;
 		} else {
 			return domainObjectCopy;

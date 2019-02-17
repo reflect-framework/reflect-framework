@@ -46,7 +46,6 @@ public class ActionMethodInfo implements NameInfo {
 	private final String simpleName;
 	private final String canonicalName;
 	private final Method actionMethod;
-	private final String linkedPropertyName;
 	private final double order;
 	private final DisplayNameModel displayNameModel;
 	private final DescriptionModel descriptionModel;
@@ -62,10 +61,6 @@ public class ActionMethodInfo implements NameInfo {
 	private final TypeInfo firstParameterTypeInfo;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
-		this(providerContainer, method, null);
-	}
-
-	public ActionMethodInfo(ProviderContainer providerContainer, Method method, String linkedPropertyName) {
 		validateNoObjectClassMethod(method);
 		validateNoGettersOrSetterMethod(method);
 		validateNoBehavioralMethod(method);
@@ -87,13 +82,10 @@ public class ActionMethodInfo implements NameInfo {
 		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
 
 		this.actionMethod = method;
-		this.linkedPropertyName = linkedPropertyName;
 		this.simpleName = method.getName();
 		this.canonicalName = createCanonicalName(method);
-		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName, canonicalName,
-				linkedPropertyName);
-		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName, canonicalName,
-				linkedPropertyName);
+		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName, canonicalName);
+		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName, canonicalName);
 		this.order = OrderFactory.create(method);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, method);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, method);
@@ -248,9 +240,9 @@ public class ActionMethodInfo implements NameInfo {
 		}
 	}
 
-	public String getLinkedPropertyName() {
-		return linkedPropertyName;
-	}
+	// public String getLinkedPropertyName() {
+	// return linkedPropertyName;
+	// }
 
 	@Override
 	public String toString() {
@@ -298,6 +290,10 @@ public class ActionMethodInfo implements NameInfo {
 			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
 		}
 
+	}
+
+	public Method getActionMethod() {
+		return actionMethod;
 	}
 
 }

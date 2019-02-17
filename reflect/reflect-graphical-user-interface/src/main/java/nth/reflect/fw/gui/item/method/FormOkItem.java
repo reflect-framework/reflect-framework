@@ -16,7 +16,7 @@ public class FormOkItem extends MethodItem {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void run() {
-				if (FormMode.EDIT_MODE== formTab.getFormMode()) {
+				if (FormMode.EDIT== formTab.getFormMode()) {
 					domainValueModel.commit();
 				}
 				userInterfaceController.processActionMethodExecution(methodOwner, actionMethodInfo, domainValueModel.getValue());

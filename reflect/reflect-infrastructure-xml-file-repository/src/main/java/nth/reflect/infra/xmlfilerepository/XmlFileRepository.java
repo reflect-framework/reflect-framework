@@ -57,15 +57,24 @@ public class XmlFileRepository {
 	 * @throws URISyntaxException
 	 */
 	// TODO add parameter String encryptionKey
-	public XmlFileRepository(XmlConverter xmlConverter, String databaseName, Boolean xmlIndent)
-			throws MalformedURLException, URISyntaxException {
+	public XmlFileRepository(File databaseFile, XmlConverter xmlConverter, Boolean xmlIndent) {
+		this.databaseFile = databaseFile;
 		this.xmlConverter = xmlConverter;
 		this.xmlIndent = xmlIndent;
+		this.domainObjects = new ArrayList<Object>();
+	}
+
+	public XmlFileRepository(XmlConverter xmlConverter, String databaseName, Boolean xmlIndent)
+			throws MalformedURLException, URISyntaxException {
+		this(createDatabaseFile(databaseName), xmlConverter, xmlIndent);
+	}
+
+	private static File createDatabaseFile(String databaseName) throws MalformedURLException, URISyntaxException {
 		String databaseFileName = databaseName + ".db";
 		String relativePath = "";
 		URL url = new ApplicationUrl(relativePath, databaseFileName).toInternalURL();
-		databaseFile = new File(url.toURI());
-		domainObjects = new ArrayList<Object>();
+		File databaseFile = new File(url.toURI());
+		return databaseFile;
 	}
 
 	public List<Object> getAll() throws Exception {

@@ -12,16 +12,32 @@
 	<description>Project containing the essentials of the Reflect Framework</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.bval</groupId>
-			<artifactId>bval-jsr303</artifactId>
-			<version>0.5</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.apache.bval</groupId> <artifactId>bval-jsr303</artifactId> 
+			<version>0.5</version> </dependency> <dependency> <groupId>javax.validation</groupId> 
+			<artifactId>validation-api</artifactId> <version>1.0.0.GA</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+<dependency>
+  <groupId>org.hibernate.validator</groupId>
+  <artifactId>hibernate-validator</artifactId>
+  <version>6.0.14.Final</version>
+</dependency>
+ <dependency>
+    <groupId>org.glassfish</groupId>
+    <artifactId>javax.el</artifactId>
+    <version>3.0.1-b09</version>
+</dependency>
+<dependency>
+    <groupId>org.hibernate.validator</groupId>
+    <artifactId>hibernate-validator-cdi</artifactId>
+    <version>6.0.14.Final</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml</groupId>
+    <artifactId>classmate</artifactId>
+    <version>1.4.0</version>
+</dependency>
+
 		<dependency>
 			<groupId>nth.reflect.framework</groupId>
 			<artifactId>reflect-infrastructure-random-factory</artifactId>

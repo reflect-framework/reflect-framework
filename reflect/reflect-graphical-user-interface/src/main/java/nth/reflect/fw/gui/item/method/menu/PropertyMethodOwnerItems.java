@@ -26,7 +26,7 @@ public class PropertyMethodOwnerItems extends UnmodifiableCollection<PropertyMet
 		for (Tab tab : tabs) {
 			if (tab instanceof FormTab) {
 				FormTab formTab = (FormTab) tab;
-				if (FormMode.EDIT_MODE == formTab.getFormMode()) {
+				if (FormMode.EDIT == formTab.getFormMode()) {
 					PropertyMethodOwnerItem item = new PropertyMethodOwnerItem(formTab, paramaterModel, propertyInfo);
 					items.add(item);
 				}

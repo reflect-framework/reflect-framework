@@ -101,7 +101,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object actionMethodParameterValue) {
 		openFormTab(actionMethodOwner, actionMethodInfo, actionMethodParameterValue, actionMethodParameterValue,
-				FormMode.EDIT_MODE);
+				FormMode.EDIT);
 	}
 
 	public abstract void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
@@ -321,7 +321,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
 		Object domainObject = methodResult;
-		openFormTab(methodOwner, methodInfo, methodParameter, domainObject, FormMode.READ_ONLY_MODE);
+		openFormTab(methodOwner, methodInfo, methodParameter, domainObject, FormMode.READ_ONLY);
 
 	}
 

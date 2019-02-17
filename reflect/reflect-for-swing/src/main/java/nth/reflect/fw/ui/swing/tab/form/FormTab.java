@@ -97,7 +97,7 @@ public class FormTab extends Tab implements
 	private void setFocusToFirstField() {
 		for (PropertyPanel propertyPanel : propertyPanels) {
 			Component field = (Component) propertyPanel.getPropertyField();
-			if (FormMode.EDIT_MODE == formMode
+			if (FormMode.EDIT == formMode
 					&& propertyPanel.isVisible() && field.isEnabled()) {
 				setFocus(field);
 				return;
@@ -139,10 +139,10 @@ public class FormTab extends Tab implements
 		buttonBar.add(Box.createHorizontalGlue());
 
 		switch (formMode) {
-		case READ_ONLY_MODE:
+		case READ_ONLY:
 			buttonBar.add(createCloseButton());
 			break;
-		case EDIT_MODE:
+		case EDIT:
 			buttonBar.add(createOkButton());
 			buttonBar.add(createCancelButton());
 			break;

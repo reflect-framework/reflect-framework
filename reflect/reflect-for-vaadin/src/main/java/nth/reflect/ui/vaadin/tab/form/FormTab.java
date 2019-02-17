@@ -116,7 +116,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 			formLayout.add(propertyPanel);
 		}
 
-		if (formMode == FormMode.EDIT_MODE) {
+		if (formMode == FormMode.EDIT) {
 			Component buttonGroup = createOkCancelButtonGroup();
 			formLayout.add(buttonGroup);
 		}

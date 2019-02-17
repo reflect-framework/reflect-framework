@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.JavaTypeConverter;
@@ -23,6 +24,9 @@ import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfoFactory;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ReadOnlyActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -52,8 +56,10 @@ public class PropertyInfo implements NameInfo {
 	private final Format format;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
+	private final List<ActionMethodInfo> actionMethodInfos;
+	private final List<ActionMethodInfo> readOnlyActionMethodInfos;
 
-	public PropertyInfo(ProviderContainer providerContainer, Method getterMethod) {
+	public PropertyInfo(ProviderContainer providerContainer, Class<?> domainObjectClass, Method getterMethod) {
 		checkGetterMethodReturnType(getterMethod);
 		checkGetterMethodHasNoParameter(getterMethod);
 
@@ -76,6 +82,14 @@ public class PropertyInfo implements NameInfo {
 		this.fieldMode = FieldModeFactory.create(getterMethod, typeInfo, formatPattern);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod);
+		this.actionMethodInfos = ActionMethodInfoFactory.createSorted(providerContainer, domainObjectClass, simpleName);
+		this.readOnlyActionMethodInfos = getReadOnlyActionMethodInfos(actionMethodInfos);
+	}
+
+	private List<ActionMethodInfo> getReadOnlyActionMethodInfos(List<ActionMethodInfo> actionMethodInfos) {
+		return actionMethodInfos.stream()
+				.filter(ami -> ami.getActionMethod().getAnnotation(ReadOnlyActionMethod.class) != null)
+				.collect(Collectors.toList());
 	}
 
 	private void checkGetterMethodHasNoParameter(Method getterMethod) {
@@ -257,6 +271,21 @@ public class PropertyInfo implements NameInfo {
 		boolean isGetterMethod = !isGetClassMethod && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass
 				&& (startsWithIs || startsWithGet);
 		return isGetterMethod;
+	}
+
+	/**
+	 * @return {@link ActionMethodInfo}s that belong to this property
+	 */
+	public List<ActionMethodInfo> getActionMethodInfos() {
+		return actionMethodInfos;
+	}
+
+	/**
+	 * @return {@link ActionMethodInfo}s that belong to this property and do not
+	 *         modify the {@link DomainObject}
+	 */
+	public List<ActionMethodInfo> getReadOnlyActionMethodInfos() {
+		return readOnlyActionMethodInfos;
 	}
 
 	/**

@@ -15,35 +15,22 @@ public abstract class TextModel {
 	private static final String REG_EXP_ENDING_WITH_SERVICE = SERVICE + "$";
 	private static final String REG_EXP_ENDING_WITH_Y = "y$";
 
-	public TextModel(LanguageProvider languageProvider, Class<?> objectType,
-			String simpleName, String canonicalName) {
+	public TextModel(LanguageProvider languageProvider, Class<?> objectType, String simpleName, String canonicalName) {
 
 		this.languageProvider = languageProvider;
 		this.defaultText = createDefaultTextForClass(objectType, simpleName);
 		this.key = createKey(canonicalName);
 	}
 
-	public TextModel(LanguageProvider languageProvider, Method getterMethod,
-			String simpleName, String canonicalName) {
+	public TextModel(LanguageProvider languageProvider, Method getterMethod, String simpleName, String canonicalName) {
 		this.languageProvider = languageProvider;
-		this.defaultText = createDefaultTextForProperty(getterMethod,
-				simpleName);
-		this.key = createKey(canonicalName);
-	}
-
-	public TextModel(LanguageProvider languageProvider, Method getterMethod,
-			String simpleName, String canonicalName, String linkedPropertyName) {
-
-		this.languageProvider = languageProvider;
-		this.defaultText = createDefaultTextForActionMethod(
-				getterMethod, simpleName, linkedPropertyName);
+		this.defaultText = createDefaultTextForProperty(getterMethod, simpleName);
 		this.key = createKey(canonicalName);
 	}
 
 	public abstract String createKey(String canonicalName);
 
-	private String createDefaultTextForClass(Class<?> objectType,
-			String simpleName) {
+	private String createDefaultTextForClass(Class<?> objectType, String simpleName) {
 		String defaultTextFromAnnotation = getDefaultTextFromAnnotation(objectType);
 		if (defaultTextFromAnnotation == null) {
 			return createDefaultTextForClass(simpleName);
@@ -64,7 +51,7 @@ public abstract class TextModel {
 
 	private static String createServiceClassText(String simpleName) {
 		String domainObjectName = removeServiceSuffix(simpleName);
-		String plural=plural(domainObjectName);
+		String plural = plural(domainObjectName);
 		String text = StringUtil.convertToNormalCase(plural);
 		return text;
 	}
@@ -82,12 +69,10 @@ public abstract class TextModel {
 	}
 
 	private static boolean isServiceClassName(String simpleName) {
-		return simpleName.endsWith(SERVICE)
-				&& simpleName.length() > SERVICE.length();
+		return simpleName.endsWith(SERVICE) && simpleName.length() > SERVICE.length();
 	}
 
-	private String createDefaultTextForProperty(Method getterMethod,
-			String simpleName) {
+	private String createDefaultTextForProperty(Method getterMethod, String simpleName) {
 		String defaultTextFromAnnotation = getDefaultTextFromAnnotation(getterMethod);
 		if (defaultTextFromAnnotation == null) {
 			return StringUtil.convertToNormalCase(simpleName);
@@ -97,29 +82,6 @@ public abstract class TextModel {
 	}
 
 	public abstract String getDefaultTextFromAnnotation(Method method);
-
-	private String createDefaultTextForActionMethod(Method method,
-			String simpleName, String linkedPropertyName) {
-		String defaultTextFromAnnotation = getDefaultTextFromAnnotation(method);
-		if (defaultTextFromAnnotation == null) {
-			simpleName = removeProperyNameSuffixIfNeeded(simpleName,
-					linkedPropertyName);
-			return StringUtil.convertToNormalCase(simpleName);
-		} else {
-			return defaultTextFromAnnotation;
-		}
-	}
-
-	private static String removeProperyNameSuffixIfNeeded(String text,
-			String propertyName) {
-		if (propertyName != null && text.endsWith(propertyName)) {
-			return text.substring(0,
-					text.length() - propertyName.length());
-		} else {
-			return text;
-		}
-
-	}
 
 	public String getText() {
 		return languageProvider.getText(key, defaultText);

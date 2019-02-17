@@ -1,7 +1,6 @@
 package nth.reflect.fw.gui.item.method;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
@@ -10,13 +9,11 @@ import nth.reflect.fw.gui.item.HierarchicalItem;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.LinkedToPropertyFilter;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
- * Represents open {@link FormTab}s that are in {@link FormMode#EDIT_MODE} and
+ * Represents open {@link FormTab}s that are in {@link FormMode#EDIT} and
  * have {@link PropertyMethodItem}s that take a given parameter type.
  * 
  * @author nilsth
@@ -24,7 +21,7 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
  */
 public class PropertyMethodOwnerItem extends HierarchicalItem {
 
-	private FormTab formTab;
+	private final FormTab formTab;
 
 	public PropertyMethodOwnerItem(FormTab formTab, ReadOnlyValueModel parameterValueModel) {
 		this(formTab, parameterValueModel, null);
@@ -48,9 +45,7 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
 			if (otherPropertyInfo != propertyInfo) {
-				Predicate<ActionMethodInfo> filter = new LinkedToPropertyFilter(otherPropertyInfo)
-						.and(new ParameterTypeFilter(parameterClass));
-				List<ActionMethodInfo> propertyMethods = classInfo.getActionMethodInfos(filter);
+				List<ActionMethodInfo> propertyMethods = propertyInfo.getActionMethodInfos();
 				for (ActionMethodInfo propertyMethodInfo : propertyMethods) {
 					PropertyMethodItem propertyMethodItem = new PropertyMethodItem(formTab, otherPropertyInfo,
 							propertyMethodInfo, parameterValueModel, true);
@@ -64,10 +59,9 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	public String getText() {
 		// TODO return TitleUtil.createTitle(methodInfo, methodParameter,
 		// false);
-		return formTab.getDisplayName();// using description instead of
-										// MaterialAppBarTitle
-										// because the MaterialAppBarTitle could
-										// be truncated
+		// using displayname instead of MaterialAppBarTitle because the
+		// MaterialAppBarTitle could be truncated
+		return formTab.getDisplayName();
 	}
 
 	@Override

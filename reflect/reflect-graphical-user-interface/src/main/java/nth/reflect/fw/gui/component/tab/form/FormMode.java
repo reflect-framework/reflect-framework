@@ -14,7 +14,7 @@ public enum FormMode {
 	 * <li>No {@link DomainObjectPropertyActionMethod} are visible!</li>
 	 * </ul>
 	 */
-	READ_ONLY_MODE,
+	READ_ONLY,
 	/**
 	 * {@link PropertyField}s within all {@link PropertyPanel}s can be enabled
 	 * or disabled.
@@ -24,5 +24,5 @@ public enum FormMode {
 	 * <li>{@link DomainObjectPropertyActionMethod} can be visible or not</li>
 	 * </ul>
 	 */
-	EDIT_MODE
+	EDIT
 }

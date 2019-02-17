@@ -26,8 +26,8 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * as OrderService, orderLines, addOrderLine (using no spaces,
  * <a href="https://nl.wikipedia.org/wiki/CamelCase">camelCase</a> and no
  * special characters). If the user is a an human, more user friendly names are
- * needed such as “Orders” “Order lines” and “Add order line”. This format is
- * called the {@link DisplayName}. The {@link ReflectFramework} will
+ * needed such as “Orders” “PropertyActionMethod lines” and “Add order line”. This
+ * format is called the {@link DisplayName}. The {@link ReflectFramework} will
  * automatically convert the names used in the code to a human readable format
  * ({@link DisplayName}) when needed.
  * </p>
@@ -51,11 +51,6 @@ public class DisplayNameModel extends TextModel {
 	public DisplayNameModel(LanguageProvider languageProvider, Class<?> objectType, String simpleName,
 			String canonicalName) {
 		super(languageProvider, objectType, simpleName, canonicalName);
-	}
-
-	public DisplayNameModel(LanguageProvider languageProvider, Method getterMethod, String simpleName,
-			String canonicalName, String linkedPropertyName) {
-		super(languageProvider, getterMethod, simpleName, canonicalName, linkedPropertyName);
 	}
 
 	public DisplayNameModel(LanguageProvider languageProvider, Method getterMethod, String simpleName,

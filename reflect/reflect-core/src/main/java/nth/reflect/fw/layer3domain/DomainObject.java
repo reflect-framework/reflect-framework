@@ -72,7 +72,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
  * There are 2 ways to create new {@link DomainObject}s:
  * <ul>
  * <li>Creating a new {@link DomainObject} with the new keyword:<br>
- * In example: Order order=new Order()</li>
+ * In example: PropertyActionMethod order=new PropertyActionMethod()</li>
  * <li>Creating a domain object using Dependency Injection:<br>
  * Sometimes you want a new {@link DomainObject} to have references to other
  * objects (being other {@link DomainObject}s, {@link InfrastructureObject}s or

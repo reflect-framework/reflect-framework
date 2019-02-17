@@ -10,27 +10,27 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 /**
  * <p>
  * The order in which the class members ({@link DomainObjectProperty} and
- * {@link ActionMethod}) are displayed is defined with the {@link Order}
+ * {@link ActionMethod}) are displayed is defined with the {@link PropertyActionMethod}
  * annotation. Note that the order of class members can not be changed during
  * runtime.
  * </p>
  * <p>
- * The {@link Order} annotation can be added before the getter method of a
+ * The {@link PropertyActionMethod} annotation can be added before the getter method of a
  * {@link DomainObjectProperty} or before an {@link ActionMethod}. Both
  * {@link DomainObjectProperty} and {@link ActionMethod}s are ordered separately
  * but use the same annotation.
  * </p>
  * <p>
- * Syntax: @Order(double sequenceNumber)
+ * Syntax: @PropertyActionMethod(double sequenceNumber)
  * </p>
  * <p>
- * The sequenceNumber of the {@link Order} annotation determines the position of
+ * The sequenceNumber of the {@link PropertyActionMethod} annotation determines the position of
  * the class member. The class member with the lowest sequenceNumber will be
  * shown first, a higher sequenceNumber later. Class members that are not
  * annotated will be shown last.
  * </p>
  * It is recommended to use an interval (of let's say 10) between the
- * sequenceNumbers so that you do not have to renumber all the existing {@link Order}
+ * sequenceNumbers so that you do not have to renumber all the existing {@link PropertyActionMethod}
  * annotations every time you add a new class member in between. Otherwise you
  * can always fall back on using decimals (e.g. 1.5 or 10.25). </p>
  * 
@@ -41,5 +41,5 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Order {
-	public double sequenceNumber();
+	public double value();
 }

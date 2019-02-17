@@ -44,7 +44,7 @@ public class PropertyValueModel implements ReadWriteValueModel {
 
 	@Override
 	public boolean canSetValue() {
-		return FormMode.EDIT_MODE == formMode && propertyInfo.isEnabled(domainValueModel.getValue());
+		return FormMode.EDIT == formMode && propertyInfo.isEnabled(domainValueModel.getValue());
 	}
 
 	public boolean isVisible() {

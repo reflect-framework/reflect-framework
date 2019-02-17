@@ -28,12 +28,11 @@ public class TitleBuilderTest {
 	private static final String FORMATED_NUMBER = "1,46";
 	private static final TitleBuilderTestEnum NULL_ENUM = null;
 
-	
 	@Test
 	public void titleBuilderEmptyConstructor() {
 		TitleBuilder titleBuilder = new TitleBuilder();
 		String title = titleBuilder.append(1).append("2").toString();
-		assertEquals("1"+DEFAULT_SEPARATOR+"2", title);
+		assertEquals("1" + DEFAULT_SEPARATOR + "2", title);
 	}
 
 	@Test
@@ -56,18 +55,18 @@ public class TitleBuilderTest {
 
 		titleBuilder.append(EMPTY_STRING);
 		assertEquals(TEST, titleBuilder.toString());
-	
+
 		titleBuilder.append(NULL_STRING);
 		assertEquals(TEST, titleBuilder.toString());
-		
+
 		titleBuilder.append(TEST);
-		assertEquals(TEST+DEFAULT_SEPARATOR+TEST, titleBuilder.toString());
+		assertEquals(TEST + DEFAULT_SEPARATOR + TEST, titleBuilder.toString());
 
 	}
 
 	@Test
 	public void appendObject() {
-		TitleBuilder titleBuilder=new TitleBuilder();
+		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.append(NULL_OBJECT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -78,7 +77,7 @@ public class TitleBuilderTest {
 		assertEquals(TEST, titleBuilder.toString());
 
 		titleBuilder.append(this);
-		assertEquals(TEST+DEFAULT_SEPARATOR+TEST, titleBuilder.toString());
+		assertEquals(TEST + DEFAULT_SEPARATOR + TEST, titleBuilder.toString());
 
 	}
 
@@ -87,7 +86,7 @@ public class TitleBuilderTest {
 		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.append(SEPARATOR, EMPTY_STRING);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
-		titleBuilder.append(SEPARATOR,NULL_STRING);
+		titleBuilder.append(SEPARATOR, NULL_STRING);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
 		titleBuilder.append(SEPARATOR, TEST);
@@ -99,12 +98,12 @@ public class TitleBuilderTest {
 		assertEquals(TEST, titleBuilder.toString());
 
 		titleBuilder.append(SEPARATOR, TEST);
-		assertEquals(TEST+SEPARATOR+TEST, titleBuilder.toString());
+		assertEquals(TEST + SEPARATOR + TEST, titleBuilder.toString());
 	}
 
 	@Test
 	public void appendSeparatorAndObject() {
-		TitleBuilder titleBuilder=new TitleBuilder();
+		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.append(SEPARATOR, NULL_OBJECT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -115,134 +114,129 @@ public class TitleBuilderTest {
 		assertEquals(TEST, titleBuilder.toString());
 
 		titleBuilder.append(SEPARATOR, this);
-		assertEquals(TEST+SEPARATOR+TEST, titleBuilder.toString());
+		assertEquals(TEST + SEPARATOR + TEST, titleBuilder.toString());
 	}
 
 	@Test
 	public void appendDateWithFormatPattern() {
-		Date date=new Date();
-		date.setTime(0);
-		TitleBuilder titleBuilder=new TitleBuilder();
-		titleBuilder.append( NULL_DATE, DATE_FORMAT);
+		Date date = new Date(70, 0, 1);
+
+		TitleBuilder titleBuilder = new TitleBuilder();
+		titleBuilder.append(NULL_DATE, DATE_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
-		titleBuilder.append(date,DATE_FORMAT);
+		titleBuilder.append(date, DATE_FORMAT);
 		assertEquals(FORMATED_DATE, titleBuilder.toString());
 
-		titleBuilder.append( NULL_DATE, DATE_FORMAT);
+		titleBuilder.append(NULL_DATE, DATE_FORMAT);
 		assertEquals(FORMATED_DATE, titleBuilder.toString());
 
-		titleBuilder.append(date,DATE_FORMAT);
-		assertEquals(FORMATED_DATE+DEFAULT_SEPARATOR+FORMATED_DATE, titleBuilder.toString());
-	
+		titleBuilder.append(date, DATE_FORMAT);
+		assertEquals(FORMATED_DATE + DEFAULT_SEPARATOR + FORMATED_DATE, titleBuilder.toString());
+
 	}
 
 	@Test
 	public void appendSeparatorAndDateWithFormatPattern() {
-		Date date=new Date();
-		date.setTime(0);
-		TitleBuilder titleBuilder=new TitleBuilder();
+		Date date = new Date(70, 0, 1);
+
+		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.append(SEPARATOR, NULL_DATE, DATE_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
-		titleBuilder.append(SEPARATOR, date,DATE_FORMAT);
+		titleBuilder.append(SEPARATOR, date, DATE_FORMAT);
 		assertEquals(FORMATED_DATE, titleBuilder.toString());
 
 		titleBuilder.append(SEPARATOR, NULL_DATE, DATE_FORMAT);
 		assertEquals(FORMATED_DATE, titleBuilder.toString());
 
-		titleBuilder.append(SEPARATOR, date,DATE_FORMAT);
-		assertEquals(FORMATED_DATE+SEPARATOR+FORMATED_DATE, titleBuilder.toString());
+		titleBuilder.append(SEPARATOR, date, DATE_FORMAT);
+		assertEquals(FORMATED_DATE + SEPARATOR + FORMATED_DATE, titleBuilder.toString());
 	}
 
 	@Test
 	public void appendNumberWithFormatPattern() {
-		Double number=new Double(1.4567);
-		TitleBuilder titleBuilder=new TitleBuilder();
-		titleBuilder.append( NULL_NUMBER, NUMBER_FORMAT);
+		Double number = new Double(1.4567);
+		TitleBuilder titleBuilder = new TitleBuilder();
+		titleBuilder.append(NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
-		titleBuilder.append(number,NUMBER_FORMAT);
+		titleBuilder.append(number, NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
 
-		titleBuilder.append( NULL_NUMBER, NUMBER_FORMAT);
+		titleBuilder.append(NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
 
-		titleBuilder.append(number,NUMBER_FORMAT);
-		assertEquals(FORMATED_NUMBER+DEFAULT_SEPARATOR+FORMATED_NUMBER, titleBuilder.toString());
-		
-		titleBuilder=new TitleBuilder();
-		titleBuilder.append(new BigDecimal("123.256").setScale(2, RoundingMode.HALF_UP),CURRENCY_FORMAT);
+		titleBuilder.append(number, NUMBER_FORMAT);
+		assertEquals(FORMATED_NUMBER + DEFAULT_SEPARATOR + FORMATED_NUMBER, titleBuilder.toString());
+
+		titleBuilder = new TitleBuilder();
+		titleBuilder.append(new BigDecimal("123.256").setScale(2, RoundingMode.HALF_UP), CURRENCY_FORMAT);
 		assertEquals(FORMATED_CURRENCY, titleBuilder.toString());
 
 	}
 
 	@Test
 	public void appendSeparatorAndNumberWithFormatPattern() {
-		Double number=new Double(1.4567);
-		TitleBuilder titleBuilder=new TitleBuilder();
+		Double number = new Double(1.4567);
+		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.append(SEPARATOR, NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
-		titleBuilder.append(SEPARATOR,number,NUMBER_FORMAT);
+		titleBuilder.append(SEPARATOR, number, NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
 
 		titleBuilder.append(SEPARATOR, NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
 
-		titleBuilder.append(SEPARATOR,number,NUMBER_FORMAT);
-		assertEquals(FORMATED_NUMBER+SEPARATOR+FORMATED_NUMBER, titleBuilder.toString());
+		titleBuilder.append(SEPARATOR, number, NUMBER_FORMAT);
+		assertEquals(FORMATED_NUMBER + SEPARATOR + FORMATED_NUMBER, titleBuilder.toString());
 	}
 
 	@Test
 	public void appendEnumeration() {
-		TitleBuilder titleBuilder=new TitleBuilder();
-		titleBuilder.append( NULL_ENUM);
+		TitleBuilder titleBuilder = new TitleBuilder();
+		titleBuilder.append(NULL_ENUM);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
 		titleBuilder.append(TitleBuilderTestEnum.ONE);
 		assertEquals("One", titleBuilder.toString());
 
-		titleBuilder.append( NULL_ENUM);
+		titleBuilder.append(NULL_ENUM);
 		assertEquals("One", titleBuilder.toString());
-		
+
 		titleBuilder.append(TitleBuilderTestEnum.TWO);
-		assertEquals("One"+DEFAULT_SEPARATOR+"Two", titleBuilder.toString());
+		assertEquals("One" + DEFAULT_SEPARATOR + "Two", titleBuilder.toString());
 
-		
 		titleBuilder.append(TitleBuilderTestEnum.TWENTY_ONE);
-		assertEquals("One"+DEFAULT_SEPARATOR+"Two"+DEFAULT_SEPARATOR+"Twenty one", titleBuilder.toString());
+		assertEquals("One" + DEFAULT_SEPARATOR + "Two" + DEFAULT_SEPARATOR + "Twenty one", titleBuilder.toString());
 	}
-
 
 	@Test
 	public void appendSeparatorAndEnumeration() {
-		TitleBuilder titleBuilder=new TitleBuilder();
+		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.append(SEPARATOR, NULL_ENUM);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
-		titleBuilder.append(SEPARATOR,TitleBuilderTestEnum.ONE);
+		titleBuilder.append(SEPARATOR, TitleBuilderTestEnum.ONE);
 		assertEquals("One", titleBuilder.toString());
 
 		titleBuilder.append(SEPARATOR, NULL_ENUM);
 		assertEquals("One", titleBuilder.toString());
-		
-		titleBuilder.append(SEPARATOR,TitleBuilderTestEnum.TWO);
+
+		titleBuilder.append(SEPARATOR, TitleBuilderTestEnum.TWO);
 		assertEquals("One-Two", titleBuilder.toString());
 
-		
-		titleBuilder.append(SEPARATOR,TitleBuilderTestEnum.TWENTY_ONE);
+		titleBuilder.append(SEPARATOR, TitleBuilderTestEnum.TWENTY_ONE);
 		assertEquals("One-Two-Twenty one", titleBuilder.toString());
 	}
 
-	
-	
 	@Test
 	public void contactText() {
 		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.contact(EMPTY_STRING);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
-		
+
 		titleBuilder.contact(NULL_STRING);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -251,18 +245,18 @@ public class TitleBuilderTest {
 
 		titleBuilder.contact(EMPTY_STRING);
 		assertEquals(TEST, titleBuilder.toString());
-		
+
 		titleBuilder.contact(NULL_STRING);
 		assertEquals(TEST, titleBuilder.toString());
 
 		titleBuilder.contact(TEST);
-		assertEquals(TEST+TEST, titleBuilder.toString());
+		assertEquals(TEST + TEST, titleBuilder.toString());
 
 	}
 
 	@Test
 	public void contactObject() {
-		TitleBuilder titleBuilder=new TitleBuilder();
+		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.contact(NULL_OBJECT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -273,61 +267,59 @@ public class TitleBuilderTest {
 		assertEquals(TEST, titleBuilder.toString());
 
 		titleBuilder.contact(this);
-		assertEquals(TEST+TEST, titleBuilder.toString());
+		assertEquals(TEST + TEST, titleBuilder.toString());
 
 	}
 
 	@Test
 	public void contactDateWithFormatPattern() {
-		Date date=new Date();
-		date.setTime(0);
-		TitleBuilder titleBuilder=new TitleBuilder();
-		titleBuilder.contact( NULL_DATE, DATE_FORMAT);
+		Date date = new Date(70, 0, 1);
+		TitleBuilder titleBuilder = new TitleBuilder();
+		titleBuilder.contact(NULL_DATE, DATE_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
-		titleBuilder.contact(date,DATE_FORMAT);
+		titleBuilder.contact(date, DATE_FORMAT);
 		assertEquals(FORMATED_DATE, titleBuilder.toString());
 
-		titleBuilder.contact( NULL_DATE, DATE_FORMAT);
+		titleBuilder.contact(NULL_DATE, DATE_FORMAT);
 		assertEquals(FORMATED_DATE, titleBuilder.toString());
 
-		titleBuilder.contact(date,DATE_FORMAT);
-		assertEquals(FORMATED_DATE+FORMATED_DATE, titleBuilder.toString());
+		titleBuilder.contact(date, DATE_FORMAT);
+		assertEquals(FORMATED_DATE + FORMATED_DATE, titleBuilder.toString());
 	}
 
 	@Test
 	public void contactNumberWithFormatPattern() {
-		Double number=new Double(1.4567);
-		TitleBuilder titleBuilder=new TitleBuilder();
-		titleBuilder.contact( NULL_NUMBER, NUMBER_FORMAT);
+		Double number = new Double(1.4567);
+		TitleBuilder titleBuilder = new TitleBuilder();
+		titleBuilder.contact(NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
-		titleBuilder.contact(number,NUMBER_FORMAT);
+		titleBuilder.contact(number, NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
 
-		titleBuilder.contact( NULL_NUMBER, NUMBER_FORMAT);
+		titleBuilder.contact(NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
 
-		titleBuilder.contact(number,NUMBER_FORMAT);
-		assertEquals(FORMATED_NUMBER + FORMATED_NUMBER, titleBuilder.toString());	
-		}
+		titleBuilder.contact(number, NUMBER_FORMAT);
+		assertEquals(FORMATED_NUMBER + FORMATED_NUMBER, titleBuilder.toString());
+	}
 
 	@Test
 	public void contactEnumeration() {
-		TitleBuilder titleBuilder=new TitleBuilder();
-		titleBuilder.contact( NULL_ENUM);
+		TitleBuilder titleBuilder = new TitleBuilder();
+		titleBuilder.contact(NULL_ENUM);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
 		titleBuilder.contact(TitleBuilderTestEnum.ONE);
 		assertEquals("One", titleBuilder.toString());
 
-		titleBuilder.contact( NULL_ENUM);
+		titleBuilder.contact(NULL_ENUM);
 		assertEquals("One", titleBuilder.toString());
-		
+
 		titleBuilder.contact(TitleBuilderTestEnum.TWO);
 		assertEquals("OneTwo", titleBuilder.toString());
 
-		
 		titleBuilder.contact(TitleBuilderTestEnum.TWENTY_ONE);
 		assertEquals("OneTwoTwenty one", titleBuilder.toString());
 	}
@@ -337,6 +329,4 @@ public class TitleBuilderTest {
 		return TEST;
 	}
 
-	
-	
 }

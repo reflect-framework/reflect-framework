@@ -3,8 +3,8 @@ package nth.reflect.fw.layer5provider.reflection.behavior.order;
 import java.lang.reflect.Method;
 
 /**
- * Gets the sequanceNumber from the {@link Order} annotation. Methods that do
- * not have a {@link Order} annotation need to be sorted last (so have a high
+ * Gets the sequanceNumber from the {@link PropertyActionMethod} annotation. Methods that do
+ * not have a {@link PropertyActionMethod} annotation need to be sorted last (so have a high
  * order number)
  * 
  * @author nilsth
@@ -19,7 +19,7 @@ public class OrderFactory {
 		if (order == null) {
 			return ORDER_DEFAULT_VALUE;
 		} else {
-			return order.sequenceNumber();
+			return order.value();
 		}
 	}
 

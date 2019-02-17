@@ -93,7 +93,7 @@ public class VersionInfo {
 //	}
 
 
-	@Order(sequenceNumber=1)
+	@Order(value=1)
 	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
 	public String getClassName() {
 		return className;
@@ -104,7 +104,7 @@ public class VersionInfo {
 	}
 	
 	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
-	@Order(sequenceNumber=2)
+	@Order(value=2)
 	public String getFullClassName() {
 		return fullClassName;
 	}
@@ -113,7 +113,7 @@ public class VersionInfo {
 		this.fullClassName = fullClassName;
 	}
 	
-	@Order(sequenceNumber=3)
+	@Order(value=3)
 	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
 	public String getArchiveTitle() {
 		return archiveTitle;
@@ -123,7 +123,7 @@ public class VersionInfo {
 		this.archiveTitle = title;
 	}
 	
-	@Order(sequenceNumber=4)
+	@Order(value=4)
 	public String getArchiveName() {
 		return archiveName;
 	}
@@ -133,7 +133,7 @@ public class VersionInfo {
 	}
 
 	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
-	@Order(sequenceNumber=5)
+	@Order(value=5)
 	public String getArchivePath() {
 		return archivePath;
 	}
@@ -142,7 +142,7 @@ public class VersionInfo {
 		this.archivePath = archivePath;
 	}
 
-	@Order(sequenceNumber=6)
+	@Order(value=6)
 	public String getArchiveVersion() {
 		return archiveVersion;
 	}
@@ -151,7 +151,7 @@ public class VersionInfo {
 		this.archiveVersion = archiveVersion;
 	}
 
-	@Order(sequenceNumber=7)
+	@Order(value=7)
 	public String getArchiveCreatedBy() {
 		return archiveCreatedBy;
 	}

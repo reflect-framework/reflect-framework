@@ -82,7 +82,7 @@ public class PropertyMethodItem extends MethodItem {
 	 */
 	@Override
 	public boolean isVisible() {
-		return FormMode.EDIT_MODE== formTab.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+		return FormMode.EDIT== formTab.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
 	}
 	
 

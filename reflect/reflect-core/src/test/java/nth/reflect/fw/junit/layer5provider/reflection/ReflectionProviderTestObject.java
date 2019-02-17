@@ -19,7 +19,7 @@ public class ReflectionProviderTestObject {
 	public static final String TITLE = "MaterialAppBarTitle";
 	
 
-	@Order(sequenceNumber=1)
+	@Order(value=1)
 	public void classActionMethod() {
 		
 	}
