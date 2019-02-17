@@ -16,15 +16,16 @@ import nth.reflect.fw.layer3domain.DomainObjectPropertyMenu;
  * Most {@link ActionMethod}s can modify values in a {@link DomainObject}, e.g.
  * change a {@link DomainObjectProperty} value. In this case the
  * {@link DomainObjectActionMethod} or {@link DomainObjectPropertyActionMethod}
- * is only visible in the {@link DomainObjectPropertyMenu} when the fromMode=
- * {@link FormMode#EDIT}
+ * is only visible in the {@link DomainObjectPropertyMenu} when the
+ * {@link DomainObject} is edited in a {@link FormTab} ({@link FormMode#EDIT}).
  * </p>
  * <p>
  * You can annotate an {@link ActionMethod} with
  * the @{@link ReadOnlyActionMethod} annotation if the {@link ActionMethod} does
  * not not modify the {@link DomainObject}. In this case the
  * {@link DomainObjectActionMethod} or {@link DomainObjectPropertyActionMethod}
- * is also visible when the fromMode={@link FormMode#READ_ONLY}
+ * is also visible when the {@link DomainObject} is viewed in a {@link FormTab}
+ * ({@link FormMode#READ_ONLY})
  * </p>
  * 
  * @author nilsth
