@@ -27,7 +27,7 @@ public class TableTab extends Tab {
 	@ReflectTranslatable
 	private static final String ERROR_INVOKING_ACTION_METHOD = "Error invoking action method: %s";
 	@ReflectTranslatable
-	private static final String ERROR_INVOKING_ACTION_METHOD_THE_RETURN_TYPE_IS_NOT_SUPPORTED_FOR_A_TABLE_TAB = "Error invoking action method: %s The return type %s is not supported for a TableTab.";
+	private static final String ERROR_INVOKING_ACTION_METHOD_THE_RETURN_TYPE_IS_NOT_SUPPORTED_FOR_A_TABLE_TAB = "Error invoking action method: %s The return type %s is not supported for a GridTab.";
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final Object actionMethodOwner;
 	private final ActionMethodInfo actionMethodInfo;

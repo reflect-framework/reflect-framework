@@ -17,7 +17,7 @@ import javax.swing.KeyStroke;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.item.method.menu.TableRowMenuItems;
+import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -28,7 +28,7 @@ import nth.reflect.fw.ui.swing.item.menubar.MenuBar;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.tab.Tab;
 
-public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.table.TableTab {
+public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
 
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;
@@ -63,7 +63,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.ta
 		// tableContainer.setFocusable(false); TODO test
 		// tableContainer.addMouseListener TODO test
 
-		Collection<Item> menuItems = new TableRowMenuItems(this);
+		Collection<Item> menuItems = new GridTabMenuItems(this);
 		menuPopUp = createPopUpMenu(menuItems);
 		menuBar = createMenuBar(menuItems);
 		add(menuBar, BorderLayout.NORTH);
@@ -123,7 +123,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.ta
 	}
 
 	protected void onTableRowSelect(int x, int y) {
-		Collection<Item> menuItems = new TableRowMenuItems(TableTab.this);
+		Collection<Item> menuItems = new GridTabMenuItems(TableTab.this);
 		menuPopUp.repopulate(menuItems);
 		menuPopUp.show(table, x, y);
 	}
@@ -158,7 +158,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.ta
 		// update table
 		tableModel.refresh();
 		// update menus
-		Collection<Item> menuItems = new TableRowMenuItems(this);
+		Collection<Item> menuItems = new GridTabMenuItems(this);
 		menuPopUp.repopulate(menuItems);
 		menuBar.repopulate(menuItems);
 		// set focus (preferably on the same domain object)

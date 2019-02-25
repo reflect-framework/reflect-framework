@@ -69,8 +69,8 @@ public class Table extends TableView<Object> {
 		setItems(tableInfo.getObservableList());
 	}
 
-	public Table(nth.reflect.fw.gui.component.tab.table.TableTab tableTab) {
-		this(new TableInfoForTableTab(tableTab));
+	public Table(nth.reflect.fw.gui.component.tab.grid.GridTab gridTab) {
+		this(new TableInfoForTableTab(gridTab));
 	}
 
 	public Table(FormTab formTab, PropertyValueModel propertyValueModel) {
@@ -232,9 +232,11 @@ public class Table extends TableView<Object> {
 
 	private void hideHeader() {
 		Pane header = (Pane) lookup("TableHeaderRow");
-		header.setVisible(false);
-		setLayoutY(-header.getHeight());
-		autosize();
+		if (header != null) {
+			header.setVisible(false);
+			setLayoutY(-header.getHeight());
+			autosize();
+		}
 	}
 
 	protected void addStyleClass() {

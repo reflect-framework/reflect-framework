@@ -7,6 +7,7 @@ import java.net.URL;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -59,6 +60,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final Method showResultMethod;
 	private final TypeInfo returnTypeInfo;
 	private final TypeInfo firstParameterTypeInfo;
+	private final boolean isReadOnly;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		validateNoObjectClassMethod(method);
@@ -91,6 +93,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, method);
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
+		this.isReadOnly = method.isAnnotationPresent(ReadOnlyActionMethod.class);
 	}
 
 	/**
@@ -292,8 +295,14 @@ public class ActionMethodInfo implements NameInfo {
 
 	}
 
-	public Method getActionMethod() {
-		return actionMethod;
+	/**
+	 * 
+	 * @return True if the {@link ActionMethod} has the
+	 *         {@link ReadOnlyActionMethod} when it does not modify a
+	 *         {@link DomainObject}.
+	 */
+	public boolean isReadOnly() {
+		return isReadOnly;
 	}
 
 }

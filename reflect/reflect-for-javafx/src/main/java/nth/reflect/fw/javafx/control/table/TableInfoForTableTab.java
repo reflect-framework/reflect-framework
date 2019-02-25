@@ -2,8 +2,8 @@ package nth.reflect.fw.javafx.control.table;
 
 import java.util.Collection;
 
-import nth.reflect.fw.gui.component.tab.table.TableTab;
-import nth.reflect.fw.gui.item.method.menu.TableRowMenuItems;
+import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -12,17 +12,17 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 
 public class TableInfoForTableTab extends TableInfo {
 
-	private final TableTab tableTab;
+	private final GridTab gridTab;
 	private final Class<?> itemType;
 	private final ReflectionProvider reflectionProvider;
 	private final LanguageProvider languageProvider;
 
-	public TableInfoForTableTab(TableTab tableTab) {
-		this.tableTab = tableTab;
-		UserInterfaceContainer userInterfaceContainer = tableTab.getUserInterfaceContainer();
+	public TableInfoForTableTab(GridTab gridTab) {
+		this.gridTab = gridTab;
+		UserInterfaceContainer userInterfaceContainer = gridTab.getUserInterfaceContainer();
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
-		ActionMethodInfo actionMethodInfo = tableTab.getMethodInfo();
+		ActionMethodInfo actionMethodInfo = gridTab.getMethodInfo();
 		this.itemType = actionMethodInfo.getReturnTypeInfo().getGenericType();
 
 	}
@@ -30,20 +30,20 @@ public class TableInfoForTableTab extends TableInfo {
 	@Override
 	public Object getValues() {
 		try {
-			Object methodOwner = tableTab.getMethodOwner();
-			ActionMethodInfo actionMethodInfo = tableTab.getMethodInfo();
-			Object methodParameterValue = tableTab.getMethodParameter();
+			Object methodOwner = gridTab.getMethodOwner();
+			ActionMethodInfo actionMethodInfo = gridTab.getMethodInfo();
+			Object methodParameterValue = gridTab.getMethodParameter();
 			Object methodResult = actionMethodInfo.invoke(methodOwner, methodParameterValue);
 			return methodResult;
 		} catch (Exception e) {
-			StringBuilder message = new StringBuilder(tableTab.getDisplayName());
+			StringBuilder message = new StringBuilder(gridTab.getDisplayName());
 			message.append(": ");
 			message.append(languageProvider.getText("Error getting table values."));
 			throw new RuntimeException(message.toString(), e);
 			// UserInterfaceController userInterfaceController =
-			// tableTab.getUserInterfaceContainer()
+			// gridTab.getUserInterfaceContainer()
 			// .get(UserInterfaceController.class);
-			// userInterfaceController.showErrorDialog(tableTab.getViewTitle(),
+			// userInterfaceController.showErrorDialog(gridTab.getViewTitle(),
 			// "Error getting table values.", e);
 		}
 	}
@@ -65,7 +65,7 @@ public class TableInfoForTableTab extends TableInfo {
 
 	@Override
 	public Collection<Item> getRowMenuItems(Object selectedObject) {
-		Collection<Item> items = new TableRowMenuItems(tableTab, selectedObject);
+		Collection<Item> items = new GridTabMenuItems(gridTab, selectedObject);
 		return items;
 	}
 }

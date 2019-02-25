@@ -3,9 +3,9 @@ package nth.reflect.fw.gui.component.mainmenu;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.gui.component.ReflectGuiComponent;
 import nth.reflect.fw.gui.component.applicationbar.ApplicationBar;
+import nth.reflect.fw.gui.component.tab.form.FormTabMenu;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer3domain.DomainObjectMenu;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
@@ -23,7 +23,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * {@link ActionMethod}s of {@link ServiceObject}s that take a
  * {@link DomainObject} as a parameter and have no {@link ParameterFactory} are
- * displayed in {@link DomainObjectMenu}s and propertyMenus.
+ * displayed in {@link FormTabMenu}s and propertyMenus.
  * </p>
  * Each {@link ServiceObject} is always displayed as a sub menu
  * 

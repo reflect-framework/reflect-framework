@@ -16,7 +16,11 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * parameter (can be edited by a user depending on the {@link ExecutionMode}
  * annotation of the {@link ActionMethod}.
  * 
- * <h3>Property Panels</h3> {@insert PropertyPanel}
+ * <h3>Form Tab Menu</h3> {@insert FormTabmenu}
+ * 
+ * <h3>Property Panels</h3>
+ * {@insert nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel}
+ * 
  * 
  * 
  * @author nilsth

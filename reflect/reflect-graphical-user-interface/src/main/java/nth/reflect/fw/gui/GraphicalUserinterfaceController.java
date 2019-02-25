@@ -12,7 +12,7 @@ import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
-import nth.reflect.fw.gui.component.tab.table.TableTab;
+import nth.reflect.fw.gui.component.tab.grid.GridTab;
 import nth.reflect.fw.gui.item.dialog.DialogCancelItem;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.gui.item.dialog.DialogMethodItem;
@@ -38,6 +38,10 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
  * User Interface</a>. The {@link GraphicalUserinterfaceController} creates and
  * manipulates a {@link MainWindow} for a person to interact with.
  * </p>
+ * <p>
+ * <h3>Reflect GUI Components
+ * <h3>{@insert ReflectGuiComponent}
+ * 
  * 
  * @author nilsth
  * 
@@ -216,18 +220,18 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			Object methodReturnValue) {
 		Tabs<TAB> tabs = getTabs();
 		for (Tab tab : tabs) {
-			if (tab instanceof TableTab) {
-				TableTab tableTab = (TableTab) tab;
-				// identical TableTab?
-				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
-						&& methodParameterValue == tableTab.getMethodParameter()) {
-					// activate identical TableTab
-					tabs.setSelected((TAB) tableTab);
+			if (tab instanceof GridTab) {
+				GridTab gridTab = (GridTab) tab;
+				// identical GridTab?
+				if (methodOwner == gridTab.getMethodOwner() && actionMethodInfo == gridTab.getMethodInfo()
+						&& methodParameterValue == gridTab.getMethodParameter()) {
+					// activate identical GridTab
+					tabs.setSelected((TAB) gridTab);
 					return;
 				}
 			}
 		}
-		// TableTab not found so create and show a new TableTab
+		// GridTab not found so create and show a new GridTab
 		TAB tableTab = createTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
 		tabs.add(tableTab);
 	}
@@ -237,18 +241,18 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			Object methodReturnValue) {
 		Tabs<TAB> tabs = getTabs();
 		for (Tab tab : tabs) {
-			if (tab instanceof TableTab) {
-				TableTab tableTab = (TableTab) tab;
-				// identical TableTab?
-				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
-						&& methodParameterValue == tableTab.getMethodParameter()) {
-					// activate identical TableTab
-					tabs.setSelected((TAB) tableTab);
+			if (tab instanceof GridTab) {
+				GridTab gridTab = (GridTab) tab;
+				// identical GridTab?
+				if (methodOwner == gridTab.getMethodOwner() && actionMethodInfo == gridTab.getMethodInfo()
+						&& methodParameterValue == gridTab.getMethodParameter()) {
+					// activate identical GridTab
+					tabs.setSelected((TAB) gridTab);
 					return;
 				}
 			}
 		}
-		// TableTab not found so create and show a new TableTab
+		// GridTab not found so create and show a new GridTab
 		TAB treeTableTab = createTreeTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
 		tabs.add(treeTableTab);
 	}

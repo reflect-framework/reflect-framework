@@ -30,21 +30,19 @@ public class TitleBuilderTest {
 
 	@Test
 	public void titleBuilderEmptyConstructor() {
-		TitleBuilder titleBuilder = new TitleBuilder();
-		String title = titleBuilder.append(1).append("2").toString();
+		String title = TitleBuilder.getInstance().append(1).append("2").toString();
 		assertEquals("1" + DEFAULT_SEPARATOR + "2", title);
 	}
 
 	@Test
 	public void titleBuilderConstructorWithSeparator() {
-		TitleBuilder titleBuilder = new TitleBuilder(SEPARATOR);
-		String title = titleBuilder.append(1).append("2").toString();
+		String title = TitleBuilder.getInstance(SEPARATOR).append(1).append("2").toString();
 		assertEquals("1-2", title);
 	}
 
 	@Test
 	public void appendText() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(EMPTY_STRING);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 		titleBuilder.append(NULL_STRING);
@@ -66,7 +64,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void appendObject() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(NULL_OBJECT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -83,7 +81,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void appendSeparatorAndText() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(SEPARATOR, EMPTY_STRING);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 		titleBuilder.append(SEPARATOR, NULL_STRING);
@@ -103,7 +101,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void appendSeparatorAndObject() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(SEPARATOR, NULL_OBJECT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -117,11 +115,12 @@ public class TitleBuilderTest {
 		assertEquals(TEST + SEPARATOR + TEST, titleBuilder.toString());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void appendDateWithFormatPattern() {
 		Date date = new Date(70, 0, 1);
 
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(NULL_DATE, DATE_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -136,11 +135,12 @@ public class TitleBuilderTest {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void appendSeparatorAndDateWithFormatPattern() {
 		Date date = new Date(70, 0, 1);
 
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(SEPARATOR, NULL_DATE, DATE_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -157,7 +157,7 @@ public class TitleBuilderTest {
 	@Test
 	public void appendNumberWithFormatPattern() {
 		Double number = new Double(1.4567);
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -170,7 +170,7 @@ public class TitleBuilderTest {
 		titleBuilder.append(number, NUMBER_FORMAT);
 		assertEquals(FORMATED_NUMBER + DEFAULT_SEPARATOR + FORMATED_NUMBER, titleBuilder.toString());
 
-		titleBuilder = new TitleBuilder();
+		titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(new BigDecimal("123.256").setScale(2, RoundingMode.HALF_UP), CURRENCY_FORMAT);
 		assertEquals(FORMATED_CURRENCY, titleBuilder.toString());
 
@@ -179,7 +179,7 @@ public class TitleBuilderTest {
 	@Test
 	public void appendSeparatorAndNumberWithFormatPattern() {
 		Double number = new Double(1.4567);
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(SEPARATOR, NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -195,7 +195,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void appendEnumeration() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(NULL_ENUM);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -214,7 +214,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void appendSeparatorAndEnumeration() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.append(SEPARATOR, NULL_ENUM);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -233,7 +233,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void contactText() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.contact(EMPTY_STRING);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -256,7 +256,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void contactObject() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.contact(NULL_OBJECT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -271,10 +271,11 @@ public class TitleBuilderTest {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void contactDateWithFormatPattern() {
 		Date date = new Date(70, 0, 1);
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.contact(NULL_DATE, DATE_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -291,7 +292,7 @@ public class TitleBuilderTest {
 	@Test
 	public void contactNumberWithFormatPattern() {
 		Double number = new Double(1.4567);
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.contact(NULL_NUMBER, NUMBER_FORMAT);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -307,7 +308,7 @@ public class TitleBuilderTest {
 
 	@Test
 	public void contactEnumeration() {
-		TitleBuilder titleBuilder = new TitleBuilder();
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
 		titleBuilder.contact(NULL_ENUM);
 		assertEquals(EMPTY_STRING, titleBuilder.toString());
 
@@ -322,6 +323,25 @@ public class TitleBuilderTest {
 
 		titleBuilder.contact(TitleBuilderTestEnum.TWENTY_ONE);
 		assertEquals("OneTwoTwenty one", titleBuilder.toString());
+	}
+
+	@Test
+	public void tileBuilderReuse() {
+		TitleBuilder titleBuilder = TitleBuilder.getInstance();
+		titleBuilder.contact(TEST);
+		assertEquals(TEST, titleBuilder.toString());
+
+		titleBuilder = TitleBuilder.getInstance();
+		titleBuilder.contact(SEPARATOR);
+		assertEquals(SEPARATOR, titleBuilder.toString());
+	}
+
+	@Test
+	public void tileBuilderMultiThread() {
+		TitleBuilderTestThread thread1 = new TitleBuilderTestThread();
+		TitleBuilderTestThread thread2 = new TitleBuilderTestThread();
+		thread1.start();
+		thread2.start();
 	}
 
 	@Override

@@ -6,9 +6,18 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
+import nth.reflect.fw.layer3domain.DomainObjectActionMethod;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
+/**
+ * {@link DomainObjectActionMethod}s and {@link ServiceObjectActionMethod}s can
+ * be wrapped in {@link MethodItem}s, e.g. so that they can be used as menu item
+ * 
+ * @author nilsth
+ *
+ */
 public class MethodItem extends Item {
 
 	private final Object methodOwner;
@@ -16,14 +25,14 @@ public class MethodItem extends Item {
 	private final ReadOnlyValueModel methodParameterValueModel;
 
 	/**
-	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the getters
+	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the
+	 * getters
 	 * 
 	 * @param methodOwner
 	 * @param actionMethodInfo
 	 */
-	public MethodItem(final UserInterfaceContainer userInterfaceContainer,
-			final Object methodOwner, final ActionMethodInfo actionMethodInfo,
-			final ReadOnlyValueModel methodParameterValueModel) {
+	public MethodItem(final UserInterfaceContainer userInterfaceContainer, final Object methodOwner,
+			final ActionMethodInfo actionMethodInfo, final ReadOnlyValueModel methodParameterValueModel) {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
@@ -35,8 +44,7 @@ public class MethodItem extends Item {
 			public void run() {
 				Object methodParameterValue = (methodParameterValueModel == null) ? null
 						: methodParameterValueModel.getValue();
-				userInterfaceController.processActionMethod(methodOwner, actionMethodInfo,
-						methodParameterValue);
+				userInterfaceController.processActionMethod(methodOwner, actionMethodInfo, methodParameterValue);
 			}
 
 		});
@@ -70,8 +78,7 @@ public class MethodItem extends Item {
 	private boolean isMethodInvokable() {
 		if (actionMethodInfo.hasParameter()) {
 			return actionMethodInfo.hasParameterFactory()
-					|| methodParameterValueModel != null
-					&& methodParameterValueModel.getValue() != null;
+					|| methodParameterValueModel != null && methodParameterValueModel.getValue() != null;
 		} else {
 			return true;// no parameter needed
 		}

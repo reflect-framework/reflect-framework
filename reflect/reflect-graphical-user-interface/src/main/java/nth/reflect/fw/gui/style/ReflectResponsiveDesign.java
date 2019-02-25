@@ -26,9 +26,8 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </p>
  * 
  * <p>
- * The size of the {@link ReflectApplication} could normal be anywhere between a
- * small smart phone in portrait orientation until a desktop monitor in
- * landscape orientation.
+ * The size of the {@link ReflectApplication} can be anywhere between a small
+ * smart phone until a desktop monitor.
  * </p>
  * 
  * <h3>Different display widths</h3> The layout and components vary depending on

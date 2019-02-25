@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
@@ -32,11 +33,21 @@ public abstract class TableInfo {
 
 	public List<TableColumn<Object, ?>> getTableColumns() {
 		Class<?> type = getValuesType();
-		if (TypeInfo.isJavaVariableType(type) || type.isEnum()) {
+		if (hasOnlyOneColumn(type)) {
 			return new ArrayList<>();
 		} else {
 			return createColumnsForObject();
 		}
+	}
+
+	/**
+	 * 
+	 * @param type
+	 * @return true (only a {@link TitleModel} value for now
+	 */
+	private boolean hasOnlyOneColumn(Class<?> type) {
+		// return true;
+		return TypeInfo.isJavaVariableType(type) || type.isEnum();
 	}
 
 	private List<TableColumn<Object, ?>> createColumnsForObject() {

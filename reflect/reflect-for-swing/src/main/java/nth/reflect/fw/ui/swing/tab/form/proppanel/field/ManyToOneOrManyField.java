@@ -23,8 +23,8 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldStyle;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.gui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -62,7 +62,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
 
-		Collection<Item> menuItems = new FormFieldMenuItems(formTab, getSelectedRowModel(),
+		Collection<Item> menuItems = new PropertyPanelMenuItems(formTab, getSelectedRowModel(),
 				propertyValueModel.getPropertyInfo());
 		menuPopUp = createPopUpMenu(menuItems);
 		// menuBar = createMenuBar(menuItems);
@@ -210,7 +210,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 	}
 
 	private void showPopupMenu(int x, int y) {
-		Collection<Item> menuItems = new FormFieldMenuItems(formTab, getSelectedRowModel(),
+		Collection<Item> menuItems = new PropertyPanelMenuItems(formTab, getSelectedRowModel(),
 				propertyValueModel.getPropertyInfo());
 		menuPopUp.repopulate(menuItems);
 		menuPopUp.show(table, x, y);

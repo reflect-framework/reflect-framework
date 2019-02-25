@@ -1,9 +1,10 @@
-package nth.reflect.fw.gui.item.method.menu;
+package nth.reflect.fw.gui.component.mainmenu;
 
 import java.util.Collection;
 
-import nth.reflect.fw.gui.component.mainmenu.MainMenu;
 import nth.reflect.fw.gui.item.method.MethodOwnerItem;
+import nth.reflect.fw.gui.item.method.ServiceObjectItems;
+import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 
 /**

@@ -1,4 +1,4 @@
-package nth.reflect.fw.javafx.control.tab.table;
+package nth.reflect.fw.javafx.control.tab.grid;
 
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
@@ -9,7 +9,7 @@ import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.table.TableTab {
+public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
 
 	private final Object methodOwner;
 	private final ActionMethodInfo actionMethodInfo;
@@ -20,7 +20,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.ta
 	private final ReflectionProvider reflectionProvider;
 	private final Table table;
 
-	public TableTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
+	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;

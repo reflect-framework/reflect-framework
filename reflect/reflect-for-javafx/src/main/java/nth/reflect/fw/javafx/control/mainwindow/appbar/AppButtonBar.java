@@ -36,7 +36,7 @@ import nth.reflect.fw.javafx.control.mainwindow.content.ContentPane;
 import nth.reflect.fw.javafx.control.mainwindow.mainmenu.MainMenuPane;
 import nth.reflect.fw.javafx.control.style.StyleProperties;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.javafx.control.tab.table.TableTab;
+import nth.reflect.fw.javafx.control.tab.grid.GridTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -47,7 +47,7 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
  * <ul>
  * <li>the MainMenu button (see {@link MainMenuPane})</li>
  * <li>the {@link RfxtabHeader}'s that navigate to the content {@link Tab}s
- * (e.g. See {@link FormTab} and {@link TableTab})</li>
+ * (e.g. See {@link FormTab} and {@link GridTab})</li>
  * <li>a tab menu button when not all {@link RfxtabHeader}'s can be displayed on
  * the {@link AppButtonBar}. It shows a list of all {@link RfxtabHeader}'s when
  * clicked)</li>

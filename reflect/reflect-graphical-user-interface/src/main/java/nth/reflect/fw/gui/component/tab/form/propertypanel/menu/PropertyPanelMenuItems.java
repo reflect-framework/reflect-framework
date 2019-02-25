@@ -1,6 +1,5 @@
-package nth.reflect.fw.gui.item.method.menu;
+package nth.reflect.fw.gui.component.tab.form.propertypanel.menu;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,14 +10,12 @@ import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.item.method.MethodOwnerItem;
 import nth.reflect.fw.gui.item.method.PropertyMethodItem;
+import nth.reflect.fw.gui.item.method.PropertyMethodOwnerItems;
+import nth.reflect.fw.gui.item.method.ServiceObjectItems;
+import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
-import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
@@ -26,33 +23,21 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ReturnT
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
- * <p>
- * {@link FormFieldMenuItems} are displayed on a {@link PropertyField}s that
- * represent a {@link DomainObject} or a {@link Collection} or {@link Array} of
- * {@link DomainObject}s
- * </p>
- * <p>
- * There are 2 types of {@link FormFieldMenuItems}:
- * <ul>
- * <li>{@link FormFieldMenuItems} for
- * {@link DomainObjectPropertyActionMethod}s</li>
- * <li>{@link MethodOwnerItem}s that contain {@link ServiceObjectActionMethod}s
- * that take the {@link DomainObject} as a parameter</li>
- * </ul>
- * </p>
+ * Menu {@link Item}s for a {@link PropertyPanelMenu}
  * 
  * @author nilsth
  *
  */
-public class FormFieldMenuItems extends UnmodifiableCollection<Item> {
+public class PropertyPanelMenuItems extends UnmodifiableCollection<Item> {
 
 	private static final long serialVersionUID = -8380826298117283745L;
 
-	public FormFieldMenuItems(FormTab formTab, ReadOnlyValueModel parameterModel, PropertyInfo propertyInfo) {
-		super(createFieldMenuItems(formTab, parameterModel, propertyInfo));
+	public PropertyPanelMenuItems(FormTab formTab, ReadOnlyValueModel parameterModel,
+			PropertyInfo propertyInfo) {
+		super(create(formTab, parameterModel, propertyInfo));
 	}
 
-	private static Collection<? extends Item> createFieldMenuItems(FormTab formTab, ReadOnlyValueModel parameterModel,
+	private static Collection<? extends Item> create(FormTab formTab, ReadOnlyValueModel parameterModel,
 			PropertyInfo propertyInfo) {
 		List<Item> items = new ArrayList<Item>();
 

@@ -8,14 +8,23 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.item.HierarchicalItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer2service.ServiceObject;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 
+/**
+ * This {@link Item} represents a {@link DomainObject} or {@link ServiceObject}
+ * that has {@link MethodItem}s
+ * 
+ * @author nilsth
+ *
+ */
 public class MethodOwnerItem extends HierarchicalItem {
 
-	private ClassInfo methodOwnerInfo;
+	private final ClassInfo methodOwnerInfo;
 	private final Object methodOwner;
 
 	public MethodOwnerItem(UserInterfaceContainer userInterfaceContainer, Object methodOwner,

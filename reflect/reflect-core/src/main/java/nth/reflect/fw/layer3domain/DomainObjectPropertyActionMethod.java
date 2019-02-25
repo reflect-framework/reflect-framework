@@ -1,13 +1,20 @@
 package nth.reflect.fw.layer3domain;
 
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.PropertyActionMethod;
 
 /**
- * <h3>PropertyActionMethod annotation</h3> {@insert PropertyActionMethod}
- * 
- * 
- * <h3>ReadOnlyActionMethod annotation</h3> {@insert ReadOnlyActionMethod}
- * 
+ * <p>
+ * {@link DomainObject}s may have {@link ActionMethod}s that do something with
+ * the value of a {@link DomainObjectProperty}, e.g. modify it or display it or
+ * open it in a browser. In this case the we need to annotate it with
+ * the @{@link PropertyActionMethod} annotation to indicated that the
+ * {@link ActionMethod} is an {@link DomainObjectPropertyActionMethod} and needs
+ * to be displayed in the {@link PropertyPanelMenu}. You therefore must specify
+ * the {@link DomainObjectProperty} name in the @{@link PropertyActionMethod}
+ * annotation.
+ * </p>
  * <p>
  * Examples:
  * <ul>
@@ -18,8 +25,6 @@ import nth.reflect.fw.documentation.ReflectDocumentationInterface;
  * PropertyActionMethod such as moveToNewAddress(Address new Address)</li>
  * </ul>
  * </p>
- * 
- * <h3>Domain Object Property Menu</h3> {@insert DomainObjectPropertyMenu}
  */
 public interface DomainObjectPropertyActionMethod extends ReflectDocumentationInterface {
 

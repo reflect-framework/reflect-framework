@@ -7,7 +7,7 @@ import nth.reflect.fw.gui.style.ReflectDisplayHeight;
 /**
  * TODO PICTURE {@link ApplicationBar}
  * <p>
- * A {@link ApplicationBar} is a {@link ReflectGuiComponent}. It is located at
+ * An {@link ApplicationBar} is a {@link ReflectGuiComponent}. It is located at
  * the top over the whole width of the {@link MainWindow}. It provides content
  * and actions related to the current screen. It’s used for branding, screen
  * titles, navigation, and actions.

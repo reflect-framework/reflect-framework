@@ -62,7 +62,8 @@ public class ReflectColors {
 	 * @param primaryBackgroundColor
 	 *            a color that is prominent visible, e.g.: the background color
 	 *            of the application tool bar. This color should preferably be a
-	 *            darkish color (<50%)
+	 *            darkish color (<50%) and often represents the main color of a
+	 *            brand.
 	 * @param accentBackGroundColor
 	 *            a color that is used for things that need attention (i.e.
 	 *            important buttons or controls that have focus)

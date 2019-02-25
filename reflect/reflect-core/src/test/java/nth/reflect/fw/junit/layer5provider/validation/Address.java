@@ -17,7 +17,6 @@ public class Address {
 		this.country = country;
 	}
 
-
 	public ValidationViolations addressExistsValidation() {
 		ValidationViolations validationViolations = new ValidationViolations();
 		if (!GoogleMapsClient.exists(this)) {
@@ -25,8 +24,7 @@ public class Address {
 		}
 		return validationViolations;
 	}
-	
-	
+
 	@NotNull
 	public Country getCountry() {
 		return country;
@@ -54,20 +52,16 @@ public class Address {
 
 	public ValidationViolations zipCodeValidation() {
 		ValidationViolations validationViolations = new ValidationViolations();
-		if (country!=null && !country.isValidZipCode(zipCode)) {
-			validationViolations.add(
-					country.getValidationViolationMessage(), zipCode);
+		if (country != null && !country.isValidZipCode(zipCode)) {
+			validationViolations.add(country.getValidationViolationMessage(), zipCode);
 		}
 		// ETC
 		return validationViolations;
 	}
 
-
 	@Override
 	public String toString() {
-		return new TitleBuilder(", ").append(street).append(zipCode).append(country).toString();
+		return TitleBuilder.getInstance(", ").append(street).append(zipCode).append(country).toString();
 	}
-	
-	
 
 }

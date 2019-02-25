@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.item.method.menu;
+package nth.reflect.fw.gui.item.method;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.item.method.MethodOwnerItem;
+import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer2service.ServiceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.NoParameterOrParameterFactoryFilter;
 
 public class ServiceObjectItems extends UnmodifiableCollection<MethodOwnerItem> {
-
 
 	private static final long serialVersionUID = 1263712774995387618L;
 
@@ -27,13 +26,13 @@ public class ServiceObjectItems extends UnmodifiableCollection<MethodOwnerItem> 
 	}
 
 	private static Collection<? extends MethodOwnerItem> createServiceObjectItems(
-			UserInterfaceContainer userInterfaceContainer, Object serviceObjectToStartWith, ReadOnlyValueModel parameterModel,
-			Predicate<ActionMethodInfo> filter) {
+			UserInterfaceContainer userInterfaceContainer, Object serviceObjectToStartWith,
+			ReadOnlyValueModel parameterModel, Predicate<ActionMethodInfo> filter) {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
 		// create MethodOwnerItem for first service object
-		MethodOwnerItem item = new MethodOwnerItem(userInterfaceContainer, serviceObjectToStartWith,
-				filter, parameterModel);
+		MethodOwnerItem item = new MethodOwnerItem(userInterfaceContainer, serviceObjectToStartWith, filter,
+				parameterModel);
 		items.add(item);
 
 		// create MethodOwnerItem for other service objects
@@ -42,8 +41,7 @@ public class ServiceObjectItems extends UnmodifiableCollection<MethodOwnerItem> 
 		for (Object serviceObject : serviceObjects) {
 			if (serviceObject != serviceObjectToStartWith) {
 
-				item = new MethodOwnerItem(userInterfaceContainer, serviceObject, filter,
-						parameterModel);
+				item = new MethodOwnerItem(userInterfaceContainer, serviceObject, filter, parameterModel);
 				items.add(item);
 			}
 		}

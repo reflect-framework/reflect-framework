@@ -14,81 +14,45 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * <li>{@link BehavioralMethod}s</li>
  * </ul>
  * 
- * <h3>Behavioral Annotations</h3>
- * <p>
- * {@insert BehavioralAnnotation}
- * </p>
+ * <h3>Behavioral Annotations</h3> {@insert BehavioralAnnotation}
  * 
- * <h3>Behavioral Methods</h3>
- * <p>
- * {@insert BehavioralMethod}
- * </p>
+ * <h3>Behavioral Methods</h3> {@insert BehavioralMethod}
  * 
- * <h2>Display Name</h2>
- * <p>
- * {@insert DisplayNameModel}
- * </p>
+ * <h2>Display Name</h2> {@insert DisplayNameModel}
  * 
- * <h2>Description</h2>
- * <p>
- * {@insert DescriptionModel}
- * </p>
+ * <h2>Description</h2> {@insert DescriptionModel}
  * 
- * <h2>Title</h2>
- * <p>
- * {@insert TitleModel}
- * </p>
+ * <h2>Title</h2> {@insert TitleModel}
  * 
- * <h2>FontIcon</h2>
- * <p>
- * {@insert FontIconModelFactory}
- * </p>
+ * <h2>FontIcon</h2>{@insert FontIconModelFactory}
  * 
- * <h2>ApplicationIcon</h2>
- * <p>
- * {@insert ApplicationIconModelFactory}
- * </p>
+ * <h2>ApplicationIcon</h2> {@insert ApplicationIconModelFactory}
  * 
- * <h2>Hidden</h2>
- * <p>
- * {@insert HiddenModelFactory}
- * </p>
+ * <h2>Hidden</h2> {@insert HiddenModelFactory}
  * 
- * <h2>Disabled</h2>
- * <p>
- * {@insert DisabledModelFactory}
- * </p>
+ * <h2>Disabled</h2> {@insert DisabledModelFactory}
  * 
- * <h2>PropertyActionMethod</h2>
- * <p>
- * {@insert PropertyActionMethod}
- * </p>
+ * <h2>PropertyActionMethod</h2> {@insert PropertyActionMethod}
  * 
- * <h2>Format</h2>
- * <p>
- * {@insert Format}
- * </p>
+ * <h2>Format</h2>{@insert Format}
  * 
- * <h2>Field Mode</h2>
- * <p>
- * {@insert TextFieldMode}
- * </p>
+ * <h2>Field Mode</h2> {@insert TextFieldMode}
  * 
- * <h2>Execution Mode</h2>
- * <p>
- * {@insert ExecutionMode}
- * </p>
+ * <h2>Execution Mode</h2>{@insert ExecutionMode}
  * 
- * <h2>Parameter RandomGenerator</h2>
- * <p>
- * {@insert ParameterFactoryModelFactory}
- * </p>
+ * <h2>Property Action Method</h2>{@insert PropertyActionMethod}
+ * 
+ * <h2>Read Only Action Method</h2>{@insert ReadOnlyActionMethod}
+ * 
+ * <h2>Execution Mode</h2> {@insert ExecutionMode}
+ * 
+ * <h2>Parameter RandomGenerator</h2>{@insert ParameterFactoryModelFactory}
  * 
  * <h2>Validation</h2>
  * <p>
  * {@insert ValidationMethodFactory}
  * </p>
-
+ * 
  * @author nilsth
  *
  */

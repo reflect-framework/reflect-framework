@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.item.method.menu;
+package nth.reflect.fw.gui.item.method;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +9,7 @@ import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.item.method.PropertyMethodOwnerItem;
+import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 public class PropertyMethodOwnerItems extends UnmodifiableCollection<PropertyMethodOwnerItem> {

@@ -21,8 +21,8 @@ import javax.swing.text.DocumentFilter;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.gui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -50,7 +50,7 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Collection<Item> items = new FormFieldMenuItems(formTab, propertyValueModel,
+				Collection<Item> items = new PropertyPanelMenuItems(formTab, propertyValueModel,
 						propertyValueModel.getPropertyInfo());
 				PopupMenu popupmenu = new PopupMenu(items);
 				popupmenu.show((Component) e.getSource(), 17, -3);

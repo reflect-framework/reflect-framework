@@ -9,14 +9,13 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectActionMethod;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
-import nth.reflect.fw.layer3domain.DomainObjectPropertyMenu;
 
 /**
  * <p>
  * Most {@link ActionMethod}s can modify values in a {@link DomainObject}, e.g.
  * change a {@link DomainObjectProperty} value. In this case the
  * {@link DomainObjectActionMethod} or {@link DomainObjectPropertyActionMethod}
- * is only visible in the {@link DomainObjectPropertyMenu} when the
+ * is only visible in the {@link PropertyPanelMenu} when the
  * {@link DomainObject} is edited in a {@link FormTab} ({@link FormMode#EDIT}).
  * </p>
  * <p>
@@ -31,8 +30,6 @@ import nth.reflect.fw.layer3domain.DomainObjectPropertyMenu;
  * @author nilsth
  *
  */
-
-// TODO include this in DomainObjectPropertyActionMethod documentation
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

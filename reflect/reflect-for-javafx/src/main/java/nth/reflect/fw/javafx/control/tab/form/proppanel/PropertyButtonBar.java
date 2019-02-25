@@ -10,8 +10,8 @@ import javafx.stage.PopupWindow.AnchorLocation;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.gui.item.method.menu.FormFieldMenuItems;
 import nth.reflect.fw.javafx.control.button.ContentButton;
 import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
@@ -53,7 +53,7 @@ public class PropertyButtonBar extends HBox {
 	}
 
 	private void showActionMethodPopUp() {
-		FormFieldMenuItems items = new FormFieldMenuItems(formTab, propertyValueModel,
+		PropertyPanelMenuItems items = new PropertyPanelMenuItems(formTab, propertyValueModel,
 				propertyValueModel.getPropertyInfo());
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
