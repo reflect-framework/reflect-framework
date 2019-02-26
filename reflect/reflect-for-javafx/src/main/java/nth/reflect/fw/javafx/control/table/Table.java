@@ -1,22 +1,17 @@
 package nth.reflect.fw.javafx.control.table;
 
-import java.text.Format;
 import java.util.Collection;
 import java.util.List;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
-import javafx.util.Callback;
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.style.MaterialFont;
@@ -27,10 +22,7 @@ import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class Table extends TableView<Object> {
 
@@ -77,15 +69,11 @@ public class Table extends TableView<Object> {
 		this(new TableInfoForFormTabProperty(formTab, propertyValueModel));
 	}
 
-	@SuppressWarnings("unchecked")
 	private void initColumns(List<TableColumn<Object, ?>> tableColumns) {
-		if (tableColumns.isEmpty()) {
-			TableColumn<Object, String> singeColumn = new TableColumn<Object, String>("");
-			getColumns().addAll(singeColumn);
+		if (tableColumns.size() == 1) {
 			hideHeader();
-		} else {
-			getColumns().addAll(tableColumns);
 		}
+		getColumns().addAll(tableColumns);
 		ColumnAutoSizer.autoFitTable(this);
 	}
 
@@ -215,28 +203,20 @@ public class Table extends TableView<Object> {
 	// popup.show(getSe);
 	// }
 
-	private Callback<CellDataFeatures<Object, String>, ObservableValue<String>> createCellValueFactoryForJavaTypeOrEnum(
-			ReflectApplication reflectApplication, LanguageProvider languageProvider, Class<?> type) {
-		JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
-		TypeInfo typeInfo = new TypeInfo(reflectApplication, type, type);
-		Format format = formatFactory.create(typeInfo);
-		return new Callback<CellDataFeatures<Object, String>, ObservableValue<String>>() {
-
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<Object, String> param) {
-				String value = format.format(param);
-				return new ReadOnlyObjectWrapper<String>(value);
-			}
-		};
-	}
-
 	private void hideHeader() {
-		Pane header = (Pane) lookup("TableHeaderRow");
-		if (header != null) {
-			header.setVisible(false);
-			setLayoutY(-header.getHeight());
-			autosize();
-		}
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				// See
+				// https://stackoverflow.com/questions/27118872/how-to-hide-tableview-column-header-in-javafx-8
+				Pane header = (Pane) lookup("TableHeaderRow");
+				if (header != null) {
+					header.setVisible(false);
+					setLayoutY(-header.getHeight());
+					autosize();
+				}
+			}
+		});
 	}
 
 	protected void addStyleClass() {

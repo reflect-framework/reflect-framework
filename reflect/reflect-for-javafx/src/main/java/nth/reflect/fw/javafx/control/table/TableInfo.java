@@ -13,10 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 @SuppressWarnings("restriction")
 public abstract class TableInfo {
@@ -34,28 +32,38 @@ public abstract class TableInfo {
 	public List<TableColumn<Object, ?>> getTableColumns() {
 		Class<?> type = getValuesType();
 		if (hasOnlyOneColumn(type)) {
-			return new ArrayList<>();
+			return createColumnForObject();
 		} else {
 			return createColumnsForObject();
 		}
 	}
 
 	/**
-	 * 
-	 * @param type
-	 * @return true (only a {@link TitleModel} value for now
+	 * @return true :only one column with object title for now
 	 */
 	private boolean hasOnlyOneColumn(Class<?> type) {
-		// return true;
-		return TypeInfo.isJavaVariableType(type) || type.isEnum();
+		return true;
+		// return TypeInfo.isJavaVariableType(type) || type.isEnum();
+	}
+
+	private List<TableColumn<Object, ?>> createColumnForObject() {
+		Class<?> itemType = getValuesType();
+		ReflectionProvider reflectionProvider = getReflectionProvider();
+		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
+		TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>();
+		tableColumn.setMinWidth(100);
+		tableColumn.setCellValueFactory(new CellValueFactory<>(classInfo));
+		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
+		tableColumns.add(tableColumn);
+		return tableColumns;
 	}
 
 	private List<TableColumn<Object, ?>> createColumnsForObject() {
 		Class<?> itemType = getValuesType();
 		ReflectionProvider reflectionProvider = getReflectionProvider();
-		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
+		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>(propertyInfo.getDisplayName());
 			tableColumn.setMinWidth(100);
