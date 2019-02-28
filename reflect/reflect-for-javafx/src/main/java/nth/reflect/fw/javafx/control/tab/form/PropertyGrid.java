@@ -150,8 +150,8 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyGrid.class)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setPadding(FormTabStyle.PADDING);
 		styleSheet
-				.addStyleGroup(StyleSelector.createFor(PropertyGrid.class)
-						.append(StyleSelector.createFor("> .viewport")))
+				.addStyleGroup(
+						StyleSelector.createFor(PropertyGrid.class).append(StyleSelector.createFor("> .viewport")))
 				.getProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND());
 		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyGrid.class, CONTENT)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setSpacing(FormTabStyle.SPACING);

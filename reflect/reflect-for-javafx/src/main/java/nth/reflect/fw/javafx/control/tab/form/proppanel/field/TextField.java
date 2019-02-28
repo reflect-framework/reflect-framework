@@ -1,5 +1,6 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
+import java.text.Format;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXTextField;
@@ -25,7 +26,9 @@ public class TextField extends JFXTextField implements PropertyField {
 	}
 
 	public void onChange(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-		getPropertyValueModel().setValue(newValue);
+		if (propertyValueModel.canSetValue()) {
+			getPropertyValueModel().setValue(newValue);
+		}
 	}
 
 	protected void addStyleClass() {
@@ -56,7 +59,8 @@ public class TextField extends JFXTextField implements PropertyField {
 
 	@Override
 	public void setValueFromDomainProperty(Object propertyValue) {
-		String stringValue = propertyValueModel.getPropertyInfo().getFormatedValue(propertyValue);
+		Format format = propertyValueModel.getPropertyInfo().getFormat();
+		String stringValue = format.format(propertyValue);
 		setText(stringValue);
 	}
 

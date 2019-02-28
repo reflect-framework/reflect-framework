@@ -236,9 +236,9 @@ public class PropertyInfo implements NameInfo {
 		return format;
 	}
 
-	public String getFormatedValue(Object obj) {
+	public String getFormatedValue(Object domainObject) {
 		try {
-			Object value = getValue(obj);
+			Object value = getValue(domainObject);
 			if (value == null) {
 				return "";
 			} else {
