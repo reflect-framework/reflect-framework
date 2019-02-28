@@ -21,6 +21,9 @@ import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
+import nth.reflect.fw.javafx.control.table.info.TableInfo;
+import nth.reflect.fw.javafx.control.table.info.TableInfoForFormTabProperty;
+import nth.reflect.fw.javafx.control.table.info.TableInfoForGridTab;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
@@ -62,7 +65,7 @@ public class Table extends TableView<Object> {
 	}
 
 	public Table(nth.reflect.fw.gui.component.tab.grid.GridTab gridTab) {
-		this(new TableInfoForTableTab(gridTab));
+		this(new TableInfoForGridTab(gridTab));
 	}
 
 	public Table(FormTab formTab, PropertyValueModel propertyValueModel) {
@@ -212,7 +215,10 @@ public class Table extends TableView<Object> {
 				Pane header = (Pane) lookup("TableHeaderRow");
 				if (header != null) {
 					header.setVisible(false);
-					setLayoutY(-header.getHeight());
+					header.setMaxHeight(0);
+					header.setMinHeight(0);
+					header.setPrefHeight(0);
+					// setLayoutY(-header.getHeight());
 					autosize();
 				}
 			}

@@ -1,4 +1,4 @@
-package nth.reflect.fw.javafx.control.table;
+package nth.reflect.fw.javafx.control.table.info;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,41 +9,71 @@ import com.sun.javafx.collections.ObservableListWrapper;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
+import nth.reflect.fw.ReflectApplication;
+import nth.reflect.fw.javafx.control.table.info.cell.CellValueFactoryForJavaAndEnumTypes;
+import nth.reflect.fw.javafx.control.table.info.cell.CellValueFactoryForObjectProperties;
+import nth.reflect.fw.javafx.control.table.info.cell.CellValueFactoryForObjects;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 @SuppressWarnings("restriction")
 public abstract class TableInfo {
+
+	private final ReflectionProvider reflectionProvider;
+	private final LanguageProvider languageProvider;
+	private final ReflectApplication reflectApplication;
+
+	public TableInfo(UserInterfaceContainer userInterfaceContainer) {
+		this.reflectApplication = userInterfaceContainer.get(ReflectApplication.class);
+		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+	}
 
 	public abstract Object getValues();
 
 	public abstract Class<?> getValuesType();
 
-	public abstract ReflectionProvider getReflectionProvider();
+	private ReflectionProvider getReflectionProvider() {
+		return reflectionProvider;
+	}
 
-	public abstract LanguageProvider getLanguageProvider();
+	public LanguageProvider getLanguageProvider() {
+		return languageProvider;
+	}
+
+	private ReflectApplication getReflectApplication() {
+		return reflectApplication;
+	}
 
 	public abstract Collection<Item> getRowMenuItems(Object selectedObject);
 
 	public List<TableColumn<Object, ?>> getTableColumns() {
 		Class<?> type = getValuesType();
-		if (hasOnlyOneColumn(type)) {
-			return createColumnForObject();
+		if (TypeInfo.isJavaVariableType(type) || type.isEnum()) {
+			return createColumnsForJavaAndEnumTypes();
 		} else {
-			return createColumnsForObject();
+			return createColumnForObject();
 		}
+		// TODO
+		// return createColumnsForObject();
 	}
 
-	/**
-	 * @return true :only one column with object title for now
-	 */
-	private boolean hasOnlyOneColumn(Class<?> type) {
-		return true;
-		// return TypeInfo.isJavaVariableType(type) || type.isEnum();
+	private List<TableColumn<Object, ?>> createColumnsForJavaAndEnumTypes() {
+		Class<?> type = getValuesType();
+		ReflectApplication reflectApplication = getReflectApplication();
+		LanguageProvider languageProvider = getLanguageProvider();
+		TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>();
+		tableColumn.setMinWidth(100);
+		tableColumn.setCellValueFactory(
+				new CellValueFactoryForJavaAndEnumTypes<>(reflectApplication, languageProvider, type));
+		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
+		tableColumns.add(tableColumn);
+		return tableColumns;
 	}
 
 	private List<TableColumn<Object, ?>> createColumnForObject() {
@@ -52,7 +82,7 @@ public abstract class TableInfo {
 		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
 		TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>();
 		tableColumn.setMinWidth(100);
-		tableColumn.setCellValueFactory(new CellValueFactory<>(classInfo));
+		tableColumn.setCellValueFactory(new CellValueFactoryForObjects<>(classInfo));
 		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
 		tableColumns.add(tableColumn);
 		return tableColumns;
@@ -67,7 +97,7 @@ public abstract class TableInfo {
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>(propertyInfo.getDisplayName());
 			tableColumn.setMinWidth(100);
-			tableColumn.setCellValueFactory(new PropertyValueFactory<>(propertyInfo.getSimpleName()));
+			tableColumn.setCellValueFactory(new CellValueFactoryForObjectProperties<>(propertyInfo));
 			tableColumns.add(tableColumn);
 		}
 		return tableColumns;
