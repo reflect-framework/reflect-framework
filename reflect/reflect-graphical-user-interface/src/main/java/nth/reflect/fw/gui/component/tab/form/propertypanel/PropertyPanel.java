@@ -34,7 +34,7 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 		Object domainObject = propertyValueModel.getDomainObject();
 		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
 		Boolean visible = propertyInfo.isVisibleInForm(domainObject);
-		Boolean enabled = propertyInfo.isEnabled(domainObject);
+		Boolean enabled = propertyInfo.isEnabled(domainObject) && propertyValueModel.canSetValue();
 		// TODO include FormMode??
 
 		setVisible(visible);

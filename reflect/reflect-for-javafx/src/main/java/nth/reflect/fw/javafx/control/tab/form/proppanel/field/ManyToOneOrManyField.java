@@ -32,8 +32,7 @@ public class ManyToOneOrManyField extends Table implements PropertyField {
 
 	@Override
 	public void setValueFromDomainProperty(Object propertyValue) {
-		// TODO Auto-generated method stub
-
+		this.updateData();
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {

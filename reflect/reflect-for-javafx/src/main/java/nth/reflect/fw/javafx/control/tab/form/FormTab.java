@@ -22,6 +22,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	private final FormMode formMode;
 	private final ReflectionProvider reflectionProvider;
 	private final BufferedDomainValueModel domainValueModel;
+	private final PropertyGrid propertyGrid;
 
 	public FormTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
@@ -37,8 +38,8 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 		ValidationProvider validationProvider = userInterfaceContainer.get(ValidationProvider.class);
 
-		PropertyGrid domainPropertyPane = new PropertyGrid(validationProvider, this);
-		setCenter(domainPropertyPane);
+		propertyGrid = new PropertyGrid(validationProvider, this);
+		setCenter(propertyGrid);
 
 		getStyleClass().add(StyleSheet.createStyleClassName(FormTab.class));
 		// TODO new VerticalFlingScroller(scrollPane);
@@ -57,8 +58,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	@Override
 	public void onSelected() {
-		// TODO Auto-generated method stub
-
+		propertyGrid.updateAllPropertyPanels();
 	}
 
 	@Override

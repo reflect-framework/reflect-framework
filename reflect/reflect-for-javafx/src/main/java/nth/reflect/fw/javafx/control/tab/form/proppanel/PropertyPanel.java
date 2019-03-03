@@ -100,7 +100,6 @@ public class PropertyPanel extends BorderPane implements
 	@Override
 	public void setEnabled(Boolean enabled) {
 		labelAndFieldPanel.setEnabled(enabled);
-		System.out.println(enabled);
 	}
 
 }
