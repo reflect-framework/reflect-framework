@@ -1,7 +1,8 @@
-package nth.reflect.fw.javafx.control.table.info;
+package nth.reflect.fw.gui.component.table.info;
 
 import java.util.Collection;
 
+import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.grid.GridTab;
 import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -47,8 +48,8 @@ public class TableInfoForGridTab extends TableInfo {
 	}
 
 	@Override
-	public Collection<Item> getRowMenuItems(Object selectedObject) {
-		Collection<Item> items = new GridTabMenuItems(gridTab, selectedObject);
+	public Collection<Item> getRowMenuItems(ReadOnlyValueModel actionMethodParameterModel) {
+		Collection<Item> items = new GridTabMenuItems(gridTab, actionMethodParameterModel);
 		return items;
 	}
 }

@@ -15,6 +15,7 @@ import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterModelFilter;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 
 /**
@@ -28,8 +29,8 @@ public class GridTabMenuItems extends UnmodifiableCollection<Item> {
 		super(create(gridTab));
 	}
 
-	public GridTabMenuItems(GridTab gridTab, Object domainObject) {
-		super(create(gridTab, domainObject));
+	public GridTabMenuItems(GridTab gridTab, ReadOnlyValueModel actionMethodParameterModel) {
+		super(create(gridTab, actionMethodParameterModel));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -57,24 +58,25 @@ public class GridTabMenuItems extends UnmodifiableCollection<Item> {
 		return items;
 	}
 
-	@SuppressWarnings("unchecked")
-	private static Collection<? extends Item> create(GridTab gridTab, Object domainObject) {
+	private static Collection<? extends Item> create(GridTab gridTab, ReadOnlyValueModel actionMethodParameterModel) {
 		List<Item> items = new ArrayList<>();
 
 		// get info from table tab
 		ReadOnlyValueModel parameterModel = gridTab.getSelectedRowModel();
 		Object serviceObject = gridTab.getMethodOwner();
-
-		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userinterfaceController = gridTab.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class);
-		@SuppressWarnings("rawtypes")
-		Tabs tab = userinterfaceController.getTabs();
-		items.addAll(new PropertyMethodOwnerItems(tab, parameterModel, null));
+		//
+		// @SuppressWarnings("rawtypes")
+		// GraphicalUserinterfaceController userinterfaceController =
+		// gridTab.getUserInterfaceContainer()
+		// .get(GraphicalUserinterfaceController.class);
+		// @SuppressWarnings("rawtypes")
+		// Tabs tab = userinterfaceController.getTabs();
+		// items.addAll(new PropertyMethodOwnerItems(tab, parameterModel,
+		// null));
 
 		// create filter for service object items
-		Class<?> domainType = domainObject.getClass();
-		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(domainType);
+
+		ParameterModelFilter filter = new ParameterModelFilter(actionMethodParameterModel);
 		UserInterfaceContainer userInterfaceContainer = gridTab.getUserInterfaceContainer();
 		items.addAll(new ServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
 

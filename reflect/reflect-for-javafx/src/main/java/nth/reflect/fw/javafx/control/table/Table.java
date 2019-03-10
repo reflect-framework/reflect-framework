@@ -3,17 +3,23 @@ package nth.reflect.fw.javafx.control.table;
 import java.util.Collection;
 import java.util.List;
 
+import com.sun.javafx.collections.ObservableListWrapper;
+
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
+import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.component.table.info.TableInfo;
+import nth.reflect.fw.gui.component.table.info.TableInfoForFormTabProperty;
+import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
+import nth.reflect.fw.gui.item.HierarchicalItem;
 import nth.reflect.fw.gui.style.MaterialFont;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreeCell;
@@ -21,12 +27,10 @@ import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
-import nth.reflect.fw.javafx.control.table.info.TableInfo;
-import nth.reflect.fw.javafx.control.table.info.TableInfoForFormTabProperty;
-import nth.reflect.fw.javafx.control.table.info.TableInfoForGridTab;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
+@SuppressWarnings("restriction")
 public class Table extends TableView<Object> {
 
 	// ROW_HEIGHT: Material design says 48 but we use same height as menu items
@@ -35,6 +39,7 @@ public class Table extends TableView<Object> {
 	private static final int HEADER_FONT_SIZE = 13;
 	private final PopupWindow popupMenu;
 	private TableInfo tableInfo;
+	private ReadOnlyValueModel actionMethodParameterModel;
 
 	public Table() {
 		// TODO new VerticalFlingScroller(this);
@@ -56,12 +61,14 @@ public class Table extends TableView<Object> {
 	public Table(TableInfo tableInfo) {
 		this();
 		this.tableInfo = tableInfo;
-		setItems(tableInfo.getObservableList());
-		initColumns(tableInfo.getTableColumns());
+		initColumns();
+		updateData();
 	}
 
 	public void updateData() {
-		setItems(tableInfo.getObservableList());
+		List<Object> list = tableInfo.getList();
+		ObservableListWrapper<Object> observableList = new ObservableListWrapper<Object>(list);
+		setItems(observableList);
 	}
 
 	public Table(nth.reflect.fw.gui.component.tab.grid.GridTab gridTab) {
@@ -72,11 +79,15 @@ public class Table extends TableView<Object> {
 		this(new TableInfoForFormTabProperty(formTab, propertyValueModel));
 	}
 
-	private void initColumns(List<TableColumn<Object, ?>> tableColumns) {
+	private void initColumns() {
+		List<nth.reflect.fw.gui.component.table.info.TableColumn> tableColumns = tableInfo.getTableColumns();
 		if (tableColumns.size() == 1) {
 			hideHeader();
 		}
-		getColumns().addAll(tableColumns);
+		for (nth.reflect.fw.gui.component.table.info.TableColumn tableColumn : tableColumns) {
+			TableColumnWraper column = new TableColumnWraper(tableColumn);
+			getColumns().add(column);
+		}
 		ColumnAutoSizer.autoFitTable(this);
 	}
 
@@ -149,18 +160,58 @@ public class Table extends TableView<Object> {
 
 	private void showRowPopupMenu(double x, double y) {
 		if (tableInfo != null) {
-			popupMenu.getContent().clear();
-			popupMenu.getContent().add(createRowMenu());
-			popupMenu.show(this, x, y);
+			Collection<Item> menuItems = tableInfo.getRowMenuItems(getActionMethodParameterModel());
+
+			for (Item item : menuItems) {
+				System.out.println(item.getText());
+				if (item instanceof HierarchicalItem) {
+					HierarchicalItem hierarchicalItem = (HierarchicalItem) item;
+					for (Item child : hierarchicalItem.getChildren()) {
+						System.out.println("  " + child.getText());
+					}
+				}
+			}
+
+			if (hasVisibleMenuItems(menuItems)) {
+				popupMenu.getContent().clear();
+				ItemTreePanel rowMenu = createRowMenu(menuItems);
+				popupMenu.getContent().add(rowMenu);
+				popupMenu.show(this, x, y);
+			}
 		}
 	}
 
-	private ItemTreePanel createRowMenu() {
-		Object selectedObject = getSelectionModel().getSelectedItem();
-		Collection<Item> serviceObjectItems = tableInfo.getRowMenuItems(selectedObject);
-		ItemTreePanel rowMenuContent = new ItemTreePanel(serviceObjectItems, tableInfo.getLanguageProvider(),
-				popupMenu);
+	private boolean hasVisibleMenuItems(Collection<Item> menuItems) {
+		return menuItems.stream().anyMatch(i -> i.isVisible());
+	}
+
+	private ItemTreePanel createRowMenu(Collection<Item> menuItems) {
+
+		ItemTreePanel rowMenuContent = new ItemTreePanel(menuItems, tableInfo.getLanguageProvider(), popupMenu);
 		return rowMenuContent;
+	}
+
+	private ReadOnlyValueModel getActionMethodParameterModel() {
+		if (actionMethodParameterModel == null) {
+			actionMethodParameterModel = new ReadOnlyValueModel() {
+
+				@Override
+				public Class<?> getValueType() {
+					return tableInfo.getValuesType();
+				}
+
+				@Override
+				public Object getValue() {
+					return getSelectionModel().getSelectedItem();
+				}
+
+				@Override
+				public boolean canGetValue() {
+					return getSelectionModel().getSelectedItem() != null;
+				}
+			};
+		}
+		return actionMethodParameterModel;
 	}
 
 	/**

@@ -1,8 +1,12 @@
-package nth.reflect.fw.javafx.control.table.info;
+package nth.reflect.fw.gui.component.table.info;
 
+import java.util.Collection;
+
+import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.layer1userinterface.item.Item;
 
 public class TableInfoForFormTabProperty extends TableInfo {
 
@@ -26,8 +30,8 @@ public class TableInfoForFormTabProperty extends TableInfo {
 	}
 
 	@Override
-	public PropertyPanelMenuItems getRowMenuItems(Object selectedObject) {
-		PropertyPanelMenuItems items = new PropertyPanelMenuItems(formTab, propertyValueModel,
+	public Collection<Item> getRowMenuItems(ReadOnlyValueModel actionMethodParameterModel) {
+		PropertyPanelMenuItems items = new PropertyPanelMenuItems(formTab, actionMethodParameterModel,
 				propertyValueModel.getPropertyInfo());
 		return items;
 	}

@@ -1,18 +1,16 @@
-package nth.reflect.fw.javafx.control.table.info;
+package nth.reflect.fw.gui.component.table.info;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import com.sun.javafx.collections.ObservableListWrapper;
-
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.javafx.control.table.info.cell.CellValueFactoryForJavaAndEnumTypes;
-import nth.reflect.fw.javafx.control.table.info.cell.CellValueFactoryForObjectProperties;
-import nth.reflect.fw.javafx.control.table.info.cell.CellValueFactoryForObjects;
+import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
+import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.table.info.cell.CellValueFactoryForJavaAndEnumTypes;
+import nth.reflect.fw.gui.component.table.info.cell.CellValueFactoryForObjectPropertyValue;
+import nth.reflect.fw.gui.component.table.info.cell.CellValueFactoryForObjects;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -21,7 +19,12 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
-@SuppressWarnings("restriction")
+/**
+ * All information that is needed to create an {@link Table}
+ * 
+ * @author nilsth
+ *
+ */
 public abstract class TableInfo {
 
 	private final ReflectionProvider reflectionProvider;
@@ -38,6 +41,19 @@ public abstract class TableInfo {
 
 	public abstract Class<?> getValuesType();
 
+	/**
+	 * 
+	 * @param actionMethodParameterValue
+	 *            the selected row value,
+	 *            {@link ReadOnlyValueModel#canGetValue()} must return false
+	 *            when no row is selected. Important note: this method must be
+	 *            recalled to create new row menu items every time the
+	 *            actionMethodParameter changes!
+	 * @return menu items to be displayed in a pop up menu on a {@link GridTab}
+	 *         or {@link ManyToOneOrManyField}
+	 */
+	public abstract Collection<Item> getRowMenuItems(ReadOnlyValueModel actionMethodParameterValue);
+
 	private ReflectionProvider getReflectionProvider() {
 		return reflectionProvider;
 	}
@@ -50,9 +66,7 @@ public abstract class TableInfo {
 		return reflectApplication;
 	}
 
-	public abstract Collection<Item> getRowMenuItems(Object selectedObject);
-
-	public List<TableColumn<Object, ?>> getTableColumns() {
+	public List<TableColumn> getTableColumns() {
 		Class<?> type = getValuesType();
 		if (TypeInfo.isJavaVariableType(type) || type.isEnum()) {
 			return createColumnsForJavaAndEnumTypes();
@@ -63,63 +77,61 @@ public abstract class TableInfo {
 		// return createColumnsForObject();
 	}
 
-	private List<TableColumn<Object, ?>> createColumnsForJavaAndEnumTypes() {
+	private List<TableColumn> createColumnsForJavaAndEnumTypes() {
 		Class<?> type = getValuesType();
 		ReflectApplication reflectApplication = getReflectApplication();
 		LanguageProvider languageProvider = getLanguageProvider();
-		TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>();
-		tableColumn.setMinWidth(100);
-		tableColumn.setCellValueFactory(
-				new CellValueFactoryForJavaAndEnumTypes<>(reflectApplication, languageProvider, type));
-		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
+		CellValueFactoryForJavaAndEnumTypes cellValueFactory = new CellValueFactoryForJavaAndEnumTypes(
+				reflectApplication, languageProvider, type);
+		TableColumn tableColumn = new TableColumn(cellValueFactory);
+		List<TableColumn> tableColumns = new ArrayList<>();
 		tableColumns.add(tableColumn);
 		return tableColumns;
 	}
 
-	private List<TableColumn<Object, ?>> createColumnForObject() {
+	private List<TableColumn> createColumnForObject() {
 		Class<?> itemType = getValuesType();
 		ReflectionProvider reflectionProvider = getReflectionProvider();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
-		TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>();
-		tableColumn.setMinWidth(100);
-		tableColumn.setCellValueFactory(new CellValueFactoryForObjects<>(classInfo));
-		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
+		CellValueFactoryForObjects<Object, Object> cellValueFactory = new CellValueFactoryForObjects<>(classInfo);
+		TableColumn tableColumn = new TableColumn(cellValueFactory);
+		List<TableColumn> tableColumns = new ArrayList<>();
 		tableColumns.add(tableColumn);
 		return tableColumns;
 	}
 
-	private List<TableColumn<Object, ?>> createColumnsForObject() {
+	private List<TableColumn> createColumnsForObject() {
 		Class<?> itemType = getValuesType();
 		ReflectionProvider reflectionProvider = getReflectionProvider();
 		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
 		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
-		List<TableColumn<Object, ?>> tableColumns = new ArrayList<>();
+		List<TableColumn> tableColumns = new ArrayList<>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			TableColumn<Object, ?> tableColumn = new TableColumn<Object, Object>(propertyInfo.getDisplayName());
-			tableColumn.setMinWidth(100);
-			tableColumn.setCellValueFactory(new CellValueFactoryForObjectProperties<>(propertyInfo));
+			CellValueFactoryForObjectPropertyValue cellValueFactory = new CellValueFactoryForObjectPropertyValue(
+					propertyInfo);
+			TableColumn tableColumn = new TableColumn(propertyInfo, cellValueFactory);
 			tableColumns.add(tableColumn);
 		}
 		return tableColumns;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ObservableList<Object> getObservableList() {
+	public List<Object> getList() {
 		Object values = getValues();
 		if (values == null) {
 			List<Object> emptyList = new ArrayList<>();
-			return new ObservableListWrapper<Object>(emptyList);
+			return emptyList;
 		} else if (values instanceof List) {
 			@SuppressWarnings("unchecked")
 			List<Object> list = (List<Object>) values;
-			return new ObservableListWrapper<Object>(list);
+			return list;
 		} else if (values instanceof Collection) {
 			@SuppressWarnings("unchecked")
 			List<Object> list = new ArrayList<>((Collection) values);
-			return new ObservableListWrapper<Object>(list);
+			return list;
 		} else if (values.getClass().isArray()) {
 			List<Object> list = Arrays.asList(values);
-			return new ObservableListWrapper<Object>(list);
+			return list;
 		} else {
 			String message = getLanguageProvider().getText("Error getting table values. Unsupported return type.");
 			throw new RuntimeException(message);

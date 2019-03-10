@@ -60,7 +60,7 @@ public class TitleModel {
 	public String getTitle(Object obj) {
 		String objectToString = obj.toString();
 		if (objectToString == null || objectToString.trim().length() == 0
-				|| objectToString.equals(dafaultToStringValue(obj))) {
+				|| objectToString.equals(defaultToStringValue(obj))) {
 			return createTitle(obj);
 
 		} else {
@@ -91,7 +91,7 @@ public class TitleModel {
 		return title.toString();
 	}
 
-	private String dafaultToStringValue(Object obj) {
+	private String defaultToStringValue(Object obj) {
 		String defaultToStringImplValue = obj.getClass().getName() + "@" + Integer.toHexString(obj.hashCode());
 		return defaultToStringImplValue;
 	}

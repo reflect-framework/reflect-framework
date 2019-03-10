@@ -1,16 +1,13 @@
-package nth.reflect.fw.javafx.control.table.info.cell;
+package nth.reflect.fw.gui.component.table.info.cell;
 
 import java.text.Format;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
-public class CellValueFactoryForJavaAndEnumTypes<S, T> implements CellValueFactory<S, T> {
+public class CellValueFactoryForJavaAndEnumTypes implements CellValueFactory {
 
 	private final Format format;
 
@@ -21,11 +18,9 @@ public class CellValueFactoryForJavaAndEnumTypes<S, T> implements CellValueFacto
 		format = formatFactory.create(typeInfo);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public ObservableValue<T> call(CellDataFeatures<S, T> cellDataFeatures) {
-		S value = cellDataFeatures.getValue();
-		Object formatedValue = format.format(value);
-		return new ReadOnlyObjectWrapper<T>((T) formatedValue);
+	public String getValue(Object obj) {
+		String formatedValue = format.format(obj);
+		return formatedValue;
 	}
 }

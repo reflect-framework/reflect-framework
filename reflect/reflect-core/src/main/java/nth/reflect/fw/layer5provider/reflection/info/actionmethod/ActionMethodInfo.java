@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
@@ -226,9 +227,9 @@ public class ActionMethodInfo implements NameInfo {
 		return parameterFactoryModel != null;
 	}
 
-	public Object createMethodParameter(Object obj) throws InstantiationException, IllegalAccessException {
+	public Optional<Object> createMethodParameter(Object obj) throws InstantiationException, IllegalAccessException {
 		if (hasParameterFactory()) {
-			return parameterFactoryModel.createNewMethodParameter(obj);
+			return Optional.of(parameterFactoryModel.createNewMethodParameter(obj));
 		} else {
 			throw new NoParameterFactoryException(getCanonicalName());
 		}

@@ -79,12 +79,8 @@ public class PropertyMethodItem extends MethodItem {
 		boolean methodIsEnabled = propertyMethodInfo.isEnabled(propertyOwnerModel.getValue());
 		boolean hasNoParameter = !propertyMethodInfo.hasParameter();
 		boolean hasParameterFactory = propertyMethodInfo.hasParameterFactory();
-		boolean canGetParameterValue = parameterValueModel.canGetValue();// TODO
-																			// check
-																			// for
-																			// type
-																			// as
-																			// well?
+		boolean canGetParameterValue = parameterValueModel.canGetValue();
+		// TODO check for type as well?
 		return methodIsEnabled && (hasNoParameter || hasParameterFactory || canGetParameterValue);
 	}
 
@@ -94,7 +90,9 @@ public class PropertyMethodItem extends MethodItem {
 	 */
 	@Override
 	public boolean isVisible() {
-		return FormMode.EDIT == formTab.getFormMode() && propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+		boolean formInEditMode = FormMode.EDIT == formTab.getFormMode();
+		Boolean propertyMethodNotHidden = propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+		return formInEditMode && propertyMethodNotHidden;
 	}
 
 }
