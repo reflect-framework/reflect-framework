@@ -36,29 +36,47 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * <li><a href="https://isis.apache.org/">Apache Isis</a>
  * <a href="https://isis.apache.org/guides/ugvw/ugvw.html">Wicket Viewer</a>
  * (for Java)</li>
- * <li><a href="http://metawidget.sourceforge.net/screenshots.php">MetaWidget
- * </a> (for Java)</li>
- * <li><a href="http://www.openxava.org">Openxava</a> (for Java)</li>
+ * <li><a href=
+ * "https://en.wikipedia.org/wiki/Naked_objects#Software_frameworks">And
+ * others</a></li>
  * </ul>
  * These frame works have merit on their own, but they did not have all the
  * things I was looking for (see {@link ReflectCoreValues}).
  * 
  * Specifically:
  * 
- * <h3>Editing objects without JPA dependency</h3> I personally dislike the way
- * Apache Isis manages the editing of objects. This is very tightly linked to
- * its <a href="http://en.wikipedia.org/wiki/Persistence_framework">persistence
- * framework</a>. I however believe that objects do not necessarily need to be
- * persisted after its been edited. I prefer a different approach: domain
- * objects can be passed to a method as a method parameter. This method
- * parameter can be edited by a user before a method is executed (depending on
- * how the method is annotated). The domain object/ method parameter may then be
- * handled by a {@link InfrastructureObject} like a persistence service (or not
- * at all).
+ * <h3>No mandatory persistence framework dependency</h3>
+ * <p>
+ * Most of the existing <a href=
+ * "https://en.wikipedia.org/wiki/Naked_objects#Software_frameworks">Naked
+ * Object Frameworks</a> heavily depend on a
+ * <a href="https://en.wikipedia.org/wiki/Persistence_framework">persistence
+ * framework</a> (at the time of this writing Apache Isis even wrote its own!).
+ * Editing and changing {@link DomainObject}s automatically triggers the
+ * <a href="https://en.wikipedia.org/wiki/Persistence_framework">persistence
+ * framework</a> to store the {@link DomainObject} into a database. This is a
+ * handy feature, however {@link DomainObject}s do not necessarily need to be
+ * persisted after its been edited. The {@link ReflectFramework} chooses a
+ * different approach: {@link DomainObject}s can be passed to a method as a
+ * method parameter. This method parameter can be edited by a user before a
+ * method is executed (depending on how the method is annotated). The logic in
+ * the method than dictates how this (changed) {@link DomainObject} is
+ * processed. In some cases the method will use a {@link InfrastructureObject}
+ * that will store the {@link DomainObject} into a database (possibly using a
+ * <a href="https://en.wikipedia.org/wiki/Persistence_framework">persistence
+ * framework</a>). But we do not always need to store the (changed)
+ * {@link DomainObject} in a database. Maybe your application does not need a
+ * database at all! Therefore the {@link ReflectFramework} should not have a
+ * mandatory dependency with a
+ * <a href="https://en.wikipedia.org/wiki/Persistence_framework">persistence
+ * framework</a>.
+ * </p>
  * 
- * <h3>Missing a good graphical user interface.</h3> In my opinion (at the time
- * of this writing), none of these graphical user interfaces meet modern design
- * principles like:
+ * <h3>Missing a good graphical user interface.</h3> None of the existing
+ * <a href=
+ * "https://en.wikipedia.org/wiki/Naked_objects#Software_frameworks">Naked
+ * Object Frameworks</a> (at the time of this writing) have a graphical user
+ * interface that meets modern design principles like:
  * <ul>
  * <li><a href="https://en.wikipedia.org/wiki/Responsive_web_design">Responsive
  * Design</a>: An optimized user experience on a variety of devices and screen
@@ -70,19 +88,22 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * </ul>
  * 
  * <h3>Missing a Naked Objects WORA framework</h3>
- * <a href="https://java.com/">Java</a> was developed with the
+ * <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>
+ * was first released in 1995 and was designed with the
  * <a href="https://en.wikipedia.org/wiki/Write_once,_run_anywhere">Write Once
  * Run Anywhere (WORA)</a> philosophy. A lot has changed since. So does WORA
  * still apply for Java? The answer: Yes and No:
  * <ul>
  * <li>Yes: The
  * <a href="https://en.wikipedia.org/wiki/Java_virtual_machine">Java Virtual
- * Machine (JVM)</a> can run on almost all devices (from PC to devices out in
- * space) and has been very successful on the server side.</li>
- * <li>No: Apple does not allow the Oracle JVM on its devices and Android
- * devices use Googles JVM which is different. Furthermore: It is nearly
- * impossible to write a GUI for a desktop, and deploy it as a web application
- * or mobile application or vice-versa</li>
+ * Machine (JVM)</a> can run on almost all devices: e.g. home appliances,
+ * personal computers, and even on devices out in space. It has been very
+ * successful on the server side.</li>
+ * <li>No: Java code can run on all platforms that support Java. Apple does not
+ * allow the Oracle JVM on its devices and Android devices use Googles JVM which
+ * is different. Furthermore: It is nearly impossible to write a GUI for a
+ * desktop, and deploy it as a web application or mobile application or
+ * vice-versa</li>
  * </ul>
  * Frameworks like <a href="https://facebook.github.io/react-native/">React
  * Native</a>, <a href="https://flutter.io">Google Flutter</a> and
@@ -93,12 +114,13 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * for multiple platforms, because this is tedious, no value added, costly work.
  * </p>
  * <p>
- * At the time of this writing, none of the existing Naked Object frameworks can
- * be dispatched to different platforms (e.g. the command line, desktop, mobile
- * devices and the web). The {@link ReflectFramework} lets you wrap your
- * {@link ServiceObject}s, {@link DomainObject}s and
- * {@link InfrastructureObject}s, in several native implementations of the
- * {@link ReflectFramework}. For more information see:
+ * At the time of this writing, none of the existing <a href=
+ * "https://en.wikipedia.org/wiki/Naked_objects#Software_frameworks">Naked
+ * Object Frameworks</a> can be dispatched to different platforms (e.g. the
+ * command line, desktop, mobile devices and the web). The
+ * {@link ReflectFramework} lets you wrap your {@link ServiceObject}s,
+ * {@link DomainObject}s and {@link InfrastructureObject}s, in several native
+ * implementations of the {@link ReflectFramework}. For more information see:
  * {@link ReflectApplicationProjects}
  * </p>
  */

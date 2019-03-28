@@ -1,5 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod;
 
+import javafx.scene.control.Tab;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
@@ -54,7 +55,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.Execution
  * </ul>
  * <h2>Action method names</h2>
  * <p>
- * The name of an {@link ActionMethod} should describe the action and match the
+ * The name of an {@link ActionMethod} should describe the action in a
  * <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
  * Language</a> (in terms understood by both users and developers). Keep in mind
  * that the goal of a user is almost never to create, update or delete objects.
@@ -83,13 +84,13 @@ import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.Execution
  * message dialog that displays the return value after the method is been
  * executed</li>
  * <li>A {@link DomainObject}: The {@link UserInterfaceController} displays the
- * {@link DomainObject} in a form on a new tab.</li>
+ * {@link DomainObject} in a new {@link FormTab}.</li>
  * <li>A <a href=
  * "http://en.wikipedia.org/wiki/Java_collections_framework">collection</a> of
  * {@link DomainObject}s: The {@link UserInterfaceController} displays the
- * {@link DomainObject}s in table on a new tab.</li>
+ * {@link DomainObject}s in a new {@link GridTab}.</li>
  * <li>A URI: The {@link UserInterfaceController} displays the contents of the
- * URI on a new tab.</li>
+ * URI on a new {@link Tab}.</li>
  * <li>A {@link DownloadStream}: The {@link UserInterfaceController} will open a
  * "Save as" dialog" so that the file can be down loaded.</li>
  * </ul>
