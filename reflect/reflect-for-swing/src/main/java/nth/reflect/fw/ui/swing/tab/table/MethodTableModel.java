@@ -13,7 +13,7 @@ import nth.reflect.fw.layer1userinterface.controller.Refreshable;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -36,8 +36,8 @@ public class MethodTableModel extends AbstractTableModel implements DomainTableM
 			TypeInfo typeInfo = new TypeInfo(reflectApplication, objectClass, objectClass);
 			format = formatFactory.create(typeInfo);
 		} else {
-			ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-			propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
+			DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(objectClass);
+			propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		}
 		refresh();
 	}

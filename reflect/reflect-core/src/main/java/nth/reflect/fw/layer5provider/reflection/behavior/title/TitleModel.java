@@ -6,7 +6,7 @@ import java.util.List;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
@@ -70,8 +70,8 @@ public class TitleModel {
 
 	private String createTitle(Object obj) {
 		StringBuffer title = new StringBuffer();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(obj.getClass());
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(obj.getClass());
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			Object propertyValue = propertyInfo.getValue(obj);
 			Format format = propertyInfo.getFormat();

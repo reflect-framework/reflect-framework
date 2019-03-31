@@ -6,7 +6,7 @@ import java.text.ParsePosition;
 
 import nth.reflect.fw.generic.exception.MethodNotSupportedException;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class DomainObjectFormat extends Format {
 
@@ -21,8 +21,8 @@ public class DomainObjectFormat extends Format {
 
 	@Override
 	public StringBuffer format(Object domainObject, StringBuffer toAppendTo, FieldPosition pos) {
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
-		String title = classInfo.getTitle(domainObject);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainClass);
+		String title = domainClassInfo.getTitle(domainObject);
 		return toAppendTo.append(title);
 	}
 

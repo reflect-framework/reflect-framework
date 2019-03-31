@@ -20,7 +20,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin;
 import nth.reflect.ui.vaadin.button.Button;
@@ -44,7 +44,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	private final FormMode formMode;
 	private final BufferedDomainValueModel domainValueModel;
 	private final ReflectionProvider reflectionProvider;
-	private List<PropertyPanel> propertyPanels;
+	private final List<PropertyPanel> propertyPanels;
 
 	public FormTab(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue, Object domainObject, FormMode formMode) {
@@ -76,7 +76,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	private List<PropertyPanel> createFormRows(PropertyPanelFactory<PropertyPanel> formRowFactory) {
 		List<PropertyPanel> propertyPanels = new ArrayList<>();
-		ClassInfo domainInfo = reflectionProvider.getClassInfo(domainObject.getClass());
+		DomainClassInfo domainInfo = reflectionProvider.getDomainClassInfo(domainObject.getClass());
 		List<PropertyInfo> propertyInfos = domainInfo.getPropertyInfosSorted();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
@@ -100,7 +100,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 		okCancelButtonGroup.add(okButton);
 
 		CancelItem<Tab> cancelItem = new CancelItem<>(languageProvider, tabs, this);
-		Button cancelButton = new Button(ButtonType.TEXT, ButtonColor.PRIMARY,cancelItem);
+		Button cancelButton = new Button(ButtonType.TEXT, ButtonColor.PRIMARY, cancelItem);
 		okCancelButtonGroup.add(cancelButton);
 
 		return okCancelButtonGroup;

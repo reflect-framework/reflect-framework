@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.NoParameterFactoryException;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -38,8 +38,8 @@ public class Command {
 		if (!typeInfo.isVoid()) {
 
 			Class<?> returnClass = typeInfo.getGenericType();
-			ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
-			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+			DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(returnClass);
+			List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
 			List<PropertyInfo> editableSimplePropertyInfos = propertyInfos.stream()
 					.filter(propertyInfo -> propertyInfo.isVisibleInTable() && !propertyInfo.isReadOnly())
 					.collect(Collectors.toList());

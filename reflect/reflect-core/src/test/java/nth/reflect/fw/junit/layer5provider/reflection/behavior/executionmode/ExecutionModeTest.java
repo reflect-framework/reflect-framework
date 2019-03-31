@@ -10,60 +10,55 @@ import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class ExecutionModeTest {
 
-	private ClassInfo classInfo;
+	private DomainClassInfo domainClassInfo;
 
 	@Before
 	public void setUp() throws Exception {
 		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit();
 		DependencyInjectionContainer container = application.createContainer();
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		classInfo=reflectionProvider.getClassInfo(ExecutionModeTestObject.class);
+		domainClassInfo = reflectionProvider.getDomainClassInfo(ExecutionModeTestObject.class);
 	}
 
 	@Test
 	public void actionMethodDefaultExecutionMode() {
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodDefaultExecutionMode");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodDefaultExecutionMode");
 		ExecutionModeType executionMode = actionMethodInfo.getExecutionMode();
-		assertEquals(
-				ExecutionModeType.EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL,
-				executionMode);
+		assertEquals(ExecutionModeType.EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL, executionMode);
 	}
 
 	@Test
 	public void actionMethodWithAnnotation() {
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodWithAnnotation");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodWithAnnotation");
 		ExecutionModeType executionMode = actionMethodInfo.getExecutionMode();
-		assertEquals(ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION,
-				executionMode);
+		assertEquals(ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION, executionMode);
 	}
 
 	@Test
 	public void actionMethodWithoutParameterNotEditable() {
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodWithoutParameterNotEditable");
+		ActionMethodInfo actionMethodInfo = domainClassInfo
+				.getActionMethodInfo("actionMethodWithoutParameterNotEditable");
 		ExecutionModeType executionMode = actionMethodInfo.getExecutionMode();
-		assertEquals(ExecutionModeType.EXECUTE_METHOD_DIRECTLY,
-				executionMode); 
+		assertEquals(ExecutionModeType.EXECUTE_METHOD_DIRECTLY, executionMode);
 	}
-	
+
 	@Test
 	public void actionMethodWithoutParameter() {
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodWithoutParameter");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodWithoutParameter");
 		ExecutionModeType executionMode = actionMethodInfo.getExecutionMode();
-		assertEquals(ExecutionModeType.EXECUTE_METHOD_DIRECTLY,
-				executionMode);
+		assertEquals(ExecutionModeType.EXECUTE_METHOD_DIRECTLY, executionMode);
 	}
 
 	@Test
-	public void actionMethodWithoutParameterNeedingConformation(){
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodWithoutParameterNeedingConformation");
+	public void actionMethodWithoutParameterNeedingConformation() {
+		ActionMethodInfo actionMethodInfo = domainClassInfo
+				.getActionMethodInfo("actionMethodWithoutParameterNeedingConformation");
 		ExecutionModeType executionMode = actionMethodInfo.getExecutionMode();
-		assertEquals(ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION,
-				executionMode);
+		assertEquals(ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION, executionMode);
 	}
-
 
 }

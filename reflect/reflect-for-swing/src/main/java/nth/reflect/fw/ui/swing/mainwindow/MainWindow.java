@@ -22,12 +22,11 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 import nth.reflect.fw.ui.swing.UserinterfaceControllerForSwing;
 import nth.reflect.fw.ui.swing.component.tabpanel.TabPane;
 import nth.reflect.fw.ui.swing.component.toolbar.MaterialAppBar;
@@ -40,10 +39,10 @@ import nth.reflect.fw.ui.swing.tab.menu.MenuList;
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 7688708437355470674L;
-	private JSplitPane splitPanel;
-	private JScrollPane menuPanel;
-	private TabPane tabPane;
-	private JButton menuButton;
+	private final JSplitPane splitPanel;
+	private final JScrollPane menuPanel;
+	private final TabPane tabPane;
+	private final JButton menuButton;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
 	private final ReflectionProvider reflectionProvider;
@@ -60,19 +59,17 @@ public class MainWindow extends JFrame {
 		}
 		setDefaultLookAndFeelDecorated(true);
 
-		ReflectApplication application = userInterfaceContainer.get(ReflectApplication.class);
 		// Set window parameters
-		ClassInfo applicationInfo = reflectionProvider.getClassInfo(application.getClass());
+		ApplicationClassInfo applicationInfo = reflectionProvider.getApplicationClassInfo();
 
-		setTitle(application, applicationInfo);
-		setIcon(application, applicationInfo);
+		setTitle(applicationInfo);
+		setIcon(applicationInfo);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		
 		UserinterfaceControllerForSwing userInterfaceController = userInterfaceContainer
 				.get(UserinterfaceControllerForSwing.class);
 		Tabs<Tab> tabs = userInterfaceController.getTabs();
-		
+
 		// Create window contents
 		menuPanel = createMenuTabPanel();
 		// tabPane = createContentTabPanel();
@@ -100,18 +97,16 @@ public class MainWindow extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
-	private void setIcon(ReflectApplication application, ClassInfo applicationInfo) {
+	private void setIcon(ApplicationClassInfo applicationInfo) {
 		try {
-			URL iconUrl = applicationInfo.getFontIconUrl(application);// FIXME:
-																		// use
-																		// applicationInfo.getApplicationIconFile()
+			URL iconUrl = applicationInfo.getIcon();
 			Image image = Toolkit.getDefaultToolkit().getImage(iconUrl);
 			setIconImage(image);
 		} catch (Exception exception) {
 		}
 	}
 
-	private void setTitle(ReflectApplication application, ClassInfo applicationInfo) {
+	private void setTitle(ApplicationClassInfo applicationInfo) {
 		String title = applicationInfo.getDisplayName();
 		setTitle(title);
 	}

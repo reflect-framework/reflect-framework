@@ -25,7 +25,7 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyValidationLabel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
@@ -90,8 +90,8 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 	private List<PropertyInfo> getPropertyInfos(FormTab formTab, UserInterfaceContainer userInterfaceContainer) {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		Object domainObject = formTab.getDomainObject();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainObject.getClass());
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainObject.getClass());
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
 		return propertyInfos;
 	}
 

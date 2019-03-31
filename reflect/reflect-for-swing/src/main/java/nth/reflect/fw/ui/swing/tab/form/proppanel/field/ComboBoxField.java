@@ -21,7 +21,7 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 @SuppressWarnings({ "serial", "rawtypes" })
@@ -93,8 +93,8 @@ public class ComboBoxField extends JComboBox implements PropertyField {
 
 				String text = "";
 				if (value != null) {
-					ClassInfo classInfo = reflectionProvider.getClassInfo(value.getClass());
-					text = classInfo.getTitle(value);
+					DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(value.getClass());
+					text = domainClassInfo.getTitle(value);
 				}
 				setText(text);
 				return this;

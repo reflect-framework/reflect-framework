@@ -15,7 +15,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -92,8 +92,8 @@ public abstract class TableInfo {
 	private List<TableColumn> createColumnForObject() {
 		Class<?> itemType = getValuesType();
 		ReflectionProvider reflectionProvider = getReflectionProvider();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
-		CellValueFactoryForObjects<Object, Object> cellValueFactory = new CellValueFactoryForObjects<>(classInfo);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(itemType);
+		CellValueFactoryForObjects<Object, Object> cellValueFactory = new CellValueFactoryForObjects<>(domainClassInfo);
 		TableColumn tableColumn = new TableColumn(cellValueFactory);
 		List<TableColumn> tableColumns = new ArrayList<>();
 		tableColumns.add(tableColumn);
@@ -103,8 +103,8 @@ public abstract class TableInfo {
 	private List<TableColumn> createColumnsForObject() {
 		Class<?> itemType = getValuesType();
 		ReflectionProvider reflectionProvider = getReflectionProvider();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(itemType);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(itemType);
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		List<TableColumn> tableColumns = new ArrayList<>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			CellValueFactoryForObjectPropertyValue cellValueFactory = new CellValueFactoryForObjectPropertyValue(

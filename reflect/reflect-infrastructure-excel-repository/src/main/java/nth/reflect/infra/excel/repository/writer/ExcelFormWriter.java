@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 public class ExcelFormWriter extends ExcelWriter {
@@ -29,8 +29,8 @@ public class ExcelFormWriter extends ExcelWriter {
 		Date exportDateTime = new Date();
 		initFooter(sheet, exportDateTime);
 
-		ClassInfo classInfo = reflectionProvider.getClassInfo(object.getClass());
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(object.getClass());
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		int maxNumberOfColumns = getMaxNumberOfColumns(propertyInfos);
 
 		addTitlebar(workbook, sheet, title, maxNumberOfColumns - 1);
@@ -82,8 +82,8 @@ public class ExcelFormWriter extends ExcelWriter {
 		Row row = cell.getRow();
 		Class<?> objectClass = propertyInfo.getTypeInfo().getGenericType();
 
-		ClassInfo classInfo = reflectionProvider.getClassInfo(objectClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(objectClass);
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 
 		createPropertyTableHeader(sheet, row, propertyInfos);
 

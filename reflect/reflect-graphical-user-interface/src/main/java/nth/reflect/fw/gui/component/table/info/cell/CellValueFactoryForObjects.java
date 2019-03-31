@@ -1,18 +1,18 @@
 package nth.reflect.fw.gui.component.table.info.cell;
 
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class CellValueFactoryForObjects<S, T> implements CellValueFactory {
 
-	private final ClassInfo classInfo;
+	private final DomainClassInfo domainClassInfo;
 
-	public CellValueFactoryForObjects(ClassInfo classInfo) {
-		this.classInfo = classInfo;
+	public CellValueFactoryForObjects(DomainClassInfo domainClassInfo) {
+		this.domainClassInfo = domainClassInfo;
 	}
 
 	@Override
 	public String getValue(Object obj) {
-		String objTitle = classInfo.getTitle(obj);
+		String objTitle = domainClassInfo.getTitle(obj);
 		return objTitle;
 	}
 

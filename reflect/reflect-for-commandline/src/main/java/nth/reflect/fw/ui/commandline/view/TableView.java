@@ -5,7 +5,7 @@ import java.util.List;
 
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.commandline.domain.table.Row;
 import nth.reflect.fw.ui.commandline.domain.table.Table;
@@ -18,8 +18,8 @@ public class TableView extends CommandLineView {
 			Collection<?> collection) {
 		// get propertyInfos
 		Class<?> returnClass = actionMethodInfo.getReturnTypeInfo().getGenericType();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(returnClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSortedAndVisibleInTable();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(returnClass);
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 
 		table = new Table();
 

@@ -9,12 +9,12 @@ import nth.reflect.fw.gui.item.HierarchicalItem;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
- * Represents open {@link FormTab}s that are in {@link FormMode#EDIT} and
- * have {@link PropertyMethodItem}s that take a given parameter type.
+ * Represents open {@link FormTab}s that are in {@link FormMode#EDIT} and have
+ * {@link PropertyMethodItem}s that take a given parameter type.
  * 
  * @author nilsth
  *
@@ -37,11 +37,10 @@ public class PropertyMethodOwnerItem extends HierarchicalItem {
 	public void pupulateChildren(FormTab formTab, ReadOnlyValueModel parameterValueModel, PropertyInfo propertyInfo) {
 		ReadOnlyValueModel domainValueModel = formTab.getDomainValueModel();
 		Class<?> domainClass = domainValueModel.getValueType();
-		Class<?> parameterClass = parameterValueModel.getValueType();
 
 		ReflectionProvider reflectionProvider = formTab.getUserInterfaceContainer().get(ReflectionProvider.class);
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
 		for (PropertyInfo otherPropertyInfo : propertyInfos) {
 
 			if (otherPropertyInfo != propertyInfo) {

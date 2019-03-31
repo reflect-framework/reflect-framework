@@ -12,26 +12,27 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class AboutItem extends Item {
 	private static final String ABOUT = "About";
 
-	public AboutItem(final UserInterfaceController userInterfaceController, final ReflectionProvider reflectionProvider, LanguageProvider languageProvider, final AboutProvider aboutProvider) {
+	public AboutItem(final UserInterfaceController userInterfaceController, final ReflectionProvider reflectionProvider,
+			LanguageProvider languageProvider, final AboutProvider aboutProvider) {
 		super(languageProvider);
 		setText(ABOUT);
 		setDescription(ABOUT);
-			try {
-				setIconURL(new URL( FontAwesomeUrl.INFO_CIRCLE));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
+		try {
+			setIconURL(new URL(FontAwesomeUrl.INFO_CIRCLE));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		setAction(new Action() {
 			@Override
 			public void run() {
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT.toLowerCase());
-				ClassInfo classInfo=reflectionProvider.getClassInfo(AboutItem.class);
-				List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfos( methodFilter);
+				DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(aboutProvider.getClass());
+				List<ActionMethodInfo> actionMethodInfos = domainClassInfo.getActionMethodInfos(methodFilter);
 				if (actionMethodInfos.size() == 1) {
 					ActionMethodInfo actionMethodInfo = actionMethodInfos.get(0);
 					userInterfaceController.processActionMethod(aboutProvider, actionMethodInfo, null);
@@ -46,5 +47,4 @@ public class AboutItem extends Item {
 		});
 	}
 
-	
 }

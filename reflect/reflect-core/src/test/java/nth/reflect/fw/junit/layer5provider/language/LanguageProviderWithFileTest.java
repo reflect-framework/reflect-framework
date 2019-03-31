@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.junit.layer5provider.validation.Address;
-import nth.reflect.fw.junit.layer5provider.validation.Country;
+import nth.reflect.fw.junit.stubs.Address;
+import nth.reflect.fw.junit.stubs.Country;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class LanguageProviderWithFileTest {
 
@@ -24,54 +24,52 @@ public class LanguageProviderWithFileTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit() ;
+		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit();
 		DependencyInjectionContainer container = application.createContainer();
-		languageProvider= container.get(LanguageProvider.class);
-		reflectionProvider=container.get(ReflectionProvider.class);
+		languageProvider = container.get(LanguageProvider.class);
+		reflectionProvider = container.get(ReflectionProvider.class);
 	}
 
 	@Test
 	public void getKey() {
-		ClassInfo classInfo = reflectionProvider.getClassInfo(Address.class);
-		String key = languageProvider.getKey(classInfo);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(Address.class);
+		String key = languageProvider.getKey(domainClassInfo);
 		assertEquals(Address.class.getCanonicalName(), key);
 
 		key = languageProvider.getKey(Address.class.getCanonicalName());
 		assertEquals(Address.class.getCanonicalName(), key);
 
-
 		key = languageProvider.getKey(Country.NETHERLANDS);
-		assertEquals(Country.class.getCanonicalName()+".NETHERLANDS", key);
-		
+		assertEquals(Country.class.getCanonicalName() + ".NETHERLANDS", key);
+
 		key = languageProvider.getKey(COM_ACME_LABEL1);
 		assertEquals(COM_ACME_LABEL1, key);
 	}
 
-	
 	@Test
 	public void getDefaultValue() {
-		String defaultValue=languageProvider.getDefaultValueFromKey(COM_ACME_LABEL1);
+		String defaultValue = languageProvider.getDefaultValueFromKey(COM_ACME_LABEL1);
 		assertEquals("Label1", defaultValue);
-		
-		defaultValue=languageProvider.getDefaultValueFromKey("closeApplication");
+
+		defaultValue = languageProvider.getDefaultValueFromKey("closeApplication");
 		assertEquals(CLOSE_APPLICATION, defaultValue);
 	}
 
 	@Test
 	public void getTextForDefaultText() {
-		String defaultValue=languageProvider.getText(CLOSE_APPLICATION);
+		String defaultValue = languageProvider.getText(CLOSE_APPLICATION);
 		assertEquals(CLOSE_APPLICATION, defaultValue);
 	}
 
 	@Test
 	public void getTextForKeyAndDefaultText() {
-		String defaultValue=languageProvider.getText(COM_ACME_LABEL1,CLOSE_APPLICATION);
+		String defaultValue = languageProvider.getText(COM_ACME_LABEL1, CLOSE_APPLICATION);
 		assertEquals(CLOSE_APPLICATION, defaultValue);
 	}
 
 	@Test
 	public void getTextForLocaleAndKeyAndDefaultText() {
-		String defaultValue=languageProvider.getText(Locale.FRENCH, COM_ACME_LABEL1,CLOSE_APPLICATION);
+		String defaultValue = languageProvider.getText(Locale.FRENCH, COM_ACME_LABEL1, CLOSE_APPLICATION);
 		assertEquals("From France file", defaultValue);
 	}
 

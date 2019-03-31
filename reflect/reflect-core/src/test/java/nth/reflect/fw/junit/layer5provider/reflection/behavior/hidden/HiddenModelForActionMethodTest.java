@@ -12,24 +12,22 @@ import nth.reflect.fw.junit.layer5provider.authorization.AuthorizationProviderTe
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class HiddenModelForActionMethodTest {
 
-
-	private ClassInfo classInfo;
+	private DomainClassInfo domainClassInfo;
 
 	@Before
 	public void setUp() throws Exception {
 		ReflectApplicationForJUnit application = new TestApp();
 		DependencyInjectionContainer container = application.createContainer();
-		AuthorizationProviderTestObject authorizationProvider = container
-				.get(AuthorizationProviderTestObject.class);
+		AuthorizationProviderTestObject authorizationProvider = container.get(AuthorizationProviderTestObject.class);
 		authorizationProvider.login("carla", "password1");
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		classInfo=reflectionProvider.getClassInfo(HiddenModelForActionMethodTestObject.class);
+		domainClassInfo = reflectionProvider.getDomainClassInfo(HiddenModelForActionMethodTestObject.class);
 	}
-	
+
 	private class TestApp extends ReflectApplicationForJUnit {
 		@Override
 		public java.lang.Class<? extends AuthorizationProvider> getAuthorizationProviderClass() {
@@ -39,51 +37,51 @@ public class HiddenModelForActionMethodTest {
 
 	@Test
 	public void actionMethodHiddenNotInRole() {
-		HiddenModelForActionMethodTestObject obj=new HiddenModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo=classInfo.getActionMethodInfo("actionMethodHiddenNotInRole");
+		HiddenModelForActionMethodTestObject obj = new HiddenModelForActionMethodTestObject();
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodHiddenNotInRole");
 		assertFalse(actionMethodInfo.isVisible(obj));
 	}
 
 	@Test
 	public void actionMethodVisibleInRole() {
-		HiddenModelForActionMethodTestObject obj=new HiddenModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo=classInfo.getActionMethodInfo("actionMethodVisibleInRole");
+		HiddenModelForActionMethodTestObject obj = new HiddenModelForActionMethodTestObject();
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodVisibleInRole");
 		assertTrue(actionMethodInfo.isVisible(obj));
 	}
 
 	@Test
 	public void actionMethodCollection() {
-		HiddenModelForActionMethodTestObject obj=new HiddenModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo=classInfo.getActionMethodInfo("actionMethodCollection");
+		HiddenModelForActionMethodTestObject obj = new HiddenModelForActionMethodTestObject();
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodCollection");
 		assertTrue(actionMethodInfo.isVisible(obj));
 	}
 
 	@Test
 	public void actionMethodHiddenMethod() {
-		HiddenModelForActionMethodTestObject obj=new HiddenModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo=classInfo.getActionMethodInfo("actionMethodHiddenMethod");
+		HiddenModelForActionMethodTestObject obj = new HiddenModelForActionMethodTestObject();
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodHiddenMethod");
 		assertFalse(actionMethodInfo.isVisible(obj));
 	}
 
 	@Test
 	public void actionMethodVisibleMethod() {
-		HiddenModelForActionMethodTestObject obj=new HiddenModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo=classInfo.getActionMethodInfo("actionMethodVisibleMethod");
+		HiddenModelForActionMethodTestObject obj = new HiddenModelForActionMethodTestObject();
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodVisibleMethod");
 		assertTrue(actionMethodInfo.isVisible(obj));
 	}
 
-
 	@Test
 	public void actionMethodHiddenAnnotationHiddenMethod() {
-		HiddenModelForActionMethodTestObject obj=new HiddenModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo=classInfo.getActionMethodInfo("actionMethodHiddenAnnotationHiddenMethod");
+		HiddenModelForActionMethodTestObject obj = new HiddenModelForActionMethodTestObject();
+		ActionMethodInfo actionMethodInfo = domainClassInfo
+				.getActionMethodInfo("actionMethodHiddenAnnotationHiddenMethod");
 		assertFalse(actionMethodInfo.isVisible(obj));
 	}
 
 	@Test
 	public void actionMethodHiddenVisibleMethod() {
-		HiddenModelForActionMethodTestObject obj=new HiddenModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo=classInfo.getActionMethodInfo("actionMethodHiddenVisibleMethod");
+		HiddenModelForActionMethodTestObject obj = new HiddenModelForActionMethodTestObject();
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodHiddenVisibleMethod");
 		assertFalse(actionMethodInfo.isVisible(obj));
 	}
 

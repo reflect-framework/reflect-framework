@@ -24,7 +24,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.ui.swing.item.button.ItemButton;
 import nth.reflect.fw.ui.swing.properygrid.PropertyGrid;
@@ -33,8 +33,9 @@ import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory;
 
 @SuppressWarnings("serial")
-public class FormTab extends Tab implements
-		nth.reflect.fw.gui.component.tab.form.FormTab { // implements ReadOnlyValueModel {
+public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.form.FormTab { // implements
+																							// ReadOnlyValueModel
+																							// {
 
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodOwner;
@@ -45,8 +46,7 @@ public class FormTab extends Tab implements
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final List<PropertyPanel> propertyPanels;
 
-	public FormTab(UserInterfaceContainer userInterfaceContainer,
-			Object methodOwner, ActionMethodInfo actionMethodInfo,
+	public FormTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
@@ -56,27 +56,23 @@ public class FormTab extends Tab implements
 		this.formMode = formMode;
 		setLayout(new BorderLayout());
 
+		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, domainObject, formMode);
 
-		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer,
-				 domainObject, formMode);
-		
 		propertyPanels = createPropertyPanels();
-		
+
 		updatePropertyPanels();
-		
+
 		add(createPropertyGrid(), BorderLayout.CENTER);
 
 		add(createButtonBar(), BorderLayout.SOUTH);
-		
+
 		setFocusToFirstField();
 	}
 
 	private List<PropertyInfo> getPropertyInfos(Object domainObject) {
-		ReflectionProvider reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainObject
-				.getClass());
-		List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainObject.getClass());
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
 		return propertyInfos;
 	}
 
@@ -97,22 +93,21 @@ public class FormTab extends Tab implements
 	private void setFocusToFirstField() {
 		for (PropertyPanel propertyPanel : propertyPanels) {
 			Component field = (Component) propertyPanel.getPropertyField();
-			if (FormMode.EDIT == formMode
-					&& propertyPanel.isVisible() && field.isEnabled()) {
+			if (FormMode.EDIT == formMode && propertyPanel.isVisible() && field.isEnabled()) {
 				setFocus(field);
 				return;
 			}
 		}
 	}
 
-	private List<PropertyPanel>  createPropertyPanels() {
+	private List<PropertyPanel> createPropertyPanels() {
 		List<PropertyInfo> propertyInfos = getPropertyInfos(domainObject);
-		
-		List<PropertyPanel> propertyPanels=new ArrayList<>();
-		PropertyPanelFactory propertyPanelFactory=new PropertyPanelFactory();
+
+		List<PropertyPanel> propertyPanels = new ArrayList<>();
+		PropertyPanelFactory propertyPanelFactory = new PropertyPanelFactory();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
-			PropertyPanel propertyPanel=propertyPanelFactory.createPropertyPanel(this, propertyValueModel);
+			PropertyPanel propertyPanel = propertyPanelFactory.createPropertyPanel(this, propertyValueModel);
 			propertyPanels.add(propertyPanel);
 		}
 		return propertyPanels;
@@ -132,7 +127,6 @@ public class FormTab extends Tab implements
 		}
 	}
 
-	
 	private Component createButtonBar() {
 		JPanel buttonBar = new JPanel();
 		buttonBar.setAlignmentX(JToolBar.CENTER_ALIGNMENT);
@@ -154,16 +148,13 @@ public class FormTab extends Tab implements
 		return buttonBar;
 	}
 
-	
 	public JButton createCloseButton() {
 		@SuppressWarnings("rawtypes")
 		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);
 		Tabs<Tab> tabs = userInterfaceController.getTabs();
-		LanguageProvider languageProvider = userInterfaceContainer
-				.get(LanguageProvider.class);
-		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider,
-				tabs, this);
+		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider, tabs, this);
 		return new ItemButton(closeItem);
 	}
 
@@ -171,18 +162,14 @@ public class FormTab extends Tab implements
 		@SuppressWarnings("rawtypes")
 		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);
-		Tabs<Tab> tabs = userInterfaceController
-				.getTabs();
-		LanguageProvider languageProvider = userInterfaceContainer
-				.get(LanguageProvider.class);
-		CancelItem cancelItem = new CancelItem(languageProvider, tabs,
-				this);
+		Tabs<Tab> tabs = userInterfaceController.getTabs();
+		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+		CancelItem cancelItem = new CancelItem(languageProvider, tabs, this);
 		return new ItemButton(cancelItem);
 	}
 
 	public JButton createOkButton() {
-		FormOkItem okItem = new FormOkItem(this, methodOwner, actionMethodInfo,
-				domainValueModel);
+		FormOkItem okItem = new FormOkItem(this, methodOwner, actionMethodInfo, domainValueModel);
 		return new ItemButton(okItem);
 	}
 

@@ -13,14 +13,13 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer2service.ServiceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
 
 public class CommandService {
 
 	private static Map<Class<?>, String> types;
 
-	public static Command findCommand(List<Command> commands, String[] arguments)
-			throws ReflectCommandLineException {
+	public static Command findCommand(List<Command> commands, String[] arguments) throws ReflectCommandLineException {
 		if (arguments.length < 1) {
 			return null;
 		}
@@ -34,13 +33,10 @@ public class CommandService {
 		return null;
 	}
 
-	public static List<Command> getCommands(
-			UserInterfaceContainer userInterfaceContainer)
+	public static List<Command> getCommands(UserInterfaceContainer userInterfaceContainer)
 			throws ReflectCommandLineException {
-		ReflectionProvider reflectionProvider = userInterfaceContainer
-				.get(ReflectionProvider.class);
-		ServiceContainer serviceContainer = userInterfaceContainer
-				.get(ServiceContainer.class);
+		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
 		List<Object> serviceObjects = serviceContainer.getServiceObjects();
 
 		if (serviceObjects.size() == 0) {
@@ -53,19 +49,17 @@ public class CommandService {
 
 		for (Object serviceObject : serviceObjects) {
 			Class<? extends Object> serviceClass = serviceObject.getClass();
-			ClassInfo classInfo = reflectionProvider.getClassInfo(serviceClass);
-			List<ActionMethodInfo> actionMethodInfos = classInfo.getActionMethodInfosSorted();
+			ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(serviceClass);
+			List<ActionMethodInfo> actionMethodInfos = serviceClassInfo.getActionMethodInfosSorted();
 
 			for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
-				Command command = new Command(reflectionProvider,
-						serviceObject, actionMethodInfo, shortCommandName);
+				Command command = new Command(reflectionProvider, serviceObject, actionMethodInfo, shortCommandName);
 				commands.add(command);
 			}
 		}
 
 		if (commands.size() == 0) {
-			throw new ReflectCommandLineException(
-					"No service objects with public visible methods.");
+			throw new ReflectCommandLineException("No service objects with public visible methods.");
 		}
 
 		return commands;
@@ -77,8 +71,7 @@ public class CommandService {
 			types.put(Boolean.class, Boolean.FALSE + ".." + Boolean.TRUE);
 			types.put(Byte.class, Byte.MIN_VALUE + ".." + Byte.MAX_VALUE);
 			types.put(Short.class, Short.MIN_VALUE + ".." + Short.MAX_VALUE);
-			types.put(Integer.class, Integer.MIN_VALUE + ".."
-					+ Integer.MAX_VALUE);
+			types.put(Integer.class, Integer.MIN_VALUE + ".." + Integer.MAX_VALUE);
 			types.put(Long.class, Long.MIN_VALUE + ".." + Long.MAX_VALUE);
 			types.put(Float.class, Float.MIN_VALUE + ".." + Float.MAX_VALUE);
 			types.put(Double.class, Double.MIN_VALUE + ".." + Double.MAX_VALUE);

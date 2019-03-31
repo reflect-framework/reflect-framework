@@ -11,7 +11,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 /**
  * Menu {@link Item}s for a {@link FormTabMenu}
@@ -32,7 +32,7 @@ public class FormTabMenuItems extends UnmodifiableCollection<MethodItem> {
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		Object domainObject = formTab.getDomainObject();
-		ClassInfo domainClassInfo = reflectionProvider.getClassInfo(domainObject.getClass());
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainObject.getClass());
 		List<ActionMethodInfo> actionMethodInfos = domainClassInfo
 				.getActionMethodInfos(createActionMethodFilter(formMode));
 

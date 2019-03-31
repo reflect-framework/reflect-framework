@@ -7,8 +7,11 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.junit.stubs.DomainObjectStub;
+import nth.reflect.fw.junit.stubs.ServiceObjectStub;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class ReflectionProviderTest {
 
@@ -17,14 +20,21 @@ public class ReflectionProviderTest {
 	@Before
 	public void setUp() throws Exception {
 		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit();
+		application.addServiceClass(ServiceObjectStub.class);
 		DependencyInjectionContainer container = application.createContainer();
-		reflectionProvider=container.get(ReflectionProvider.class);
+		reflectionProvider = container.get(ReflectionProvider.class);
 	}
 
 	@Test
-	public final void testGetClassInfo() {
-		ClassInfo classInfo = reflectionProvider.getClassInfo(ReflectionProviderTestObject.class);
-		assertEquals(ReflectionProviderTestObject.class.getCanonicalName(), classInfo.getCanonicalName());
+	public final void testGetApplicationClassInfos() {
+		ApplicationClassInfo applicationClassInfo = reflectionProvider.getApplicationClassInfo();
+		assertEquals(ReflectApplicationForJUnit.class.getCanonicalName(), applicationClassInfo.getCanonicalName());
+	}
+
+	@Test
+	public final void testGetDomainClassInfo() {
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(DomainObjectStub.class);
+		assertEquals(DomainObjectStub.class.getCanonicalName(), domainClassInfo.getCanonicalName());
 	}
 
 }

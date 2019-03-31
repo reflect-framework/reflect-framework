@@ -59,7 +59,7 @@ public class PropertyPanelMenuItems extends UnmodifiableCollection<Item> {
 		// NoParameterOrParameterFactoryFilter()
 		// .or(new ParameterTypeFilter(parameterType)).and(new
 		// LinkedToPropertyFilter(propertyInfo));
-		// ClassInfo classInfo = reflectionProvider.getClassInfo(domainType);
+		// DomainClassInfo classInfo = reflectionProvider.getClassInfo(domainType);
 		// List<ActionMethodInfo> actionMethodInfos =
 		// classInfo.getActionMethodInfos(filter);
 

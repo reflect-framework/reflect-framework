@@ -34,7 +34,7 @@ import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.appinfo.ApplicationInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 
 public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
@@ -147,16 +147,16 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		primaryStage.setScene(scene);
 
 		ReflectionProvider reflectProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		ApplicationInfo applicationInfo = reflectProvider.getApplicationInfo();
-		initIcon(primaryStage, applicationInfo);
-		String title = applicationInfo.getDisplayName();
+		ApplicationClassInfo applicationClassInfo = reflectProvider.getApplicationClassInfo();
+		initIcon(primaryStage, applicationClassInfo);
+		String title = applicationClassInfo.getDisplayName();
 		primaryStage.setTitle(title);
 		primaryStage.setMaximized(true);
 		primaryStage.show();
 	}
 
-	private void initIcon(Stage primaryStage, ApplicationInfo applicationInfo) {
-		URL iconUrl = applicationInfo.getIcon();
+	private void initIcon(Stage primaryStage, ApplicationClassInfo applicationClassInfo) {
+		URL iconUrl = applicationClassInfo.getIcon();
 		if (iconUrl != null) {
 			Image icon = new Image(iconUrl.toString());
 			primaryStage.getIcons().add(icon);

@@ -26,7 +26,7 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 
 //public class OneToOneField extends DropDownTextField implements Refreshable {
@@ -177,8 +177,8 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	public void setValueFromDomainProperty(Object propertyValue) {
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		ClassInfo classInfo = reflectionProvider.getClassInfo(propertyValueModel.getValueType());
-		String title = classInfo.getTitle(propertyValue);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(propertyValueModel.getValueType());
+		String title = domainClassInfo.getTitle(propertyValue);
 		allowTextChange = true;
 		getTextField().setText(title);
 		allowTextChange = false;

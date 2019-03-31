@@ -28,7 +28,7 @@ import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 /**
  * <p>
@@ -364,8 +364,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 				String serviceClassName = uriString.substring(positionColon + 1, positionLastDot);
 				String methodName = uriString.substring(positionLastDot + 1);
 				Class<?> serviceClass = Class.forName(serviceClassName);
-				ClassInfo classInfo = reflectionProvider.getClassInfo(serviceClass);
-				List<ActionMethodInfo> actionMethodInfos = classInfo
+				DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(serviceClass);
+				List<ActionMethodInfo> actionMethodInfos = domainClassInfo
 						.getActionMethodInfos(new MethodNameFilter(methodName));
 				processActionMethod(methodOwner, actionMethodInfos.get(0), null);
 			} catch (Exception exception) {

@@ -12,7 +12,7 @@ import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 public class PropertyInfoFactory {
 	public static List<PropertyInfo> createSorted(ProviderContainer providerContainer, Class<?> objectClass) {
 		ReflectApplication reflectApplication = providerContainer.get(ReflectApplication.class);
-		// TODO: Split up {@link ClassInfo}, so that this method is only called
+		// TODO: Split up {@link DomainClassInfo}, so that this method is only called
 		// for {@link DomainObject}s. See Issue #202. Then remove following 3
 		// lines
 		TypeInfo typeInfo = new TypeInfo(reflectApplication, objectClass, objectClass);

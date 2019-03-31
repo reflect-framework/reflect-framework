@@ -32,17 +32,19 @@ import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
 /**
- * The {@link ReflectApplicationForJUnit} is created to be used for <a
- * href="http://en.wikipedia.org/wiki/JUnit">JUnit tests</a>. Its big advantage
- * over using one of the other {@link ReflectApplication} implementations in
- * a JUnit test is that the {@link ReflectApplicationForJUnit}:
+ * The {@link ReflectApplicationForJUnit} is created to be used for
+ * <a href="http://en.wikipedia.org/wiki/JUnit">JUnit tests</a>. Its big
+ * advantage over using one of the other {@link ReflectApplication}
+ * implementations in a JUnit test is that the
+ * {@link ReflectApplicationForJUnit}:
  * <ul>
  * <li>Does not have a {@link UserInterfaceLayer}, because it is not needed for
  * testing. None of the {@link ServiceObject}s, {@link DomainObject}'s
  * {@link InfrastructureObject}, {@link Provider} Objects that you create or
- * maintain do know the UserTestObject Interface (see {@link ReflectArchitecture}). We
- * do not need to test the {@link ReflectFramework} {@link UserInterfaceLayer} if we
- * assume it works as it should.</li>
+ * maintain do know the UserTestObject Interface (see
+ * {@link ReflectArchitecture}). We do not need to test the
+ * {@link ReflectFramework} {@link UserInterfaceLayer} if we assume it works as
+ * it should.</li>
  * <li>You only need to register the classes that need testing. You register
  * classes by overriding the get...Class or get...Classes methods in the
  * {@link ReflectApplicationForJUnit} class</li>
@@ -76,9 +78,8 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * 	&#064;Before
  * 	public void setUp() throws Exception {
  * 		DependencyInjectionContainer container = new ReflectApplicationForJUnit()
- * 				.addServiceClass(ProductService.class)
- * 				.addInfrastructureClass(ProductRepositoryMockup.class)
- *              .createContainer();
+ * 				.addServiceClass(ProductService.class).addInfrastructureClass(ProductRepositoryMockup.class)
+ * 				.createContainer();
  * 		productService = container.get(ProductService.class);
  * 	}
  * 
@@ -144,16 +145,6 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 		return DefaultAboutProvider.class;
 	}
 
-//	/**
-//	 * You might want to use the override this method and use the
-//	 * {@link DefaultPathProvider#DefaultPathProvider(java.net.URI) constructor}
-//	 */
-//	@Override
-//	public Class<? extends PathProvider> getPathProviderClass() {
-//		return DefaultPathProvider.class;
-//	}
-
-	
 	@Override
 	public Class<? extends LanguageProvider> getLanguageProviderClass() {
 		return DefaultLanguageProvider.class;
@@ -188,5 +179,5 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class);
 	}
-	
+
 }

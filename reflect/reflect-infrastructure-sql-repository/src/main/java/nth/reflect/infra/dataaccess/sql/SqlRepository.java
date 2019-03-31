@@ -1,6 +1,5 @@
 package nth.reflect.infra.dataaccess.sql;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,17 +12,18 @@ import java.util.List;
 import java.util.Map;
 
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
-public abstract  class SqlRepository  {
+public abstract class SqlRepository {
 	protected Connection connection;
 
-	public abstract SqlDatabaseConfig getSqlDatabaseConfig() ;
+	public abstract SqlDatabaseConfig getSqlDatabaseConfig();
 
 	public Statement executeSQL(String sql) throws Exception {
 		try {
-			Statement statement = createConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			Statement statement = createConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
 			statement.execute(sql);
 			if (sql.startsWith("select")) {
 			} else {
@@ -40,14 +40,19 @@ public abstract  class SqlRepository  {
 
 	protected Connection createConnection() {
 		if (connection == null) {
-			SqlDatabaseConfig sqlDatabaseConfig= getSqlDatabaseConfig();
+			SqlDatabaseConfig sqlDatabaseConfig = getSqlDatabaseConfig();
 			try {
-				Class.forName(sqlDatabaseConfig.getDriverClass().getCanonicalName());// load driver class
-				connection = DriverManager.getConnection(sqlDatabaseConfig.getUrl(), sqlDatabaseConfig.getUserName(), sqlDatabaseConfig.getPassword());
+				Class.forName(sqlDatabaseConfig.getDriverClass().getCanonicalName());// load
+																						// driver
+																						// class
+				connection = DriverManager.getConnection(sqlDatabaseConfig.getUrl(), sqlDatabaseConfig.getUserName(),
+						sqlDatabaseConfig.getPassword());
 			} catch (SQLException exception) {
-				throw new IllegalStateException("Failed to connect to the database using the update user. Please contact your DBA.", exception);
+				throw new IllegalStateException(
+						"Failed to connect to the database using the update user. Please contact your DBA.", exception);
 			} catch (ClassNotFoundException e) {
-				throw new IllegalStateException("Could not find database driver: " + sqlDatabaseConfig.getDriverClass().getCanonicalName(), e);
+				throw new IllegalStateException(
+						"Could not find database driver: " + sqlDatabaseConfig.getDriverClass().getCanonicalName(), e);
 			}
 		}
 		return connection;
@@ -75,7 +80,7 @@ public abstract  class SqlRepository  {
 		Statement statement = executeSQL(sql);
 		ResultSet resultSet = statement.getResultSet();
 		List<Object> domainObjects = new ArrayList<Object>();
-		
+
 		ResultSetMetaData meta = resultSet.getMetaData();
 		int numColumns = meta.getColumnCount();
 		while (resultSet.next()) {
@@ -90,9 +95,9 @@ public abstract  class SqlRepository  {
 		}
 		return domainObjects;
 	}
-	
-	
-	public List<?> getResultList(ReflectionProvider reflectionProvider, String sql, Class<?> domainClass) throws Exception {
+
+	public List<?> getResultList(ReflectionProvider reflectionProvider, String sql, Class<?> domainClass)
+			throws Exception {
 		Statement statement = executeSQL(sql);
 		ResultSet resultSet = statement.getResultSet();
 		List<Object> results = new ArrayList<Object>();
@@ -100,10 +105,10 @@ public abstract  class SqlRepository  {
 		Map<String, PropertyInfo> propertyInfos = new HashMap<String, PropertyInfo>();
 		ResultSetMetaData meta = resultSet.getMetaData();
 		int numColumns = meta.getColumnCount();
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainClass);
 		for (int columnNr = 1; columnNr < numColumns + 1; columnNr++) {
 			String columnName = meta.getColumnName(columnNr);
-			for (PropertyInfo propertyInfo : classInfo.getPropertyInfosSorted()) {
+			for (PropertyInfo propertyInfo : domainClassInfo.getPropertyInfosSorted()) {
 				if (propertyInfo.getSimpleName().equalsIgnoreCase(columnName)) {
 					propertyInfos.put(columnName, propertyInfo);
 					break;
@@ -118,14 +123,19 @@ public abstract  class SqlRepository  {
 				Object value = resultSet.getObject(columnNr);
 				PropertyInfo propertyInfo = propertyInfos.get(columnName);
 				if (propertyInfo == null) {
-					throw new RuntimeException("Could not find property: " + columnName + " in class: " + domainClass.getCanonicalName());
+					throw new RuntimeException(
+							"Could not find property: " + columnName + " in class: " + domainClass.getCanonicalName());
 				}
 				try {
 					propertyInfo.setValue(domainObject, value);
 					// } catch (IllegalArgumentException e) {
-					// throw new RuntimeException("Property type of property: " + domainClass.getCanonicalName()+"."+propertyInfo.getName()+" must be of type"+value.getClass().getCanonicalName());
+					// throw new RuntimeException("Property type of property: "
+					// +
+					// domainClass.getCanonicalName()+"."+propertyInfo.getName()+"
+					// must be of type"+value.getClass().getCanonicalName());
 				} catch (Exception e) {
-					throw new RuntimeException("Could not set property: " + domainClass.getCanonicalName() + "." + propertyInfo.getSimpleName(), e);
+					throw new RuntimeException("Could not set property: " + domainClass.getCanonicalName() + "."
+							+ propertyInfo.getSimpleName(), e);
 				}
 			}
 			results.add(domainObject);
@@ -143,6 +153,4 @@ public abstract  class SqlRepository  {
 		return results;
 	}
 
-
-	
 }

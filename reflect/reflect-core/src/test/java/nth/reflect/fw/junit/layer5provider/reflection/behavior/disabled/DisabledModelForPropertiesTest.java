@@ -11,22 +11,21 @@ import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.junit.layer5provider.authorization.AuthorizationProviderTestObject;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 public class DisabledModelForPropertiesTest {
 
-	private ClassInfo classInfo;
+	private DomainClassInfo domainClassInfo;
 
 	@Before
 	public void setUp() throws Exception {
 		ReflectApplicationForJUnit application = new TestApp();
 		DependencyInjectionContainer container = application.createContainer();
-		AuthorizationProviderTestObject authorizationProvider = container
-				.get(AuthorizationProviderTestObject.class);
+		AuthorizationProviderTestObject authorizationProvider = container.get(AuthorizationProviderTestObject.class);
 		authorizationProvider.login("carla", "password1");
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		classInfo=reflectionProvider.getClassInfo(DisabledModelForPropertiesTestObject.class);
+		domainClassInfo = reflectionProvider.getDomainClassInfo(DisabledModelForPropertiesTestObject.class);
 	}
 
 	private class TestApp extends ReflectApplicationForJUnit {
@@ -35,35 +34,34 @@ public class DisabledModelForPropertiesTest {
 			return AuthorizationProviderTestObject.class;
 		}
 	};
-	
+
 	@Test
 	public void propertyDisabled() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyDisabled");
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyDisabled");
 		assertFalse(propertyInfo.isEnabled(obj));
 
 	}
 
-
 	@Test
 	public void propertyEnabled() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyEnabled");
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyEnabled");
 		assertTrue(propertyInfo.isEnabled(obj));
 
 	}
-	
+
 	@Test
 	public void propertyDisabledNotInRole() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo( "propertyDisabledNotInRole");
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyDisabledNotInRole");
 		assertFalse(propertyInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void propertyEnabledInRole() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyEnabledInRole");
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyEnabledInRole");
 		assertTrue(propertyInfo.isEnabled(obj));
 
 	}
@@ -71,14 +69,14 @@ public class DisabledModelForPropertiesTest {
 	@Test
 	public void propertyCollection() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyCollection");
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyCollection");
 		assertTrue(propertyInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void propertyDisabledMethod() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyDisabledMethod" );
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyDisabledMethod");
 		assertFalse(propertyInfo.isEnabled(obj));
 
 	}
@@ -86,21 +84,21 @@ public class DisabledModelForPropertiesTest {
 	@Test
 	public void propertyEnabledMethod() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyEnabledMethod");
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyEnabledMethod");
 		assertTrue(propertyInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void propertyDisabledAnnotationDisabledMethod() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyDisabledAnnotationDisabledMethod" );
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyDisabledAnnotationDisabledMethod");
 		assertFalse(propertyInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void propertyDisabledAnnotationEnabledMethod() {
 		DisabledModelForPropertiesTestObject obj = new DisabledModelForPropertiesTestObject();
-		PropertyInfo propertyInfo = classInfo.getPropertyInfo("propertyDisabledAnnotationEnabledMethod");
+		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo("propertyDisabledAnnotationEnabledMethod");
 		assertFalse(propertyInfo.isEnabled(obj));
 	}
 }

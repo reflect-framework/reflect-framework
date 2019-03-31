@@ -13,13 +13,13 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 public class ExcelTableWriter extends ExcelWriter {
 
-
-	public XSSFWorkbook write(XSSFWorkbook workbook, String title, ReflectionProvider reflectionProvider, Class<?> objectType, Collection<?> objects) {
+	public XSSFWorkbook write(XSSFWorkbook workbook, String title, ReflectionProvider reflectionProvider,
+			Class<?> objectType, Collection<?> objects) {
 		Date exportDateTime = new Date();
 
 		List<PropertyInfo> propertyInfos = getPropertyInfosForTable(reflectionProvider, objectType);
@@ -46,15 +46,13 @@ public class ExcelTableWriter extends ExcelWriter {
 		autoSizeColumns(sheet, nr_of_columns - 1);
 		return workbook;
 	}
-	
+
 	private List<PropertyInfo> getPropertyInfosForTable(ReflectionProvider reflectionProvider, Class<?> domainClass) {
 		// get propertyInfos
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainClass);
-		List<PropertyInfo> propertyInfos = classInfo
-				.getPropertyInfosSortedAndVisibleInTable();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainClass);
+		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		return propertyInfos;
 	}
-	
 
 	private void addTableHeaderRow(List<PropertyInfo> propertyInfos, Sheet sheet) {
 		Workbook workbook = sheet.getWorkbook();
@@ -71,9 +69,7 @@ public class ExcelTableWriter extends ExcelWriter {
 		}
 	}
 
-
-	private int addDomainObjectRows(Collection<?> domainObjects,
-			List<PropertyInfo> propertyInfos, Sheet sheet) {
+	private int addDomainObjectRows(Collection<?> domainObjects, List<PropertyInfo> propertyInfos, Sheet sheet) {
 		Row row;
 		int columnNr;
 		Cell cell;
@@ -89,5 +85,4 @@ public class ExcelTableWriter extends ExcelWriter {
 		return rowNr;
 	}
 
-	
 }

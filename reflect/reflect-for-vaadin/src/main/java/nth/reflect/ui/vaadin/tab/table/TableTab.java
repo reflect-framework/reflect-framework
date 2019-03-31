@@ -15,7 +15,7 @@ import nth.reflect.fw.generic.translatablestring.ReflectTranslatable;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
@@ -33,7 +33,7 @@ public class TableTab extends Tab {
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
 	private final Grid<?> grid;
-	private final ClassInfo domainClassInfo;
+	private final DomainClassInfo domainClassInfo;
 
 	public TableTab(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
@@ -48,10 +48,10 @@ public class TableTab extends Tab {
 		add(grid);
 	}
 
-	private ClassInfo createDomainClassInfo() {
+	private DomainClassInfo createDomainClassInfo() {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		Class<?> actionMethodReturnType = actionMethodInfo.getReturnTypeInfo().getGenericType();
-		ClassInfo domainClassInfo = reflectionProvider.getClassInfo(actionMethodReturnType);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(actionMethodReturnType);
 		return domainClassInfo;
 	}
 

@@ -27,7 +27,7 @@ import nth.reflect.fw.container.InstanceFactory;
 import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer4infrastructure.InfrastructureContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.infra.generic.xml.transform.DefaultMatcher;
@@ -150,9 +150,9 @@ public class XmlConverter {
 			// them twice.
 			marshaledObjects.add(objectToMarshal);
 
-			ClassInfo classInfo = reflectionProvider.getClassInfo(objectToMarshal.getClass());
+			DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(objectToMarshal.getClass());
 
-			List<PropertyInfo> properyInfos = classInfo.getPropertyInfosSorted();
+			List<PropertyInfo> properyInfos = domainClassInfo.getPropertyInfosSorted();
 			for (PropertyInfo propertyInfo : properyInfos) {
 
 				Object propertyValue = propertyInfo.getValue(objectToMarshal);
@@ -257,8 +257,8 @@ public class XmlConverter {
 			unMarshaledObjects.put(id, object);
 
 			// get PropertyInfos
-			ClassInfo classInfo = reflectionProvider.getClassInfo(object.getClass());
-			List<PropertyInfo> propertyInfos = classInfo.getPropertyInfosSorted();
+			DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(object.getClass());
+			List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
 			// get property Elements
 			List<Element> propertyElements = getChildElements(objectElement);
 

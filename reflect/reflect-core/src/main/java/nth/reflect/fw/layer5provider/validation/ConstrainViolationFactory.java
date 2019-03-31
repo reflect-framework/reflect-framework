@@ -15,7 +15,7 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationMethodFactory;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 /**
  * Creates {@link ConstraintViolation}s from {@link ValidationMethod}s, for the
@@ -29,15 +29,15 @@ public class ConstrainViolationFactory {
 	public static List<ConstraintViolation<Object>> create(ReflectionProvider reflectionProvider,
 			LanguageProvider languageProvider, Object domainObject) {
 
-		ClassInfo classInfo = reflectionProvider.getClassInfo(domainObject.getClass());
-		List<Method> validationMethods = classInfo.getAllValidationMethods();
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainObject.getClass());
+		List<Method> validationMethods = domainClassInfo.getAllValidationMethods();
 
 		ArrayList<ConstraintViolation<Object>> constraintViolations = new ArrayList<ConstraintViolation<Object>>();
 		for (Method validationMethod : validationMethods) {
 			List<ValidationViolation> validationViolations = executeValidationMethod(validationMethod, domainObject);
 			if (validationViolations != null) {
-				constraintViolations.addAll(
-						createConstraintViolations(languageProvider, classInfo, domainObject, validationViolations));
+				constraintViolations.addAll(createConstraintViolations(languageProvider, domainClassInfo, domainObject,
+						validationViolations));
 			}
 		}
 
@@ -45,23 +45,23 @@ public class ConstrainViolationFactory {
 	}
 
 	private static List<ConstraintViolation<Object>> createConstraintViolations(LanguageProvider languageProvider,
-			ClassInfo classInfo, Object domainObject, List<ValidationViolation> validationViolations) {
+			DomainClassInfo domainClassInfo, Object domainObject, List<ValidationViolation> validationViolations) {
 		List<ConstraintViolation<Object>> constraintViolations = new ArrayList<>();
 		for (ValidationViolation validationViolation : validationViolations) {
-			constraintViolations
-					.add(createConstraintViolations(languageProvider, classInfo, domainObject, validationViolation));
+			constraintViolations.add(
+					createConstraintViolations(languageProvider, domainClassInfo, domainObject, validationViolation));
 		}
 		return constraintViolations;
 	}
 
 	private static ConstraintViolation<Object> createConstraintViolations(LanguageProvider languageProvider,
-			ClassInfo classInfo, Object domainObject, ValidationViolation validationViolation) {
+			DomainClassInfo domainClassInfo, Object domainObject, ValidationViolation validationViolation) {
 		String messageTemplateKey = validationViolation.getMessageTemplateKey();
 		String messageTemplateDefault = validationViolation.getMessageTemplateInEnglish();
 		String messageTemplate = languageProvider.getText(messageTemplateKey, messageTemplateDefault);
 		Object invalidValue = validationViolation.getInvalidValue();
 		String message = String.format(messageTemplate, invalidValue);
-		Path path = PathImpl.createPathFromString(classInfo.getSimpleName());
+		Path path = PathImpl.createPathFromString(domainClassInfo.getSimpleName());
 		@SuppressWarnings("unchecked")
 		Class<Object> rootBeanClass = (Class<Object>) domainObject.getClass();
 		ConstraintDescriptor<?> constraintDescriptor = null;

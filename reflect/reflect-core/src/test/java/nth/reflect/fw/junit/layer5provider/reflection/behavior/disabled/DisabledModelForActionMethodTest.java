@@ -12,11 +12,11 @@ import nth.reflect.fw.junit.layer5provider.authorization.AuthorizationProviderTe
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 public class DisabledModelForActionMethodTest {
 
-	private ClassInfo classInfo;
+	private DomainClassInfo domainClassInfo;
 
 	@Before
 	public void setUp() throws Exception {
@@ -25,7 +25,7 @@ public class DisabledModelForActionMethodTest {
 		AuthorizationProviderTestObject authorizationProvider = container.get(AuthorizationProviderTestObject.class);
 		authorizationProvider.login("carla", "password1");
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		classInfo = reflectionProvider.getClassInfo(DisabledModelForActionMethodTestObject.class);
+		domainClassInfo = reflectionProvider.getDomainClassInfo(DisabledModelForActionMethodTestObject.class);
 	}
 
 	private class TestApp extends ReflectApplicationForJUnit {
@@ -38,42 +38,42 @@ public class DisabledModelForActionMethodTest {
 	@Test
 	public void actionMethodDisabledNotInRole() {
 		DisabledModelForActionMethodTestObject obj = new DisabledModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodDisabledNotInRole");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodDisabledNotInRole");
 		assertFalse(actionMethodInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void actionMethodEnabledInRole() {
 		DisabledModelForActionMethodTestObject obj = new DisabledModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodEnabledInRole");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodEnabledInRole");
 		assertTrue(actionMethodInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void actionMethodCollection() {
 		DisabledModelForActionMethodTestObject obj = new DisabledModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodCollection");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodCollection");
 		assertTrue(actionMethodInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void actionMethodDisabledMethod() {
 		DisabledModelForActionMethodTestObject obj = new DisabledModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodDisabledMethod");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodDisabledMethod");
 		assertFalse(actionMethodInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void actionMethodEnabledMethod() {
 		DisabledModelForActionMethodTestObject obj = new DisabledModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo = classInfo.getActionMethodInfo("actionMethodEnabledMethod");
+		ActionMethodInfo actionMethodInfo = domainClassInfo.getActionMethodInfo("actionMethodEnabledMethod");
 		assertTrue(actionMethodInfo.isEnabled(obj));
 	}
 
 	@Test
 	public void actionMethodDisabledAnnotationDisabledMethod() {
 		DisabledModelForActionMethodTestObject obj = new DisabledModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo = classInfo
+		ActionMethodInfo actionMethodInfo = domainClassInfo
 				.getActionMethodInfo("actionMethodDisabledAnnotationDisabledMethod");
 		assertFalse(actionMethodInfo.isEnabled(obj));
 	}
@@ -81,7 +81,7 @@ public class DisabledModelForActionMethodTest {
 	@Test
 	public void actionMethodDisabledEnabledMethod() {
 		DisabledModelForActionMethodTestObject obj = new DisabledModelForActionMethodTestObject();
-		ActionMethodInfo actionMethodInfo = classInfo
+		ActionMethodInfo actionMethodInfo = domainClassInfo
 				.getActionMethodInfo("actionMethodDisabledAnnotationEnabledMethod");
 		assertFalse(actionMethodInfo.isEnabled(obj));
 	}
