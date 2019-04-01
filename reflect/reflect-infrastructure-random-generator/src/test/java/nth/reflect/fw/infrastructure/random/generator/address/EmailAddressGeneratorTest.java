@@ -1,7 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.address;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class EmailAddressGeneratorTest {
 	public void testForNoParameter() {
 		int size = 2000;
 		List<String> emailAddresses = Random.emailAddress().generateList(size);
-		assertThat(emailAddresses, hasSize(size));
+		assertThat(emailAddresses).hasSize(size);
 		for (String emailAddress : emailAddresses) {
 			assertTrue(emailAddress, EMAIL_ADDRESS_PATTERN.matcher(emailAddress).matches());
 		}
@@ -28,10 +27,10 @@ public class EmailAddressGeneratorTest {
 
 	@Test
 	public void testForName() {
-		String name=Random.personName().generate();
+		String name = Random.personName().generate();
 		int size = 20;
-		List<String> emailAddresses = Random.emailAddress().forName(name) .generateList(size);
-		assertThat(emailAddresses, hasSize(size));
+		List<String> emailAddresses = Random.emailAddress().forName(name).generateList(size);
+		assertThat(emailAddresses).hasSize(size);
 		for (String emailAddress : emailAddresses) {
 			assertTrue(emailAddress, EMAIL_ADDRESS_PATTERN.matcher(emailAddress).matches());
 		}
@@ -40,8 +39,8 @@ public class EmailAddressGeneratorTest {
 	@Test
 	public void testForMaleProbability() {
 		int size = 2000;
-		List<String> emailAddresses = Random.emailAddress().forMaleProbability(0) .generateList(size);
-		assertThat(emailAddresses, hasSize(size));
+		List<String> emailAddresses = Random.emailAddress().forMaleProbability(0).generateList(size);
+		assertThat(emailAddresses).hasSize(size);
 		for (String emailAddress : emailAddresses) {
 			assertTrue(emailAddress, EMAIL_ADDRESS_PATTERN.matcher(emailAddress).matches());
 		}

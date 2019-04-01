@@ -14,11 +14,6 @@ public class FloatGenerator extends RandomGenerator<Float> {
 	}
 
 	public FloatGenerator(float min, float max) {
-		if (min >= max) {
-			float temp = min;
-			min = max;
-			max = temp;
-		}
 		this.min = min;
 		this.max = max;
 	}
@@ -33,6 +28,9 @@ public class FloatGenerator extends RandomGenerator<Float> {
 
 	@Override
 	public Float generate() {
+		if (min >= max) {
+			return min;
+		}
 		return min + ThreadLocalRandom.current().nextFloat() * (max - min);
 	}
 

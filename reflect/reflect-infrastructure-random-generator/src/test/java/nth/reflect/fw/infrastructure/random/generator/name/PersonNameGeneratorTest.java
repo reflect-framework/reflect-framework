@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
@@ -14,12 +10,11 @@ import nth.reflect.fw.infrastructure.random.Random;
 
 public class PersonNameGeneratorTest {
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testPersonNameGenerator() {
 		Set<String> personNames = Random.personName().generateSet(1000);
-		assertThat(personNames,hasSize(greaterThan(900)));
-		assertThat(personNames,hasItems(containsString(" ")));
+		assertThat(personNames).size().isGreaterThan(900);
+		assertThat(personNames).allSatisfy(name -> assertThat(name).contains(" "));
 	}
 
 }

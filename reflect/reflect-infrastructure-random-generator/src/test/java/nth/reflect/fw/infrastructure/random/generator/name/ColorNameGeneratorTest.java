@@ -1,9 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
@@ -16,13 +13,13 @@ public class ColorNameGeneratorTest {
 	@Test
 	public void testGenerate() {
 		Set<String> result = Random.colorName().generateSet(100);
-		assertThat(result, hasSize(greaterThan(15)));
-		assertThat(result, hasItem("Red"));
-		assertThat(result, hasItem("Green"));
-		assertThat(result, hasItem("Yellow"));
-		assertThat(result, hasItem("Blue"));
-		assertThat(result, hasItem("White"));
-		assertThat(result, hasItem("Gray"));
+		assertThat(result).size().isGreaterThan(15);
+		assertThat(result).contains("Red");
+		assertThat(result).contains("Green");
+		assertThat(result).contains("Yellow");
+		assertThat(result).contains("Blue");
+		assertThat(result).contains("White");
+		assertThat(result).contains("Gray");
 	}
 
 }

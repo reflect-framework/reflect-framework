@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -20,7 +16,8 @@ public class BigIntegerGeneratorTest {
 		List<BigInteger> randomBigIntegers = Random.bigInteger().generateList(10);
 		BigInteger min = BigInteger.ZERO;
 		BigInteger max = BigInteger.valueOf(Long.MAX_VALUE);
-		assertThat(randomBigIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomBigIntegers)
+				.allSatisfy(bigInt -> assertThat(bigInt).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 	@Test
@@ -35,12 +32,13 @@ public class BigIntegerGeneratorTest {
 		BigInteger min = BigInteger.ZERO;
 		BigInteger max = BigInteger.valueOf(maxInt);
 		List<BigInteger> randomBigIntegers = Random.bigInteger().forMax(max).generateList(20);
-		if (min.compareTo(max) == 1) {
-			BigInteger temp = min;
-			min = max;
-			max = temp;
+		if (min.compareTo(max) < 0) {
+			assertThat(randomBigIntegers)
+					.allSatisfy(bigInt -> assertThat(bigInt).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
+		} else {
+			assertThat(randomBigIntegers)
+					.allSatisfy(bigInt -> assertThat(bigInt).isGreaterThanOrEqualTo(max).isLessThanOrEqualTo(min));
 		}
-		assertThat(randomBigIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
 	@Test
@@ -55,7 +53,8 @@ public class BigIntegerGeneratorTest {
 		BigInteger min = BigInteger.valueOf(minInt);
 		BigInteger max = BigInteger.valueOf(maxInt);
 		List<BigInteger> randomBigIntegers = Random.bigInteger().forRange(min, max).generateList(20);
-		assertThat(randomBigIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomBigIntegers)
+				.allSatisfy(bigInt -> assertThat(bigInt).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 }

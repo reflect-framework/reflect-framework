@@ -1,9 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.word;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
@@ -16,9 +13,9 @@ public class LoremIpsumGeneratorTest {
 	@Test
 	public void testGenerate() {
 		Set<String> result = Random.loremIpsum().generateSet(200);
-		assertThat(result, hasSize(greaterThan(60)));
-		assertThat(result, hasItem("lorem"));
-		assertThat(result, hasItem("ipsum"));
+		assertThat(result).hasSizeGreaterThan(60);
+		assertThat(result).contains("lorem");
+		assertThat(result).contains("ipsum");
 	}
 
 }

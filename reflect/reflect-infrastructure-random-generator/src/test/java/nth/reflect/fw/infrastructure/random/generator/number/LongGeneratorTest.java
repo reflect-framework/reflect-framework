@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -16,42 +12,31 @@ public class LongGeneratorTest {
 
 	@Test
 	public void testForNoParameter() {
-		long min=0;
-		long max=Long.MAX_VALUE;
+		long min = 0;
+		long max = Long.MAX_VALUE;
 		List<Long> randomLongs = Random.long_().generateList(20);
-		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomLongs).allSatisfy(l -> assertThat(l).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 	@Test
 	public void testForMax() {
-		long min=0;
-		long max=1;
-		List<Long> randomLongs = Random.long_().forMax( max).generateList(20);
-		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
-		
-		max=10;
-		randomLongs = Random.long_().forMax( max).generateList(20);
-		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		List<Long> randomLongs = Random.long_().forMax(1).generateList(20);
+		assertThat(randomLongs).allSatisfy(l -> assertThat(l).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(1));
+
+		randomLongs = Random.long_().forMax(10).generateList(20);
+		assertThat(randomLongs).allSatisfy(l -> assertThat(l).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(10));
 	}
 
-	
 	@Test
 	public void testForRange() {
-		long min=0;
-		long max=1;
-		List<Long> randomLongs = Random.long_().forRange(min, max).generateList(20);
-		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
-		
-		min=5;
-		max=10;
-		randomLongs = Random.long_().forRange(min, max).generateList(20);
-		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
-		
-		min=10;
-		max=5;
-		randomLongs = Random.long_().forRange(min, max).generateList(20);
-		assertThat(randomLongs, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
-	}
+		List<Long> randomLongs = Random.long_().forRange(0, 1).generateList(20);
+		assertThat(randomLongs).allSatisfy(l -> assertThat(l).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(1));
 
+		randomLongs = Random.long_().forRange(5, 10).generateList(20);
+		assertThat(randomLongs).allSatisfy(l -> assertThat(l).isGreaterThanOrEqualTo(5).isLessThanOrEqualTo(10));
+
+		randomLongs = Random.long_().forRange(10, 5).generateList(20);
+		assertThat(randomLongs).allSatisfy(l -> assertThat(l).isGreaterThanOrEqualTo(10).isLessThanOrEqualTo(10));
+	}
 
 }

@@ -43,7 +43,7 @@
 			<artifactId>reflect-infrastructure-random-factory</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
+	 	<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -51,10 +51,8 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.12.2</version>
 			<scope>test</scope>
 		</dependency>
-
 
 
 

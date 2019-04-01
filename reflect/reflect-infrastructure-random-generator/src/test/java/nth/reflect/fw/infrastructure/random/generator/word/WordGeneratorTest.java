@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.word;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.lessThan;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -23,34 +19,34 @@ public class WordGeneratorTest {
 	public void testNoParameters() {
 		int size = 100;
 		List<String> words = Random.word().generateList(size);
-		assertThat(words,hasSize(size));
+		assertThat(words).hasSize(size);
 		for (String word : words) {
-			assertThat(word.length(), greaterThan(MIN_SYLABLES_DEFAULT*MIN_SYLABLES_CHARACTERS_DEFAULT-1));
-			assertThat(word.length(), lessThan(MAX_SYLABLES_DEFAULT*3+1));
-		}		
+			assertThat(word).hasSizeGreaterThan(MIN_SYLABLES_DEFAULT * MIN_SYLABLES_CHARACTERS_DEFAULT - 1);
+			assertThat(word).hasSizeLessThan(MAX_SYLABLES_DEFAULT * 3 + 1);
+		}
 	}
-	
+
 	@Test
 	public void testForLength() {
-		int length=Random.integer().forRange(10, 100).generate();
+		int length = Random.integer().forRange(10, 100).generate();
 		int size = 100;
 		List<String> words = Random.word().forLength(length).generateList(size);
-		assertThat(words,hasSize(size));
+		assertThat(words).hasSize(size);
 		for (String word : words) {
-			assertThat(word.length(), equalTo(length));
-		}	
+			assertThat(word).hasSize(length);
+		}
 	}
 
 	@Test
 	public void testForSyllables() {
-		int minSyllables=1;
-		int maxSyllables=10;
+		int minSyllables = 1;
+		int maxSyllables = 10;
 		int size = 100;
-		List<String> words = Random.word().forSyllables(minSyllables, maxSyllables) .generateList(size);
+		List<String> words = Random.word().forSyllables(minSyllables, maxSyllables).generateList(size);
 		for (String word : words) {
-			assertThat(word.length(), greaterThan(minSyllables*MIN_SYLABLES_CHARACTERS_DEFAULT-1));
-			assertThat(word.length(), lessThan(maxSyllables*MAX_SYLABLES_CHARACTERS_DEFAULT+1));
-		}		
+			assertThat(word).hasSizeGreaterThan(minSyllables * MIN_SYLABLES_CHARACTERS_DEFAULT - 1);
+			assertThat(word).hasSizeLessThan(maxSyllables * MAX_SYLABLES_CHARACTERS_DEFAULT + 1);
+		}
 	}
 
 }

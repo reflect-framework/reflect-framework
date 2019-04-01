@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -16,42 +12,31 @@ public class IntGeneratorTest {
 
 	@Test
 	public void testForNoParameter() {
-		int min=0;
-		int max=Integer.MAX_VALUE;
+		int min = 0;
+		int max = Integer.MAX_VALUE;
 		List<Integer> randomIntegers = Random.integer().generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomIntegers).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 	@Test
 	public void testForMax() {
-		int min=0;
-		int max=1;
-		List<Integer> randomIntegers = Random.integer().forMax( max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
-		
-		max=10;
-		randomIntegers = Random.integer().forMax( max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		List<Integer> randomIntegers = Random.integer().forMax(1).generateList(20);
+		assertThat(randomIntegers).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(1));
+
+		randomIntegers = Random.integer().forMax(10).generateList(20);
+		assertThat(randomIntegers).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(10));
 	}
 
-	
 	@Test
 	public void testForRange() {
-		int min=0;
-		int max=1;
-		List<Integer> randomIntegers = Random.integer().forRange(min, max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
-		
-		min=5;
-		max=10;
-		randomIntegers = Random.integer().forRange(min, max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
-		
-		min=10;
-		max=5;
-		randomIntegers = Random.integer().forRange(min, max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
-	}
+		List<Integer> randomIntegers = Random.integer().forRange(0, 1).generateList(20);
+		assertThat(randomIntegers).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(1));
 
+		randomIntegers = Random.integer().forRange(5, 10).generateList(20);
+		assertThat(randomIntegers).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(5).isLessThanOrEqualTo(10));
+
+		randomIntegers = Random.integer().forRange(10, 5).generateList(20);
+		assertThat(randomIntegers).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(10).isLessThanOrEqualTo(10));
+	}
 
 }

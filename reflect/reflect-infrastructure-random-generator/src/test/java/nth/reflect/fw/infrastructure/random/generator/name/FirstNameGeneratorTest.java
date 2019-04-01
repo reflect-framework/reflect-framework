@@ -1,11 +1,10 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
-import org.hamcrest.number.IsCloseTo;
+import org.assertj.core.data.Offset;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class FirstNameGeneratorTest {
 
 	@Before
 	public void setup() {
-		allMaleNames = Random.maleName().generateSet(100*1000);
+		allMaleNames = Random.maleName().generateSet(100 * 1000);
 	}
 
 	@Test
@@ -31,9 +30,9 @@ public class FirstNameGeneratorTest {
 		int size = 100;
 		Set<String> randomNames = Random.firstName().generateSet(size);
 		long maleNameCount = randomNames.stream().filter(name -> allMaleNames.contains(name)).count();
-		assertThat(randomNames, hasSize(size));
-		double ratio = maleNameCount / (double)size;
-		assertThat(ratio, IsCloseTo.closeTo(0.5, 0.2));
+		assertThat(randomNames).hasSize(size);
+		double ratio = maleNameCount / (double) size;
+		assertThat(ratio).isCloseTo(ratio, Offset.offset(0.2));
 	}
 
 	@Test
@@ -58,13 +57,12 @@ public class FirstNameGeneratorTest {
 
 	private void testForProbability(int maleProbabilityInPercent) {
 		int size = 100;
-		Set<String> randomNames = Random.firstName().forMaleProbability(maleProbabilityInPercent)
-				.generateSet(size);
+		Set<String> randomNames = Random.firstName().forMaleProbability(maleProbabilityInPercent).generateSet(size);
 		long maleNameCount = randomNames.stream().filter(name -> allMaleNames.contains(name)).count();
-		assertThat(randomNames, hasSize(size));
+		assertThat(randomNames).hasSize(size);
 		double givenRatio = maleProbabilityInPercent / _100_PERCENT;
 		double actualRatio = maleNameCount / (double) size;
-		assertThat(actualRatio, IsCloseTo.closeTo(givenRatio, 0.2));
+		assertThat(actualRatio).isCloseTo(givenRatio, Offset.offset(0.2));
 	}
 
 }

@@ -14,11 +14,6 @@ public class LongGenerator extends RandomGenerator<Long> {
 	}
 
 	public LongGenerator(long min, long max) {
-		if (min > max) {
-			long temp = min;
-			min = max;
-			max = temp;
-		}
 		this.min = min;
 		this.max = max;
 	}
@@ -33,6 +28,9 @@ public class LongGenerator extends RandomGenerator<Long> {
 
 	@Override
 	public Long generate() {
+		if (min >= max) {
+			return min;
+		}
 		return ThreadLocalRandom.current().nextLong(min, max);
 	}
 

@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,7 +15,8 @@ public class BigDecimalGeneratorTest {
 		List<BigDecimal> randomBigDecimals = Random.bigDecimal().generateList(20);
 		BigDecimal min = BigDecimal.ZERO;
 		BigDecimal max = BigDecimal.valueOf(Double.MAX_VALUE);
-		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomBigDecimals)
+				.allSatisfy(bigDecimal -> assertThat(bigDecimal).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 	@Test
@@ -38,12 +35,13 @@ public class BigDecimalGeneratorTest {
 	private void testForMax(BigDecimal max) {
 		List<BigDecimal> randomBigDecimals = Random.bigDecimal().forMax(max).generateList(20);
 		BigDecimal min = BigDecimal.ZERO;
-		if (min.compareTo(max) > 0) {
-			BigDecimal temp = min;
-			min = max;
-			max = temp;
+		if (min.compareTo(max) < 0) {
+			assertThat(randomBigDecimals).allSatisfy(
+					bigDecimal -> assertThat(bigDecimal).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
+		} else {
+			assertThat(randomBigDecimals).allSatisfy(
+					bigDecimal -> assertThat(bigDecimal).isGreaterThanOrEqualTo(max).isLessThanOrEqualTo(min));
 		}
-		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
 	}
 
 	@Test
@@ -61,7 +59,8 @@ public class BigDecimalGeneratorTest {
 
 	private void testForRange(BigDecimal min, BigDecimal max) {
 		List<BigDecimal> randomBigDecimals = Random.bigDecimal().forRange(min, max).generateList(20);
-		assertThat(randomBigDecimals, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomBigDecimals)
+				.allSatisfy(bigDecimal -> assertThat(bigDecimal).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 }

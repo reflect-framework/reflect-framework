@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -19,37 +15,33 @@ public class ByteGeneratorTest {
 		byte min = Byte.MIN_VALUE;
 		byte max = Byte.MAX_VALUE;
 		List<Byte> randomBytes = Random.byte_().generateList(20);
-		assertThat(randomBytes, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomBytes).allSatisfy(b -> assertThat(b).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 	@Test
 	public void testForMax() {
-		byte min = Byte.MIN_VALUE;
-		byte max = 1;
-		List<Byte> randomBytes = Random.byte_().forMax(max).generateList(20);
-		assertThat(randomBytes, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		List<Byte> randomBytes = Random.byte_().forMax((byte) 1).generateList(20);
+		assertThat(randomBytes)
+				.allSatisfy(b -> assertThat(b).isGreaterThanOrEqualTo(Byte.MIN_VALUE).isLessThanOrEqualTo((byte) 1));
 
-		max = 10;
-		randomBytes = Random.byte_().forMax(max).generateList(20);
-		assertThat(randomBytes, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		randomBytes = Random.byte_().forMax((byte) 10).generateList(20);
+		assertThat(randomBytes)
+				.allSatisfy(b -> assertThat(b).isGreaterThanOrEqualTo(Byte.MIN_VALUE).isLessThanOrEqualTo((byte) 10));
 	}
 
 	@Test
 	public void testForRange() {
-		byte min = 0;
-		byte max = 1;
-		List<Byte> randomIntegers = Random.byte_().forRange(min, max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		List<Byte> randomBytes = Random.byte_().forRange((byte) 0, (byte) 1).generateList(20);
+		assertThat(randomBytes)
+				.allSatisfy(b -> assertThat(b).isGreaterThanOrEqualTo((byte) 0).isLessThanOrEqualTo((byte) 1));
 
-		min = 5;
-		max = 10;
-		randomIntegers = Random.byte_().forRange(min, max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		randomBytes = Random.byte_().forRange((byte) 5, (byte) 10).generateList(20);
+		assertThat(randomBytes)
+				.allSatisfy(b -> assertThat(b).isGreaterThanOrEqualTo((byte) 5).isLessThanOrEqualTo((byte) 10));
 
-		min = 10;
-		max = 5;
-		randomIntegers = Random.byte_().forRange(min, max).generateList(20);
-		assertThat(randomIntegers, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
+		randomBytes = Random.byte_().forRange((byte) 10, (byte) 5).generateList(20);
+		assertThat(randomBytes)
+				.allSatisfy(b -> assertThat(b).isGreaterThanOrEqualTo((byte) 5).isLessThanOrEqualTo((byte) 10));
 	}
 
 }

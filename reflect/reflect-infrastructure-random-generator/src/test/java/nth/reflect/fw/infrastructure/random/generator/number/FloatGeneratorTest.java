@@ -1,10 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.number;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -19,7 +15,7 @@ public class FloatGeneratorTest {
 		float min = Float.MIN_VALUE;
 		float max = Float.MAX_VALUE;
 		List<Float> randomFloats = Random.float_().generateList(20);
-		assertThat(randomFloats, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomFloats).allSatisfy(f -> assertThat(f).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 	}
 
 	@Test
@@ -27,29 +23,22 @@ public class FloatGeneratorTest {
 		float min = Float.MIN_VALUE;
 		float max = Float.MAX_VALUE;
 		List<Float> randomFloats = Random.float_().forMax(max).generateList(20);
-		assertThat(randomFloats, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		assertThat(randomFloats).allSatisfy(f -> assertThat(f).isGreaterThanOrEqualTo(min).isLessThanOrEqualTo(max));
 
-		max = 10;
-		randomFloats = Random.float_().forMax(max).generateList(20);
-		assertThat(randomFloats, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		randomFloats = Random.float_().forMax(10).generateList(20);
+		assertThat(randomFloats).allSatisfy(f -> assertThat(f).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(10));
 	}
 
 	@Test
 	public void testForRange() {
-		float min = 0;
-		float max = 1;
-		List<Float> randomFloats = Random.float_().forRange(min, max).generateList(20);
-		assertThat(randomFloats, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		List<Float> randomFloats = Random.float_().forRange(0, 1).generateList(20);
+		assertThat(randomFloats).allSatisfy(f -> assertThat(f).isGreaterThanOrEqualTo(0).isLessThanOrEqualTo(1));
 
-		min = 5;
-		max = 10;
-		randomFloats = Random.float_().forRange(min, max).generateList(20);
-		assertThat(randomFloats, everyItem(allOf(greaterThanOrEqualTo(min), lessThanOrEqualTo(max))));
+		randomFloats = Random.float_().forRange(5, 10).generateList(20);
+		assertThat(randomFloats).allSatisfy(f -> assertThat(f).isGreaterThanOrEqualTo(5).isLessThanOrEqualTo(10));
 
-		min = 10;
-		max = 5;
-		randomFloats = Random.float_().forRange(min, max).generateList(20);
-		assertThat(randomFloats, everyItem(allOf(greaterThanOrEqualTo(max), lessThanOrEqualTo(min))));
+		randomFloats = Random.float_().forRange(10, 5).generateList(20);
+		assertThat(randomFloats).allSatisfy(f -> assertThat(f).isGreaterThanOrEqualTo(10).isLessThanOrEqualTo(10));
 	}
 
 }

@@ -14,11 +14,6 @@ public class DoubleGenerator extends RandomGenerator<Double> {
 	}
 
 	public DoubleGenerator(double min, double max) {
-		if (min > max) {
-			double temp = min;
-			min = max;
-			max = temp;
-		}
 		this.min = min;
 		this.max = max;
 	}
@@ -33,6 +28,9 @@ public class DoubleGenerator extends RandomGenerator<Double> {
 
 	@Override
 	public Double generate() {
+		if (min >= max) {
+			return min;
+		}
 		return ThreadLocalRandom.current().nextDouble(min, max);
 	}
 

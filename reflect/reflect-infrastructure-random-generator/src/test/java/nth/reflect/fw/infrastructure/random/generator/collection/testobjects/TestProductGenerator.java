@@ -6,7 +6,6 @@ import nth.reflect.fw.infrastructure.random.Random;
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 
 public class TestProductGenerator extends RandomGenerator<TestProduct> {
-
 	@Override
 	public TestProduct generate() {
 		TestProduct testProduct = new TestProduct();
@@ -15,8 +14,7 @@ public class TestProductGenerator extends RandomGenerator<TestProduct> {
 		testProduct.setName(randomProduct.getName());
 		testProduct.setDetails(randomProduct.getDescription());
 		testProduct.setCompanyName(randomProduct.getCompany());
-		testProduct.setPrice(
-				Random.bigDecimal().forRange(new BigDecimal("10.0"), new BigDecimal("1000.0")).generate());
+		testProduct.setPrice(Random.bigDecimal().forRange(new BigDecimal("10.0"), new BigDecimal("1000.0")).generate());
 		return testProduct;
 	}
 }

@@ -1,6 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.word;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ public class SyllableGeneratorTest {
 	public void testSyllableGenerator() {
 		List<String> syllables = Random.syllable().generateList(100);
 		for (String syllable : syllables) {
-			assertTrue("Too many characters in: "+syllable,syllable.length()<=4);
-			assertTrue("Too few characters in: "+syllable,syllable.length()>=2);
+			assertThat(syllable).hasSizeLessThanOrEqualTo(4);
+			assertThat(syllable).hasSizeGreaterThanOrEqualTo(2);
 		}
 	}
 

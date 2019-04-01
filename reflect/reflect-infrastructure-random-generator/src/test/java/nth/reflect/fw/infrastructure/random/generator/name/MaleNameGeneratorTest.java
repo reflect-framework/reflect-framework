@@ -1,9 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
@@ -16,9 +13,9 @@ public class MaleNameGeneratorTest {
 	@Test
 	public void testGenerate() {
 		Set<String> result = Random.maleName().generateSet(100000);
-		assertThat(result, hasSize(greaterThan(999)));
-		assertThat(result, hasItem("Josh"));
-		assertThat(result, hasItem("Jamie"));
+		assertThat(result).size().isGreaterThan(999);
+		assertThat(result).contains("Josh");
+		assertThat(result).contains("Jamie");
 	}
 
 }

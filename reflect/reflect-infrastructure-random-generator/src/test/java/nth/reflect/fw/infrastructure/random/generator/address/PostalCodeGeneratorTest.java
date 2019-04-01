@@ -1,5 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.address;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -16,7 +17,6 @@ import nth.reflect.fw.infrastructure.random.generator.resource.Resources;
 import nth.reflect.fw.infrastructure.random.generator.text.CharacterSet;
 
 public class PostalCodeGeneratorTest {
-
 	private static final String NETHERLANDS = "Netherlands";
 
 	@Test
@@ -24,7 +24,7 @@ public class PostalCodeGeneratorTest {
 		Set<String> postalCodeFormats = Resources.countryRepository().getAll().stream()
 				.map(RandomCountry::getPostalCodeFormat).collect(Collectors.toSet());
 		List<String> postalCodes = Random.postalCode().generateList(10);
-		assertPostalCode(postalCodes, postalCodeFormats);
+		assertThat(postalCodes).allSatisfy(postalCode -> assertThat(isValid(postalCode, postalCodeFormats)));
 	}
 
 	@Test
@@ -35,14 +35,7 @@ public class PostalCodeGeneratorTest {
 		List<String> postalCodes = Random.postalCode().forCountry(netherlands.get()).generateList(10);
 		Set<String> postalCodeFormats = new HashSet<>();
 		postalCodeFormats.add(netherlands.get().getPostalCodeFormat());
-		assertPostalCode(postalCodes, postalCodeFormats);
-	}
-
-
-	private void assertPostalCode(List<String> postalCodes, Set<String> postalCodeFormats) {
-		for (String postalCode : postalCodes) {
-			assertTrue("Invalid postal code: " + postalCode, isValid(postalCode, postalCodeFormats));
-		}
+		assertThat(postalCodes).allSatisfy(postalCode -> assertThat(isValid(postalCode, postalCodeFormats)));
 	}
 
 	private boolean isValid(String postalCode, Set<String> postalCodeFormats) {
@@ -55,7 +48,7 @@ public class PostalCodeGeneratorTest {
 	}
 
 	private boolean isValid(String postalCode, String format) {
-		if (postalCode.length()==0) {
+		if (postalCode.length() == 0) {
 			return true;
 		}
 		if (postalCode.length() != format.length()) {

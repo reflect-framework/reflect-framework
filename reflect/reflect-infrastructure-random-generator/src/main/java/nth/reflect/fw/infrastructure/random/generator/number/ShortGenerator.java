@@ -14,11 +14,6 @@ public class ShortGenerator extends RandomGenerator<Short> {
 	}
 
 	public ShortGenerator(short min, short max) {
-		if (min >= max) {
-			short temp = min;
-			min = max;
-			max = temp;
-		}
 		this.min = min;
 		this.max = max;
 	}
@@ -33,6 +28,9 @@ public class ShortGenerator extends RandomGenerator<Short> {
 
 	@Override
 	public Short generate() {
+		if (min >= max) {
+			return min;
+		}
 		return (short) ThreadLocalRandom.current().nextInt(min, max);
 	}
 

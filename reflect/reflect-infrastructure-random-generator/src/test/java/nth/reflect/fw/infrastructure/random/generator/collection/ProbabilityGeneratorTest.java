@@ -1,13 +1,12 @@
 package nth.reflect.fw.infrastructure.random.generator.collection;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hamcrest.number.IsCloseTo;
+import org.assertj.core.data.Offset;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.junit.rules.ExpectedException;
 
 import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.infrastructure.random.ValueGenerator;
-import nth.reflect.fw.infrastructure.random.generator.collection.ProbabilityGenerator;
 
 public class ProbabilityGeneratorTest {
 
@@ -72,11 +70,11 @@ public class ProbabilityGeneratorTest {
 		double trueCount = randomBooleans.stream().filter(b -> b == true).count();
 		double falseCount = randomBooleans.stream().filter(b -> b == false).count();
 		if (falseProbability == 0) {
-			assertThat(falseCount, equalTo(0.0));
+			assertThat(falseCount).isEqualTo(0.0);
 		} else {
 			double givenRatio = trueProbability / (double) falseProbability;
 			double actualRatio = trueCount / falseCount;
-			assertThat(actualRatio, IsCloseTo.closeTo(givenRatio, 0.5));
+			assertThat(actualRatio).isCloseTo(givenRatio, Offset.offset(0.5));
 		}
 	}
 

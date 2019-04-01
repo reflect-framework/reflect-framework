@@ -1,12 +1,11 @@
 package nth.reflect.fw.infrastructure.random.generator.collection;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import nth.reflect.fw.infrastructure.random.generator.collection.ArrayGenerator;
 import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.TestProduct;
 import nth.reflect.fw.infrastructure.random.generator.collection.testobjects.TestProductGenerator;
 import nth.reflect.fw.infrastructure.random.generator.number.IntGenerator;
@@ -18,8 +17,8 @@ public class ArrayGeneratorTest {
 		int size = 10;
 		ArrayGenerator<TestProduct> randomProductArrayGenerator = new ArrayGenerator<>(TestProduct.class,
 				new TestProductGenerator(), size);
-		TestProduct[] array = (TestProduct[]) randomProductArrayGenerator.generate();
-		assertTrue(array.length == size);
+		TestProduct[] array = randomProductArrayGenerator.generate();
+		assertThat(array).hasSize(size);
 		assertArrayContainsValidProduct(array);
 	}
 
@@ -30,8 +29,8 @@ public class ArrayGeneratorTest {
 		ArrayGenerator<TestProduct> randomProductArrayGenerator = new ArrayGenerator<>(TestProduct.class,
 				new TestProductGenerator(), min, max);
 		TestProduct[] array = randomProductArrayGenerator.generate();
-		assertTrue(array.length >= min);
-		assertTrue(array.length <= max);
+		assertThat(array).hasSizeGreaterThanOrEqualTo(min);
+		assertThat(array).hasSizeLessThanOrEqualTo(max);
 		assertArrayContainsValidProduct(array);
 	}
 
@@ -41,8 +40,8 @@ public class ArrayGeneratorTest {
 		ArrayGenerator<Integer> randomProductArrayGenerator = new ArrayGenerator<>(Integer.class,
 				new IntGenerator(5, 10), listSize);
 		Integer[] array = randomProductArrayGenerator.generate();
-		assertTrue(array.length == listSize);
-		assertArrayContainsValidIntegers(array);
+		assertThat(array).hasSize(listSize);
+		assertThat(array).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(5).isLessThanOrEqualTo(10));
 	}
 
 	@Test
@@ -52,24 +51,17 @@ public class ArrayGeneratorTest {
 		ArrayGenerator<Integer> randomProductArrayGenerator = new ArrayGenerator<>(Integer.class,
 				new IntGenerator(5, 10), min, max);
 		Integer[] array = randomProductArrayGenerator.generate();
-		assertTrue(array.length >= min);
-		assertTrue(array.length <= max);
-		assertArrayContainsValidIntegers(array);
-	}
-
-	private void assertArrayContainsValidIntegers(Integer[] array) {
-		for (Integer integer : array) {
-			assertTrue(integer >= 5);
-			assertTrue(integer <= 10);
-		}
+		assertThat(array).hasSizeGreaterThanOrEqualTo(min);
+		assertThat(array).hasSizeLessThanOrEqualTo(max);
+		assertThat(array).allSatisfy(i -> assertThat(i).isGreaterThanOrEqualTo(5).isLessThanOrEqualTo(10));
 	}
 
 	private void assertArrayContainsValidProduct(TestProduct[] array) {
 		for (TestProduct testProduct : array) {
-			assertTrue(testProduct.getCode().length() > 0);
-			assertTrue(testProduct.getName().length() > 0);
-			assertTrue(testProduct.getDetails().length() > 0);
-			assertTrue(testProduct.getPrice().compareTo(BigDecimal.ZERO) == 1);
+			assertThat(testProduct.getCode()).as("Product Code").isNotBlank();
+			assertThat(testProduct.getName()).as("Product Name").isNotBlank();
+			assertThat(testProduct.getDetails()).as("Product Details").isNotBlank();
+			assertThat(testProduct.getPrice()).as("Price").isGreaterThan(BigDecimal.ZERO);
 		}
 	}
 

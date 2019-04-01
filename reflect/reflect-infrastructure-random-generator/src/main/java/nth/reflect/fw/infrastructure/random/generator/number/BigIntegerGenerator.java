@@ -15,11 +15,6 @@ public class BigIntegerGenerator extends RandomGenerator<BigInteger> {
 	}
 
 	public BigIntegerGenerator(BigInteger min, BigInteger max) {
-		if (min.compareTo(max) > 0) {
-			BigInteger temp = min;
-			min = max;
-			max = temp;
-		}
 		this.min = min;
 		this.max = max;
 	}
@@ -34,6 +29,9 @@ public class BigIntegerGenerator extends RandomGenerator<BigInteger> {
 
 	@Override
 	public BigInteger generate() {
+		if (min.compareTo(max) > 0) {
+			return min;
+		}
 		BigDecimal range = new BigDecimal(max.subtract(min));
 		return min.add(new BigDecimal(Math.random()).multiply(range).toBigInteger());
 	}

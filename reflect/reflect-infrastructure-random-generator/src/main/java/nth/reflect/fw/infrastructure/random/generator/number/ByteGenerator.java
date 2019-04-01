@@ -14,11 +14,6 @@ public class ByteGenerator extends RandomGenerator<Byte> {
 	}
 
 	public ByteGenerator(byte min, byte max) {
-		if (min >= max) {
-			byte temp = min;
-			min = max;
-			max = temp;
-		}
 		this.min = min;
 		this.max = max;
 	}
@@ -33,6 +28,9 @@ public class ByteGenerator extends RandomGenerator<Byte> {
 
 	@Override
 	public Byte generate() {
+		if (min >= max) {
+			return min;
+		}
 		return (byte) ThreadLocalRandom.current().nextInt(min, max);
 	}
 

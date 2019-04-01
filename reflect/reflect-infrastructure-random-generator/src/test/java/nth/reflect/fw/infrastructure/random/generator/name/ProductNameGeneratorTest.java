@@ -1,9 +1,6 @@
 package nth.reflect.fw.infrastructure.random.generator.name;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
@@ -13,21 +10,19 @@ import nth.reflect.fw.infrastructure.random.Random;
 
 public class ProductNameGeneratorTest {
 
-	
 	@Test
 	public void testForNoParameter() {
 		Set<RandomProduct> products = Random.product().generateSet(500);
-		assertThat(products, hasSize(greaterThan(110)));
+		assertThat(products).size().isGreaterThan(110);
 		for (RandomProduct product : products) {
 			assertValidProduct(product);
 		}
 	}
-	
-	private void assertValidProduct(RandomProduct product) {
-		assertTrue(!product.getName().trim().isEmpty());
-		assertTrue(!product.getDescription().trim().isEmpty());
-		assertTrue(!product.getCompany().trim().isEmpty());
-	}
 
+	private void assertValidProduct(RandomProduct product) {
+		assertThat(product.getName()).as("Product name").isNotBlank();
+		assertThat(product.getDescription()).as("Product description").isNotBlank();
+		assertThat(product.getCompany()).as("Product company").isNotBlank();
+	}
 
 }
