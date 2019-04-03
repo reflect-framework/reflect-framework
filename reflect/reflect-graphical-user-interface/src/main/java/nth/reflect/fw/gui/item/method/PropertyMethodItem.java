@@ -1,12 +1,10 @@
 package nth.reflect.fw.gui.item.method;
 
-import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
@@ -59,29 +57,23 @@ public class PropertyMethodItem extends MethodItem {
 
 	@Override
 	public String getText() {
-		// text format: propertyName: propertyMethodName
-		StringBuffer text = new StringBuffer();
-		if (showPropertyName) {
-			text.append(propertyInfo.getDisplayName());
-			text.append(": ");
-		}
-		Object parameterValue = null;
-		if (!propertyMethodInfo.hasParameterFactory() && propertyMethodInfo.hasParameter()) {
-			parameterValue = parameterValueModel.getValue();
-		}
-		ReflectionProvider reflectionProvider = formTab.getUserInterfaceContainer().get(ReflectionProvider.class);
-		text.append(TitleUtil.createTitle(reflectionProvider, propertyMethodInfo, parameterValue));
-		return text.toString();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		boolean methodIsEnabled = propertyMethodInfo.isEnabled(propertyOwnerModel.getValue());
-		boolean hasNoParameter = !propertyMethodInfo.hasParameter();
-		boolean hasParameterFactory = propertyMethodInfo.hasParameterFactory();
-		boolean canGetParameterValue = parameterValueModel.canGetValue();
-		// TODO check for type as well?
-		return methodIsEnabled && (hasNoParameter || hasParameterFactory || canGetParameterValue);
+		// // text format: propertyName: propertyMethodName
+		// StringBuffer text = new StringBuffer();
+		// if (showPropertyName) {
+		// text.append(propertyInfo.getDisplayName());
+		// text.append(": ");
+		// }
+		// Object parameterValue = null;
+		// if (!propertyMethodInfo.hasParameterFactory() &&
+		// propertyMethodInfo.hasParameter()) {
+		// parameterValue = parameterValueModel.getValue();
+		// }
+		// ReflectionProvider reflectionProvider =
+		// formTab.getUserInterfaceContainer().get(ReflectionProvider.class);
+		// text.append(TitleUtil.createTitle(reflectionProvider,
+		// propertyMethodInfo, parameterValue));
+		// return text.toString();
+		return propertyMethodInfo.getDisplayName();
 	}
 
 	/**
@@ -90,9 +82,19 @@ public class PropertyMethodItem extends MethodItem {
 	 */
 	@Override
 	public boolean isVisible() {
+		boolean methodIsEnabled = propertyMethodInfo.isEnabled(propertyOwnerModel.getValue());
+		boolean methodIsVisible = propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
+		boolean hasNoParameter = !propertyMethodInfo.hasParameter();
+		boolean hasParameterFactory = propertyMethodInfo.hasParameterFactory();
+		boolean canGetParameterValue = parameterValueModel.canGetValue();
+
 		boolean formInEditMode = FormMode.EDIT == formTab.getFormMode();
-		Boolean propertyMethodNotHidden = propertyMethodInfo.isVisible(propertyOwnerModel.getValue());
-		return formInEditMode && propertyMethodNotHidden;
+		boolean methodDoesNotChangeDomainObjects = propertyMethodInfo.isReadOnly();
+
+		// TODO check for type as well?
+		return methodIsVisible && methodIsEnabled && (hasNoParameter || hasParameterFactory || canGetParameterValue)
+				&& (methodDoesNotChangeDomainObjects || formInEditMode);
+
 	}
 
 }

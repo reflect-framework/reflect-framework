@@ -6,12 +6,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
-import nth.reflect.fw.gui.component.tab.Tab;
-import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.item.method.PropertyMethodItem;
-import nth.reflect.fw.gui.item.method.PropertyMethodOwnerItems;
 import nth.reflect.fw.gui.item.method.ServiceObjectItems;
 import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -32,8 +28,7 @@ public class PropertyPanelMenuItems extends UnmodifiableCollection<Item> {
 
 	private static final long serialVersionUID = -8380826298117283745L;
 
-	public PropertyPanelMenuItems(FormTab formTab, ReadOnlyValueModel parameterModel,
-			PropertyInfo propertyInfo) {
+	public PropertyPanelMenuItems(FormTab formTab, ReadOnlyValueModel parameterModel, PropertyInfo propertyInfo) {
 		super(create(formTab, parameterModel, propertyInfo));
 	}
 
@@ -59,7 +54,8 @@ public class PropertyPanelMenuItems extends UnmodifiableCollection<Item> {
 		// NoParameterOrParameterFactoryFilter()
 		// .or(new ParameterTypeFilter(parameterType)).and(new
 		// LinkedToPropertyFilter(propertyInfo));
-		// DomainClassInfo classInfo = reflectionProvider.getClassInfo(domainType);
+		// DomainClassInfo classInfo =
+		// reflectionProvider.getClassInfo(domainType);
 		// List<ActionMethodInfo> actionMethodInfos =
 		// classInfo.getActionMethodInfos(filter);
 
@@ -72,12 +68,14 @@ public class PropertyPanelMenuItems extends UnmodifiableCollection<Item> {
 			items.add(item);
 		}
 
-		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController graphicalUserinterfaceController = formTab.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class);
-		@SuppressWarnings("unchecked")
-		Tabs<Tab> tabs = graphicalUserinterfaceController.getTabs();
-		items.addAll(new PropertyMethodOwnerItems(tabs, parameterModel, propertyInfo));
+		// @SuppressWarnings("rawtypes")
+		// GraphicalUserinterfaceController graphicalUserinterfaceController =
+		// formTab.getUserInterfaceContainer()
+		// .get(GraphicalUserinterfaceController.class);
+		// @SuppressWarnings("unchecked")
+		// Tabs<Tab> tabs = graphicalUserinterfaceController.getTabs();
+		// items.addAll(new PropertyMethodOwnerItems(tabs, parameterModel,
+		// propertyInfo));
 
 		// service object methods
 		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(parameterType)
