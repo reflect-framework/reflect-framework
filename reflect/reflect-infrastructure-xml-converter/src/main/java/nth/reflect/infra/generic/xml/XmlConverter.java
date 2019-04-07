@@ -43,7 +43,7 @@ import nth.reflect.infra.generic.xml.transform.Transform;
 
 public class XmlConverter {
 
-	private static final String REFLEC_FRAMEWORK = ReflectFramework.class.getSimpleName();
+	private static final String REFLECT_FRAMEWORK = ReflectFramework.class.getSimpleName();
 	private static final String ID = "id";
 	private static DefaultMatcher XML_TRANSFORM_MATCHER = new DefaultMatcher(null);
 	private final ReflectionProvider reflectionProvider;
@@ -111,7 +111,7 @@ public class XmlConverter {
 		Document document = docBuilder.newDocument();
 
 		// root element
-		Element rootElement = document.createElement(REFLEC_FRAMEWORK);
+		Element rootElement = document.createElement(REFLECT_FRAMEWORK);
 		document.appendChild(rootElement);
 
 		List<Object> marshaledObjects = new ArrayList<Object>();
@@ -211,8 +211,8 @@ public class XmlConverter {
 		List<Object> rootObjects = new ArrayList<Object>();
 		Map<String, Object> unMarshaledObjects = new HashMap<String, Object>();
 		Element rootElement = document.getDocumentElement();
-		if (!rootElement.getNodeName().equals(REFLEC_FRAMEWORK)) {
-			throw new RuntimeException("The XML document must have a root element <" + REFLEC_FRAMEWORK + ">");
+		if (!rootElement.getNodeName().equals(REFLECT_FRAMEWORK)) {
+			throw new RuntimeException("The XML document must have a root element <" + REFLECT_FRAMEWORK + ">");
 		}
 
 		// create objects
@@ -264,10 +264,13 @@ public class XmlConverter {
 
 			// iterate trough PropertyInfos and set property values
 			for (PropertyInfo propertyInfo : propertyInfos) {
-				if (!propertyInfo.isReadOnly()) {// TODO what if
-													// !propertyInfo.isEnabled())
+				if (!propertyInfo.isReadOnly()) {
+					// TODO what if !propertyInfo.isEnabled())
+					// TODO what if it is an empty collection. It would nice if
+					// it would set an empty collection and not null!!!
 					Object propertyValue = unMarshalProperty(propertyInfo, propertyElements, unMarshaledObjects);
 					propertyInfo.setValue(object, propertyValue);
+
 				}
 			}
 

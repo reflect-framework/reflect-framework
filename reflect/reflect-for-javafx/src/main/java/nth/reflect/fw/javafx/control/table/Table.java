@@ -19,7 +19,6 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForFormTabProperty;
 import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
-import nth.reflect.fw.gui.item.HierarchicalItem;
 import nth.reflect.fw.gui.style.MaterialFont;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreeCell;
@@ -161,16 +160,6 @@ public class Table extends TableView<Object> {
 	private void showRowPopupMenu(double x, double y) {
 		if (tableInfo != null) {
 			Collection<Item> menuItems = tableInfo.getRowMenuItems(getActionMethodParameterModel());
-
-			for (Item item : menuItems) {
-				System.out.println(item.getText());
-				if (item instanceof HierarchicalItem) {
-					HierarchicalItem hierarchicalItem = (HierarchicalItem) item;
-					for (Item child : hierarchicalItem.getChildren()) {
-						System.out.println("  " + child.getText());
-					}
-				}
-			}
 
 			if (hasVisibleMenuItems(menuItems)) {
 				popupMenu.getContent().clear();

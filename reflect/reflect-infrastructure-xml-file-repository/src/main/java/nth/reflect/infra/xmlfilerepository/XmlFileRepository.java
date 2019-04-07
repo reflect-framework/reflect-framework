@@ -19,12 +19,42 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 
 import nth.reflect.fw.ReflectFramework;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrl;
 import nth.reflect.infra.generic.xml.XmlConverter;
 
 /**
+ * <p>
  * A very simple data access class for the {@link ReflectFramework} that can be
- * extended to store and read objects in an object database (an xml file)
+ * extended to store and read objects in an object database (an xml file).
+ * </p>
+ * <p>
+ * How it works:
+ * <ul>
+ * <li>Reads {@link DomainObject}s from a file and stores them in memory (in the
+ * {@link #domainObjects} field) when the {@link #getAll()} method is called for
+ * the first time.</li>
+ * <li>It stores all {@link DomainObject}s by overwriting the file, every time
+ * the {@link #persistAll()} {@link #persist(Object)} and
+ * {@link #delete(Object)} methods are called. You need to call one of these
+ * methods every time the {@link DomainObject}s change, and these changes these
+ * changes need to be stored.</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Note that:
+ * <ul>
+ * <li>You need to be sure that other applications do not use the same file,
+ * because this will most likely result in discrepancies and loss in data.</li>
+ * <li>All data is stored in memory, so this solution is not suited for a lot of
+ * data.</li>
+ * </ul>
+ * </p>
+ * 
+ * 
+ * 
+ * 
+ * basically stores {@link DomainObject} in memory and
  * 
  * @author nilsth
  * 

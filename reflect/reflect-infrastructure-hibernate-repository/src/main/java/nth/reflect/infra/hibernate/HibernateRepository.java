@@ -12,14 +12,20 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.infra.hibernate.entity.DeletableEntity;
 
 /**
- * A {@link InfrastructureObject} to link a {@link DomainObject} type to a database using Hibernate (JPA)
+ * A {@link InfrastructureObject} to link a {@link DomainObject} type to a
+ * database using Hibernate (JPA)
+ * 
  * @author nilsth
+ *
  *
  * @param <T>
  */
+
+// See also: https://www.baeldung.com/spring-dao-jpa
+
 public abstract class HibernateRepository<T> {
 
-		private final SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
 
 	public HibernateRepository(HibernateConfiguration hibernateConfiguration) {
 		sessionFactory = createSessionFactory(hibernateConfiguration);
@@ -31,13 +37,11 @@ public abstract class HibernateRepository<T> {
 			Configuration configuration = new Configuration();
 			configuration.addProperties(hibernateConfiguration.getProperties());
 
-			for (String domainPackage : hibernateConfiguration
-					.getDomainPackages()) {
+			for (String domainPackage : hibernateConfiguration.getDomainPackages()) {
 				configuration.addPackage(domainPackage);
 			}
 
-			for (Class<?> domainClass : hibernateConfiguration
-					.getDomainClasses()) {
+			for (Class<?> domainClass : hibernateConfiguration.getDomainClasses()) {
 				configuration.addAnnotatedClass(domainClass);
 			}
 
@@ -57,16 +61,16 @@ public abstract class HibernateRepository<T> {
 		}
 		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
-		List<T> result = session.createQuery( query.toString()).list();
+		List<T> result = session.createQuery(query.toString()).list();
 		session.getTransaction().commit();
 		session.close();
-		return (List<T>) result;
+		return result;
 	}
 
 	public void set(T entity) {
 		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
-		session.save( entity);
+		session.save(entity);
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -80,7 +84,7 @@ public abstract class HibernateRepository<T> {
 		} else {
 			Session session = getSessionFactory().openSession();
 			session.beginTransaction();
-			session.delete( entity);
+			session.delete(entity);
 			session.getTransaction().commit();
 			session.close();
 		}
@@ -88,8 +92,7 @@ public abstract class HibernateRepository<T> {
 
 	@SuppressWarnings("unchecked")
 	public Class<T> getDomainType() {
-		ParameterizedType parameterizedType = (ParameterizedType) getClass()
-				.getGenericSuperclass();
+		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
 		return (Class<T>) parameterizedType.getActualTypeArguments()[0];
 	}
 
