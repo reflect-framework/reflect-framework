@@ -13,7 +13,7 @@ import nth.reflect.fw.generic.util.TitleBuilder;
 public class TitleBuilderTest {
 
 	private static final String CURRENCY_FORMAT = "#.## €";
-	private static final String FORMATED_CURRENCY = "123,26 €";
+	private static final String FORMATED_CURRENCY = "123.26 €";
 	private static final String FORMATED_DATE = "1970-01-01";
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 	private static final String SEPARATOR = "-";
@@ -25,7 +25,7 @@ public class TitleBuilderTest {
 	private static final String DEFAULT_SEPARATOR = TitleBuilder.DEFAULT_SEPARATOR;
 	private static final Number NULL_NUMBER = null;
 	private static final String NUMBER_FORMAT = "###.##";
-	private static final String FORMATED_NUMBER = "1,46";
+	private static final String FORMATED_NUMBER = "1.46";
 	private static final TitleBuilderTestEnum NULL_ENUM = null;
 
 	@Test

@@ -3,9 +3,11 @@ package nth.reflect.fw.layer5provider.reflection.behavior.format.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -35,7 +37,9 @@ public class NumericFormat extends Format {
 		if (format == null || format.trim().length() == 0) {
 			decimalFormat = new DecimalFormat();
 		} else {
-			decimalFormat = new DecimalFormat(format);
+			Locale locale=languageProvider.getDefaultLocale();
+			DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+			decimalFormat = new DecimalFormat(format, symbols);
 		}
 	}
 

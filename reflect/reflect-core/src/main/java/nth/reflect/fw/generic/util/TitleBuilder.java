@@ -49,8 +49,8 @@ public class TitleBuilder {
 
 	private static final String COMMA_SPACE_SEPARATOR = ", ";
 	public static final String DEFAULT_SEPARATOR = COMMA_SPACE_SEPARATOR;
-	private String separator;
-	private final StringBuilder title;
+	private final ThreadLocal<String> separator;
+	private final ThreadLocal<StringBuilder> title;
 	private final LanguageProvider languageProvider;
 	private static final TitleBuilder titleBuilderInstance = new TitleBuilder();
 
@@ -58,14 +58,15 @@ public class TitleBuilder {
 	 * Private constructor: Use {@link #getInstance()}<br>
 	 * FIXME: We create a new {@link DefaultLanguageProvider} here because the
 	 * {@link NumericFormat} needs it to be able to throw a error message in the
-	 * correct language. We do not want to pass a {@link LanguageProvider} to
-	 * the {@link TitleBuilder} everytime it is needed.
+	 * correct language. We do not want to pass a {@link LanguageProvider} to the
+	 * {@link TitleBuilder} everytime it is needed.
 	 * 
 	 * @param seperator
 	 */
 
 	private TitleBuilder() {
-		this.title = new StringBuilder();
+		this.title = new ThreadLocal<StringBuilder>();
+		this.separator = new ThreadLocal<String>();
 		this.languageProvider = new DefaultLanguageProvider();
 	}
 
@@ -74,12 +75,10 @@ public class TitleBuilder {
 	}
 
 	/**
-	 * @param seperator
-	 *            to separate the values
-	 * @return a re-initialized {@link TitleBuilder}. This is a singleton so
-	 *         that we do not have to create a {@link TitleBuilder} every time
-	 *         an domain objects needs to be displayed (e.g. in a
-	 *         {@link #toString()} method)
+	 * @param seperator to separate the values
+	 * @return a re-initialized {@link TitleBuilder}. This is a singleton so that we
+	 *         do not have to create a {@link TitleBuilder} every time an domain
+	 *         objects needs to be displayed (e.g. in a {@link #toString()} method)
 	 */
 	public static synchronized TitleBuilder getInstance(String seperator) {
 		titleBuilderInstance.clear();
@@ -96,28 +95,37 @@ public class TitleBuilder {
 	//
 	// }
 
+	/**
+	 * Creates a new StringBuilder if this method is called for the first time in
+	 * the current thread. Otherwise it will reuse the {@link StringBuilder} by
+	 * clearing it (setting its length to 0)
+	 */
 	private void clear() {
-		this.title.setLength(0);
+		if (title.get() == null) {
+			title.set(new StringBuilder());
+		} else {
+			title.get().setLength(0);
+		}
 	}
 
 	private void setSeperator(String seperator) {
-		this.separator = seperator;
+		this.separator.set(seperator);
 	}
 
 	public TitleBuilder append(final String text) {
-		append(separator, text);
+		append(separator.get(), text);
 		return this;
 	}
 
 	public TitleBuilder append(final Object object) {
-		append(separator, object);
+		append(separator.get(), object);
 		return this;
 	}
 
 	public TitleBuilder append(final String separator, final String text) {
 		if (!isEmpty(text)) {
 			appendSeparatorIfNeeded(separator);
-			title.append(text);
+			title.get().append(text);
 		}
 		return this;
 	}
@@ -129,7 +137,7 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder append(final Date date, final String formatPattern) {
-		append(separator, date, formatPattern);
+		append(separator.get(), date, formatPattern);
 		return this;
 	}
 
@@ -143,7 +151,7 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder append(final Number number, final String formatPattern) {
-		append(separator, number, formatPattern);
+		append(separator.get(), number, formatPattern);
 		return this;
 	}
 
@@ -157,7 +165,7 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder append(final Enum<?> enumeration) {
-		append(separator, enumeration);
+		append(separator.get(), enumeration);
 		return this;
 	}
 
@@ -171,7 +179,7 @@ public class TitleBuilder {
 
 	public TitleBuilder contact(String text) {
 		if (!isEmpty(text)) {
-			title.append(text);
+			title.get().append(text);
 		}
 		return this;
 	}
@@ -211,7 +219,7 @@ public class TitleBuilder {
 
 	@Override
 	public String toString() {
-		return title.toString();
+		return title.get().toString();
 	}
 
 	private String titleFor(Object object) {
@@ -228,8 +236,8 @@ public class TitleBuilder {
 	 * @param separator
 	 */
 	private void appendSeparatorIfNeeded(String separator) {
-		if (title.length() > 0) {
-			title.append(separator);
+		if (title.get().length() > 0) {
+			title.get().append(separator);
 		}
 	}
 
