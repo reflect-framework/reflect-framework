@@ -5,18 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.acme.web.shop.product.ProductGenerator;
-import com.acme.web.shop.product.ProductRepository;
-import com.acme.web.shop.product.ProductService;
-import com.acme.web.shop.shopingcart.ShoppingCartService;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
-import nth.reflect.fw.gui.style.MaterialColorPalette;
-import nth.reflect.fw.gui.style.ReflectColors;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
@@ -77,17 +70,54 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
  * <p>
  * TODO
  * </p>
+ * <h3>How to start the application in the IDE</h3>
+ * <p>
+ * You start the application with Mvn jetty:run<br>
+ * E.g. in the Eclipse IDE create a debug configuration:
+ * <ul>
+ * <li>Ensure that you got a Java JDK installed and Eclipse knows where to find
+ * it</li>
+ * <ul>
+ * <li>Ensure you have downloaded and installed a Java JDK on your computer (for
+ * windows see: c:\program files\java)</li>
+ * <li>On the Eclipse main menu click Window, Preferences, Java, Installed
+ * JRE's</li>
+ * <li>Add the JDK to the list if it is missing: Add, Standard VM, and select
+ * the folder where the JDK is installed</li>
+ * <li>Ensure the JDK is now in the list and selected as default</li>
+ * </ul>
+ * <li>Select Debug as</li>
+ * <li>Select Maven Build...</li>
+ * <li>Give the debug configuration a logical name: e.g.
+ * <application-name>-run-jetty</li>
+ * <li>On Source tab:</li>
+ * <ul>
+ * <li>Click add button</li>
+ * <li>Select Java Project and click OK button</li>
+ * <li>Select Your and click OK button</li>
+ * </ul>
+ * <li>On Main tab:</li>
+ * <ul>
+ * <li>Base Directory: Click on Workspace button, select your project and click
+ * OK button</li>
+ * <li>Enter Goal: jetty:run</li>
+ * </ul>
+ * <li>Click on debug button</li>
+ * <li>Check if there are no build errors in the console window: almost at the
+ * end it should read: [INFO] Started Jetty Server</li>
+ * <li>Open the application in a browser, and open address: localhost:8080</li>
+ * </ul>
+ * </p>
  * 
  * @author nilsth
  *
  */
 
 @SuppressWarnings("serial")
-@Route("")
-public class ReflectApplicationForVaadin extends Div implements GraphicalUserInterfaceApplication {
+public abstract class ReflectApplicationForVaadin extends Div implements GraphicalUserInterfaceApplication {
 
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final MainWindow mainWindow;	
+	private final MainWindow mainWindow;
 
 	public ReflectApplicationForVaadin() {
 		userInterfaceContainer = ReflectFramework.launch(this);
@@ -139,25 +169,24 @@ public class ReflectApplicationForVaadin extends Div implements GraphicalUserInt
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
 	}
 
-	// TODO remove later so other ReflectApplicationForVaadin implementations
-	// can implement it
-	// TODO remove reflect-example-domain from pom.xml
-	@Override
-	public List<Class<?>> getServiceClasses() {
-		return Arrays.asList(ProductService.class, ShoppingCartService.class);
-	}
-
-	// TODO remove later so other ReflectApplicationForVaadin implementations
-	// can implement it
-	@Override
-	public List<Class<?>> getInfrastructureClasses() {
-		return Arrays.asList(ProductRepository.class, ProductGenerator.class);
-	}
-
-	@Override
-	public ReflectColors getColors() {
-		return new ReflectColors(MaterialColorPalette.blue700(), MaterialColorPalette.orange500(), MaterialColorPalette.white());
-	}
-
+//	// TODO remove later so other ReflectApplicationForVaadin implementations
+//	// can implement it
+//	// TODO remove reflect-example-domain from pom.xml
+//	@Override
+//	public List<Class<?>> getServiceClasses() {
+//		return Arrays.asList(ProductService.class, ShoppingCartService.class);
+//	}
+//
+//	// TODO remove later so other ReflectApplicationForVaadin implementations
+//	// can implement it
+//	@Override
+//	public List<Class<?>> getInfrastructureClasses() {
+//		return Arrays.asList(ProductRepository.class, ProductGenerator.class);
+//	}
+//
+//	@Override
+//	public ReflectColors getColors() {
+//		return new ReflectColors(MaterialColorPalette.blue700(), MaterialColorPalette.orange500(), MaterialColorPalette.white());
+//	}
 
 }

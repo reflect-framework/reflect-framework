@@ -1,7 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection;
 
 import nth.reflect.fw.container.ConstructionInjection;
-import nth.reflect.fw.junit.layer5provider.reflection.info.classinfo.ApplicationClassInfoTest;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.Provider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
