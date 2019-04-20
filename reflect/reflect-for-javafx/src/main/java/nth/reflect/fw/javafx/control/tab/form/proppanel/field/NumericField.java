@@ -6,7 +6,6 @@ import java.text.ParseException;
 import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 public class NumericField extends TextField {
 
@@ -35,14 +34,6 @@ public class NumericField extends TextField {
 	@Override
 	public PropertyFieldWidth getPropertyFieldWidth() {
 		return PropertyFieldWidth.SMALL;
-	}
-
-	@Override
-	public void setValueFromDomainProperty(Object propertyValue) {
-		PropertyValueModel propertyValueModel = getPropertyValueModel();
-		PropertyInfo propertyInfo = propertyValueModel.getPropertyInfo();
-		String formatedValue = propertyInfo.getFormatedValue(propertyValue);
-		setText(formatedValue);
 	}
 
 }
