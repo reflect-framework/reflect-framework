@@ -51,7 +51,7 @@ public class NorthwindEmployee {
 
 	@Override
 	public String toString() {
-		return TitleBuilder.getInstance().append(title).append(" ", firstName).append(" ", lastName).append(employeeId)
+		return new TitleBuilder().append(title).append(" ", firstName).append(" ", lastName).append(employeeId)
 				.toString();
 	}
 }

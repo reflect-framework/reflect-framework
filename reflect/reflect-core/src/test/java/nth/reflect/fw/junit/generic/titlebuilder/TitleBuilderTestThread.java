@@ -10,7 +10,7 @@ public class TitleBuilderTestThread extends Thread {
 	public void run() {
 		TitleBuilder titleBuilder = null;
 		for (int i = 0; i < 100; i++) {
-			titleBuilder = TitleBuilder.getInstance();
+			titleBuilder = new TitleBuilder();
 			titleBuilder.contact(i);
 			assertEquals(Integer.toString(i), titleBuilder.toString());
 		}

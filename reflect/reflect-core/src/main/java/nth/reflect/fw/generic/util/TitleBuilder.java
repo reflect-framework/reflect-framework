@@ -33,12 +33,6 @@ import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.NumericForm
  * format values (e.g. date, time and numbers)</li>
  * <li>Enumeration values will be translated to a readable format</li>
  * </ul>
- * </p>
- * <p>
- * The {@link TitleBuilder} is a singleton so that we do not have to create a
- * {@link TitleBuilder} every time an domain objects needs to create an
- * identification string in the {@link #toString()} method.
- * </p>
  * TODO example
  * 
  * @author nilsth
@@ -49,83 +43,45 @@ public class TitleBuilder {
 
 	private static final String COMMA_SPACE_SEPARATOR = ", ";
 	public static final String DEFAULT_SEPARATOR = COMMA_SPACE_SEPARATOR;
-	private final ThreadLocal<String> separator;
-	private final ThreadLocal<StringBuilder> title;
+	private String separator;
+	private final StringBuilder title;
 	private final LanguageProvider languageProvider;
-	private static final TitleBuilder titleBuilderInstance = new TitleBuilder();
 
 	/**
 	 * Private constructor: Use {@link #getInstance()}<br>
 	 * FIXME: We create a new {@link DefaultLanguageProvider} here because the
 	 * {@link NumericFormat} needs it to be able to throw a error message in the
 	 * correct language. We do not want to pass a {@link LanguageProvider} to the
-	 * {@link TitleBuilder} everytime it is needed.
+	 * {@link TitleBuilder} every time it is needed.
 	 * 
 	 * @param seperator
 	 */
 
-	private TitleBuilder() {
-		this.title = new ThreadLocal<StringBuilder>();
-		this.separator = new ThreadLocal<String>();
+	public TitleBuilder() {
+		this.title = new StringBuilder();
+		this.separator = DEFAULT_SEPARATOR;
 		this.languageProvider = new DefaultLanguageProvider();
 	}
 
-	public static synchronized TitleBuilder getInstance() {
-		return getInstance(DEFAULT_SEPARATOR);
-	}
-
-	/**
-	 * @param seperator to separate the values
-	 * @return a re-initialized {@link TitleBuilder}. This is a singleton so that we
-	 *         do not have to create a {@link TitleBuilder} every time an domain
-	 *         objects needs to be displayed (e.g. in a {@link #toString()} method)
-	 */
-	public static synchronized TitleBuilder getInstance(String seperator) {
-		titleBuilderInstance.clear();
-		titleBuilderInstance.setSeperator(seperator);
-		return titleBuilderInstance;
-	}
-
-	// TODO: create title of object using reflection (using
-	// @PropertyActionMethod, @Hidden notation and ignoring properties of type
-	// collection). This requires the ReflectionProvider. This is no problem if
-	// the TitleBuilder is injected into the object (improves peformance because
-	// titlebuilder does not have to be instantiated every toString call)
-	// public TitleBuilder(final Object object) {
-	//
-	// }
-
-	/**
-	 * Creates a new StringBuilder if this method is called for the first time in
-	 * the current thread. Otherwise it will reuse the {@link StringBuilder} by
-	 * clearing it (setting its length to 0)
-	 */
-	private void clear() {
-		if (title.get() == null) {
-			title.set(new StringBuilder());
-		} else {
-			title.get().setLength(0);
-		}
-	}
-
-	private void setSeperator(String seperator) {
-		this.separator.set(seperator);
+	public TitleBuilder setSeperator(String seperator) {
+		this.separator = seperator;
+		return this;
 	}
 
 	public TitleBuilder append(final String text) {
-		append(separator.get(), text);
+		append(separator, text);
 		return this;
 	}
 
 	public TitleBuilder append(final Object object) {
-		append(separator.get(), object);
+		append(separator, object);
 		return this;
 	}
 
 	public TitleBuilder append(final String separator, final String text) {
 		if (!isEmpty(text)) {
 			appendSeparatorIfNeeded(separator);
-			title.get().append(text);
+			title.append(text);
 		}
 		return this;
 	}
@@ -137,7 +93,7 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder append(final Date date, final String formatPattern) {
-		append(separator.get(), date, formatPattern);
+		append(separator, date, formatPattern);
 		return this;
 	}
 
@@ -151,7 +107,7 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder append(final Number number, final String formatPattern) {
-		append(separator.get(), number, formatPattern);
+		append(separator, number, formatPattern);
 		return this;
 	}
 
@@ -165,7 +121,7 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder append(final Enum<?> enumeration) {
-		append(separator.get(), enumeration);
+		append(separator, enumeration);
 		return this;
 	}
 
@@ -179,7 +135,7 @@ public class TitleBuilder {
 
 	public TitleBuilder contact(String text) {
 		if (!isEmpty(text)) {
-			title.get().append(text);
+			title.append(text);
 		}
 		return this;
 	}
@@ -219,7 +175,7 @@ public class TitleBuilder {
 
 	@Override
 	public String toString() {
-		return title.get().toString();
+		return title.toString();
 	}
 
 	private String titleFor(Object object) {
@@ -236,8 +192,8 @@ public class TitleBuilder {
 	 * @param separator
 	 */
 	private void appendSeparatorIfNeeded(String separator) {
-		if (title.get().length() > 0) {
-			title.get().append(separator);
+		if (title.length() > 0) {
+			title.append(separator);
 		}
 	}
 

@@ -61,7 +61,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return TitleBuilder.getInstance(", ").append(street).append(zipCode).append(country).toString();
+		return new TitleBuilder().append(street).append(zipCode).append(country).toString();
 	}
 
 }
