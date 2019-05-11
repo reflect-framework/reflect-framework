@@ -43,6 +43,21 @@ public class ItemTreePanel extends TreeView<Item> {
 		setCellFactory(createCellFactory());
 		setOnKeyTyped(createKeyHandler());
 		setOnMouseClicked(createMouseHandler());
+		setPrefHeight(rootItem);
+	}
+
+	private void setPrefHeight(TreeItem<Item> rootItem) {
+		int numberOfChildren = getNumberOfChildren(rootItem);
+		int totalHeight = numberOfChildren * (ItemTreeCell.ITEM_HEIGHT + 1);
+		setPrefHeight(totalHeight);
+	}
+
+	private int getNumberOfChildren(TreeItem<Item> item) {
+		int numberOfChildren = item.getChildren().size();
+		for (TreeItem<Item> child : item.getChildren()) {
+			numberOfChildren += getNumberOfChildren(child);
+		}
+		return numberOfChildren;
 	}
 
 	public ItemTreePanel(Collection<Item> items, LanguageProvider languageProvider) {
