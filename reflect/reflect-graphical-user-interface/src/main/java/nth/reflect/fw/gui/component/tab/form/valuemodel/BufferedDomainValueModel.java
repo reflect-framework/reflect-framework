@@ -1,10 +1,15 @@
 package nth.reflect.fw.gui.component.tab.form.valuemodel;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+
 import nth.reflect.fw.generic.util.CloneUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
 public class BufferedDomainValueModel implements ReadOnlyValueModel {
 
@@ -13,10 +18,12 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	private boolean comitted;
 	private final FormMode formMode;
 	private final ReflectionProvider reflectionProvider;
+	private final ValidationProvider validationProvider;
 
 	public BufferedDomainValueModel(UserInterfaceContainer userInterfaceContainer, Object domainObject,
 			FormMode formMode) {
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		this.validationProvider = userInterfaceContainer.get(ValidationProvider.class);
 		this.domainObject = domainObject;
 		this.formMode = formMode;
 		if (FormMode.EDIT == formMode) {
@@ -56,6 +63,11 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 	@Override
 	public boolean canGetValue() {
 		return true;
+	}
+
+	public boolean isValid() {
+		Set<ConstraintViolation<Object>> constraintViolations = validationProvider.validate(domainObject);
+		return constraintViolations.isEmpty();
 	}
 
 }

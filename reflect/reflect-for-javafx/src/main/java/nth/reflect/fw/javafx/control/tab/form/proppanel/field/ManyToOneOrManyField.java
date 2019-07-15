@@ -18,6 +18,7 @@ public class ManyToOneOrManyField extends Table implements PropertyField {
 
 	public ManyToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
 		super(formTab, propertyValueModel);
+
 		getStyleClass().add(StyleSheet.createStyleClassName(ManyToOneOrManyField.class));
 	}
 

@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Platform;
@@ -20,6 +21,7 @@ import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.javafx.control.dialog.Dialog;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
@@ -66,8 +68,9 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public void showInfoMessage(String message) {
-		// TODO Auto-generated method stub
-
+		List<Item> items = new ArrayList();
+		items.add(new DialogCloseItem(languageProvider));
+		showDialog(null, "", message, items);
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class ItemTreePanel extends TreeView<Item> {
 
 	private void setPrefHeight(TreeItem<Item> rootItem) {
 		int numberOfChildren = getNumberOfChildren(rootItem);
-		int totalHeight = numberOfChildren * (ItemTreeCell.ITEM_HEIGHT + 1);
+		int totalHeight = numberOfChildren * ItemTreeCell.ITEM_HEIGHT + 1;
 		setPrefHeight(totalHeight);
 	}
 

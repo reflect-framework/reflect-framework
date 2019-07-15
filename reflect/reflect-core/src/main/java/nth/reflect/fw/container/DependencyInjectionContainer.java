@@ -34,7 +34,7 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
  * injection containers</a>.
  * </p>
  * <p>
- * If you new to Dependency Injection I recommend reading
+ * If you are new to Dependency Injection I recommend reading
  * <a href="http://en.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a>'s
  * <a href="http://martinfowler.com/articles/injection.html">article</a> in
  * which he explains the basics dependency injection.
@@ -176,8 +176,8 @@ public abstract class DependencyInjectionContainer {
 
 	/**
 	 * 
-	 * @return all classes that are supported by this container and all its
-	 *         inner containers
+	 * @return all classes that are supported by this container and all its inner
+	 *         containers
 	 */
 	public List<Class<?>> getAllClasses() {
 		List<Class<?>> allClasses = new ArrayList<Class<?>>();

@@ -60,8 +60,12 @@ public class TextField extends JFXTextField implements PropertyField {
 	@Override
 	public void setValueFromDomainProperty(Object propertyValue) {
 		Format format = propertyValueModel.getPropertyInfo().getFormat();
-		String stringValue = format.format(propertyValue);
-		setText(stringValue);
+		if (propertyValue == null) {
+			setText("");
+		} else {
+			String stringValue = format.format(propertyValue);
+			setText(stringValue);
+		}
 	}
 
 	public PropertyValueModel getPropertyValueModel() {
