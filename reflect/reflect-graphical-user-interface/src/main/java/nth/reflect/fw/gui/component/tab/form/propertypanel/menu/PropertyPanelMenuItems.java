@@ -7,9 +7,9 @@ import java.util.function.Predicate;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.item.ItemCollection;
 import nth.reflect.fw.gui.item.method.PropertyMethodItem;
 import nth.reflect.fw.gui.item.method.ServiceObjectItems;
-import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -24,7 +24,7 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
  * @author nilsth
  *
  */
-public class PropertyPanelMenuItems extends UnmodifiableCollection<Item> {
+public class PropertyPanelMenuItems extends ItemCollection {
 
 	private static final long serialVersionUID = -8380826298117283745L;
 

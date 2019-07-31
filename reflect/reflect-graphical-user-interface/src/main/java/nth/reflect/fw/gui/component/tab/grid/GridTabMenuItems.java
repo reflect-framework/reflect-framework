@@ -9,9 +9,9 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
+import nth.reflect.fw.gui.item.ItemCollection;
 import nth.reflect.fw.gui.item.method.PropertyMethodOwnerItems;
 import nth.reflect.fw.gui.item.method.ServiceObjectItems;
-import nth.reflect.fw.gui.util.collection.UnmodifiableCollection;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -21,7 +21,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.Paramet
 /**
  * Menu {@link Item}s for a {@link GridTabMenu}
  */
-public class GridTabMenuItems extends UnmodifiableCollection<Item> {
+public class GridTabMenuItems extends ItemCollection {
 
 	private static final long serialVersionUID = 6211256666484535772L;
 
