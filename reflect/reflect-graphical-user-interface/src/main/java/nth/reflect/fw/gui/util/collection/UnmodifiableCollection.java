@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class UnmodifiableCollection<E> implements Collection<E>, Serializable {
 	private static final long serialVersionUID = 1820017752578914078L;
 
-	final Collection<? extends E> c;
+	protected final Collection<? extends E> c;
 
 	protected UnmodifiableCollection(Collection<? extends E> c) {
 		if (c == null)

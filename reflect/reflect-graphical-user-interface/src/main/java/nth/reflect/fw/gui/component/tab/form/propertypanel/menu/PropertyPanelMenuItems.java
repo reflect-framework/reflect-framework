@@ -40,7 +40,7 @@ public class PropertyPanelMenuItems extends ItemCollection {
 		ActionMethodInfo methodInfoToExclude = formTab.getMethodInfo();
 		Class<?> domainType = formTab.getDomainValueModel().getValueType();
 		Class<?> parameterType = parameterModel.getValueType();
-		Object serviceObject = formTab.getMethodOwner();
+		Object methodOwner = formTab.getMethodOwner();
 
 		// add property methods
 		ReflectionProvider reflectionProvider = formTab.getUserInterfaceContainer().get(ReflectionProvider.class);
@@ -60,6 +60,7 @@ public class PropertyPanelMenuItems extends ItemCollection {
 		// classInfo.getActionMethodInfos(filter);
 
 		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
+
 		for (ActionMethodInfo actionMethodInfo : actionMethodInfos) {
 			PropertyMethodItem item = new PropertyMethodItem(formTab, propertyInfo, actionMethodInfo, parameterModel,
 					false);
@@ -81,7 +82,7 @@ public class PropertyPanelMenuItems extends ItemCollection {
 		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(parameterType)
 				.or(new ReturnTypeFilter(parameterType)).and(actionMethod -> !actionMethod.equals(methodInfoToExclude));
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
-		items.addAll(new ServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
+		items.addAll(new ServiceObjectItems(userInterfaceContainer, methodOwner, parameterModel, filter));
 
 		return items;
 

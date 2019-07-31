@@ -30,8 +30,8 @@ public class ActionMethodInfoFactory {
 	}
 
 	/**
-	 * The {@link Order} of {@link ActionMethod}s is not dynamic, so we can
-	 * already sort them
+	 * The {@link Order} of {@link ActionMethod}s is not dynamic, so we can already
+	 * sort them
 	 * 
 	 * @param actionMethodInfos
 	 */

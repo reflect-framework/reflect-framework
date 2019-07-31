@@ -20,9 +20,9 @@ public class ServiceObjectItems extends UnmodifiableCollection<MethodOwnerItem> 
 		super(createServiceObjectItems(userInterfaceContainer));
 	}
 
-	public ServiceObjectItems(UserInterfaceContainer userInterfaceContainer, Object serviceObject,
+	public ServiceObjectItems(UserInterfaceContainer userInterfaceContainer, Object serviceObjectToStartWith,
 			ReadOnlyValueModel parameterModel, Predicate<ActionMethodInfo> filter) {
-		super(createServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
+		super(createServiceObjectItems(userInterfaceContainer, serviceObjectToStartWith, parameterModel, filter));
 	}
 
 	private static Collection<? extends MethodOwnerItem> createServiceObjectItems(
@@ -30,21 +30,18 @@ public class ServiceObjectItems extends UnmodifiableCollection<MethodOwnerItem> 
 			ReadOnlyValueModel parameterModel, Predicate<ActionMethodInfo> filter) {
 		List<MethodOwnerItem> items = new ArrayList<MethodOwnerItem>();
 
-		// create MethodOwnerItem for first service object
-		MethodOwnerItem item = new MethodOwnerItem(userInterfaceContainer, serviceObjectToStartWith, filter,
-				parameterModel);
-		items.add(item);
-
 		// create MethodOwnerItem for other service objects
 		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
 		List<Object> serviceObjects = serviceContainer.getServiceObjects();
 		for (Object serviceObject : serviceObjects) {
-			if (serviceObject != serviceObjectToStartWith) {
-
-				item = new MethodOwnerItem(userInterfaceContainer, serviceObject, filter, parameterModel);
+			MethodOwnerItem item = new MethodOwnerItem(userInterfaceContainer, serviceObject, filter, parameterModel);
+			if (serviceObject == serviceObjectToStartWith) {
+				items.add(0, item);
+			} else {
 				items.add(item);
 			}
 		}
+
 		return items;
 	}
 
