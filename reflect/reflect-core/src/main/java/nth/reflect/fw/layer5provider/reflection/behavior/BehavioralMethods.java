@@ -6,21 +6,24 @@ import nth.reflect.fw.layer5provider.reflection.behavior.applicationicon.Applica
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenMethod;
+import nth.reflect.fw.layer5provider.reflection.behavior.option.OptionsMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationMethod;
 
 public class BehavioralMethods {
-	public static HiddenMethod HIDDEN=new HiddenMethod(); 
-	public static DisabledMethod DISABLED=new DisabledMethod();
-	public static FontIconMethod FONT_ICON=new FontIconMethod();
-	public static ApplicationIconMethod APPLICATION_ICON=new ApplicationIconMethod();
-	public static ParameterFactoryMethod PARAMETER_FACTORY=new ParameterFactoryMethod();
-	public static ValidationMethod VALIDATION=new ValidationMethod();
-	public static BehavioralMethod[] ALL=new BehavioralMethod[] {HIDDEN, DISABLED, FONT_ICON, APPLICATION_ICON, PARAMETER_FACTORY, VALIDATION};
-	
+	public static HiddenMethod HIDDEN = new HiddenMethod();
+	public static DisabledMethod DISABLED = new DisabledMethod();
+	public static FontIconMethod FONT_ICON = new FontIconMethod();
+	public static ApplicationIconMethod APPLICATION_ICON = new ApplicationIconMethod();
+	public static ParameterFactoryMethod PARAMETER_FACTORY = new ParameterFactoryMethod();
+	public static ValidationMethod VALIDATION = new ValidationMethod();
+	public static OptionsMethod OPTIONS = new OptionsMethod();
+	public static BehavioralMethod[] ALL = new BehavioralMethod[] { HIDDEN, DISABLED, FONT_ICON, APPLICATION_ICON,
+			PARAMETER_FACTORY, VALIDATION, OPTIONS };
+
 	public static boolean isBehavioralMethod(Method method) {
-		for (BehavioralMethod behavioralMethod: ALL) {
-			if(behavioralMethod.isValid(method)) {
+		for (BehavioralMethod behavioralMethod : ALL) {
+			if (behavioralMethod.isValid(method)) {
 				return true;
 			}
 		}

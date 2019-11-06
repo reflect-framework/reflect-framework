@@ -27,9 +27,12 @@ public class FieldModeFactory {
 	// (registered by the ReflectApp). These Field components should indicate if
 	// they can represent a property (e.g. with a boolean
 	// canRepresent(ProprertyInfomethod)
-	public static FieldModeType create(Method getterMethod, TypeInfo typeInfo, String formatPattern) {
+	public static FieldModeType create(Method getterMethod, TypeInfo typeInfo, String formatPattern,
+			boolean hasOptions) {
 		Class<?> type = JavaTypeConverter.getComplexType(typeInfo.getType());
-		if (String.class.isAssignableFrom(type)) {
+		if (Enum.class.isAssignableFrom(type) || hasOptions) {
+			return FieldModeType.COMBO_BOX;
+		} else if (String.class.isAssignableFrom(type)) {
 			return getFieldModeForString(getterMethod);
 		} else if (Character.class.isAssignableFrom(type)) {
 			return FieldModeType.CHAR;
@@ -43,8 +46,6 @@ public class FieldModeFactory {
 			return FieldModeType.DATE;
 		} else if (LocalTime.class.isAssignableFrom(type)) {
 			return FieldModeType.TIME;
-		} else if (Enum.class.isAssignableFrom(type)) {
-			return FieldModeType.COMBO_BOX;
 		} else if (Number.class.isAssignableFrom(type)) {
 			return FieldModeType.NUMBER;
 		} else if (Boolean.class.isAssignableFrom(type)) {

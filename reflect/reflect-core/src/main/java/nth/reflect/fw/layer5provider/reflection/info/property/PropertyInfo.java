@@ -2,7 +2,6 @@ package nth.reflect.fw.layer5provider.reflection.info.property;
 
 import java.lang.reflect.Method;
 import java.text.Format;
-import java.util.ArrayList;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
@@ -21,6 +20,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
+import nth.reflect.fw.layer5provider.reflection.behavior.option.OptionsModel;
+import nth.reflect.fw.layer5provider.reflection.behavior.option.OptionsModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -54,6 +55,7 @@ public class PropertyInfo implements NameInfo {
 	private final Format format;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
+	private final OptionsModel optionModel;
 	private final List<ActionMethodInfo> actionMethodInfos;
 
 	public PropertyInfo(ProviderContainer providerContainer, Class<?> domainObjectClass, Method getterMethod) {
@@ -76,7 +78,8 @@ public class PropertyInfo implements NameInfo {
 		FormatFactory formatFactory = new FormatFactory(reflectionProvider, languageProvider, getterMethod, typeInfo);
 		this.format = formatFactory.getFormat();
 		this.formatPattern = formatFactory.getFormatPattern();
-		this.fieldMode = FieldModeFactory.create(getterMethod, typeInfo, formatPattern);
+		this.optionModel = OptionsModelFactory.create(getterMethod);
+		this.fieldMode = FieldModeFactory.create(getterMethod, typeInfo, formatPattern, optionModel.hasOptions());
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.actionMethodInfos = ActionMethodInfoFactory.createSorted(providerContainer, domainObjectClass, simpleName);
@@ -270,16 +273,19 @@ public class PropertyInfo implements NameInfo {
 		return actionMethodInfos;
 	}
 
+	public boolean hasOptions() {
+		return optionModel.hasOptions();
+	}
+
 	/**
-	 * TODO implement optionsModel (behavioral annotation and behavioral method)
-	 * TODO if optionsModel!=null then fieldModel must return
-	 * {@link FieldModeType#COMBO_BOX}
+	 * Note that you first need to check {@link #hasOptions()} before calling this
+	 * method
 	 * 
 	 * @param domainObject
 	 * @return available option values to choose from
 	 */
 	public List<Object> getOptions(Object domainObject) {
-		return new ArrayList<>();
+		return optionModel.getOptions(domainObject);
 	}
 
 }

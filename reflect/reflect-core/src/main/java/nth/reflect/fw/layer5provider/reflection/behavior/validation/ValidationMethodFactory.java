@@ -16,6 +16,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationViolations;
 
 /**
  * <p>
+ * <p>
  * The {@link UserInterfaceController} sometimes let’s the user edit an
  * {@link DomainObject} before it is passed as an {@link ActionMethod} parameter
  * (depending on how the {@link ActionMethod} is annotated, see
@@ -38,7 +39,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationViolations;
  * <p>
  * {@insert ValidationMethod}
  * </p>
- *
+ * </p>
  * 
  * 
  * 
@@ -52,8 +53,8 @@ public class ValidationMethodFactory {
 	 * 
 	 * @param objectClass
 	 * @return all methods that are {@link ValidationMethod}'s, assuming other
-	 *         methods do not return {@link ValidationViolations} and method
-	 *         names do not have a "Validation" suffix
+	 *         methods do not return {@link ValidationViolations} and method names
+	 *         do not have a "Validation" suffix
 	 */
 	public static List<Method> create(Class<?> objectClass) {
 		List<Method> validationMethods = new ArrayList<>();

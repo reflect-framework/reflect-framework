@@ -46,12 +46,12 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * 
  * <h2>Execution Mode</h2> {@insert ExecutionMode}
  * 
- * <h2>Parameter RandomGenerator</h2>{@insert ParameterFactoryModelFactory}
+ * <h2>Parameter Factory</h2>{@insert ParameterFactoryModelFactory}
  * 
- * <h2>Validation</h2>
- * <p>
- * {@insert ValidationMethodFactory}
- * </p>
+ * <h2>Validation</h2> {@insert ValidationMethodFactory}
+ * 
+ * <h2>Options</h2> {@insert OptionsModelFactory}
+ * 
  * 
  * @author nilsth
  *
