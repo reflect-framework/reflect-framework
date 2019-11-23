@@ -24,6 +24,7 @@
 		<module>reflect-infrastructure-sql-repository</module>
 		<module>reflect-infrastructure-xml-converter</module>
 		<module>reflect-infrastructure-xml-file-repository</module>
+		<module>reflect-for-vaadin14</module>
 	</modules>
 
 
