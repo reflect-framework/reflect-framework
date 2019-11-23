@@ -45,9 +45,8 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
  * 
  * @author nilsth
  * 
- * @param <TAB>
- *            A user interface specific class (often a component container/
- *            layout) that implements {@link Tab}
+ * @param <TAB> A user interface specific class (often a component container/
+ *              layout) that implements {@link Tab}
  */
 public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY_PANEL>
 		extends UserInterfaceController {
@@ -93,7 +92,11 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 
 	@Override
 	public void onRefresh() {
-		refresh();
+		// refresh current tab
+		Tab tab = getTabs().getSelected();
+		if (tab != null) {
+			tab.onRefresh();
+		}
 	}
 
 	@Override
@@ -134,14 +137,13 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 
 	/**
 	 * This method is called from
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
-	 * <br>
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} <br>
 	 * This method must do 3 things<br>
 	 * - invoke Object methodReturnValue=
-	 * {@link ActionMethodInfo#invoke(Object, Object)} in a separate thread (may
-	 * be time consuming). This will need to be implemented per user interface
-	 * because threading may need to be differently implemented for each user
-	 * interface framework. <br>
+	 * {@link ActionMethodInfo#invoke(Object, Object)} in a separate thread (may be
+	 * time consuming). This will need to be implemented per user interface because
+	 * threading may need to be differently implemented for each user interface
+	 * framework. <br>
 	 * - catch errors during the execution of the thread and call
 	 * {@link #showErrorDialog(String, String, Throwable)} if needed<br>
 	 * - invoke
@@ -170,7 +172,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 					// likely to change its state
 					Tab selectedTab = getTabs().getSelected();
 					if (selectedTab != null) {
-						selectedTab.onSelected();
+						selectedTab.onRefresh();
 					}
 					// show method result
 					processActionMethodResult(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
@@ -258,9 +260,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * NOTE that the FormOkItem linked to the OK button of the FormTab will need
-	 * to call
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
+	 * NOTE that the FormOkItem linked to the OK button of the FormTab will need to
+	 * call {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
 	 * 
 	 * @param actionMethodOwner
 	 * @param actionMethodInfo
@@ -295,8 +296,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -313,8 +314,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -330,8 +331,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link List}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link List}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -345,8 +346,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -380,8 +381,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 * 
 	 * @param methodOwner
@@ -395,8 +396,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -416,19 +417,11 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 
 	}
 
-	public void refresh() {
-		// refresh current tab
-		Tab tab = getTabs().getSelected();
-		if (tab != null) {
-			tab.onSelected();
-		}
-	}
-
 	/**
-	 * Provides simple feedback about an operation in a small popup. It only
-	 * fills the amount of space required for the message and the current
-	 * activity remains visible and interactive. The message popup will
-	 * automatically disappear after a timeout
+	 * Provides simple feedback about an operation in a small popup. It only fills
+	 * the amount of space required for the message and the current activity remains
+	 * visible and interactive. The message popup will automatically disappear after
+	 * a timeout
 	 * 
 	 * @param message
 	 */
@@ -437,8 +430,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	public abstract void showDialog(DialogType dialogType, String title, String message, List<Item> items);
 
 	/**
-	 * TODO refactor so that progress dialog shows multiple thread monitors,
-	 * while listening to updates
+	 * TODO refactor so that progress dialog shows multiple thread monitors, while
+	 * listening to updates
 	 * 
 	 * @param taskDescription
 	 * @param currentValue
@@ -447,8 +440,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	public abstract void showProgressDialog(String taskDescription, int currentValue, int maxValue);
 
 	/**
-	 * TODO remove. progress dialog should close automatically when all tasks
-	 * are completed
+	 * TODO remove. progress dialog should close automatically when all tasks are
+	 * completed
 	 */
 	public abstract void closeProgressDialog();
 

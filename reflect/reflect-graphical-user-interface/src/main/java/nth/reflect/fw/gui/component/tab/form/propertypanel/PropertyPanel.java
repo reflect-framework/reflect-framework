@@ -2,6 +2,7 @@ package nth.reflect.fw.gui.component.tab.form.propertypanel;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
+import java.util.List;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -12,10 +13,10 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
  * A {@link FormTab} has one or more {@link PropertyPanel}s. Each
  * {@link PropertyPanel} represents a {@link DomainObjectProperty} and contains:
  * <ul>
- * <li>a {@link PropertyLabel}</li>
- * <li>a {@link PropertyField}</li>
- * <li>a {@link PropertyActionMethodMenu}</li>
- * <li>{@link PropertyValidationLabel} if any</li>
+ * <li>A {@link PropertyLabel}</li>
+ * <li>A {@link PropertyField}</li>
+ * <li>Zero or more {@link PropertyIconButton}s</li>
+ * <li>Zero or one {@link PropertyValidationLabel}</li>
  * </ul>
  * 
  * <p>
@@ -28,7 +29,7 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
  */
 public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends PropertyField, VALIDATION_MSG extends PropertyValidationLabel> {
 
-	default void updateFromPropertyValueModel() {
+	default void onRefresh() {
 
 		PropertyValueModel propertyValueModel = getPropertyValueModel();
 		Object domainObject = propertyValueModel.getDomainObject();
@@ -56,18 +57,21 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 			Object propertyValue = propertyInfo.getValue(domainObject);
 			propertyField.setValueFromDomainProperty(propertyValue);
 
+			List<PropertyIconButton> propertyIconButtons = getPropertyIconButtons();
+			for (PropertyIconButton propertyIconButton : propertyIconButtons) {
+				propertyIconButton.onRefresh();
+			}
 		}
 	}
 
 	/**
-	 * The implementation will need to set the background depending if the
-	 * property can be edited:
+	 * The implementation will need to set the background depending if the property
+	 * can be edited:
 	 * 
-	 * @param enabled
-	 *            = true: background must be
-	 *            {@link ReflectColorName#CONTENT#BACKGROUND_20()}<br>
-	 *            = false: background must be
-	 *            {@link ReflectColorName#CONTENT#BACKGROUND()}
+	 * @param enabled = true: background must be
+	 *                {@link ReflectColorName#CONTENT#BACKGROUND_20()}<br>
+	 *                = false: background must be
+	 *                {@link ReflectColorName#CONTENT#BACKGROUND()}
 	 */
 	public void setEnabled(Boolean enabled);
 
@@ -82,5 +86,7 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 	public void setVisible(Boolean visible);
 
 	public void setDescription(String description);
+
+	public List<PropertyIconButton> getPropertyIconButtons();
 
 }

@@ -5,6 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.stage.PopupWindow.AnchorLocation;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyIconButton;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -15,7 +16,7 @@ import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
-public class PropertyActionMethodsButton extends ContentButton {
+public class PropertyActionMethodsButton extends ContentButton implements PropertyIconButton {
 	private final PropertyPanelMenuItems items;
 	private final UserInterfaceContainer userInterfaceContainer;
 
@@ -29,8 +30,9 @@ public class PropertyActionMethodsButton extends ContentButton {
 	}
 
 	private void hideIfThereAreNoVisibleItems() {
-		setVisible(items.hasVisibleItems());
-		setManaged(items.hasVisibleItems());
+		boolean hasVisibleItems = items.hasVisibleItems();
+		setVisible(hasVisibleItems);
+		setManaged(hasVisibleItems);
 	}
 
 	public void onAction(ActionEvent actionEvent) {
@@ -52,6 +54,11 @@ public class PropertyActionMethodsButton extends ContentButton {
 		popupMenu.setAnchorLocation(AnchorLocation.CONTENT_TOP_RIGHT);
 		popupMenu.show(this, buttonBounds.getMinX() + buttonBounds.getWidth(),
 				buttonBounds.getMinY() + buttonBounds.getHeight());
+	}
+
+	@Override
+	public void onRefresh() {
+		hideIfThereAreNoVisibleItems();
 	}
 
 }

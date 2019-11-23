@@ -45,7 +45,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	}
 
 	@Override
-	public void onSelected() {
+	public void onRefresh() {
 		table.updateData();
 	}
 

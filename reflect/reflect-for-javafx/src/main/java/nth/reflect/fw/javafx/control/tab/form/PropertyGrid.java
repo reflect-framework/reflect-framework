@@ -66,7 +66,7 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 		VBox content = createContent(formTab);
 		setContent(content);
 
-		updateAllPropertyPanels();
+		onRefresh();
 	}
 
 	private HBox createButtonBar(FormTab formTab) {
@@ -108,9 +108,9 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 		return content;
 	}
 
-	public void updateAllPropertyPanels() {
+	public void onRefresh() {
 		for (PropertyPanel propertyPanel : propertyPanels) {
-			propertyPanel.updateFromPropertyValueModel();
+			propertyPanel.onRefresh();
 		}
 		validateDomainObject();
 	}

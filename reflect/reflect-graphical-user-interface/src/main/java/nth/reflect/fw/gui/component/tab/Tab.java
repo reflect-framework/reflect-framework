@@ -34,6 +34,6 @@ public interface Tab {
 
 	public String getDescription();
 
-	public void onSelected();
+	public void onRefresh();
 
 }

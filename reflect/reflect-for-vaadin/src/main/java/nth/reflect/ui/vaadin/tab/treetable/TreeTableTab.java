@@ -32,7 +32,7 @@ public class TreeTableTab extends Tab {
 	}
 
 	@Override
-	public void onSelected() {
+	public void onRefresh() {
 		// TODO Auto-generated method stub
 	}
 

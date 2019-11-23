@@ -147,7 +147,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.gr
 	}
 
 	@Override
-	public void onSelected() {
+	public void onRefresh() {
 		// get selected domain object
 		Object selectedDomainObject = null;
 		int selectedRow = table.getSelectedRow();

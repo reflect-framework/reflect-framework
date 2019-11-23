@@ -1,10 +1,13 @@
 package nth.reflect.ui.vaadin.tab.form.row;
 
+import java.util.List;
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyIconButton;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 
 @SuppressWarnings("serial")
@@ -60,6 +63,12 @@ public class PropertyPanel extends VerticalLayout implements
 	public void setEnabled(Boolean enabled) {
 		// TODO update background color (see javadoc overridden method)
 
+	}
+
+	@Override
+	public List<PropertyIconButton> getPropertyIconButtons() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

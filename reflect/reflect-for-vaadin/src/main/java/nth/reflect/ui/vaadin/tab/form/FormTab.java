@@ -70,7 +70,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	private void updateFormRows() {
 		for (PropertyPanel propertyPanel : propertyPanels) {
-			propertyPanel.updateFromPropertyValueModel();
+			propertyPanel.onRefresh();
 		}
 	}
 
@@ -136,7 +136,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	}
 
 	@Override
-	public void onSelected() {
+	public void onRefresh() {
 		updateFormRows();
 	}
 

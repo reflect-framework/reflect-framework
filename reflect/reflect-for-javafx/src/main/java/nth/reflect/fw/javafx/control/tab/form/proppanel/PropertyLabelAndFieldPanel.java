@@ -1,10 +1,15 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyIconButton;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.style.ReflectColorName;
@@ -17,6 +22,7 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 	private static final String DISABLED = "disabled";
 	private final PropertyLabel propertyLabel;
 	private final PropertyField propertyField;
+	private PropertyButtonBar propertyButtonBar;
 
 	public PropertyLabelAndFieldPanel(FormTab formTab, PropertyValueModel propertyValueModel,
 			PropertyField propertyField) {
@@ -26,7 +32,7 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 		this.propertyField = propertyField;
 		setCenter((Node) propertyField);
 
-		PropertyButtonBar propertyButtonBar = new PropertyButtonBar(formTab, propertyValueModel, propertyField);
+		propertyButtonBar = new PropertyButtonBar(formTab, propertyValueModel, propertyField);
 		setRight(propertyButtonBar);
 
 		setWidth(propertyField.getPropertyFieldWidth());
@@ -74,6 +80,17 @@ public class PropertyLabelAndFieldPanel extends BorderPane {
 			getStyleClass().add(StyleSheet.createStyleClassName(PropertyLabelAndFieldPanel.class, DISABLED));
 		}
 
+	}
+
+	public List<PropertyIconButton> getPropertyIconButtons() {
+		List<PropertyIconButton> buttons = new ArrayList();
+		ObservableList<Node> children = propertyButtonBar.getChildren();
+		for (Node node : children) {
+			if (node instanceof PropertyIconButton) {
+				buttons.add((PropertyIconButton) node);
+			}
+		}
+		return buttons;
 	}
 
 }

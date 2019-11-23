@@ -57,8 +57,8 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	}
 
 	@Override
-	public void onSelected() {
-		propertyGrid.updateAllPropertyPanels();
+	public void onRefresh() {
+		propertyGrid.onRefresh();
 	}
 
 	@Override

@@ -105,8 +105,8 @@ public class TableTab extends Tab {
 	}
 
 	/**
-	 * invokes the actionMethod and converts its result into a collection or
-	 * throws a {@link ReflectTranslatableException}
+	 * invokes the actionMethod and converts its result into a collection or throws
+	 * a {@link ReflectTranslatableException}
 	 * 
 	 * @return
 	 */
@@ -145,7 +145,7 @@ public class TableTab extends Tab {
 	}
 
 	@Override
-	public void onSelected() {
+	public void onRefresh() {
 		grid.getDataProvider().refreshAll();
 	}
 
