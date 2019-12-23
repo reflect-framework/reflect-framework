@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.function.ValueProvider;
@@ -17,9 +18,9 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.ui.vaadin.css.SizeUnit;
-import nth.reflect.ui.vaadin.css.StyleBuilder;
 import nth.reflect.ui.vaadin.tab.Tab;
+import nth.reflect.ui.vaadin.test.dom.Person;
+import nth.reflect.ui.vaadin.test.dom.PersonService;
 
 public class TableTab extends Tab {
 
@@ -56,11 +57,18 @@ public class TableTab extends Tab {
 		return domainClassInfo;
 	}
 
-	private Grid<Object> createGrid() {
-		Grid<Object> grid = new Grid<Object>();
-		grid.setDataProvider(createDataProvider());
-		addGridColumns(grid);
-		new StyleBuilder().setWidth(100, SizeUnit.PERCENT).setHeight(100, SizeUnit.PERCENT).setFor(grid);
+	private Grid<?> createGrid() {
+		List<Person> personList = new PersonService().allPersons();
+
+		Grid<Person> grid = new Grid<>(Person.class);
+		grid.setItems(personList);
+
+		grid.removeColumnByKey("id");
+
+		// The Grid<>(Person.class) sorts the properties and in order to
+		// reorder the properties we use the 'setColumns' method.
+		grid.setColumns("firstName", "lastName", "age", "address", "phoneNumber");
+		grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 		return grid;
 	}
 
