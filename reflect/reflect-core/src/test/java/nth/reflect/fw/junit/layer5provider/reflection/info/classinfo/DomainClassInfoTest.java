@@ -93,8 +93,7 @@ public class DomainClassInfoTest {
 	@Test
 	public void testGetPropertyInfo() {
 		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo(DomainObjectStub.PROPERTY1);
-		assertEquals(
-				DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.PROPERTY1,
+		assertEquals(DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.PROPERTY1,
 				propertyInfo.getCanonicalName());
 	}
 
@@ -113,23 +112,21 @@ public class DomainClassInfoTest {
 	@Test
 	public void testGetActionMethodSorted() {
 		List<ActionMethodInfo> actionMethods = domainClassInfo.getActionMethodInfosSorted();
-		assertEquals(2, actionMethods.size());
-		assertEquals(DomainObjectStub.class.getCanonicalName() + "."
-				+ DomainObjectStub.CLASS_ACTION_METHOD, actionMethods.get(0).getCanonicalName());
-		assertEquals(
-				DomainObjectStub.class.getCanonicalName() + "."
-						+ DomainObjectStub.PROPERTY1_ACTION_METHOD,
-				actionMethods.get(1).getCanonicalName());
+		assertEquals(1, actionMethods.size());
+		assertEquals(DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.CLASS_ACTION_METHOD,
+				actionMethods.get(0).getCanonicalName());
+//		assertEquals(
+//				DomainObjectStub.class.getCanonicalName() + "."
+//						+ DomainObjectStub.PROPERTY1_ACTION_METHOD,
+//				actionMethods.get(1).getCanonicalName());
 	}
 
 	@Test
 	public final void testGetMethodInfosClassOfQFilterOfActionMethodInfo() {
 		List<ActionMethodInfo> actionMethods = domainClassInfo
-				.getActionMethodInfos(new MethodNameFilter(DomainObjectStub.PROPERTY1_ACTION_METHOD));
+				.getActionMethodInfos(new MethodNameFilter(DomainObjectStub.CLASS_ACTION_METHOD));
 		assertEquals(1, actionMethods.size());
-		assertEquals(
-				DomainObjectStub.class.getCanonicalName() + "."
-						+ DomainObjectStub.PROPERTY1_ACTION_METHOD,
+		assertEquals(DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.CLASS_ACTION_METHOD,
 				actionMethods.get(0).getCanonicalName());
 	}
 

@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.acme.web.shop.WebShopInfrastructureClasses;
-import com.acme.web.shop.WebShopServiceClasses;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.HasDynamicTitle;
@@ -121,7 +119,7 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 @Route("")
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 //@PWA(name = "My Application", shortName = "My App")
-public class ReflectApplicationForVaadin14 extends Div implements ReflectApplication, HasDynamicTitle {
+public abstract class ReflectApplicationForVaadin14 extends Div implements ReflectApplication, HasDynamicTitle {
 
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final nth.reflect.ui.vaadin.mainwindow.MainWindow mainWindow;
@@ -130,6 +128,7 @@ public class ReflectApplicationForVaadin14 extends Div implements ReflectApplica
 		userInterfaceContainer = ReflectFramework.launch(this);
 		mainWindow = new MainWindow(userInterfaceContainer);
 		add(mainWindow);
+		setSizeFull();
 	}
 
 	public MainWindow getMainWindow() {
@@ -174,16 +173,6 @@ public class ReflectApplicationForVaadin14 extends Div implements ReflectApplica
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
-	}
-
-	@Override
-	public List<Class<?>> getServiceClasses() {
-		return WebShopServiceClasses.get();
-	}
-
-	@Override
-	public List<Class<?>> getInfrastructureClasses() {
-		return WebShopInfrastructureClasses.get();
 	}
 
 	@Override

@@ -1,13 +1,13 @@
 package nth.reflect.ui.vaadin.mainwindow;
 
+import java.lang.reflect.Field;
+
+import com.vaadin.flow.component.PropertyDescriptor;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin14;
 import nth.reflect.ui.vaadin.mainwindow.content.ContentPanel;
 import nth.reflect.ui.vaadin.mainwindow.menu.MainMenu;
@@ -22,13 +22,18 @@ public class MainWindow extends AppLayout implements nth.reflect.fw.gui.componen
 	private nth.reflect.fw.gui.component.tab.Tabs<nth.reflect.ui.vaadin.tab.Tab> tabs;
 
 	public MainWindow(UserInterfaceContainer userInterfaceContainer) {
+		setDrawerOpened(true);
+
 		DrawerToggle menuToggleButton = createMenuToggleButton();
 
-		Div title = createTitle(userInterfaceContainer);
+		ApplicationTitle title = new ApplicationTitle(userInterfaceContainer);
 //		Image logo = createLogo();
 		addToNavbar(TOUCH_OPTIMIZED, menuToggleButton, title);
 
+//		ApplicationTitle title2 = new ApplicationTitle(userInterfaceContainer);
+//		Hr verticalDivider = new Hr();
 		MainMenu mainMenu = new MainMenu(userInterfaceContainer);
+//		addToDrawer(title2, verticalDivider, mainMenu);
 		addToDrawer(mainMenu);
 
 		tabs = getTabs(userInterfaceContainer);
@@ -40,13 +45,18 @@ public class MainWindow extends AppLayout implements nth.reflect.fw.gui.componen
 		setContent(content);
 	}
 
-	private Div createTitle(UserInterfaceContainer userInterfaceContainer) {
-		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		ApplicationClassInfo applicationClassInfo = reflectionProvider.getApplicationClassInfo();
-		String title = applicationClassInfo.getDisplayName();
-		Div div = new Div();
-		div.setText(title);
-		return div;
+	private PropertyDescriptor<Boolean, Boolean> getOverlayProperty() {
+		Field overlayPropertyField;
+		try {
+			overlayPropertyField = AppLayout.class.getDeclaredField("overlayProperty");
+			overlayPropertyField.setAccessible(true);
+			PropertyDescriptor<Boolean, Boolean> overlayProperty2 = (PropertyDescriptor<Boolean, Boolean>) overlayPropertyField
+					.get(this);
+			return overlayProperty2;
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	private nth.reflect.fw.gui.component.tab.Tabs<nth.reflect.ui.vaadin.tab.Tab> getTabs(

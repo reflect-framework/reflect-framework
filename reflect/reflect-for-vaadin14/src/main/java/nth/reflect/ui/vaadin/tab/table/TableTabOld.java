@@ -17,9 +17,11 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.ui.vaadin.css.SizeUnit;
+import nth.reflect.ui.vaadin.css.StyleBuilder;
 import nth.reflect.ui.vaadin.tab.Tab;
 
-public class TableTab extends Tab {
+public class TableTabOld extends Tab {
 
 	private static final long serialVersionUID = -7981487179996807252L;
 	@ReflectTranslatable
@@ -33,7 +35,7 @@ public class TableTab extends Tab {
 	private final Grid<?> grid;
 	private final DomainClassInfo domainClassInfo;
 
-	public TableTab(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
+	public TableTabOld(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.actionMethodOwner = actionMethodOwner;
@@ -42,9 +44,7 @@ public class TableTab extends Tab {
 
 		this.domainClassInfo = createDomainClassInfo();
 
-		setSizeFull();
 		grid = createGrid();
-		grid.setSizeFull();
 		add(grid);
 
 	}
@@ -60,6 +60,7 @@ public class TableTab extends Tab {
 		Grid<Object> grid = new Grid<Object>();
 		grid.setDataProvider(createDataProvider());
 		addGridColumns(grid);
+		new StyleBuilder().setWidth(100, SizeUnit.PERCENT).setHeight(100, SizeUnit.PERCENT).setFor(grid);
 		return grid;
 	}
 
@@ -81,8 +82,7 @@ public class TableTab extends Tab {
 		return new ValueProvider<Object, Object>() {
 			@Override
 			public Object apply(Object domainObject) {
-				return domainClassInfo.getTitle(domainObject);
-//				return domainObject.toString();
+				return domainObject.toString();
 			}
 		};
 	}
