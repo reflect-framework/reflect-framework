@@ -4,4 +4,4 @@ The Reflect framework is a light weight Java application framework. It provides 
 
 For more information see: https://github.com/ntenhoeve/Reflect-Framework/wiki
 
-OSSRH-54191
+https://issues.sonatype.org/browse/OSSRH-54191
