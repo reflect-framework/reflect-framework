@@ -59,9 +59,15 @@ public abstract class HibernateRepository<T> {
 		if (DeletableEntity.class.isAssignableFrom(getDomainType())) {
 			query.append(" where e.deleted=false");
 		}
+		List<T> result = getAll(query.toString());
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> getAll(String hibernateSelectStatement) {
 		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
-		List<T> result = session.createQuery(query.toString()).list();
+		List<T> result = session.createQuery(hibernateSelectStatement).list();
 		session.getTransaction().commit();
 		session.close();
 		return result;
