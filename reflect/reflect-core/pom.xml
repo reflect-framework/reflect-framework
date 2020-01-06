@@ -8,8 +8,10 @@
 	</parent>
 
 	<artifactId>reflect-core</artifactId>
-
-	<description>Project containing the essentials of the Reflect Framework</description>
+	
+	<url>https://github.com/ntenhoeve/Reflect-Framework/wiki</url>
+  	<name>reflect for vaadin14 archetype</name>
+	<description>Maven project containing the essential Maven modules of the Reflect Framework</description>
 
 	<dependencies>
 		<!-- <dependency> <groupId>org.apache.bval</groupId> <artifactId>bval-jsr303</artifactId> 

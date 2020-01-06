@@ -8,9 +8,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>nth.reflect.framework</groupId>
-  <artifactId>reflect-for-vaadin14-archetype</artifactId>
-  <version>0.0.1-RELEASE</version>
+  <artifactId>reflect-for-vaadin14-archetype2</artifactId>
+  <version>0.0.1</version>
   <name>Archetype - reflect-for-vaadin14-archetype</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/ntenhoeve/Reflect-Framework/wiki</url>
   <description>Maven archetype to create a Reflect-for-Vaadin14 web application project</description>
 </project>
