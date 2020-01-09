@@ -1,20 +1,68 @@
 package nth.reflect.fw.documentation;
 
 import nth.reflect.fw.ReflectApplication;
+import nth.reflect.fw.ReflectFramework;
 
 /**
  * <p>
- * There are different implementations of the {@link ReflectApplication}
- * class, to support different type of applications (e.g. for the command line,
- * desktop, mobile devices, web environments). This chapter will explain the different
- * {@link ReflectApplication}, and how to get started with them. If needed
- * you can of course write your own implementation of the
- * {@link ReflectApplication} class.
+ * There are different implementations of the {@link ReflectApplication} class,
+ * to support different type of applications (e.g. for the command line, web
+ * applications, etc...). This chapter will explain the different
+ * {@link ReflectApplication}, and how to get started with them. If needed you
+ * can also write your own implementation of the {@link ReflectApplication}
+ * class.
  * </p>
  * 
- * <h2>Reflect for JUnit</h2>
+ * <h2>Setting up your development computer</h2>
  * <p>
- * {@insert ReflectApplicationForJUnit}
+ * First step is installing the following software on your development computer
+ * (if you did not do so already):
+ * <ul>
+ * <li><b>Operating system:</b> The {@link ReflectFramework} was created and
+ * tested on <a href="https://en.wikipedia.org/wiki/Microsoft_Windows">Microsoft
+ * Windows</a>. It is therefore recommended to use
+ * <a href="https://en.wikipedia.org/wiki/Microsoft_Windows">Microsoft
+ * Windows</a> for your development computer. You might also be ale to use
+ * another operating system, because both
+ * <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>
+ * and <a href=
+ * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
+ * Development Environments</a> will work on multiple operating systems. This
+ * however never was tested.</li>
+ * <li><b>Java Development Kit:</b> You need to install the
+ * <a href="https://en.wikipedia.org/wiki/Java_Development_Kit">Java Development
+ * Kit</a> on your development computer in order to
+ * <a href="https://en.wikipedia.org/wiki/Compiler">compile</a> and run
+ * <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java
+ * code</a>. At the time of this writing the {@link ReflectFramework} uses Java
+ * Standard Edition Development Kit 8. You can download it free from the Oracle
+ * web site. Just <a href=
+ * "https://www.google.com/search?q=Java+SE+Development+Kit+8+-+Downloads+-+Oracle">search
+ * the Internet for: &quot;Java SE Development Kit 8 - Downloads -
+ * Oracle&quot;</a> and install the correct version for your operating
+ * system.</li>
+ * <li><b>Integrated Development Environment:</b> You need to install a <a href=
+ * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
+ * Development Environment</a> on your development computer. The
+ * {@link ReflectFramework} was created with Eclipse and this is therefore
+ * Recommended for your development computer. Eclipse is free and can be
+ * down loaded from <a href=
+ * "https://www.eclipse.org/downloads/">https://www.eclipse.org/downloads/</a>
+ * and then installed on your development computer. You might also be ale to use another <a href=
+ * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
+ * Development Environment</a>. This however never was tested.</li>
+ * </ul>
+ *<!-- TODO add youtube film -->
+ * </p>
+ * 
+ * <h2>Reflect for the Web</h2>
+ * <p>
+ * {@insert ReflectApplicationForVaadin14}
+ * </p>
+ * 
+ * <h2>Reflect for JavaFx</h2>
+ * <p>
+ * {@insert ReflectApplicationForJavaFX}
  * </p>
  * 
  * <h2>Reflect for CommandLine</h2>
@@ -22,9 +70,9 @@ import nth.reflect.fw.ReflectApplication;
  * {@insert ReflectApplicationForCommandLine}
  * </p>
  * 
- * <h2>Reflect for JavaFx</h2>
+ * <h2>Reflect for JUnit</h2>
  * <p>
- * {@insert ReflectApplicationForJavaFX}
+ * {@insert ReflectApplicationForJUnit}
  * </p>
  * 
  * <h2>Possible future projects</h2>
