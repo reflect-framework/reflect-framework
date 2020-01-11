@@ -3,8 +3,8 @@ package nth.reflect.fw.documentation;
 /**
  * Source Code:
  * <ul>
- * <li><a href="https://github.com/ntenhoeve/Reflect-Framework">Git Hub Web Pages</a></li>
- * <li><a href="https://github.com/ntenhoeve/Reflect-Framework/archive/master.zip">Download Reflect projects as zip</a></li>
+ * <li><a href="https://github.com/reflect-framework/reflect-framework">Git Hub Web Pages</a></li>
+ * <li><a href="https://github.com/reflect-framework/reflect-framework/archive/master.zip">Download Reflect projects as zip</a></li>
  * </ul>
  * 
  * @author nilsth

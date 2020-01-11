@@ -40,13 +40,13 @@ import nth.reflect.fw.ReflectFramework;
  * </p>
  * <ul>
  * <li><a href=
- * "https://github.com/ntenhoeve/Reflect-Framework/wiki">Documentation as Git
+ * "https://github.com/reflect-framework/reflect-framework/wiki">Documentation as Git
  * Hub Wiki</a></li>
  * <li><a href=
- * "http://ntenhoeve.github.io/ReflectDocumentation.html">Documentation as Web
+ * "http://reflect-framework.github.io/ReflectDocumentation.html">Documentation as Web
  * Page</a></li>
  * <li><a href=
- * "http://ntenhoeve.github.io/ReflectDocumentation_Printable.html">Documentation
+ * "http://reflect-framework.github.io/ReflectDocumentation_Printable.html">Documentation
  * as a printable Web Page (single page)</a></li>
  * </ul>
  * 
