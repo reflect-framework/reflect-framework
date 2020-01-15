@@ -8,8 +8,8 @@ import com.vaadin.flow.component.charts.model.style.FontWeight;
 import nth.reflect.fw.gui.style.basic.Color;
 
 /**
- * @deprecated use style sheets Style properties class in fluent interface
- *             style, because JavaFx does not have a CSS API yet.
+ * Fluent interface style to set style properties.
+ * FIXME: better use CSS files???
  * 
  * @author nilsth
  *
