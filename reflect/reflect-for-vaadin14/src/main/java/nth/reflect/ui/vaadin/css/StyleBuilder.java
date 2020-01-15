@@ -14,7 +14,6 @@ import nth.reflect.fw.gui.style.basic.Color;
  * @author nilsth
  *
  */
-@Deprecated
 public class StyleBuilder extends HashMap<String, String> {
 	private static final long serialVersionUID = 7266905658046903895L;
 
