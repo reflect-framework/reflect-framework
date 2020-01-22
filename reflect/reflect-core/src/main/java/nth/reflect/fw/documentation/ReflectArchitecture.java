@@ -63,11 +63,10 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
  * <a href="https://en.wikipedia.org/wiki/Cross-cutting_concern">cross cutting
  * concerns</a>)</li>
  * </ul>
- * </p>
  * Each layer is implemented by an {@link DependencyInjectionContainer}<br>
  * <br>
  * 
- * <img src="ReflectArchitecture.png"><br>
+ * <img src="ReflectArchitecture.png" alt="Diagram of the Reflect Framework Architecture"><br>
  * <br>
  * 
  * Red objects are provided by the {@link ReflectFramework}<br>

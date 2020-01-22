@@ -59,12 +59,11 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
  * <a href="http://vaadin.com">Vaadin</a> framework when a new
  * {@link VaadinSession} for this application is created (after receiving a new
  * {@link HttpServletRequest} from a user that does not have a active
- * {@link VaadinSession}). It will: <ui>
+ * {@link VaadinSession}). It will: <ul>
  * <li>initialize the {@link ReflectFramework} with implemented methods from
  * this class</li>
  * <li>create the {@link MainWindow}</li>
  * </ul>
- * </p>
  * <h3>How to download a ReflectForJavaFX demo project</h3>
  * <p>
  * TODO

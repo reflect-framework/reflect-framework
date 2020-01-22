@@ -3,7 +3,7 @@ package nth.reflect.fw.documentation;
 import nth.reflect.fw.ReflectFramework;
 
 /**
- * <img src="ReflectLogo.png"> <title>The Reflect Framework</title>
+ * <img src="ReflectLogo.png" alt="Reflect Framework Logo"> <h1>The Reflect Framework</h1>
  * 
  * <h1>The Reflect Framework</h1> {@insert ReflectFramework}
  * 
@@ -36,7 +36,7 @@ import nth.reflect.fw.ReflectFramework;
  * The documentation of the {@link ReflectFramework} is generated from its
  * JavaDoc (starting with the {@link ReflectDocumentation} file) and is
  * published in different formats and at different locations with help of the
- * {@link SoftwareDocumentationGenerator}:
+ * SoftwareDocumentationGenerator:
  * </p>
  * <ul>
  * <li><a href=

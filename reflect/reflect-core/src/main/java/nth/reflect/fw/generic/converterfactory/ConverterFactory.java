@@ -15,7 +15,7 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
- * Abstract factory class to help create a converter of type <T> (I.E. a
+ * Abstract factory class to help create a converter of type &lt;T&gt; (I.E. a
  * formatter, document or XML converter) for all different types
  * 
  * Fixme: implement Contractor

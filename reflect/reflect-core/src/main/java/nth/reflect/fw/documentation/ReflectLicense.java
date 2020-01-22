@@ -8,7 +8,7 @@ import nth.reflect.fw.ReflectFramework;
  * under the
  * <a href="http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License">GNU
  * Lesser General Public License</a>. The license can be found
- * <a href= "https://github.com/ntenhoeve/Reflect-Framework/blob/master/LICENSE"
+ * <a href= "https://github.com/reflect-framework/reflect-framework/blob/master/LICENSE"
  * >here</a>.
  */
 

@@ -54,43 +54,39 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	/**
 	 * This method is called when a user sends an command to the
-	 * {@link UserInterfaceController}. this can come from different sources
-	 * such as:
+	 * {@link UserInterfaceController}. this can come from different sources such
+	 * as:
 	 * <ul>
 	 * <li>command line</li>
 	 * <li>graphical user interface (when the user activates a menu item)</li>
 	 * <li>http request from a SOAP or Restfull client</li>
 	 * <li>etc</li>
 	 * </ul>
-	 * This method will process the {@link ActionMethod} parameter (depending on
-	 * how it is annotated):
+	 * This method will process the {@link ActionMethod} parameter (depending on how
+	 * it is annotated):
 	 * <ul>
 	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_DIRECTLY }: Will call
 	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
 	 * directly (i.e. when there is no {@link ActionMethod} parameter)</li>
-	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will
-	 * ask the user for confirmation before the {@link ActionMethod} is
-	 * executed. To do this it will call one of the
-	 * confirmActionMethodParameter(...) methods in the
-	 * {@link UserInterfaceController} implementation. After the confirmation
-	 * the
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
-	 * needs to be called (i.e. by a OK button).</li>
-	 * <li>
-	 * {@link ExecutionModeType#EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL }:
+	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will ask
+	 * the user for confirmation before the {@link ActionMethod} is executed. To do
+	 * this it will call one of the confirmActionMethodParameter(...) methods in the
+	 * {@link UserInterfaceController} implementation. After the confirmation the
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs
+	 * to be called (i.e. by a OK button).</li>
+	 * <li>{@link ExecutionModeType#EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL }:
 	 * Will let the user edit the {@link ActionMethod} parameter before the
 	 * {@link ActionMethod} is executed. To do this it will call one of the
-	 * editActionMethodParameter(...) methods in the
-	 * {@link UserInterfaceController} implementation. After the confirmation
-	 * the
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
-	 * needs to be called (i.e. by a OK button).</li>
+	 * editActionMethodParameter(...) methods in the {@link UserInterfaceController}
+	 * implementation. After the confirmation the
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs
+	 * to be called (i.e. by a OK button).</li>
 	 * </ul>
 	 * 
-	 * @param methodOwner
-	 *            Domain or service object that owns the method
-	 * @param actionMethodInfo
-	 * @param methodParameterValue
+	 * @param methodOwner     Domain or service object that owns the method
+	 * @param methodInfo      {@link ActionMethodInfo} contains information on an
+	 *                        {@link ActionMethod}
+	 * @param methodParameter The value of the {@link ActionMethod} parameter
 	 */
 
 	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
@@ -124,13 +120,16 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	/**
 	 * This method is called from
-	 * {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from
-	 * the {@link FormOkItem} linked to the OK button <br>
+	 * {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from the
+	 * {@link FormOkItem} linked to the OK button <br>
 	 * It needs the check if the method is enabled before the method is executed
 	 * <br>
-	 * It needs to validate the method parameter value before the method is
-	 * executed
+	 * It needs to validate the method parameter value before the method is executed
 	 * 
+	 * @param methodOwner          Domain or service object that owns the method
+	 * @param actionMethodInfo     {@link ActionMethodInfo} contains information on
+	 *                             an {@link ActionMethod}
+	 * @param methodParameterValue The value of the {@link ActionMethod} parameter
 	 * @throws Exception
 	 * 
 	 */
@@ -140,8 +139,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	/**
 	 * This method is called from
-	 * {@link #startMethodExecutionThread(Object, ActionMethodInfo, Object)}
-	 * when the thread is completed.<br>
+	 * {@link #startMethodExecutionThread(Object, ActionMethodInfo, Object)} when
+	 * the thread is completed.<br>
 	 * It will open a new Tab or InfoDialog to show the method return value
 	 * 
 	 * @param serviceObject
@@ -165,8 +164,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -177,8 +176,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 			Object methodParameter);
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -189,8 +188,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 			Object methodResult);
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -201,8 +200,8 @@ public abstract class UserInterfaceController implements NotificationListener {
 			List<?> methodResult);
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
@@ -213,9 +212,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 			String methodResult);
 
 	/**
-	 * Allows the user interface objects to be build (i.e. the creation of a
-	 * main window). All information needed to start the application (like the
-	 * command line arguments or web ap URL) should be available in the
+	 * Allows the user interface objects to be build (i.e. the creation of a main
+	 * window). All information needed to start the application (like the command
+	 * line arguments or web ap URL) should be available in the
 	 * {@link ReflectApplication}
 	 */
 	public abstract void launch();

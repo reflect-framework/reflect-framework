@@ -29,13 +29,6 @@ public class TranslatableString {
 		this.parameters = parameters;
 	}
 
-	/**
-	 * Translates the {@link TranslatableString} using the
-	 * {@link LanguageProvider}.
-	 * 
-	 * @param languageProvider
-	 * @return
-	 */
 	public String translate(LanguageProvider languageProvider) {
 		String translatedText = languageProvider.getText(englishText);
 		String translatedTextWithParameters = String.format(translatedText, parameters);

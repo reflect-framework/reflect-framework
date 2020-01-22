@@ -2,23 +2,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>nth.reflect.framework</groupId>
+		<groupId>com.github.reflect-framework</groupId>
 		<artifactId>reflect</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 
 	<artifactId>reflect-core</artifactId>
 	
-	<url>https://github.com/ntenhoeve/Reflect-Framework/wiki</url>
   	<name>reflect for vaadin14 archetype</name>
 	<description>Maven project containing the essential Maven modules of the Reflect Framework</description>
 
 	<dependencies>
-		<!-- <dependency> <groupId>org.apache.bval</groupId> <artifactId>bval-jsr303</artifactId> 
-			<version>0.5</version> </dependency> <dependency> <groupId>javax.validation</groupId> 
-			<artifactId>validation-api</artifactId> <version>1.0.0.GA</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>

@@ -3,8 +3,8 @@ package nth.reflect.ui.vaadin.mainwindow.menu;
 import java.util.List;
 import java.util.Optional;
 
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.charts.model.style.FontWeight;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
@@ -31,9 +31,16 @@ public class ServiceObjectButton extends Tab {
 		Div icon = new Div(ANGLE_DOWN_ICON);
 		addComponentAsFirst(icon);
 
-		addListener(ClickEvent.class, l -> {
-			onClick();
-		});
+		addListener(TabClickEvent.class, createListener());//Lambda does not work for maven-compiler-plugin
+	}
+
+	@SuppressWarnings({ "serial" })
+	private ComponentEventListener<TabClickEvent> createListener() {
+		return new ComponentEventListener<TabClickEvent>() {
+			@Override
+			public void onComponentEvent(TabClickEvent event) {
+				onClick();			}
+		};
 	}
 
 	private void onClick() {

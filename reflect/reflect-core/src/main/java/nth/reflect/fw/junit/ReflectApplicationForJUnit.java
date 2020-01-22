@@ -109,6 +109,9 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 
 	/**
 	 * Fluent interface method to add ServiceClasses
+	 * 
+	 * @param serviceClass A class that represents a {@link ServiceObject}
+	 * @return {@link ReflectApplicationForJUnit} to be used for testing
 	 */
 	public ReflectApplicationForJUnit addServiceClass(Class<?> serviceClass) {
 		serviceClasses.add(serviceClass);
@@ -117,7 +120,10 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 
 	/**
 	 * Fluent interface method to add InfrastructureClasses
-	 */
+	 * 
+	 * @param infrastructureClass A class that represents a {@link InfrastructureObject}
+	 * @return {@link ReflectApplicationForJUnit} to be used for testing
+	 * */
 	public ReflectApplicationForJUnit addInfrastructureClass(Class<?> infrastructureClass) {
 		infrastructureClasses.add(infrastructureClass);
 		return this;

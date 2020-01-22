@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <a href=="http://en.wikipedia.org/wiki/Fluent_interface" >Fluent
+ * <a href="http://en.wikipedia.org/wiki/Fluent_interface">Fluent
  * interface</a> to create regular expressions (see {@link Pattern})
  * 
  * @author nilsth

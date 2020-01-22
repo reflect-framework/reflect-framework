@@ -50,7 +50,7 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
  * <li>Caching these new instances, if we only need one instance (like a
  * singleton)</li>
  * </ul>
- * </p>
+
  * <p>
  * The {@link ReflectArchitecture} consists of several layers. Each layer has
  * its own {@link DependencyInjectionContainer} that manages the objects in that
@@ -71,7 +71,6 @@ import nth.reflect.fw.layer5provider.ProviderLayer;
  * <li>{@link ProviderLayer}: {@link Provider} object's are managed by a
  * {@link ProviderContainer}.</li>
  * </ul>
- * </p>
  * 
  * <h3>Constructor Injection</h3> {@insert ConstructionInjection}
  * 

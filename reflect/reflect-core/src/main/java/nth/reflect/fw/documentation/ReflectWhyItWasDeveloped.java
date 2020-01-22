@@ -32,7 +32,7 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * <ul>
  * <li><a href=
  * "https://github.com/NakedObjectsGroup/NakedObjectsFramework">Naked Objects
- * <a> (for .net)</li>
+ * </a> (for .net)</li>
  * <li><a href="https://isis.apache.org/">Apache Isis</a>
  * <a href="https://isis.apache.org/guides/ugvw/ugvw.html">Wicket Viewer</a>
  * (for Java)</li>
@@ -112,7 +112,6 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * obvious: Most of us want our applications to run on as many devices as
  * possible, without having to re-write test and release the (GUI) application
  * for multiple platforms, because this is tedious, no value added, costly work.
- * </p>
  * <p>
  * At the time of this writing, none of the existing <a href=
  * "https://en.wikipedia.org/wiki/Naked_objects#Software_frameworks">Naked

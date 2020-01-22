@@ -48,13 +48,10 @@ public class TitleBuilder {
 	private final LanguageProvider languageProvider;
 
 	/**
-	 * Private constructor: Use {@link #getInstance()}<br>
 	 * FIXME: We create a new {@link DefaultLanguageProvider} here because the
 	 * {@link NumericFormat} needs it to be able to throw a error message in the
 	 * correct language. We do not want to pass a {@link LanguageProvider} to the
 	 * {@link TitleBuilder} every time it is needed.
-	 * 
-	 * @param seperator
 	 */
 
 	public TitleBuilder() {

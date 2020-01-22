@@ -1,6 +1,6 @@
 package nth.reflect.ui.vaadin.mainwindow.menu;
 
-import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.charts.model.style.FontWeight;
 import com.vaadin.flow.component.tabs.Tab;
 
@@ -9,6 +9,7 @@ import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 public class ActionMethodButton extends Tab {
 
+	private static final long serialVersionUID = -7277277127417590632L;
 	private Item actionMethodItem;
 
 	public ActionMethodButton(Item actionMethodItem) {
@@ -20,9 +21,16 @@ public class ActionMethodButton extends Tab {
 
 		// TODO icon, TODO dynamic??
 
-		addListener(ClickEvent.class, l -> {
-			onClick();
-		});
+		addListener(TabClickEvent.class, createListener());//Lambda does not work for maven-compiler-plugin
+	}
+
+	@SuppressWarnings({ "serial" })
+	private ComponentEventListener<TabClickEvent> createListener() {
+		return new ComponentEventListener<TabClickEvent>() {
+			@Override
+			public void onComponentEvent(TabClickEvent event) {
+				onClick();			}
+		};
 	}
 
 	private void onClick() {

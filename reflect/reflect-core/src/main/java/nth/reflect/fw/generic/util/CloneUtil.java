@@ -12,17 +12,15 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 public class CloneUtil {
 
 	/**
-	 * Copies the values of all properties to an other object. NOTE this is not
-	 * a deep copy!
+	 * Copies the values of all properties to an other object. NOTE this is not a
+	 * deep copy!
 	 * 
-	 * @param sourceObject
-	 *            object that holds the property values to be copied to the
-	 *            destinationObject
-	 * @param destinationObject
-	 *            object that will receive the property values of the
-	 *            sourceObject
-	 * @return the destinationObject with the property values of the
-	 *         sourceObject
+	 * @param sourceObject       object that holds the property values to be copied
+	 *                           to the destinationObject
+	 * @param destinationObject  object that will receive the property values of the
+	 *                           sourceObject
+	 * @param reflectionProvider The {@link ReflectionProvider} needed for cloning
+	 * @return the destinationObject with the property values of the sourceObject
 	 */
 	public static Object clone(ReflectionProvider reflectionProvider, Object sourceObject, Object destinationObject) {
 		Class<?> sourceClass = sourceObject.getClass();
@@ -43,9 +41,11 @@ public class CloneUtil {
 	 * source object to the instantiated object.<br>
 	 * NOTE this is not a deep copy!
 	 * 
-	 * @param sourceObject
-	 *            object to be instantiated and copied
-	 * @param reflectionProvider
+	 * @param container          {@link DependencyInjectionContainer} to provide
+	 *                           information for cloning
+	 * @param reflectionProvider {@link ReflectionProvider} to provide information
+	 *                           for cloning
+	 * @param sourceObject       object to be instantiated and copied
 	 * @return the instantiated with the property values of the sourceObject
 	 */
 

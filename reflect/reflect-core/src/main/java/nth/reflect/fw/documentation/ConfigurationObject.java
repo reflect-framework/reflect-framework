@@ -24,7 +24,6 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
  * <li>ConfigurationObjects often have a <a
  * href="https://en.wikipedia.org/wiki/Fluent_interface">fluent interface</a>.</li>
  * </ul>
- * </p>
  * 
  * @author nilsth
  *

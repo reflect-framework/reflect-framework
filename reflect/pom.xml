@@ -4,17 +4,131 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>nth.reflect.framework</groupId>
+	<groupId>com.github.reflect-framework</groupId>
 	<artifactId>reflect</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>pom</packaging>
 
-	<description>Maven parent project for all the projects in the Reflect Framework</description>
+	<url>https://github.com/reflect-framework/reflect-framework/wiki</url>
+	<name>Maven parent project for the Reflect Framework</name>
+	<description>Maven parent project for all the projects (modules) of the Reflect Framework</description>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License v3.0</name>
+			<url>https://github.com/reflect-framework/reflect-framework/blob/master/LICENSE</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Nils ten Hoeve</name>
+			<url>https://www.linkedin.com/in/nilstenhoeve/</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://https://github.com/reflect-framework/reflect-framework.git</connection>
+		<developerConnection>scm:git:ssh://github.com:reflect-framework/reflect-framework.git</developerConnection>
+		<url>https://github.com/reflect-framework/reflect-framework/tree/master</url>
+	</scm>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- Plugin to create a jar containing the sources so that it can be 
+					stored in the Sonatype Nexus database (Maven Central) -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Plugin to create a jar containing Java-doc so that it can be stored 
+					in the Sonatype Nexus database (Maven Central) -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<!-- java-doc compiler not be strict -->
+					<failOnError>false</failOnError>
+					<tags>
+						<tag>
+							<name>insert</name>
+						</tag>
+					</tags>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Plugin to store sign results so that it can be stored in the Sonatype 
+					Nexus database (Maven Central) -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<configuration>
+							<executable>gpg</executable>
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
+							<passphrase>${gpg.passphrase}</passphrase>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!-- Plugin to store results in the Sonatype Nexus database (Maven Central) -->
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 
 	<modules>
 		<module>reflect-core</module>
@@ -39,13 +153,13 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.12</version>
+				<version>4.13</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.assertj</groupId>
 				<artifactId>assertj-core</artifactId>
-				<version>3.12.2</version>
+				<version>3.14.0</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>

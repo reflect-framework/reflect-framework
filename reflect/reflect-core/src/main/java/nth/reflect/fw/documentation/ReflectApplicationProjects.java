@@ -53,32 +53,27 @@ import nth.reflect.fw.ReflectFramework;
  * Development Environment</a>. This however never was tested.</li>
  * </ul>
  *<!-- TODO add youtube film -->
- * </p>
  * 
  * <h2>Reflect for the Web</h2>
  * <p>
  * {@insert ReflectApplicationForVaadin14}
- * </p>
  * 
  * <h2>Reflect for JavaFx</h2>
  * <p>
  * {@insert ReflectApplicationForJavaFX}
- * </p>
  * 
  * <h2>Reflect for CommandLine</h2>
  * <p>
  * {@insert ReflectApplicationForCommandLine}
- * </p>
  * 
  * <h2>Reflect for JUnit</h2>
  * <p>
  * {@insert ReflectApplicationForJUnit}
- * </p>
  * 
  * <h2>Possible future projects</h2>
  * <p>
  * This is a list of possible future projects (still to be developed)
- * </p>
+
  * <h3>Reflect for Android</h3>
  * <p>
  * An application with a
@@ -87,7 +82,6 @@ import nth.reflect.fw.ReflectFramework;
  * <a href="https://en.wikipedia.org/wiki/Mobile_device">mobile devices</a> such
  * as <a href="https://en.wikipedia.org/wiki/Smartphone">smart phones</a> and
  * <a href="https://en.wikipedia.org/wiki/Tablet_computer">tablets</a>.
- * </p>
  * 
  * <h3>Reflect for Vaadin</h3>
  * <p>
@@ -96,7 +90,6 @@ import nth.reflect.fw.ReflectFramework;
  * <a href="http://en.wikipedia.org/wiki/Graphical_user_interface">graphical
  * user interface</a> for
  * <a href="https://en.wikipedia.org/wiki/Web_browser">web browsers</a>
- * </p>
  * 
  * <h3>Reflect for SOAP</h3>
  * <p>
@@ -104,7 +97,6 @@ import nth.reflect.fw.ReflectFramework;
  * allows other computer applications to interact via the
  * <a href="http://en.wikipedia.org/wiki/SOAP">Simple Object Access Protocol
  * (SOAP)</a>
- * </p>
  * 
  * <h3>Reflect for RESTfull XML</h3>
  * <p>
@@ -113,7 +105,6 @@ import nth.reflect.fw.ReflectFramework;
  * <a href="http://en.wikipedia.org/wiki/Representational_state_transfer" >
  * Representational State Transfer (RESTfull)</a> with
  * <a href="https://en.wikipedia.org/wiki/XML">XML</a>
- * </p>
  * 
  * <h3>Reflect for RESTfull JSON</h3>
  * <p>
@@ -122,7 +113,6 @@ import nth.reflect.fw.ReflectFramework;
  * <a href="http://en.wikipedia.org/wiki/Representational_state_transfer" >
  * Representational State Transfer (RESTfull)</a> with
  * <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>
- * </p>
  * 
  * @author nilsth
  *
