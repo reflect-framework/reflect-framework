@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.github.reflect-framework</groupId>
 		<artifactId>reflect</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>reflect-for-vaadin14</artifactId>
 	<packaging>jar</packaging>
@@ -128,9 +128,9 @@
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
 			<artifactId>reflect-graphical-user-interface</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
-	
+
 </project>

@@ -6,7 +6,7 @@
 
 	<groupId>com.github.reflect-framework</groupId>
 	<artifactId>reflect</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<url>https://github.com/reflect-framework/reflect-framework/wiki</url>
