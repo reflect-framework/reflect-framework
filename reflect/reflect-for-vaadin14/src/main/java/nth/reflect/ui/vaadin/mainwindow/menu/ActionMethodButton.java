@@ -21,17 +21,9 @@ public class ActionMethodButton extends Tab {
 
 		// TODO icon, TODO dynamic??
 
-		addListener(TabClickEvent.class, createListener());//Lambda does not work for maven-compiler-plugin
+		getElement().addEventListener("click", e -> {onClick();});
 	}
 
-	@SuppressWarnings({ "serial" })
-	private ComponentEventListener<TabClickEvent> createListener() {
-		return new ComponentEventListener<TabClickEvent>() {
-			@Override
-			public void onComponentEvent(TabClickEvent event) {
-				onClick();			}
-		};
-	}
 
 	private void onClick() {
 		actionMethodItem.getAction().run();

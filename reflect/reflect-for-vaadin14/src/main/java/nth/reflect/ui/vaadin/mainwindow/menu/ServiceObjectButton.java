@@ -31,16 +31,7 @@ public class ServiceObjectButton extends Tab {
 		Div icon = new Div(ANGLE_DOWN_ICON);
 		addComponentAsFirst(icon);
 
-		addListener(TabClickEvent.class, createListener());//Lambda does not work for maven-compiler-plugin
-	}
-
-	@SuppressWarnings({ "serial" })
-	private ComponentEventListener<TabClickEvent> createListener() {
-		return new ComponentEventListener<TabClickEvent>() {
-			@Override
-			public void onComponentEvent(TabClickEvent event) {
-				onClick();			}
-		};
+		getElement().addEventListener("click", e -> {onClick();});
 	}
 
 	private void onClick() {
