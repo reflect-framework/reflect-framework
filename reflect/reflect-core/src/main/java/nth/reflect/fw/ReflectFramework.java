@@ -26,11 +26,11 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * without writing any
  * <a href="https://en.wikipedia.org/wiki/User_interface">user interface</a>
  * code. This means that the {@link ReflectFramework} is ideal for rapid
- * prototyping, rapid development or to learn programming (e.g. to teach:
+ * prototyping, rapid development, rapid protyping
+ * (<a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
+ * Design</a>) or to learn programming (e.g.
  * <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object
- * Oriented Programming</a> or
- * <a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
- * Design</a>).
+ * Oriented Programming</a>).
  * </p>
  * <p>
  * The {@link ReflectFramework} provides different
@@ -83,9 +83,10 @@ public class ReflectFramework {
 	 * Initializes the {@link ReflectFramework} by creating the
 	 * {@link UserInterfaceContainer} and therefore creating all
 	 * {@link DependencyInjectionContainer} for all the application layers and
-	 * finally starting the {@link UserInterfaceController} This method is
-	 * normally called from the {@link ReflectApplication} class.
-	 * @return 
+	 * finally starting the {@link UserInterfaceController} This method is normally
+	 * called from the {@link ReflectApplication} class.
+	 * 
+	 * @return
 	 * 
 	 * @throws ReflectContainerException
 	 */
