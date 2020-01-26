@@ -24,8 +24,7 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.ui.vaadin.UserInterfaceControllerForVaadin14;
 import nth.reflect.ui.vaadin.button.Button;
-import nth.reflect.ui.vaadin.button.ButtonColor;
-import nth.reflect.ui.vaadin.button.ButtonType;
+import nth.reflect.ui.vaadin.button.ButtonTheme;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.SizeUnit;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
@@ -96,11 +95,11 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 		Tabs<Tab> tabs = userInterfaceController.getTabs();
 
 		FormOkItem okItem = new FormOkItem(this, actionMethodOwner, actionMethodInfo, domainValueModel);
-		Button okButton = new Button(ButtonType.TEXT, ButtonColor.PRIMARY, okItem);
+		Button okButton = new Button(ButtonTheme.PRIMARY, okItem);
 		okCancelButtonGroup.add(okButton);
 
 		CancelItem<Tab> cancelItem = new CancelItem<>(languageProvider, tabs, this);
-		Button cancelButton = new Button(ButtonType.TEXT, ButtonColor.PRIMARY, cancelItem);
+		Button cancelButton = new Button(ButtonTheme.PRIMARY, cancelItem);
 		okCancelButtonGroup.add(cancelButton);
 
 		return okCancelButtonGroup;

@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.server.Command;
 
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
@@ -19,6 +20,7 @@ import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.ui.vaadin.dialog.Dialog;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.tab.form.FormTab;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;
@@ -31,11 +33,13 @@ public class UserInterfaceControllerForVaadin14
 
 	private final ReflectApplicationForVaadin14 reflectAppForVaadin;
 	private final PropertyPanelFactory propertyPanelFactory;
+	private final Dialog dialog;
 
 	public UserInterfaceControllerForVaadin14(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin14.class);
 		propertyPanelFactory = new nth.reflect.ui.vaadin.tab.form.row.PropertyPanelFactory();
+		dialog = new Dialog();
 	}
 
 	/**
@@ -61,8 +65,9 @@ public class UserInterfaceControllerForVaadin14
 
 	@Override
 	public void showInfoMessage(String message) {
-		// TODO Toast.makeText(reflectApplicationForVaadin, message,
-		// Style.NORMAL).display();
+		Notification notification = new Notification(
+		        message, 3000);
+		notification.open();
 	}
 
 	@Override
@@ -151,40 +156,7 @@ public class UserInterfaceControllerForVaadin14
 
 	@Override
 	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
-
-		// // get dialog type
-		// int messageType = 0;
-		// switch (dialogType) {
-		// case QUESTION:
-		// messageType = JOptionPane.QUESTION_MESSAGE;
-		// break;
-		// case ERROR:
-		// messageType = JOptionPane.ERROR_MESSAGE;
-		// }
-		//
-		// // get options, assuming that all items are enabled and visible
-		// Object[] options = new String[items.size()];
-		// for (int index = 0; index < items.size(); index++) {
-		// options[index] = items.get(index).getText();
-		// }
-		// Object defaultOption = options[items.size() - 1];
-
-		// show dialog
-		// TODO int selectedIndex =
-		// JOptionPane.showOptionDialog(reflectApplicationForVaadin, message,
-		// title,
-		// JOptionPane.DEFAULT_OPTION, messageType, null, options,
-		// defaultOption);
-		//
-		// // execute selected item
-		// if (selectedIndex != -1) {
-		// VaadinItem selectedItem = items.get(selectedIndex);
-		// Action action = selectedItem.getAction();
-		// if (action != null) {
-		// action.run();
-		// }
-		// }
-
+		dialog.open(title, message, items);
 	}
 
 	@SuppressWarnings("serial")

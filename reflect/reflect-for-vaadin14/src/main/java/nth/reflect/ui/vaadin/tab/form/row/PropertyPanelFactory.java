@@ -7,6 +7,8 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldFactory;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.ui.vaadin.tab.form.row.field.CheckBoxField;
+import nth.reflect.ui.vaadin.tab.form.row.field.CheckBoxFieldFactory;
 import nth.reflect.ui.vaadin.tab.form.row.field.TextFieldFactory;
 
 public class PropertyPanelFactory extends nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory<PropertyPanel> {
@@ -15,6 +17,7 @@ public class PropertyPanelFactory extends nth.reflect.fw.gui.component.tab.form.
 	public List<PropertyFieldFactory> createFieldFactories() {
 		List<PropertyFieldFactory> fieldFactories=new ArrayList<>();
 		fieldFactories.add(new TextFieldFactory());
+		fieldFactories.add(new CheckBoxFieldFactory());
 		return fieldFactories;
 	}
 

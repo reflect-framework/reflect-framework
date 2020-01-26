@@ -108,12 +108,12 @@ public abstract class UserInterfaceController implements NotificationListener {
 				processActionMethodExecution(methodOwner, methodInfo, methodParameter);
 				break;
 			}
-		} catch (Exception exception) {
+		} catch (Throwable throwable) {
 			String title = languageProvider.getText("Error while executing an action");
 			String messageFormat = languageProvider.getText("Action: %s");
 			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
 			String message = String.format(messageFormat, actionMethod);
-			showErrorDialog(title, message, exception);
+			showErrorDialog(title, message, throwable);
 		}
 
 	}
