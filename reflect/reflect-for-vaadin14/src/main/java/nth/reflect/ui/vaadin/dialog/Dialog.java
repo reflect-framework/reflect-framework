@@ -12,6 +12,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.button.ButtonTheme;
+import nth.reflect.ui.vaadin.css.FloatType;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
@@ -26,7 +27,6 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 		titleDiv = createTitleDiv();
 		messageDiv = createMessageDiv();
 		buttonBar = createButtonBar();
-		new StyleBuilder().setOverflow(Overflow.HIDDEN).setFor(this);
 		add(titleDiv, messageDiv, buttonBar);
 	}
 
@@ -51,7 +51,6 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 		buttonBar.add(buttons);
 	}
 
-	
 	private HorizontalLayout createButtonBar() {
 		HorizontalLayout buttonBar = new HorizontalLayout();
 		return buttonBar;
@@ -62,10 +61,11 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 		for (int i = 0; i < items.size(); i++) {
 			Item item = items.get(i);
 			Button button = createButton(item);
+			// TODO align buttons to the right (float:right does not work???)
 			if (isLastButton(items, i)) {
-//				button.setThemeName("primary");
-				button.addClickShortcut(Key.ENTER);// TODO not working???
-				button.addClickShortcut(Key.SPACE);// TODO not working???
+				button.setAutofocus(true);
+				button.addClickShortcut(Key.ENTER);
+				button.addClickShortcut(Key.SPACE);
 			}
 			buttons[i] = button;
 		}
@@ -90,13 +90,13 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 	}
 
 	private boolean isLastButton(List<Item> items, int i) {
-		return i == items.size();
+		return i == items.size() - 1;
 	}
-
 
 	private Div createMessageDiv() {
 		Div messageLabel = new Div();
-		new StyleBuilder().setPadding(5, 0, 5, 0).setOverflow(Overflow.HIDDEN) .setFor(messageLabel);
+		new StyleBuilder().setMargin(10, 0, 10, 0).setProperty("max-height", "300px").setOverflow(Overflow.AUTO)
+				.setFor(messageLabel);
 		return messageLabel;
 	}
 
