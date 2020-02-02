@@ -4,7 +4,7 @@ import java.text.Format;
 import java.text.ParseException;
 
 import javafx.beans.value.ObservableValue;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 
 public class NumericField extends TextField {

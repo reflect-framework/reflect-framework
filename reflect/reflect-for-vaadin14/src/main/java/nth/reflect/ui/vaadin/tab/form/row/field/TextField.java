@@ -2,8 +2,8 @@ package nth.reflect.ui.vaadin.tab.form.row.field;
 
 import java.util.Optional;
 
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.ui.vaadin.css.StyleBuilder;

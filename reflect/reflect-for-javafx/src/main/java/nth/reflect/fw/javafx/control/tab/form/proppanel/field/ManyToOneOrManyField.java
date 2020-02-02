@@ -3,8 +3,9 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 import java.util.Optional;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
@@ -16,8 +17,8 @@ public class ManyToOneOrManyField extends Table implements PropertyField {
 	private static final String READ_ONLY_STYLE = "read-only";
 	private static final String EDITABLE_STYLE = "editable";
 
-	public ManyToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
-		super(formTab, propertyValueModel);
+	public ManyToOneOrManyField(PropertyFieldFactoryInfo info) {
+		super(info.getFormTab(), info.getPropertyValueModel());
 
 		getStyleClass().add(StyleSheet.createStyleClassName(ManyToOneOrManyField.class));
 	}

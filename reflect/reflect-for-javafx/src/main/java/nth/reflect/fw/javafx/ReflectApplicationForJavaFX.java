@@ -7,8 +7,16 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.StyleSheetUrlHandler;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CheckBoxFieldFactory;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ComboBoxFieldFactory;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.DateTimeFieldFactory;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyFieldFactory;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.OneToOneOrManyFieldFactory;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TableFieldFactory;
+import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -64,7 +72,12 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 public abstract class ReflectApplicationForJavaFX extends Application implements GraphicalUserInterfaceApplication {
 
 	private Stage primaryStage;
+	private final PropertyFieldFactory[] propertyFieldFactories;
 
+	public ReflectApplicationForJavaFX() {
+		propertyFieldFactories=createPropertyFieldFactories();
+	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
@@ -112,41 +125,19 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 				StyleSheetUrlHandler.class);
 	}
 
+	@Override
+	public PropertyFieldFactory[] getPropertyFieldFactories() {
+		return propertyFieldFactories;
+	}
+
+	protected PropertyFieldFactory[] createPropertyFieldFactories() {
+		return new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
+				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
+				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() };
+	}
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-	//
-	// /**
-	// * @return A primary color is the color displayed most frequently across
-	// * your app’s screens and components. To create contrast between
-	// * elements, you can use lighter or darker tones of your primary
-	// * color. The contrast between lighter and darker tones helps show
-	// * division between surfaces, such as between the status bar and a
-	// * toolbar.
-	// *
-	// * TODO: 700 for AppBar, 500 for toolbar, 300 for secondary
-	// * information
-	// */
-	// public abstract Color getPrimaryColor();
-	//
-	// /**
-	// * @return A accent color is used to accent select parts of your UI. It
-	// can
-	// * be complementary or analogous to your primary color, but it
-	// * should not simply be a light or dark variation of your primary
-	// * color. It should contrast with elements that surround it and be
-	// * applied sparingly as an accent. Accent colors can be used for
-	// * floating action buttons (e.g a plus to add a item) or to indicate
-	// * focus on elements such as buttons or text fields.
-	// */
-	// public abstract Color getAccentColor();
-	//
-	// /**
-	// *
-	// * @return The content color is the back ground color of the content views
-	// * (e.g. the background color of a form view), The content color can
-	// * only be white or black
-	// */
-	// public abstract ContentColor getContentColor();
 
 }

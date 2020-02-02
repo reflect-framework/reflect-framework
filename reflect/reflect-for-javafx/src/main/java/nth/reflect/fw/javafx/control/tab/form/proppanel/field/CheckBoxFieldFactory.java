@@ -1,21 +1,16 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
-import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldFactory;
-import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
+import java.util.Optional;
 
-public class CheckBoxFieldFactory implements PropertyFieldFactory {
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 
-	@Override
-	public PropertyField create(FormTab formTab, PropertyValueModel propertyValueModel) {
-		return new CheckBoxField(propertyValueModel);
-	}
+public class CheckBoxFieldFactory extends nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.CheckBoxFieldFactory {
 
 	@Override
-	public boolean canCreateFor(PropertyValueModel propertyValueModel) {
-		return propertyValueModel.getPropertyInfo().getFieldMode() == FieldModeType.CHECK_BOX;
+	public Optional<PropertyField> create(PropertyFieldFactoryInfo info) {
+		CheckBoxField checkBoxField=new CheckBoxField(info.getPropertyValueModel());
+		return Optional.of(checkBoxField);
 	}
 
 }

@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nth.reflect.fw.generic.util.TitleUtil;
+import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
@@ -194,7 +195,9 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory();
+		GraphicalUserInterfaceApplication application = userInterfaceContainer
+				.get(GraphicalUserInterfaceApplication.class);
+		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(application);
 	}
 
 }

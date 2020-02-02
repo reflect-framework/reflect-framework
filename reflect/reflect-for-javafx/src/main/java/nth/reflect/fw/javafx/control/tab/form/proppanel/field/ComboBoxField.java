@@ -2,13 +2,13 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
 import java.util.Optional;
 
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 
-public class ComboBoxField extends RfxToDoField {
+public class ComboBoxField extends ToDoField {
 //TODO fix#99
 
 	public ComboBoxField(PropertyValueModel propertyValueModel, ReflectionProvider reflectionProvider,

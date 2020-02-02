@@ -1,21 +1,20 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.fieldmode;
 
+import java.lang.reflect.Method;
+
+import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+
 public enum TextFieldModeType {
-	CHAR, PASSWORD, TEXT_AREA, RICH_TEXT_AREA, NUMBER;
-	
-	public static FieldModeType toFieldMode(TextFieldModeType textFieldModeType) {
-		switch (textFieldModeType) {
-		case CHAR:
-			return FieldModeType.CHAR;
-		case PASSWORD:
-			return FieldModeType.PASSWORD;
-		case TEXT_AREA:
-			return FieldModeType.TEXT_AREA;
-		case RICH_TEXT_AREA:
-			return FieldModeType.RICH_TEXT_AREA;
-		case NUMBER:
-			return FieldModeType.NUMBER;
+	SINGLE_LINE, PASSWORD, MILTI_LINE; // TODO RICH_TEXT;
+
+	public static TextFieldModeType getFor(PropertyInfo propertyInfo) {
+		Method getterMethod = propertyInfo.getGetterMethod();
+		TextFieldMode textFieldModeFromAnnotation = getterMethod.getAnnotation(TextFieldMode.class);
+		if (textFieldModeFromAnnotation == null) {
+			return SINGLE_LINE;
+		} else {
+			return textFieldModeFromAnnotation.mode();
 		}
-		return FieldModeType.TEXT;
 	}
+
 }

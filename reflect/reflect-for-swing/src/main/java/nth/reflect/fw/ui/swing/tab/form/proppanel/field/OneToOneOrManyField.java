@@ -19,8 +19,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -37,9 +38,9 @@ public class OneToOneOrManyField extends DropDownTextfield<JTextField> implement
 	private final FormTab formTab;
 	private boolean allowTextChange;
 
-	public OneToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
-		this.formTab = formTab;
-		this.propertyValueModel = propertyValueModel;
+	public OneToOneOrManyField(PropertyFieldFactoryInfo info) {
+		this.formTab = info.getFormTab();
+		this.propertyValueModel = info.getPropertyValueModel();
 		this.allowTextChange = false;
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import nth.reflect.fw.gui.component.ReflectGuiComponent;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**

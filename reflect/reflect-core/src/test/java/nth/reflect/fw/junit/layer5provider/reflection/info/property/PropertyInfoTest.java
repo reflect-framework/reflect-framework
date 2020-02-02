@@ -13,7 +13,6 @@ import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.junit.stubs.DomainObjectStub;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.StringFormat;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
@@ -92,11 +91,6 @@ public class PropertyInfoTest {
 	@Test
 	public void testIsEnabled() {
 		assertThat(propertyInfo.isEnabled(domainObject)).isEqualTo(true);
-	}
-
-	@Test
-	public void testGetFieldMode() {
-		assertThat(propertyInfo.getFieldMode()).isEqualTo(FieldModeType.TEXT);
 	}
 
 	@Test

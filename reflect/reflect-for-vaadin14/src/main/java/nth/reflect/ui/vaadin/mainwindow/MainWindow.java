@@ -25,7 +25,6 @@ public class MainWindow extends AppLayout implements nth.reflect.fw.gui.componen
 		setDrawerOpened(true);
 
 		DrawerToggle menuToggleButton = createMenuToggleButton();
-
 		ApplicationTitle title = new ApplicationTitle(userInterfaceContainer);
 //		Image logo = createLogo();
 		addToNavbar(TOUCH_OPTIMIZED, menuToggleButton, title);

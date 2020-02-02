@@ -12,6 +12,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
+import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
@@ -104,7 +105,9 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 		List<PropertyInfo> propertyInfos = getPropertyInfos(domainObject);
 
 		List<PropertyPanel> propertyPanels = new ArrayList<>();
-		PropertyPanelFactory propertyPanelFactory = new PropertyPanelFactory();
+		GraphicalUserInterfaceApplication application = userInterfaceContainer
+				.get(GraphicalUserInterfaceApplication.class);
+		PropertyPanelFactory propertyPanelFactory = new PropertyPanelFactory(application);
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 			PropertyPanel propertyPanel = propertyPanelFactory.createPropertyPanel(this, propertyValueModel);

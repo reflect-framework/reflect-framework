@@ -10,9 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
 
 public class PropertyGridLayout implements LayoutManager {

@@ -1,22 +1,23 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
-import nth.reflect.fw.gui.component.tab.form.DateTimeMode;
-import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldFactory;
+import java.util.Optional;
+
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
+import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldModeType;
+import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
-public class DateTimeFieldFactory implements PropertyFieldFactory {
-
-	@Override
-	public PropertyField create(FormTab formTab, PropertyValueModel propertyValueModel) {
-		return new DateTimeField(propertyValueModel, DateTimeMode.DATE_AND_TIME);
-	}
+public class DateTimeFieldFactory extends nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.DateTimeFieldFactory {
 
 	@Override
-	public boolean canCreateFor(PropertyValueModel propertyValueModel) {
-		return propertyValueModel.getPropertyInfo().getFieldMode() == FieldModeType.DATE_TIME;
+	public Optional<PropertyField> create(PropertyFieldFactoryInfo info) {
+		PropertyValueModel propertyValueModel=info.getPropertyValueModel();
+		PropertyInfo propertyInfo=info.getPropertyInfo();
+		Optional<DateTimeFieldModeType> mode = getDateTimeFieldModeType(propertyInfo);
+		DateTimeField dateTimeField = new DateTimeField(propertyValueModel, mode.get());
+		return Optional.of(dateTimeField);
 	}
+
 
 }

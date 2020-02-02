@@ -3,10 +3,10 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel;
 import java.util.List;
 
 import javafx.scene.layout.BorderPane;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyIconButton;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;

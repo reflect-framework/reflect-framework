@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import nth.reflect.fw.generic.util.TitleUtil;
+import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
@@ -31,6 +31,7 @@ import nth.reflect.fw.ui.swing.mainwindow.MainWindow;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.tab.form.FormTab;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory;
 import nth.reflect.fw.ui.swing.tab.table.TableTab;
 
 public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
@@ -192,8 +193,9 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		return new nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory();
+	public PropertyPanelFactory getPropertyPanelFactory() {
+		GraphicalUserInterfaceApplication application = userInterfaceContainer.get(GraphicalUserInterfaceApplication.class);
+		return new PropertyPanelFactory(application);
 	}
 
 }

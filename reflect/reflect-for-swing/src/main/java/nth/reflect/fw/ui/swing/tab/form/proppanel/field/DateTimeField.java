@@ -10,17 +10,17 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import nth.reflect.fw.gui.component.tab.form.DateTimeMode;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldModeType;
 
 @SuppressWarnings("serial")
 public class DateTimeField extends JSpinner implements PropertyField {
 
 	private final PropertyValueModel propertyValueModel;
-	private final DateTimeMode dateTimeMode;
+	private final DateTimeFieldModeType dateTimeMode;
 
 	// public Format dateFormat
 	// public Format
@@ -30,7 +30,7 @@ public class DateTimeField extends JSpinner implements PropertyField {
 	// FIXME set propertyValueModel when text is changed to a valid
 	// date/calendar
 
-	public DateTimeField(final PropertyValueModel propertyValueModel, DateTimeMode dateTimeMode) {
+	public DateTimeField(final PropertyValueModel propertyValueModel, DateTimeFieldModeType dateTimeMode) {
 		this.propertyValueModel = propertyValueModel;
 		this.dateTimeMode = dateTimeMode;
 		setModel(new SpinnerDateModel());
@@ -81,7 +81,7 @@ public class DateTimeField extends JSpinner implements PropertyField {
 			case TIME:
 				format = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM);
 				break;
-			case DATE_AND_TIME:
+			case DATE_TIME:
 				format = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.MEDIUM, SimpleDateFormat.MEDIUM);
 				break;
 			default:

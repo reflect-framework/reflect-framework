@@ -40,9 +40,9 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  */
 public abstract class UserInterfaceController implements NotificationListener {
 
-	protected final UserInterfaceContainer userInterfaceContainer;
 	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;
+	protected final  UserInterfaceContainer userInterfaceContainer;
 
 	public UserInterfaceController(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer = userInterfaceContainer;

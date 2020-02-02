@@ -15,8 +15,6 @@ import nth.reflect.fw.layer5provider.reflection.behavior.description.Description
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeFactory;
-import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
@@ -50,7 +48,6 @@ public class PropertyInfo implements NameInfo {
 	private final DescriptionModel descriptionModel;
 	private final TypeInfo typeInfo;
 	private final double order;
-	private final FieldModeType fieldMode;
 	private final String formatPattern;
 	private final Format format;
 	private final DisabledModel disabledModel;
@@ -79,7 +76,6 @@ public class PropertyInfo implements NameInfo {
 		this.format = formatFactory.getFormat();
 		this.formatPattern = formatFactory.getFormatPattern();
 		this.optionModel = OptionsModelFactory.create(getterMethod);
-		this.fieldMode = FieldModeFactory.create(getterMethod, typeInfo, formatPattern, optionModel.hasOptions());
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.actionMethodInfos = ActionMethodInfoFactory.createSorted(providerContainer, domainObjectClass, simpleName);
@@ -190,10 +186,6 @@ public class PropertyInfo implements NameInfo {
 
 	public boolean isEnabled(Object domainObject) {
 		return !disabledModel.isDisabled(domainObject);
-	}
-
-	public FieldModeType getFieldMode() {
-		return fieldMode;
 	}
 
 	public void setValue(Object domainObject, Object value) {

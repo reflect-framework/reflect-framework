@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import javafx.scene.layout.HBox;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.javafx.control.button.ContentButton;
 import nth.reflect.fw.javafx.control.fonticon.FontAwesomeIconName;

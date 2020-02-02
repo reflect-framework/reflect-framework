@@ -38,7 +38,7 @@ public class UserInterfaceControllerForVaadin14
 	public UserInterfaceControllerForVaadin14(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin14.class);
-		propertyPanelFactory = new nth.reflect.ui.vaadin.tab.form.row.PropertyPanelFactory();
+		propertyPanelFactory = new PropertyPanelFactory(reflectAppForVaadin);
 		dialog = new Dialog();
 	}
 

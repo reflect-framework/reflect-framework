@@ -2,8 +2,8 @@ package nth.reflect.ui.vaadin.tab.form.row;
 
 import com.vaadin.flow.component.html.Span;
 
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyLabelStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")

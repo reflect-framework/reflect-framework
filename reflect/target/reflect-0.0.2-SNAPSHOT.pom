@@ -137,7 +137,6 @@
 		<module>reflect-for-commandline</module>
 		<module>reflect-for-javafx</module>
 		<module>reflect-for-swing</module>
-		<module>reflect-for-vaadin</module>
 		<module>reflect-for-vaadin14</module>
 		<module>reflect-infrastructure-excel-repository</module>
 		<module>reflect-infrastructure-hibernate-repository</module>

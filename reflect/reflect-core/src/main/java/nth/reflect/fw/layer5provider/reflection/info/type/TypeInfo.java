@@ -120,6 +120,10 @@ public class TypeInfo {
 		return isCollection;
 	}
 
+	public boolean isArrayOrCollection() {
+		return isArray || isCollection;
+	}
+	
 	/**
 	 * 
 	 * @return true if the type is a custom made class {@link DomainObject}

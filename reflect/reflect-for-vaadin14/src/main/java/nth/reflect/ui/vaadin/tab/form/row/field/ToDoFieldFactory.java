@@ -1,20 +1,21 @@
 package nth.reflect.ui.vaadin.tab.form.row.field;
 
-import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldFactory;
-import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.FieldModeType;
+import java.util.Optional;
+
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 
 public class ToDoFieldFactory implements PropertyFieldFactory {
 
 	@Override
-	public PropertyField create(FormTab formTab, PropertyValueModel propertyValueModel) {
-		return new ToDoField(propertyValueModel);
+	public Optional<PropertyField> create(PropertyFieldFactoryInfo info) {
+		ToDoField toDoField = new ToDoField(info);
+		return Optional.of(toDoField);
 	}
 
 	@Override
-	public boolean canCreateFor(PropertyValueModel propertyValueModel) {
+	public boolean canCreate(PropertyFieldFactoryInfo info) {
 		return true;
 	}
 

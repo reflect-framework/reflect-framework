@@ -5,6 +5,7 @@ import java.lang.reflect.Parameter;
 import java.util.List;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;

@@ -11,8 +11,9 @@ import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
+import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
@@ -33,6 +34,9 @@ import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
+import nth.reflect.ui.vaadin.tab.form.row.field.CheckBoxFieldFactory;
+import nth.reflect.ui.vaadin.tab.form.row.field.TextFieldFactory;
+import nth.reflect.ui.vaadin.tab.form.row.field.ToDoFieldFactory;
 
 /**
  * <p>
@@ -118,12 +122,15 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 @Route("")
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 //@PWA(name = "My Application", shortName = "My App")
-public abstract class ReflectApplicationForVaadin14 extends Div implements ReflectApplication, HasDynamicTitle {
+public abstract class ReflectApplicationForVaadin14 extends Div implements GraphicalUserInterfaceApplication, HasDynamicTitle {
 
+	private static final long serialVersionUID = -1895258196768761919L;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final nth.reflect.ui.vaadin.mainwindow.MainWindow mainWindow;
+	private final PropertyFieldFactory[] propertyFieldFactories;
 
 	public ReflectApplicationForVaadin14() {
+		propertyFieldFactories=createPropertyFieldFactories();
 		userInterfaceContainer = ReflectFramework.launch(this);
 		mainWindow = new MainWindow(userInterfaceContainer);
 		add(mainWindow);
@@ -174,6 +181,18 @@ public abstract class ReflectApplicationForVaadin14 extends Div implements Refle
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
 	}
 
+	
+	@Override
+	public PropertyFieldFactory[] getPropertyFieldFactories() {
+		return propertyFieldFactories;
+	}
+
+	protected PropertyFieldFactory[] createPropertyFieldFactories() {
+		return new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),new ToDoFieldFactory()};
+			//	new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
+			//	new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() };
+	}
+	
 	@Override
 	public String getPageTitle() {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);

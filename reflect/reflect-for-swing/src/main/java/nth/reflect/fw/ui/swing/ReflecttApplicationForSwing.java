@@ -4,9 +4,9 @@ import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -24,11 +24,18 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.field.CheckBoxFieldFactory;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.field.ComboBoxFieldFactory;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.field.DateTimeFieldFactory;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.field.ManyToOneOrManyFieldFactory;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.field.OneToOneOrManyFieldFactory;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.field.TextFieldFactory;
 
 /**
- * {@link ReflecttApplicationForSwing} is an implementation of the {@link ReflectFramework} for desktop computers such as ...  
+ * {@link ReflecttApplicationForSwing} is an implementation of the
+ * {@link ReflectFramework} for desktop computers such as ...
  * 
- *  <h3>How to download a ReflectForSwing demo project</h3>
+ * <h3>How to download a ReflectForSwing demo project</h3>
  * <p>
  * TODO
  * </p>
@@ -43,10 +50,14 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  */
 
 //TODO see https://github.com/atarw/material-ui-swing
-public abstract class ReflecttApplicationForSwing implements
-GraphicalUserInterfaceApplication {
+public abstract class ReflecttApplicationForSwing implements GraphicalUserInterfaceApplication {
 
-	
+	private final PropertyFieldFactory[] propertyFieldFactories;
+
+	public ReflecttApplicationForSwing() {
+		propertyFieldFactories = createPropertyFieldFactories();
+	}
+
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
 		return UserinterfaceControllerForSwing.class;
@@ -81,20 +92,29 @@ GraphicalUserInterfaceApplication {
 	public Class<? extends NotificationProvider> getNotificationProviderClass() {
 		return DefaultNotificationProvider.class;
 	}
-	
-	
+
 	@Override
 	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
 	}
-	
+
+	@Override
+	public PropertyFieldFactory[] getPropertyFieldFactories() {
+		return propertyFieldFactories;
+	}
+
+	protected PropertyFieldFactory[] createPropertyFieldFactories() {
+		return new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
+				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new ManyToOneOrManyFieldFactory(),
+				new OneToOneOrManyFieldFactory() };
+	}
+
 	/**
 	 * Launch a standalone application. This method is typically called from the
-	 * main method(). It must not be called more than once or an exception will
-	 * be thrown. This is equivalent to launch(TheClass.class, args) where
-	 * TheClass is the immediately enclosing class of the method that called
-	 * launch. It must be a subclass of Application or a RuntimeException will
-	 * be thrown.
+	 * main method(). It must not be called more than once or an exception will be
+	 * thrown. This is equivalent to launch(TheClass.class, args) where TheClass is
+	 * the immediately enclosing class of the method that called launch. It must be
+	 * a subclass of Application or a RuntimeException will be thrown.
 	 *
 	 * Typical usage is:
 	 * <ul>
@@ -106,13 +126,11 @@ GraphicalUserInterfaceApplication {
 	 * </pre>
 	 * </ul>
 	 *
-	 * @param args
-	 *            the command line arguments passed to the application. An
-	 *            application may get these parameters using the
-	 *            {@link #getParameters()} method.
+	 * @param args the command line arguments passed to the application. An
+	 *             application may get these parameters using the
+	 *             {@link #getParameters()} method.
 	 *
-	 * @throws IllegalStateException
-	 *             if this method is called more than once.
+	 * @throws IllegalStateException if this method is called more than once.
 	 */
 	public static void launch() {
 		// Figure out the right class to call
@@ -127,8 +145,7 @@ GraphicalUserInterfaceApplication {
 			if (foundThisMethod) {
 				callingClassName = className;
 				break;
-			} else if (ReflecttApplicationForSwing.class.getName().equals(className)
-					&& "launch".equals(methodName)) {
+			} else if (ReflecttApplicationForSwing.class.getName().equals(className) && "launch".equals(methodName)) {
 
 				foundThisMethod = true;
 			}
@@ -139,11 +156,11 @@ GraphicalUserInterfaceApplication {
 		}
 
 		try {
-			Class theClass = Class.forName(callingClassName, true,
-					Thread.currentThread().getContextClassLoader());
+			Class theClass = Class.forName(callingClassName, true, Thread.currentThread().getContextClassLoader());
 			if (ReflecttApplicationForSwing.class.isAssignableFrom(theClass)) {
 				Class<? extends ReflecttApplicationForSwing> appClass = theClass;
-				Constructor<? extends ReflecttApplicationForSwing> constructor = (Constructor<? extends ReflecttApplicationForSwing>) appClass.getConstructors()[0];
+				Constructor<? extends ReflecttApplicationForSwing> constructor = (Constructor<? extends ReflecttApplicationForSwing>) appClass
+						.getConstructors()[0];
 				ReflecttApplicationForSwing app = constructor.newInstance();
 				ReflectFramework.launch(app);
 			} else {
@@ -156,6 +173,5 @@ GraphicalUserInterfaceApplication {
 			throw new RuntimeException(ex);
 		}
 	}
-	
-	
+
 }

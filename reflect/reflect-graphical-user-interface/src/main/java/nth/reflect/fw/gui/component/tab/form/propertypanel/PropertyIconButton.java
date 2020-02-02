@@ -4,6 +4,7 @@ import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.component.ReflectGuiComponent;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.layer3domain.DomainObject;
 
 /**

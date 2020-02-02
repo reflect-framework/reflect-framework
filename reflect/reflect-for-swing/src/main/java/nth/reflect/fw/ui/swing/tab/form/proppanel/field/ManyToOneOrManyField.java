@@ -20,9 +20,10 @@ import javax.swing.KeyStroke;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldStyle;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -46,9 +47,9 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 	private final FormTab formTab;
 	private ReadOnlyValueModel selectedRowModel;
 
-	public ManyToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
-		this.formTab = formTab;
-		this.propertyValueModel = propertyValueModel;
+	public ManyToOneOrManyField(PropertyFieldFactoryInfo info) {
+		this.formTab = info.getFormTab();
+		this.propertyValueModel = info.getPropertyValueModel();
 
 		setBackground(ColorUtil.getDark());
 

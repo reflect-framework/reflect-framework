@@ -4,15 +4,16 @@ import java.util.Optional;
 
 import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.PropertyActionMethod;
 
 public class OneToOneOrManyField extends TextField {
 
-	public OneToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
-		super(propertyValueModel);
+	public OneToOneOrManyField(PropertyFieldFactoryInfo info) {
+		super(info.getPropertyValueModel());
 		setEnabled(false);
 	}
 

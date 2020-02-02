@@ -9,8 +9,8 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyIconButton;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.ui.swing.properygrid.SwingUtil;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
