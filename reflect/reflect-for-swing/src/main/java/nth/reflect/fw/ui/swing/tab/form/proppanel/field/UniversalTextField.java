@@ -19,7 +19,7 @@ public class UniversalTextField extends JFormattedTextField implements PropertyF
 
 	private static final long serialVersionUID = 309612468612752404L;
 	private final PropertyValueModel valueModel;
-	private final Format formatter;
+	private final Optional<Format> format;
 
 	public UniversalTextField(final PropertyValueModel valueModel) {
 		super();
@@ -27,7 +27,7 @@ public class UniversalTextField extends JFormattedTextField implements PropertyF
 		// create a formatter (we do not pass it to the super class constructor,
 		// because the superclass formatter is automatically replaces with a
 		// InternationalFormatter
-		formatter = valueModel.getPropertyInfo().getFormat();
+		format = valueModel.getPropertyInfo().getFormat();
 		// restrict the user from entering invalid characters
 		setDocument(RegExpDocumentFacory.create(valueModel.getValueType()));
 
@@ -57,10 +57,10 @@ public class UniversalTextField extends JFormattedTextField implements PropertyF
 	}
 
 	private void updateValueModel() {
-		if (valueModel.canSetValue()) {
+		if (valueModel.canSetValue() && format.isPresent()) {
 			String text = getText();
 			try {
-				Object value = formatter.parseObject(text);
+				Object value = format.get().parseObject(text);
 				valueModel.setValue(value);
 			} catch (ParseException e1) {
 				// Should not happen. The program should prevent the user from

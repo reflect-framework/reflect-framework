@@ -1,9 +1,11 @@
 package nth.reflect.infra.report.pdf;
 
 import java.io.ByteArrayOutputStream;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
@@ -110,10 +112,11 @@ public class PdfReportFactory extends ReportProvider<Document> {
 
 			// put value in the cell with the right type
 			Object value = propertyInfo.getValue(domainObject);
-			if (value == null) {
+			Optional<Format> format = propertyInfo.getFormat();
+			if (value == null|| !format.isPresent()) {
 				pdfTable.addCell("");
 			} else {
-				value = propertyInfo.getFormat().format(value);
+				value = format.get().format(value);
 				pdfTable.addCell(new Phrase(value.toString(), SMALL_FONT));
 			}
 

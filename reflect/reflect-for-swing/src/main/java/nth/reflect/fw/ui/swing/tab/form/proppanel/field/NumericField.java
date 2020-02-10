@@ -76,13 +76,15 @@ public class NumericField extends JTextField implements PropertyField {
 	private void textToProperty() {
 		// text has changed, so update the valueModel
 		if (updatePropertyValue && propertyValueModel.canSetValue()) {
-			Format format = propertyValueModel.getPropertyInfo().getFormat();
+			Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
 			String text = getText();
-			try {
-				Object value = format.parseObject(text);
-				propertyValueModel.setValue(value);
-			} catch (ParseException e) {
-				e.printStackTrace();
+			if (format.isPresent()) {
+				try {
+					Object value = format.get().parseObject(text);
+					propertyValueModel.setValue(value);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 			}
 
 		}
@@ -101,12 +103,14 @@ public class NumericField extends JTextField implements PropertyField {
 			public void run() {
 				updatePropertyValue = false;
 
-				Format format = propertyValueModel.getPropertyInfo().getFormat();
+				Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
 				Object value = propertyValueModel.getValue();
-				String text = format.format(value);
+				if (format.isPresent()) {
+				String text = format.get().format(value);
 				setText(text);
-
 				updatePropertyValue = true;
+				}
+
 			}
 		});
 

@@ -2,38 +2,38 @@ package nth.reflect.fw.generic.converterfactory;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.reflect.fw.generic.exception.TypeNotSupportedException;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 public abstract class NumberConverterFactory<T> {
 
-	public T createNumberConverter(LanguageProvider languageProvider, Class<? extends Number> type_) {
+	public Optional<T> createNumberConverter(LanguageProvider languageProvider, Class<? extends Number> type_) {
 
 		if (AtomicInteger.class.isAssignableFrom(type_)) {
-			return createAtomicIntegerConverter();
+			return Optional.of(createAtomicIntegerConverter());
 		} else if (AtomicLong.class.isAssignableFrom(type_)) {
-			return createAtomicLongConverter();
+			return Optional.of(createAtomicLongConverter());
 		} else if (BigDecimal.class.isAssignableFrom(type_)) {
-			return createBigDecimalConverter();
+			return Optional.of(createBigDecimalConverter());
 		} else if (BigInteger.class.isAssignableFrom(type_)) {
-			return createBigIntegerConverter();
+			return Optional.of(createBigIntegerConverter());
 		} else if (Byte.class.isAssignableFrom(type_)) {
-			return createByteConverter();
+			return Optional.of(createByteConverter());
 		} else if (Double.class.isAssignableFrom(type_)) {
-			return createDoubleConverter();
+			return Optional.of(createDoubleConverter());
 		} else if (Float.class.isAssignableFrom(type_)) {
-			return createFloatCoverter();
+			return Optional.of(createFloatCoverter());
 		} else if (Integer.class.isAssignableFrom(type_)) {
-			return createIntegerConverter();
+			return Optional.of(createIntegerConverter());
 		} else if (Long.class.isAssignableFrom(type_)) {
-			return createLongConverter();
+			return Optional.of(createLongConverter());
 		} else if (Short.class.isAssignableFrom(type_)) {
-			return createShortConverter();
+			return Optional.of(createShortConverter());
 		}
-		throw new TypeNotSupportedException(languageProvider, type_, this.getClass());
+		return Optional.empty();
 	}
 
 	public abstract T createAtomicIntegerConverter();

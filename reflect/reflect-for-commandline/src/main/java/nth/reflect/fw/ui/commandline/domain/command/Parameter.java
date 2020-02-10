@@ -69,8 +69,8 @@ public class Parameter {
 			if (propertyInfo.getTypeInfo().getType() == File.class) {
 				File file = new File(argument);
 				propertyInfo.setValue(parameter, file);
-			} else {
-				Format format = propertyInfo.getFormat();
+			} else if (propertyInfo.getFormat().isPresent()){
+				Format format = propertyInfo.getFormat().get();
 				Object value = format.parseObject(argument);
 				propertyInfo.setValue(parameter, value);
 			}

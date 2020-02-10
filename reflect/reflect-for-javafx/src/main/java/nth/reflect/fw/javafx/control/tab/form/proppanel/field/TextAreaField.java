@@ -59,11 +59,11 @@ public class TextAreaField extends JFXTextArea implements PropertyField {
 
 	@Override
 	public void setValueFromDomainProperty(Object propertyValue) {
-		Format format = propertyValueModel.getPropertyInfo().getFormat();
-		if (propertyValue == null) {
+		Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
+		if (propertyValue == null || !format.isPresent()) {
 			setText("");
 		} else {
-			String stringValue = format.format(propertyValue);
+			String stringValue = format.get().format(propertyValue);
 			setText(stringValue);
 		}
 	}

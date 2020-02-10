@@ -2,6 +2,7 @@ package nth.reflect.fw.layer5provider.reflection.behavior.title;
 
 import java.text.Format;
 import java.util.List;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer3domain.DomainObject;
@@ -74,11 +75,11 @@ public class TitleModel {
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			Object propertyValue = propertyInfo.getValue(obj);
-			Format format = propertyInfo.getFormat();
+			Optional<Format> format = propertyInfo.getFormat();
 
-			if (propertyValue != null && propertyInfo.getTypeInfo().isCollection()) {
+			if (propertyValue != null && format.isPresent()) {
 				StringBuffer propertyText = new StringBuffer();
-				String propertyValueText = format.format(propertyValue);
+				String propertyValueText = format.get().format(propertyValue);
 				propertyText.append(propertyValueText);
 				if (propertyText.toString().trim().length() > 0) {
 					if (title.length() > 0) {

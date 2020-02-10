@@ -70,7 +70,7 @@ public class ComboBoxField extends JComboBox implements PropertyField {
 
 	@SuppressWarnings({ "unchecked" })
 	private void initForEnums(final PropertyValueModel propertyValueModel, Class<?> valueType) {
-		Format format = propertyValueModel.getPropertyInfo().getFormat();
+		Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
 
 		Vector<Object> listValues = new Vector<Object>();
 		listValues.add(null);
@@ -79,7 +79,7 @@ public class ComboBoxField extends JComboBox implements PropertyField {
 			listValues.add(enumValue);
 		}
 		setModel(new DefaultComboBoxModel(listValues));
-		setRenderer(createEnumRenderer(format));
+		setRenderer(createEnumRenderer(format.get()));
 	}
 
 	private ListCellRenderer createObjectRenderer(final ReflectionProvider reflectionProvider) {

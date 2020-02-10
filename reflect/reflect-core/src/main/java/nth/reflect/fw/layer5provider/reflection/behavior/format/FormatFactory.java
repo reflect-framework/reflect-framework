@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -63,7 +64,7 @@ public class FormatFactory extends ConverterFactory<Format> {
 	 * @return a format that will format a property to a string or parse from a
 	 *         string to property
 	 */
-	public Format getFormat() {
+	public Optional<Format> getFormat() {
 		return createConverter(languageProvider, typeInfo);
 	}
 

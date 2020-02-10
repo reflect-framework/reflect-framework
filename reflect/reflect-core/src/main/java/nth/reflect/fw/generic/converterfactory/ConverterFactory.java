@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Optional;
 
-import nth.reflect.fw.generic.exception.TypeNotSupportedException;
 import nth.reflect.fw.generic.util.JavaTypeConverter;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
@@ -26,63 +26,61 @@ import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 public abstract class ConverterFactory<T> extends NumberConverterFactory<T> {
 
 	@SuppressWarnings("unchecked")
-	public T createConverter(LanguageProvider languageProvider, TypeInfo typeInfo) {
+	public Optional<T> createConverter(LanguageProvider languageProvider, TypeInfo typeInfo) {
 		Class<?> type = JavaTypeConverter.getComplexType(typeInfo.getType());
 		// boolean
 		if (Boolean.class.isAssignableFrom(type)) {
-			return createBooleanConverter();
+			return Optional.of(createBooleanConverter());
 		} else
 
 		// numbers
-
 		if (Number.class.isAssignableFrom(type)) {
 			return createNumberConverter(languageProvider, (Class<? extends Number>) type);
 		} else
 
 		// text
 		if (Character.class.isAssignableFrom(type)) {
-			return createCharConverter();
+			return Optional.of(createCharConverter());
 		} else if (String.class.isAssignableFrom(type)) {
-			return createStringConverter();
+			return Optional.of(createStringConverter());
 		} else
 
 		// enumeration
 		if (type.isEnum()) {
-			return createEnumConverter();
+			return Optional.of(createEnumConverter());
 		} else
 		// date and time
 		if (java.util.Date.class.isAssignableFrom(type)) {
-			return createDateConverter();
+			return Optional.of(createDateConverter());
 		} else if (Calendar.class.isAssignableFrom(type)) {
-			return createCalendarConverter();
+			return Optional.of(createCalendarConverter());
 		} else if (LocalDateTime.class.isAssignableFrom(type)) {
-			return createLocalDateTimeConverter();
+			return Optional.of(createLocalDateTimeConverter());
 		} else if (LocalDate.class.isAssignableFrom(type)) {
-			return createLocalDateConverter();
+			return Optional.of(createLocalDateConverter());
 		} else if (LocalTime.class.isAssignableFrom(type)) {
-			return createLocalTimeConverter();
+			return Optional.of(createLocalTimeConverter());
 		}
 		// URI
 		if (URI.class.isAssignableFrom(type)) {
-			return createUriConverter();
+			return Optional.of(createUriConverter());
 		} else if (URL.class.isAssignableFrom(type)) {
-			return createUrlConverter();
+			return Optional.of(createUrlConverter());
 		} else if (File.class.isAssignableFrom(type)) {
-			return createFileConverter();
+			return Optional.of(createFileConverter());
 		}
 		// TODO URL!!!!
 
 		// domainObjects
 		if (typeInfo.isDomainClass()) {
-			return createDomainConverter();
+			return Optional.of(createDomainConverter());
 		} else
 		// collections
 		if (Collection.class.isAssignableFrom(type)) {
-			return createCollectionConverter();
+			return Optional.of(createCollectionConverter());
 		}
 
-		// Not supported
-		throw new TypeNotSupportedException(languageProvider, type, this.getClass());
+		return Optional.empty();
 	}
 
 	public abstract T createLocalTimeConverter();

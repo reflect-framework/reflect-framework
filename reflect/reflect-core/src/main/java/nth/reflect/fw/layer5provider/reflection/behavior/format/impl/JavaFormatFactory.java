@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.reflect.fw.generic.converterfactory.ConverterFactory;
 import nth.reflect.fw.generic.exception.MethodNotSupportedException;
+import nth.reflect.fw.generic.exception.TypeNotSupportedException;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatFactory;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
@@ -36,7 +38,11 @@ public class JavaFormatFactory extends ConverterFactory<Format> {
 	 *         string to property
 	 */
 	public Format create(TypeInfo typeInfo) {
-		return createConverter(languageProvider, typeInfo);
+		Optional<Format> format = createConverter(languageProvider, typeInfo);
+		if (!format.isPresent()) {
+			throw new TypeNotSupportedException(languageProvider, typeInfo.getType(), this.getClass());
+		}
+		return format.get();
 	}
 
 	@Override

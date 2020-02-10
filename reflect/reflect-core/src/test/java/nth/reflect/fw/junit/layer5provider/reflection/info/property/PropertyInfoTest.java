@@ -3,7 +3,9 @@ package nth.reflect.fw.junit.layer5provider.reflection.info.property;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
+import java.text.Format;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -116,7 +118,8 @@ public class PropertyInfoTest {
 
 	@Test
 	public void testGetFormat() {
-		assertThat(propertyInfo.getFormat()).isInstanceOf(StringFormat.class);
+		Format format = propertyInfo.getFormat().get();
+		assertThat(format).isInstanceOf(StringFormat.class);
 	}
 
 	@Test

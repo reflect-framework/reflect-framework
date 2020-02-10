@@ -179,6 +179,7 @@ public class TypeInfo {
 	public boolean isJavaVariableType() {
 		return isJavaVariableType;
 	}
+	
 
 	public static boolean isJavaVariableType(Class<?> type) {
 		Class<?> complexType = JavaTypeConverter.getComplexType(type);

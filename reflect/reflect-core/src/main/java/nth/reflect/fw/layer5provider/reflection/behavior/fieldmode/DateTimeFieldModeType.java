@@ -39,16 +39,15 @@ public enum DateTimeFieldModeType {
 			return fromAnnotation.get();
 		}
 
-		Optional<DateTimeFieldModeType> fromFormatPattern = getFromFormatPattern(propertyInfo);
-		if (fromFormatPattern.isPresent()) {
-			return fromFormatPattern.get();
-		}
-		// no additional information for Date or Calendar type so assume DATE_TIME
-		return DATE_TIME;
+		DateTimeFieldModeType fromFormatPattern = getFromFormatPattern(propertyInfo);
+		return fromFormatPattern;
 	}
 
-	private static Optional<DateTimeFieldModeType> getFromFormatPattern(PropertyInfo propertyInfo) {
+	private static DateTimeFieldModeType getFromFormatPattern(PropertyInfo propertyInfo) {
 		String formatPattern = propertyInfo.getFormatPattern();
+		if (formatPattern==null) {
+			return DATE_TIME;
+		}
 		boolean hasDate = false;
 		boolean hasTime = false;
 		if (StringUtil.containsCharacters(formatPattern, PLACE_HOLDERS_FOR_DATE)) {
@@ -58,13 +57,13 @@ public enum DateTimeFieldModeType {
 			hasTime = true;
 		}
 		if (hasDate && hasTime) {
-			return Optional.of(DATE_TIME);
+			return DATE_TIME;
 		} else if (hasDate) {
-			return Optional.of(DATE);
+			return DATE;
 		} else if (hasTime) {
-			return Optional.of(TIME);
+			return TIME;
 		}
-		return Optional.empty();
+		return DATE_TIME;
 	}
 
 	private static Optional<DateTimeFieldModeType> getFromAnnotation(PropertyInfo propertyInfo) {

@@ -2,6 +2,7 @@ package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
 import java.text.Format;
 import java.text.ParseException;
+import java.util.Optional;
 
 import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
@@ -20,14 +21,15 @@ public class NumericField extends TextField {
 			// TODO minus, point, length
 		}
 		setText(newValue);
-		Format format = getPropertyValueModel().getPropertyInfo().getFormat();
-		Object value;
-		try {
-			value = format.parseObject(newValue);
-			getPropertyValueModel().setValue(value);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Optional<Format> format = getPropertyValueModel().getPropertyInfo().getFormat();
+		if (format.isPresent()) {
+			try {
+				Object value = format.get().parseObject(newValue);
+				getPropertyValueModel().setValue(value);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

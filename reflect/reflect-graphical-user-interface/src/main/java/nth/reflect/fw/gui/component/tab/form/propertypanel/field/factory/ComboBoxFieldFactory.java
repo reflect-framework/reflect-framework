@@ -8,8 +8,8 @@ public abstract class ComboBoxFieldFactory implements PropertyFieldFactory {
 	public boolean canCreate(PropertyFieldFactoryInfo info) {
 		PropertyInfo propertyInfo = info.getPropertyInfo();
 		boolean isEnum = propertyInfo.getTypeInfo().isEnum();
-		boolean hasOptionsAnnotation = propertyInfo.hasOptions();
-		return isEnum || hasOptionsAnnotation;
+		boolean hasOptions = propertyInfo.hasOptions();
+		return isEnum || hasOptions;
 	}
 
 }

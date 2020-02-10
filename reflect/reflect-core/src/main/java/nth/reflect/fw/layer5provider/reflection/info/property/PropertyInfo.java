@@ -3,6 +3,7 @@ package nth.reflect.fw.layer5provider.reflection.info.property;
 import java.lang.reflect.Method;
 import java.text.Format;
 import java.util.List;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.JavaTypeConverter;
@@ -49,7 +50,7 @@ public class PropertyInfo implements NameInfo {
 	private final TypeInfo typeInfo;
 	private final double order;
 	private final String formatPattern;
-	private final Format format;
+	private final Optional<Format> format;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 	private final OptionsModel optionModel;
@@ -224,20 +225,21 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public String getFormatPattern() {
-		return formatPattern;
+		return formatPattern;//TODO optional
 	}
 
-	public Format getFormat() {
+	public Optional<Format> getFormat() {
 		return format;
 	}
 
 	public String getFormatedValue(Object domainObject) {
 		try {
 			Object value = getValue(domainObject);
-			if (value == null) {
+			if (value == null || !format.isPresent()) {
 				return "";
 			} else {
-				return getFormat().format(value);
+				
+				return format.get().format(value);
 			}
 		} catch (Exception e) {
 			return "";
