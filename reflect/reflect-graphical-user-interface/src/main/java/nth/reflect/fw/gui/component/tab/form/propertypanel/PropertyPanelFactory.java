@@ -7,7 +7,7 @@ import nth.reflect.fw.generic.translatablestring.ReflectTranslatable;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.DelegatingPropertyFieldFactory;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldService;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -17,20 +17,20 @@ public abstract class PropertyPanelFactory<PROPERTY_PANEL> {
 
 	@ReflectTranslatable
 	private static final String COULD_NOT_FIND_A_S_FOR_DOMAIN_OBJECT_PROPERTY_S = "%s could not find a %s for domain object property: %s of type %s";
-	private final DelegatingPropertyFieldFactory delegatingPropertyFieldFactory;
+	private final PropertyFieldService propertyFieldService;
 
 	public PropertyPanelFactory(GraphicalUserInterfaceApplication application) {
-		delegatingPropertyFieldFactory = new DelegatingPropertyFieldFactory(application);
+		propertyFieldService = application.getPropertyFieldService();
 	}
 
 	/**
 	 * Abstract method to create a property panel. This method uses the
-	 * {@link DelegatingPropertyFieldFactory} to create fields.
+	 * {@link PropertyFieldService} to create fields.
 	 */
 	public PROPERTY_PANEL createPropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel) {
 		PropertyFieldFactoryInfo info = new PropertyFieldFactoryInfo(formTab, propertyValueModel);
 
-		Optional<PropertyField> propertyField = delegatingPropertyFieldFactory.create(info);
+		Optional<PropertyField> propertyField = propertyFieldService.create(info);
 
 		if (propertyField.isPresent()) {
 			return createPropertyPanel(formTab, propertyValueModel, propertyField.get());

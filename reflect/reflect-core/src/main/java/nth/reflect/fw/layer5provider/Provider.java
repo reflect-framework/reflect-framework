@@ -78,7 +78,11 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <h2>URL Providers</h2>
  * <p>
  * {@insert UrlProvider}
- * 
+ * </p>
+ * <h2>Property Field Service</h2>
+ * <p>
+ * {@insert PropertyFieldService}
+ * </p>
  * @author Nils ten Hoeve
  */
 public interface Provider {

@@ -14,6 +14,7 @@ import com.vaadin.flow.server.VaadinSession;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldService;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
@@ -63,7 +64,8 @@ import nth.reflect.ui.vaadin.tab.form.row.field.ToDoFieldFactory;
  * <a href="http://vaadin.com">Vaadin</a> framework when a new
  * {@link VaadinSession} for this application is created (after receiving a new
  * {@link HttpServletRequest} from a user that does not have a active
- * {@link VaadinSession}). It will: <ul>
+ * {@link VaadinSession}). It will:
+ * <ul>
  * <li>initialize the {@link ReflectFramework} with implemented methods from
  * this class</li>
  * <li>create the {@link MainWindow}</li>
@@ -122,15 +124,14 @@ import nth.reflect.ui.vaadin.tab.form.row.field.ToDoFieldFactory;
 @Route("")
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 //@PWA(name = "My Application", shortName = "My App")
-public abstract class ReflectApplicationForVaadin14 extends Div implements GraphicalUserInterfaceApplication, HasDynamicTitle {
+public abstract class ReflectApplicationForVaadin14 extends Div
+		implements GraphicalUserInterfaceApplication, HasDynamicTitle {
 
 	private static final long serialVersionUID = -1895258196768761919L;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final nth.reflect.ui.vaadin.mainwindow.MainWindow mainWindow;
-	private final PropertyFieldFactory[] propertyFieldFactories;
 
 	public ReflectApplicationForVaadin14() {
-		propertyFieldFactories=createPropertyFieldFactories();
 		userInterfaceContainer = ReflectFramework.launch(this);
 		mainWindow = new MainWindow(userInterfaceContainer);
 		add(mainWindow);
@@ -181,18 +182,15 @@ public abstract class ReflectApplicationForVaadin14 extends Div implements Graph
 		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
 	}
 
-	
 	@Override
-	public PropertyFieldFactory[] getPropertyFieldFactories() {
-		return propertyFieldFactories;
+	public PropertyFieldService getPropertyFieldService() {
+		return new PropertyFieldService(
+				new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(), new ToDoFieldFactory()
+//				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
+//				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() 
+				});
 	}
 
-	protected PropertyFieldFactory[] createPropertyFieldFactories() {
-		return new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),new ToDoFieldFactory()};
-			//	new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
-			//	new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() };
-	}
-	
 	@Override
 	public String getPageTitle() {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);

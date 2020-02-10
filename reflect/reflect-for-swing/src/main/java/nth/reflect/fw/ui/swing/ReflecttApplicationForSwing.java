@@ -7,6 +7,7 @@ import java.util.List;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldService;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -52,12 +53,6 @@ import nth.reflect.fw.ui.swing.tab.form.proppanel.field.TextFieldFactory;
 //TODO see https://github.com/atarw/material-ui-swing
 public abstract class ReflecttApplicationForSwing implements GraphicalUserInterfaceApplication {
 
-	private final PropertyFieldFactory[] propertyFieldFactories;
-
-	public ReflecttApplicationForSwing() {
-		propertyFieldFactories = createPropertyFieldFactories();
-	}
-
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
 		return UserinterfaceControllerForSwing.class;
@@ -99,14 +94,10 @@ public abstract class ReflecttApplicationForSwing implements GraphicalUserInterf
 	}
 
 	@Override
-	public PropertyFieldFactory[] getPropertyFieldFactories() {
-		return propertyFieldFactories;
-	}
-
-	protected PropertyFieldFactory[] createPropertyFieldFactories() {
-		return new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
+	public PropertyFieldService getPropertyFieldService() {
+		return new PropertyFieldService(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
 				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new ManyToOneOrManyFieldFactory(),
-				new OneToOneOrManyFieldFactory() };
+				new OneToOneOrManyFieldFactory() });
 	}
 
 	/**
