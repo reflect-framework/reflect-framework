@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.generic.util.JavaTypeConverter;
+import nth.reflect.fw.generic.util.PrimitiveType;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
@@ -112,7 +112,7 @@ public class PropertyInfo implements NameInfo {
 		} catch (Exception e1) {
 			try {
 				// try to get setterMethod with a simple type parameter
-				Class<?> simplePropertyClass = JavaTypeConverter.getSimpleType(propertyClass);
+				Class<?> simplePropertyClass = PrimitiveType.primitiveToWrapper(propertyClass);
 				Method writeMethod = methodOwner.getMethod(getterMethodName.toString(), simplePropertyClass);
 				return writeMethod;
 			} catch (Exception e2) {

@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Optional;
 
-import nth.reflect.fw.generic.util.JavaTypeConverter;
+import nth.reflect.fw.generic.util.PrimitiveType;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -27,7 +27,7 @@ public abstract class ConverterFactory<T> extends NumberConverterFactory<T> {
 
 	@SuppressWarnings("unchecked")
 	public Optional<T> createConverter(LanguageProvider languageProvider, TypeInfo typeInfo) {
-		Class<?> type = JavaTypeConverter.getComplexType(typeInfo.getType());
+		Class<?> type = PrimitiveType.primitiveToWrapper(typeInfo.getType());
 		// boolean
 		if (Boolean.class.isAssignableFrom(type)) {
 			return Optional.of(createBooleanConverter());

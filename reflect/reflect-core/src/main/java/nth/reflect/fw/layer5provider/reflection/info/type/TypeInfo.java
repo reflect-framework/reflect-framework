@@ -10,7 +10,7 @@ import java.util.Map;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
-import nth.reflect.fw.generic.util.JavaTypeConverter;
+import nth.reflect.fw.generic.util.PrimitiveType;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -182,7 +182,7 @@ public class TypeInfo {
 	
 
 	public static boolean isJavaVariableType(Class<?> type) {
-		Class<?> complexType = JavaTypeConverter.getComplexType(type);
+		Class<?> complexType = PrimitiveType.primitiveToWrapper(type);
 		String canonicalName = complexType.getCanonicalName();
 		boolean startsWithJavaPackageName = canonicalName.startsWith("java");
 		return startsWithJavaPackageName;
