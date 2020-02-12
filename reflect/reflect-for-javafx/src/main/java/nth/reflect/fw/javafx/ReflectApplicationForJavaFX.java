@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldService;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.StyleSheetUrlHandler;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CheckBoxFieldFactory;
@@ -122,8 +122,8 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public PropertyFieldService getPropertyFieldService() {
-		return new PropertyFieldService(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
+	public PropertyFieldProvider getPropertyFieldService() {
+		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
 				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
 				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
 	}

@@ -7,7 +7,7 @@ import java.util.List;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldService;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
@@ -94,8 +94,8 @@ public abstract class ReflecttApplicationForSwing implements GraphicalUserInterf
 	}
 
 	@Override
-	public PropertyFieldService getPropertyFieldService() {
-		return new PropertyFieldService(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
+	public PropertyFieldProvider getPropertyFieldService() {
+		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
 				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new ManyToOneOrManyFieldFactory(),
 				new OneToOneOrManyFieldFactory() });
 	}

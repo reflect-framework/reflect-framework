@@ -182,8 +182,11 @@ public class TypeInfo {
 	
 
 	public static boolean isJavaVariableType(Class<?> type) {
-		Class<?> complexType = PrimitiveType.primitiveToWrapper(type);
-		String canonicalName = complexType.getCanonicalName();
+		Class<?> primitiveWraperType = PrimitiveType.primitiveToWrapper(type);
+		if (primitiveWraperType!=null) {
+			type=primitiveWraperType;
+		}
+		String canonicalName = type.getCanonicalName();
 		boolean startsWithJavaPackageName = canonicalName.startsWith("java");
 		return startsWithJavaPackageName;
 	}

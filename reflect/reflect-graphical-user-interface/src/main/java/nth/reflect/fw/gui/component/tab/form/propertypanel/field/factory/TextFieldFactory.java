@@ -26,8 +26,11 @@ public abstract class TextFieldFactory implements PropertyFieldFactory {
 	}
 
 	public static boolean isNumberType(Class<?> propertyType) {
-		Class<?> complexType = PrimitiveType.primitiveToWrapper(propertyType);
-		return Number.class.isAssignableFrom(complexType);
+		Class<?> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
+		if (primitiveWrapperType!=null) {
+			propertyType=primitiveWrapperType;
+		}
+		return Number.class.isAssignableFrom(propertyType);
 	}
 	
 	public static TextFieldModeType getTextFieldModeType(PropertyInfo propertyInfo) {

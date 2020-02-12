@@ -7,10 +7,10 @@ import nth.reflect.fw.layer5provider.Provider;
 
 /**
  * <p>
- * The {@link PropertyFieldService} is a {@link Provider} that creates all
+ * The {@link PropertyFieldProvider} is a {@link Provider} that creates all
  * {@link PropertyField}s. All
- * {@link GraphicalUserInterfaceApplication#getPropertyFieldService()} return a
- * {@link PropertyFieldService} that contains {@link PropertyFieldFactory}s to
+ * {@link GraphicalUserInterfaceApplication#getPropertyFieldProvider()} return a
+ * {@link PropertyFieldProvider} that contains {@link PropertyFieldFactory}s to
  * create a {@link PropertyField} for the most common data types.
  * </p>
  * <p>
@@ -23,10 +23,10 @@ import nth.reflect.fw.layer5provider.Provider;
  * @author nilsth
  *
  */
-public class PropertyFieldService extends DelegatingContractor<PropertyField, PropertyFieldFactoryInfo>
+public class PropertyFieldProvider extends DelegatingContractor<PropertyField, PropertyFieldFactoryInfo>
 		implements Provider {
 
-	public PropertyFieldService(PropertyFieldFactory[] propertyFieldFactories) {
+	public PropertyFieldProvider(PropertyFieldFactory[] propertyFieldFactories) {
 		super(propertyFieldFactories);
 	}
 

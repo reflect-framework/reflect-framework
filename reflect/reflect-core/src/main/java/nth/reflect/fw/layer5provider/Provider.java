@@ -1,9 +1,11 @@
 package nth.reflect.fw.layer5provider;
 
 import nth.reflect.fw.ReflectApplication;
+import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.container.ConstructionInjection;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -13,9 +15,9 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
 /**
- * {@link Provider}s are responsible for different <a
- * href="cross cutting concerns">cross cutting concerns</a> within an 
- * {@link ReflectApplication} such as:
+ * {@link Provider}s are like {@link ServiceObject}s, but they
+ * provide access to objects that provide information for the
+ * {@link ReflectFramework}, such as:
  * <ul>
  * <li>Authorization (see {@link AuthorizationProvider})</li>
  * <li>Validation (see {@link ValidationProvider})</li>
@@ -29,27 +31,30 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * {@link Provider}s may be used by any class within an application.
  * </p>
  * <p>
- * Providers are interfaces and can have multiple implementations (depending on
- * what type of application you are using/writing). Which implementation of each
- * provider needs to be used within an application is defined in the
- * {@link ReflectApplication} class. You are free to implement your own
- * {@link Provider} implementation and register it by overwriting one of the
- * {@link ReflectApplication#get...ProviderClass()} methods
+ * {@link Provider}s have a default implementation and each
+ * {@link ReflectApplication} can use different implementations of these
+ * {@link Provider}s where needed. For more information see the
+ * {@link ReflectApplication}.get...Service()} methods
+ * </p>
+ * <p>
+ * You can easily change or add to the {@link ReflectFramework} functionality by
+ * implementing or overriding the existing {@link Provider}s.
  * </p>
  * 
- * <h3>Provider Construction</h3>
+ * <h3>Reflect Service Object Construction</h3>
  * <p>
- * {@link Provider}'s are instantiated by the {@link ProviderContainer} (see
- * {@link DependencyInjectionContainer}) {@link Provider}Objects can have
- * references to other {@link Provider}Objects. These objects are injected into
- * the {@link Provider}Objects (see the {@link ConstructionInjection} section.
+ * {@link Provider}'s are instantiated by the
+ * {@link ProviderContainer} (see {@link DependencyInjectionContainer})
+ * {@link Provider}s can have references to other
+ * {@link Provider}s. These objects are injected into the
+ * {@link Provider}s (see the {@link ConstructionInjection} section.
  * </p>
  * <h3>Provider Presentation</h3>
  * <p>
- * The methods of {@link Provider}Objects are not displayed by the
+ * The methods of {@link Provider}s are not displayed by the
  * {@link UserInterfaceController}.
  * </p>
- *   
+ * 
  * <h2>Authorization Provider</h2>
  * <p>
  * {@insert AuthorizationProvider}
@@ -79,10 +84,11 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <p>
  * {@insert UrlProvider}
  * </p>
- * <h2>Property Field Service</h2>
+ * <h2>Property Field Provider</h2>
  * <p>
- * {@insert PropertyFieldService}
+ * {@insert PropertyFieldProvider}
  * </p>
+ * 
  * @author Nils ten Hoeve
  */
 public interface Provider {

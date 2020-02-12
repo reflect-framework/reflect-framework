@@ -14,7 +14,7 @@ import com.vaadin.flow.server.VaadinSession;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldService;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.about.AboutProvider;
@@ -183,8 +183,8 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 	}
 
 	@Override
-	public PropertyFieldService getPropertyFieldService() {
-		return new PropertyFieldService(
+	public PropertyFieldProvider getPropertyFieldService() {
+		return new PropertyFieldProvider(
 				new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(), new ToDoFieldFactory()
 //				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
 //				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() 

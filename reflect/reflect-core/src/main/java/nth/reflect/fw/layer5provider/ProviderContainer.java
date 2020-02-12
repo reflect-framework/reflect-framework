@@ -1,5 +1,8 @@
 package nth.reflect.fw.layer5provider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.container.exception.ProviderNotDefined;
@@ -26,11 +29,15 @@ public class ProviderContainer extends DependencyInjectionContainer {
 
 		add(application);
 
+		List<Provider> providers=getProvidersThatAreCreatedByTheApplication(application);
+		for (Provider provider : providers) {
+			add(provider);
+		}
+		
 		// add provider classes
 		for (Class<? extends UrlProvider> urlProviderClass : application.getUrlProviderClasses()) {
 			add(urlProviderClass);
 		}
-
 		try {
 			ReflectUrlStreamHandlerFactory urlStreamHandlerFactory = new ReflectUrlStreamHandlerFactory(
 					application, this);
@@ -45,6 +52,11 @@ public class ProviderContainer extends DependencyInjectionContainer {
 		add(application.getNotificationProviderClass(), NotificationProvider.class, application);
 		add(application.getReflectionProviderClass(), ReflectionProvider.class, application);
 		add(application.getAboutProviderClass(), AboutProvider.class, application);
+	}
+
+	private List<Provider> getProvidersThatAreCreatedByTheApplication(ReflectApplication application) {
+		List<Provider> providers=new ArrayList();
+		return providers;
 	}
 
 	private void add(Class<? extends Provider> provider, Class<?> providerType,
