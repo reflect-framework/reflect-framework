@@ -2,6 +2,7 @@ package nth.reflect.fw.generic.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectFramework;
 
@@ -44,17 +45,22 @@ public class PrimitiveType {
 	 * Class object.
 	 * </p>
 	 *
-	 * @param cls the class to convert, may be null
-	 * @return the wrapper class for {@code cls} or {@code cls} if {@code cls} is
-	 *         not a primitive. {@code null} if null input.
+	 * @param primitiveType the class to convert, may be null
+	 * @return {@link Optional} the wrapper class for {@code primitiveType} or {@link Optional#empty()} otherwise.
 	 * @See {@link #wrapperToPrimitive(Class)}
 	 */
-	public static Class<?> primitiveToWrapper(Class<?> primitiveType) {
-		return primitiveToWrapperMap.get(primitiveType);
+	public static Optional<Class<?>> primitiveToWrapper(Class<?> primitiveType) {
+		if (primitiveToWrapperMap.containsKey(primitiveType)) {
+			Class<?> wrapperType = primitiveToWrapperMap.get(primitiveType);
+			return Optional.of(wrapperType);	
+		} else {
+			return Optional.empty();
+		}
+		
 	}
 
 	public static boolean isPrimative(Class<?> type) {
-		return primitiveToWrapperMap.keySet().contains(type);
+		return primitiveToWrapperMap.containsKey(type);
 	}
 
 	
@@ -71,17 +77,22 @@ public class PrimitiveType {
 	 * <b>null</b>.
 	 * </p>
 	 *
-	 * @param cls the class to convert, may be <b>null</b>
-	 * @return the corresponding primitive type if {@code cls} is a wrapper class,
-	 *         <b>null</b> otherwise
+	 * @param wrapperType the class to convert, may be <b>null</b>
+	 * @return {@link Optional#of(Object)} the corresponding primitive type if {@code wrapperType} is a wrapper class,
+	 *         {@link Optional#empty()} otherwise
 	 * @see #primitiveToWrapper(Class)
 	 */
-	public static Class<?> wrapperToPrimitive(Class<?> wrapperType) {
-		return wrapperToPrimitiveMap.get(wrapperType);
+	public static Optional<Class<?>> wrapperToPrimitive(Class<?> wrapperType) {
+		if (wrapperToPrimitiveMap.containsKey(wrapperType)) {
+			Class<?> primitiveType = wrapperToPrimitiveMap.get(wrapperType);
+			return Optional.of(primitiveType);
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	public static boolean isWrapper(Class<?> type) {
-		return wrapperToPrimitiveMap.keySet().contains(type);
+		return wrapperToPrimitiveMap.containsKey(type);
 	}
 	
 	

@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -339,9 +340,11 @@ public class XmlConverter {
 	private Object unMarshalPropertyOfJavaType(Node propertyElement, PropertyInfo propertyInfo) {
 		String value = propertyElement.getTextContent();
 
-		// unify type to complex type
 		Class<?> propertyType = propertyInfo.getTypeInfo().getType();
-		propertyType = PrimitiveType.primitiveToWrapper(propertyType);
+		Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
+		if (primitiveWrapperType.isPresent()) {
+			propertyType =primitiveWrapperType.get();			
+		}
 
 		// get xml transformer and transform value
 		Transform<Object> transform = null;
@@ -372,8 +375,11 @@ public class XmlConverter {
 
 	@SuppressWarnings("unchecked")
 	private String printElementValue(Class<?> type, Object value) {
-		// unify type to complex type
-		type = PrimitiveType.primitiveToWrapper(type);
+		Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(type);
+		if (primitiveWrapperType.isPresent()) {
+			type =primitiveWrapperType.get();			
+		}
+		
 		// get xml transformer and transform value
 		Transform<Object> transform = null;
 		try {

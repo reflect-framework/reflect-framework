@@ -100,20 +100,22 @@ public class PropertyInfo implements NameInfo {
 		return typeInfo;
 	}
 
-	private Method getSetterMethod(Method getterMethod, String name, Class<?> propertyClass) {
+	private Method getSetterMethod(Method getterMethod, String name, Class<?> propertyType) {
 		Class<?> methodOwner = getterMethod.getDeclaringClass();
 		StringBuffer getterMethodName = new StringBuffer();
 		getterMethodName.append(SET_PREFIX);
 		getterMethodName.append(Character.toUpperCase(name.charAt(0)));
 		getterMethodName.append(name.substring(1));
 		try {
-			Method writeMethod = methodOwner.getMethod(getterMethodName.toString(), propertyClass);
+			Method writeMethod = methodOwner.getMethod(getterMethodName.toString(), propertyType);
 			return writeMethod;
 		} catch (Exception e1) {
 			try {
-				// try to get setterMethod with a simple type parameter
-				Class<?> simplePropertyClass = PrimitiveType.primitiveToWrapper(propertyClass);
-				Method writeMethod = methodOwner.getMethod(getterMethodName.toString(), simplePropertyClass);
+				Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
+				if (primitiveWrapperType.isPresent()) {
+					propertyType=primitiveWrapperType.get();
+				}
+				Method writeMethod = methodOwner.getMethod(getterMethodName.toString(), propertyType);
 				return writeMethod;
 			} catch (Exception e2) {
 				return null;

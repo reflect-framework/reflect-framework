@@ -1,5 +1,7 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
+import java.util.Optional;
+
 import nth.reflect.fw.generic.util.PrimitiveType;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
@@ -26,9 +28,9 @@ public abstract class TextFieldFactory implements PropertyFieldFactory {
 	}
 
 	public static boolean isNumberType(Class<?> propertyType) {
-		Class<?> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
-		if (primitiveWrapperType!=null) {
-			propertyType=primitiveWrapperType;
+		Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
+		if (primitiveWrapperType.isPresent()) {
+			propertyType=primitiveWrapperType.get();
 		}
 		return Number.class.isAssignableFrom(propertyType);
 	}

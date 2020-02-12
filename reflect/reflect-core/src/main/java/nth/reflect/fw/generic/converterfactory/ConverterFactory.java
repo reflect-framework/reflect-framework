@@ -28,9 +28,9 @@ public abstract class ConverterFactory<T> extends NumberConverterFactory<T> {
 	@SuppressWarnings("unchecked")
 	public Optional<T> createConverter(LanguageProvider languageProvider, TypeInfo typeInfo) {
 		Class<?> type = typeInfo.getType();
-		Class<?> primitiveWrapperType = PrimitiveType.primitiveToWrapper(type);
-		if (primitiveWrapperType!=null) {
-			type=primitiveWrapperType;
+		Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(type);
+		if (primitiveWrapperType.isPresent()) {
+			type=primitiveWrapperType.get();
 		}
 		
 		// boolean

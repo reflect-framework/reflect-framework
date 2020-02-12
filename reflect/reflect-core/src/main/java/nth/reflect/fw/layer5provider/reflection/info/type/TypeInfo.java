@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
@@ -182,9 +183,9 @@ public class TypeInfo {
 	
 
 	public static boolean isJavaVariableType(Class<?> type) {
-		Class<?> primitiveWraperType = PrimitiveType.primitiveToWrapper(type);
-		if (primitiveWraperType!=null) {
-			type=primitiveWraperType;
+		Optional<Class<?>> primitiveWraperType = PrimitiveType.primitiveToWrapper(type);
+		if (primitiveWraperType.isPresent()) {
+			type=primitiveWraperType.get();
 		}
 		String canonicalName = type.getCanonicalName();
 		boolean startsWithJavaPackageName = canonicalName.startsWith("java");
