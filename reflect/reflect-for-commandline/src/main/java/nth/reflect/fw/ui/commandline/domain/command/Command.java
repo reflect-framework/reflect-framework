@@ -35,9 +35,9 @@ public class Command {
 		List<Parameter> parameters = new ArrayList<Parameter>();
 		TypeInfo typeInfo = actionMethodInfo.getFirstParameterTypeInfo();
 
-		if (!typeInfo.isVoid()) {
+		if (!typeInfo.isVoid() && typeInfo.isDomainClass()) {
 
-			Class<?> returnClass = typeInfo.getGenericType();
+			Class<?> returnClass = typeInfo.getType();
 			DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(returnClass);
 			List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
 			List<PropertyInfo> editableSimplePropertyInfos = propertyInfos.stream()

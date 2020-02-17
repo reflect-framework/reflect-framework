@@ -3,11 +3,13 @@ package nth.reflect.fw.junit.layer5provider.reflection.info.type;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -16,24 +18,24 @@ public class FirstParameterInfoDomainTypeTest {
 	private ReflectApplicationForJUnit application;
 	private TypeInfo typeInfo;
 
-	public void theMethod(TestDomainClass testDomainClass) {
+	public void theMethod(DomainObject testDomainClass) {
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		application = new ReflectApplicationForJUnit();
-		Method method = this.getClass().getMethod("theMethod", TestDomainClass.class);
+		Method method = this.getClass().getMethod("theMethod", DomainObject.class);
 		typeInfo = new FirstParameterTypeInfo(application, method);
 	}
 
 	@Test
 	public void testGetType() {
-		assertThat(typeInfo.getType()).isEqualTo(TestDomainClass.class);
+		assertThat(typeInfo.getType()).isEqualTo(DomainObject.class);
 	}
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getGenericType()).isEqualTo(TestDomainClass.class);
+		assertThat(typeInfo.getArrayOrCollectionTypeInfo()).isEqualTo(Optional.empty());
 	}
 
 	@Test
@@ -58,7 +60,7 @@ public class FirstParameterInfoDomainTypeTest {
 
 	@Test
 	public void testIsJavaType() {
-		assertThat(typeInfo.isJavaVariableType()).isEqualTo(false);
+		assertThat(typeInfo.isJavaType()).isEqualTo(false);
 	}
 
 	@Test

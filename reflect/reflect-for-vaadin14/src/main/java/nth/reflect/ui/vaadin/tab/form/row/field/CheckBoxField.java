@@ -33,7 +33,7 @@ public class CheckBoxField extends Checkbox implements PropertyField {
 
 	@Override
 	public void setEnabled(boolean enabled) {
-		setEnabled(enabled);
+		super.setEnabled(enabled) ;
 	}
 
 	@Override

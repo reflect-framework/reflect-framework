@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -16,8 +17,8 @@ public class ReturnTypeInfoArrayDomainTypeTest {
 	private ReflectApplicationForJUnit application;
 	private TypeInfo typeInfo;
 
-	public TestDomainClass[] theMethod() {
-		return new TestDomainClass[] {};
+	public DomainObject[] theMethod() {
+		return new DomainObject[] {};
 	}
 
 	@Before
@@ -29,12 +30,12 @@ public class ReturnTypeInfoArrayDomainTypeTest {
 
 	@Test
 	public void testGetType() {
-		assertThat(typeInfo.getType()).isEqualTo(TestDomainClass[].class);
+		assertThat(typeInfo.getType()).isEqualTo(DomainObject[].class);
 	}
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getGenericType()).isEqualTo(TestDomainClass.class);
+		assertThat(typeInfo.getArrayOrCollectionTypeInfo().get().getType()).isEqualTo(DomainObject.class);
 	}
 
 	@Test
@@ -59,7 +60,7 @@ public class ReturnTypeInfoArrayDomainTypeTest {
 
 	@Test
 	public void testIsJavaType() {
-		assertThat(typeInfo.isJavaVariableType()).isEqualTo(false);
+		assertThat(typeInfo.isJavaType()).isEqualTo(false);
 	}
 
 	@Test

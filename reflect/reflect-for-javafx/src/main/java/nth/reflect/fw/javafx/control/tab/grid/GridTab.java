@@ -61,7 +61,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getReturnTypeInfo().getGenericType();
+					return actionMethodInfo.getReturnTypeInfo().getType();
 				}
 
 				@Override
@@ -94,7 +94,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getReturnTypeInfo().getGenericType();
+					return actionMethodInfo.getReturnTypeInfo().getType();
 				}
 
 				@Override

@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -18,7 +19,7 @@ public class ReturnTypeInfoMapTest {
 	private ReflectApplicationForJUnit application;
 	private TypeInfo typeInfo;
 
-	public Map<Integer, TestDomainClass> theMethod() {
+	public Map<Integer, DomainObject> theMethod() {
 		return new HashMap<>();
 	}
 
@@ -36,7 +37,7 @@ public class ReturnTypeInfoMapTest {
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getGenericType()).isEqualTo(Map.class);
+		assertThat(typeInfo.getArrayOrCollectionTypeInfo().get().getType()).isEqualTo(Map.class);
 	}
 
 	@Test
@@ -61,7 +62,7 @@ public class ReturnTypeInfoMapTest {
 
 	@Test
 	public void testIsJavaType() {
-		assertThat(typeInfo.isJavaVariableType()).isEqualTo(true);
+		assertThat(typeInfo.isJavaType()).isEqualTo(true);
 	}
 
 	@Test

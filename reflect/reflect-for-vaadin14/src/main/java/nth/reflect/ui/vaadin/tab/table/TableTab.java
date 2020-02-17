@@ -51,7 +51,7 @@ public class TableTab extends Tab {
 
 	private DomainClassInfo createDomainClassInfo() {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		Class<?> actionMethodReturnType = actionMethodInfo.getReturnTypeInfo().getGenericType();
+		Class<?> actionMethodReturnType = actionMethodInfo.getReturnTypeInfo().getArrayOrCollectionTypeInfo().get().getType();
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(actionMethodReturnType);
 		return domainClassInfo;
 	}

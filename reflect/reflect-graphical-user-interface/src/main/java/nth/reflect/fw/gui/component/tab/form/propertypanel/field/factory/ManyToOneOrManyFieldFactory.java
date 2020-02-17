@@ -1,6 +1,7 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
-import nth.reflect.fw.ReflectApplication;
+import java.util.Optional;
+
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public abstract class ManyToOneOrManyFieldFactory implements PropertyFieldFactory {
@@ -10,11 +11,10 @@ public abstract class ManyToOneOrManyFieldFactory implements PropertyFieldFactor
 		TypeInfo typeInfo = info.getPropertyInfo().getTypeInfo();
 		if (!typeInfo.isArrayOrCollection()) {
 			return false;
+		} else {
+			Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getArrayOrCollectionTypeInfo();
+			return arrayOrCollectionTypeInfo.get().isDomainClass();
 		}
-		Class<?> genericType = typeInfo.getGenericType();
-		ReflectApplication reflectApplication = info.getUserInterfaceContainer().get(ReflectApplication.class);
-		boolean isDomainObject = new TypeInfo(reflectApplication, genericType, genericType).isDomainClass();
-		return isDomainObject;
 	}
 
 }

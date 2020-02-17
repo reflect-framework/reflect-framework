@@ -8,9 +8,8 @@ import java.util.List;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.grid.GridTab;
-import nth.reflect.fw.gui.component.table.info.cell.CellValueFactoryForJavaAndEnumTypes;
-import nth.reflect.fw.gui.component.table.info.cell.CellValueFactoryForObjectPropertyValue;
-import nth.reflect.fw.gui.component.table.info.cell.CellValueFactoryForObjects;
+import nth.reflect.fw.gui.component.table.info.cell.GenericFormatter;
+import nth.reflect.fw.gui.component.table.info.cell.PropertyValueFormatter;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -43,14 +42,14 @@ public abstract class TableInfo {
 
 	/**
 	 * 
-	 * @param actionMethodParameterValue
-	 *            the selected row value,
-	 *            {@link ReadOnlyValueModel#canGetValue()} must return false
-	 *            when no row is selected. Important note: this method must be
-	 *            recalled to create new row menu items every time the
-	 *            actionMethodParameter changes!
-	 * @return menu items to be displayed in a pop up menu on a {@link GridTab}
-	 *         or {@link ManyToOneOrManyField}
+	 * @param actionMethodParameterValue the selected row value,
+	 *                                   {@link ReadOnlyValueModel#canGetValue()}
+	 *                                   must return false when no row is selected.
+	 *                                   Important note: this method must be
+	 *                                   recalled to create new row menu items every
+	 *                                   time the actionMethodParameter changes!
+	 * @return menu items to be displayed in a pop up menu on a {@link GridTab} or
+	 *         {@link ManyToOneOrManyField}
 	 */
 	public abstract Collection<Item> getRowMenuItems(ReadOnlyValueModel actionMethodParameterValue);
 
@@ -66,57 +65,38 @@ public abstract class TableInfo {
 		return reflectApplication;
 	}
 
-	public List<TableColumn> getTableColumns() {
-		Class<?> type = getValuesType();
-		if (TypeInfo.isJavaVariableType(type) || type.isEnum()) {
-			return createColumnsForJavaAndEnumTypes();
-		} else {
-			return createColumnForObject();
-		}
+	public List<ColumnInfo> getTableColumns() {
+		return createColumnsForJavaAndEnumTypes();
 		// TODO
 		// return createColumnsForObject();
 	}
 
-	private List<TableColumn> createColumnsForJavaAndEnumTypes() {
+	private List<ColumnInfo> createColumnsForJavaAndEnumTypes() {
 		Class<?> type = getValuesType();
-		ReflectApplication reflectApplication = getReflectApplication();
-		LanguageProvider languageProvider = getLanguageProvider();
-		CellValueFactoryForJavaAndEnumTypes cellValueFactory = new CellValueFactoryForJavaAndEnumTypes(
-				reflectApplication, languageProvider, type);
-		TableColumn tableColumn = new TableColumn(cellValueFactory);
-		List<TableColumn> tableColumns = new ArrayList<>();
+		TypeInfo typeInfo = new TypeInfo(reflectApplication, type, type);
+		GenericFormatter cellStringConverter = new GenericFormatter(reflectionProvider, languageProvider, typeInfo);
+		ColumnInfo tableColumn = new ColumnInfo(cellStringConverter);
+		List<ColumnInfo> tableColumns = new ArrayList<>();
 		tableColumns.add(tableColumn);
 		return tableColumns;
 	}
 
-	private List<TableColumn> createColumnForObject() {
-		Class<?> itemType = getValuesType();
-		ReflectionProvider reflectionProvider = getReflectionProvider();
-		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(itemType);
-		CellValueFactoryForObjects<Object, Object> cellValueFactory = new CellValueFactoryForObjects<>(domainClassInfo);
-		TableColumn tableColumn = new TableColumn(cellValueFactory);
-		List<TableColumn> tableColumns = new ArrayList<>();
-		tableColumns.add(tableColumn);
-		return tableColumns;
-	}
-
-	private List<TableColumn> createColumnsForObject() {
+	private List<ColumnInfo> createColumnsForObject() {
 		Class<?> itemType = getValuesType();
 		ReflectionProvider reflectionProvider = getReflectionProvider();
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(itemType);
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
-		List<TableColumn> tableColumns = new ArrayList<>();
+		List<ColumnInfo> tableColumns = new ArrayList<>();
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			CellValueFactoryForObjectPropertyValue cellValueFactory = new CellValueFactoryForObjectPropertyValue(
-					propertyInfo);
-			TableColumn tableColumn = new TableColumn(propertyInfo, cellValueFactory);
+			PropertyValueFormatter cellStringConverter = new PropertyValueFormatter(propertyInfo);
+			ColumnInfo tableColumn = new ColumnInfo(propertyInfo, cellStringConverter);
 			tableColumns.add(tableColumn);
 		}
 		return tableColumns;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public List<Object> getList() {
+	public List<Object> getValueList() {
 		Object values = getValues();
 		if (values == null) {
 			List<Object> emptyList = new ArrayList<>();

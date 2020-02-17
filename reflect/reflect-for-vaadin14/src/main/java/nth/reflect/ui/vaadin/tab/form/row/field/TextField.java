@@ -35,7 +35,8 @@ public class TextField extends com.vaadin.flow.component.textfield.TextField imp
 		if (propertyValue == null) {
 			propertyValue = "";
 		}
-		super.setValue((String) propertyValue);
+		//TODO use StringConverter
+		super.setValue(propertyValue.toString());
 	}
 
 	@Override

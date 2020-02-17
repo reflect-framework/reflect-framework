@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
@@ -26,10 +25,9 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWi
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.gui.component.table.info.TableInfo;
+import nth.reflect.fw.gui.component.table.info.TableInfoForFormTabProperty;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
 import nth.reflect.fw.ui.swing.tab.table.MethodTableModel;
@@ -55,11 +53,8 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 
 		setLayout(new BorderLayout());
 
-		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
-		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
-		ReflectApplication application = userInterfaceContainer.get(ReflectApplication.class);
-		tableModel = new MethodTableModel(application, reflectionProvider, languageProvider, propertyValueModel);
+		TableInfo tableInfo=new TableInfoForFormTabProperty(formTab, propertyValueModel);
+		tableModel = new MethodTableModel(tableInfo);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
 
@@ -196,7 +191,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 
 				@Override
 				public Class<?> getValueType() {
-					return propertyValueModel.getPropertyInfo().getTypeInfo().getGenericType();
+					return propertyValueModel.getPropertyInfo().getTypeInfo().getType();
 				}
 
 				@Override

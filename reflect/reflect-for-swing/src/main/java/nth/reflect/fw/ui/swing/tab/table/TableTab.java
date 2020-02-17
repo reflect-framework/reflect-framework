@@ -14,14 +14,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
+import nth.reflect.fw.gui.component.table.info.TableInfo;
+import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.swing.item.menubar.MenuBar;
@@ -54,9 +54,8 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.gr
 		setLayout(new BorderLayout());
 
 		reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
-		ReflectApplication application = userInterfaceContainer.get(ReflectApplication.class);
-		tableModel = new MethodTableModel(application, reflectionProvider, languageProvider, getAllRowsModel());
+		TableInfo tableInfo=new TableInfoForGridTab(this);
+		tableModel = new MethodTableModel(tableInfo);
 		table = createTable(tableModel);
 		JScrollPane tableContainer = new JScrollPane(table);
 		tableContainer.getViewport().setBackground(table.getBackground());
@@ -207,7 +206,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.gr
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getReturnTypeInfo().getGenericType();
+					return actionMethodInfo.getReturnTypeInfo().getType();
 				}
 
 				@Override
@@ -242,7 +241,7 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.gr
 
 				@Override
 				public Class<?> getValueType() {
-					return actionMethodInfo.getReturnTypeInfo().getGenericType();
+					return actionMethodInfo.getReturnTypeInfo().getType();
 				}
 
 				@Override
@@ -256,7 +255,6 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.gr
 
 	}
 
-	@Override
 	public ActionMethodInfo getMethodInfo() {
 		return actionMethodInfo;
 	}

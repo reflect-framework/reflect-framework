@@ -1,5 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -16,7 +17,14 @@ public class ReturnTypeFilter implements Predicate<ActionMethodInfo> {
 	@Override
 	public boolean test(ActionMethodInfo actionMethodInfo) {
 		TypeInfo typeInfo = actionMethodInfo.getReturnTypeInfo();
-		return !typeInfo.isVoid() && returnType.isAssignableFrom(typeInfo.getGenericType());
+		if (returnType.isAssignableFrom(typeInfo.getType())) {
+			return true;
+		}
+		Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getArrayOrCollectionTypeInfo();
+		if (arrayOrCollectionTypeInfo.isPresent()) {
+			return returnType.isAssignableFrom(arrayOrCollectionTypeInfo.get().getType());
+		}
+		return false;
 	}
 
 }

@@ -8,7 +8,6 @@ import org.assertj.core.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.junit.layer5provider.reflection.info.type.TestEnum;
 import nth.reflect.fw.layer5provider.reflection.behavior.option.OptionsModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.option.OptionsModelFactory;
 

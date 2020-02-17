@@ -6,8 +6,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatFactory;
 
 
+/**
+ * TODO merge with {@link FormatFactory}
+ * @author nilsth
+ *
+ */
 public class StringConverter {
 
 	

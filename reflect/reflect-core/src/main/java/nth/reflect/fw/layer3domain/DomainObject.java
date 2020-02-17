@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
+import nth.reflect.fw.generic.util.TitleBuilder;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
@@ -170,8 +171,8 @@ public class DomainObject {
 	private int[] mySimpleIntArray;
 	private String[] myStringArray;
 	private DomainObject[] myDomainObjectArray;
-	private Set<String> myStringSet=new HashSet<String>();
-	private List<DomainObject> myDomainObjectList=new ArrayList<DomainObject>();
+	private Set<String> myStringSet = new HashSet<String>();
+	private List<DomainObject> myDomainObjectList = new ArrayList<DomainObject>();
 	private Boolean myBoolean;
 	private Byte myByte;
 	private Short myShort;
@@ -204,11 +205,11 @@ public class DomainObject {
 	private LocalDate myLocalDate;
 	private LocalTime myLocalTime;
 	private LocalDateTime myLocalDateTime;
-	private PickOrder myEnum;
+	private MyEnum myEnum;
 	private String myChoice;
 	private DomainObject myDomainObject;
 
-	public enum PickOrder {
+	public enum MyEnum {
 		first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth
 	}
 
@@ -242,6 +243,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_SIMPLE_INT = "getMySimpleInt";
+
 	public int getMySimpleInt() {
 		return mySimpleInt;
 	}
@@ -275,6 +277,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_SIMPLE_CHAR = "getMySimpleChar";
+
 	public char getMySimpleChar() {
 		return mySimpleChar;
 	}
@@ -310,6 +313,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_INTEGER = "getMyInteger";
+
 	public Integer getMyInteger() {
 		return myInteger;
 	}
@@ -343,6 +347,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_CHARACTER = "getMyCharacter";
+
 	public Character getMyCharacter() {
 		return myCharacter;
 	}
@@ -362,6 +367,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_TEXT_AREA = "getMyTextArea";
+
 	@TextFieldMode(mode = TextFieldModeType.MILTI_LINE)
 	public String getMyTextArea() {
 		return myTextArea;
@@ -372,6 +378,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_PASSWORD = "getMyPassWord";
+
 	@TextFieldMode(mode = TextFieldModeType.PASSWORD)
 	public String getMyPassWord() {
 		return myPassWord;
@@ -535,11 +542,11 @@ public class DomainObject {
 
 	public static final String GET_MY_ENUM = "getMyEnum";
 
-	public PickOrder getMyEnum() {
+	public MyEnum getMyEnum() {
 		return myEnum;
 	}
 
-	public void setMyEnum(PickOrder myEnum) {
+	public void setMyEnum(MyEnum myEnum) {
 		this.myEnum = myEnum;
 	}
 
@@ -616,11 +623,12 @@ public class DomainObject {
 	}
 
 	public List<String> myChoiceOptions() {
-		List<String> options = Arrays.stream(PickOrder.values()).map(Enum::name).collect(Collectors.toList());
+		List<String> options = Arrays.stream(MyEnum.values()).map(Enum::name).collect(Collectors.toList());
 		return options;
 	}
 
 	public static final String GET_MY_SIMPLE_INT_ARRAY = "getMySimpleIntArray";
+
 	public int[] getMySimpleIntArray() {
 		return mySimpleIntArray;
 	}
@@ -630,6 +638,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_STRING_ARRAY = "getMyStringArray";
+
 	public String[] getMyStringArray() {
 		return myStringArray;
 	}
@@ -639,6 +648,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_DOMAIN_OBJECT_ARRAY = "getMyDomainObjectArray";
+
 	public DomainObject[] getMyDomainObjectArray() {
 		return myDomainObjectArray;
 	}
@@ -648,6 +658,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_STRING_SET = "getMyStringSet";
+
 	public Set<String> getMyStringSet() {
 		return myStringSet;
 	}
@@ -657,6 +668,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_DOMAIN_OBJECT_LIST = "getMyDomainObjectList";
+
 	public List<DomainObject> getMyDomainObjectList() {
 		return myDomainObjectList;
 	}
@@ -666,6 +678,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_DOMAIN_OBJECT = "getMyDomainObject";
+
 	public DomainObject getMyDomainObject() {
 		return myDomainObject;
 	}
@@ -674,5 +687,8 @@ public class DomainObject {
 		this.myDomainObject = myDomainObject;
 	}
 
-	
+	@Override
+	public String toString() {
+		return new TitleBuilder().append(DomainObject.class.getSimpleName()).append(mySimpleInt).toString();
+	}
 }

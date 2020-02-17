@@ -34,7 +34,7 @@ public class ReturnTypeInfoArrayJavaSimpleTypeTest {
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getGenericType()).isEqualTo(byte.class);
+		assertThat(typeInfo.getArrayOrCollectionTypeInfo().get().getType()).isEqualTo(byte.class);
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public class ReturnTypeInfoArrayJavaSimpleTypeTest {
 
 	@Test
 	public void testIsJavaType() {
-		assertThat(typeInfo.isJavaVariableType()).isEqualTo(true);
+		assertThat(typeInfo.isJavaType()).isEqualTo(true);
 	}
 
 	@Test

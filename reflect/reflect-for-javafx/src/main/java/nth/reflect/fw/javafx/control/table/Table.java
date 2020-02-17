@@ -65,7 +65,7 @@ public class Table extends TableView<Object> {
 	}
 
 	public void updateData() {
-		List<Object> list = tableInfo.getList();
+		List<Object> list = tableInfo.getValueList();
 		ObservableListWrapper<Object> observableList = new ObservableListWrapper<Object>(list);
 		setItems(observableList);
 	}
@@ -79,11 +79,11 @@ public class Table extends TableView<Object> {
 	}
 
 	private void initColumns() {
-		List<nth.reflect.fw.gui.component.table.info.TableColumn> tableColumns = tableInfo.getTableColumns();
+		List<nth.reflect.fw.gui.component.table.info.ColumnInfo> tableColumns = tableInfo.getTableColumns();
 		if (tableColumns.size() == 1) {
 			hideHeader();
 		}
-		for (nth.reflect.fw.gui.component.table.info.TableColumn tableColumn : tableColumns) {
+		for (nth.reflect.fw.gui.component.table.info.ColumnInfo tableColumn : tableColumns) {
 			TableColumnWraper column = new TableColumnWraper(tableColumn);
 			getColumns().add(column);
 		}

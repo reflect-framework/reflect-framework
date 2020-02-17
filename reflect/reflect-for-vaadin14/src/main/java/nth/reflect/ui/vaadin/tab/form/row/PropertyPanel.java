@@ -1,5 +1,6 @@
 package nth.reflect.ui.vaadin.tab.form.row;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.vaadin.flow.component.Component;
@@ -67,8 +68,7 @@ public class PropertyPanel extends VerticalLayout implements
 
 	@Override
 	public List<PropertyIconButton> getPropertyIconButtons() {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.EMPTY_LIST;
 	}
 
 }

@@ -51,8 +51,7 @@ public interface PropertyField extends ReflectGuiComponent {
 	public void setValueFromDomainProperty(Object propertyValue);
 
 	/**
-	 * Some {@link PropertyField} have a selection button e.g. for the
-	 * following:
+	 * Some {@link PropertyField} have a selection button e.g. for the following:
 	 * <ul>
 	 * <li>CheckBox</li>
 	 * <li>Open a Drop down list for a combo box</li>

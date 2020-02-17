@@ -3,8 +3,6 @@ package nth.reflect.fw.junit.layer5provider.reflection.behavior.option;
 import java.util.Arrays;
 import java.util.List;
 
-import nth.reflect.fw.junit.layer5provider.reflection.info.type.TestEnum;
-
 public class TestDomainObject {
 
 	private String noOptionsProperty;

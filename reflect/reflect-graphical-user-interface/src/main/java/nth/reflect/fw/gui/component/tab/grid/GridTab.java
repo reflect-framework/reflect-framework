@@ -28,7 +28,7 @@ public interface GridTab extends ActionMethodTab, ReflectGuiComponent {
 	public ReadOnlyValueModel getSelectedRowModel();
 
 	/**
-	 * @deprecated See {@link TableInfo#getList()}
+	 * @deprecated See {@link TableInfo#getValueList()}
 	 */
 	@Deprecated
 	public ReadOnlyValueModel getAllRowsModel();

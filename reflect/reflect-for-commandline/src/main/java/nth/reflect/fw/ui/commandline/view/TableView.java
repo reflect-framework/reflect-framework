@@ -17,7 +17,7 @@ public class TableView extends CommandLineView {
 	public TableView(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo,
 			Collection<?> collection) {
 		// get propertyInfos
-		Class<?> returnClass = actionMethodInfo.getReturnTypeInfo().getGenericType();
+		Class<?> returnClass = actionMethodInfo.getReturnTypeInfo().getType();
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(returnClass);
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 

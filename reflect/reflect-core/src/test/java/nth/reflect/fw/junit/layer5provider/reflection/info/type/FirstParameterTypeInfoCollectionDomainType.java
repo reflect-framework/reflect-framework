@@ -4,11 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -17,7 +19,7 @@ public class FirstParameterTypeInfoCollectionDomainType {
 	private ReflectApplicationForJUnit application;
 	private TypeInfo typeInfo;
 
-	public void theMethod(List<TestDomainClass> list) {
+	public void theMethod(List<DomainObject> list) {
 	}
 
 	@Before
@@ -34,7 +36,7 @@ public class FirstParameterTypeInfoCollectionDomainType {
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getGenericType()).isEqualTo(TestDomainClass.class);
+		assertThat(typeInfo.getArrayOrCollectionTypeInfo().get().getType()).isEqualTo(DomainObject.class);
 	}
 
 	@Test
@@ -59,7 +61,7 @@ public class FirstParameterTypeInfoCollectionDomainType {
 
 	@Test
 	public void testIsJavaType() {
-		assertThat(typeInfo.isJavaVariableType()).isEqualTo(false);
+		assertThat(typeInfo.isJavaType()).isEqualTo(true);
 	}
 
 	@Test

@@ -26,11 +26,11 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 public class TypeInfo {
 
 	private final Class<?> type;
-	private final Class<?> genericType;
+	private final Optional<TypeInfo> arrayOrCollectionTypeInfo;
 	private final boolean isVoid;
 	private final boolean isCollection;
 	private final boolean hasMultipleValues;
-	private final boolean isJavaVariableType;
+	private final boolean isJavaType;
 	private final boolean isDomainClass;
 	private final boolean isArray;
 	private final boolean isMap;
@@ -39,18 +39,18 @@ public class TypeInfo {
 
 	public TypeInfo(ReflectApplication reflectApplication, Class<?> type, Type genericType) {
 		this.type = type;
-		this.genericType = getGenericType(genericType);
+		this.arrayOrCollectionTypeInfo = getArrayOrCollectionTypeInfo(reflectApplication, genericType);
 		this.isVoid = isVoid(type);
 		this.isCollection = Collection.class.isAssignableFrom(this.type);
 		this.isMap = Map.class.isAssignableFrom(this.type);
 		this.isArray = this.type.isArray();
 		this.isEnum = this.type.isEnum();
-		this.isJavaVariableType = isJavaVariableType(this.genericType);
+		this.isJavaType = isJavaType(type);
 		this.hasMultipleValues = isArray || isCollection || isMap;
 		boolean isReflectApplication = ReflectApplication.class.isAssignableFrom(this.type);
 		boolean isServiceClass = isServiceClass(this.type, reflectApplication);
 		boolean isInfrastructureClass = isInfrastructureClass(this.type, reflectApplication);
-		this.isDomainClass = !isVoid && !isJavaVariableType && !hasMultipleValues && !isReflectApplication
+		this.isDomainClass = !isVoid && !isJavaType && !hasMultipleValues && !isReflectApplication
 				&& !isServiceClass && !isInfrastructureClass;
 		this.isHierarchicalDomainType = isHierarchicalDomainType(type);
 	}
@@ -59,45 +59,55 @@ public class TypeInfo {
 	 * @param type
 	 *            e.g. the generic parameter or the generic return type of a
 	 *            method
+	 * @param application 
 	 * @return If type is an {@link Array} it returns its type<br>
 	 *         If type is an {@link ParameterizedType} (e.g. the parameter or
 	 *         the return type of a method) it returns the generic type of a
 	 *         collection<br>
 	 *         Otherwise it returns
 	 */
-	public static Class<?> getGenericType(Type type) {
+	public static Optional<TypeInfo> getArrayOrCollectionTypeInfo(ReflectApplication application, Type type) {
+		if (type==null) {
+			return Optional.empty();
+		}
 		if (type instanceof Class<?>) {
 			Class<?> cls = (Class<?>) type;
 			if (cls.isArray()) {
-				return cls.getComponentType();
+				Class<?> arrayType = cls.getComponentType();
+				TypeInfo arrayTypeInfo=new TypeInfo(application, arrayType, null);
+				return Optional.of(arrayTypeInfo);
 			} else {
-				return cls;
+				return Optional.empty();
 			}
 		} else if (type instanceof ParameterizedType) {
 			ParameterizedType parameterizedType = (ParameterizedType) type;
 			Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
 			if (actualTypeArguments.length != 1) {
-				return (Class<?>) parameterizedType.getRawType();
+				Class<?> genericParameterType=(Class<?>) parameterizedType.getRawType();
+				TypeInfo genericParameterTypeInfo=new TypeInfo(application, genericParameterType, null);
+				return Optional.of(genericParameterTypeInfo);
 			}
 			Type actualType = actualTypeArguments[0];
 			if (actualType.toString().equals("java.lang.Class<?>")) {
-				return Class.class;
+				TypeInfo classTypeInfo=new TypeInfo(application,Class.class, null);
+				return Optional.of(classTypeInfo);
 			}
 			Class<?> genericType = (Class<?>) actualType;
-			return genericType;
+			TypeInfo genericTypeInfo=new TypeInfo(application,genericType, null);			
+			return Optional.of(genericTypeInfo);
 		}
-		return (Class<?>) type;
+		return Optional.empty();
 	}
 
 	private static boolean isVoid(Class<?> type) {
-		return type == Void.TYPE;
+		return type == Void.TYPE || type==Void.class;
 	}
 
 	/**
-	 * See {@link #getGenericType(Type)}
+	 * See {@link #getArrayOrCollectionTypeInfo(ReflectApplication, Type)}
 	 */
-	public Class<?> getGenericType() {
-		return genericType;
+	public Optional<TypeInfo> getArrayOrCollectionTypeInfo() {
+		return arrayOrCollectionTypeInfo;
 	}
 
 	public Class<?> getType() {
@@ -177,18 +187,17 @@ public class TypeInfo {
 		}
 	}
 
-	public boolean isJavaVariableType() {
-		return isJavaVariableType;
+	public boolean isJavaType() {
+		return isJavaType;
 	}
 	
 
-	public static boolean isJavaVariableType(Class<?> type) {
-		Optional<Class<?>> primitiveWraperType = PrimitiveType.primitiveToWrapper(type);
-		if (primitiveWraperType.isPresent()) {
-			type=primitiveWraperType.get();
+	public  boolean isJavaType(Class<?> type) {
+		if (PrimitiveType.isPrimative(type) || isVoid || (isArray && arrayOrCollectionTypeInfo.get().isJavaType) ) {
+			return true;
 		}
 		String canonicalName = type.getCanonicalName();
-		boolean startsWithJavaPackageName = canonicalName.startsWith("java");
+		boolean startsWithJavaPackageName = canonicalName.startsWith("java.") ||canonicalName.startsWith("javax.");
 		return startsWithJavaPackageName;
 	}
 

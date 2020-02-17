@@ -17,8 +17,7 @@ public class TableInfoForGridTab extends TableInfo {
 		super(gridTab.getUserInterfaceContainer());
 		this.gridTab = gridTab;
 		ActionMethodInfo actionMethodInfo = gridTab.getMethodInfo();
-		this.itemType = actionMethodInfo.getReturnTypeInfo().getGenericType();
-
+		this.itemType = actionMethodInfo.getReturnTypeInfo().getType();
 	}
 
 	@Override

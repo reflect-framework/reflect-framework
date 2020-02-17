@@ -68,7 +68,7 @@ public class ExcelFormWriter extends ExcelWriter {
 	@Override
 	protected void setCellValue(Object domainObject, PropertyInfo propertyInfo, Cell cell) {
 
-		if (propertyInfo.getTypeInfo().isCollection()) {
+		if (propertyInfo.getTypeInfo().isArrayOrCollection()) {
 			Sheet sheet = cell.getSheet();
 			Object value = propertyInfo.getValue(domainObject);
 			addPropertyTable(sheet, cell, propertyInfo, value);
@@ -78,10 +78,10 @@ public class ExcelFormWriter extends ExcelWriter {
 	}
 
 	private void addPropertyTable(Sheet sheet, Cell cell, PropertyInfo propertyInfo, Object value) {
-		// TODO still used????
+		//TODO arrays
+		//TODO string converters for PrimartTypes and PrimaryWrapperTypes
 		Row row = cell.getRow();
-		Class<?> objectClass = propertyInfo.getTypeInfo().getGenericType();
-
+		Class<?> objectClass = propertyInfo.getTypeInfo().getArrayOrCollectionTypeInfo().get().getType();
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(objectClass);
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 

@@ -55,12 +55,20 @@ public class FormatFactory extends ConverterFactory<Format> {
 		this.formatPattern = createFormatPattern(getterMethod);
 	}
 
+
+	public FormatFactory(ReflectionProvider reflectionProvider, LanguageProvider languageProvider, TypeInfo typeInfo) {
+		this.reflectionProvider = reflectionProvider;
+		this.languageProvider = languageProvider;
+		this.typeInfo = typeInfo;
+		this.formatPattern = null;
+	}
+
+	
 	/**
 	 * This method should only called by {@link PropertyInfo} so that the format
 	 * cashed!!!
 	 * 
-	 * @param propertyInfo
-	 *            of property to be converted
+	 * @param propertyInfo of property to be converted
 	 * @return a format that will format a property to a string or parse from a
 	 *         string to property
 	 */

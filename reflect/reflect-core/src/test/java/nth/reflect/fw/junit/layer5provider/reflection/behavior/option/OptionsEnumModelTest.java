@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.junit.layer5provider.reflection.info.type.TestEnum;
 import nth.reflect.fw.layer5provider.reflection.behavior.option.OptionsEnumModel;
 
 public class OptionsEnumModelTest {

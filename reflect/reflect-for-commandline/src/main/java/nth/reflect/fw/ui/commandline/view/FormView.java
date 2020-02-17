@@ -20,7 +20,7 @@ public class FormView extends CommandLineView {
 		row.addCell("", Table.MAX_WIDTH_IN_COLS);
 
 		// get propertyInfos
-		Class<?> returnClass = actionMethodInfo.getReturnTypeInfo().getGenericType();
+		Class<?> returnClass = actionMethodInfo.getReturnTypeInfo().getType();
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(returnClass);
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
 

@@ -1,103 +1,71 @@
 package nth.reflect.fw.ui.swing.tab.table;
 
-import java.text.Format;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.table.AbstractTableModel;
 
-import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
+import nth.reflect.fw.gui.component.table.info.ColumnInfo;
+import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.layer1userinterface.controller.Refreshable;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.JavaFormatFactory;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class MethodTableModel extends AbstractTableModel implements DomainTableModel, Refreshable {
 
-	// TODO move to Reflect package to replace domainTableModel?
-
 	private static final long serialVersionUID = 605374068245011236L;
-	private ArrayList<Object> list;
-	private List<PropertyInfo> propertyInfos;
-	private final ReadOnlyValueModel valueModel;
-	private Format format;
+	private final TableInfo tableInfo;
+	private List<Object> values;
 
-	public MethodTableModel(ReflectApplication reflectApplication, ReflectionProvider reflectionProvider,
-			LanguageProvider languageProvider, ReadOnlyValueModel valueModel) {
-		this.valueModel = valueModel;
-		Class<?> objectClass = valueModel.getValueType();
-		if (TypeInfo.isJavaVariableType(objectClass) || objectClass.isEnum()) {
-			JavaFormatFactory formatFactory = new JavaFormatFactory(languageProvider);
-			TypeInfo typeInfo = new TypeInfo(reflectApplication, objectClass, objectClass);
-			format = formatFactory.create(typeInfo);
-		} else {
-			DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(objectClass);
-			propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
-		}
+	public MethodTableModel(TableInfo tableInfo) {
+		this.tableInfo = tableInfo;
 		refresh();
 	}
 
 	@Override
 	public int getColumnCount() {
-		if (propertyInfos == null) {
-			return 1;// table represents a java type
-		}
-		return propertyInfos.size();
+		return tableInfo.getTableColumns().size();
 	}
 
 	@Override
 	public int getRowCount() {
-		return list.size();
+		return values.size();
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Object value = list.get(rowIndex);
-		if (propertyInfos == null) {
-			// java type
-			return format.format(value);
-		}
-		// domain object
-		Object domainObject = value;
-		PropertyInfo propertyInfo = propertyInfos.get(columnIndex);
-		return propertyInfo.getFormatedValue(domainObject);
+		Object value = values.get(rowIndex);
+		ColumnInfo columnInfo = tableInfo.getTableColumns().get(columnIndex);
+		String cellValue = columnInfo.getStringValue(value);
+		return cellValue;
 	}
 
 	@Override
 	public String getColumnName(int column) {
-		if (propertyInfos == null) {
-			// java type
-			return null;
+		Optional<PropertyInfo> propertyInfo = tableInfo.getTableColumns().get(column).getPropertyInfo();
+		if (propertyInfo.isPresent()) {
+			return propertyInfo.get().getDisplayName();
+		} else {
+			return "";
 		}
-		// domain type
-		PropertyInfo propertyInfo = propertyInfos.get(column);
-		return propertyInfo.getDisplayName();
 	}
 
 	@Override
 	public Object getDomainValue(int rowIndex) {// TODO rename to value?
-		return list.get(rowIndex);
+		return values.get(rowIndex);
 	}
 
 	@Override
 	public void refresh() {
-		Collection<?> collection = null;
 		try {
-			collection = (Collection<?>) valueModel.getValue();
+			values = tableInfo.getValueList();
 			fireTableDataChanged();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		list = new ArrayList<Object>(collection);
 	}
 
 	public int getRow(Object domainObject) {
-		return list.indexOf(domainObject);
+		return values.indexOf(domainObject);
 	}
 
 }

@@ -3,6 +3,7 @@ package nth.reflect.fw.junit.layer5provider.reflection.info.type;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class ReturnTypeInfoVoidTypeTest {
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getGenericType()).isEqualTo(void.class);
+		assertThat(typeInfo.getArrayOrCollectionTypeInfo()).isEqualTo(Optional.empty());
 	}
 
 	@Test
@@ -58,7 +59,7 @@ public class ReturnTypeInfoVoidTypeTest {
 
 	@Test
 	public void testIsJavaType() {
-		assertThat(typeInfo.isJavaVariableType()).isEqualTo(false);
+		assertThat(typeInfo.isJavaType()).isEqualTo(true);
 	}
 
 	@Test

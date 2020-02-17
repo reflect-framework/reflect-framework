@@ -3,11 +3,13 @@ package nth.reflect.fw.junit.layer5provider.reflection.info.type;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
@@ -16,8 +18,8 @@ public class ReturnTypeInfoEnumTypeTest {
 	private ReflectApplicationForJUnit application;
 	private TypeInfo typeInfo;
 
-	public TestEnum theMethod() {
-		return TestEnum.A;
+	public DomainObject.MyEnum theMethod() {
+		return DomainObject.MyEnum.first;
 	}
 
 	@Before
@@ -29,12 +31,12 @@ public class ReturnTypeInfoEnumTypeTest {
 
 	@Test
 	public void testGetType() {
-		assertThat(typeInfo.getType()).isEqualTo(TestEnum.class);
+		assertThat(typeInfo.getType()).isEqualTo(DomainObject.MyEnum.class);
 	}
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getGenericType()).isEqualTo(TestEnum.class);
+		assertThat(typeInfo.getArrayOrCollectionTypeInfo()).isEqualTo(Optional.empty());
 	}
 
 	@Test
@@ -59,7 +61,7 @@ public class ReturnTypeInfoEnumTypeTest {
 
 	@Test
 	public void testIsJavaType() {
-		assertThat(typeInfo.isJavaVariableType()).isEqualTo(false);
+		assertThat(typeInfo.isJavaType()).isEqualTo(false);
 	}
 
 	@Test
