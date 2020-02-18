@@ -7,17 +7,17 @@ import nth.reflect.fw.gui.component.tab.grid.GridTab;
 import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class TableInfoForGridTab extends TableInfo {
 
 	private final GridTab gridTab;
-	private final Class<?> itemType;
+	private final ActionMethodInfo actionMethodInfo;
 
 	public TableInfoForGridTab(GridTab gridTab) {
 		super(gridTab.getUserInterfaceContainer());
 		this.gridTab = gridTab;
-		ActionMethodInfo actionMethodInfo = gridTab.getMethodInfo();
-		this.itemType = actionMethodInfo.getReturnTypeInfo().getType();
+		actionMethodInfo = gridTab.getMethodInfo();
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public class TableInfoForGridTab extends TableInfo {
 	}
 
 	@Override
-	public Class<?> getValuesType() {
-		return itemType;
+	public TypeInfo getTypeInfo() {
+		return actionMethodInfo.getReturnTypeInfo();
 	}
 
 	@Override

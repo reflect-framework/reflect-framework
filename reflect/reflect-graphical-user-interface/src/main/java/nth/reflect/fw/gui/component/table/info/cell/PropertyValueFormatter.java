@@ -12,8 +12,7 @@ public class PropertyValueFormatter implements CellStringConverter {
 
 	@Override
 	public String getValue(Object domainObj) {
-		Object propertyValue = propertyInfo.getValue(domainObj);
-		String fromatedPropertyValue = propertyInfo.getFormatedValue(propertyValue);
+		String fromatedPropertyValue = propertyInfo.getFormatedValue(domainObj);
 		return fromatedPropertyValue;
 	}
 

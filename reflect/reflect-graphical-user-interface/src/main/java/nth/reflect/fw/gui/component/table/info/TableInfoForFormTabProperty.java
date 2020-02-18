@@ -7,6 +7,7 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class TableInfoForFormTabProperty extends TableInfo {
 
@@ -25,8 +26,8 @@ public class TableInfoForFormTabProperty extends TableInfo {
 	}
 
 	@Override
-	public Class<?> getValuesType() {
-		return propertyValueModel.getValueType();
+	public TypeInfo getTypeInfo() {
+		return propertyValueModel.getPropertyInfo().getTypeInfo();
 	}
 
 	@Override

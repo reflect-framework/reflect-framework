@@ -34,9 +34,18 @@ public class ColumnInfo {
 		return propertyInfo;
 	}
 
-	public String getStringValue(Object value) {
-		String stringValue = cellStringConverter.getValue(value);
+	public String getCellValue(Object rowValue) {
+		String stringValue = cellStringConverter.getValue(rowValue);
 		return stringValue;
+	}
+	
+	public String getHeaderText() {
+		if (propertyInfo.isPresent()) {
+			String displayName = propertyInfo.get().getDisplayName();
+			return displayName;
+		} else {
+			return "";
+		}
 	}
 
 }

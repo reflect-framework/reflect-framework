@@ -30,7 +30,7 @@ import nth.reflect.fw.gui.component.table.info.TableInfoForFormTabProperty;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.style.ColorUtil;
-import nth.reflect.fw.ui.swing.tab.table.MethodTableModel;
+import nth.reflect.fw.ui.swing.tab.grid.MethodTableModel;
 
 public class ManyToOneOrManyField extends JPanel implements PropertyField {
 

@@ -14,11 +14,10 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final Object methodOwner;
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
-	private ReadOnlyValueModel allRowsModel;
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final ReflectionProvider reflectionProvider;
-	private final Table table;
+	private final Table grid;
 
 	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
@@ -29,8 +28,8 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 		reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 
-		table = new Table(this);
-		setCenter(table);
+		grid = new Table(this);
+		setCenter(grid);
 
 	}
 
@@ -46,7 +45,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	@Override
 	public void onRefresh() {
-		table.updateData();
+		grid.updateData();
 	}
 
 	@Override
@@ -56,7 +55,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public Object getValue() {
-					return table.getSelectionModel().getSelectedItem();
+					return grid.getSelectionModel().getSelectedItem();
 				}
 
 				@Override
@@ -66,46 +65,12 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public boolean canGetValue() {
-					return !table.getSelectionModel().isEmpty();
+					return !grid.getSelectionModel().isEmpty();
 				}
 
 			};
 		}
 		return selectedRowsModel;
-	}
-
-	@Override
-	public ReadOnlyValueModel getAllRowsModel() {
-		if (allRowsModel == null) {
-
-			allRowsModel = new ReadOnlyValueModel() {
-
-				@Override
-				public Object getValue() {
-					try {
-						return actionMethodInfo.invoke(methodOwner, methodParameterValue);
-					} catch (Exception e) {
-						UserInterfaceController userInterfaceController = getUserInterfaceContainer()
-								.get(UserInterfaceController.class);
-						userInterfaceController.showErrorDialog(getDisplayName(), "Error getting table values.", e);
-						return null;
-					}
-				}
-
-				@Override
-				public Class<?> getValueType() {
-					return actionMethodInfo.getReturnTypeInfo().getType();
-				}
-
-				@Override
-				public boolean canGetValue() {
-					return true;// TODO only true when method does not return
-								// null or a empty collection?
-				}
-			};
-		}
-		return allRowsModel;
-
 	}
 
 	@Override

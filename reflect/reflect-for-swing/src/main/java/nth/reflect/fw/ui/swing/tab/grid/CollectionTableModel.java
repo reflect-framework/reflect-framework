@@ -1,4 +1,4 @@
-package nth.reflect.fw.ui.swing.tab.table;
+package nth.reflect.fw.ui.swing.tab.grid;
 
 import java.util.ArrayList;
 import java.util.Collection;

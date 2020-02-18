@@ -1,4 +1,4 @@
-package nth.reflect.fw.ui.swing.tab.table;
+package nth.reflect.fw.ui.swing.tab.grid;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class MethodTableModel extends AbstractTableModel implements DomainTableM
 
 	@Override
 	public int getColumnCount() {
-		return tableInfo.getTableColumns().size();
+		return tableInfo.getColumnInfos().size();
 	}
 
 	@Override
@@ -34,14 +34,14 @@ public class MethodTableModel extends AbstractTableModel implements DomainTableM
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object value = values.get(rowIndex);
-		ColumnInfo columnInfo = tableInfo.getTableColumns().get(columnIndex);
-		String cellValue = columnInfo.getStringValue(value);
+		ColumnInfo columnInfo = tableInfo.getColumnInfos().get(columnIndex);
+		String cellValue = columnInfo.getCellValue(value);
 		return cellValue;
 	}
 
 	@Override
 	public String getColumnName(int column) {
-		Optional<PropertyInfo> propertyInfo = tableInfo.getTableColumns().get(column).getPropertyInfo();
+		Optional<PropertyInfo> propertyInfo = tableInfo.getColumnInfos().get(column).getPropertyInfo();
 		if (propertyInfo.isPresent()) {
 			return propertyInfo.get().getDisplayName();
 		} else {

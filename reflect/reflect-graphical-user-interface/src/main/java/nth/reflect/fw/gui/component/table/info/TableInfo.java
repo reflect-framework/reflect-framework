@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.grid.GridTab;
 import nth.reflect.fw.gui.component.table.info.cell.GenericFormatter;
@@ -28,17 +27,15 @@ public abstract class TableInfo {
 
 	private final ReflectionProvider reflectionProvider;
 	private final LanguageProvider languageProvider;
-	private final ReflectApplication reflectApplication;
 
 	public TableInfo(UserInterfaceContainer userInterfaceContainer) {
-		this.reflectApplication = userInterfaceContainer.get(ReflectApplication.class);
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 	}
 
 	public abstract Object getValues();
 
-	public abstract Class<?> getValuesType();
+	public abstract TypeInfo getTypeInfo();
 
 	/**
 	 * 
@@ -61,30 +58,28 @@ public abstract class TableInfo {
 		return languageProvider;
 	}
 
-	private ReflectApplication getReflectApplication() {
-		return reflectApplication;
-	}
-
-	public List<ColumnInfo> getTableColumns() {
-		return createColumnsForJavaAndEnumTypes();
-		// TODO
-		// return createColumnsForObject();
+	public List<ColumnInfo> getColumnInfos() {
+		TypeInfo typeInfo = getTypeInfo();
+		if (typeInfo.getArrayOrCollectionTypeInfo().get().isDomainClass()) {
+			return createColumnsForDomainObject();
+		} else {
+			return createColumnsForJavaAndEnumTypes();
+		}
 	}
 
 	private List<ColumnInfo> createColumnsForJavaAndEnumTypes() {
-		Class<?> type = getValuesType();
-		TypeInfo typeInfo = new TypeInfo(reflectApplication, type, type);
+		TypeInfo typeInfo = getTypeInfo();
 		GenericFormatter cellStringConverter = new GenericFormatter(reflectionProvider, languageProvider, typeInfo);
-		ColumnInfo tableColumn = new ColumnInfo(cellStringConverter);
-		List<ColumnInfo> tableColumns = new ArrayList<>();
-		tableColumns.add(tableColumn);
-		return tableColumns;
+		ColumnInfo clumnInfo = new ColumnInfo(cellStringConverter);
+		List<ColumnInfo> columnInfos = new ArrayList<>();
+		columnInfos.add(clumnInfo);
+		return columnInfos;
 	}
 
-	private List<ColumnInfo> createColumnsForObject() {
-		Class<?> itemType = getValuesType();
+	private List<ColumnInfo> createColumnsForDomainObject() {
+		Class<?> domainClass = getTypeInfo().getArrayOrCollectionTypeInfo().get().getType();
 		ReflectionProvider reflectionProvider = getReflectionProvider();
-		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(itemType);
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(domainClass);
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 		List<ColumnInfo> tableColumns = new ArrayList<>();
 		for (PropertyInfo propertyInfo : propertyInfos) {

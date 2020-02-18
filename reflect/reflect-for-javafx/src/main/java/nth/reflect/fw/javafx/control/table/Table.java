@@ -79,12 +79,12 @@ public class Table extends TableView<Object> {
 	}
 
 	private void initColumns() {
-		List<nth.reflect.fw.gui.component.table.info.ColumnInfo> tableColumns = tableInfo.getTableColumns();
-		if (tableColumns.size() == 1) {
+		List<nth.reflect.fw.gui.component.table.info.ColumnInfo> columnInfos = tableInfo.getColumnInfos();
+		if (columnInfos.size() == 1) {
 			hideHeader();
 		}
-		for (nth.reflect.fw.gui.component.table.info.ColumnInfo tableColumn : tableColumns) {
-			TableColumnWraper column = new TableColumnWraper(tableColumn);
+		for (nth.reflect.fw.gui.component.table.info.ColumnInfo columnInfo : columnInfos) {
+			TableColumnWraper column = new TableColumnWraper(columnInfo);
 			getColumns().add(column);
 		}
 		ColumnAutoSizer.autoFitTable(this);
@@ -186,7 +186,7 @@ public class Table extends TableView<Object> {
 
 				@Override
 				public Class<?> getValueType() {
-					return tableInfo.getValuesType();
+					return tableInfo.getTypeInfo().getType();
 				}
 
 				@Override

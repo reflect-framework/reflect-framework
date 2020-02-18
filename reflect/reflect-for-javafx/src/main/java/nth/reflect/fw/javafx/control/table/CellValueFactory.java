@@ -8,16 +8,16 @@ import nth.reflect.fw.gui.component.table.info.ColumnInfo;
 
 public class CellValueFactory implements Callback<CellDataFeatures<Object, String>, ObservableValue<String>> {
 
-	private ColumnInfo tableInfo;
+	private ColumnInfo columnInfo;
 
 	public CellValueFactory(nth.reflect.fw.gui.component.table.info.ColumnInfo tableInfo) {
-		this.tableInfo = tableInfo;
+		this.columnInfo = tableInfo;
 	}
 
 	@Override
 	public ObservableValue<String> call(CellDataFeatures<Object, String> cellDataFeatures) {
 		Object rowValue = cellDataFeatures.getValue();
-		String cellValue = tableInfo.getStringValue(rowValue);
+		String cellValue = columnInfo.getCellValue(rowValue);
 		return new ReadOnlyObjectWrapper<String>(cellValue);
 	}
 
