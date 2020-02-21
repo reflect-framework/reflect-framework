@@ -3,7 +3,7 @@ package nth.reflect.fw.ui.swing.component.toolbar;
 import javax.swing.JLabel;
 
 import nth.reflect.fw.gui.component.applicationbar.ApplicationBarStyle;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
@@ -19,8 +19,8 @@ public class MaterialAppBarTitle extends JLabel {
 		ApplicationClassInfo applicationInfo = reflectionProvider.getApplicationClassInfo();
 		String title = applicationInfo.getDisplayName();
 		setText(title);
-		ReflectColors reflectColors = ReflectColors.getFrom(userInterfaceContainer);
-		setForeground(ColorFactory.create(ApplicationBarStyle.getForeground1(reflectColors)));
+		ColorProvider colorProvider = userInterfaceContainer.get(ColorProvider.class);
+		setForeground(ColorFactory.create(ApplicationBarStyle.getForeground1(colorProvider)));
 		setFont(AwtFontFactory.create(ApplicationBarStyle.getTitleFont()));
 	}
 

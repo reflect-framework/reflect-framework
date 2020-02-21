@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
@@ -21,14 +21,14 @@ public class MenuList extends JList<Item> {
 
 	public MenuList(UserInterfaceContainer userInterfaceContainer) {
 		super(new MenuListModel(userInterfaceContainer));
-		ReflectColors reflectColors=ReflectColors.getFrom(userInterfaceContainer);
+		ColorProvider colorProvider=userInterfaceContainer.get(ColorProvider.class);
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setLayoutOrientation(JList.VERTICAL);
-		setCellRenderer(new MenuListRenderer(reflectColors));
+		setCellRenderer(new MenuListRenderer(colorProvider));
 		setVisibleRowCount(-1);
 		addMouseListener(createMouseListener());
 		addKeyListener(createKeyListener());
-		setBackground(ColorFactory.create(reflectColors.getContentColors().getBackground()));
+		setBackground(ColorFactory.create(colorProvider.getContentColors().getBackground()));
 	}
 
 	private KeyListener createKeyListener() {

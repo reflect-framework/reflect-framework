@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.TabsListener;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
@@ -17,8 +17,8 @@ public class ContentPanel extends JPanel implements TabsListener<Tab> {
 
 	public ContentPanel(UserInterfaceContainer userInterfaceContainer, Tabs<Tab> tabs) {
 		tabs.addListener(this);
-		ReflectColors reflectColors = ReflectColors.getFrom(userInterfaceContainer);
-		setBackground(ColorFactory.create(reflectColors.getContentColors().getBackground()));
+		ColorProvider colorProvider = userInterfaceContainer.get(ColorProvider.class);
+		setBackground(ColorFactory.create(colorProvider.getContentColors().getBackground()));
 		setLayout(new BorderLayout());
 	}
 

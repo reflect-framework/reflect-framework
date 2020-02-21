@@ -2,7 +2,7 @@ package nth.reflect.fw.gui.component.tab.form.propertypanel;
 
 import nth.reflect.fw.gui.component.ReflectStyleClass;
 import nth.reflect.fw.gui.style.MaterialFont;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.fw.gui.style.basic.Font;
 
@@ -18,8 +18,8 @@ public class PropertyLabelStyle implements ReflectStyleClass {
 		return MaterialFont.getRobotoRegular(12);
 	}
 
-	public static Color getForeground1(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getForeground();
+	public static Color getForeground1(ColorProvider colorProvider) {
+		return colorProvider.getContentColors().getForeground();
 	}
 
 }

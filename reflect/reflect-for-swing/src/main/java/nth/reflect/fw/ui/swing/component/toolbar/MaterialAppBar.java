@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import nth.reflect.fw.gui.component.applicationbar.ApplicationBarStyle;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.ui.swing.component.button.MaterialButton;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
@@ -16,15 +16,15 @@ import nth.reflect.fw.ui.swing.util.ColorFactory;
 public class MaterialAppBar extends JToolBar {
 
 	private static final long serialVersionUID = 318218084707411312L;
-	private final ReflectColors reflectColors;
+	private final ColorProvider colorProvider;
 
 	public MaterialAppBar(UserInterfaceContainer userInterfaceContainer) throws MalformedURLException {
-		reflectColors = ReflectColors.getFrom(userInterfaceContainer);
+		colorProvider = userInterfaceContainer.get(ColorProvider.class);
 		setFloatable(false);
 		setPreferredSize(new Dimension(0, ApplicationBarStyle.getHeightInPixels()));
-		setBackground(ColorFactory.create(ApplicationBarStyle.getBackGround(reflectColors)));
+		setBackground(ColorFactory.create(ApplicationBarStyle.getBackGround(colorProvider)));
 
-		MaterialButton menuButton = new MaterialAppBarMenuButton(reflectColors);
+		MaterialButton menuButton = new MaterialAppBarMenuButton(colorProvider);
 		add(menuButton);
 		
 		JLabel title=new MaterialAppBarTitle(userInterfaceContainer);

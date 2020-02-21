@@ -2,8 +2,6 @@ package nth.reflect.fw.ui.swing.component.tabpanel;
 
 import java.awt.Dimension;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JToolBar;
@@ -11,7 +9,7 @@ import javax.swing.JToolBar;
 import nth.reflect.fw.gui.component.applicationbar.ApplicationBarStyle;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.TabsListener;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
@@ -19,30 +17,30 @@ import nth.reflect.fw.ui.swing.util.ColorFactory;
 public class MaterialTabBar extends JToolBar implements TabsListener<Tab> {
 
 	private static final long serialVersionUID = 318218084707411312L;
-	private ReflectColors reflectColors;
+	private ColorProvider colorProvider;
 	private final Tabs<Tab> tabs;
 
 	public MaterialTabBar(UserInterfaceContainer userInterfaceContainer, Tabs<Tab> tabs) {
 		this.tabs = tabs;
 		tabs.addListener(this);
-		reflectColors = ReflectColors.getFrom(userInterfaceContainer);
+		colorProvider = userInterfaceContainer.get(ColorProvider.class);
 		setFloatable(false);
 		setPreferredSize(new Dimension(0, 56));
-		setBackground(ColorFactory.create(ApplicationBarStyle.getBackGround(reflectColors)));
+		setBackground(ColorFactory.create(ApplicationBarStyle.getBackGround(colorProvider)));
 	}
 
 	void update() {
 		removeAll();
 		Tab selectedTab = tabs.getSelected();
 		for (Tab tab : tabs) {
-			MaterialTabBarButton tabButton = new MaterialTabBarButton(tabs, reflectColors, tab, selectedTab == tab);
+			MaterialTabBarButton tabButton = new MaterialTabBarButton(tabs, colorProvider, tab, selectedTab == tab);
 			add(tabButton);
 		}
 
 		add(Box.createHorizontalGlue());
 
 		try {
-			MaterialTabBarContextMenuButton minimizeButton = new MaterialTabBarContextMenuButton(reflectColors);
+			MaterialTabBarContextMenuButton minimizeButton = new MaterialTabBarContextMenuButton(colorProvider);
 			add(minimizeButton);
 		} catch (MalformedURLException e) {
 		}

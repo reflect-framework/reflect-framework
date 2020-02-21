@@ -2,7 +2,7 @@ package nth.reflect.fw.gui.component.grid;
 
 import nth.reflect.fw.gui.component.ReflectStyleClass;
 import nth.reflect.fw.gui.style.MaterialFont;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.fw.gui.style.basic.Font;
 
@@ -14,16 +14,16 @@ import nth.reflect.fw.gui.style.basic.Font;
  */
 public class GridStyle implements ReflectStyleClass {
 
-	public static Color getTextColor(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getForeground();
+	public static Color getTextColor(ColorProvider colorProvider) {
+		return colorProvider.getContentColors().getForeground();
 	}
 
-	public static Color getBackground(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getBackground();
+	public static Color getBackground(ColorProvider colorProvider) {
+		return colorProvider.getContentColors().getBackground();
 	}
 
-	public static Color getBackgroundHighLighted(ReflectColors reflectColors) {
-		return reflectColors.getContentColors().getBackground20();
+	public static Color getBackgroundHighLighted(ColorProvider colorProvider) {
+		return colorProvider.getContentColors().getBackground20();
 	}
 
 	public static int getMinHeight() {

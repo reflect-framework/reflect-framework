@@ -8,7 +8,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 import nth.reflect.fw.gui.style.ReflectColorName;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.fw.javafx.control.button.ContentBottomToolbarButton;
 import nth.reflect.fw.javafx.control.button.ContentButton;
@@ -101,7 +101,7 @@ public class StyleSheetUrlHandler extends UrlProvider {
 	 * @param userInterfaceController
 	 */
 	private void appendColorDefinitions(StyleSheet styleSheet, ReflectApplicationForJavaFX applicationForJavaFX) {
-		ReflectColors colors = applicationForJavaFX.getColors();
+		ColorProvider colors = applicationForJavaFX.getColorProvider();
 		StyleGroup colorDefintion = styleSheet.addStyleGroup(StyleSelector.createFor("*"));
 		colorDefintion.getProperties().setColorVariables(ReflectColorName.PRIMARY, colors.getPrimaryColors());
 		colorDefintion.getProperties().setColorVariables(ReflectColorName.ACCENT, colors.getAccentColors());

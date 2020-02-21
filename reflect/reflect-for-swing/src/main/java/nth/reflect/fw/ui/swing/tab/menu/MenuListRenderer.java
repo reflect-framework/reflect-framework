@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import nth.reflect.fw.gui.component.grid.GridStyle;
 import nth.reflect.fw.gui.item.method.MethodOwnerItem;
-import nth.reflect.fw.gui.style.ReflectColors;
+import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.ui.swing.util.AwtFontFactory;
 import nth.reflect.fw.ui.swing.util.ColorFactory;
@@ -18,11 +18,11 @@ import nth.reflect.fw.ui.swing.util.ColorFactory;
 public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 
 	private static final long serialVersionUID = -3154276898763785497L;
-	private final ReflectColors reflectColors;
+	private final ColorProvider colorProvider;
 
 
-	public MenuListRenderer(ReflectColors reflectColors) {
-		this.reflectColors=reflectColors;
+	public MenuListRenderer(ColorProvider colorProvider) {
+		this.colorProvider=colorProvider;
 		setOpaque(true);
 		setPreferredSize(new Dimension(0, GridStyle.getMinHeight()));
 	}
@@ -55,10 +55,10 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 		setFont(AwtFontFactory.create(GridStyle.getCellFont()));
 
 		Color red = Color.RED;//TODO
-		Color foreground = isSelected ? red : ColorFactory.create(GridStyle.getTextColor(reflectColors));
+		Color foreground = isSelected ? red : ColorFactory.create(GridStyle.getTextColor(colorProvider));
 		setForeground(foreground);
-		Color background = hasFocus ? ColorFactory.create(GridStyle.getBackgroundHighLighted(reflectColors))
-				: ColorFactory.create(GridStyle.getBackground(reflectColors));
+		Color background = hasFocus ? ColorFactory.create(GridStyle.getBackgroundHighLighted(colorProvider))
+				: ColorFactory.create(GridStyle.getBackground(colorProvider));
 		setBackground(background);
 		return this;
 	};
@@ -80,10 +80,10 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 		setFont(AwtFontFactory.create(GridStyle.getCellFont()));
 
 		Color red = Color.RED;//TODO
-		Color foreground = isSelected ? red : ColorFactory.create(GridStyle.getTextColor(reflectColors));
+		Color foreground = isSelected ? red : ColorFactory.create(GridStyle.getTextColor(colorProvider));
 		setForeground(foreground);
-		Color background = hasFocus ? ColorFactory.create(GridStyle.getBackgroundHighLighted(reflectColors))
-				: ColorFactory.create(GridStyle.getBackground(reflectColors));
+		Color background = hasFocus ? ColorFactory.create(GridStyle.getBackgroundHighLighted(colorProvider))
+				: ColorFactory.create(GridStyle.getBackground(colorProvider));
 		setBackground(background);
 		return this;
 	}
