@@ -30,9 +30,9 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyFie
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextField;
 import nth.reflect.fw.javafx.control.table.Table;
 import nth.reflect.fw.javafx.control.toolbar.Toolbar;
-import nth.reflect.fw.layer5provider.url.UrlProvider;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
-public class StyleSheetUrlHandler extends UrlProvider {
+public class StyleSheetUrlHandler extends ReflectUrlStreamHandler {
 
 	private final String css;
 

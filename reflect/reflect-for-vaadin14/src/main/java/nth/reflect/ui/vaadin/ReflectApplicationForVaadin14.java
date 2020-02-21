@@ -1,8 +1,5 @@
 package nth.reflect.ui.vaadin;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import com.vaadin.flow.component.html.Div;
@@ -178,8 +175,9 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 	}
 
 	@Override
-	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
+	public UrlProvider getUrlProvider() {
+		return new UrlProvider(new ClassResourceUrlProvider(), new ApplicationUrlProvider(this),
+				new FontIconUrlProvider());
 	}
 
 	@Override

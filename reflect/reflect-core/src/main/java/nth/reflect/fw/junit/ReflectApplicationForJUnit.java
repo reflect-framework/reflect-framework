@@ -1,7 +1,6 @@
 package nth.reflect.fw.junit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
@@ -182,8 +181,8 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	}
 
 	@Override
-	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class);
+	public UrlProvider getUrlProvider() {
+		return new UrlProvider(new ClassResourceUrlProvider(), new ApplicationUrlProvider(this));
 	}
 
 }

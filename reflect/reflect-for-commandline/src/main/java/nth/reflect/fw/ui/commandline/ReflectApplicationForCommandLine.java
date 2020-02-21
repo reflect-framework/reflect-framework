@@ -1,8 +1,6 @@
 package nth.reflect.fw.ui.commandline;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
@@ -99,8 +97,8 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 	}
 
 	@Override
-	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class);
+	public UrlProvider getUrlProvider() {
+		return new UrlProvider(new ClassResourceUrlProvider());
 	}
 
 	public String[] getCommandLineArguments() {

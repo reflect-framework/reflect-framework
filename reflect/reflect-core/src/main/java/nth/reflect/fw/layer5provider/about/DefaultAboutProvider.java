@@ -1,18 +1,18 @@
 package nth.reflect.fw.layer5provider.about;
 
-import nth.reflect.fw.ReflectApplication;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 
 public class DefaultAboutProvider implements AboutProvider {
 
-	private final ReflectApplication application;
+	private ApplicationVersionInfo applicationVersionInfo;
 
-	public DefaultAboutProvider (ReflectApplication application) {
-		this.application = application;
+	public DefaultAboutProvider (ProviderContainer providerContainer) {
+		applicationVersionInfo = new ApplicationVersionInfo(providerContainer);
 	}
 
 	@Override
-	public About about() {
-		return new About(application);
+	public ApplicationVersionInfo getApplicationVersionInfo() {
+		return applicationVersionInfo;
 	}
 
 }

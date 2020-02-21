@@ -5,14 +5,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import nth.reflect.fw.layer5provider.url.UrlProvider;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 /**
  * The {@link FontIconUrlProvider} resolves {@link FontIconUrl}s. {@insert FontIconUrl}
  * @author nilsth
  *
  */
-public class FontIconUrlProvider extends UrlProvider {
+public class FontIconUrlProvider extends ReflectUrlStreamHandler {
 
 	@Override
 	public String getProtocol() {

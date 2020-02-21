@@ -8,7 +8,7 @@ import nth.reflect.fw.layer5provider.url.ReflectUrl;
 /**
  * <p>
  * A {@link ApplicationUrl} is a {@link ReflectUrl} that helps to create a
- * reference to the application folder e.g. to get a resource file
+ * reference to the application folder e.g. to get a resource file.
  * </p>
  * <p>
  * The format of a {@link ApplicationUrl} is: reflect-application://&lt;relative path to resource&gt;

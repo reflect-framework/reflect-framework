@@ -19,5 +19,5 @@ import nth.reflect.fw.layer5provider.Provider;
  */
 public interface AboutProvider extends Provider {
 
-	About about();
+	ApplicationVersionInfo getApplicationVersionInfo();
 }

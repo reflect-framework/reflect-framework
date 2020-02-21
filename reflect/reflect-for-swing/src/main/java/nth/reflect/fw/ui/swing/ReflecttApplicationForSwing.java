@@ -19,6 +19,7 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
@@ -89,15 +90,16 @@ public abstract class ReflecttApplicationForSwing implements GraphicalUserInterf
 	}
 
 	@Override
-	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class);
+	public UrlProvider getUrlProvider() {
+		return new UrlProvider(new ClassResourceUrlProvider(), new ApplicationUrlProvider(this),
+				new FontIconUrlProvider());
 	}
 
 	@Override
 	public PropertyFieldProvider getPropertyFieldProvider() {
-		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
-				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new ManyToOneOrManyFieldFactory(),
-				new OneToOneOrManyFieldFactory() });
+		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
+				new CheckBoxFieldFactory(), new DateTimeFieldFactory(), new ComboBoxFieldFactory(),
+				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
 	}
 
 	/**

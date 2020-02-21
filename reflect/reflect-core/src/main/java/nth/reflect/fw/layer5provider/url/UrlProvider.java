@@ -2,18 +2,16 @@ package nth.reflect.fw.layer5provider.url;
 
 import java.net.URL;
 import java.net.URLStreamHandler;
+import java.net.URLStreamHandlerFactory;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.Provider;
 
 /**
  * <p>
- * You can use custom URL's or {@link ReflectUrl}'s that are translated to
- * normal URL's using {@link UrlProvider}s. {@link UrlProvider}s need to be
- * registered with the {@link ReflectApplication#getUrlProviderClasses()} so
- * that they can be registered with {@link URL#setURLStreamHandlerFactory()}
- * (See {@link ReflectUrlStreamHandlerFactory}). The following paragraphs show
- * examples of {@link UrlProvider}s
+ * The {@link UrlProvider} is a {@link Provider} that ensures you can use
+ * {@link ReflectUrl}'s. It knows {@link ReflectUrlStreamHandler}s that can
+ * convert a {@link ReflectUrl} to a normal {@link URL}. The following
+ * paragraphs show examples of {@link ReflectUrlStreamHandler}s
  * </p>
  * <h3>ApplicationUrlProvider</h3>
  * <p>
@@ -31,7 +29,29 @@ import nth.reflect.fw.layer5provider.Provider;
 
 // TODO look at a maybe nicer solution:
 // http://stackoverflow.com/questions/15195890/nio2-how-to-generically-map-a-uri-to-a-path
-public abstract class UrlProvider extends URLStreamHandler implements Provider {
+public class UrlProvider implements URLStreamHandlerFactory, Provider {
 
-	public abstract String getProtocol();
+	private final ReflectUrlStreamHandler[] urlStreamHandlers;
+
+	public UrlProvider(ReflectUrlStreamHandler... urlStreamHandlers) {
+		this.urlStreamHandlers = urlStreamHandlers;
+		try {
+			// This method can be called at most once in a given Java Virtual Machine.
+			URL.setURLStreamHandlerFactory(this);
+		} catch (Throwable e) {
+			// Do nothing: The URL.setURLStreamHandlerFactory(this) method was already
+			// called. We assume it was with the correct urlStreamHandlers
+		}
+	}
+
+	@Override
+	public URLStreamHandler createURLStreamHandler(String protocol) {
+		for (ReflectUrlStreamHandler urlProvider : urlStreamHandlers) {
+			if (urlProvider.getProtocol().equals(protocol)) {
+				return urlProvider;
+			}
+		}
+		return null;
+	}
+
 }

@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.layer5provider.url.UrlProvider;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 /**
  * A {@link ApplicationUrlProvider} handles a {@link ApplicationUrl}.
@@ -16,7 +16,7 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
  * @author nilsth
  *
  */
-public class ApplicationUrlProvider extends UrlProvider {
+public class ApplicationUrlProvider extends ReflectUrlStreamHandler {
 
 	private static final String JAR_EXTENTION = ".JAR";
 	private static final String EXE_EXTENTION = ".EXE";

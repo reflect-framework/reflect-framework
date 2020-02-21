@@ -14,6 +14,7 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
@@ -113,7 +114,7 @@ public interface ReflectApplication {
 
 	public Class<? extends NotificationProvider> getNotificationProviderClass();
 
-	public List<Class<? extends UrlProvider>> getUrlProviderClasses();
+	public UrlProvider getUrlProvider();
 
 	public List<Class<?>> getServiceClasses();
 

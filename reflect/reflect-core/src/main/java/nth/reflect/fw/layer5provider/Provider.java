@@ -11,6 +11,7 @@ import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
@@ -23,7 +24,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <li>Validation (see {@link ValidationProvider})</li>
  * <li>Multi language (see {@link LanguageProvider})</li>
  * <li>Notifications (see {@link NotificationProvider})</li>
- * <li>File path information (see {@link UrlProvider})</li>
+ * <li>File path information (see {@link ReflectUrlStreamHandler})</li>
  * <li>Object meta information (see {@link ReflectionProvider})</li>
  * <li>Version information (see {@link AboutProvider})</li>
  * </ul>
@@ -80,7 +81,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <p>
  * {@insert AboutProvider}
  * </p>
- * <h2>URL Providers</h2>
+ * <h2>URL Provider</h2>
  * <p>
  * {@insert UrlProvider}
  * </p>

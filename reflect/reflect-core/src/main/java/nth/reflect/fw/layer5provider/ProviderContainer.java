@@ -12,8 +12,6 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.container.exception.ClassAlreadyRegisteredInContainerException;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandlerFactory;
-import nth.reflect.fw.layer5provider.url.UrlProvider;
 
 /**
  * This {@link DependencyInjectionContainer} represents the
@@ -29,22 +27,7 @@ public class ProviderContainer extends DependencyInjectionContainer {
 
 		add(application);
 
-		addUrlProvider(application);
-
 		addProvidersFromApplication(application);
-	}
-
-	private void addUrlProvider(ReflectApplication application) {
-		for (Class<? extends UrlProvider> urlProviderClass : application.getUrlProviderClasses()) {
-			add(urlProviderClass);
-		}
-		try {
-			ReflectUrlStreamHandlerFactory urlStreamHandlerFactory = new ReflectUrlStreamHandlerFactory(application,
-					this);
-			urlStreamHandlerFactory.register();
-		} catch (Error error) {
-			// assuming we already set the urlStreamHandlerFactory
-		}
 	}
 
 	private void addProvidersFromApplication(ReflectApplication application) {

@@ -1,8 +1,5 @@
 package nth.reflect.fw.javafx;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nth.reflect.fw.ReflectFramework;
@@ -116,16 +113,16 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public List<Class<? extends UrlProvider>> getUrlProviderClasses() {
-		return Arrays.asList(ClassResourceUrlProvider.class, ApplicationUrlProvider.class, FontIconUrlProvider.class,
-				StyleSheetUrlHandler.class);
+	public UrlProvider getUrlProvider() {
+		return new UrlProvider(new ClassResourceUrlProvider(), new ApplicationUrlProvider(this),
+				new FontIconUrlProvider(), new StyleSheetUrlHandler(this));
 	}
 
 	@Override
 	public PropertyFieldProvider getPropertyFieldProvider() {
-		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
-				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
-				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
+		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
+				new CheckBoxFieldFactory(), new DateTimeFieldFactory(), new ComboBoxFieldFactory(),
+				new TableFieldFactory(), new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
 	}
 
 	public Stage getPrimaryStage() {
