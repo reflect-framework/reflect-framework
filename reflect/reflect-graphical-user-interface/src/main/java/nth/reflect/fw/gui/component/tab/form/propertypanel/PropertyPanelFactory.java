@@ -3,7 +3,7 @@ package nth.reflect.fw.gui.component.tab.form.propertypanel;
 import java.util.Optional;
 
 import nth.reflect.fw.generic.exception.ReflectTranslatableException;
-import nth.reflect.fw.generic.translatablestring.ReflectTranslatable;
+import nth.reflect.fw.generic.translatablestring.Translatable;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
@@ -15,12 +15,12 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 
 public abstract class PropertyPanelFactory<PROPERTY_PANEL> {
 
-	@ReflectTranslatable
+	@Translatable
 	private static final String COULD_NOT_FIND_A_S_FOR_DOMAIN_OBJECT_PROPERTY_S = "%s could not find a %s for domain object property: %s of type %s";
-	private final PropertyFieldProvider propertyFieldService;
+	private final PropertyFieldProvider propertyFieldProvider;
 
-	public PropertyPanelFactory(GraphicalUserInterfaceApplication application) {
-		propertyFieldService = application.getPropertyFieldService();
+	public PropertyPanelFactory(PropertyFieldProvider propertyFieldProvider) {
+		this.propertyFieldProvider = propertyFieldProvider;
 	}
 
 	/**
@@ -30,7 +30,7 @@ public abstract class PropertyPanelFactory<PROPERTY_PANEL> {
 	public PROPERTY_PANEL createPropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel) {
 		PropertyFieldFactoryInfo info = new PropertyFieldFactoryInfo(formTab, propertyValueModel);
 
-		Optional<PropertyField> propertyField = propertyFieldService.create(info);
+		Optional<PropertyField> propertyField = propertyFieldProvider.create(info);
 
 		if (propertyField.isPresent()) {
 			return createPropertyPanel(formTab, propertyValueModel, propertyField.get());

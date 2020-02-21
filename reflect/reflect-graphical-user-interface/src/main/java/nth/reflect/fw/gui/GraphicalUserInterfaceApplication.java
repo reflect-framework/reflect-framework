@@ -9,5 +9,5 @@ public interface GraphicalUserInterfaceApplication extends ReflectApplication {
 
 	public ReflectColors getColors() ;
 	
-	public PropertyFieldProvider getPropertyFieldService();
+	public PropertyFieldProvider getPropertyFieldProvider();
 }

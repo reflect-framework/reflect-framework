@@ -12,10 +12,10 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.item.method.FormOkItem;
@@ -105,9 +105,9 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 		List<PropertyInfo> propertyInfos = getPropertyInfos(domainObject);
 
 		List<PropertyPanel> propertyPanels = new ArrayList<>();
-		GraphicalUserInterfaceApplication application = userInterfaceContainer
-				.get(GraphicalUserInterfaceApplication.class);
-		PropertyPanelFactory propertyPanelFactory = new PropertyPanelFactory(application);
+		PropertyFieldProvider propertyFieldProvider=userInterfaceContainer
+				.get(PropertyFieldProvider.class);;
+		PropertyPanelFactory propertyPanelFactory = new PropertyPanelFactory(propertyFieldProvider);
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
 			PropertyPanel propertyPanel = propertyPanelFactory.createPropertyPanel(this, propertyValueModel);

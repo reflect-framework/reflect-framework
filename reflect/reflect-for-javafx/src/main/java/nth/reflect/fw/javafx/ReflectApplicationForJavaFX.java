@@ -122,7 +122,7 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public PropertyFieldProvider getPropertyFieldService() {
+	public PropertyFieldProvider getPropertyFieldProvider() {
 		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
 				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
 				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });

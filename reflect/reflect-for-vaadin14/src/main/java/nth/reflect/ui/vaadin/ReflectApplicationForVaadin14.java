@@ -183,7 +183,7 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 	}
 
 	@Override
-	public PropertyFieldProvider getPropertyFieldService() {
+	public PropertyFieldProvider getPropertyFieldProvider() {
 		return new PropertyFieldProvider(
 				new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(), new ToDoFieldFactory()
 //				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),

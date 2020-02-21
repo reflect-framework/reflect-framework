@@ -22,6 +22,7 @@ import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.javafx.control.dialog.Dialog;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
@@ -195,9 +196,8 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		GraphicalUserInterfaceApplication application = userInterfaceContainer
-				.get(GraphicalUserInterfaceApplication.class);
-		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(application);
+		PropertyFieldProvider propertyFieldProvider=userInterfaceContainer.get(PropertyFieldProvider.class);
+		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(propertyFieldProvider);
 	}
 
 }

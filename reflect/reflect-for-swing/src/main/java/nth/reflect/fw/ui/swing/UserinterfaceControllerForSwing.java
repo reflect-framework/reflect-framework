@@ -18,6 +18,7 @@ import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
@@ -194,8 +195,8 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 
 	@Override
 	public PropertyPanelFactory getPropertyPanelFactory() {
-		GraphicalUserInterfaceApplication application = userInterfaceContainer.get(GraphicalUserInterfaceApplication.class);
-		return new PropertyPanelFactory(application);
+		PropertyFieldProvider propertyFieldProvider=userInterfaceContainer.get(PropertyFieldProvider.class);
+		return new PropertyPanelFactory(propertyFieldProvider);
 	}
 
 }

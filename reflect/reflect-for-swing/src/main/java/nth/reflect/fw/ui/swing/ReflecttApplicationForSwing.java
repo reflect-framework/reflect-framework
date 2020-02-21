@@ -94,7 +94,7 @@ public abstract class ReflecttApplicationForSwing implements GraphicalUserInterf
 	}
 
 	@Override
-	public PropertyFieldProvider getPropertyFieldService() {
+	public PropertyFieldProvider getPropertyFieldProvider() {
 		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(), new CheckBoxFieldFactory(),
 				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new ManyToOneOrManyFieldFactory(),
 				new OneToOneOrManyFieldFactory() });

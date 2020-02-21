@@ -16,7 +16,7 @@ import nth.reflect.fw.layer5provider.Provider;
  * <p>
  * You can add custom fields by implementing {@link PropertyField} and
  * {@link PropertyFieldFactory} and overriding the
- * {@link GraphicalUserInterfaceApplication#getPropertyFieldService()}. Look at
+ * {@link GraphicalUserInterfaceApplication#getPropertyFieldProvider()}. Look at
  * the existing implementations for inspiration.
  * <p>
  * 

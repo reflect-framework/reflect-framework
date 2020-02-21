@@ -7,7 +7,7 @@ import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.function.ValueProvider;
 
-import nth.reflect.fw.generic.translatablestring.ReflectTranslatable;
+import nth.reflect.fw.generic.translatablestring.Translatable;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.table.info.ColumnInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
@@ -19,9 +19,9 @@ import nth.reflect.ui.vaadin.tab.Tab;
 public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
 
 	private static final long serialVersionUID = -7981487179996807252L;
-	@ReflectTranslatable
+	@Translatable
 	private static final String ERROR_INVOKING_ACTION_METHOD = "Error invoking action method: %s";
-	@ReflectTranslatable
+	@Translatable
 	private static final String ERROR_INVOKING_ACTION_METHOD_THE_RETURN_TYPE_IS_NOT_SUPPORTED_FOR_A_TABLE_TAB = "Error invoking action method: %s The return type %s is not supported for a GridTab.";
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final Object actionMethodOwner;

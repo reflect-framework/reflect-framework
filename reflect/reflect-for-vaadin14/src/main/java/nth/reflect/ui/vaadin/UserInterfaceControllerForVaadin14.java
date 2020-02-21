@@ -14,6 +14,7 @@ import com.vaadin.flow.server.Command;
 
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
@@ -31,14 +32,15 @@ import nth.reflect.ui.vaadin.tab.treegrid.TreeTableTab;
 public class UserInterfaceControllerForVaadin14
 		extends GraphicalUserinterfaceController<nth.reflect.ui.vaadin.tab.Tab, PropertyPanel> {
 
-	private final ReflectApplicationForVaadin14 reflectAppForVaadin;
 	private final PropertyPanelFactory propertyPanelFactory;
 	private final Dialog dialog;
+	private final ReflectApplicationForVaadin14 reflectAppForVaadin;
 
 	public UserInterfaceControllerForVaadin14(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin14.class);
-		propertyPanelFactory = new PropertyPanelFactory(reflectAppForVaadin);
+		reflectAppForVaadin=userInterfaceContainer.get(ReflectApplicationForVaadin14.class);
+		PropertyFieldProvider propertyFieldProvider=userInterfaceContainer.get(PropertyFieldProvider.class);
+		propertyPanelFactory = new PropertyPanelFactory(propertyFieldProvider);
 		dialog = new Dialog();
 	}
 

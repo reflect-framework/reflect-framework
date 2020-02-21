@@ -1,19 +1,19 @@
 package nth.reflect.fw.layer5provider;
 
-import java.util.ArrayList;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.container.exception.ProviderNotDefined;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
-import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
+import nth.reflect.fw.container.exception.ClassAlreadyRegisteredInContainerException;
+import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.notification.NotificationProvider;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandlerFactory;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
-import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
 /**
  * This {@link DependencyInjectionContainer} represents the
@@ -29,42 +29,69 @@ public class ProviderContainer extends DependencyInjectionContainer {
 
 		add(application);
 
-		List<Provider> providers=getProvidersThatAreCreatedByTheApplication(application);
-		for (Provider provider : providers) {
-			add(provider);
-		}
-		
-		// add provider classes
+		addUrlProvider(application);
+
+		addProvidersFromApplication(application);
+	}
+
+	private void addUrlProvider(ReflectApplication application) {
 		for (Class<? extends UrlProvider> urlProviderClass : application.getUrlProviderClasses()) {
 			add(urlProviderClass);
 		}
 		try {
-			ReflectUrlStreamHandlerFactory urlStreamHandlerFactory = new ReflectUrlStreamHandlerFactory(
-					application, this);
+			ReflectUrlStreamHandlerFactory urlStreamHandlerFactory = new ReflectUrlStreamHandlerFactory(application,
+					this);
 			urlStreamHandlerFactory.register();
 		} catch (Error error) {
 			// assuming we already set the urlStreamHandlerFactory
 		}
-
-		add(application.getLanguageProviderClass(), LanguageProvider.class, application);
-		add(application.getValidationProviderClass(), ValidationProvider.class, application);
-		add(application.getAuthorizationProviderClass(), AuthorizationProvider.class, application);
-		add(application.getNotificationProviderClass(), NotificationProvider.class, application);
-		add(application.getReflectionProviderClass(), ReflectionProvider.class, application);
-		add(application.getAboutProviderClass(), AboutProvider.class, application);
 	}
 
-	private List<Provider> getProvidersThatAreCreatedByTheApplication(ReflectApplication application) {
-		List<Provider> providers=new ArrayList();
-		return providers;
-	}
-
-	private void add(Class<? extends Provider> provider, Class<?> providerType,
-			ReflectApplication application) {
-		if (provider == null || !providerType.isAssignableFrom(provider)) {
-			throw new ProviderNotDefined(application, providerType);
+	private void addProvidersFromApplication(ReflectApplication application) {
+		List<Method> methods = findApplicationMethodsThatReturnProvider(application);
+		for (Method method : methods) {
+			method.setAccessible(true);
+			try {
+				Object provider = method.invoke(application);
+				if (provider == null) {
+					LanguageProvider languageProvider = new DefaultLanguageProvider();
+					throw new CouldNotGetProviderException(languageProvider, method);
+				}
+				if (provider instanceof Class) {
+					add((Class<?>) provider);
+				} else {
+					add(provider);
+				}
+			} catch (ClassAlreadyRegisteredInContainerException e) {
+				// do nothing
+			} catch (Exception e) {
+				LanguageProvider languageProvider = new DefaultLanguageProvider();
+				throw new CouldNotGetProviderException(languageProvider, method, e);
+			}
 		}
-		add(provider);
+	}
+
+	private List<Method> findApplicationMethodsThatReturnProvider(ReflectApplication application) {
+		Set<Method> allMethods = findAllMethods(application.getClass());
+		ProviderMethodFilter providerMethodFilter = new ProviderMethodFilter();
+		List<Method> methodsThatReturnProvider = allMethods.stream().filter(providerMethodFilter)
+				.collect(Collectors.toList());
+		return methodsThatReturnProvider;
+	}
+
+	private Set<Method> findAllMethods(Class<?> objectClass) {
+		Set<Method> allMethods = new HashSet<Method>();
+		Method[] declaredMethods = objectClass.getDeclaredMethods();
+		allMethods.addAll(Arrays.asList(declaredMethods));
+		Method[] methods = objectClass.getMethods();
+		allMethods.addAll(Arrays.asList(methods));
+		Class<?> superclass = objectClass.getSuperclass();
+		if (superclass != null && superclass != Object.class) {
+			Class<?> superClass = objectClass.getSuperclass();
+			Set<Method> superClassMethods = findAllMethods(superClass);
+			allMethods.addAll(superClassMethods);
+		}
+		return allMethods;
 	}
 
 }
