@@ -1,12 +1,12 @@
-package nth.reflect.fw.layer5provider.about;
+package nth.reflect.fw.layer5provider.version;
 
 import nth.reflect.fw.layer5provider.ProviderContainer;
 
-public class DefaultAboutProvider implements AboutProvider {
+public class DefaultVersionProvider implements VersionProvider {
 
 	private ApplicationVersionInfo applicationVersionInfo;
 
-	public DefaultAboutProvider (ProviderContainer providerContainer) {
+	public DefaultVersionProvider (ProviderContainer providerContainer) {
 		applicationVersionInfo = new ApplicationVersionInfo(providerContainer);
 	}
 

@@ -14,8 +14,6 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.Propert
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
-import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -31,6 +29,8 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.tab.form.row.field.CheckBoxFieldFactory;
 import nth.reflect.ui.vaadin.tab.form.row.field.TextFieldFactory;
@@ -150,8 +150,8 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 	}
 
 	@Override
-	public Class<? extends AboutProvider> getAboutProviderClass() {
-		return DefaultAboutProvider.class;
+	public Class<? extends VersionProvider> getVersionProviderClass() {
+		return DefaultVersionProvider.class;
 	}
 
 	@Override

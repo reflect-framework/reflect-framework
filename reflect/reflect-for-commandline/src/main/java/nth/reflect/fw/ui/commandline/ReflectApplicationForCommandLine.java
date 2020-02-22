@@ -6,8 +6,6 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
-import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -20,6 +18,8 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 /**
  * <p>
@@ -72,8 +72,8 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 	}
 
 	@Override
-	public Class<? extends AboutProvider> getAboutProviderClass() {
-		return DefaultAboutProvider.class;
+	public Class<? extends VersionProvider> getVersionProviderClass() {
+		return DefaultVersionProvider.class;
 	}
 
 	@Override

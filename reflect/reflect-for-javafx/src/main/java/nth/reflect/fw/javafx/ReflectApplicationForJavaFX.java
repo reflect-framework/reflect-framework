@@ -16,8 +16,6 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.OneToOneOrManyFiel
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TableFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
-import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -32,6 +30,8 @@ import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 /**
  * <p>
@@ -88,8 +88,8 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public Class<? extends AboutProvider> getAboutProviderClass() {
-		return DefaultAboutProvider.class;
+	public Class<? extends VersionProvider> getVersionProviderClass() {
+		return DefaultVersionProvider.class;
 	}
 
 	@Override

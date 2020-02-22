@@ -1,16 +1,12 @@
 package nth.reflect.fw.ui.swing;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.List;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
-import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -19,13 +15,14 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.CheckBoxFieldFactory;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.ComboBoxFieldFactory;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.DateTimeFieldFactory;
@@ -65,8 +62,8 @@ public abstract class ReflecttApplicationForSwing implements GraphicalUserInterf
 	}
 
 	@Override
-	public Class<? extends AboutProvider> getAboutProviderClass() {
-		return DefaultAboutProvider.class;
+	public Class<? extends VersionProvider> getVersionProviderClass() {
+		return DefaultVersionProvider.class;
 	}
 
 	@Override

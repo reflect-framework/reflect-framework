@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.about;
+package nth.reflect.fw.layer5provider.version;
 
 import java.net.URI;
 import java.net.URISyntaxException;

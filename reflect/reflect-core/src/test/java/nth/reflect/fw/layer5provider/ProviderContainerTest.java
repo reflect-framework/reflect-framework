@@ -8,12 +8,12 @@ import org.junit.Test;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 public class ProviderContainerTest {
 
@@ -42,7 +42,7 @@ public class ProviderContainerTest {
 
 	@Test
 	public void testGet_givenAboutProvider_mustNotBeNull() {
-		assertThat(providerContainer.get(AboutProvider.class)).isNotNull();
+		assertThat(providerContainer.get(VersionProvider.class)).isNotNull();
 	}
 
 	@Test

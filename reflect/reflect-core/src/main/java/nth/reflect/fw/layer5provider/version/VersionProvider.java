@@ -1,10 +1,10 @@
-package nth.reflect.fw.layer5provider.about;
+package nth.reflect.fw.layer5provider.version;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.Provider;
 
 /**
- * The {@link AboutProvider} provides the following information on all objects
+ * The {@link VersionProvider} provides the following information on all objects
  * used in an {@link ReflectApplication}:
  * <ul>
  * <li>The class name</li>
@@ -17,7 +17,7 @@ import nth.reflect.fw.layer5provider.Provider;
  * @author nilsth
  *
  */
-public interface AboutProvider extends Provider {
+public interface VersionProvider extends Provider {
 
 	ApplicationVersionInfo getApplicationVersionInfo();
 }

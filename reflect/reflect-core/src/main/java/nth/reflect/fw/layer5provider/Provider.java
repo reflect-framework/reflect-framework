@@ -6,7 +6,6 @@ import nth.reflect.fw.container.ConstructionInjection;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObject;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
@@ -14,6 +13,7 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 /**
  * {@link Provider}s are like {@link ServiceObject}s, but they
@@ -26,7 +26,7 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
  * <li>Notifications (see {@link NotificationProvider})</li>
  * <li>File path information (see {@link ReflectUrlStreamHandler})</li>
  * <li>Object meta information (see {@link ReflectionProvider})</li>
- * <li>Version information (see {@link AboutProvider})</li>
+ * <li>Version information (see {@link VersionProvider})</li>
  * </ul>
  * <p>
  * {@link Provider}s may be used by any class within an application.

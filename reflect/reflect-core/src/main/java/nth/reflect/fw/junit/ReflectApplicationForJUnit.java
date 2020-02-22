@@ -14,8 +14,6 @@ import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
-import nth.reflect.fw.layer5provider.about.DefaultAboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -29,6 +27,8 @@ import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
+import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 
 /**
  * The {@link ReflectApplicationForJUnit} is created to be used for
@@ -146,8 +146,8 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	}
 
 	@Override
-	public Class<? extends AboutProvider> getAboutProviderClass() {
-		return DefaultAboutProvider.class;
+	public Class<? extends VersionProvider> getVersionProviderClass() {
+		return DefaultVersionProvider.class;
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
-import nth.reflect.fw.layer5provider.about.AboutProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
@@ -17,6 +16,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 /**
  * {@link ReflectApplication} is used as initialization parameter for the
@@ -104,7 +104,7 @@ public interface ReflectApplication {
 
 	public Class<? extends ReflectionProvider> getReflectionProviderClass();
 
-	public Class<? extends AboutProvider> getAboutProviderClass();
+	public Class<? extends VersionProvider> getVersionProviderClass();
 
 	public Class<? extends LanguageProvider> getLanguageProviderClass();
 
