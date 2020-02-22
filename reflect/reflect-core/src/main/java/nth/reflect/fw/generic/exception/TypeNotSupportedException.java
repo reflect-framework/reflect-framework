@@ -1,7 +1,7 @@
 package nth.reflect.fw.generic.exception;
 
-import nth.reflect.fw.generic.translatablestring.Translatable;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.Translatable;
 
 public class TypeNotSupportedException extends ReflectTranslatableException {
 

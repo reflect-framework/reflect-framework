@@ -1,4 +1,4 @@
-package nth.reflect.fw.generic.translatablestring;
+package nth.reflect.fw.layer5provider.language.translatable;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

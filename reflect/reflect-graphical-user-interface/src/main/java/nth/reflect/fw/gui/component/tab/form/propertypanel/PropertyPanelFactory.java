@@ -3,7 +3,6 @@ package nth.reflect.fw.gui.component.tab.form.propertypanel;
 import java.util.Optional;
 
 import nth.reflect.fw.generic.exception.ReflectTranslatableException;
-import nth.reflect.fw.generic.translatablestring.Translatable;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
@@ -12,6 +11,7 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.Propert
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer5provider.language.translatable.Translatable;
 
 public abstract class PropertyPanelFactory<PROPERTY_PANEL> {
 

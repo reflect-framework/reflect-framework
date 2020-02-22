@@ -1,8 +1,8 @@
 package nth.reflect.fw.generic.exception;
 
-import nth.reflect.fw.generic.translatablestring.TranslatableString;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class ReflectTranslatableException extends ReflectException {
 

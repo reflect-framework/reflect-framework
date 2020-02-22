@@ -1,4 +1,4 @@
-package nth.reflect.fw.generic.translatablestring;
+package nth.reflect.fw.layer5provider.language.translatable;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;

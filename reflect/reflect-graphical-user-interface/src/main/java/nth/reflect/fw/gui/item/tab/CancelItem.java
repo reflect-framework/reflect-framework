@@ -3,12 +3,12 @@ package nth.reflect.fw.gui.item.tab;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import nth.reflect.fw.generic.translatablestring.Translatable;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.Translatable;
 
 
 public class CancelItem<TAB extends Tab> extends Item {

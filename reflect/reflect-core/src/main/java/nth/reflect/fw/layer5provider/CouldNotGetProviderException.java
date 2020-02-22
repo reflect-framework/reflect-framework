@@ -3,8 +3,8 @@ package nth.reflect.fw.layer5provider;
 import java.lang.reflect.Method;
 
 import nth.reflect.fw.generic.exception.ReflectTranslatableException;
-import nth.reflect.fw.generic.translatablestring.Translatable;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.Translatable;
 
 public class CouldNotGetProviderException extends ReflectTranslatableException {
 
