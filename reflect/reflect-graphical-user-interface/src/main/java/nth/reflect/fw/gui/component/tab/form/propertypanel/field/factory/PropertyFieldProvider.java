@@ -1,8 +1,8 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
+import nth.reflect.fw.generic.contractor.DelegatingContractor;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.gui.factory.DelegatingContractor;
 import nth.reflect.fw.layer5provider.Provider;
 
 /**

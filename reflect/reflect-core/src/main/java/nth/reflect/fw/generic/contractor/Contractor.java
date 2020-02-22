@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.factory;
+package nth.reflect.fw.generic.contractor;
 
 import java.util.Optional;
 

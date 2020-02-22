@@ -1,11 +1,11 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
+import nth.reflect.fw.generic.contractor.Contractor;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanel;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.gui.factory.Contractor;
 
 /**
  * <p>
