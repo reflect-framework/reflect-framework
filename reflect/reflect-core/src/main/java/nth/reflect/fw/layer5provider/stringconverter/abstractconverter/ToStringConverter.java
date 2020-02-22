@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.stringconverter.converter;
+package nth.reflect.fw.layer5provider.stringconverter.abstractconverter;
 
 public interface ToStringConverter<T> {
 
