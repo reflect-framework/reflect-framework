@@ -14,8 +14,10 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.stringconverter.DefaultStringConverters;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
-import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
+import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
@@ -98,9 +100,14 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 
 	@Override
 	public UrlProvider getUrlProvider() {
-		return new UrlProvider(new ClassResourceUrlProvider());
+		return new UrlProvider(new ClassResourceUrlStreamHandler());
 	}
-
+	
+	@Override
+	public StringConverterProvider getStringConverterProvider() {
+		return new StringConverterProvider(DefaultStringConverters.getAll());
+	}
+	
 	public String[] getCommandLineArguments() {
 		return commandLineArguments;
 	}

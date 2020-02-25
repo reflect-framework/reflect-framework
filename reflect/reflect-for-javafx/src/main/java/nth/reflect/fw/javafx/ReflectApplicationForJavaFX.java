@@ -24,10 +24,12 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.stringconverter.DefaultStringConverters;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
-import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
-import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
-import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlProvider;
+import nth.reflect.fw.layer5provider.url.application.ApplicationUrlStreamHandler;
+import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
+import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlStreamHandler;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
@@ -114,10 +116,15 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 
 	@Override
 	public UrlProvider getUrlProvider() {
-		return new UrlProvider(new ClassResourceUrlProvider(), new ApplicationUrlProvider(this),
-				new FontIconUrlProvider(), new StyleSheetUrlHandler(this));
+		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this),
+				new FontIconUrlStreamHandler(), new StyleSheetUrlHandler(this));
 	}
 
+	@Override
+	public StringConverterProvider getStringConverterProvider() {
+		return new StringConverterProvider(DefaultStringConverters.getAll());
+	}
+	
 	@Override
 	public PropertyFieldProvider getPropertyFieldProvider() {
 		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
@@ -125,6 +132,8 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 				new TableFieldFactory(), new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
 	}
 
+	
+	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}

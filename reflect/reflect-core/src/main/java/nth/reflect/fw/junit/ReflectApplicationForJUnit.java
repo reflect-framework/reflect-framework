@@ -22,13 +22,15 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
+import nth.reflect.fw.layer5provider.stringconverter.converter.NumberStringConverterFactory;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
-import nth.reflect.fw.layer5provider.url.application.ApplicationUrlProvider;
-import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlProvider;
+import nth.reflect.fw.layer5provider.url.application.ApplicationUrlStreamHandler;
+import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
-import nth.reflect.fw.layer5provider.version.VersionProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
+import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 /**
  * The {@link ReflectApplicationForJUnit} is created to be used for
@@ -182,7 +184,11 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 
 	@Override
 	public UrlProvider getUrlProvider() {
-		return new UrlProvider(new ClassResourceUrlProvider(), new ApplicationUrlProvider(this));
+		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this));
 	}
-
+	
+	@Override
+	public StringConverterProvider getStringConverterProvider() {
+		return new StringConverterProvider(new NumberStringConverterFactory());
+	}
 }

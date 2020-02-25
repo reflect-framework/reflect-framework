@@ -13,7 +13,7 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
  *
  * @param <T> The type that the {@link StringConverter} converts from or to.
  */
-public abstract class StringConverter<T> implements ToStringConverter<T> {
+public abstract class StringConverter {
 
 	protected final DependencyInjectionContainer container;
 	protected final Optional<String> formatPattern;
@@ -22,5 +22,22 @@ public abstract class StringConverter<T> implements ToStringConverter<T> {
 		this.container = container;
 		this.formatPattern = formatPattern;
 	}
+	
+	/**
+	 * Converts the object provided into its string form. Format of the returned
+	 * string is defined by the specific converter.
+	 * 
+	 * @return a string representation of the object passed in.
+	 */
+	public abstract String toString(Object value);
+	
+	/**
+	 * Converts the string provided into an object defined by the specific
+	 * converter. Format of the string and type of the resulting object is defined
+	 * by the specific converter.
+	 * 
+	 * @return an object representation of the string passed in.
+	 */
+	public abstract  Object fromStringConverter(String value);
 
 }
