@@ -9,20 +9,20 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 /**
- * A {@link ApplicationUrlProvider} handles a {@link ApplicationUrl}.
+ * A {@link ApplicationUrlStreamHandler} handles a {@link ApplicationUrl}.
  * 
  * {@insert ApplicationUrl}
  * 
  * @author nilsth
  *
  */
-public class ApplicationUrlProvider extends ReflectUrlStreamHandler {
+public class ApplicationUrlStreamHandler extends ReflectUrlStreamHandler {
 
 	private static final String JAR_EXTENTION = ".JAR";
 	private static final String EXE_EXTENTION = ".EXE";
 	private URL applicationUrl;
 
-	public ApplicationUrlProvider(ReflectApplication application) {
+	public ApplicationUrlStreamHandler(ReflectApplication application) {
 		applicationUrl = application.getClass().getProtectionDomain().getCodeSource().getLocation();
 		String fileName = applicationUrl.getFile().toUpperCase();
 		if (fileName.endsWith(JAR_EXTENTION) || fileName.endsWith(EXE_EXTENTION)) {

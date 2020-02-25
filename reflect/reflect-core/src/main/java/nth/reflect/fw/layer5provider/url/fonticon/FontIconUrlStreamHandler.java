@@ -8,11 +8,11 @@ import java.net.URLConnection;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 /**
- * The {@link FontIconUrlProvider} resolves {@link FontIconUrl}s. {@insert FontIconUrl}
+ * The {@link FontIconUrlStreamHandler} resolves {@link FontIconUrl}s. {@insert FontIconUrl}
  * @author nilsth
  *
  */
-public class FontIconUrlProvider extends ReflectUrlStreamHandler {
+public class FontIconUrlStreamHandler extends ReflectUrlStreamHandler {
 
 	@Override
 	public String getProtocol() {

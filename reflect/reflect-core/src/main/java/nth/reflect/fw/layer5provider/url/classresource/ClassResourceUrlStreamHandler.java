@@ -7,13 +7,13 @@ import java.net.URLConnection;
 
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 /**
- * A {@link ClassResourceUrlProvider} handles a {@link ClassResourceUrl}.
+ * A {@link ClassResourceUrlStreamHandler} handles a {@link ClassResourceUrl}.
  * 
  * {@insert ClassResourceUrl}
  * @author nilsth
  *
  */
-public class ClassResourceUrlProvider extends ReflectUrlStreamHandler {
+public class ClassResourceUrlStreamHandler extends ReflectUrlStreamHandler {
 
 	@Override
 	public String getProtocol() {

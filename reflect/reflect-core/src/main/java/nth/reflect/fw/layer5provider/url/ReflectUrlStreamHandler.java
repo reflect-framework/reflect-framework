@@ -1,9 +1,7 @@
 package nth.reflect.fw.layer5provider.url;
 
-import java.net.URL;
 import java.net.URLStreamHandler;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.Provider;
 
 /**
