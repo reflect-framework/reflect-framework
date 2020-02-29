@@ -29,7 +29,7 @@ public class CheckBoxFieldFactoryTest extends FieldFactoryTest {
 
 	@Test
 	public void testCanCreate_forSimpleBooleanProperty_mustReturnTrue() throws NoSuchMethodException, SecurityException {
-		assertCanCreate(checkBoxFieldFactory, DomainObject.IS_MY_SIMPLE_BOOLEAN, true);
+		assertCanCreate(checkBoxFieldFactory, DomainObject.IS_MY_PRIMITIVE_BOOLEAN, true);
 	}
 
 	@Test

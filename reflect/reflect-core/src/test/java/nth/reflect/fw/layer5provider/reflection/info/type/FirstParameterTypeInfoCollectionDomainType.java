@@ -4,15 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 public class FirstParameterTypeInfoCollectionDomainType {
 

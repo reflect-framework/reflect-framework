@@ -31,8 +31,6 @@ public class TypeInfo {
 	private final boolean isCollection;
 	private final boolean hasMultipleValues;
 	private final boolean isJavaType;
-	private final boolean isPrimitive;
-	private final boolean isPrimitiveWrapper;	
 	private final boolean isDomainClass;
 	private final boolean isArray;
 	private final boolean isMap;
@@ -42,8 +40,6 @@ public class TypeInfo {
 	public TypeInfo(ReflectApplication reflectApplication, Class<?> type, Type genericType) {
 		this.type = type;
 		this.arrayOrCollectionTypeInfo = getArrayOrCollectionTypeInfo(reflectApplication, genericType);
-		this.isPrimitive=PrimitiveType.isPrimative(type);
-		this.isPrimitiveWrapper=PrimitiveType.isWrapper(type);
 		this.isVoid = isVoid(type);
 		this.isCollection = Collection.class.isAssignableFrom(this.type);
 		this.isMap = Map.class.isAssignableFrom(this.type);
@@ -197,7 +193,7 @@ public class TypeInfo {
 	
 
 	public  boolean isJavaType(Class<?> type) {
-		if (PrimitiveType.isPrimative(type) || isVoid || (isArray && arrayOrCollectionTypeInfo.get().isJavaType) ) {
+		if (PrimitiveType.isPrimitive(type) || isVoid || (isArray && arrayOrCollectionTypeInfo.get().isJavaType) ) {
 			return true;
 		}
 		String canonicalName = type.getCanonicalName();
@@ -225,14 +221,5 @@ public class TypeInfo {
 	public boolean isHasMultipleValues() {
 		return hasMultipleValues;
 	}
-
-	public boolean isPrimitive() {
-		return isPrimitive;
-	}
-
-	public boolean isPrimitiveWrapper() {
-		return isPrimitiveWrapper;
-	}
-
 	
 }

@@ -44,7 +44,7 @@ public class TextFieldFactoryTest extends FieldFactoryTest {
 
 	@Test
 	public void testCanCreate_givenSimpleInt_mustReturnTrue() {
-		assertCanCreate(textFieldFactory, DomainObject.GET_MY_SIMPLE_INT, true);
+		assertCanCreate(textFieldFactory, DomainObject.GET_MY_PRIMITIVE_INT, true);
 	}
 
 	@Test
@@ -54,7 +54,7 @@ public class TextFieldFactoryTest extends FieldFactoryTest {
 
 	@Test
 	public void testCanCreate_givenSimpleChar_mustReturnTrue() {
-		assertCanCreate(textFieldFactory, DomainObject.GET_MY_SIMPLE_CHAR, true);
+		assertCanCreate(textFieldFactory, DomainObject.GET_MY_PRIMITIVE_CHAR, true);
 	}
 
 	@Test

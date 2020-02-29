@@ -16,7 +16,7 @@ public abstract class TableFieldFactory implements PropertyFieldFactory {
 			//TODO return true if there is a is a StringConverter that can convert the type
 			Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getArrayOrCollectionTypeInfo();
 			Class<?> type = arrayOrCollectionTypeInfo.get().getType();
-			return String.class.isAssignableFrom(type) || PrimitiveType.isPrimative(type) || PrimitiveType.isWrapper(type);			
+			return String.class.isAssignableFrom(type) || PrimitiveType.isPrimitive(type) || PrimitiveType.isWrapper(type);			
 		}
 	}
 

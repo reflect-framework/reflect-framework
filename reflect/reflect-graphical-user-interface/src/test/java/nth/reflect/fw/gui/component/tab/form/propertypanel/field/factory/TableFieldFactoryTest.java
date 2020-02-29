@@ -34,7 +34,7 @@ public class TableFieldFactoryTest extends FieldFactoryTest{
 
 	@Test
 	public void testCanCreate_givenSimpleIntArray_mustReturnTrue() {
-		assertCanCreate(tableFieldFactory, DomainObject.GET_MY_SIMPLE_INT_ARRAY, true);
+		assertCanCreate(tableFieldFactory, DomainObject.GET_MY_PRIMITIVE_INT_ARRAY, true);
 	}
 
 	@Test

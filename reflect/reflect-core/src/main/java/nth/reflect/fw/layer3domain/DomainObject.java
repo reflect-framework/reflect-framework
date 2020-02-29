@@ -160,15 +160,15 @@ public class DomainObject {
 
 	// private DomainObject myDomainObject;//TODO this will cause an infinite loop
 	// in the ReflectionProvider
-	private boolean mySimpleBoolean;
-	private byte mySimpleByte;
-	private short mySimpleShort;
-	private int mySimpleInt;
-	private long mySimpleLong;
-	private float mySimpleFloat;
-	private double mySimpleDouble;
-	private char mySimpleChar;
-	private int[] mySimpleIntArray;
+	private boolean myPrimitiveBoolean;
+	private byte myPrimitiveByte;
+	private short myPrimitiveShort;
+	private int myPrimitiveInt;
+	private long myPrimitiveLong;
+	private float myPrimitiveFloat;
+	private double myPrimitiveDouble;
+	private char myPrimitiveChar;
+	private int[] myPrimitiveIntArray;
 	private String[] myStringArray;
 	private DomainObject[] myDomainObjectArray;
 	private Set<String> myStringSet = new HashSet<String>();
@@ -213,77 +213,77 @@ public class DomainObject {
 		first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth
 	}
 
-	public static final String IS_MY_SIMPLE_BOOLEAN = "isMySimpleBoolean";
+	public static final String IS_MY_PRIMITIVE_BOOLEAN = "isMyPrimitiveBoolean";
 
-	public boolean isMySimpleBoolean() {
-		return mySimpleBoolean;
+	public boolean isMyPrimitiveBoolean() {
+		return myPrimitiveBoolean;
 	}
 
-	public void setMySimpleBoolean(boolean mySimpleBoolean) {
-		this.mySimpleBoolean = mySimpleBoolean;
+	public void setMyPrimitiveBoolean(boolean myPrimitiveBoolean) {
+		this.myPrimitiveBoolean = myPrimitiveBoolean;
 	}
 
-	public static final String GET_MY_SIMPLE_BYTE = "getMySimpleByte";
+	public static final String GET_MY_PRIMITIVE_BYTE = "getMyPrimitiveByte";
 
-	public byte getMySimpleByte() {
+	public byte getMyPrimitiveByte() {
 
-		return mySimpleByte;
+		return myPrimitiveByte;
 	}
 
-	public void setMySimpleByte(byte mySimpleByte) {
-		this.mySimpleByte = mySimpleByte;
+	public void setMyPrimitiveByte(byte myPrimitiveByte) {
+		this.myPrimitiveByte = myPrimitiveByte;
 	}
 
-	public short getMySimpleShort() {
-		return mySimpleShort;
+	public short getMyPrimitiveShort() {
+		return myPrimitiveShort;
 	}
 
-	public void setMySimpleShort(short mySimpleShort) {
-		this.mySimpleShort = mySimpleShort;
+	public void setMyPrimitiveShort(short myPrimitiveShort) {
+		this.myPrimitiveShort = myPrimitiveShort;
 	}
 
-	public static final String GET_MY_SIMPLE_INT = "getMySimpleInt";
+	public static final String GET_MY_PRIMITIVE_INT = "getMyPrimitiveInt";
 
-	public int getMySimpleInt() {
-		return mySimpleInt;
+	public int getMyPrimitiveInt() {
+		return myPrimitiveInt;
 	}
 
-	public void setMySimpleInt(int mySimpleInt) {
-		this.mySimpleInt = mySimpleInt;
+	public void setMyPrimitiveInt(int myPrimitiveInt) {
+		this.myPrimitiveInt = myPrimitiveInt;
 	}
 
-	public long getMySimpleLong() {
-		return mySimpleLong;
+	public long getMyPrimitiveLong() {
+		return myPrimitiveLong;
 	}
 
-	public void setMySimpleLong(long mySimpleLong) {
-		this.mySimpleLong = mySimpleLong;
+	public void setMyPrimitiveLong(long myPrimitiveLong) {
+		this.myPrimitiveLong = myPrimitiveLong;
 	}
 
-	public float getMySimpleFloat() {
-		return mySimpleFloat;
+	public float getMyPrimitiveFloat() {
+		return myPrimitiveFloat;
 	}
 
-	public void setMySimpleFloat(float mySimpleFloat) {
-		this.mySimpleFloat = mySimpleFloat;
+	public void setMyPrimitiveFloat(float myPrimitiveFloat) {
+		this.myPrimitiveFloat = myPrimitiveFloat;
 	}
 
-	public double getMySimpleDouble() {
-		return mySimpleDouble;
+	public double getMyPrimitiveDouble() {
+		return myPrimitiveDouble;
 	}
 
-	public void setMySimpleDouble(double mySimpleDouble) {
-		this.mySimpleDouble = mySimpleDouble;
+	public void setMyPrimitiveDouble(double myPrimitiveDouble) {
+		this.myPrimitiveDouble = myPrimitiveDouble;
 	}
 
-	public static final String GET_MY_SIMPLE_CHAR = "getMySimpleChar";
+	public static final String GET_MY_PRIMITIVE_CHAR = "getMyPrimitiveChar";
 
-	public char getMySimpleChar() {
-		return mySimpleChar;
+	public char getMyPrimitiveChar() {
+		return myPrimitiveChar;
 	}
 
-	public void setMySimpleChar(char mySimpleChar) {
-		this.mySimpleChar = mySimpleChar;
+	public void setMyPrimitiveChar(char myPrimitiveChar) {
+		this.myPrimitiveChar = myPrimitiveChar;
 	}
 
 	public static final String IS_MY_BOOLEAN = "isMyBoolean";
@@ -296,6 +296,7 @@ public class DomainObject {
 		this.myBoolean = myBoolean;
 	}
 
+	public static final String GET_MY_BYTE = "getMyByte";
 	public Byte getMyByte() {
 		return myByte;
 	}
@@ -627,14 +628,14 @@ public class DomainObject {
 		return options;
 	}
 
-	public static final String GET_MY_SIMPLE_INT_ARRAY = "getMySimpleIntArray";
+	public static final String GET_MY_PRIMITIVE_INT_ARRAY = "getMyPrimitiveIntArray";
 
-	public int[] getMySimpleIntArray() {
-		return mySimpleIntArray;
+	public int[] getMyPrimitiveIntArray() {
+		return myPrimitiveIntArray;
 	}
 
-	public void setMySimpleIntArray(int[] mySimpleIntArray) {
-		this.mySimpleIntArray = mySimpleIntArray;
+	public void setMyPrimitiveIntArray(int[] myPrimitiveIntArray) {
+		this.myPrimitiveIntArray = myPrimitiveIntArray;
 	}
 
 	public static final String GET_MY_STRING_ARRAY = "getMyStringArray";
@@ -689,6 +690,6 @@ public class DomainObject {
 
 	@Override
 	public String toString() {
-		return new TitleBuilder().append(DomainObject.class.getSimpleName()).append(mySimpleInt).toString();
+		return new TitleBuilder().append(DomainObject.class.getSimpleName()).append(myPrimitiveInt).toString();
 	}
 }

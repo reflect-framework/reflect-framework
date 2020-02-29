@@ -1,18 +1,29 @@
 package nth.reflect.fw.generic.util;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
-
-import nth.reflect.fw.ReflectFramework;
+import java.util.Set;
 
 public class PrimitiveType {
 
 	/**
+	 * A collection of primitive types that represent a number. In other words:
+	 * primitive types that have a primitive wrapper that implements {@link Number}.
+	 */
+	private static final Set<Class<?>> primitiveNumberTypes = new HashSet<Class<?>>();
+	static {
+		primitiveNumberTypes.add(Byte.TYPE);
+		primitiveNumberTypes.add(Short.TYPE);
+		primitiveNumberTypes.add(Integer.TYPE);
+		primitiveNumberTypes.add(Long.TYPE);
+		primitiveNumberTypes.add(Double.TYPE);
+		primitiveNumberTypes.add(Float.TYPE);
+	}
+
+	/**
 	 * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
-	 * 
-	 * Note that the {@link ReflectFramework} does not see the {@link Void#TYPE} as
-	 * a primitive type, because it can not be displayed in a user interface
 	 */
 	private static final Map<Class<?>, Class<?>> primitiveToWrapperMap = new HashMap<Class<?>, Class<?>>();
 	static {
@@ -24,6 +35,7 @@ public class PrimitiveType {
 		primitiveToWrapperMap.put(Long.TYPE, Long.class);
 		primitiveToWrapperMap.put(Double.TYPE, Double.class);
 		primitiveToWrapperMap.put(Float.TYPE, Float.class);
+		primitiveToWrapperMap.put(Void.TYPE, void.class);
 	}
 
 	/**
@@ -38,7 +50,7 @@ public class PrimitiveType {
 			}
 		}
 	}
-	
+
 	/**
 	 * <p>
 	 * Converts the specified primitive Class object to its corresponding wrapper
@@ -46,24 +58,28 @@ public class PrimitiveType {
 	 * </p>
 	 *
 	 * @param primitiveType the class to convert, may be null
-	 * @return {@link Optional} the wrapper class for {@code primitiveType} or {@link Optional#empty()} otherwise.
+	 * @return {@link Optional} the wrapper class for {@code primitiveType} or
+	 *         {@link Optional#empty()} otherwise.
 	 * @See {@link #wrapperToPrimitive(Class)}
 	 */
 	public static Optional<Class<?>> primitiveToWrapper(Class<?> primitiveType) {
 		if (primitiveToWrapperMap.containsKey(primitiveType)) {
 			Class<?> wrapperType = primitiveToWrapperMap.get(primitiveType);
-			return Optional.of(wrapperType);	
+			return Optional.of(wrapperType);
 		} else {
 			return Optional.empty();
 		}
-		
+
 	}
 
-	public static boolean isPrimative(Class<?> type) {
+	public static boolean isPrimitive(Class<?> type) {
 		return primitiveToWrapperMap.containsKey(type);
 	}
 
-	
+	public static boolean isPrimitiveNumber(Class<?> type) {
+		return primitiveNumberTypes.contains(type);
+	}
+
 	/**
 	 * <p>
 	 * Converts the specified wrapper class to its corresponding primitive class.
@@ -78,8 +94,9 @@ public class PrimitiveType {
 	 * </p>
 	 *
 	 * @param wrapperType the class to convert, may be <b>null</b>
-	 * @return {@link Optional#of(Object)} the corresponding primitive type if {@code wrapperType} is a wrapper class,
-	 *         {@link Optional#empty()} otherwise
+	 * @return {@link Optional#of(Object)} the corresponding primitive type if
+	 *         {@code wrapperType} is a wrapper class, {@link Optional#empty()}
+	 *         otherwise
 	 * @see #primitiveToWrapper(Class)
 	 */
 	public static Optional<Class<?>> wrapperToPrimitive(Class<?> wrapperType) {
@@ -94,6 +111,6 @@ public class PrimitiveType {
 	public static boolean isWrapper(Class<?> type) {
 		return wrapperToPrimitiveMap.containsKey(type);
 	}
-	
-	
+
+
 }

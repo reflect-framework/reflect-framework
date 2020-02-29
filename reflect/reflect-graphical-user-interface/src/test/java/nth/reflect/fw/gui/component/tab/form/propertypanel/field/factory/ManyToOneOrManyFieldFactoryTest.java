@@ -34,7 +34,7 @@ public class ManyToOneOrManyFieldFactoryTest extends FieldFactoryTest{
 
 	@Test
 	public void testCanCreate_givenSimpleIntArray_mustReturnFalse() {
-		assertCanCreate(manyToOneOrManyFieldFactory, DomainObject.GET_MY_SIMPLE_INT_ARRAY, false);
+		assertCanCreate(manyToOneOrManyFieldFactory, DomainObject.GET_MY_PRIMITIVE_INT_ARRAY, false);
 	}
 
 	@Test

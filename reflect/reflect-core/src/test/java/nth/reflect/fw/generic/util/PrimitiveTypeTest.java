@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class PrimitiveTypeTest {
 
-	//=================== primitiveToWraper
+	// =================== primitiveToWraper
 	@Test
 	public void testPrimitiveToWraper_givenNull_mustReturnEmpty() {
 		assertThat(PrimitiveType.primitiveToWrapper(null)).isEqualTo(Optional.empty());
@@ -48,7 +48,7 @@ public class PrimitiveTypeTest {
 	public void testIsPrimative_givenPrimitiveLong_mustReturnLong() {
 		assertThat(PrimitiveType.primitiveToWrapper(long.class)).isEqualTo(Optional.of(Long.class));
 	}
-	
+
 	@Test
 	public void testIsPrimative_givenPrimitiveDouble_mustReturnDouble() {
 		assertThat(PrimitiveType.primitiveToWrapper(double.class)).isEqualTo(Optional.of(Double.class));
@@ -59,61 +59,130 @@ public class PrimitiveTypeTest {
 		assertThat(PrimitiveType.primitiveToWrapper(float.class)).isEqualTo(Optional.of(Float.class));
 	}
 
-	//=================== isPrimative
+	// =================== isPrimative
 	@Test
 	public void testIsPrimitive_givenNull_mustReturnFalse() {
-		assertThat(PrimitiveType.isPrimative(null)).isEqualTo(false);
+		assertThat(PrimitiveType.isPrimitive(null)).isEqualTo(false);
 	}
-	
+
 	@Test
 	public void testIsPrimitive_givenString_mustReturnFalse() {
-		assertThat(PrimitiveType.isPrimative(String.class)).isEqualTo(false);
+		assertThat(PrimitiveType.isPrimitive(String.class)).isEqualTo(false);
 	}
-	
+
 	@Test
 	public void testIsPrimitive_givenBoolean_mustReturnFalse() {
-		assertThat(PrimitiveType.isPrimative(Boolean.class)).isEqualTo(false);
+		assertThat(PrimitiveType.isPrimitive(Boolean.class)).isEqualTo(false);
 	}
-	
+
 	@Test
 	public void testIsPrimitive_givenPrimitiveBoolean_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(boolean.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(boolean.class)).isEqualTo(true);
 	}
 
 	@Test
 	public void testIsPrimitive_givenPrimitiveByte_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(byte.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(byte.class)).isEqualTo(true);
 	}
+
 	@Test
 	public void testIsPrimitive_givenPrimitiveCharacter_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(char.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(char.class)).isEqualTo(true);
 	}
 
 	@Test
 	public void testIsPrimitive_givenPrimitiveShort_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(short.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(short.class)).isEqualTo(true);
 	}
 
 	@Test
 	public void testIsPrimitive_givenPrimitiveInt_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(int.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(int.class)).isEqualTo(true);
 	}
 
 	@Test
 	public void testIsPrimitive_givenPrimitiveLong_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(long.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(long.class)).isEqualTo(true);
 	}
+
 	@Test
 	public void testIsPrimitive_givenPrimitiveDouble_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(double.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(double.class)).isEqualTo(true);
 	}
 
 	@Test
 	public void testIsPrimitive_givenPrimitiveFloat_mustReturnTrue() {
-		assertThat(PrimitiveType.isPrimative(float.class)).isEqualTo(true);
+		assertThat(PrimitiveType.isPrimitive(float.class)).isEqualTo(true);
+	}
+
+	@Test
+	public void testIsPrimitive_givenPrimitiveVoid_mustReturnTrue() {
+		assertThat(PrimitiveType.isPrimitive(void.class)).isEqualTo(true);
+	}
+
+	
+	// =================== isPrimativeNumber
+	@Test
+	public void testIsPrimitiveNumber_givenNull_mustReturnFalse() {
+		assertThat(PrimitiveType.isPrimitiveNumber(null)).isEqualTo(false);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenString_mustReturnFalse() {
+		assertThat(PrimitiveType.isPrimitiveNumber(String.class)).isEqualTo(false);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenBoolean_mustReturnFalse() {
+		assertThat(PrimitiveType.isPrimitiveNumber(Boolean.class)).isEqualTo(false);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveBoolean_mustReturnFalse() {
+		assertThat(PrimitiveType.isPrimitiveNumber(boolean.class)).isEqualTo(false);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveByte_mustReturnTrue() {
+		assertThat(PrimitiveType.isPrimitiveNumber(byte.class)).isEqualTo(true);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveCharacter_mustReturnFalse() {
+		assertThat(PrimitiveType.isPrimitiveNumber(char.class)).isEqualTo(false);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveShort_mustReturnTrue() {
+		assertThat(PrimitiveType.isPrimitiveNumber(short.class)).isEqualTo(true);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveInt_mustReturnTrue() {
+		assertThat(PrimitiveType.isPrimitiveNumber(int.class)).isEqualTo(true);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveLong_mustReturnTrue() {
+		assertThat(PrimitiveType.isPrimitiveNumber(long.class)).isEqualTo(true);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveDouble_mustReturnTrue() {
+		assertThat(PrimitiveType.isPrimitiveNumber(double.class)).isEqualTo(true);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveFloat_mustReturnTrue() {
+		assertThat(PrimitiveType.isPrimitiveNumber(float.class)).isEqualTo(true);
+	}
+
+	@Test
+	public void testIsPrimitiveNumber_givenPrimitiveVoid_mustReturnFalse() {
+		assertThat(PrimitiveType.isPrimitiveNumber(void.class)).isEqualTo(false);
 	}
 	
-	//=================== wrapperToPrimitive
+	// =================== wrapperToPrimitive
 	@Test
 	public void testWraperToPrimitive_givenNull_mustReturnEmpty() {
 		assertThat(PrimitiveType.wrapperToPrimitive(null)).isEqualTo(Optional.empty());
@@ -153,7 +222,7 @@ public class PrimitiveTypeTest {
 	public void testWraperToPrimitive_givenLong_mustReturnPrimitiveLong() {
 		assertThat(PrimitiveType.wrapperToPrimitive(Long.class)).isEqualTo(Optional.of(long.class));
 	}
-	
+
 	@Test
 	public void testWraperToPrimitive_givenDouble_mustReturnPrimitiveDouble() {
 		assertThat(PrimitiveType.wrapperToPrimitive(Double.class)).isEqualTo(Optional.of(double.class));
@@ -164,22 +233,22 @@ public class PrimitiveTypeTest {
 		assertThat(PrimitiveType.wrapperToPrimitive(Float.class)).isEqualTo(Optional.of(float.class));
 	}
 
-	//=================== isWrapper
+	// =================== isWrapper
 	@Test
 	public void testIsWrapper_givenNull_mustReturnFalse() {
 		assertThat(PrimitiveType.isWrapper(null)).isEqualTo(false);
 	}
-	
+
 	@Test
 	public void testIsWrapper_givenString_mustReturnFalse() {
 		assertThat(PrimitiveType.isWrapper(String.class)).isEqualTo(false);
 	}
-	
+
 	@Test
 	public void testIsWrapper_givenPrimativeBoolean_mustReturnFalse() {
 		assertThat(PrimitiveType.isWrapper(boolean.class)).isEqualTo(false);
 	}
-	
+
 	@Test
 	public void testIsWrapper_givenBoolean_mustReturnTrue() {
 		assertThat(PrimitiveType.isWrapper(Boolean.class)).isEqualTo(true);
@@ -189,6 +258,7 @@ public class PrimitiveTypeTest {
 	public void testIsWrapper_givenByte_mustReturnTrue() {
 		assertThat(PrimitiveType.isWrapper(Byte.class)).isEqualTo(true);
 	}
+
 	@Test
 	public void testIsWrapper_givenCharacter_mustReturnTrue() {
 		assertThat(PrimitiveType.isWrapper(Character.class)).isEqualTo(true);
@@ -208,6 +278,7 @@ public class PrimitiveTypeTest {
 	public void testIsWrapper_givenLong_mustReturnTrue() {
 		assertThat(PrimitiveType.isWrapper(Long.class)).isEqualTo(true);
 	}
+
 	@Test
 	public void testIsWrapper_givenDouble_mustReturnTrue() {
 		assertThat(PrimitiveType.isWrapper(Double.class)).isEqualTo(true);
