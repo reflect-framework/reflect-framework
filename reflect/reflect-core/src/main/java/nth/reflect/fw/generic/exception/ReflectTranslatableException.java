@@ -1,6 +1,6 @@
 package nth.reflect.fw.generic.exception;
 
-import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
@@ -11,15 +11,15 @@ public class ReflectTranslatableException extends ReflectException {
 	private final TranslatableString message;
 
 
-	public ReflectTranslatableException(UserInterfaceContainer userInterfaceContainer, String messageInEnglish, Object ...parameters) {
+	public ReflectTranslatableException(DependencyInjectionContainer container, String messageInEnglish, Object ...parameters) {
 		super();
-		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+		this.languageProvider = container.get(LanguageProvider.class);
 		this.message = new TranslatableString(messageInEnglish, parameters);
 	}
 	
-	public ReflectTranslatableException(UserInterfaceContainer userInterfaceContainer, Throwable cause, String messageInEnglish, Object ...parameters) {
+	public ReflectTranslatableException(DependencyInjectionContainer container, Throwable cause, String messageInEnglish, Object ...parameters) {
 		super(cause);
-		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);;
+		this.languageProvider = container.get(LanguageProvider.class);;
 		this.message = new TranslatableString(messageInEnglish, parameters);
 	}
 	

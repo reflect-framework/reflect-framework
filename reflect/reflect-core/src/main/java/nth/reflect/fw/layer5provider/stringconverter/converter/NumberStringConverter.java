@@ -4,23 +4,22 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Locale;
-import java.util.Optional;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.stringconverter.abstractconverter.StringConversionException;
-import nth.reflect.fw.layer5provider.stringconverter.abstractconverter.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverter;
 
-public class NumberStringConverter extends StringConverter  {
+public abstract class NumberStringConverter<T extends Number> extends StringConverter<T>  {
 
 	private final DecimalFormat decimalFormat;
 
-	public NumberStringConverter(DependencyInjectionContainer container, Optional<String> formatPattern) {
+	public NumberStringConverter(DependencyInjectionContainer container, String formatPattern) {
 		super(container, formatPattern);
-		decimalFormat=createDecimalFormat(container, formatPattern);
+		decimalFormat=createDecimalFormat();
 	}
 
-	private DecimalFormat createDecimalFormat(DependencyInjectionContainer container, Optional<String> formatPattern) {
+	private DecimalFormat createDecimalFormat() {
 		if (formatPattern.isPresent()) {
 			LanguageProvider languageProvider = container.get(LanguageProvider.class);
 			Locale locale = languageProvider.getDefaultLocale();
@@ -32,7 +31,7 @@ public class NumberStringConverter extends StringConverter  {
 	}
 
 	@Override
-	public String toString(Object value) {
+	public String toString(T value) {
 		if (value == null) {
 			return "";
 		}
@@ -41,7 +40,7 @@ public class NumberStringConverter extends StringConverter  {
 	}
 
 	@Override
-	public Object fromStringConverter(String value) {
+	public T fromString(String value) {
 		if (value == null) {
 			return null;
 		}
@@ -54,10 +53,12 @@ public class NumberStringConverter extends StringConverter  {
 
 		try {
 			Number number = decimalFormat.parse(value);
-			return number;
+			return getValue(number);
 		} catch (ParseException e) {
-			throw new StringConversionException(e);
+			throw new StringConverterException(this, value, e);
 		}
 	}
+
+	protected abstract T getValue(Number number);
 
 }
