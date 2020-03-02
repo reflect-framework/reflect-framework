@@ -18,13 +18,13 @@ public class DialogShowStackTraceItem extends Item {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		setText("Show stack trace");
 		setDescription("Show more details on error");
-		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer.get(GraphicalUserinterfaceController.class);
+		GraphicalUserinterfaceController<?, ?> userInterfaceController = userInterfaceContainer.get(GraphicalUserinterfaceController.class);
 		LanguageProvider languageProvider=userInterfaceContainer.get(LanguageProvider.class);
 		Action action=createAction(userInterfaceController,languageProvider, title,message,throwable);
 		setAction(action);
 	}
 
-	private Action createAction(final GraphicalUserinterfaceController userInterfaceController, final LanguageProvider languageProvider, final String title, final String message, final Throwable throwable) {
+	private Action createAction(final GraphicalUserinterfaceController<?, ?> userInterfaceController, final LanguageProvider languageProvider, final String title, final String message, final Throwable throwable) {
 		return new Action() {
 
 			@Override
@@ -34,7 +34,7 @@ public class DialogShowStackTraceItem extends Item {
 				if (throwable != null) {
 					messageWithStackTrace.append("\n\n");
 					messageWithStackTrace.append(ExceptionUtil
-							.getRootCauseStackTrace(throwable));
+							.getRootCauseStackTrace(throwable, languageProvider));
 				}
 
 				DialogCloseItem dialogCloseItem = new DialogCloseItem(languageProvider);

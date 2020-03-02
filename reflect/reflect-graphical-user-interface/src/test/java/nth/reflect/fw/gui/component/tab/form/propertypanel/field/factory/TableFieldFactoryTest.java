@@ -1,17 +1,16 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
-import java.util.Optional;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.layer3domain.DomainObject;
 
-public class TableFieldFactoryTest extends FieldFactoryTest{
+public class TableFieldFactoryTest extends FieldFactoryTest {
 
 	private TableFieldFactory tableFieldFactory;
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
@@ -21,8 +20,8 @@ public class TableFieldFactoryTest extends FieldFactoryTest{
 	private TableFieldFactory createTavleFieldFactory() {
 		return new TableFieldFactory() {
 			@Override
-			public Optional<PropertyField> create(PropertyFieldFactoryInfo makeInformation) {
-				return Optional.empty();
+			public PropertyField create(PropertyFieldFactoryInfo makeInformation) {
+				return null;
 			}
 		};
 	}
@@ -46,17 +45,15 @@ public class TableFieldFactoryTest extends FieldFactoryTest{
 	public void testCanCreate_givenDomainObjectArray_mustReturnFalse() {
 		assertCanCreate(tableFieldFactory, DomainObject.GET_MY_DOMAIN_OBJECT_ARRAY, false);
 	}
-	
+
 	@Test
 	public void testCanCreate_givenStringCollection_mustReturnTrue() {
 		assertCanCreate(tableFieldFactory, DomainObject.GET_MY_STRING_SET, true);
 	}
-	
+
 	@Test
 	public void testCanCreate_givenDomainObjectCollection_mustReturnFalse() {
 		assertCanCreate(tableFieldFactory, DomainObject.GET_MY_DOMAIN_OBJECT_LIST, false);
 	}
-
-
 
 }

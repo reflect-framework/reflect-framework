@@ -1,7 +1,5 @@
 package nth.reflect.fw.generic.contractor;
 
-import java.util.Optional;
-
 /**
  * A {@link Contractor} is an <a href=
  * "https://en.wikipedia.org/wiki/Abstract_factory_pattern">AbstractFactory</a>
@@ -18,5 +16,14 @@ public interface Contractor<MAKE_TYPE, MAKE_INFORMATION> {
 
 	public boolean canCreate(MAKE_INFORMATION makeInformation);
 
-	public Optional<MAKE_TYPE> create(MAKE_INFORMATION makeInformation);
+	/**
+	 * Factory method. Must return a value (not null) or throw an exception.
+	 * {@link Contractor#canCreate(Object)} should be called before calling this
+	 * method to ensure the implementation of the {@link Contractor} interface can
+	 * handle the creation.
+	 * 
+	 * @param makeInformation
+	 * @return something that was created
+	 */
+	public MAKE_TYPE create(MAKE_INFORMATION makeInformation);
 }

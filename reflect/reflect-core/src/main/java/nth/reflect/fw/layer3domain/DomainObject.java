@@ -234,6 +234,8 @@ public class DomainObject {
 		this.myPrimitiveByte = myPrimitiveByte;
 	}
 
+	public static final String GET_MY_PRIMITIVE_SHORT = "getMyPrimitiveShort";
+
 	public short getMyPrimitiveShort() {
 		return myPrimitiveShort;
 	}
@@ -297,6 +299,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_BYTE = "getMyByte";
+
 	public Byte getMyByte() {
 		return myByte;
 	}
@@ -304,6 +307,8 @@ public class DomainObject {
 	public void setMyByte(Byte myByte) {
 		this.myByte = myByte;
 	}
+
+	public static final String GET_MY_SHORT = "getMyShort";
 
 	public Short getMyShort() {
 		return myShort;

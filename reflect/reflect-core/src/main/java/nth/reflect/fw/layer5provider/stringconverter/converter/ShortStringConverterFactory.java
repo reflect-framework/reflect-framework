@@ -4,18 +4,17 @@ import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringCon
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactoryInfo;
 
-public class ByteStringConverterFactory implements StringConverterFactory {//
+public class ShortStringConverterFactory implements StringConverterFactory {//
 
 	@Override
 	public boolean canCreate(StringConverterFactoryInfo info) {
 		Class<?> type = info.getTypeInfo().getType();
-		return type==byte.class || type==Byte.class;
+		return type == short.class || type == Short.class;
 	}
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		ByteStringConverter stringConverter = new ByteStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		ShortStringConverter stringConverter = new ShortStringConverter(info.getContainer(), info.getFormatPattern());
 		return stringConverter;
 	}
 

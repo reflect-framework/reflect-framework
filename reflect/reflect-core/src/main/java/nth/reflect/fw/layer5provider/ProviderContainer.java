@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.container.exception.ClassAlreadyRegisteredInContainerException;
-import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 /**
  * This {@link DependencyInjectionContainer} represents the
@@ -37,8 +35,7 @@ public class ProviderContainer extends DependencyInjectionContainer {
 			try {
 				Object provider = method.invoke(application);
 				if (provider == null) {
-					LanguageProvider languageProvider = new DefaultLanguageProvider();
-					throw new CouldNotGetProviderException(languageProvider, method);
+					throw new ProviderNotAttainableException(method);
 				}
 				if (provider instanceof Class) {
 					add((Class<?>) provider);
@@ -48,8 +45,7 @@ public class ProviderContainer extends DependencyInjectionContainer {
 			} catch (ClassAlreadyRegisteredInContainerException e) {
 				// do nothing
 			} catch (Exception e) {
-				LanguageProvider languageProvider = new DefaultLanguageProvider();
-				throw new CouldNotGetProviderException(languageProvider, method, e);
+				throw new ProviderNotAttainableException( method, e);
 			}
 		}
 	}

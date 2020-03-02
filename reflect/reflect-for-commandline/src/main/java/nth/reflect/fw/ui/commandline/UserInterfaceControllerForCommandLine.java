@@ -193,11 +193,11 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		txt.append(message);
 		txt.append("\n");
 		txt.append("Cause: ");
-		txt.append(ExceptionUtil.getRootCause(throwable).getMessage());
+		txt.append(ExceptionUtil.getRootCause(throwable, languageProvider).getMessage());
 		txt.append("\n");
 		txt.append("Details: ");
 		txt.append("\n");
-		txt.append(ExceptionUtil.getRootCauseStackTrace(throwable));
+		txt.append(ExceptionUtil.getRootCauseStackTrace(throwable, languageProvider));
 		System.out.println(txt.toString());
 	}
 

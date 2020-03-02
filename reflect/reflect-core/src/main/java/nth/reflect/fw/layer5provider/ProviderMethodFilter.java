@@ -3,13 +3,10 @@ package nth.reflect.fw.layer5provider;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
  * Tests for getter methods of a {@link ReflectApplication} without a parameter

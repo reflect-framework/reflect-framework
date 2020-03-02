@@ -2,8 +2,6 @@ package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Optional;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +14,7 @@ public class TextFieldFactoryTest extends FieldFactoryTest {
 
 	private TextFieldFactory textFieldFactory;
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
@@ -26,8 +25,8 @@ public class TextFieldFactoryTest extends FieldFactoryTest {
 		return new TextFieldFactory() {
 
 			@Override
-			public Optional<PropertyField> create(PropertyFieldFactoryInfo makeInformation) {
-				return Optional.empty();
+			public PropertyField create(PropertyFieldFactoryInfo makeInformation) {
+				return null;
 			}
 		};
 	}

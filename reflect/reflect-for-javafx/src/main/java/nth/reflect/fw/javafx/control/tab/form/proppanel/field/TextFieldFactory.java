@@ -1,7 +1,5 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
-import java.util.Optional;
-
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -11,14 +9,14 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 public class TextFieldFactory extends nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.TextFieldFactory{
 
 	@Override
-	public Optional<PropertyField> create(PropertyFieldFactoryInfo info) {
+	public PropertyField create(PropertyFieldFactoryInfo info) {
 		Class<?> propertyType = info.getPropertyInfo().getTypeInfo().getType();
 		if (isStringType(propertyType)) {
-			return Optional.of(createTextField(info));
+			return createTextField(info);
 		} else if (isNumberType(propertyType)) {
-			return Optional.of(createNumericField(info));
+			return createNumericField(info);
 		} else {
-			return Optional.of(createCharField(info));
+			return createCharField(info);
 		}
 	}
 

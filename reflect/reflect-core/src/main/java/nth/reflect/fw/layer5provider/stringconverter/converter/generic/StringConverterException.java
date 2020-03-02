@@ -13,12 +13,12 @@ public class StringConverterException extends ReflectTranslatableException {
 	private static final String MESSAGE = "%s: Error converting value: %s";
 
 	public StringConverterException(StringConverter stringConverter, Object value, ParseException e) {
-		super(stringConverter.container, e, MESSAGE, stringConverter.getClass().getSimpleName(), value);
+		super(e, MESSAGE, stringConverter.getClass().getSimpleName(), value);
 	}
 
 	public StringConverterException(StringConverter stringConverter, String simpleName, Number givenValue,
 			Number valueMinOrMax) {
-		super(stringConverter.container, stringConverter.getClass().getSimpleName(), givenValue, valueMinOrMax);
+		super(MESSAGE, stringConverter.getClass().getSimpleName(), givenValue, valueMinOrMax);
 	}
 
 }

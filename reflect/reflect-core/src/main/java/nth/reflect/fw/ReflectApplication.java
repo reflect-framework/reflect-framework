@@ -14,7 +14,6 @@ import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
-import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;

@@ -1,7 +1,5 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
-import java.util.Optional;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,23 +10,25 @@ public class CheckBoxFieldFactoryTest extends FieldFactoryTest {
 
 	private CheckBoxFieldFactory checkBoxFieldFactory;
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		checkBoxFieldFactory = createFieldFactory();
 	}
-	
+
 	protected CheckBoxFieldFactory createFieldFactory() {
 		return new CheckBoxFieldFactory() {
 			@Override
-			public Optional<PropertyField> create(PropertyFieldFactoryInfo makeInformation) {
-				return Optional.empty();
+			public PropertyField create(PropertyFieldFactoryInfo makeInformation) {
+				return null;
 			}
 		};
 	}
 
 	@Test
-	public void testCanCreate_forSimpleBooleanProperty_mustReturnTrue() throws NoSuchMethodException, SecurityException {
+	public void testCanCreate_forSimpleBooleanProperty_mustReturnTrue()
+			throws NoSuchMethodException, SecurityException {
 		assertCanCreate(checkBoxFieldFactory, DomainObject.IS_MY_PRIMITIVE_BOOLEAN, true);
 	}
 

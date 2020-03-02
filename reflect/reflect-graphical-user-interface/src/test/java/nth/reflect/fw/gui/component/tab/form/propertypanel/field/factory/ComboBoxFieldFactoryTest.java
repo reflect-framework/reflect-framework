@@ -1,7 +1,5 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory;
 
-import java.util.Optional;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +10,7 @@ public class ComboBoxFieldFactoryTest extends FieldFactoryTest {
 
 	private ComboBoxFieldFactory comboBoxFieldFactory;
 
+	@Override
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
@@ -21,8 +20,8 @@ public class ComboBoxFieldFactoryTest extends FieldFactoryTest {
 	protected ComboBoxFieldFactory createFieldFactory() {
 		return new ComboBoxFieldFactory() {
 			@Override
-			public Optional<PropertyField> create(PropertyFieldFactoryInfo makeInformation) {
-				return Optional.empty();
+			public PropertyField create(PropertyFieldFactoryInfo makeInformation) {
+				return null;
 			}
 		};
 	}

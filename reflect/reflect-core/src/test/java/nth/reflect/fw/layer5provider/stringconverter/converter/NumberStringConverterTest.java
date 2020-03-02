@@ -3,6 +3,10 @@ package nth.reflect.fw.layer5provider.stringconverter.converter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
+import java.text.Format;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,10 +24,12 @@ public abstract class NumberStringConverterTest {
 	private static final String EURO = "Euro";
 	private static final String ZERO = "0";
 	private DependencyInjectionContainer container;
+	private Format expectedDefaultFormat;
 
 	@Before
 	public void setUp() throws Exception {
 		container = new ReflectApplicationForJUnit().createContainer();
+		expectedDefaultFormat = NumberFormat.getNumberInstance(Locale.ENGLISH);
 	}
 
 	protected abstract StringConverter createStringConverter(DependencyInjectionContainer container2,
@@ -38,7 +44,8 @@ public abstract class NumberStringConverterTest {
 		Number minValue = getMinValue();
 		StringConverter stringConverter = createStringConverter(container, null);
 		String result = stringConverter.toString(minValue);
-		assertThat(result).isEqualTo(minValue.toString());
+		String expected=expectedDefaultFormat.format(minValue);
+		assertThat(result).isEqualTo(expected);
 	}
 
 	@Test
@@ -46,7 +53,8 @@ public abstract class NumberStringConverterTest {
 		Number maxValue = getMaxValue();
 		StringConverter stringConverter = createStringConverter(container, null);
 		String result = stringConverter.toString(maxValue);
-		assertThat(result).isEqualTo(maxValue.toString());
+		String expected=expectedDefaultFormat.format(maxValue);
+		assertThat(result).isEqualTo(expected);
 	}
 
 	@Test

@@ -11,11 +11,14 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import nth.reflect.fw.generic.exception.TypeNotSupportedException;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.format.TypeNotSupportedException;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
+import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverter;
 
 /**
  * Adapter for {@link DecimalFormat} to return the correct {@link #numberType}
+ * @deprecated to be replaced with {@link StringConverterProvider}
  * 
  * @author nilsth
  * 
@@ -77,7 +80,7 @@ public class NumericFormat extends Format {
 			} else if (Short.class.isAssignableFrom(numberType)) {
 				return number.shortValue();
 			}
-			throw new TypeNotSupportedException(languageProvider, numberType, this.getClass());
+			throw new TypeNotSupportedException(numberType, this.getClass());
 		}
 	}
 

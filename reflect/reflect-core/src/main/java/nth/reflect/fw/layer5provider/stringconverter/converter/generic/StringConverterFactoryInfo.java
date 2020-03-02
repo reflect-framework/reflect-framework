@@ -1,7 +1,5 @@
 package nth.reflect.fw.layer5provider.stringconverter.converter.generic;
 
-import java.util.Optional;
-
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 

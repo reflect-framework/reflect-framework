@@ -2,6 +2,7 @@ package nth.reflect.fw.layer5provider.stringconverter.converter;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -12,21 +13,21 @@ import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringCon
 
 public abstract class NumberStringConverter<T extends Number> extends StringConverter<T>  {
 
-	private final DecimalFormat decimalFormat;
+	private final NumberFormat decimalFormat;
 
 	public NumberStringConverter(DependencyInjectionContainer container, String formatPattern) {
 		super(container, formatPattern);
 		decimalFormat=createDecimalFormat();
 	}
 
-	private DecimalFormat createDecimalFormat() {
+	private NumberFormat createDecimalFormat() {
+		LanguageProvider languageProvider = container.get(LanguageProvider.class);
+		Locale locale = languageProvider.getDefaultLocale();
 		if (formatPattern.isPresent()) {
-			LanguageProvider languageProvider = container.get(LanguageProvider.class);
-			Locale locale = languageProvider.getDefaultLocale();
 			DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
 			return new DecimalFormat(formatPattern.get(), symbols);
 		} else {
-			return new DecimalFormat();
+			return DecimalFormat.getNumberInstance(locale);
 		}
 	}
 

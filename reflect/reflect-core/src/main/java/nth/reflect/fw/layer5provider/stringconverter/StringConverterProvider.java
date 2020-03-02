@@ -6,7 +6,8 @@ import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringCon
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactoryInfo;
 
-public class StringConverterProvider extends DelegatingContractor<StringConverter, StringConverterFactoryInfo> implements  Provider {
+public class StringConverterProvider extends DelegatingContractor<StringConverter, StringConverterFactoryInfo>
+		implements Provider {
 
 	public StringConverterProvider(StringConverterFactory... stringConverters) {
 		super(stringConverters);

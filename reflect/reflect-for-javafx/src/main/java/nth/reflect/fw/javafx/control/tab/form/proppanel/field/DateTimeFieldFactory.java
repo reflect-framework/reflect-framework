@@ -8,16 +8,16 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
-public class DateTimeFieldFactory extends nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.DateTimeFieldFactory {
+public class DateTimeFieldFactory
+		extends nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.DateTimeFieldFactory {
 
 	@Override
-	public Optional<PropertyField> create(PropertyFieldFactoryInfo info) {
-		PropertyValueModel propertyValueModel=info.getPropertyValueModel();
-		PropertyInfo propertyInfo=info.getPropertyInfo();
+	public PropertyField create(PropertyFieldFactoryInfo info) {
+		PropertyValueModel propertyValueModel = info.getPropertyValueModel();
+		PropertyInfo propertyInfo = info.getPropertyInfo();
 		Optional<DateTimeFieldModeType> mode = getDateTimeFieldModeType(propertyInfo);
 		DateTimeField dateTimeField = new DateTimeField(propertyValueModel, mode.get());
-		return Optional.of(dateTimeField);
+		return dateTimeField;
 	}
-
 
 }

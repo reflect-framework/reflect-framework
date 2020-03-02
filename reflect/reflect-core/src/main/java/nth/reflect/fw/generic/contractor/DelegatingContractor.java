@@ -1,7 +1,5 @@
 package nth.reflect.fw.generic.contractor;
 
-import java.util.Optional;
-
 /**
  * A {@link DelegatingContractor} is a {@link Contractor} that knows
  * Sub{@link Contractor}'s and delegates the creation of objects to the first
@@ -33,16 +31,13 @@ public class DelegatingContractor<MAKE_TYPE, MAKE_INFORMATION> implements Contra
 	}
 
 	@Override
-	public Optional<MAKE_TYPE> create(MAKE_INFORMATION makeInformation) {
+	public MAKE_TYPE create(MAKE_INFORMATION makeInformation) {
 		for (Contractor<MAKE_TYPE, MAKE_INFORMATION> subContractor : subContractors) {
 			if (subContractor.canCreate(makeInformation)) {
-				Optional<MAKE_TYPE> result = subContractor.create(makeInformation);
-				if (result.isPresent()) {
-					return result;
-				}
+				return subContractor.create(makeInformation);
 			}
 		}
-		return Optional.empty();
+		throw new NoSuitableContractorFoundException(this, makeInformation);
 	}
 
 }
