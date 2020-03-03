@@ -119,27 +119,23 @@ public abstract class NumberStringConverterTest {
 	@Test
 	public void testFromString_givenMaxNumberPluseOne_mustThrowNumberExceedsMaxException() {
 		Number maxValue = getMaxValue();
-		if (!(maxValue instanceof Double)) {
-			Long maxValuePlusOne = maxValue.longValue() + 1;
-			StringConverter stringConverter = createStringConverter(container, null);
-			String stringValue = maxValuePlusOne.toString();
-			assertThrows(NumberExceedsMaxException.class, () -> {
-				stringConverter.fromString(stringValue);
-			});
-		}
+		Long maxValuePlusOne = maxValue.longValue() + 1;
+		StringConverter stringConverter = createStringConverter(container, null);
+		String stringValue = maxValuePlusOne.toString();
+		assertThrows(NumberExceedsMaxException.class, () -> {
+			stringConverter.fromString(stringValue);
+		});
 	}
 
 	@Test
-	public void testFromString_givenMinNumberPluseOne_mustThrowNumberExceedsMinException() {
+	public void testFromString_givenMinNumberMinuseOne_mustThrowNumberExceedsMinException() {
 		Number minValue = getMinValue();
-		if (!(minValue instanceof Double)) {
-			Long minValueMinusOne = minValue.longValue() - 1;
-			StringConverter stringConverter = createStringConverter(container, null);
-			String stringValue = minValueMinusOne.toString();
-			assertThrows(NumberExceedsMinException.class, () -> {
-				stringConverter.fromString(stringValue);
-			});
-		}
+		Long minValueMinusOne = minValue.longValue() - 1;
+		StringConverter stringConverter = createStringConverter(container, null);
+		String stringValue = minValueMinusOne.toString();
+		assertThrows(NumberExceedsMinException.class, () -> {
+			stringConverter.fromString(stringValue);
+		});
 	}
 
 	@Test

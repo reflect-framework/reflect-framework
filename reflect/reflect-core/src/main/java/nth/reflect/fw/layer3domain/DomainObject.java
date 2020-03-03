@@ -262,6 +262,8 @@ public class DomainObject {
 		this.myPrimitiveLong = myPrimitiveLong;
 	}
 
+	public static final String GET_MY_PRIMITIVE_FLOAT = "getMyPrimitiveFloat";
+
 	public float getMyPrimitiveFloat() {
 		return myPrimitiveFloat;
 	}
@@ -337,6 +339,8 @@ public class DomainObject {
 	public void setMyLong(Long myLong) {
 		this.myLong = myLong;
 	}
+
+	public static final String GET_MY_FLOAT = "getMyFloat";
 
 	public Float getMyFloat() {
 		return myFloat;
