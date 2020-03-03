@@ -16,9 +16,9 @@ public class StringConverterException extends ReflectTranslatableException {
 		super(e, MESSAGE, stringConverter.getClass().getSimpleName(), value);
 	}
 
-	public StringConverterException(StringConverter stringConverter, String simpleName, Number givenValue,
+	public StringConverterException(StringConverter stringConverter, String message, Number givenValue,
 			Number valueMinOrMax) {
-		super(MESSAGE, stringConverter.getClass().getSimpleName(), givenValue, valueMinOrMax);
+		super(message, stringConverter.getClass().getSimpleName(), givenValue, valueMinOrMax);
 	}
 
 }

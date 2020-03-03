@@ -270,6 +270,8 @@ public class DomainObject {
 		this.myPrimitiveFloat = myPrimitiveFloat;
 	}
 
+	public static final String GET_MY_PRIMITIVE_DOUBLE = "getMyPrimitiveDouble";
+
 	public double getMyPrimitiveDouble() {
 		return myPrimitiveDouble;
 	}
@@ -343,6 +345,8 @@ public class DomainObject {
 	public void setMyFloat(Float myFloat) {
 		this.myFloat = myFloat;
 	}
+
+	public static final String GET_MY_DOUBLE = "getMyDouble";
 
 	public Double getMyDouble() {
 		return myDouble;

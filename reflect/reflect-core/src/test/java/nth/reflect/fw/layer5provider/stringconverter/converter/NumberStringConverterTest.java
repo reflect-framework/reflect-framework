@@ -3,6 +3,7 @@ package nth.reflect.fw.layer5provider.stringconverter.converter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -44,7 +45,7 @@ public abstract class NumberStringConverterTest {
 		Number minValue = getMinValue();
 		StringConverter stringConverter = createStringConverter(container, null);
 		String result = stringConverter.toString(minValue);
-		String expected=expectedDefaultFormat.format(minValue);
+		String expected = expectedDefaultFormat.format(minValue);
 		assertThat(result).isEqualTo(expected);
 	}
 
@@ -53,7 +54,7 @@ public abstract class NumberStringConverterTest {
 		Number maxValue = getMaxValue();
 		StringConverter stringConverter = createStringConverter(container, null);
 		String result = stringConverter.toString(maxValue);
-		String expected=expectedDefaultFormat.format(maxValue);
+		String expected = expectedDefaultFormat.format(maxValue);
 		assertThat(result).isEqualTo(expected);
 	}
 
@@ -64,7 +65,8 @@ public abstract class NumberStringConverterTest {
 		String formatPattern = StringUtil.repeat(ZERO, numberOfDecimals + 1);
 		StringConverter stringConverter = createStringConverter(container, formatPattern);
 		String result = stringConverter.toString(maxValue);
-		assertThat(result).isEqualTo(ZERO + maxValue.toString());
+		String expected = new DecimalFormat(formatPattern).format(maxValue);
+		assertThat(result).isEqualTo(expected);
 	}
 
 	@Test
@@ -73,7 +75,8 @@ public abstract class NumberStringConverterTest {
 		String formatPattern = ZERO + SPACE + EURO;
 		StringConverter stringConverter = createStringConverter(container, formatPattern);
 		String result = stringConverter.toString(maxValue);
-		assertThat(result).isEqualTo(maxValue.toString() + SPACE + EURO);
+		String expected = new DecimalFormat(formatPattern).format(maxValue);
+		assertThat(result).isEqualTo(expected);
 	}
 
 	@Test
@@ -115,22 +118,28 @@ public abstract class NumberStringConverterTest {
 
 	@Test
 	public void testFromString_givenMaxNumberPluseOne_mustThrowNumberExceedsMaxException() {
-		Long maxValuePlusOne = getMaxValue().longValue() + 1;
-		StringConverter stringConverter = createStringConverter(container, null);
-		String stringValue = maxValuePlusOne.toString();
-		assertThrows(NumberExceedsMaxException.class, () -> {
-			stringConverter.fromString(stringValue);
-		});
+		Number maxValue = getMaxValue();
+		if (!(maxValue instanceof Double)) {
+			Long maxValuePlusOne = maxValue.longValue() + 1;
+			StringConverter stringConverter = createStringConverter(container, null);
+			String stringValue = maxValuePlusOne.toString();
+			assertThrows(NumberExceedsMaxException.class, () -> {
+				stringConverter.fromString(stringValue);
+			});
+		}
 	}
 
 	@Test
 	public void testFromString_givenMinNumberPluseOne_mustThrowNumberExceedsMinException() {
-		Long minValueMinusOne = getMinValue().longValue() - 1;
-		StringConverter stringConverter = createStringConverter(container, null);
-		String stringValue = minValueMinusOne.toString();
-		assertThrows(NumberExceedsMinException.class, () -> {
-			stringConverter.fromString(stringValue);
-		});
+		Number minValue = getMinValue();
+		if (!(minValue instanceof Double)) {
+			Long minValueMinusOne = minValue.longValue() - 1;
+			StringConverter stringConverter = createStringConverter(container, null);
+			String stringValue = minValueMinusOne.toString();
+			assertThrows(NumberExceedsMinException.class, () -> {
+				stringConverter.fromString(stringValue);
+			});
+		}
 	}
 
 	@Test

@@ -10,6 +10,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ByteStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.converter.DoubleStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ShortStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactoryInfo;
@@ -32,21 +33,21 @@ public class StringConverterFactoryInfoMap
 
 	public StringConverterFactoryInfoMap(DependencyInjectionContainer container) {
 		this.container = container;
-		this.application=container.get(ReflectApplication.class);
+		this.application = container.get(ReflectApplication.class);
 //		put(DomainObject.GET_MY_String));
 //		put(DomainObject.GET_MY_boolean));
 //		put(DomainObject.GET_MY_Boolean));
 //		put(DomainObject.GET_MY_char));
-		put(DomainObject.GET_MY_BYTE , ByteStringConverter.class);
-		put(DomainObject.GET_MY_PRIMITIVE_BYTE , ByteStringConverter.class);
+		put(DomainObject.GET_MY_BYTE, ByteStringConverter.class);
+		put(DomainObject.GET_MY_PRIMITIVE_BYTE, ByteStringConverter.class);
 		put(DomainObject.GET_MY_SHORT, ShortStringConverter.class);
 		put(DomainObject.GET_MY_PRIMITIVE_SHORT, ShortStringConverter.class);
 //		put(DomainObject.GET_MY_int));
 //		put(DomainObject.GET_MY_Integer));
 //		put(DomainObject.GET_MY_long));
 //		put(DomainObject.GET_MY_Long));
-//		put(DomainObject.GET_MY_double));
-//		put(DomainObject.GET_MY_Double));
+		put(DomainObject.GET_MY_DOUBLE, DoubleStringConverter.class);
+		put(DomainObject.GET_MY_PRIMITIVE_DOUBLE, DoubleStringConverter.class);
 //		put(DomainObject.GET_MY_float));
 //		put(DomainObject.GET_MY_Float));
 //		put(DomainObject.GET_MY_BigInteger));
@@ -58,10 +59,10 @@ public class StringConverterFactoryInfoMap
 	}
 
 	private void put(String domainObjectGetterMethod, Class<? extends StringConverter> expectedStringConverterType) {
-		StringConverterFactoryInfo info=createInfo(domainObjectGetterMethod);
-		put(info,expectedStringConverterType);
+		StringConverterFactoryInfo info = createInfo(domainObjectGetterMethod);
+		put(info, expectedStringConverterType);
 	}
-	
+
 	private StringConverterFactoryInfo createInfo(String domainObjectGetterMethod) {
 		Method method = findMethod(domainObjectGetterMethod);
 		ReturnTypeInfo typeInfo = new ReturnTypeInfo(application, method);
