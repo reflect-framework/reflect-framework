@@ -12,6 +12,7 @@ import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ByteStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.DoubleStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.FloatStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.converter.LongStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ShortStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactoryInfo;
@@ -45,8 +46,8 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_PRIMITIVE_SHORT, ShortStringConverter.class);
 //		put(DomainObject.GET_MY_int));
 //		put(DomainObject.GET_MY_Integer));
-//		put(DomainObject.GET_MY_long));
-//		put(DomainObject.GET_MY_Long));
+		put(DomainObject.GET_MY_LONG, LongStringConverter.class);
+		put(DomainObject.GET_MY_PRIMITIVE_LONG, LongStringConverter.class);
 		put(DomainObject.GET_MY_DOUBLE, DoubleStringConverter.class);
 		put(DomainObject.GET_MY_PRIMITIVE_DOUBLE, DoubleStringConverter.class);
 		put(DomainObject.GET_MY_FLOAT, FloatStringConverter.class);

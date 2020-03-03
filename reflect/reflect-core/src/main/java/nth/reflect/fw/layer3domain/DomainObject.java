@@ -254,6 +254,8 @@ public class DomainObject {
 		this.myPrimitiveInt = myPrimitiveInt;
 	}
 
+	public static final String GET_MY_PRIMITIVE_LONG = "getMyPrimitiveLong";
+
 	public long getMyPrimitiveLong() {
 		return myPrimitiveLong;
 	}
@@ -331,6 +333,8 @@ public class DomainObject {
 	public void setMyInteger(Integer myInteger) {
 		this.myInteger = myInteger;
 	}
+
+	public static final String GET_MY_LONG = "getMyLong";
 
 	public Long getMyLong() {
 		return myLong;
