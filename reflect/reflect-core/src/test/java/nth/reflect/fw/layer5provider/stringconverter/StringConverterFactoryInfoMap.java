@@ -9,6 +9,8 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
+import nth.reflect.fw.layer5provider.stringconverter.converter.BigDecimalStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.converter.BigIntegerStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ByteStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.DoubleStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.FloatStringConverter;
@@ -53,10 +55,8 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_PRIMITIVE_DOUBLE, DoubleStringConverter.class);
 		put(DomainObject.GET_MY_FLOAT, FloatStringConverter.class);
 		put(DomainObject.GET_MY_PRIMITIVE_FLOAT, FloatStringConverter.class);
-//		put(DomainObject.GET_MY_BigInteger));
-//		put(DomainObject.GET_MY_BigDecimal));
-//		put(DomainObject.GET_MY_AtomicLong));
-//		put(DomainObject.GET_MY_AtomicInteger));
+		put(DomainObject.GET_MY_BIG_INTEGER, BigIntegerStringConverter.class);
+		put(DomainObject.GET_MY_BIG_DECIMAL, BigDecimalStringConverter.class);
 // AND MORE!
 
 	}

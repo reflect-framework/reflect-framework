@@ -584,6 +584,8 @@ public class DomainObject {
 		this.myAttomicLong = myAttomicLong;
 	}
 
+	public static final String GET_MY_BIG_DECIMAL = "getMyBigDecimal";
+	
 	public BigDecimal getMyBigDecimal() {
 		return myBigDecimal;
 	}
@@ -591,6 +593,8 @@ public class DomainObject {
 	public void setMyBigDecimal(BigDecimal myBigDecimal) {
 		this.myBigDecimal = myBigDecimal;
 	}
+
+	public static final String GET_MY_BIG_INTEGER = "getMyBigInteger";
 
 	public BigInteger getMyBigInteger() {
 		return myBigInteger;
