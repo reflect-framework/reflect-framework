@@ -1,7 +1,5 @@
 package nth.reflect.fw.layer5provider.stringconverter.converter.generic;
 
-import java.text.ParseException;
-
 import nth.reflect.fw.generic.exception.ReflectTranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.Translatable;
 
@@ -12,7 +10,7 @@ public class StringConverterException extends ReflectTranslatableException {
 	@Translatable
 	private static final String MESSAGE = "%s: Error converting value: %s";
 
-	public StringConverterException(StringConverter stringConverter, Object value, ParseException e) {
+	public StringConverterException(StringConverter stringConverter, Object value, Exception e) {
 		super(e, MESSAGE, stringConverter.getClass().getSimpleName(), value);
 	}
 

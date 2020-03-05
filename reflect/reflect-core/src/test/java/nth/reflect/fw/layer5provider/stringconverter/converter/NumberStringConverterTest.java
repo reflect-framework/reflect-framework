@@ -139,7 +139,7 @@ public abstract class NumberStringConverterTest {
 	}
 
 	@Test
-	public void testFromString_givenNoneNumber_mustThrowNumberExceedsMinException() {
+	public void testFromString_givenNoneNumber_mustThrowStringConverterException() {
 		StringConverter stringConverter = createStringConverter(container, null);
 		String stringValue = "INVALID NUMBER";
 		assertThrows(StringConverterException.class, () -> {
