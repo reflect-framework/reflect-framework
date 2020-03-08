@@ -17,21 +17,17 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
  */
 public class PropertyMethodItem extends MethodItem {
 
-	private final PropertyInfo propertyInfo;
 	private final ReadOnlyValueModel propertyOwnerModel;
 	private final ActionMethodInfo propertyMethodInfo;
 	private final ReadOnlyValueModel parameterValueModel;
 	private final FormTab formTab;
-	private final boolean showPropertyName;
 
 	public PropertyMethodItem(FormTab formTab, PropertyInfo propertyInfo, ActionMethodInfo propertyMethodInfo,
 			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
 		super(formTab.getUserInterfaceContainer(), formTab.getDomainValueModel().getValue(), propertyMethodInfo,
 				parameterValueModel);
 		this.formTab = formTab;
-		this.showPropertyName = showPropertyName;
 		this.propertyOwnerModel = formTab.getDomainValueModel();
-		this.propertyInfo = propertyInfo;
 		this.propertyMethodInfo = propertyMethodInfo;
 		this.parameterValueModel = parameterValueModel;
 		setAction(createAction());
@@ -77,8 +73,8 @@ public class PropertyMethodItem extends MethodItem {
 	}
 
 	/**
-	 * Hide this item when form is not in edit mode or if property method should
-	 * be hidden
+	 * Hide this item when form is not in edit mode or if property method should be
+	 * hidden
 	 */
 	@Override
 	public boolean isVisible() {

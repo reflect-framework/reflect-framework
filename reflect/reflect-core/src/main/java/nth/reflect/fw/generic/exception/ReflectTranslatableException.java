@@ -10,31 +10,29 @@ public class ReflectTranslatableException extends ReflectException {
 	private LanguageProvider languageProvider;
 	private final TranslatableString message;
 
-
-	public ReflectTranslatableException(String messageInEnglish, Object ...parameters) {
+	public ReflectTranslatableException(TranslatableString message) {
 		super();
 		this.languageProvider = new DefaultLanguageProvider();
-		this.message = new TranslatableString(messageInEnglish, parameters);
+		this.message = message;
 	}
-	
-	public ReflectTranslatableException(Throwable cause, String messageInEnglish, Object ...parameters) {
+
+	public ReflectTranslatableException(TranslatableString message, Throwable cause) {
 		super(cause);
 		this.languageProvider = new DefaultLanguageProvider();
-		this.message = new TranslatableString(messageInEnglish, parameters);
+		this.message = message;
 	}
-	
 
 	public void setLanguageProvider(LanguageProvider languageProvider) {
-		this.languageProvider=languageProvider;
+		this.languageProvider = languageProvider;
 	}
-	
+
 	@Override
 	public String getMessage() {
-		return  message.translateToEnglish();
+		return message.translateToEnglish();
 	}
-	
+
 	@Override
 	public String getLocalizedMessage() {
-		return  message.translate(languageProvider);
+		return message.translate(languageProvider);
 	}
 }

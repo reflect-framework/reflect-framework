@@ -12,7 +12,6 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.ui.vaadin.button.Button;
 import nth.reflect.ui.vaadin.button.ButtonTheme;
-import nth.reflect.ui.vaadin.css.FloatType;
 import nth.reflect.ui.vaadin.css.Overflow;
 import nth.reflect.ui.vaadin.css.StyleBuilder;
 

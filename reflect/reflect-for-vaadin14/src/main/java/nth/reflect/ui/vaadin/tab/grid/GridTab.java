@@ -12,17 +12,12 @@ import nth.reflect.fw.gui.component.table.info.ColumnInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer5provider.language.translatable.Translatable;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.ui.vaadin.tab.Tab;
 
 public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
 
 	private static final long serialVersionUID = -7981487179996807252L;
-	@Translatable
-	private static final String ERROR_INVOKING_ACTION_METHOD = "Error invoking action method: %s";
-	@Translatable
-	private static final String ERROR_INVOKING_ACTION_METHOD_THE_RETURN_TYPE_IS_NOT_SUPPORTED_FOR_A_TABLE_TAB = "Error invoking action method: %s The return type %s is not supported for a GridTab.";
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final Object actionMethodOwner;
 	private final ActionMethodInfo actionMethodInfo;
@@ -46,7 +41,6 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	}
 
-
 	private Grid<Object> createGrid() {
 		Grid<Object> grid = new Grid<Object>();
 		grid.setDataProvider(createDataProvider());
@@ -58,6 +52,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private void addGridColumns(Grid<?> grid) {
 		List<ColumnInfo> columnInfos = tableInfo.getColumnInfos();
 		for (ColumnInfo columnInfo : columnInfos) {
+			@SuppressWarnings("rawtypes")
 			ValueProvider valueProvider = createValueProvider(columnInfo);
 			grid.addColumn(valueProvider).setHeader(columnInfo.getHeaderText());
 		}
@@ -81,7 +76,6 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		return new ListDataProvider<>(values);
 	}
 
-
 	@Override
 	public String getDisplayName() {
 		return actionMethodInfo.getDisplayName();
@@ -97,24 +91,20 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		grid.getDataProvider().refreshAll();
 	}
 
-
 	@Override
 	public Object getMethodOwner() {
 		return actionMethodOwner;
 	}
-
 
 	@Override
 	public ActionMethodInfo getMethodInfo() {
 		return actionMethodInfo;
 	}
 
-
 	@Override
 	public Object getMethodParameter() {
 		return methodParameterValue;
 	}
-
 
 	@Override
 	public ReadOnlyValueModel getSelectedRowModel() {
@@ -140,8 +130,6 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		}
 		return selectedRowsModel;
 	}
-
-
 
 	@Override
 	public UserInterfaceContainer getUserInterfaceContainer() {

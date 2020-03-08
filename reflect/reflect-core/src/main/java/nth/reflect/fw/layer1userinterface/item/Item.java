@@ -3,6 +3,7 @@ package nth.reflect.fw.layer1userinterface.item;
 import java.net.URL;
 
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class Item {
 
@@ -10,8 +11,8 @@ public class Item {
 	private URL iconURL;
 	private boolean enabled = true;
 	private boolean visible = true;
-	private String text;
-	private String description;
+	private TranslatableString text;
+	private TranslatableString description;
 	private final LanguageProvider languageProvider;
 
 	public Item(LanguageProvider languageProvider) {
@@ -23,12 +24,10 @@ public class Item {
 	 * associated with it. FontIcon and action can be null, but a caption must be
 	 * given.
 	 * 
-	 * @param text
-	 *            The text associated with the action
-	 * @param action
-	 *            The action to be fired
+	 * @param text   The text associated with the action
+	 * @param action The action to be fired
 	 */
-	public Item(LanguageProvider languageProvider, String text, URL iconURL, Action action) {
+	public Item(LanguageProvider languageProvider, TranslatableString text, URL iconURL, Action action) {
 
 		this.languageProvider = languageProvider;
 		if (text == null) {
@@ -44,7 +43,7 @@ public class Item {
 		this.iconURL = iconURL;
 	}
 
-	public Item(LanguageProvider languageProvider, String text, Action action) {
+	public Item(LanguageProvider languageProvider, TranslatableString text, Action action) {
 		this.languageProvider = languageProvider;
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
@@ -52,7 +51,7 @@ public class Item {
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		//TODO setIconURI(iconUri);???
+		// TODO setIconURI(iconUri);???
 	}
 
 	/**
@@ -87,7 +86,7 @@ public class Item {
 
 	public String getDescription() {
 		String descText = null;
-		if (description == null || description.trim().length() == 0) {
+		if (description == null) {
 			descText = getText();
 		} else {
 			descText = languageProvider.getText(description);
@@ -107,14 +106,13 @@ public class Item {
 		this.action = action;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(TranslatableString text) {
+		this.description = text;
 	}
 
-	public void setText(String text) {
+	public void setText(TranslatableString text) {
 		this.text = text;
 	}
-
 
 	public interface Action extends Runnable {
 	}

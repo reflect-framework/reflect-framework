@@ -5,14 +5,13 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.language.translatable.Translatable;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 public class FormOkItem extends MethodItem {
 
-	@Translatable
-	private static final String ONE_ORE_MORE_PROPERTIES_ARE_INVALID = "One ore more properties are invalid.";
+	private static final TranslatableString ONE_ORE_MORE_PROPERTIES_ARE_INVALID = new TranslatableString(
+			FormOkItem.class.getCanonicalName() + ".propertiesArInvalid", "One ore more properties are invalid.");
 
 	@SuppressWarnings("rawtypes")
 	public FormOkItem(final FormTab formTab, final Object methodOwner, final ActionMethodInfo actionMethodInfo,
@@ -27,8 +26,8 @@ public class FormOkItem extends MethodItem {
 			public void run() {
 				if (FormMode.EDIT == formTab.getFormMode()) {
 					if (!domainValueModel.isValid()) {
-						TranslatableString message = new TranslatableString(ONE_ORE_MORE_PROPERTIES_ARE_INVALID);
-						userInterfaceController.showInfoMessage(message.translate(languageProvider));
+						userInterfaceController
+								.showInfoMessage(ONE_ORE_MORE_PROPERTIES_ARE_INVALID.translate(languageProvider));
 						return;
 					} else {
 						domainValueModel.commit();

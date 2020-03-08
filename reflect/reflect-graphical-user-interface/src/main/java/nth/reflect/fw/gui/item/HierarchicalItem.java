@@ -6,6 +6,7 @@ import java.util.List;
 
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class HierarchicalItem extends Item {
 
@@ -17,17 +18,14 @@ public class HierarchicalItem extends Item {
 	}
 
 	/**
-	 * Constructs a new menu item that can optionally have an MaterialAppBarIcon and a action
-	 * associated with it. FontIcon and action can be null, but a caption must be
-	 * given.
+	 * Constructs a new menu item that can optionally have an MaterialAppBarIcon and
+	 * a action associated with it. FontIcon and action can be null, but a caption
+	 * must be given.
 	 * 
-	 * @param text
-	 *            The text associated with the action
-	 * @param action
-	 *            The action to be fired
+	 * @param text   The text associated with the action
+	 * @param action The action to be fired
 	 */
-	public HierarchicalItem(LanguageProvider languageProvider, String text,
-			URL iconURL, Action action) {
+	public HierarchicalItem(LanguageProvider languageProvider, TranslatableString text, URL iconURL, Action action) {
 		super(languageProvider);
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
@@ -38,8 +36,7 @@ public class HierarchicalItem extends Item {
 		setAction(action);
 	}
 
-	public HierarchicalItem(LanguageProvider languageProvider, String text,
-			Action action) {
+	public HierarchicalItem(LanguageProvider languageProvider, TranslatableString text, Action action) {
 		super(languageProvider);
 		if (text == null) {
 			throw new IllegalArgumentException("caption cannot be null");
@@ -47,7 +44,7 @@ public class HierarchicalItem extends Item {
 		setText(text);
 		setDescription(text);
 		setAction(action);
-		//TODO setIconURI();
+		// TODO setIconURI();
 	}
 
 	/**
@@ -63,8 +60,8 @@ public class HierarchicalItem extends Item {
 	 * For the containing item. This will return null if the item is in the
 	 * top-level menu bar.
 	 * 
-	 * @return The containing {@link nth.reflect.fw.gui.item.HierarchicalItem} ,
-	 *         or null if there is none
+	 * @return The containing {@link nth.reflect.fw.gui.item.HierarchicalItem} , or
+	 *         null if there is none
 	 */
 	public HierarchicalItem getParent() {
 		return parent;
@@ -94,8 +91,7 @@ public class HierarchicalItem extends Item {
 	/**
 	 * Set the parent of this item. This is called by the addItem method.
 	 * 
-	 * @param parent
-	 *            The parent item
+	 * @param parent The parent item
 	 */
 	public void setParent(HierarchicalItem parent) {
 		this.parent = parent;

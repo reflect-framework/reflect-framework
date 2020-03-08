@@ -8,19 +8,20 @@ import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.language.translatable.Translatable;
-
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class CancelItem<TAB extends Tab> extends Item {
-	@Translatable
-	private static final String CANCEL = "Cancel";
+	private static final TranslatableString CANCEL_TEXT = new TranslatableString(
+			CancelItem.class.getCanonicalName() + ".text", "Cancel");
+	private static final TranslatableString CANCEL_DESCRIPTION = new TranslatableString(
+			CancelItem.class.getCanonicalName() + ".description", "Cancel changes and close this tab");
 
-	public CancelItem(LanguageProvider languageProvider, final Tabs<TAB> tabs,  final TAB tabToClose ) {
+	public CancelItem(LanguageProvider languageProvider, final Tabs<TAB> tabs, final TAB tabToClose) {
 		super(languageProvider);
-		setText(CANCEL);
-		setDescription(CANCEL);
+		setText(CANCEL_TEXT);
+		setDescription(CANCEL_DESCRIPTION);
 		try {
-			setIconURL(new URL(FontAwesomeUrl.CLOSE ));
+			setIconURL(new URL(FontAwesomeUrl.CLOSE));
 		} catch (MalformedURLException e) {
 		}
 		setAction(new Action() {

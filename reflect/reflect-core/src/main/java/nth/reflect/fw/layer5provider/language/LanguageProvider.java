@@ -8,42 +8,42 @@ import nth.reflect.fw.container.ConstructionInjection;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
  * <p>
  * The {@link LanguageProvider} makes multilingual support possible. The
- * {@link ReflectFramework} supports the English language by default because
- * it uses the ClassNames, {@link DomainObjectProperty}Names and
- * {@link ActionMethod}names that are used in the code as part of the <a
- * href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
+ * {@link ReflectFramework} supports the English language by default because it
+ * uses the ClassNames, {@link DomainObjectProperty}Names and
+ * {@link ActionMethod}names that are used in the code as part of the
+ * <a href="http://martinfowler.com/bliki/UbiquitousLanguage.html">Ubiquitous
  * Language</a> (it does not make sense to mix an other language into your
  * code).
  * </p>
  * <h3>Language property files</h3>
  * <p>
- * Texts for other languages are stored in property files. The name of these files need
- * to be: &lt;application
- * configuration folder&gt;/language_&lt;language_code&gt;.properties
+ * Texts for other languages are stored in property files. The name of these
+ * files need to be: &lt;application configuration
+ * folder&gt;/language_&lt;language_code&gt;.properties
  * </p>
  * Where:
  * <ul>
- * <li>
- * &lt;application configuration folder&gt; These files need to be located at
- * the configuration folder of the application. See PathProvider for more
+ * <li>&lt;application configuration folder&gt; These files need to be located
+ * at the configuration folder of the application. See PathProvider for more
  * information</li>
- * <li>&lt;Language_code&gt; two letter language code (see java {@link Locale})</li>
+ * <li>&lt;Language_code&gt; two letter language code (see java
+ * {@link Locale})</li>
  * </ul>
  * 
  * <p>
- * The language property files comply to the Java <a
- * href="https://en.wikipedia.org/wiki/.properties">.properties</a> standard and
- * thus contain key value pairs.
+ * The language property files comply to the Java
+ * <a href="https://en.wikipedia.org/wiki/.properties">.properties</a> standard
+ * and thus contain key value pairs.
  * <ul>
- * <li>
- * The key is an reference to part of the code. Keys have the following format:
- * &lt;packageName&gt;.&lt;classname&gt; or
+ * <li>The key is an reference to part of the code. Keys have the following
+ * format: &lt;packageName&gt;.&lt;classname&gt; or
  * &lt;packageName&gt;.&lt;classname&gt;.&lt;propertyName&gt; or
  * &lt;packageName&gt;.&lt;classname&gt;.&lt;actionMethodName&gt;, followed by
  * .displayname or.description (see examples below)</li>
@@ -55,8 +55,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * Examples of key value lines in property files:
  * <ul>
- * <li>
- * com.acme.order.ShoppingCart.displayname=Winkel wagen</li>
+ * <li>com.acme.order.ShoppingCart.displayname=Winkel wagen</li>
  * <li>com.acme.product.ProductService.displayname=Producten</li>
  * </ul>
  * 
@@ -103,7 +102,8 @@ public interface LanguageProvider extends Provider {
 
 	String getText(String key, String defaultText);
 
-	String getText(Locale locale, String key, String defaultText);
+	String getText(TranslatableString translatableString);
 
+	String getText(Locale locale, String key, String defaultText);
 
 }
