@@ -9,18 +9,19 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
-import nth.reflect.fw.layer5provider.stringconverter.converter.BigDecimalStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.BigIntegerStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.BooleanStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.ByteStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.DoubleStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.FloatStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.IntegerStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.LongStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.ShortStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.StringStringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactoryInfo;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.ByteStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.DoubleStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.FloatStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.IntegerStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.LongStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.ShortStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
 
 /**
  * This {@link Map} contains {@link StringConverterFactoryInfo}s (created from
@@ -41,10 +42,19 @@ public class StringConverterFactoryInfoMap
 	public StringConverterFactoryInfoMap(DependencyInjectionContainer container) {
 		this.container = container;
 		this.application = container.get(ReflectApplication.class);
+		addJavaNoNumberTypes();
+		addJavaNumberTypes();
+	}
+
+	private void addJavaNoNumberTypes() {
 		put(DomainObject.GET_MY_TEXT, StringStringConverter.class);
 		put(DomainObject.IS_MY_BOOLEAN, BooleanStringConverter.class);
 		put(DomainObject.IS_MY_PRIMITIVE_BOOLEAN, BooleanStringConverter.class);
-//		put(DomainObject.GET_MY_char));
+		put(DomainObject.GET_MY_CHARACTER, CharacterStringConverter.class);
+		put(DomainObject.GET_MY_PRIMITIVE_CHAR, CharacterStringConverter.class);
+	}
+
+	private void addJavaNumberTypes() {
 		put(DomainObject.GET_MY_BYTE, ByteStringConverter.class);
 		put(DomainObject.GET_MY_PRIMITIVE_BYTE, ByteStringConverter.class);
 		put(DomainObject.GET_MY_SHORT, ShortStringConverter.class);
@@ -59,8 +69,6 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_PRIMITIVE_FLOAT, FloatStringConverter.class);
 		put(DomainObject.GET_MY_BIG_INTEGER, BigIntegerStringConverter.class);
 		put(DomainObject.GET_MY_BIG_DECIMAL, BigDecimalStringConverter.class);
-// AND MORE!
-
 	}
 
 	private void put(String domainObjectGetterMethod, Class<? extends StringConverter> expectedStringConverterType) {

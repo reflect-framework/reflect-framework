@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.TypeNotSupportedException;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
-import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 /**
  * Adapter for {@link DecimalFormat} to return the correct {@link #numberType}

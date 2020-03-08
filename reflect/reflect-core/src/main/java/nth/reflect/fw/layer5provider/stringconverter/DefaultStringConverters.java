@@ -1,24 +1,25 @@
 package nth.reflect.fw.layer5provider.stringconverter;
 
-import nth.reflect.fw.layer5provider.stringconverter.converter.BigDecimalStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.BigIntegerStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.BooleanStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.ByteStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.DoubleStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.FloatStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.IntegerStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.LongStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.ShortStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.StringStringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.ByteStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.DoubleStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.FloatStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.IntegerStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.LongStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.number.ShortStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverterFactory;
 
 public class DefaultStringConverters {
 
 	private static StringConverterFactory[] allStringConverterFactories = { new StringStringConverterFactory(),
+			new BooleanStringConverterFactory(), new CharacterStringConverterFactory(),
 			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
 			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),
-			new BigDecimalStringConverterFactory(), new BigIntegerStringConverterFactory(),
-			new BooleanStringConverterFactory() };
+			new BigDecimalStringConverterFactory(), new BigIntegerStringConverterFactory(), };
 
 	public static StringConverterFactory[] getAll() {
 		return allStringConverterFactories;
