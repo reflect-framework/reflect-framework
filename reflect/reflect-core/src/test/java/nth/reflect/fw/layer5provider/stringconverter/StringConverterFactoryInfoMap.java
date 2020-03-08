@@ -18,6 +18,7 @@ import nth.reflect.fw.layer5provider.stringconverter.converter.FloatStringConver
 import nth.reflect.fw.layer5provider.stringconverter.converter.IntegerStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.LongStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ShortStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.converter.StringStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactoryInfo;
 
@@ -40,7 +41,7 @@ public class StringConverterFactoryInfoMap
 	public StringConverterFactoryInfoMap(DependencyInjectionContainer container) {
 		this.container = container;
 		this.application = container.get(ReflectApplication.class);
-//		put(DomainObject.GET_MY_String));
+		put(DomainObject.GET_MY_TEXT, StringStringConverter.class);
 		put(DomainObject.IS_MY_BOOLEAN, BooleanStringConverter.class);
 		put(DomainObject.IS_MY_PRIMITIVE_BOOLEAN, BooleanStringConverter.class);
 //		put(DomainObject.GET_MY_char));

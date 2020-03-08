@@ -9,13 +9,14 @@ import nth.reflect.fw.layer5provider.stringconverter.converter.FloatStringConver
 import nth.reflect.fw.layer5provider.stringconverter.converter.IntegerStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.converter.LongStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ShortStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.converter.StringStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.converter.generic.StringConverterFactory;
 
 public class DefaultStringConverters {
 
-	private static StringConverterFactory[] allStringConverterFactories = { new ByteStringConverterFactory(),
-			new ShortStringConverterFactory(), new DoubleStringConverterFactory(), new FloatStringConverterFactory(),
-			new IntegerStringConverterFactory(), new LongStringConverterFactory(),
+	private static StringConverterFactory[] allStringConverterFactories = { new StringStringConverterFactory(),
+			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
+			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),
 			new BigDecimalStringConverterFactory(), new BigIntegerStringConverterFactory(),
 			new BooleanStringConverterFactory() };
 

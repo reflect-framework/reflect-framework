@@ -585,7 +585,7 @@ public class DomainObject {
 	}
 
 	public static final String GET_MY_BIG_DECIMAL = "getMyBigDecimal";
-	
+
 	public BigDecimal getMyBigDecimal() {
 		return myBigDecimal;
 	}
