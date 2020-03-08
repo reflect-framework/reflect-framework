@@ -1,6 +1,7 @@
 package nth.reflect.fw.layer5provider.stringconverter;
 
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.ByteStringConverterFactory;
@@ -15,11 +16,16 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConv
 
 public class DefaultStringConverters {
 
-	private static StringConverterFactory[] allStringConverterFactories = { new StringStringConverterFactory(),
-			new BooleanStringConverterFactory(), new CharacterStringConverterFactory(),
+	private static StringConverterFactory[] allStringConverterFactories = {
+			// Java Types (other than numbers or date & time)
+			new StringStringConverterFactory(), new BooleanStringConverterFactory(),
+			new CharacterStringConverterFactory(),
+			// Java Numbers
 			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
 			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),
-			new BigDecimalStringConverterFactory(), new BigIntegerStringConverterFactory(), };
+			new BigDecimalStringConverterFactory(), new BigIntegerStringConverterFactory(),
+			// Java Date & Time
+			new CalendarStringConverterFactory() };
 
 	public static StringConverterFactory[] getAll() {
 		return allStringConverterFactories;

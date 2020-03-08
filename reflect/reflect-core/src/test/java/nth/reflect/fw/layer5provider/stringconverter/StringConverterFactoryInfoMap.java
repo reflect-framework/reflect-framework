@@ -11,6 +11,7 @@ import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
+import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.ByteStringConverter;
@@ -42,11 +43,24 @@ public class StringConverterFactoryInfoMap
 	public StringConverterFactoryInfoMap(DependencyInjectionContainer container) {
 		this.container = container;
 		this.application = container.get(ReflectApplication.class);
-		addJavaNoNumberTypes();
 		addJavaNumberTypes();
+		addJavaDateTimeTypes();
+		addJavaOtherTypes();
+
 	}
 
-	private void addJavaNoNumberTypes() {
+	private void addJavaDateTimeTypes() {
+		put(DomainObject.GET_MY_CALENDAR, CalendarStringConverter.class);
+		put(DomainObject.GET_MY_CALENDAR_WITH_DATE_ANNOTATION, CalendarStringConverter.class);
+		put(DomainObject.GET_MY_CALENDAR_WITH_DATE_FORMAT, CalendarStringConverter.class);
+		put(DomainObject.GET_MY_CALENDAR_WITH_DATE_TIME_ANNOTATION, CalendarStringConverter.class);
+		put(DomainObject.GET_MY_CALENDAR_WITH_DATE_TIME_FORMAT, CalendarStringConverter.class);
+		put(DomainObject.GET_MY_CALENDAR_WITH_TIME_ANNOTATION, CalendarStringConverter.class);
+		put(DomainObject.GET_MY_CALENDAR_WITH_TIME_FORMAT, CalendarStringConverter.class);
+
+	}
+
+	private void addJavaOtherTypes() {
 		put(DomainObject.GET_MY_TEXT, StringStringConverter.class);
 		put(DomainObject.IS_MY_BOOLEAN, BooleanStringConverter.class);
 		put(DomainObject.IS_MY_PRIMITIVE_BOOLEAN, BooleanStringConverter.class);
