@@ -2,18 +2,17 @@ package nth.reflect.fw.layer5provider.stringconverter.java.datetime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
-public class CalendarStringConverter extends StringConverter<Calendar> {
+public class DateStringConverter extends StringConverter<Date> {
 
 	private final SimpleDateFormat format;
 
-	public CalendarStringConverter(DependencyInjectionContainer container, String formatPattern) {
+	public DateStringConverter(DependencyInjectionContainer container, String formatPattern) {
 		super(container, formatPattern);
 		format = createFormat();
 	}
@@ -28,17 +27,16 @@ public class CalendarStringConverter extends StringConverter<Calendar> {
 	}
 
 	@Override
-	public String toString(Calendar value) {
+	public String toString(Date value) {
 		if (value == null) {
 			return "";
 		}
-		format.setCalendar(value);
-		String formatedValue = format.format(value.getTime());
+		String formatedValue = format.format(value);
 		return formatedValue;
 	}
 
 	@Override
-	public Calendar fromString(String value) {
+	public Date fromString(String value) {
 		if (value == null) {
 			return null;
 		}
@@ -51,9 +49,7 @@ public class CalendarStringConverter extends StringConverter<Calendar> {
 
 		try {
 			Date date = format.parse(value);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			return calendar;
+			return date;
 
 		} catch (ParseException e) {
 			throw new StringConverterException(this, value, e);

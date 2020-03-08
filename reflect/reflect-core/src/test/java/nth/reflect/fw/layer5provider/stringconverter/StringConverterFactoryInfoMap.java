@@ -12,6 +12,7 @@ import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.ByteStringConverter;
@@ -57,6 +58,13 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_CALENDAR_WITH_DATE_TIME_FORMAT, CalendarStringConverter.class);
 		put(DomainObject.GET_MY_CALENDAR_WITH_TIME_ANNOTATION, CalendarStringConverter.class);
 		put(DomainObject.GET_MY_CALENDAR_WITH_TIME_FORMAT, CalendarStringConverter.class);
+		put(DomainObject.GET_MY_DATE, DateStringConverter.class);
+		put(DomainObject.GET_MY_DATE_WITH_DATE_ANNOTATION, DateStringConverter.class);
+		put(DomainObject.GET_MY_DATE_WITH_DATE_FORMAT, DateStringConverter.class);
+		put(DomainObject.GET_MY_DATE_WITH_DATE_TIME_ANNOTATION, DateStringConverter.class);
+		put(DomainObject.GET_MY_DATE_WITH_DATE_TIME_FORMAT, DateStringConverter.class);
+		put(DomainObject.GET_MY_DATE_WITH_TIME_ANNOTATION, DateStringConverter.class);
+		put(DomainObject.GET_MY_DATE_WITH_TIME_FORMAT, DateStringConverter.class);
 
 	}
 
