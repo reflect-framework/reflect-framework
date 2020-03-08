@@ -11,6 +11,7 @@ import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.converter.BigDecimalStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.BigIntegerStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.converter.BooleanStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.ByteStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.DoubleStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.converter.FloatStringConverter;
@@ -40,8 +41,8 @@ public class StringConverterFactoryInfoMap
 		this.container = container;
 		this.application = container.get(ReflectApplication.class);
 //		put(DomainObject.GET_MY_String));
-//		put(DomainObject.GET_MY_boolean));
-//		put(DomainObject.GET_MY_Boolean));
+		put(DomainObject.IS_MY_BOOLEAN, BooleanStringConverter.class);
+		put(DomainObject.IS_MY_PRIMITIVE_BOOLEAN, BooleanStringConverter.class);
 //		put(DomainObject.GET_MY_char));
 		put(DomainObject.GET_MY_BYTE, ByteStringConverter.class);
 		put(DomainObject.GET_MY_PRIMITIVE_BYTE, ByteStringConverter.class);
