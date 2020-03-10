@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.stringconverter.StringConverterFactoryInfoMap;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 
 public abstract class StringConverterFactoryTest {

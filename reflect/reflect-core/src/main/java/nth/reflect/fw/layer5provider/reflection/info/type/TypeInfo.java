@@ -50,31 +50,30 @@ public class TypeInfo {
 		boolean isReflectApplication = ReflectApplication.class.isAssignableFrom(this.type);
 		boolean isServiceClass = isServiceClass(this.type, reflectApplication);
 		boolean isInfrastructureClass = isInfrastructureClass(this.type, reflectApplication);
-		this.isDomainClass = !isVoid && !isJavaType && !hasMultipleValues && !isReflectApplication
-				&& !isServiceClass && !isInfrastructureClass;
+		this.isDomainClass = !isVoid && !isJavaType && !hasMultipleValues && !isReflectApplication && !isServiceClass
+				&& !isInfrastructureClass;
 		this.isHierarchicalDomainType = isHierarchicalDomainType(type);
 	}
 
 	/**
-	 * @param type
-	 *            e.g. the generic parameter or the generic return type of a
-	 *            method
-	 * @param application 
+	 * @param type        e.g. the generic parameter or the generic return type of a
+	 *                    method
+	 * @param application
 	 * @return If type is an {@link Array} it returns its type<br>
-	 *         If type is an {@link ParameterizedType} (e.g. the parameter or
-	 *         the return type of a method) it returns the generic type of a
+	 *         If type is an {@link ParameterizedType} (e.g. the parameter or the
+	 *         return type of a method) it returns the generic type of a
 	 *         collection<br>
 	 *         Otherwise it returns
 	 */
 	public static Optional<TypeInfo> getArrayOrCollectionTypeInfo(ReflectApplication application, Type type) {
-		if (type==null) {
+		if (type == null) {
 			return Optional.empty();
 		}
 		if (type instanceof Class<?>) {
 			Class<?> cls = (Class<?>) type;
 			if (cls.isArray()) {
 				Class<?> arrayType = cls.getComponentType();
-				TypeInfo arrayTypeInfo=new TypeInfo(application, arrayType, null);
+				TypeInfo arrayTypeInfo = new TypeInfo(application, arrayType, null);
 				return Optional.of(arrayTypeInfo);
 			} else {
 				return Optional.empty();
@@ -83,24 +82,24 @@ public class TypeInfo {
 			ParameterizedType parameterizedType = (ParameterizedType) type;
 			Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
 			if (actualTypeArguments.length != 1) {
-				Class<?> genericParameterType=(Class<?>) parameterizedType.getRawType();
-				TypeInfo genericParameterTypeInfo=new TypeInfo(application, genericParameterType, null);
+				Class<?> genericParameterType = (Class<?>) parameterizedType.getRawType();
+				TypeInfo genericParameterTypeInfo = new TypeInfo(application, genericParameterType, null);
 				return Optional.of(genericParameterTypeInfo);
 			}
 			Type actualType = actualTypeArguments[0];
 			if (actualType.toString().equals("java.lang.Class<?>")) {
-				TypeInfo classTypeInfo=new TypeInfo(application,Class.class, null);
+				TypeInfo classTypeInfo = new TypeInfo(application, Class.class, null);
 				return Optional.of(classTypeInfo);
 			}
 			Class<?> genericType = (Class<?>) actualType;
-			TypeInfo genericTypeInfo=new TypeInfo(application,genericType, null);			
+			TypeInfo genericTypeInfo = new TypeInfo(application, genericType, null);
 			return Optional.of(genericTypeInfo);
 		}
 		return Optional.empty();
 	}
 
 	private static boolean isVoid(Class<?> type) {
-		return type == Void.TYPE || type==Void.class;
+		return type == Void.TYPE || type == Void.class;
 	}
 
 	/**
@@ -115,8 +114,8 @@ public class TypeInfo {
 	}
 
 	/**
-	 * @return true if the type can contain multiple values (can be displayed as
-	 *         a table or grid) at a given time. Note that a {@link Enum} only
+	 * @return true if the type can contain multiple values (can be displayed as a
+	 *         table or grid) at a given time. Note that a {@link Enum} only
 	 *         contains one value at a time.
 	 */
 	public boolean hasMultipleValues() {
@@ -134,14 +133,14 @@ public class TypeInfo {
 	public boolean isArrayOrCollection() {
 		return isArray || isCollection;
 	}
-	
+
 	/**
 	 * 
-	 * @return true if the type is a custom made class {@link DomainObject}
-	 *         class (not part of java language or {@link ReflectFramework})
-	 *         that can be displayed in a form. Note that an custom {@link Enum}
-	 *         can contain getter methods and is therefore a (none editable)
-	 *         domain object that could be displayed in a form
+	 * @return true if the type is a custom made class {@link DomainObject} class
+	 *         (not part of java language or {@link ReflectFramework}) that can be
+	 *         displayed in a form. Note that an custom {@link Enum} can contain
+	 *         getter methods and is therefore a (none editable) domain object that
+	 *         could be displayed in a form
 	 */
 	public boolean isDomainClass() {
 		return isDomainClass;
@@ -190,14 +189,13 @@ public class TypeInfo {
 	public boolean isJavaType() {
 		return isJavaType;
 	}
-	
 
-	public  boolean isJavaType(Class<?> type) {
-		if (PrimitiveType.isPrimitive(type) || isVoid || (isArray && arrayOrCollectionTypeInfo.get().isJavaType) ) {
+	public boolean isJavaType(Class<?> type) {
+		if (PrimitiveType.isPrimitive(type) || isVoid || (isArray && arrayOrCollectionTypeInfo.get().isJavaType)) {
 			return true;
 		}
 		String canonicalName = type.getCanonicalName();
-		boolean startsWithJavaPackageName = canonicalName.startsWith("java.") ||canonicalName.startsWith("javax.");
+		boolean startsWithJavaPackageName = canonicalName.startsWith("java.") || canonicalName.startsWith("javax.");
 		return startsWithJavaPackageName;
 	}
 
@@ -221,5 +219,9 @@ public class TypeInfo {
 	public boolean isHasMultipleValues() {
 		return hasMultipleValues;
 	}
-	
+
+	@Override
+	public String toString() {
+		return type.getName();
+	}
 }

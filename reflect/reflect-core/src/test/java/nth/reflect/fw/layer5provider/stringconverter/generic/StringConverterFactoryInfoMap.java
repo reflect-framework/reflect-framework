@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.stringconverter;
+package nth.reflect.fw.layer5provider.stringconverter.generic;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -9,10 +9,9 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.datetime.LocalDateTimeStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.ByteStringConverter;
@@ -65,7 +64,7 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_DATE_WITH_DATE_TIME_FORMAT, DateStringConverter.class);
 		put(DomainObject.GET_MY_DATE_WITH_TIME_ANNOTATION, DateStringConverter.class);
 		put(DomainObject.GET_MY_DATE_WITH_TIME_FORMAT, DateStringConverter.class);
-
+		put(DomainObject.GET_MY_LOCAL_DATE_TIME, LocalDateTimeStringConverter.class);
 	}
 
 	private void addJavaOtherTypes() {
