@@ -18,7 +18,7 @@ public class LocalDateStringConverterTest {
 
 	@Test
 	public void testToString_givenNullWithNullFormat_mustReturnEmptyString() {
-		LocalDateTimeStringConverter localLocalDateStringConverter = new LocalDateTimeStringConverter(null, null);
+		LocalDateStringConverter localLocalDateStringConverter = new LocalDateStringConverter(null, null);
 		String result = localLocalDateStringConverter.toString(null);
 		assertThat(result).isEqualTo(EMPTY_STRING);
 	}
