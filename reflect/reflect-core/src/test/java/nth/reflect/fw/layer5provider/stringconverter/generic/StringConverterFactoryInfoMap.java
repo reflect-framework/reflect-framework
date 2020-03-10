@@ -11,6 +11,7 @@ import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.datetime.LocalDateStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.LocalDateTimeStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverter;
@@ -65,6 +66,7 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_DATE_WITH_TIME_ANNOTATION, DateStringConverter.class);
 		put(DomainObject.GET_MY_DATE_WITH_TIME_FORMAT, DateStringConverter.class);
 		put(DomainObject.GET_MY_LOCAL_DATE_TIME, LocalDateTimeStringConverter.class);
+		put(DomainObject.GET_MY_LOCAL_DATE, LocalDateStringConverter.class);
 	}
 
 	private void addJavaOtherTypes() {

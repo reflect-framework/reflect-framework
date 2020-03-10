@@ -1,6 +1,6 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.datetime;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
@@ -8,11 +8,11 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
-public class LocalDateTimeStringConverter extends StringConverter<LocalDateTime> {
+public class LocalDateStringConverter extends StringConverter<LocalDate> {
 
 	private final DateTimeFormatter dateTimeFormatter;
 
-	public LocalDateTimeStringConverter(DependencyInjectionContainer container, String formatPattern) {
+	public LocalDateStringConverter(DependencyInjectionContainer container, String formatPattern) {
 		super(container, formatPattern);
 		dateTimeFormatter = createDateTimeFormatter();
 	}
@@ -27,10 +27,11 @@ public class LocalDateTimeStringConverter extends StringConverter<LocalDateTime>
 	}
 
 	@Override
-	public String toString(LocalDateTime value) {
+	public String toString(LocalDate value) {
 		if (value == null) {
 			return "";
 		}
+
 		try {
 			String formatedValue = dateTimeFormatter.format(value);
 			return formatedValue;
@@ -42,7 +43,7 @@ public class LocalDateTimeStringConverter extends StringConverter<LocalDateTime>
 	}
 
 	@Override
-	public LocalDateTime fromString(String value) {
+	public LocalDate fromString(String value) {
 		if (value == null) {
 			return null;
 		}
@@ -55,8 +56,8 @@ public class LocalDateTimeStringConverter extends StringConverter<LocalDateTime>
 
 		try {
 			TemporalAccessor temporal = dateTimeFormatter.parse(value);
-			LocalDateTime localDateTime = LocalDateTime.from(temporal);
-			return localDateTime;
+			LocalDate localDate = LocalDate.from(temporal);
+			return localDate;
 
 		} catch (Exception e) {
 			throw new StringConverterException(this, value, e);

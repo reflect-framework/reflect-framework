@@ -3,6 +3,7 @@ package nth.reflect.fw.layer5provider.stringconverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.datetime.LocalDateStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.LocalDateTimeStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigDecimalStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.number.BigIntegerStringConverterFactory;
@@ -28,7 +29,7 @@ public class DefaultStringConverters {
 			new BigDecimalStringConverterFactory(), new BigIntegerStringConverterFactory(),
 			// Java Date & Time
 			new CalendarStringConverterFactory(), new DateStringConverterFactory(),
-			new LocalDateTimeStringConverterFactory() };
+			new LocalDateTimeStringConverterFactory(), new LocalDateStringConverterFactory() };
 
 	public static StringConverterFactory[] getAll() {
 		return allStringConverterFactories;
