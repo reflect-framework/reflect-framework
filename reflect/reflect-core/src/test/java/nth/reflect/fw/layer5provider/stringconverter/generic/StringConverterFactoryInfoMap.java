@@ -25,6 +25,7 @@ import nth.reflect.fw.layer5provider.stringconverter.java.number.ShortStringConv
 import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConverter;
 
 /**
  * This {@link Map} contains {@link StringConverterFactoryInfo}s (created from
@@ -77,6 +78,7 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.IS_MY_PRIMITIVE_BOOLEAN, BooleanStringConverter.class);
 		put(DomainObject.GET_MY_CHARACTER, CharacterStringConverter.class);
 		put(DomainObject.GET_MY_PRIMITIVE_CHAR, CharacterStringConverter.class);
+		put(DomainObject.GET_MY_URI, UriStringConverter.class);
 	}
 
 	private void addJavaNumberTypes() {

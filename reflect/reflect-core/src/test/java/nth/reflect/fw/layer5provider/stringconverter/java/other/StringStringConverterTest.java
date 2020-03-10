@@ -5,8 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
-
 public class StringStringConverterTest {
 
 	private final static String STRING = "String";
@@ -18,9 +16,9 @@ public class StringStringConverterTest {
 	}
 
 	@Test
-	public void testToString_givenNull_mustReturnNull() {
+	public void testToString_givenNull_mustReturnEmpty() {
 		String result = stringStringConverter.toString(null);
-		assertThat(result).isNull();
+		assertThat(result).isEmpty();
 	}
 
 	@Test
@@ -30,7 +28,7 @@ public class StringStringConverterTest {
 	}
 
 	@Test
-	public void testFromString_givenNull_mustReturnNull() {
+	public void testFromString_givenNull_mustReturnEmpty() {
 		String result = stringStringConverter.fromString(null);
 		assertThat(result).isNull();
 	}

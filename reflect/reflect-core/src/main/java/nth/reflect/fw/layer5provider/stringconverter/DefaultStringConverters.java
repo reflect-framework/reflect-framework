@@ -17,13 +17,14 @@ import nth.reflect.fw.layer5provider.stringconverter.java.number.ShortStringConv
 import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConverterFactory;
 
 public class DefaultStringConverters {
 
 	private static StringConverterFactory[] allStringConverterFactories = {
 			// Java Types (other than numbers or date & time)
 			new StringStringConverterFactory(), new BooleanStringConverterFactory(),
-			new CharacterStringConverterFactory(),
+			new CharacterStringConverterFactory(), new UriStringConverterFactory(),
 			// Java Numbers
 			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
 			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),

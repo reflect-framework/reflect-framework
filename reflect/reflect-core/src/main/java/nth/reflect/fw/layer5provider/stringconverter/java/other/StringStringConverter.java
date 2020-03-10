@@ -19,6 +19,9 @@ public class StringStringConverter extends StringConverter<String> {
 
 	@Override
 	public String toString(String value) {
+		if (value == null) {
+			return "";
+		}
 		return value;
 	}
 

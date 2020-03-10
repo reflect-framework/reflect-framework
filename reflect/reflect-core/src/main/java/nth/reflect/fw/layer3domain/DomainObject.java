@@ -2,6 +2,7 @@ package nth.reflect.fw.layer3domain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -161,6 +162,7 @@ public class DomainObject {
 	// private DomainObject myDomainObject;//TODO this will cause an infinite loop
 	// in the ReflectionProvider
 	private boolean myPrimitiveBoolean;
+	private URI myUri;
 	private byte myPrimitiveByte;
 	private short myPrimitiveShort;
 	private int myPrimitiveInt;
@@ -221,6 +223,16 @@ public class DomainObject {
 
 	public void setMyPrimitiveBoolean(boolean myPrimitiveBoolean) {
 		this.myPrimitiveBoolean = myPrimitiveBoolean;
+	}
+
+	public static final String GET_MY_URI = "getMyUri";
+
+	public URI getMyUri() {
+		return myUri;
+	}
+
+	public void setMyUri(URI myUri) {
+		this.myUri = myUri;
 	}
 
 	public static final String GET_MY_PRIMITIVE_BYTE = "getMyPrimitiveByte";
