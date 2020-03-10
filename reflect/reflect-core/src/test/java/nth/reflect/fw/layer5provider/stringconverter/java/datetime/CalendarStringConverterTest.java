@@ -8,19 +8,16 @@ import java.util.Calendar;
 
 import org.junit.Test;
 
+import nth.reflect.fw.generic.util.TestString;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
 public class CalendarStringConverterTest {
-
-	private static final String EMPTY_STRING = "";
-	private static final String SPACE = " ";
-	private static final String BOGUS_STRING = "Bogus";
 
 	@Test
 	public void testToString_givenNullAndNullFormat_mustReturnEmptyString() {
 		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
 		String result = calendarStringConverter.toString(null);
-		assertThat(result).isEqualTo(EMPTY_STRING);
+		assertThat(result).isEqualTo(TestString.EMPTY);
 	}
 
 	@Test
@@ -66,7 +63,7 @@ public class CalendarStringConverterTest {
 	@Test
 	public void testFromString_givenEmptyString_mustReturnNull() {
 		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
-		Calendar result = calendarStringConverter.fromString(EMPTY_STRING);
+		Calendar result = calendarStringConverter.fromString(TestString.EMPTY);
 		assertThat(result).isNull();
 	}
 
@@ -74,7 +71,7 @@ public class CalendarStringConverterTest {
 	public void testFromString_givenBogusValue_mustThrowException() {
 		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
 		assertThrows(StringConverterException.class, () -> {
-			calendarStringConverter.fromString(BOGUS_STRING);
+			calendarStringConverter.fromString(TestString.BOGUS);
 		});
 	}
 
@@ -82,7 +79,7 @@ public class CalendarStringConverterTest {
 	public void testFromString_givenSpaceDate_mustReturnCalendarDate() {
 		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
 				DateTimeTestUtil.DATE_FORMAT_PATTERN);
-		Calendar result = calendarStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_FORMAT_RESULT);
+		Calendar result = calendarStringConverter.fromString(TestString.SPACE + DateTimeTestUtil.DATE_FORMAT_RESULT);
 		assertThat(result.getTimeInMillis() / 1000)
 				.isEqualTo(DateTimeTestUtil.CALENDAR_WITH_DATE.getTimeInMillis() / 1000);
 	}
@@ -91,7 +88,7 @@ public class CalendarStringConverterTest {
 	public void testFromString_givenTimeSpace_mustReturnCalendarTime() {
 		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
 				DateTimeTestUtil.TIME_FORMAT_PATTERN);
-		Calendar result = calendarStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + SPACE);
+		Calendar result = calendarStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + TestString.SPACE);
 		assertThat(result.getTimeInMillis() / 1000)
 				.isEqualTo(DateTimeTestUtil.CALENDAR_WITH_TIME.getTimeInMillis() / 1000);
 	}
@@ -100,7 +97,8 @@ public class CalendarStringConverterTest {
 	public void testFromString_givenSpaceDateTimeSpace_mustReturnCalendarDateTime() {
 		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
 				DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN);
-		Calendar result = calendarStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + SPACE);
+		Calendar result = calendarStringConverter
+				.fromString(TestString.SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + TestString.SPACE);
 		assertThat(result.getTimeInMillis() / 1000)
 				.isEqualTo(DateTimeTestUtil.CALENDAR_WITH_DATE_TIME.getTimeInMillis() / 1000);
 	}

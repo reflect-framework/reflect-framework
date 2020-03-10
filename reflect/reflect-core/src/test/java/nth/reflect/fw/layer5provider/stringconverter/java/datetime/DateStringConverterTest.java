@@ -8,19 +8,16 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import nth.reflect.fw.generic.util.TestString;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
 public class DateStringConverterTest {
-
-	private static final String EMPTY_STRING = "";
-	private static final String SPACE = " ";
-	private static final String BOGUS_STRING = "Bogus";
 
 	@Test
 	public void testToString_givenNullAndNullFormat_mustReturnEmptyString() {
 		DateStringConverter dateStringConverter = new DateStringConverter(null, null);
 		String result = dateStringConverter.toString(null);
-		assertThat(result).isEqualTo(EMPTY_STRING);
+		assertThat(result).isEqualTo(TestString.EMPTY);
 	}
 
 	@Test
@@ -64,7 +61,7 @@ public class DateStringConverterTest {
 	@Test
 	public void testFromString_givenEmptyString_mustReturnNull() {
 		DateStringConverter dateStringConverter = new DateStringConverter(null, null);
-		Date result = dateStringConverter.fromString(EMPTY_STRING);
+		Date result = dateStringConverter.fromString(TestString.EMPTY);
 		assertThat(result).isNull();
 	}
 
@@ -72,21 +69,21 @@ public class DateStringConverterTest {
 	public void testFromString_givenBogusValue_mustThrowException() {
 		DateStringConverter dateStringConverter = new DateStringConverter(null, null);
 		assertThrows(StringConverterException.class, () -> {
-			dateStringConverter.fromString(BOGUS_STRING);
+			dateStringConverter.fromString(TestString.BOGUS);
 		});
 	}
 
 	@Test
 	public void testFromString_givenSpaceDate_mustReturnDateWithDate() {
 		DateStringConverter dateStringConverter = new DateStringConverter(null, DateTimeTestUtil.DATE_FORMAT_PATTERN);
-		Date result = dateStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_FORMAT_RESULT);
+		Date result = dateStringConverter.fromString(TestString.SPACE + DateTimeTestUtil.DATE_FORMAT_RESULT);
 		assertThat(result).isEqualToIgnoringMillis(DateTimeTestUtil.DATE_WITH_DATE);
 	}
 
 	@Test
 	public void testFromString_givenTimeSpace_mustReturnDateWithTime() {
 		DateStringConverter dateStringConverter = new DateStringConverter(null, DateTimeTestUtil.TIME_FORMAT_PATTERN);
-		Date result = dateStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + SPACE);
+		Date result = dateStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + TestString.SPACE);
 		assertThat(result).isEqualToIgnoringMillis(DateTimeTestUtil.DATE_WITH_TIME);
 	}
 
@@ -94,7 +91,8 @@ public class DateStringConverterTest {
 	public void testFromString_givenSpaceDateTimeSpace_mustReturnDateWithDateTime() {
 		DateStringConverter dateStringConverter = new DateStringConverter(null,
 				DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN);
-		Date result = dateStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + SPACE);
+		Date result = dateStringConverter
+				.fromString(TestString.SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + TestString.SPACE);
 		assertThat(result).isEqualToIgnoringMillis(DateTimeTestUtil.DATE_WITH_DATE_TIME);
 	}
 

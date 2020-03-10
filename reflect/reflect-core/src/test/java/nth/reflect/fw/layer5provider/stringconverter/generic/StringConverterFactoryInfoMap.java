@@ -26,6 +26,7 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringCon
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConverter;
 
 /**
  * This {@link Map} contains {@link StringConverterFactoryInfo}s (created from
@@ -79,6 +80,7 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_CHARACTER, CharacterStringConverter.class);
 		put(DomainObject.GET_MY_PRIMITIVE_CHAR, CharacterStringConverter.class);
 		put(DomainObject.GET_MY_URI, UriStringConverter.class);
+		put(DomainObject.GET_MY_URL, UrlStringConverter.class);
 	}
 
 	private void addJavaNumberTypes() {

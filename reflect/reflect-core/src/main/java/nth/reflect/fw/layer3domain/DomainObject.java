@@ -3,6 +3,7 @@ package nth.reflect.fw.layer3domain;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -13,8 +14,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import nth.reflect.fw.ReflectApplication;
@@ -159,37 +158,23 @@ public class DomainObject {
 	 * Junit testing only. Normally you would not need them.
 	 */
 
-	// private DomainObject myDomainObject;//TODO this will cause an infinite loop
-	// in the ReflectionProvider
-	private boolean myPrimitiveBoolean;
-	private URI myUri;
+	// Java Numbers
 	private byte myPrimitiveByte;
-	private short myPrimitiveShort;
-	private int myPrimitiveInt;
-	private long myPrimitiveLong;
-	private float myPrimitiveFloat;
-	private double myPrimitiveDouble;
-	private char myPrimitiveChar;
-	private int[] myPrimitiveIntArray;
-	private String[] myStringArray;
-	private DomainObject[] myDomainObjectArray;
-	private Set<String> myStringSet = new HashSet<String>();
-	private List<DomainObject> myDomainObjectList = new ArrayList<DomainObject>();
-	private Boolean myBoolean;
 	private Byte myByte;
+	private short myPrimitiveShort;
 	private Short myShort;
+	private int myPrimitiveInt;
 	private Integer myInteger;
+	private long myPrimitiveLong;
 	private Long myLong;
+	private float myPrimitiveFloat;
 	private Float myFloat;
+	private double myPrimitiveDouble;
 	private Double myDouble;
-	private Character myCharacter;
-	private AtomicInteger myAtomicInteger;
-	private AtomicLong myAttomicLong;
 	private BigDecimal myBigDecimal;
 	private BigInteger myBigInteger;
-	private String myText;
-	private String myTextArea;
-	private String myPassWord;
+
+	// Java Date & Time
 	private Date myDate;
 	private Date myDateWithDateFormat;
 	private Date myDateWithTimeFormat;
@@ -207,8 +192,30 @@ public class DomainObject {
 	private LocalDate myLocalDate;
 	private LocalTime myLocalTime;
 	private LocalDateTime myLocalDateTime;
-	private MyEnum myEnum;
+
+	// Other Java Types
+	private boolean myPrimitiveBoolean;
+	private Boolean myBoolean;
+	private char myPrimitiveChar;
+	private Character myCharacter;
+	private String myText;
+	private String myTextArea;
+	private String myPassWord;
 	private String myChoice;
+	private URI myUri;
+	private URL myUrl;
+
+	// Arrays
+	private int[] myPrimitiveIntArray;
+	private String[] myStringArray;
+	private DomainObject[] myDomainObjectArray;
+
+	// Collections
+	private Set<String> myStringSet = new HashSet<String>();
+	private List<DomainObject> myDomainObjectList = new ArrayList<DomainObject>();
+
+	// Domain
+	private MyEnum myEnum;
 	private DomainObject myDomainObject;
 
 	public enum MyEnum {
@@ -233,6 +240,16 @@ public class DomainObject {
 
 	public void setMyUri(URI myUri) {
 		this.myUri = myUri;
+	}
+
+	public static final String GET_MY_URL = "getMyUrl";
+
+	public URL getMyUrl() {
+		return myUrl;
+	}
+
+	public void setMyUrl(URL myUrl) {
+		this.myUrl = myUrl;
 	}
 
 	public static final String GET_MY_PRIMITIVE_BYTE = "getMyPrimitiveByte";
@@ -578,22 +595,6 @@ public class DomainObject {
 
 	public void setMyEnum(MyEnum myEnum) {
 		this.myEnum = myEnum;
-	}
-
-	public AtomicInteger getMyAtomicInteger() {
-		return myAtomicInteger;
-	}
-
-	public void setMyAtomicInteger(AtomicInteger myAtomicInteger) {
-		this.myAtomicInteger = myAtomicInteger;
-	}
-
-	public AtomicLong getMyAttomicLong() {
-		return myAttomicLong;
-	}
-
-	public void setMyAttomicLong(AtomicLong myAttomicLong) {
-		this.myAttomicLong = myAttomicLong;
 	}
 
 	public static final String GET_MY_BIG_DECIMAL = "getMyBigDecimal";

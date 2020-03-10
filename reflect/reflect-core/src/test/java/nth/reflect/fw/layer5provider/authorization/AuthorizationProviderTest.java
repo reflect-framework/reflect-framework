@@ -8,9 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.generic.util.TestString;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
-import nth.reflect.fw.layer5provider.authorization.InvalidNameOrPasswordException;
 
 public class AuthorizationProviderTest {
 
@@ -19,7 +18,7 @@ public class AuthorizationProviderTest {
 	@Before
 	public void setUp() throws Exception {
 		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit() {
-			
+
 			@Override
 			public java.lang.Class<? extends AuthorizationProvider> getAuthorizationProviderClass() {
 				return AuthorizationProviderTestObject.class;
@@ -37,7 +36,7 @@ public class AuthorizationProviderTest {
 
 	@Test(expected = InvalidNameOrPasswordException.class)
 	public void inCorrectLogin() throws InvalidNameOrPasswordException {
-		authorizationProvider.login("bogus", "bugus");
+		authorizationProvider.login(TestString.BOGUS, TestString.BOGUS);
 	}
 
 	@Test()

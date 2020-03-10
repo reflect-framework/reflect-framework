@@ -7,6 +7,8 @@ import java.net.URI;
 import org.junit.Before;
 import org.junit.Test;
 
+import nth.reflect.fw.generic.util.TestString;
+
 public class UriStringConverterTest {
 
 	private final static String URI_STRING = "mailto:John.Doe@example.com";
@@ -38,7 +40,13 @@ public class UriStringConverterTest {
 	}
 
 	@Test
-	public void testFromString_givenString_mustReturnString() {
+	public void testFromString_givenEmptySyring_mustReturnNull() {
+		URI result = uriStringConverter.fromString(TestString.EMPTY);
+		assertThat(result).isNull();
+	}
+
+	@Test
+	public void testFromString_givenUriString_mustReturnUri() {
 		URI result = uriStringConverter.fromString(URI_STRING);
 		assertThat(result).isEqualTo(URI_VALUE);
 	}

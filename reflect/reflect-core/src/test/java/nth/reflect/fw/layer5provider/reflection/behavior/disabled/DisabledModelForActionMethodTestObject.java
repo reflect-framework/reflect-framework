@@ -3,12 +3,12 @@ package nth.reflect.fw.layer5provider.reflection.behavior.disabled;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.layer5provider.reflection.behavior.disabled.Disabled;
+import nth.reflect.fw.generic.util.TestString;
 
 public class DisabledModelForActionMethodTestObject {
 
 	private static final String CORRECT_ROLE = "salesmanager";
-	private static final String BOGUS_ROLE = "bogus";
+	private static final String BOGUS_ROLE = TestString.BOGUS;
 
 	@Disabled()
 	public void actionMethodDisabled() {
@@ -34,7 +34,6 @@ public class DisabledModelForActionMethodTestObject {
 		return true;
 	}
 
-	
 	public void actionMethodEnabledMethod() {
 	}
 
@@ -46,19 +45,16 @@ public class DisabledModelForActionMethodTestObject {
 	public void actionMethodDisabledAnnotationDisabledMethod() {
 	}
 
-
 	public boolean actionMethodDisabledAnnotationDisabledMethodDisabled() {
 		return true;
 	}
-	
+
 	@Disabled()
 	public void actionMethodDisabledAnnotationEnabledMethod() {
 	}
 
-
 	public boolean actionMethodDisabledAnnotationEnabledMethodDisabled() {
 		return false;
 	}
-	
-	
+
 }

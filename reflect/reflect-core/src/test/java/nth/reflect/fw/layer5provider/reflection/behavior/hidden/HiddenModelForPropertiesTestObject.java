@@ -2,19 +2,18 @@ package nth.reflect.fw.layer5provider.reflection.behavior.hidden;
 
 import java.util.List;
 
-import nth.reflect.fw.layer5provider.reflection.behavior.hidden.Hidden;
-import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenFor;
+import nth.reflect.fw.generic.util.TestString;
 
 public class HiddenModelForPropertiesTestObject {
 
 	private static final String CORRECT_ROLE = "salesmanager";
-	private static final String BOGUS_ROLE = "bogus";
+	private static final String BOGUS_ROLE = TestString.BOGUS;
 	private String propertyHiddenInTable;
 	private String propertyHiddenInForm;
 	private String propertyHiddenInFormAndTable;
 	private String propertyHiddenNotInRole;
 	private String propertyVisibleInRole;
-	private List<String> propertyCollection; 
+	private List<String> propertyCollection;
 	private String propertyHiddenMethod;
 	private String propertyVisibleMethod;
 	private String propertyHiddenInTableHiddenInRole;
@@ -45,8 +44,7 @@ public class HiddenModelForPropertiesTestObject {
 		return propertyHiddenInFormAndTable;
 	}
 
-	public void setPropertyHiddenInFormAndTable(
-			String propertyHiddenInFormAndTable) {
+	public void setPropertyHiddenInFormAndTable(String propertyHiddenInFormAndTable) {
 		this.propertyHiddenInFormAndTable = propertyHiddenInFormAndTable;
 	}
 
@@ -88,7 +86,6 @@ public class HiddenModelForPropertiesTestObject {
 		return true;
 	}
 
-	
 	public String getPropertyVisibleMethod() {
 		return propertyVisibleMethod;
 	}
@@ -101,55 +98,48 @@ public class HiddenModelForPropertiesTestObject {
 		return false;
 	}
 
-	@Hidden(propertyHiddenFor=HiddenFor.TABLES, exceptForRoleNames=BOGUS_ROLE)
+	@Hidden(propertyHiddenFor = HiddenFor.TABLES, exceptForRoleNames = BOGUS_ROLE)
 	public String getPropertyHiddenInTableHiddenInRole() {
 		return propertyHiddenInTableHiddenInRole;
 	}
 
-	public void setPropertyHiddenInTableHiddenInRole(
-			String propertyHiddenInTableHiddenInRole) {
+	public void setPropertyHiddenInTableHiddenInRole(String propertyHiddenInTableHiddenInRole) {
 		this.propertyHiddenInTableHiddenInRole = propertyHiddenInTableHiddenInRole;
 	}
 
-
-	@Hidden(propertyHiddenFor=HiddenFor.TABLES, exceptForRoleNames=CORRECT_ROLE)
+	@Hidden(propertyHiddenFor = HiddenFor.TABLES, exceptForRoleNames = CORRECT_ROLE)
 	public String getPropertyHiddenInTableVisibleInRole() {
 		return propertyHiddenInTableVisibleInRole;
 	}
 
-	public void setPropertyHiddenInTableVisibleInRole(
-			String propertyHiddenInTableVisibleInRole) {
+	public void setPropertyHiddenInTableVisibleInRole(String propertyHiddenInTableVisibleInRole) {
 		this.propertyHiddenInTableVisibleInRole = propertyHiddenInTableVisibleInRole;
 	}
 
-
-	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
+	@Hidden(propertyHiddenFor = HiddenFor.TABLES)
 	public String getPropertyHiddenInTableHiddenMethod() {
 		return propertyHiddenInTableHiddenMethod;
 	}
 
-	public void setPropertyHiddenInTableHiddenMethod(
-			String propertyHiddenInTableHiddenMethod) {
+	public void setPropertyHiddenInTableHiddenMethod(String propertyHiddenInTableHiddenMethod) {
 		this.propertyHiddenInTableHiddenMethod = propertyHiddenInTableHiddenMethod;
 	}
 
 	public boolean propertyHiddenInTableHiddenMethodHidden() {
 		return true;
 	}
-	
-	@Hidden(propertyHiddenFor=HiddenFor.TABLES)
+
+	@Hidden(propertyHiddenFor = HiddenFor.TABLES)
 	public String getPropertyHiddenInTableVisibleMethod() {
 		return propertyHiddenInTableVisibleMethod;
 	}
 
-	public void setPropertyHiddenInTableVisibleMethod(
-			String propertyHiddenInTableVisibleMethod) {
+	public void setPropertyHiddenInTableVisibleMethod(String propertyHiddenInTableVisibleMethod) {
 		this.propertyHiddenInTableVisibleMethod = propertyHiddenInTableVisibleMethod;
 	}
 
 	public boolean propertyHiddenInTableVisibleMethodHidden() {
 		return false;
 	}
-	
-	
+
 }

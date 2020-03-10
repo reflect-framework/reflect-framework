@@ -2,17 +2,17 @@ package nth.reflect.fw.layer5provider.reflection.behavior.disabled;
 
 import java.util.List;
 
-import nth.reflect.fw.layer5provider.reflection.behavior.disabled.Disabled;
+import nth.reflect.fw.generic.util.TestString;
 
 public class DisabledModelForPropertiesTestObject {
 
 	private static final String CORRECT_ROLE = "salesmanager";
-	private static final String BOGUS_ROLE = "bogus";
+	private static final String BOGUS_ROLE = TestString.BOGUS;
 	private String propertyDisabled;
 	private String propertyEnabled;
 	private String propertyDisabledNotInRole;
 	private String propertyEnabledInRole;
-	private List<String> propertyCollection; 
+	private List<String> propertyCollection;
 	private String propertyDisabledMethod;
 	private String propertyEnabledMethod;
 	private String propertyDisabledAnnotationDisabledMethod;
@@ -36,7 +36,6 @@ public class DisabledModelForPropertiesTestObject {
 		this.propertyDisabledNotInRole = propertyDisabledNotInRole;
 	}
 
-	
 	public String getPropertyEnabled() {
 		return propertyEnabled;
 	}
@@ -74,7 +73,6 @@ public class DisabledModelForPropertiesTestObject {
 		return true;
 	}
 
-	
 	public String getPropertyEnabledMethod() {
 		return propertyEnabledMethod;
 	}
@@ -87,34 +85,30 @@ public class DisabledModelForPropertiesTestObject {
 		return false;
 	}
 
-
 	@Disabled()
 	public String getPropertyDisabledAnnotationDisabledMethod() {
 		return propertyDisabledAnnotationDisabledMethod;
 	}
 
-	public void setPropertyDisabledAnnotationDisabledMethod(
-			String propertyDisabledInTableDisabledMethod) {
+	public void setPropertyDisabledAnnotationDisabledMethod(String propertyDisabledInTableDisabledMethod) {
 		this.propertyDisabledAnnotationDisabledMethod = propertyDisabledInTableDisabledMethod;
 	}
 
 	public boolean propertyDisabledInTableDisabledMethodDisabled() {
 		return true;
 	}
-	
+
 	@Disabled()
 	public String getPropertyDisabledAnnotationEnabledMethod() {
 		return propertyDisabledAnnotationEnabledMethod;
 	}
 
-	public void setPropertyDisabledAnnotationEnabledMethod(
-			String propertyDisabledInTableEnabledMethod) {
+	public void setPropertyDisabledAnnotationEnabledMethod(String propertyDisabledInTableEnabledMethod) {
 		this.propertyDisabledAnnotationEnabledMethod = propertyDisabledInTableEnabledMethod;
 	}
 
 	public boolean propertyDisabledAnnotationEnabledMethodDisabled() {
 		return false;
 	}
-	
-	
+
 }

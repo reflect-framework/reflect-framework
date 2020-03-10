@@ -18,13 +18,14 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringCon
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConverterFactory;
 
 public class DefaultStringConverters {
 
 	private static StringConverterFactory[] allStringConverterFactories = {
 			// Java Types (other than numbers or date & time)
 			new StringStringConverterFactory(), new BooleanStringConverterFactory(),
-			new CharacterStringConverterFactory(), new UriStringConverterFactory(),
+			new CharacterStringConverterFactory(), new UriStringConverterFactory(), new UrlStringConverterFactory(),
 			// Java Numbers
 			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
 			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),

@@ -3,12 +3,12 @@ package nth.reflect.fw.layer5provider.reflection.behavior.hidden;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.reflect.fw.generic.util.TestString;
 
 public class HiddenModelForActionMethodTestObject {
 
 	private static final String CORRECT_ROLE = "salesmanager";
-	private static final String BOGUS_ROLE = "bogus";
+	private static final String BOGUS_ROLE = TestString.BOGUS;
 
 	@Hidden()
 	public void actionMethodHidden() {
@@ -34,7 +34,6 @@ public class HiddenModelForActionMethodTestObject {
 		return true;
 	}
 
-	
 	public void actionMethodVisibleMethod() {
 	}
 
@@ -46,19 +45,16 @@ public class HiddenModelForActionMethodTestObject {
 	public void actionMethodHiddenAnnotationHiddenMethod() {
 	}
 
-
 	public boolean actionMethodHiddenAnnotationHiddenMethodHidden() {
 		return true;
 	}
-	
+
 	@Hidden()
 	public void actionMethodHiddenVisibleMethod() {
 	}
 
-
 	public boolean actionMethodHiddenVisibleMethodHidden() {
 		return false;
 	}
-	
-	
+
 }
