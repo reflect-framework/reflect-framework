@@ -28,7 +28,7 @@ public class DomainObjectFormat extends Format {
 
 	@Override
 	public Object parseObject(String source, ParsePosition pos) {
-		throw new MethodNotSupportedException();
+		throw new MethodNotSupportedException(DomainObjectFormat.class.getCanonicalName() + ".parseObject()");
 	}
 
 }

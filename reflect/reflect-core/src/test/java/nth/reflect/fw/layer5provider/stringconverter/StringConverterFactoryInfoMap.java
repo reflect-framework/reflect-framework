@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.stringconverter.generic;
+package nth.reflect.fw.layer5provider.stringconverter;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -9,6 +9,9 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
+import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.LocalDateStringConverter;
@@ -50,7 +53,12 @@ public class StringConverterFactoryInfoMap
 		addJavaNumberTypes();
 		addJavaDateTimeTypes();
 		addJavaOtherTypes();
+		addDomainTypes();
 
+	}
+
+	private void addDomainTypes() {
+		put(DomainObject.GET_MY_ENUM, EnumStringConverter.class);
 	}
 
 	private void addJavaDateTimeTypes() {

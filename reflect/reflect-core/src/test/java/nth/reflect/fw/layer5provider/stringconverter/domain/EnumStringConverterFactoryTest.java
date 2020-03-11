@@ -1,13 +1,13 @@
-package nth.reflect.fw.layer5provider.stringconverter.java.datetime;
+package nth.reflect.fw.layer5provider.stringconverter.domain;
 
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterFactoryTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 
-public class DateStringConverterFactoryTest extends StringConverterFactoryTest {
+public class EnumStringConverterFactoryTest extends StringConverterFactoryTest {
 
 	@Override
 	protected StringConverterFactory getStringConverterFactory() {
-		return new DateStringConverterFactory();
+		return new EnumStringConverterFactory();
 	}
 
 }

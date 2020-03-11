@@ -1,5 +1,6 @@
 package nth.reflect.fw.layer5provider.stringconverter;
 
+import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverterFactory;
@@ -33,7 +34,9 @@ public class DefaultStringConverters {
 			// Java Date & Time
 			new CalendarStringConverterFactory(), new DateStringConverterFactory(),
 			new LocalDateTimeStringConverterFactory(), new LocalDateStringConverterFactory(),
-			new LocalTimeStringConverterFactory() };
+			new LocalTimeStringConverterFactory(),
+			// Domain types
+			new EnumStringConverterFactory() };
 
 	public static StringConverterFactory[] getAll() {
 		return allStringConverterFactories;

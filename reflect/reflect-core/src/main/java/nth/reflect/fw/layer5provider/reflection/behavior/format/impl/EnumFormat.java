@@ -12,15 +12,13 @@ public class EnumFormat extends Format {
 
 	private static final long serialVersionUID = 165765643765L;
 	private final LanguageProvider languageProvider;
-	
-	
+
 	public EnumFormat(LanguageProvider languageProvider) {
 		this.languageProvider = languageProvider;
 	}
 
 	@Override
-	public StringBuffer format(Object enumValue, StringBuffer toAppendTo,
-			FieldPosition pos) {
+	public StringBuffer format(Object enumValue, StringBuffer toAppendTo, FieldPosition pos) {
 		if (enumValue == null) {
 			return toAppendTo.append("");
 		} else {
@@ -33,7 +31,7 @@ public class EnumFormat extends Format {
 
 	@Override
 	public Object parseObject(String source, ParsePosition pos) {
-		throw new MethodNotSupportedException();
+		throw new MethodNotSupportedException(EnumFormat.class.getCanonicalName() + ".parseObject()");
 	}
 
 }

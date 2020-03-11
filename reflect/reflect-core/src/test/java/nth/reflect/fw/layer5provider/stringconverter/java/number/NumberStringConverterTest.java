@@ -14,8 +14,6 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.stringconverter.generic.NumberExceedsMaxException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.NumberExceedsMinException;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 

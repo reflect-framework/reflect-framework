@@ -1,7 +1,7 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.datetime;
 
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterFactoryTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryTest;
 
 public class LocalDateTimeStringConverterFactoryTest extends StringConverterFactoryTest {
 

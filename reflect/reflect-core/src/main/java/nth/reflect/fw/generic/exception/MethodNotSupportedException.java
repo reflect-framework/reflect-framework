@@ -1,13 +1,15 @@
 package nth.reflect.fw.generic.exception;
 
-public class MethodNotSupportedException extends ReflectException {
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
+
+public class MethodNotSupportedException extends ReflectTranslatableException {
 
 	private static final long serialVersionUID = -8216136994547733822L;
+	private static TranslatableString translatableString = new TranslatableString(
+			MethodNotSupportedException.class.getCanonicalName() + ".message", "Method: %s is not supported");
 
-	public MethodNotSupportedException(){};
-	
-	public MethodNotSupportedException(String message) {
-		super(message);
+	public MethodNotSupportedException(String classAndMethodName) {
+		super(translatableString.withParameters(classAndMethodName));
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.stringconverter.generic;
+package nth.reflect.fw.layer5provider.stringconverter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

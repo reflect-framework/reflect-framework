@@ -1,7 +1,7 @@
-package nth.reflect.fw.layer5provider.stringconverter.generic;
+package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
-import nth.reflect.fw.layer5provider.stringconverter.java.number.NumberStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
 public class NumberExceedsMinException extends StringConverterException {
 

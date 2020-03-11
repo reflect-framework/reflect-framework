@@ -1,8 +1,6 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.layer5provider.stringconverter.generic.NumberExceedsMaxException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.NumberExceedsMinException;
 
 public class ShortStringConverter extends NumberStringConverter<Short> {
 

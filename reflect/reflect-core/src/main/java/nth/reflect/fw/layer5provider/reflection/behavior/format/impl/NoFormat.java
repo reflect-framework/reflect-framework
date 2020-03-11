@@ -12,8 +12,8 @@ public class NoFormat extends Format {
 
 	@Override
 	public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-		if (obj!=null) {
-			String value=obj.toString();
+		if (obj != null) {
+			String value = obj.toString();
 			toAppendTo.append(value);
 		}
 		return toAppendTo;
@@ -21,7 +21,7 @@ public class NoFormat extends Format {
 
 	@Override
 	public Object parseObject(String source, ParsePosition pos) {
-		throw new MethodNotSupportedException();
+		throw new MethodNotSupportedException(NoFormat.class.getCanonicalName() + ".parseObject()");
 	}
 
 }
