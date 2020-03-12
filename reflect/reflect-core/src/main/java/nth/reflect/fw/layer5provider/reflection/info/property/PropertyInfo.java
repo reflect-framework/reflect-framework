@@ -195,7 +195,7 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public Boolean isVisibleInTable() {
-		return !hiddenModel.isPropertyHiddenInTable();
+		return stringConverter.isPresent() && !hiddenModel.isPropertyHiddenInTable();
 	}
 
 	public boolean isEnabled(Object domainObject) {
