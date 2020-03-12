@@ -34,7 +34,7 @@ import nth.reflect.fw.documentation.ReflectApplicationProjects;
  * 
  * <h3>Responsive Design</h3> {@insert ReflectResponsiveDesign}
  * 
- * <h3>Colors</h3> {@insert ReflectColors}
+ * <h3>Colors</h3> {@insert ColorProvider}
  * 
  * @author nilsth
  * 

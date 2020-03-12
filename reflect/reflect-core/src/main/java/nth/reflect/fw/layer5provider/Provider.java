@@ -69,14 +69,13 @@ import nth.reflect.fw.layer5provider.version.VersionProvider;
  * <p>
  * {@insert NotificationProvider}
  * </p>
- * </p>
  * <h2>Reflection Provider</h2>
  * <p>
  * {@insert ReflectionProvider}
  * </p>
- * <h2>About Provider</h2>
+ * <h2>Version Provider</h2>
  * <p>
- * {@insert AboutProvider}
+ * {@insert VersionProvider}
  * </p>
  * <h2>URL Provider</h2>
  * <p>

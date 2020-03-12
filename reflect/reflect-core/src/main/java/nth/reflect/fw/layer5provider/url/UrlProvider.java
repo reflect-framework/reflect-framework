@@ -13,17 +13,17 @@ import nth.reflect.fw.layer5provider.Provider;
  * convert a {@link ReflectUrl} to a normal {@link URL}. The following
  * paragraphs show examples of {@link ReflectUrlStreamHandler}s
  * </p>
- * <h3>ApplicationUrlProvider</h3>
+ * <h3>ApplicationUrlStreamHandler</h3>
  * <p>
- * {@insert ApplicationUrlProvider}
+ * {@insert ApplicationUrlStreamHandler}
  * </p>
- * <h3>ClassResourceUrlProvider</h3>
+ * <h3>ClassResourceUrlStreamHandler</h3>
  * <p>
- * {@insert ClassResourceUrlProvider}
+ * {@insert ClassResourceUrlStreamHandler}
  * </p>
- * <h3>FontIconUrlProvider</h3>
+ * <h3>FontIconUrlStreamHandler</h3>
  * <p>
- * {@insert FontIconUrlProvider}
+ * {@insert FontIconUrlStreamHandler}
  * </p>
  */
 
