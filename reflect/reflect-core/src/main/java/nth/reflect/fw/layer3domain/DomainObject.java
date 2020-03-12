@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -206,6 +207,7 @@ public class DomainObject {
 	private URI myUri;
 	private URL myUrl;
 	private File myFile;
+	private Path myPath;
 
 	// Arrays
 	private int[] myPrimitiveIntArray;
@@ -262,6 +264,16 @@ public class DomainObject {
 
 	public void setMyFile(File myFile) {
 		this.myFile = myFile;
+	}
+
+	public static final String GET_MY_PATH = "getMyPath";
+
+	public Path getMyPath() {
+		return myPath;
+	}
+
+	public void setMyPath(Path myPath) {
+		this.myPath = myPath;
 	}
 
 	public static final String GET_MY_PRIMITIVE_BYTE = "getMyPrimitiveByte";

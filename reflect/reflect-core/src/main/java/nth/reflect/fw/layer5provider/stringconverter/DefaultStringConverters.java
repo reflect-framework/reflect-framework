@@ -37,6 +37,8 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringC
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.FileStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.FileStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.PathStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.PathStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConverter;
@@ -75,6 +77,7 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConvert
  * <li>{@link UriStringConverter}</li>
  * <li>{@link UrlStringConverter}</li>
  * <li>{@link FileStringConverter}</li>
+ * <li>{@link PathStringConverter}</li>
  * </ul>
  * Domain types:
  * <ul>
@@ -92,7 +95,7 @@ public class DefaultStringConverters {
 			// Java Types (other than numbers or date & time)
 			new StringStringConverterFactory(), new BooleanStringConverterFactory(),
 			new CharacterStringConverterFactory(), new UriStringConverterFactory(), new UrlStringConverterFactory(),
-			new FileStringConverterFactory(),
+			new FileStringConverterFactory(), new PathStringConverterFactory(),
 			// Java Numbers
 			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
 			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),

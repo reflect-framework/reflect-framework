@@ -13,15 +13,14 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFact
 
 public class FileStringConverterTest extends StringConverterTest {
 
-	private final static String FILE_STRING = "c:\test.txt";
-	private static File FILE_VALUE;
+	private final static File FILE_VALUE = new File("c:/test.txt");
+	private final static String FILE_STRING = FILE_VALUE.toString();
 	private FileStringConverter stringConverter;
 
 	@Before
 	public void setUp() throws Exception {
 		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_FILE);
 		stringConverter = new FileStringConverter(info);
-		FILE_VALUE = new File(FILE_STRING);
 	}
 
 	@Test

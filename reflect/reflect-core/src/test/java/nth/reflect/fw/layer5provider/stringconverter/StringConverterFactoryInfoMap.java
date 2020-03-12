@@ -26,6 +26,7 @@ import nth.reflect.fw.layer5provider.stringconverter.java.number.ShortStringConv
 import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.FileStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.PathStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConverter;
@@ -87,6 +88,7 @@ public class StringConverterFactoryInfoMap
 		put(DomainObject.GET_MY_URI, UriStringConverter.class);
 		put(DomainObject.GET_MY_URL, UrlStringConverter.class);
 		put(DomainObject.GET_MY_FILE, FileStringConverter.class);
+		put(DomainObject.GET_MY_PATH, PathStringConverter.class);
 	}
 
 	private void addJavaNumberTypes() {
