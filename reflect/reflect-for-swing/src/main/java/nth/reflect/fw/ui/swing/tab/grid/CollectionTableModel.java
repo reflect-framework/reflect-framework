@@ -42,7 +42,7 @@ public class CollectionTableModel extends AbstractTableModel implements DomainTa
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object domainObject = list.get(rowIndex);
 		PropertyInfo propertyInfo = propertyInfos.get(columnIndex);
-		return propertyInfo.getFormat().equals(domainObject);
+		return propertyInfo.getStringValue(domainObject);
 	}
 
 	@Override

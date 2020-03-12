@@ -3,7 +3,6 @@ package nth.reflect.fw.layer5provider.reflection.info.property;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
-import java.text.Format;
 import java.util.List;
 
 import org.junit.Before;
@@ -13,9 +12,10 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.StringFormat;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
 import nth.reflect.fw.stubs.DomainObjectStub;
 
 public class PropertyInfoTest {
@@ -116,14 +116,14 @@ public class PropertyInfoTest {
 
 	@Test
 	public void testGetFormat() {
-		Format format = propertyInfo.getFormat().get();
-		assertThat(format).isInstanceOf(StringFormat.class);
+		StringConverter stringConverter = propertyInfo.getStringConverter().get();
+		assertThat(stringConverter).isInstanceOf(StringStringConverter.class);
 	}
 
 	@Test
 	public void testGetFormatedValue() {
 		domainObject.setProperty1(PROPERTY_VALUE);
-		assertThat(propertyInfo.getFormatedValue(domainObject)).isEqualTo(PROPERTY_VALUE);
+		assertThat(propertyInfo.getStringValue(domainObject)).isEqualTo(PROPERTY_VALUE);
 	}
 
 	@Test

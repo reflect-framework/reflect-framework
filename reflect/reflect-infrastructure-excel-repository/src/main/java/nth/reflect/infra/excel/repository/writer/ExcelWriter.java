@@ -195,7 +195,7 @@ public abstract class ExcelWriter {
 				cell.setCellValue((Calendar) value);
 				cell.setCellStyle(DATE_STYLE);
 			} else {
-				String formatedValue = propertyInfo.getFormatedValue(domainObject);
+				String formatedValue = propertyInfo.getStringValue(domainObject);
 				cell.setCellValue(formatedValue);
 			}
 		}

@@ -1,12 +1,11 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
-import java.text.Format;
-import java.text.ParseException;
 import java.util.Optional;
 
 import javafx.beans.value.ObservableValue;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 public class NumericField extends TextField {
 
@@ -21,13 +20,13 @@ public class NumericField extends TextField {
 			// TODO minus, point, length
 		}
 		setText(newValue);
-		Optional<Format> format = getPropertyValueModel().getPropertyInfo().getFormat();
-		if (format.isPresent()) {
+
+		Optional<StringConverter> stringConverter = getPropertyValueModel().getPropertyInfo().getStringConverter();
+		if (stringConverter.isPresent()) {
 			try {
-				Object value = format.get().parseObject(newValue);
+				Object value = stringConverter.get().fromString(newValue);
 				getPropertyValueModel().setValue(value);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

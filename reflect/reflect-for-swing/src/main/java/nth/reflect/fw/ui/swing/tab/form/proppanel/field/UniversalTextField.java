@@ -1,7 +1,5 @@
 package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 
-import java.text.Format;
-import java.text.ParseException;
 import java.util.Optional;
 
 import javax.swing.JFormattedTextField;
@@ -12,6 +10,7 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 public class UniversalTextField extends JFormattedTextField implements PropertyField {
 	// TODO refactor to CharFieldFactory for char and numbers , using
@@ -19,7 +18,7 @@ public class UniversalTextField extends JFormattedTextField implements PropertyF
 
 	private static final long serialVersionUID = 309612468612752404L;
 	private final PropertyValueModel valueModel;
-	private final Optional<Format> format;
+	private final Optional<StringConverter> stringConverter;
 
 	public UniversalTextField(final PropertyValueModel valueModel) {
 		super();
@@ -27,7 +26,7 @@ public class UniversalTextField extends JFormattedTextField implements PropertyF
 		// create a formatter (we do not pass it to the super class constructor,
 		// because the superclass formatter is automatically replaces with a
 		// InternationalFormatter
-		format = valueModel.getPropertyInfo().getFormat();
+		stringConverter = valueModel.getPropertyInfo().getStringConverter();
 		// restrict the user from entering invalid characters
 		setDocument(RegExpDocumentFacory.create(valueModel.getValueType()));
 
@@ -57,15 +56,10 @@ public class UniversalTextField extends JFormattedTextField implements PropertyF
 	}
 
 	private void updateValueModel() {
-		if (valueModel.canSetValue() && format.isPresent()) {
+		if (valueModel.canSetValue() && stringConverter.isPresent()) {
 			String text = getText();
-			try {
-				Object value = format.get().parseObject(text);
-				valueModel.setValue(value);
-			} catch (ParseException e1) {
-				// Should not happen. The program should prevent the user from
-				// entering false values
-			}
+			Object value = stringConverter.get().fromString(text);
+			valueModel.setValue(value);
 		}
 	}
 

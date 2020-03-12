@@ -11,7 +11,6 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -30,7 +29,6 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.ui.commandline.domain.command.Command;
 import nth.reflect.fw.ui.commandline.domain.command.CommandService;
 import nth.reflect.fw.ui.commandline.domain.command.Parameter;
-import nth.reflect.fw.ui.commandline.domain.command.ReflectCommandLineException;
 import nth.reflect.fw.ui.commandline.view.FormView;
 import nth.reflect.fw.ui.commandline.view.HelpView;
 import nth.reflect.fw.ui.commandline.view.TableView;
@@ -104,8 +102,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		return arguments.toArray(new String[arguments.size()]);
 	}
 
-	private void executeCommand(String[] arguments, List<Command> commands)
-			throws ReflectCommandLineException {
+	private void executeCommand(String[] arguments, List<Command> commands) {
 		Command command = CommandService.findCommand(commands, arguments);
 		if (command == null) {
 			HelpView helpView = new HelpView("Unknown command", commands);
@@ -135,22 +132,19 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	/**
-	 * Overriding this method for the
-	 * {@link UserInterfaceControllerForCommandLine} because a command line
-	 * application only supports
+	 * Overriding this method for the {@link UserInterfaceControllerForCommandLine}
+	 * because a command line application only supports
 	 * {@link ExecutionModeType.EXECUTE_METHOD_DIRECTLY} only so we can call
 	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
 	 */
 	@Override
-	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter) {
+	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		try {
 			processActionMethodExecution(methodOwner, methodInfo, methodParameter);
 		} catch (Exception exception) {
 			String title = languageProvider.getText("Error while executing an action");
 			String messageFormat = languageProvider.getText("Action: %s");
-			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo,
-					methodParameter);
+			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
 			String message = String.format(messageFormat, actionMethod);
 			showErrorDialog(title, message, exception);
 		}
@@ -202,8 +196,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	@Override
-	public void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter) {
+	public void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		// TODO check if the method is enabled before the method is executed
 		// (otherwise throw exception)
 		// TODO validate the method parameter value before the method is
@@ -220,35 +213,35 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter) {
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		System.out.println("Succesfully executed");
 	}
 
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, Object methodResult) {
+	@Override
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			Object methodResult) {
 		FormView formView = new FormView(reflectionProvider, methodInfo, methodResult);
 		System.out.println(formView.toString());
 	}
 
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, List<?> methodResult) {
-		TableView tableView = new TableView(providerContainer.get(ReflectionProvider.class),
-				methodInfo, (Collection<?>) methodResult);
+	@Override
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			List<?> methodResult) {
+		TableView tableView = new TableView(providerContainer.get(ReflectionProvider.class), methodInfo, methodResult);
 		System.out.println(tableView.toString());
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, URI uri) {
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			URI uri) {
 		try {
 			Desktop.getDesktop().browse(uri);
 		} catch (IOException exception) {
@@ -257,16 +250,16 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return
-	 * type {@link DownloadStream}. See
+	 * Process method to show the result of an {@link ActionMethod} with return type
+	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 *
 	 * @param methodOwner
 	 * @param methodInfo
 	 * @param methodParameter
 	 */
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, DownloadStream methodResult) {
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			DownloadStream methodResult) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setSelectedFile(methodResult.getFile());
 		InputStream inputStream = methodResult.getInputStream();
@@ -296,14 +289,14 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, String methodResult) {
+	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
+			String methodResult) {
 		System.out.println(methodResult);
 
 	}
 
-	public void editActionMethodParameter(Object actionMethodOwner,
-			ActionMethodInfo actionMethodInfo, Object actionMethodParameterValue) {
+	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
+			Object actionMethodParameterValue) {
 		// Do nothing: The user interface controller will create the
 		// domainObject from the command line arguments
 	}

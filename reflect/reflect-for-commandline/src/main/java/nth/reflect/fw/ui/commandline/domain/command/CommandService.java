@@ -1,13 +1,7 @@
 package nth.reflect.fw.ui.commandline.domain.command;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer2service.ServiceContainer;
@@ -17,9 +11,7 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
 
 public class CommandService {
 
-	private static Map<Class<?>, String> types;
-
-	public static Command findCommand(List<Command> commands, String[] arguments) throws ReflectCommandLineException {
+	public static Command findCommand(List<Command> commands, String[] arguments) {
 		if (arguments.length < 1) {
 			return null;
 		}
@@ -33,14 +25,13 @@ public class CommandService {
 		return null;
 	}
 
-	public static List<Command> getCommands(UserInterfaceContainer userInterfaceContainer)
-			throws ReflectCommandLineException {
+	public static List<Command> getCommands(UserInterfaceContainer userInterfaceContainer) {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		ServiceContainer serviceContainer = userInterfaceContainer.get(ServiceContainer.class);
 		List<Object> serviceObjects = serviceContainer.getServiceObjects();
 
 		if (serviceObjects.size() == 0) {
-			throw new ReflectCommandLineException("No service objects.");
+			throw new ReflectApplicationHasNoServiceObjectsException();
 		}
 
 		boolean shortCommandName = serviceObjects.size() == 1;
@@ -59,31 +50,10 @@ public class CommandService {
 		}
 
 		if (commands.size() == 0) {
-			throw new ReflectCommandLineException("No service objects with public visible methods.");
+			throw new ServiceObjectsHaveNoActionMethodsException();
 		}
 
 		return commands;
-	}
-
-	public static Map<Class<?>, String> getSupportedParameterPropertyTypes() {
-		if (types == null) {
-			types = new HashMap<Class<?>, String>();
-			types.put(Boolean.class, Boolean.FALSE + ".." + Boolean.TRUE);
-			types.put(Byte.class, Byte.MIN_VALUE + ".." + Byte.MAX_VALUE);
-			types.put(Short.class, Short.MIN_VALUE + ".." + Short.MAX_VALUE);
-			types.put(Integer.class, Integer.MIN_VALUE + ".." + Integer.MAX_VALUE);
-			types.put(Long.class, Long.MIN_VALUE + ".." + Long.MAX_VALUE);
-			types.put(Float.class, Float.MIN_VALUE + ".." + Float.MAX_VALUE);
-			types.put(Double.class, Double.MIN_VALUE + ".." + Double.MAX_VALUE);
-			types.put(Character.class, Character.class.getName());
-			types.put(String.class, "Text");
-			types.put(File.class, "Path");
-			types.put(URI.class, "Uri");
-			types.put(URL.class, "Url");
-			types.put(Date.class, "Date and or Time");
-			// TODO enum!
-		}
-		return types;
 	}
 
 }

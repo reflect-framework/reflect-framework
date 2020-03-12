@@ -1,7 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection.info.property;
 
 import java.lang.reflect.Method;
-import java.text.Format;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,12 +10,11 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
-import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatFactory;
+import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatPatternFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.option.OptionsModel;
@@ -27,6 +25,9 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfoFactory;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 /**
  * Provides information on a {@link DomainObject} property.<br>
@@ -50,18 +51,17 @@ public class PropertyInfo implements NameInfo {
 	private final TypeInfo typeInfo;
 	private final double order;
 	private final String formatPattern;
-	private final Optional<Format> format;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 	private final OptionsModel optionModel;
 	private final List<ActionMethodInfo> actionMethodInfos;
+	private final Optional<StringConverter> stringConverter;
 
 	public PropertyInfo(ProviderContainer providerContainer, Class<?> domainObjectClass, Method getterMethod) {
 		checkGetterMethodReturnType(getterMethod);
 		checkGetterMethodHasNoParameter(getterMethod);
 
 		ReflectApplication reflectApplication = providerContainer.get(ReflectApplication.class);
-		ReflectionProvider reflectionProvider = providerContainer.get(ReflectionProvider.class);
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
 
@@ -73,13 +73,24 @@ public class PropertyInfo implements NameInfo {
 		this.getterMethod = getterMethod;
 		this.setterMethod = getSetterMethod(getterMethod, simpleName, typeInfo.getType());
 		this.order = OrderFactory.create(getterMethod);
-		FormatFactory formatFactory = new FormatFactory(reflectionProvider, languageProvider, getterMethod, typeInfo);
-		this.format = formatFactory.getFormat();
-		this.formatPattern = formatFactory.getFormatPattern();
+		this.formatPattern = FormatPatternFactory.create(getterMethod);
+		this.stringConverter = createStringConverter(providerContainer);
 		this.optionModel = OptionsModelFactory.create(getterMethod);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.actionMethodInfos = ActionMethodInfoFactory.createSorted(providerContainer, domainObjectClass, simpleName);
+	}
+
+	private Optional<StringConverter> createStringConverter(ProviderContainer providerContainer) {
+		StringConverterFactoryInfo stringConverterInfo = new StringConverterFactoryInfo(typeInfo, providerContainer,
+				formatPattern);
+		StringConverterProvider stringConverterProvider = providerContainer.get(StringConverterProvider.class);
+		try {
+			StringConverter stringConverter = stringConverterProvider.create(stringConverterInfo);
+			return Optional.of(stringConverter);
+		} catch (Exception e) {
+			return Optional.empty();
+		}
 	}
 
 	private void checkGetterMethodHasNoParameter(Method getterMethod) {
@@ -113,7 +124,7 @@ public class PropertyInfo implements NameInfo {
 			try {
 				Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
 				if (primitiveWrapperType.isPresent()) {
-					propertyType=primitiveWrapperType.get();
+					propertyType = primitiveWrapperType.get();
 				}
 				Method writeMethod = methodOwner.getMethod(getterMethodName.toString(), propertyType);
 				return writeMethod;
@@ -227,21 +238,20 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	public String getFormatPattern() {
-		return formatPattern;//TODO optional
+		return formatPattern;// TODO optional
 	}
 
-	public Optional<Format> getFormat() {
-		return format;
+	public Optional<StringConverter> getStringConverter() {
+		return stringConverter;
 	}
 
-	public String getFormatedValue(Object domainObject) {
+	public String getStringValue(Object domainObject) {
 		try {
 			Object value = getValue(domainObject);
-			if (value == null || !format.isPresent()) {
+			if (value == null || !stringConverter.isPresent()) {
 				return "";
 			} else {
-				
-				return format.get().format(value);
+				return stringConverter.get().toString(value);
 			}
 		} catch (Exception e) {
 			return "";
@@ -251,15 +261,31 @@ public class PropertyInfo implements NameInfo {
 	public static boolean isGetterMethod(Method method) {
 		String methodName = method.getName();
 		boolean isGetClassMethod = "getClass".equals(methodName);
-		boolean hasReturnValue = method.getReturnType() != Void.class;
-		boolean hasNoParameters = method.getParameterTypes().length == 0;
+		if (isGetClassMethod) {
+			return false;
+		}
+		boolean hasNoReturnValue = method.getReturnType() == Void.class;
+		if (hasNoReturnValue) {
+			return false;
+		}
+		boolean hasParameters = method.getParameterTypes().length > 0;
+		if (hasParameters) {
+			return false;
+		}
 		boolean isEnumGetDeclairingClass = method.getDeclaringClass().isAssignableFrom(Enum.class)
 				&& "getDeclaringClass".equals(methodName);
-		boolean startsWithIs = methodName.startsWith(PropertyInfo.IS_PREFIX);
+		if (isEnumGetDeclairingClass) {
+			return false;
+		}
 		boolean startsWithGet = methodName.startsWith(PropertyInfo.GET_PREFIX);
-		boolean isGetterMethod = !isGetClassMethod && hasReturnValue && hasNoParameters && !isEnumGetDeclairingClass
-				&& (startsWithIs || startsWithGet);
-		return isGetterMethod;
+		if (startsWithGet) {
+			return true;
+		}
+		boolean startsWithIs = methodName.startsWith(PropertyInfo.IS_PREFIX);
+		if (startsWithIs) {
+			return true;
+		}
+		return false;
 	}
 
 	/**

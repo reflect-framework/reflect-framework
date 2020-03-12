@@ -3,27 +3,20 @@ package nth.reflect.fw.ui.commandline.domain.command;
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
-import java.text.Format;
 import java.util.Date;
-import java.util.Map;
 
+import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 public class Parameter {
 	private final PropertyInfo propertyInfo;
-	private final Class<?> type;
-	private final Map<Class<?>, String> types;
 
-	public Parameter(PropertyInfo propertyInfo) throws ReflectCommandLineException {
+	public Parameter(PropertyInfo propertyInfo) {
 		this.propertyInfo = propertyInfo;
-		type = propertyInfo.getTypeInfo().getType();
-
-		types = CommandService.getSupportedParameterPropertyTypes();
-		if (!types.containsKey(type)) {
-			throw new ReflectCommandLineException("Property type " + type.getCanonicalName()
-					+ " is not supported for property " + propertyInfo.getSimpleName());
+		if (!propertyInfo.getStringConverter().isPresent()) {
+			throw new PropertyTypeNotSupported(propertyInfo);
 		}
-
 	}
 
 	public String getName() {
@@ -31,16 +24,12 @@ public class Parameter {
 	}
 
 	public String getDescription() {
-		StringBuffer description = new StringBuffer();
-		description.append("(");
-		description.append(types.get(type));
-		description.append(") ");
-		description.append(propertyInfo.getDescription());
-		return description.toString();
+		return propertyInfo.getDescription();
 	}
 
 	public String getUsage() {
 		StringBuffer usage = new StringBuffer();
+		Class<?> type = propertyInfo.getTypeInfo().getType();
 		if (type.isAssignableFrom(String.class) || type.isAssignableFrom(File.class)
 				|| type.isAssignableFrom(Date.class) || type.isAssignableFrom(URI.class)
 				|| type.isAssignableFrom(URL.class)) {
@@ -57,26 +46,24 @@ public class Parameter {
 
 	/**
 	 * 
-	 * @param parameter
-	 *            value of a service object method which is about to be invoked
-	 * @param argument
-	 *            command line argument that needs to be parsed to a parameter
-	 *            property
+	 * @param parameter           value of a {@link ServiceObjectActionMethod}
+	 *                            parameter which is about to be invoked
+	 * @param commandLineargument command line argument that needs to be parsed to a
+	 *                            parameter property
 	 * @throws ReflectCommandLineException
 	 */
-	public void parseArgument(Object parameter, String argument) throws ReflectCommandLineException {
+	public void parseArgument(Object parameter, String commandLineargument) {
+
 		try {
-			if (propertyInfo.getTypeInfo().getType() == File.class) {
-				File file = new File(argument);
-				propertyInfo.setValue(parameter, file);
-			} else if (propertyInfo.getFormat().isPresent()){
-				Format format = propertyInfo.getFormat().get();
-				Object value = format.parseObject(argument);
-				propertyInfo.setValue(parameter, value);
+			if (propertyInfo.getStringConverter().isPresent()) {
+				StringConverter<?> stringConverter = propertyInfo.getStringConverter().get();
+				Object propertyValue = stringConverter.fromString(commandLineargument);
+				propertyInfo.setValue(parameter, propertyValue);
+			} else {
+				throw new CommandLineArgumentException(commandLineargument, propertyInfo);
 			}
 		} catch (Throwable e) {
-			throw new ReflectCommandLineException("Could not parse '" + argument + "' to a '" + type.getName()
-					+ "' for property " + propertyInfo.getSimpleName());
+			throw new CommandLineArgumentException(commandLineargument, propertyInfo, e);
 		}
 	}
 

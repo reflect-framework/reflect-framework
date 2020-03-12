@@ -1,7 +1,5 @@
 package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 
-import java.text.Format;
-import java.text.ParseException;
 import java.util.Optional;
 
 import javax.swing.JTextField;
@@ -13,6 +11,7 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 @SuppressWarnings("serial")
 public class NumericField extends JTextField implements PropertyField {
@@ -76,17 +75,12 @@ public class NumericField extends JTextField implements PropertyField {
 	private void textToProperty() {
 		// text has changed, so update the valueModel
 		if (updatePropertyValue && propertyValueModel.canSetValue()) {
-			Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
+			Optional<StringConverter> stringConverter = propertyValueModel.getPropertyInfo().getStringConverter();
 			String text = getText();
-			if (format.isPresent()) {
-				try {
-					Object value = format.get().parseObject(text);
-					propertyValueModel.setValue(value);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+			if (stringConverter.isPresent()) {
+				Object value = stringConverter.get().fromString(text);
+				propertyValueModel.setValue(value);
 			}
-
 		}
 	}
 
@@ -103,12 +97,12 @@ public class NumericField extends JTextField implements PropertyField {
 			public void run() {
 				updatePropertyValue = false;
 
-				Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
+				Optional<StringConverter> stringConverter = propertyValueModel.getPropertyInfo().getStringConverter();
 				Object value = propertyValueModel.getValue();
-				if (format.isPresent()) {
-				String text = format.get().format(value);
-				setText(text);
-				updatePropertyValue = true;
+				if (stringConverter.isPresent()) {
+					String text = stringConverter.get().toString(value);
+					setText(text);
+					updatePropertyValue = true;
 				}
 
 			}

@@ -20,7 +20,7 @@ public class Command {
 	private List<Parameter> parameters;
 
 	public Command(ReflectionProvider reflectionProvider, Object serviceObject, ActionMethodInfo actionMethodInfo,
-			boolean shortCommand) throws ReflectCommandLineException {
+			boolean shortCommand) {
 		this.serviceObject = serviceObject;
 		this.actionMethodInfo = actionMethodInfo;
 		// name
@@ -30,8 +30,7 @@ public class Command {
 
 	}
 
-	private List<Parameter> createParameters(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo)
-			throws ReflectCommandLineException {
+	private List<Parameter> createParameters(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo) {
 		List<Parameter> parameters = new ArrayList<Parameter>();
 		TypeInfo typeInfo = actionMethodInfo.getFirstParameterTypeInfo();
 
@@ -127,7 +126,7 @@ public class Command {
 
 	}
 
-	public Object createMethodParameter() throws ReflectCommandLineException {
+	public Object createMethodParameter() {
 		try {
 			try {
 				return actionMethodInfo.createMethodParameter(serviceObject);
@@ -136,9 +135,7 @@ public class Command {
 				return parameterType.newInstance();
 			}
 		} catch (Exception e) {
-			throw new ReflectCommandLineException("Could not create a new instance of method parameter: "
-					+ actionMethodInfo.getFirstParameterTypeInfo().getType().getCanonicalName() + " for method: "
-					+ actionMethodInfo.getCanonicalName(), e);
+			throw new CanNotInstantiateMethodParameterException(actionMethodInfo, e);
 		}
 	}
 

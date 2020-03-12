@@ -3,7 +3,6 @@ package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.Format;
 import java.util.List;
 import java.util.Optional;
 import java.util.Vector;
@@ -23,6 +22,7 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 @SuppressWarnings({ "serial", "rawtypes" })
 public class ComboBoxField extends JComboBox implements PropertyField {
@@ -70,7 +70,7 @@ public class ComboBoxField extends JComboBox implements PropertyField {
 
 	@SuppressWarnings({ "unchecked" })
 	private void initForEnums(final PropertyValueModel propertyValueModel, Class<?> valueType) {
-		Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
+		Optional<StringConverter> stringConverter = propertyValueModel.getPropertyInfo().getStringConverter();
 
 		Vector<Object> listValues = new Vector<Object>();
 		listValues.add(null);
@@ -79,7 +79,7 @@ public class ComboBoxField extends JComboBox implements PropertyField {
 			listValues.add(enumValue);
 		}
 		setModel(new DefaultComboBoxModel(listValues));
-		setRenderer(createEnumRenderer(format.get()));
+		setRenderer(createEnumRenderer(stringConverter.get()));
 	}
 
 	private ListCellRenderer createObjectRenderer(final ReflectionProvider reflectionProvider) {
@@ -103,7 +103,7 @@ public class ComboBoxField extends JComboBox implements PropertyField {
 		};
 	}
 
-	private ListCellRenderer createEnumRenderer(final Format format) {
+	private ListCellRenderer createEnumRenderer(final StringConverter stringConverter) {
 		return new BasicComboBoxRenderer() {
 
 			@Override
@@ -112,7 +112,7 @@ public class ComboBoxField extends JComboBox implements PropertyField {
 
 				super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-				String text = format.format(value);
+				String text = stringConverter.toString(value);
 				setText(text);
 
 				return this;

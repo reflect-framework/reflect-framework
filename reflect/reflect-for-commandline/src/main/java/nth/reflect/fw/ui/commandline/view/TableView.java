@@ -46,7 +46,7 @@ public class TableView extends CommandLineView {
 			for (Object object : collection) {
 				row = table.addRow();
 				for (PropertyInfo propertyInfo : propertyInfos) {
-					String value = propertyInfo.getFormatedValue(object);
+					String value = propertyInfo.getStringValue(object);
 					row.addCell(value, columnWidth);
 				}
 			}

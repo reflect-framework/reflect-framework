@@ -1,6 +1,5 @@
 package nth.reflect.fw.javafx.control.tab.form.proppanel.field;
 
-import java.text.Format;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXTextArea;
@@ -14,6 +13,7 @@ import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 public class TextAreaField extends JFXTextArea implements PropertyField {
 
@@ -59,11 +59,11 @@ public class TextAreaField extends JFXTextArea implements PropertyField {
 
 	@Override
 	public void setValueFromDomainProperty(Object propertyValue) {
-		Optional<Format> format = propertyValueModel.getPropertyInfo().getFormat();
-		if (propertyValue == null || !format.isPresent()) {
+		Optional<StringConverter> stringConverter = propertyValueModel.getPropertyInfo().getStringConverter();
+		if (propertyValue == null || !stringConverter.isPresent()) {
 			setText("");
 		} else {
-			String stringValue = format.get().format(propertyValue);
+			String stringValue = stringConverter.get().toString(propertyValue);
 			setText(stringValue);
 		}
 	}

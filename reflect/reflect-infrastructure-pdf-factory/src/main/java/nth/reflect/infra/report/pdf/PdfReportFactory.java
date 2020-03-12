@@ -1,7 +1,6 @@
 package nth.reflect.infra.report.pdf;
 
 import java.io.ByteArrayOutputStream;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +24,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.infra.report.FormSection;
 import nth.reflect.infra.report.Report;
 import nth.reflect.infra.report.ReportProvider;
@@ -112,12 +112,12 @@ public class PdfReportFactory extends ReportProvider<Document> {
 
 			// put value in the cell with the right type
 			Object value = propertyInfo.getValue(domainObject);
-			Optional<Format> format = propertyInfo.getFormat();
-			if (value == null|| !format.isPresent()) {
+			Optional<StringConverter> stringConverter = propertyInfo.getStringConverter();
+			if (value == null || !stringConverter.isPresent()) {
 				pdfTable.addCell("");
 			} else {
-				value = format.get().format(value);
-				pdfTable.addCell(new Phrase(value.toString(), SMALL_FONT));
+				String text = stringConverter.get().toString(value);
+				pdfTable.addCell(new Phrase(text, SMALL_FONT));
 			}
 
 		}
@@ -241,8 +241,8 @@ public class PdfReportFactory extends ReportProvider<Document> {
 		}
 
 		/**
-		 * Initialize one of the headers, based on the chapter title; reset the
-		 * page number.
+		 * Initialize one of the headers, based on the chapter title; reset the page
+		 * number.
 		 * 
 		 * @see com.itextpdf.text.pdf.PdfPageEventHelper#onChapter(com.itextpdf.text.pdf.PdfWriter,
 		 *      com.itextpdf.text.Document, float, com.itextpdf.text.Paragraph)
