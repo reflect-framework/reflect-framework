@@ -1,5 +1,6 @@
 package nth.reflect.fw.layer3domain;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
@@ -204,6 +205,7 @@ public class DomainObject {
 	private String myChoice;
 	private URI myUri;
 	private URL myUrl;
+	private File myFile;
 
 	// Arrays
 	private int[] myPrimitiveIntArray;
@@ -250,6 +252,16 @@ public class DomainObject {
 
 	public void setMyUrl(URL myUrl) {
 		this.myUrl = myUrl;
+	}
+
+	public static final String GET_MY_FILE = "getMyFile";
+
+	public File getMyFile() {
+		return myFile;
+	}
+
+	public void setMyFile(File myFile) {
+		this.myFile = myFile;
 	}
 
 	public static final String GET_MY_PRIMITIVE_BYTE = "getMyPrimitiveByte";

@@ -35,6 +35,8 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringCon
 import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.FileStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.java.other.FileStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConverter;
@@ -46,14 +48,6 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConvert
  * The {@link StringConverterProvider} provides the following
  * {@link StringConverter}s per default:<br>
  * <br>
- * Java Types (other than numbers or date & time):
- * <ul>
- * <li>{@link StringStringConverter}</li>
- * <li>{@link BooleanStringConverter}</li>
- * <li>{@link CharacterStringConverter}</li>
- * <li>{@link UriStringConverter}</li>
- * <li>{@link UrlStringConverter}</li>
- * </ul>
  * Java Numbers:
  * <ul>
  * <li>{@link ByteStringConverter}</li>
@@ -65,13 +59,22 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConvert
  * <li>{@link BigDecimalStringConverter}</li>
  * <li>{@link BigIntegerString}</li>
  * </ul>
- * Java Date & Time:}
+ * Java Date & Time:
  * <ul>
  * <li>{@link CalendarStringConverter}</li>
  * <li>{@link DateStringConverter}</li>
  * <li>{@link LocalDateTimeStringConverter}</li>
  * <li>{@link LocalDateStringConverter}</li>
  * <li>{@link LocalTimeStringConverter}</li>
+ * </ul>
+ * * Other Java Types:
+ * <ul>
+ * <li>{@link StringStringConverter}</li>
+ * <li>{@link BooleanStringConverter}</li>
+ * <li>{@link CharacterStringConverter}</li>
+ * <li>{@link UriStringConverter}</li>
+ * <li>{@link UrlStringConverter}</li>
+ * <li>{@link FileStringConverter}</li>
  * </ul>
  * Domain types:
  * <ul>
@@ -89,6 +92,7 @@ public class DefaultStringConverters {
 			// Java Types (other than numbers or date & time)
 			new StringStringConverterFactory(), new BooleanStringConverterFactory(),
 			new CharacterStringConverterFactory(), new UriStringConverterFactory(), new UrlStringConverterFactory(),
+			new FileStringConverterFactory(),
 			// Java Numbers
 			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
 			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),
