@@ -15,9 +15,8 @@ import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 /**
- * {@link Provider}s are like {@link ServiceObject}s, but they
- * provide access to objects that provide information for the
- * {@link ReflectFramework}, such as:
+ * {@link Provider}s are like {@link ServiceObject}s, but they provide access to
+ * objects that provide information for the {@link ReflectFramework}, such as:
  * <ul>
  * <li>Authorization (see {@link AuthorizationProvider})</li>
  * <li>Validation (see {@link ValidationProvider})</li>
@@ -43,10 +42,9 @@ import nth.reflect.fw.layer5provider.version.VersionProvider;
  * 
  * <h3>Reflect Service Object Construction</h3>
  * <p>
- * {@link Provider}'s are instantiated by the
- * {@link ProviderContainer} (see {@link DependencyInjectionContainer})
- * {@link Provider}s can have references to other
- * {@link Provider}s. These objects are injected into the
+ * {@link Provider}'s are instantiated by the {@link ProviderContainer} (see
+ * {@link DependencyInjectionContainer}) {@link Provider}s can have references
+ * to other {@link Provider}s. These objects are injected into the
  * {@link Provider}s (see the {@link ConstructionInjection} section.
  * </p>
  * <h3>Provider Presentation</h3>
@@ -83,6 +81,10 @@ import nth.reflect.fw.layer5provider.version.VersionProvider;
  * <h2>URL Provider</h2>
  * <p>
  * {@insert UrlProvider}
+ * </p>
+ * <h2>String Converter Provider</h2>
+ * <p>
+ * {@insert StringConverterProvider}
  * </p>
  * <h2>Property Field Provider</h2>
  * <p>

@@ -6,9 +6,11 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
- * A {@link StringConverter} converts type T to a {@link String}. A
- * {@link StringConverter} can implement a {@link FromStringConverter} to
- * convert a {@link String} to a type T.
+ * A {@link StringConverter} converts between a string and a given type. The
+ * type of objects and formats of strings are defined by the subclasses of the
+ * {@link StringConverter}. <br>
+ * {@link StringConverter}s are often used in {@link PropertyField}s or a Table
+ * cells.
  * 
  * @author nilsth
  *
