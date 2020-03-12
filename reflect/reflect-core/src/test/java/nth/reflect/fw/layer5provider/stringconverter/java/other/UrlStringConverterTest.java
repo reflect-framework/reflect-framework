@@ -8,10 +8,12 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.generic.util.TestString;
+import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class UrlStringConverterTest {
+public class UrlStringConverterTest extends StringConverterTest {
 
 	private final static String URL_STRING = "https://google.com/";
 	private static URL URL_VALUE;
@@ -19,7 +21,8 @@ public class UrlStringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		urlStringConverter = new UrlStringConverter(null, null);
+		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_URL);
+		urlStringConverter = new UrlStringConverter(info);
 		URL_VALUE = new URL(URL_STRING);
 	}
 
@@ -43,14 +46,14 @@ public class UrlStringConverterTest {
 
 	@Test
 	public void testFromString_givenEmptyString_mustReturnNull() {
-		URL result = urlStringConverter.fromString(TestString.EMPTY);
+		URL result = urlStringConverter.fromString(EMPTY);
 		assertThat(result).isNull();
 	}
 
 	@Test
 	public void testFromString_givenBogusString_mustReturnUrl() {
 		assertThrows(StringConverterException.class, () -> {
-			urlStringConverter.fromString(TestString.BOGUS);
+			urlStringConverter.fromString(BOGUS);
 		});
 	}
 

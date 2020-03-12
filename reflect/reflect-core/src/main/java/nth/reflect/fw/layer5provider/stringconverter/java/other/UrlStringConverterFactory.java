@@ -16,7 +16,7 @@ public class UrlStringConverterFactory implements StringConverterFactory {//
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		UrlStringConverter stringConverter = new UrlStringConverter(info.getContainer(), info.getFormatPattern());
+		UrlStringConverter stringConverter = new UrlStringConverter(info);
 		return stringConverter;
 	}
 

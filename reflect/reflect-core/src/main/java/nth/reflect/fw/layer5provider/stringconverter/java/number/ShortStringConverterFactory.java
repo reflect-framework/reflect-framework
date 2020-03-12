@@ -14,7 +14,7 @@ public class ShortStringConverterFactory implements StringConverterFactory {//
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		ShortStringConverter stringConverter = new ShortStringConverter(info.getContainer(), info.getFormatPattern());
+		ShortStringConverter stringConverter = new ShortStringConverter(info);
 		return stringConverter;
 	}
 

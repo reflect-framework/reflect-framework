@@ -16,8 +16,7 @@ public class BigIntegerStringConverterFactory implements StringConverterFactory 
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		BigIntegerStringConverter stringConverter = new BigIntegerStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		BigIntegerStringConverter stringConverter = new BigIntegerStringConverter(info);
 		return stringConverter;
 	}
 

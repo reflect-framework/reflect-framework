@@ -1,14 +1,14 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.java.number.LongStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class LongStringConverterTest extends NumberStringConverterTest {
-
 	@Override
-	protected StringConverter createStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		return new LongStringConverter(container, formatPattern);
+	protected StringConverter createStringConverter(String formatPattern) {
+		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_LONG, formatPattern);
+		return new LongStringConverter(info);
 	}
 
 	@Override

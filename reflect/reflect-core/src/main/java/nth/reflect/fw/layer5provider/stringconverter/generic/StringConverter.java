@@ -3,6 +3,7 @@ package nth.reflect.fw.layer5provider.stringconverter.generic;
 import java.util.Optional;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
  * A {@link StringConverter} converts type T to a {@link String}. A
@@ -17,16 +18,13 @@ public abstract class StringConverter<T extends Object> {
 
 	protected final DependencyInjectionContainer container;
 	protected final Optional<String> formatPattern;
+	protected final TypeInfo typeInfo;
 
-	public StringConverter(DependencyInjectionContainer container) {
-		this(container,null);
+	public StringConverter(StringConverterFactoryInfo info) {
+		this.container = info.getContainer();
+		this.typeInfo = info.getTypeInfo();
+		this.formatPattern = info.getFormatPattern();
 	}
-	
-	public StringConverter(DependencyInjectionContainer container, String formatPattern) {
-		this.container = container;
-		this.formatPattern = Optional.ofNullable(formatPattern).filter(s -> !s.isEmpty());
-	}
-	
 
 	/**
 	 * Converts the object provided into its string form. Format of the returned
@@ -35,7 +33,7 @@ public abstract class StringConverter<T extends Object> {
 	 * @return a string representation of the object passed in.
 	 */
 	public abstract String toString(T value);
-	
+
 	/**
 	 * Converts the string provided into an object defined by the specific
 	 * converter. Format of the string and type of the resulting object is defined

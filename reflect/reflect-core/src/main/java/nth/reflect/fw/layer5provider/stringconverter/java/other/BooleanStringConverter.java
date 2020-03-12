@@ -2,11 +2,11 @@ package nth.reflect.fw.layer5provider.stringconverter.java.other;
 
 import java.util.Locale;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class BooleanStringConverter extends StringConverter<Boolean> {
 
@@ -17,8 +17,8 @@ public class BooleanStringConverter extends StringConverter<Boolean> {
 
 	private final LanguageProvider languageProvider;
 
-	public BooleanStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public BooleanStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 		languageProvider = container.get(LanguageProvider.class);
 	}
 

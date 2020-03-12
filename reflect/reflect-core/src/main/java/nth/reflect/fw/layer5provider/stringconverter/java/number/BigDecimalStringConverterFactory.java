@@ -16,8 +16,7 @@ public class BigDecimalStringConverterFactory implements StringConverterFactory 
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		BigDecimalStringConverter stringConverter = new BigDecimalStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		BigDecimalStringConverter stringConverter = new BigDecimalStringConverter(info);
 		return stringConverter;
 	}
 

@@ -1,14 +1,12 @@
 package nth.reflect.fw.layer5provider.stringconverter;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
-import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
+import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
@@ -44,21 +42,19 @@ public class StringConverterFactoryInfoMap
 		extends HashMap<StringConverterFactoryInfo, Class<? extends StringConverter>> {
 
 	private static final long serialVersionUID = 799702481550723556L;
-	private final DependencyInjectionContainer container;
-	private final ReflectApplication application;
+	private DependencyInjectionContainer container;
 
 	public StringConverterFactoryInfoMap(DependencyInjectionContainer container) {
 		this.container = container;
-		this.application = container.get(ReflectApplication.class);
 		addJavaNumberTypes();
 		addJavaDateTimeTypes();
 		addJavaOtherTypes();
 		addDomainTypes();
-
 	}
 
 	private void addDomainTypes() {
 		put(DomainObject.GET_MY_ENUM, EnumStringConverter.class);
+		put(DomainObject.GET_MY_DOMAIN_OBJECT, DomainObjectStringConverter.class);
 	}
 
 	private void addJavaDateTimeTypes() {
@@ -109,27 +105,8 @@ public class StringConverterFactoryInfoMap
 	}
 
 	private void put(String domainObjectGetterMethod, Class<? extends StringConverter> expectedStringConverterType) {
-		StringConverterFactoryInfo info = createInfo(domainObjectGetterMethod);
+		StringConverterFactoryInfo info = InfoFactory.create(container, domainObjectGetterMethod);
 		put(info, expectedStringConverterType);
-	}
-
-	private StringConverterFactoryInfo createInfo(String domainObjectGetterMethod) {
-		Method method = findMethod(domainObjectGetterMethod);
-		ReturnTypeInfo typeInfo = new ReturnTypeInfo(application, method);
-		StringConverterFactoryInfo stringConverterFactoryInfo = new StringConverterFactoryInfo(typeInfo, container,
-				null);
-		return stringConverterFactoryInfo;
-	}
-
-	private Method findMethod(String domainObjectGetterMethod) {
-		Method[] allMethods = DomainObject.class.getDeclaredMethods();
-		for (Method method : allMethods) {
-			if (method.getName().equals(domainObjectGetterMethod)) {
-				return method;
-			}
-		}
-		throw new RuntimeException(
-				"Could not find method " + domainObjectGetterMethod + " in " + DomainObject.class.getCanonicalName());
 	}
 
 }

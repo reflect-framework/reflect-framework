@@ -1,7 +1,7 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.other;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 /**
  * Looks like a silly {@link StringConverter}, but it is needed so that
@@ -13,8 +13,8 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
  */
 public class StringStringConverter extends StringConverter<String> {
 
-	public StringStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public StringStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 	}
 
 	@Override

@@ -1,20 +1,21 @@
-package nth.reflect.fw.layer5provider.stringconverter.java.number;
+package nth.reflect.fw.layer5provider.stringconverter.domain;
 
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class FloatStringConverterFactory implements StringConverterFactory {//
+public class DomainObjectStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public boolean canCreate(StringConverterFactoryInfo info) {
-		Class<?> type = info.getTypeInfo().getType();
-		return type == float.class || type == Float.class;
+		TypeInfo typeInfo = info.getTypeInfo();
+		return typeInfo.isDomainClass() && !typeInfo.isEnum();
 	}
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		FloatStringConverter stringConverter = new FloatStringConverter(info);
+		DomainObjectStringConverter stringConverter = new DomainObjectStringConverter(info);
 		return stringConverter;
 	}
 

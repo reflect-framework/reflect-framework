@@ -7,9 +7,11 @@ import java.net.URI;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.generic.util.TestString;
+import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class UriStringConverterTest {
+public class UriStringConverterTest extends StringConverterTest {
 
 	private final static String URI_STRING = "mailto:John.Doe@example.com";
 	private static URI URI_VALUE;
@@ -17,7 +19,8 @@ public class UriStringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		uriStringConverter = new UriStringConverter(null, null);
+		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_URI);
+		uriStringConverter = new UriStringConverter(info);
 		URI_VALUE = new URI(URI_STRING);
 	}
 
@@ -41,7 +44,7 @@ public class UriStringConverterTest {
 
 	@Test
 	public void testFromString_givenEmptySyring_mustReturnNull() {
-		URI result = uriStringConverter.fromString(TestString.EMPTY);
+		URI result = uriStringConverter.fromString(EMPTY);
 		assertThat(result).isNull();
 	}
 

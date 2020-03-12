@@ -2,12 +2,12 @@ package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
 import java.math.BigDecimal;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class BigDecimalStringConverter extends NumberStringConverter<BigDecimal> {
 
-	public BigDecimalStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public BigDecimalStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 	}
 
 	@Override

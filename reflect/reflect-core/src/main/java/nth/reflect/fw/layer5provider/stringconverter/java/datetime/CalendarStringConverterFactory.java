@@ -16,8 +16,7 @@ public class CalendarStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		CalendarStringConverter stringConverter = new CalendarStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		CalendarStringConverter stringConverter = new CalendarStringConverter(info);
 		return stringConverter;
 	}
 

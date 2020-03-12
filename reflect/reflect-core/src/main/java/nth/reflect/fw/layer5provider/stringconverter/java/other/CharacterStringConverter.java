@@ -1,8 +1,8 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.other;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 /**
  * A stupid {@link StringConverter}, but it is needed so that Strings are
@@ -14,8 +14,8 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterExce
  */
 public class CharacterStringConverter extends StringConverter<Character> {
 
-	public CharacterStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public CharacterStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 	}
 
 	@Override

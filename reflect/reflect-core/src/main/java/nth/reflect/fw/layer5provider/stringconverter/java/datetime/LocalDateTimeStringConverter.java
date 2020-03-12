@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class LocalDateTimeStringConverter extends StringConverter<LocalDateTime> {
 
 	private final DateTimeFormatter dateTimeFormatter;
 
-	public LocalDateTimeStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public LocalDateTimeStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 		dateTimeFormatter = createDateTimeFormatter();
 	}
 

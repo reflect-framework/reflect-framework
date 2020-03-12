@@ -11,14 +11,13 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFact
 
 public abstract class StringConverterFactoryTest {
 
-	private DependencyInjectionContainer container;
 	private StringConverterFactory stringConverterFactory;
 	private StringConverterFactoryInfoMap stringConverterFactoryInfoMap;
 
 	@Before
 	public void setUp() throws Exception {
-		container = new ReflectApplicationForJUnit().createContainer();
 		stringConverterFactory = getStringConverterFactory();
+		DependencyInjectionContainer container = new ReflectApplicationForJUnit().createContainer();
 		stringConverterFactoryInfoMap = new StringConverterFactoryInfoMap(container);
 	}
 
@@ -29,7 +28,8 @@ public abstract class StringConverterFactoryTest {
 		assertThat(stringConverterFactoryInfoMap).allSatisfy((info, stringConverterType) -> {
 			boolean sameConverterFactoryAndConverter = stringConverterFactory.getClass().getName()
 					.startsWith(stringConverterType.getName());
-			assertThat(stringConverterFactory.canCreate(info)).isEqualTo(sameConverterFactoryAndConverter);
+			boolean result = stringConverterFactory.canCreate(info);
+			assertThat(result).isEqualTo(sameConverterFactoryAndConverter);
 		});
 
 	}

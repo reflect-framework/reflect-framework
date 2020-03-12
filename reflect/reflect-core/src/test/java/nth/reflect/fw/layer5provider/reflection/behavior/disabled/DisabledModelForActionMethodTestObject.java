@@ -3,12 +3,10 @@ package nth.reflect.fw.layer5provider.reflection.behavior.disabled;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.generic.util.TestString;
-
 public class DisabledModelForActionMethodTestObject {
 
 	private static final String CORRECT_ROLE = "salesmanager";
-	private static final String BOGUS_ROLE = TestString.BOGUS;
+	private static final String BOGUS_ROLE = "Bogus";
 
 	@Disabled()
 	public void actionMethodDisabled() {

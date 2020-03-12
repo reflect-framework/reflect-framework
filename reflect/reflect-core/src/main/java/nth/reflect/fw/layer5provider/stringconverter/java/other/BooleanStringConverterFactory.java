@@ -14,8 +14,7 @@ public class BooleanStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		BooleanStringConverter stringConverter = new BooleanStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		BooleanStringConverter stringConverter = new BooleanStringConverter(info);
 		return stringConverter;
 	}
 

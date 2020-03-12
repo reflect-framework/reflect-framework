@@ -2,14 +2,14 @@ package nth.reflect.fw.layer5provider.stringconverter.java.other;
 
 import java.net.URL;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class UrlStringConverter extends StringConverter<URL> {
 
-	public UrlStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public UrlStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 	}
 
 	@Override

@@ -16,8 +16,7 @@ public class LocalTimeStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		LocalTimeStringConverter stringConverter = new LocalTimeStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		LocalTimeStringConverter stringConverter = new LocalTimeStringConverter(info);
 		return stringConverter;
 	}
 

@@ -1,14 +1,15 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.java.number.FloatStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class FloatStringConverterTest extends NumberStringConverterTest {
 
 	@Override
-	protected StringConverter createStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		return new FloatStringConverter(container, formatPattern);
+	protected StringConverter createStringConverter(String formatPattern) {
+		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_FLOAT, formatPattern);
+		return new FloatStringConverter(info);
 	}
 
 	@Override

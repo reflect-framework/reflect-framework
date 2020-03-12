@@ -6,18 +6,18 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public abstract class NumberStringConverter<T extends Number> extends StringConverter<T>  {
+public abstract class NumberStringConverter<T extends Number> extends StringConverter<T> {
 
 	private final NumberFormat decimalFormat;
 
-	public NumberStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
-		decimalFormat=createDecimalFormat();
+	public NumberStringConverter(StringConverterFactoryInfo info) {
+		super(info);
+		decimalFormat = createDecimalFormat();
 	}
 
 	private NumberFormat createDecimalFormat() {

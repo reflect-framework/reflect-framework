@@ -8,21 +8,18 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.exception.MethodNotSupportedException;
-import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 
-public class EnumStringConverterTest {
+public class EnumStringConverterTest extends StringConverterTest {
 
 	private EnumStringConverter enumStringConverter;
-	private DependencyInjectionContainer container;
 
 	@Before
-	public void setUp() throws Exception {
-		container = new ReflectApplicationForJUnit().createContainer();
-		enumStringConverter = new EnumStringConverter(container, null);
+	public void setUp() {
+		enumStringConverter = new EnumStringConverter(createInfo(DomainObject.GET_MY_TEXT));
 	}
 
 	@Test
@@ -39,7 +36,7 @@ public class EnumStringConverterTest {
 
 	@Test
 	public void testToString_givenEnumWithGerman_mustReturnString() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		String result = enumStringConverter.toString(DomainObject.MyEnum.second);
 		assertThat(result).isEqualTo("Zweite");

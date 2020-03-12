@@ -14,7 +14,7 @@ public class LongStringConverterFactory implements StringConverterFactory {//
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		LongStringConverter stringConverter = new LongStringConverter(info.getContainer(), info.getFormatPattern());
+		LongStringConverter stringConverter = new LongStringConverter(info);
 		return stringConverter;
 	}
 

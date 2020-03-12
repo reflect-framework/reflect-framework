@@ -5,16 +5,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class CalendarStringConverter extends StringConverter<Calendar> {
 
 	private final SimpleDateFormat format;
 
-	public CalendarStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public CalendarStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 		format = createFormat();
 	}
 

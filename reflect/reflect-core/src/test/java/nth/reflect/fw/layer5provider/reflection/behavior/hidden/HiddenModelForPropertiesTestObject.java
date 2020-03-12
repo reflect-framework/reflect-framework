@@ -2,12 +2,10 @@ package nth.reflect.fw.layer5provider.reflection.behavior.hidden;
 
 import java.util.List;
 
-import nth.reflect.fw.generic.util.TestString;
-
 public class HiddenModelForPropertiesTestObject {
 
 	private static final String CORRECT_ROLE = "salesmanager";
-	private static final String BOGUS_ROLE = TestString.BOGUS;
+	private static final String BOGUS_ROLE = "Bogus";
 	private String propertyHiddenInTable;
 	private String propertyHiddenInForm;
 	private String propertyHiddenInFormAndTable;

@@ -8,21 +8,24 @@ import java.util.Calendar;
 
 import org.junit.Test;
 
-import nth.reflect.fw.generic.util.TestString;
+import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
-public class CalendarStringConverterTest {
+public class CalendarStringConverterTest extends StringConverterTest {
 
 	@Test
 	public void testToString_givenNullAndNullFormat_mustReturnEmptyString() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR));
 		String result = calendarStringConverter.toString(null);
-		assertThat(result).isEqualTo(TestString.EMPTY);
+		assertThat(result).isEqualTo(EMPTY);
 	}
 
 	@Test
 	public void testToString_givenCalendarAndNullFormat_mustReturnCalendar() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR));
 		String result = calendarStringConverter.toString(DateTimeTestUtil.CALENDAR_WITH_DATE_TIME);
 		SimpleDateFormat format = new SimpleDateFormat();
 		String expected = format.format(DateTimeTestUtil.CALENDAR_WITH_DATE_TIME.getTime());
@@ -31,74 +34,76 @@ public class CalendarStringConverterTest {
 
 	@Test
 	public void testToString_givenCalendarAndDateFormat_mustReturnDateString() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
-				DateTimeTestUtil.DATE_FORMAT_PATTERN);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR, DateTimeTestUtil.DATE_FORMAT_PATTERN));
 		String result = calendarStringConverter.toString(DateTimeTestUtil.CALENDAR_WITH_DATE_TIME);
 		assertThat(result).isEqualTo(DateTimeTestUtil.DATE_FORMAT_RESULT);
 	}
 
 	@Test
 	public void testToString_givenCalendarAndTimeFormat_mustReturnTimeString() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
-				DateTimeTestUtil.TIME_FORMAT_PATTERN);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR, DateTimeTestUtil.TIME_FORMAT_PATTERN));
 		String result = calendarStringConverter.toString(DateTimeTestUtil.CALENDAR_WITH_DATE_TIME);
 		assertThat(result).isEqualTo(DateTimeTestUtil.TIME_FORMAT_RESULT);
 	}
 
 	@Test
 	public void testToString_givenCalendarAndDateTimeFormat_mustReturnDateTimeString() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
-				DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR, DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN));
 		String result = calendarStringConverter.toString(DateTimeTestUtil.CALENDAR_WITH_DATE_TIME);
 		assertThat(result).isEqualTo(DateTimeTestUtil.DATE_TIME_FORMAT_RESULT);
 	}
 
 	@Test
 	public void testFromString_givenNull_mustReturnNull() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR));
 		Calendar result = calendarStringConverter.fromString(null);
 		assertThat(result).isNull();
 	}
 
 	@Test
 	public void testFromString_givenEmptyString_mustReturnNull() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
-		Calendar result = calendarStringConverter.fromString(TestString.EMPTY);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR));
+		Calendar result = calendarStringConverter.fromString(EMPTY);
 		assertThat(result).isNull();
 	}
 
 	@Test
 	public void testFromString_givenBogusValue_mustThrowException() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null, null);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR));
 		assertThrows(StringConverterException.class, () -> {
-			calendarStringConverter.fromString(TestString.BOGUS);
+			calendarStringConverter.fromString(BOGUS);
 		});
 	}
 
 	@Test
 	public void testFromString_givenSpaceDate_mustReturnCalendarDate() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
-				DateTimeTestUtil.DATE_FORMAT_PATTERN);
-		Calendar result = calendarStringConverter.fromString(TestString.SPACE + DateTimeTestUtil.DATE_FORMAT_RESULT);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR, DateTimeTestUtil.DATE_FORMAT_PATTERN));
+		Calendar result = calendarStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_FORMAT_RESULT);
 		assertThat(result.getTimeInMillis() / 1000)
 				.isEqualTo(DateTimeTestUtil.CALENDAR_WITH_DATE.getTimeInMillis() / 1000);
 	}
 
 	@Test
 	public void testFromString_givenTimeSpace_mustReturnCalendarTime() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
-				DateTimeTestUtil.TIME_FORMAT_PATTERN);
-		Calendar result = calendarStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + TestString.SPACE);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR, DateTimeTestUtil.TIME_FORMAT_PATTERN));
+		Calendar result = calendarStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + SPACE);
 		assertThat(result.getTimeInMillis() / 1000)
 				.isEqualTo(DateTimeTestUtil.CALENDAR_WITH_TIME.getTimeInMillis() / 1000);
 	}
 
 	@Test
 	public void testFromString_givenSpaceDateTimeSpace_mustReturnCalendarDateTime() {
-		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(null,
-				DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN);
-		Calendar result = calendarStringConverter
-				.fromString(TestString.SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + TestString.SPACE);
+		CalendarStringConverter calendarStringConverter = new CalendarStringConverter(
+				createInfo(DomainObject.GET_MY_CALENDAR, DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN));
+		Calendar result = calendarStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + SPACE);
 		assertThat(result.getTimeInMillis() / 1000)
 				.isEqualTo(DateTimeTestUtil.CALENDAR_WITH_DATE_TIME.getTimeInMillis() / 1000);
 	}

@@ -14,7 +14,7 @@ public class EnumStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		EnumStringConverter stringConverter = new EnumStringConverter(info.getContainer(), info.getFormatPattern());
+		EnumStringConverter stringConverter = new EnumStringConverter(info);
 		return stringConverter;
 	}
 

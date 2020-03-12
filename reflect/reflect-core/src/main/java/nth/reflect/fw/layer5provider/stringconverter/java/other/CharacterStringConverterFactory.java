@@ -14,8 +14,7 @@ public class CharacterStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		CharacterStringConverter stringConverter = new CharacterStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		CharacterStringConverter stringConverter = new CharacterStringConverter(info);
 		return stringConverter;
 	}
 

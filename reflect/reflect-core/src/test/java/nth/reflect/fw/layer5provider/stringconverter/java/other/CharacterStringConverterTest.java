@@ -6,26 +6,28 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Before;
 import org.junit.Test;
 
+import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.java.other.CharacterStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class CharacterStringConverterTest {
+public class CharacterStringConverterTest extends StringConverterTest {
 
 	private static final char PRIMITIVE_CHAR = 'a';
 	private static final Character CHARACTER = new Character(PRIMITIVE_CHAR);
 	private static final String CHARACTER_STRING = CHARACTER.toString();
-	private static final String EMPTY_STRING = "";
 	private CharacterStringConverter characterStringConverter;
 
 	@Before
 	public void setUp() throws Exception {
-		characterStringConverter = new CharacterStringConverter(null, null);
+		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_CHARACTER);
+		characterStringConverter = new CharacterStringConverter(info);
 	}
 
 	@Test
 	public void testToString_givenNull_mustReturnEmptyString() {
 		String result = characterStringConverter.toString(null);
-		assertThat(result).isEqualTo(EMPTY_STRING);
+		assertThat(result).isEmpty();
 	}
 
 	@Test
@@ -62,7 +64,7 @@ public class CharacterStringConverterTest {
 	@Test
 	public void testFromString_givenEmptyString_MustThrowException() {
 		assertThrows(StringConverterException.class, () -> {
-			characterStringConverter.fromString(EMPTY_STRING);
+			characterStringConverter.fromString(EMPTY);
 		});
 	}
 

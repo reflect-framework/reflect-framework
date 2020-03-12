@@ -5,14 +5,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StringStringConverterTest {
+import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
+
+public class StringStringConverterTest extends StringConverterTest {
 
 	private final static String STRING = "String";
 	private StringStringConverter stringStringConverter;
 
 	@Before
 	public void setUp() throws Exception {
-		stringStringConverter = new StringStringConverter(null, null);
+		StringConverterFactoryInfo createInfo = createInfo(DomainObject.GET_MY_TEXT);
+		stringStringConverter = new StringStringConverter(createInfo);
 	}
 
 	@Test

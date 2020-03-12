@@ -1,11 +1,11 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class ShortStringConverter extends NumberStringConverter<Short> {
 
-	public ShortStringConverter(DependencyInjectionContainer container, String formatPattern) {
-		super(container, formatPattern);
+	public ShortStringConverter(StringConverterFactoryInfo info) {
+		super(info);
 	}
 
 	@Override

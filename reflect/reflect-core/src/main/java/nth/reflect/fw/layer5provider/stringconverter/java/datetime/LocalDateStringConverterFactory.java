@@ -16,8 +16,7 @@ public class LocalDateStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		LocalDateStringConverter stringConverter = new LocalDateStringConverter(info.getContainer(),
-				info.getFormatPattern());
+		LocalDateStringConverter stringConverter = new LocalDateStringConverter(info);
 		return stringConverter;
 	}
 

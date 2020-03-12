@@ -8,13 +8,13 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.java.other.BooleanStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class BooleanStringConverterTest {
+public class BooleanStringConverterTest extends StringConverterTest {
 
 	private static final String NOT_A_BOOLEAN = "Not a boolean";
 	private static final String EMPTY_STRING = "";
@@ -24,13 +24,11 @@ public class BooleanStringConverterTest {
 	private static final String FALSE = "False";
 	private static final String SPACE = " ";
 	private BooleanStringConverter booleanStringConverter;
-	private DependencyInjectionContainer container;
 
 	@Before
 	public void setUp() throws Exception {
-		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit();
-		container = application.createContainer();
-		booleanStringConverter = new BooleanStringConverter(container, EMPTY_STRING);
+		StringConverterFactoryInfo info = createInfo(DomainObject.IS_MY_BOOLEAN);
+		booleanStringConverter = new BooleanStringConverter(info);
 	}
 
 	@Test
@@ -65,7 +63,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testToStringBoolean_givenPrimitiveFalseInGerman_mustReturnFalsh() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		String result = booleanStringConverter.toString(false);
 		assertThat(result).isEqualTo(FALSCH);
@@ -73,7 +71,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testToStringBoolean_givenPrimitiveTrueInGerman_mustReturnWahr() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		String result = booleanStringConverter.toString(true);
 		assertThat(result).isEqualTo(WAHR);
@@ -81,7 +79,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testToStringBoolean_givenFalseInGerman_mustReturnFalsch() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		String result = booleanStringConverter.toString(Boolean.FALSE);
 		assertThat(result).isEqualTo(FALSCH);
@@ -89,7 +87,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testToStringBoolean_givenTrueInGerman_mustReturnWahr() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		String result = booleanStringConverter.toString(Boolean.TRUE);
 		assertThat(result).isEqualTo(WAHR);
@@ -122,7 +120,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testFromStringString_givenNoBooleanInGerman_mustThrowException() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		assertThrows(StringConverterException.class, () -> {
 			booleanStringConverter.fromString(NOT_A_BOOLEAN);
@@ -155,7 +153,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testFromStringString_givenSpaceTrueInGerman_mustReturnPrimitiveTrue() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		Boolean result = booleanStringConverter.fromString(SPACE + TRUE);
 		assertThat(result).isEqualTo(true);
@@ -163,7 +161,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testFromStringString_givenSpaceFalseSpaceInGerman_mustReturnPrimitiveFalse() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		Boolean result = booleanStringConverter.fromString(SPACE + FALSE + SPACE);
 		assertThat(result).isEqualTo(false);
@@ -171,7 +169,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testFromStringString_givenSpaceWahrInGerman_mustReturnPrimitiveTrue() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		Boolean result = booleanStringConverter.fromString(SPACE + WAHR);
 		assertThat(result).isEqualTo(true);
@@ -179,7 +177,7 @@ public class BooleanStringConverterTest {
 
 	@Test
 	public void testFromStringString_givenSpaceFalschSpaceInGerman_mustReturnPrimitiveFalse() {
-		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		Boolean result = booleanStringConverter.fromString(SPACE + FALSCH + SPACE);
 		assertThat(result).isEqualTo(false);

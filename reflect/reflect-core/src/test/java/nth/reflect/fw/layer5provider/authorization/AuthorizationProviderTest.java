@@ -8,11 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.generic.util.TestString;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 
 public class AuthorizationProviderTest {
 
+	private static final String BOGUS = "Bogus";
 	private AuthorizationProviderTestObject authorizationProvider;
 
 	@Before
@@ -36,7 +36,7 @@ public class AuthorizationProviderTest {
 
 	@Test(expected = InvalidNameOrPasswordException.class)
 	public void inCorrectLogin() throws InvalidNameOrPasswordException {
-		authorizationProvider.login(TestString.BOGUS, TestString.BOGUS);
+		authorizationProvider.login(BOGUS, BOGUS);
 	}
 
 	@Test()

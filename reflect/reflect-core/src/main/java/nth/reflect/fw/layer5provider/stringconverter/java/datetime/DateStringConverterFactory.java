@@ -16,7 +16,7 @@ public class DateStringConverterFactory implements StringConverterFactory {
 
 	@Override
 	public StringConverter create(StringConverterFactoryInfo info) {
-		DateStringConverter stringConverter = new DateStringConverter(info.getContainer(), info.getFormatPattern());
+		DateStringConverter stringConverter = new DateStringConverter(info);
 		return stringConverter;
 	}
 
