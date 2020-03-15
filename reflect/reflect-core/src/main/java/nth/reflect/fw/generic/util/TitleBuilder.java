@@ -1,12 +1,14 @@
 package nth.reflect.fw.generic.util;
 
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.format.impl.NumericFormat;
+import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
 
 /**
  * <p>
@@ -45,7 +47,6 @@ public class TitleBuilder {
 	public static final String DEFAULT_SEPARATOR = COMMA_SPACE_SEPARATOR;
 	private String separator;
 	private final StringBuilder title;
-	private final LanguageProvider languageProvider;
 
 	/**
 	 * FIXME: We create a new {@link DefaultLanguageProvider} here because the
@@ -57,7 +58,6 @@ public class TitleBuilder {
 	public TitleBuilder() {
 		this.title = new StringBuilder();
 		this.separator = DEFAULT_SEPARATOR;
-		this.languageProvider = new DefaultLanguageProvider();
 	}
 
 	public TitleBuilder setSeperator(String seperator) {
@@ -103,15 +103,30 @@ public class TitleBuilder {
 		return this;
 	}
 
-	public TitleBuilder append(final Number number, final String formatPattern) {
-		append(separator, number, formatPattern);
+	public TitleBuilder append(Number number, String formatPattern) {
+		if (number != null && formatPattern != null && !formatPattern.trim().isEmpty()) {
+			Format format = new DecimalFormat(formatPattern);
+			append(number, format);
+		}
+		return this;
+	}
+
+	public TitleBuilder append(final Number number, final Format format) {
+		append(separator, number, format);
 		return this;
 	}
 
 	public TitleBuilder append(final String separator, final Number number, final String formatPattern) {
 		if (number != null) {
-			NumericFormat numberFormat = new NumericFormat(languageProvider, number.getClass(), formatPattern);
-			String text = numberFormat.format(number);
+			Format format = new DecimalFormat(formatPattern);
+			append(separator, number, format);
+		}
+		return this;
+	}
+
+	public TitleBuilder append(final String separator, final Number number, final Format format) {
+		if (number != null) {
+			String text = format.format(number);
 			append(separator, text);
 		}
 		return this;
@@ -122,9 +137,22 @@ public class TitleBuilder {
 		return this;
 	}
 
+	public TitleBuilder append(final Enum<?> enumeration, LanguageProvider languageProvider) {
+		append(separator, enumeration, languageProvider);
+		return this;
+	}
+
 	public TitleBuilder append(final String separator, final Enum<?> enumeration) {
 		if (enumeration != null) {
 			String text = StringUtil.eliphantCaseToNormal(enumeration.toString());
+			append(separator, text);
+		}
+		return this;
+	}
+
+	public TitleBuilder append(final String separator, final Enum<?> enumeration, LanguageProvider languageProvider) {
+		if (enumeration != null) {
+			String text = EnumStringConverter.enumToString(languageProvider, enumeration);
 			append(separator, text);
 		}
 		return this;
@@ -153,9 +181,16 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder contact(Number number, String formatPattern) {
+		if (number != null && formatPattern != null && !formatPattern.trim().isEmpty()) {
+			Format format = new DecimalFormat(formatPattern);
+			contact(number, format);
+		}
+		return this;
+	}
+
+	public TitleBuilder contact(Number number, Format format) {
 		if (number != null) {
-			NumericFormat numberFormat = new NumericFormat(languageProvider, number.getClass(), formatPattern);
-			String text = numberFormat.format(number);
+			String text = format.format(number);
 			contact(text);
 		}
 		return this;
@@ -163,8 +198,15 @@ public class TitleBuilder {
 
 	public TitleBuilder contact(Enum<?> enumeration) {
 		if (enumeration != null) {
-			// TODO multi language
 			String text = StringUtil.eliphantCaseToNormal(enumeration.toString());
+			contact(text);
+		}
+		return this;
+	}
+
+	public TitleBuilder contact(Enum<?> enumeration, LanguageProvider languageProvider) {
+		if (enumeration != null) {
+			String text = EnumStringConverter.enumToString(languageProvider, enumeration);
 			contact(text);
 		}
 		return this;

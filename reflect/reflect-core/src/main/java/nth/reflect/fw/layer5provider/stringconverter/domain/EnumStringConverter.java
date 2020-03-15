@@ -20,6 +20,11 @@ public class EnumStringConverter extends StringConverter<Enum<?>> {
 		if (value == null) {
 			return "";
 		}
+		String text = enumToString(languageProvider, value);
+		return text;
+	}
+
+	public static String enumToString(LanguageProvider languageProvider, Enum<?> value) {
 		String key = languageProvider.getKey(value);
 		String defaultValue = StringUtil.eliphantCaseToNormal(value.toString());
 		String text = languageProvider.getText(key, defaultValue);

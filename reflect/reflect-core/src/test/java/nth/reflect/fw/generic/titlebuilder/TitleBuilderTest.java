@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.Date;
 
 import org.junit.Test;
@@ -12,7 +14,8 @@ import nth.reflect.fw.generic.util.TitleBuilder;
 
 public class TitleBuilderTest {
 
-	private static final String CURRENCY_FORMAT = "#.## €";
+	private static final String CURRENCY_FORMAT_PATTERN = "#.## €";
+	private static final Format CURRENCY_FORMAT = new DecimalFormat(CURRENCY_FORMAT_PATTERN);
 	private static final String FORMATED_CURRENCY = "123.26 €";
 	private static final String FORMATED_DATE = "1970-01-01";
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -24,7 +27,8 @@ public class TitleBuilderTest {
 	private static final Date NULL_DATE = null;
 	private static final String DEFAULT_SEPARATOR = TitleBuilder.DEFAULT_SEPARATOR;
 	private static final Number NULL_NUMBER = null;
-	private static final String NUMBER_FORMAT = "###.##";
+	private static final String NUMBER_FORMAT_PATTERN = "###.##";
+	private static final Format NUMBER_FORMAT = new DecimalFormat(NUMBER_FORMAT_PATTERN);
 	private static final String FORMATED_NUMBER = "1.46";
 	private static final TitleBuilderTestEnum NULL_ENUM = null;
 
@@ -155,7 +159,7 @@ public class TitleBuilderTest {
 	}
 
 	@Test
-	public void appendNumberWithFormatPattern() {
+	public void appendNumberWithFormat() {
 		Double number = new Double(1.4567);
 		TitleBuilder titleBuilder = new TitleBuilder();
 		titleBuilder.append(NULL_NUMBER, NUMBER_FORMAT);
@@ -172,6 +176,27 @@ public class TitleBuilderTest {
 
 		titleBuilder = new TitleBuilder();
 		titleBuilder.append(new BigDecimal("123.256").setScale(2, RoundingMode.HALF_UP), CURRENCY_FORMAT);
+		assertEquals(FORMATED_CURRENCY, titleBuilder.toString());
+	}
+
+	@Test
+	public void appendNumberWithFormatPattern() {
+		Double number = new Double(1.4567);
+		TitleBuilder titleBuilder = new TitleBuilder();
+		titleBuilder.append(NULL_NUMBER, NUMBER_FORMAT_PATTERN);
+		assertEquals(EMPTY_STRING, titleBuilder.toString());
+
+		titleBuilder.append(number, NUMBER_FORMAT_PATTERN);
+		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
+
+		titleBuilder.append(NULL_NUMBER, NUMBER_FORMAT_PATTERN);
+		assertEquals(FORMATED_NUMBER, titleBuilder.toString());
+
+		titleBuilder.append(number, NUMBER_FORMAT_PATTERN);
+		assertEquals(FORMATED_NUMBER + DEFAULT_SEPARATOR + FORMATED_NUMBER, titleBuilder.toString());
+
+		titleBuilder = new TitleBuilder();
+		titleBuilder.append(new BigDecimal("123.256").setScale(2, RoundingMode.HALF_UP), CURRENCY_FORMAT_PATTERN);
 		assertEquals(FORMATED_CURRENCY, titleBuilder.toString());
 
 	}
