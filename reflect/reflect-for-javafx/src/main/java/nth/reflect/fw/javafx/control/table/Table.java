@@ -19,6 +19,7 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForFormTabProperty;
 import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
+import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.gui.style.MaterialFont;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.itemtreelist.ItemTreeCell;
@@ -79,11 +80,11 @@ public class Table extends TableView<Object> {
 	}
 
 	private void initColumns() {
-		List<nth.reflect.fw.gui.component.table.info.ColumnInfo> columnInfos = tableInfo.getColumnInfos();
+		List<ColumnInfo> columnInfos = tableInfo.getColumnInfos();
 		if (columnInfos.size() == 1) {
 			hideHeader();
 		}
-		for (nth.reflect.fw.gui.component.table.info.ColumnInfo columnInfo : columnInfos) {
+		for (ColumnInfo columnInfo : columnInfos) {
 			TableColumnWraper column = new TableColumnWraper(columnInfo);
 			getColumns().add(column);
 		}
@@ -204,8 +205,7 @@ public class Table extends TableView<Object> {
 	}
 
 	/**
-	 * @param row
-	 *            Index of the row
+	 * @param row Index of the row
 	 * @return the corresponding row
 	 */
 	public TableRow<?> getRow(int row) {

@@ -1,14 +1,12 @@
 package nth.reflect.fw.ui.swing.tab.grid;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.swing.table.AbstractTableModel;
 
-import nth.reflect.fw.gui.component.table.info.ColumnInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
+import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.layer1userinterface.controller.Refreshable;
-import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 public class MethodTableModel extends AbstractTableModel implements DomainTableModel, Refreshable {
 
@@ -35,15 +33,15 @@ public class MethodTableModel extends AbstractTableModel implements DomainTableM
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object value = values.get(rowIndex);
 		ColumnInfo columnInfo = tableInfo.getColumnInfos().get(columnIndex);
-		String cellValue = columnInfo.getCellValue(value);
+		String cellValue = columnInfo.toString(value);
 		return cellValue;
 	}
 
 	@Override
 	public String getColumnName(int column) {
-		Optional<PropertyInfo> propertyInfo = tableInfo.getColumnInfos().get(column).getPropertyInfo();
-		if (propertyInfo.isPresent()) {
-			return propertyInfo.get().getDisplayName();
+		ColumnInfo columnInfo = tableInfo.getColumnInfos().get(column);
+		if (columnInfo.hasName()) {
+			return columnInfo.getName();
 		} else {
 			return "";
 		}

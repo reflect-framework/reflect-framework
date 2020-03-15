@@ -1,5 +1,6 @@
 package nth.reflect.fw.gui.component.table.info;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
@@ -35,6 +36,12 @@ public class TableInfoForFormTabProperty extends TableInfo {
 		PropertyPanelMenuItems items = new PropertyPanelMenuItems(formTab, actionMethodParameterModel,
 				propertyValueModel.getPropertyInfo());
 		return items;
+	}
+
+	@Override
+	public Method getValuesMethod() {
+		Method getterMethod = propertyValueModel.getPropertyInfo().getGetterMethod();
+		return getterMethod;
 	}
 
 }

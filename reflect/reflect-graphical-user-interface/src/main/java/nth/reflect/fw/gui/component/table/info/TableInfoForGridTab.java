@@ -1,5 +1,6 @@
 package nth.reflect.fw.gui.component.table.info;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
@@ -29,15 +30,7 @@ public class TableInfoForGridTab extends TableInfo {
 			Object methodResult = actionMethodInfo.invoke(methodOwner, methodParameterValue);
 			return methodResult;
 		} catch (Exception e) {
-			StringBuilder message = new StringBuilder(gridTab.getDisplayName());
-			message.append(": ");
-			message.append(getLanguageProvider().getText("Error getting table values."));
-			throw new RuntimeException(message.toString(), e);
-			// UserInterfaceController userInterfaceController =
-			// gridTab.getUserInterfaceContainer()
-			// .get(UserInterfaceController.class);
-			// userInterfaceController.showErrorDialog(gridTab.getViewTitle(),
-			// "Error getting table values.", e);
+			throw new TableValuesException(gridTab.getMethodInfo(), e);
 		}
 	}
 
@@ -50,5 +43,10 @@ public class TableInfoForGridTab extends TableInfo {
 	public Collection<Item> getRowMenuItems(ReadOnlyValueModel actionMethodParameterModel) {
 		Collection<Item> items = new GridTabMenuItems(gridTab, actionMethodParameterModel);
 		return items;
+	}
+
+	@Override
+	public Method getValuesMethod() {
+		return actionMethodInfo.getMethod();
 	}
 }

@@ -8,9 +8,9 @@ import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.function.ValueProvider;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.component.table.info.ColumnInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
+import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.ui.vaadin.tab.Tab;
@@ -54,7 +54,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		for (ColumnInfo columnInfo : columnInfos) {
 			@SuppressWarnings("rawtypes")
 			ValueProvider valueProvider = createValueProvider(columnInfo);
-			grid.addColumn(valueProvider).setHeader(columnInfo.getHeaderText());
+			grid.addColumn(valueProvider).setHeader(columnInfo.getName());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		return new ValueProvider<Object, Object>() {
 			@Override
 			public Object apply(Object value) {
-				return columnInfo.getCellValue(value);
+				return columnInfo.toString(value);
 			}
 		};
 	}

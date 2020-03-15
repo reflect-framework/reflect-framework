@@ -100,8 +100,7 @@ public class ActionMethodInfo implements NameInfo {
 	 * 
 	 * @param application
 	 * @param method
-	 * @return a {@link TypeInfo} for the return type of an
-	 *         {@link ActionMethod}<br>
+	 * @return a {@link TypeInfo} for the return type of an {@link ActionMethod}<br>
 	 *         It will return a {@link TypeInfo} of type {@link Void} when the
 	 *         {@link ActionMethod} has no parameters
 	 */
@@ -297,12 +296,15 @@ public class ActionMethodInfo implements NameInfo {
 
 	/**
 	 * 
-	 * @return True if the {@link ActionMethod} has the
-	 *         {@link ReadOnlyActionMethod} when it does not modify a
-	 *         {@link DomainObject}.
+	 * @return True if the {@link ActionMethod} has the {@link ReadOnlyActionMethod}
+	 *         when it does not modify a {@link DomainObject}.
 	 */
 	public boolean isReadOnly() {
 		return isReadOnly;
+	}
+
+	public Method getMethod() {
+		return actionMethod;
 	}
 
 }
