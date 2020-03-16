@@ -22,6 +22,7 @@ import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -50,6 +51,19 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY_PANEL>
 		extends UserInterfaceController {
 
+	private static final TranslatableString RESULT_DIALOG_MESSAGE = new TranslatableString(
+			GraphicalUserinterfaceController.class.getCanonicalName() + ".result.dialog.message", "%s: Result is: %s");
+	private static final TranslatableString SUCCESS_DIALOG_MESSAGE = new TranslatableString(
+			GraphicalUserinterfaceController.class.getCanonicalName() + ".success.dialog.message",
+			"%s was successfully executed.");
+	private static final TranslatableString ERROR_DIALOG_MESSAGE = new TranslatableString(
+			GraphicalUserinterfaceController.class.getCanonicalName() + ".error.dialog.message", "Failed to execute.");
+	private static final TranslatableString CONFIRMATION_DIALOG_TITLE = new TranslatableString(
+			GraphicalUserinterfaceController.class.getCanonicalName() + ".confirmation.dialog.title", "Confirmation");
+	private static final TranslatableString CONFIRMATION_DIALOG_QUESTION = new TranslatableString(
+			GraphicalUserinterfaceController.class.getCanonicalName() + ".confirmation.dialog.question",
+			"Do you want to execute: %s ?");
+
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
 	private final Tabs<TAB> tabs;
@@ -72,14 +86,12 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		items.add(cancelItem);
 
 		// create the confirmation MaterialAppBarTitle and message
-		String title = languageProvider.getText("Confirmation");
-		StringBuilder message = new StringBuilder();
-		message.append(languageProvider.getText("Do you want to execute: "));
-		message.append(methodInfo.createTitle(methodParameter));
-		message.append("?");
+		String title = languageProvider.getText(CONFIRMATION_DIALOG_TITLE);
+		String methodTitle = methodInfo.createTitle(methodParameter);
+		String question = languageProvider.getText(CONFIRMATION_DIALOG_QUESTION.withParameters(methodTitle));
 
 		// show the dialog
-		showDialog(DialogType.QUESTION, title, message.toString(), items);
+		showDialog(DialogType.QUESTION, title, question, items);
 
 	}
 
@@ -129,7 +141,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		try {
 			startMethodExecutionThread(serviceObject, actionMethodInfo, methodParameterValue);
 		} catch (Exception exception) {
-			String message = languageProvider.getText("Failed to execute.");
+			String message = languageProvider.getText(ERROR_DIALOG_MESSAGE);
 			showErrorDialog(title, message, exception);
 		}
 	}
@@ -177,7 +189,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 					processActionMethodResult(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
 					String title = actionMethodInfo.createTitle(methodParameterValue);
-					String message = languageProvider.getText("Failed to execute.");
+					String message = languageProvider.getText(ERROR_DIALOG_MESSAGE);
 					showErrorDialog(title, message, exception);
 				}
 
@@ -306,10 +318,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		String title = methodInfo.createTitle(methodParameter);
-
-		StringBuffer message = new StringBuffer(title);
-		message.append(languageProvider.getText(" was successfully executed"));
-		showInfoMessage(message.toString());
+		String message = languageProvider.getText(SUCCESS_DIALOG_MESSAGE.withParameters(title));
+		showInfoMessage(message);
 	}
 
 	/**
@@ -369,9 +379,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 						.getActionMethodInfos(new MethodNameFilter(methodName));
 				processActionMethod(methodOwner, actionMethodInfos.get(0), null);
 			} catch (Exception exception) {
-				throw new RuntimeException(
-						"Illegal Reflect URI. Format must be a standard URI like http://www.google.com or of format: Reflect:<service class package>.<service class name>.<service class method>",
-						exception);
+				throw new IllegalReflectUriException(exception);
 			}
 		} else {
 			openURI(uri);
@@ -407,12 +415,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			String methodResult) {
 		String title = methodInfo.createTitle(methodParameter);
-
-		StringBuilder message = new StringBuilder(title);
-		message.append(": ");
-		message.append(languageProvider.getText("Result is: "));
-		message.append(methodResult);
-		showInfoMessage(message.toString());
+		String message = languageProvider.getText(RESULT_DIALOG_MESSAGE.withParameters(title, methodResult));
+		showInfoMessage(message);
 
 	}
 

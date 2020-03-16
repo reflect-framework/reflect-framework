@@ -25,6 +25,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 import nth.reflect.fw.ui.swing.UserinterfaceControllerForSwing;
@@ -37,6 +38,11 @@ import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.tab.menu.MenuList;
 
 public class MainWindow extends JFrame {
+
+	private static final TranslatableString SHOW_MENU = new TranslatableString(
+			MainWindow.class.getCanonicalName() + ".show.menu", "Show Menu (F2)");
+	private static final TranslatableString HIDE_MENU = new TranslatableString(
+			MainWindow.class.getCanonicalName() + ".hide.menu", "Hide Menu (F2)");
 
 	private static final long serialVersionUID = 7688708437355470674L;
 	private final JSplitPane splitPanel;
@@ -113,8 +119,8 @@ public class MainWindow extends JFrame {
 
 	/**
 	 * Creates a button to show or hide the menu.<br>
-	 * The MaterialAppBarIcon and tool tip will be set by the
-	 * {@link #showMenu()} and {@link MainWindow#hideMenu()} methods
+	 * The MaterialAppBarIcon and tool tip will be set by the {@link #showMenu()}
+	 * and {@link MainWindow#hideMenu()} methods
 	 * 
 	 * @return a button to show or hide the menu
 	 */
@@ -137,56 +143,6 @@ public class MainWindow extends JFrame {
 		return button;
 	}
 
-	// private JButton createFindButton(final MenuTabPanel menuTabPanel) {
-	// JButton button = new JButton();
-	// @SuppressWarnings("serial")
-	// Action action = new AbstractAction() {
-	// @Override
-	// public void actionPerformed(ActionEvent e) {
-	// menuTabPanel.getMenuPanel().getSearchField().requestFocus();
-	// }
-	// };
-	// button.setAction(action);
-	// button.registerKeyboardAction(action,
-	// KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0),
-	// JComponent.WHEN_IN_FOCUSED_WINDOW);
-	// button.setToolTipText(languageProvider.getText("Find Menu Item (F3)"));
-	// try {
-	// button.setIcon(IconFactory.create(new IconUriClassResource(
-	// ReflectImage.EDIT_FIND).getAbsoluteURI(),
-	// SwingStyleConstant.ICON_SIZE));
-	// } catch (URISyntaxException e1) {
-	// }
-	// return button;
-	// }
-	//
-	// private JButton createTabButton(final MenuTabPanel menuTabPanel) {
-	// JButton button = new JButton();
-	// @SuppressWarnings("serial")
-	// Action action = new AbstractAction() {
-	// @Override
-	// public void actionPerformed(ActionEvent e) {
-	// int selectedTabIndex = getViewContainer().getSelectedIndex();
-	// if (selectedTabIndex >= 0) {
-	// Component selectedTabHeader = getViewContainer()
-	// .getTabComponentAt(selectedTabIndex);
-	// if (selectedTabHeader instanceof TabHeader) {
-	// TabHeader tabHeader = (TabHeader) selectedTabHeader;
-	// tabHeader.showPopupMenu(10, 10);
-	// }
-	// }
-	// }
-	// };
-	// button.setAction(action);
-	// button.registerKeyboardAction(action,
-	// KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0),
-	// JComponent.WHEN_IN_FOCUSED_WINDOW);
-	// button.setToolTipText(languageProvider.getText("Show Tabs Menu (F4)"));
-	// button.setIcon(IconFactory.create(ReflectImage.TABS,
-	// SwingStyleConstant.ICON_SIZE));
-	// return button;
-	// }
-
 	private JSplitPane createSplitPanel(Component menuTabPanel, Component contentTabPanel) {
 		JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuTabPanel, contentTabPanel);
 		splitPanel.setResizeWeight(0.25);
@@ -206,7 +162,7 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(false);
 		// set menu button
-		menuButton.setToolTipText(languageProvider.getText("Show Menu (F2)"));
+		menuButton.setToolTipText(languageProvider.getText(SHOW_MENU));
 		menuButton.setIcon(IconFactory.create(ReflectImage.MENU_OPENED, SwingStyleConstant.ICON_SIZE));
 	}
 
@@ -216,7 +172,7 @@ public class MainWindow extends JFrame {
 		// hide divider
 		((BasicSplitPaneUI) splitPanel.getUI()).getDivider().setVisible(true);
 		// hide menu button
-		menuButton.setToolTipText(languageProvider.getText("Hide Menu (F2)"));
+		menuButton.setToolTipText(languageProvider.getText(HIDE_MENU));
 		menuButton.setIcon(IconFactory.create(ReflectImage.MENU_CLOSED, SwingStyleConstant.ICON_SIZE));
 	}
 

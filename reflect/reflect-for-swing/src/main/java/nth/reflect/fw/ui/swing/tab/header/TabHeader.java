@@ -23,6 +23,7 @@ import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.item.tab.TabsItem;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.tab.Tab;
 
@@ -36,8 +37,8 @@ public class TabHeader extends JPanel {
 	public final LanguageProvider languageProvider;
 	private final Tabs<Tab> tabs;
 
-	public TabHeader(Tabs<Tab> tabs, LanguageProvider languageProvider, Tab tab,
-			String title, String description, Icon icon) {
+	public TabHeader(Tabs<Tab> tabs, LanguageProvider languageProvider, Tab tab, String title, String description,
+			Icon icon) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.tabs = tabs;
 		this.languageProvider = languageProvider;
@@ -80,7 +81,6 @@ public class TabHeader extends JPanel {
 		// add more space to the top of the component
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 	}
-
 
 	public MouseListener createMouseListener() {
 		return new MouseListener() {
@@ -125,10 +125,13 @@ public class TabHeader extends JPanel {
 	}
 
 	private class TabButton extends JButton implements ActionListener {
+		private final TranslatableString CLOSE_THIS_TAB = new TranslatableString(
+				TabHeader.class.getCanonicalName() + ".close.this.tab", "Close this tab");
+
 		public TabButton() {
 			int size = 18;
 			setPreferredSize(new Dimension(size, size));
-			setToolTipText(languageProvider.getText("Close this tab"));
+			setToolTipText(languageProvider.getText(CLOSE_THIS_TAB));
 			// Make the button looks the same for all Laf's
 			setUI(new BasicButtonUI());
 			// Make it transparent
@@ -142,15 +145,18 @@ public class TabHeader extends JPanel {
 			addActionListener(this);
 		}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			tabs.remove(tab);
 		}
 
 		// we don't want to update UI for this button
+		@Override
 		public void updateUI() {
 		}
 
 		// paint the cross
+		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D) g.create();
@@ -165,16 +171,14 @@ public class TabHeader extends JPanel {
 				g2.setColor(Color.MAGENTA);
 			}
 			int delta = 6;
-			g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight()
-					- delta - 1);
-			g2.drawLine(getWidth() - delta - 1, delta, delta, getHeight()
-					- delta - 1);
+			g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight() - delta - 1);
+			g2.drawLine(getWidth() - delta - 1, delta, delta, getHeight() - delta - 1);
 			g2.dispose();
 		}
 	}
 
 	public void showPopupMenu(int x, int y) {
-		TabsItem<Tab> tabsItem = new TabsItem<>(languageProvider, tabs,tab);
+		TabsItem<Tab> tabsItem = new TabsItem<>(languageProvider, tabs, tab);
 		List<Item> items = tabsItem.getChildren();
 		PopupMenu popupMenu = new PopupMenu(items);
 		popupMenu.show(this, x, y);

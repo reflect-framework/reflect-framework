@@ -20,6 +20,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
@@ -35,6 +36,11 @@ import nth.reflect.fw.ui.commandline.view.TableView;
 public class UserInterfaceControllerForCommandLine extends UserInterfaceController {
 
 	private final ProviderContainer providerContainer;
+	private static final TranslatableString DISPLAY_ERROR_DIALOG_TITLE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.title",
+			"Error while displaying an action result");
+	private static final TranslatableString DISPLAY_ERROR_DIALOG_MESSAGE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.message", "Action: %s");
 
 	public UserInterfaceControllerForCommandLine(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
@@ -141,10 +147,9 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		try {
 			processActionMethodExecution(methodOwner, methodInfo, methodParameter);
 		} catch (Exception exception) {
-			String title = languageProvider.getText("Error while executing an action");
-			String messageFormat = languageProvider.getText("Action: %s");
+			String title = languageProvider.getText(DISPLAY_ERROR_DIALOG_TITLE);
 			String actionMethod = methodInfo.createTitle(methodParameter);
-			String message = String.format(messageFormat, actionMethod);
+			String message = languageProvider.getText(DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod));
 			showErrorDialog(title, message, exception);
 		}
 

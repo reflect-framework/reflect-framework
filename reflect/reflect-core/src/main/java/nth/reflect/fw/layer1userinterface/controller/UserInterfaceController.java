@@ -7,6 +7,7 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.documentation.ReflectArchitecture;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationListener;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
@@ -39,6 +40,11 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  */
 public abstract class UserInterfaceController implements NotificationListener {
 
+	private static final TranslatableString DISPLAY_ERROR_DIALOG_TITLE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.title",
+			"Error while displaying an action result");
+	private static final TranslatableString DISPLAY_ERROR_DIALOG_MESSAGE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.message", "Action: %s");
 	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;
 	protected final UserInterfaceContainer userInterfaceContainer;
@@ -108,10 +114,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 				break;
 			}
 		} catch (Throwable throwable) {
-			String title = languageProvider.getText("Error while executing an action");
-			String messageFormat = languageProvider.getText("Action: %s");
+			String title = languageProvider.getText(DISPLAY_ERROR_DIALOG_TITLE);
 			String actionMethod = methodInfo.createTitle(methodParameter);
-			String message = String.format(messageFormat, actionMethod);
+			String message = languageProvider.getText(DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod));
 			showErrorDialog(title, message, throwable);
 		}
 
@@ -153,10 +158,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 		try {
 			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
-			String title = languageProvider.getText("Error while displaying an action result");
-			String messageFormat = languageProvider.getText("Action: %s");
+			String title = languageProvider.getText(DISPLAY_ERROR_DIALOG_TITLE);
 			String actionMethod = methodInfo.createTitle(methodParameter);
-			String message = String.format(messageFormat, actionMethod);
+			String message = languageProvider.getText(DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod));
 			showErrorDialog(title, message, exception);
 		}
 
