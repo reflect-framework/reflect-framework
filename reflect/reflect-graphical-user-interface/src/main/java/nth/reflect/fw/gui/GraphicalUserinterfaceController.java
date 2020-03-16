@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.reflect.fw.ReflectFramework;
-import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.gui.component.mainwindow.MainWindow;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
@@ -76,7 +75,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		String title = languageProvider.getText("Confirmation");
 		StringBuilder message = new StringBuilder();
 		message.append(languageProvider.getText("Do you want to execute: "));
-		message.append(TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter));
+		message.append(methodInfo.createTitle(methodParameter));
 		message.append("?");
 
 		// show the dialog
@@ -123,7 +122,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		// executed (if invalid: throw exception)
 
 		// show ProgressDialog
-		String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
+		String title = actionMethodInfo.createTitle(methodParameterValue);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
 		// start method execution thread
@@ -177,7 +176,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 					// show method result
 					processActionMethodResult(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
-					String title = TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
+					String title = actionMethodInfo.createTitle(methodParameterValue);
 					String message = languageProvider.getText("Failed to execute.");
 					showErrorDialog(title, message, exception);
 				}
@@ -306,7 +305,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 */
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
+		String title = methodInfo.createTitle(methodParameter);
 
 		StringBuffer message = new StringBuffer(title);
 		message.append(languageProvider.getText(" was successfully executed"));
@@ -407,7 +406,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			String methodResult) {
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
+		String title = methodInfo.createTitle(methodParameter);
 
 		StringBuilder message = new StringBuilder(title);
 		message.append(": ");

@@ -14,8 +14,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import nth.reflect.fw.generic.util.TitleUtil;
-import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
@@ -74,14 +72,13 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
-			UploadStream uploadStream) {
+	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		final JFileChooser fc = new JFileChooser();
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream);
+		String title = methodInfo.createTitle(uploadStream);
 		fc.setDialogTitle(title);
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				uploadStream.getFileTypeDescription(), uploadStream.fileExtentionFilters());
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(uploadStream.getFileTypeDescription(),
+				uploadStream.fileExtentionFilters());
 		fc.setFileFilter(filter);
 		int result = fc.showOpenDialog(getMainWindow());
 		if (result == JFileChooser.APPROVE_OPTION) {
@@ -121,24 +118,22 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		}
 	}
 
-
 	@Override
-	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object domainObject, FormMode formMode) {
-		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo,
-				methodParameterValue, domainObject, formMode);
+	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object domainObject, FormMode formMode) {
+		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
+				formMode);
 	}
 
 	@Override
-	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue) {
-		return new GridTab(userInterfaceContainer, serviceObject, actionMethodInfo,
-				methodParameterValue);
+	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object methodReturnValue) {
+		return new GridTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override
-	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue) {
+	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+			Object methodReturnValue) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -173,8 +168,8 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		Object defaultOption = options[items.size() - 1];
 
 		// show dialog
-		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, message, title,
-				JOptionPane.DEFAULT_OPTION, messageType, null, options, defaultOption);
+		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, message, title, JOptionPane.DEFAULT_OPTION,
+				messageType, null, options, defaultOption);
 
 		// execute selected item
 		if (selectedIndex != -1) {
@@ -195,7 +190,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 
 	@Override
 	public PropertyPanelFactory getPropertyPanelFactory() {
-		PropertyFieldProvider propertyFieldProvider=userInterfaceContainer.get(PropertyFieldProvider.class);
+		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
 		return new PropertyPanelFactory(propertyFieldProvider);
 	}
 

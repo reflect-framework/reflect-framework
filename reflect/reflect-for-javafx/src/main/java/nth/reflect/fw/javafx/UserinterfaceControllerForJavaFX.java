@@ -17,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import nth.reflect.fw.generic.util.TitleUtil;
-import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
@@ -171,7 +169,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		FileChooser fileChooser = new FileChooser();
-		String title = TitleUtil.createTitle(reflectionProvider, methodInfo, uploadStream);
+		String title = methodInfo.createTitle(uploadStream);
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),
@@ -196,7 +194,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		PropertyFieldProvider propertyFieldProvider=userInterfaceContainer.get(PropertyFieldProvider.class);
+		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
 		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(propertyFieldProvider);
 	}
 

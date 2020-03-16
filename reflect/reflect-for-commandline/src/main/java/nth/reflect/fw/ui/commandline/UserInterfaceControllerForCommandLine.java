@@ -16,7 +16,6 @@ import java.util.List;
 import javax.swing.JFileChooser;
 
 import nth.reflect.fw.generic.util.ExceptionUtil;
-import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
@@ -144,7 +143,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		} catch (Exception exception) {
 			String title = languageProvider.getText("Error while executing an action");
 			String messageFormat = languageProvider.getText("Action: %s");
-			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
+			String actionMethod = methodInfo.createTitle(methodParameter);
 			String message = String.format(messageFormat, actionMethod);
 			showErrorDialog(title, message, exception);
 		}

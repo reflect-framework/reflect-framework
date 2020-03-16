@@ -11,6 +11,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.DescriptionModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModel;
@@ -61,6 +62,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final TypeInfo returnTypeInfo;
 	private final TypeInfo firstParameterTypeInfo;
 	private final boolean isReadOnly;
+	private final ReflectionProvider reflectionProvider;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
 		validateNoObjectClassMethod(method);
@@ -71,6 +73,9 @@ public class ActionMethodInfo implements NameInfo {
 
 		ReflectApplication application = providerContainer.get(ReflectApplication.class);
 		Class<? extends UserInterfaceController> controllerClass = application.getUserInterfaceControllerClass();
+		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
+		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
+		this.reflectionProvider = providerContainer.get(ReflectionProvider.class);
 		this.executionMode = ExecutionModeFactory.create(method);
 		this.returnTypeInfo = createReturnTypeInfo(application, method);
 		this.firstParameterTypeInfo = createFirstParameterTypeInfo(application, method);
@@ -79,9 +84,6 @@ public class ActionMethodInfo implements NameInfo {
 		this.confirmMethod = ConfirmMethodFactory.create(controllerClass, executionMode, method,
 				firstParameterTypeInfo);
 		this.showResultMethod = ShowMethodFactory.create(controllerClass, executionMode, method, returnTypeInfo);
-
-		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
-		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
 
 		this.actionMethod = method;
 		this.simpleName = method.getName();
@@ -212,6 +214,11 @@ public class ActionMethodInfo implements NameInfo {
 		return returnTypeInfo;
 	}
 
+	public String createTitle(Object actionMethodParameter) {
+		String title = ActionMethodTitleFactory.create(reflectionProvider, this, actionMethodParameter);
+		return title;
+	}
+
 	/**
 	 * See {@link #createFirstParameterTypeInfo(ReflectApplication, Method)}
 	 * 
@@ -241,10 +248,6 @@ public class ActionMethodInfo implements NameInfo {
 			return actionMethod.invoke(methodOwner);
 		}
 	}
-
-	// public String getLinkedPropertyName() {
-	// return linkedPropertyName;
-	// }
 
 	@Override
 	public String toString() {

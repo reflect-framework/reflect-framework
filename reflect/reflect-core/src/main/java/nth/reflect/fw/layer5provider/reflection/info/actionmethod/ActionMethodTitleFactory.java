@@ -1,14 +1,12 @@
-package nth.reflect.fw.generic.util;
+package nth.reflect.fw.layer5provider.reflection.info.actionmethod;
 
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class TitleUtil {
+public class ActionMethodTitleFactory {
 
-	// FIXME: move to ActionMethodInfo
-	public static String createTitle(ReflectionProvider reflectionProvider,
-			ActionMethodInfo actionMethodInfo, Object methodParameter) {
+	public static String create(ReflectionProvider reflectionProvider, ActionMethodInfo actionMethodInfo,
+			Object methodParameter) {
 		StringBuffer title = new StringBuffer();
 		String methodDisplayName = actionMethodInfo.getDisplayName();
 		if (methodDisplayName != null) {
@@ -28,8 +26,7 @@ public class TitleUtil {
 
 	}
 
-	private static String createMethodParameterTitle(ReflectionProvider reflectionProvider,
-			Object methodParameter) {
+	private static String createMethodParameterTitle(ReflectionProvider reflectionProvider, Object methodParameter) {
 		TitleModel model = new TitleModel(reflectionProvider);
 		String parameterText = model.getTitle(methodParameter);
 		return parameterText;

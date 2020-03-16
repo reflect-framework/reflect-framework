@@ -1,6 +1,5 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod;
 
-import javafx.scene.control.Tab;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;

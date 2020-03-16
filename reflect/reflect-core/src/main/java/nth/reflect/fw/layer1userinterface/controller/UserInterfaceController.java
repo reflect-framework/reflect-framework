@@ -5,7 +5,6 @@ import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.documentation.ReflectArchitecture;
-import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationListener;
@@ -42,7 +41,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;
-	protected final  UserInterfaceContainer userInterfaceContainer;
+	protected final UserInterfaceContainer userInterfaceContainer;
 
 	public UserInterfaceController(UserInterfaceContainer userInterfaceContainer) {
 		this.userInterfaceContainer = userInterfaceContainer;
@@ -111,7 +110,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 		} catch (Throwable throwable) {
 			String title = languageProvider.getText("Error while executing an action");
 			String messageFormat = languageProvider.getText("Action: %s");
-			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
+			String actionMethod = methodInfo.createTitle(methodParameter);
 			String message = String.format(messageFormat, actionMethod);
 			showErrorDialog(title, message, throwable);
 		}
@@ -156,7 +155,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
 			String title = languageProvider.getText("Error while displaying an action result");
 			String messageFormat = languageProvider.getText("Action: %s");
-			String actionMethod = TitleUtil.createTitle(reflectionProvider, methodInfo, methodParameter);
+			String actionMethod = methodInfo.createTitle(methodParameter);
 			String message = String.format(messageFormat, actionMethod);
 			showErrorDialog(title, message, exception);
 		}

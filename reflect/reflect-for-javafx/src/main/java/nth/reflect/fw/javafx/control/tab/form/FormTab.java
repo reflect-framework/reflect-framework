@@ -1,6 +1,5 @@
 package nth.reflect.fw.javafx.control.tab.form;
 
-import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.gui.style.ReflectColorName;
@@ -8,7 +7,6 @@ import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
@@ -20,7 +18,6 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	private final Object methodParameterValue;
 	private final Object domainObject;
 	private final FormMode formMode;
-	private final ReflectionProvider reflectionProvider;
 	private final BufferedDomainValueModel domainValueModel;
 	private final PropertyGrid propertyGrid;
 
@@ -28,7 +25,6 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
 
 		this.userInterfaceContainer = userInterfaceContainer;
-		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -53,7 +49,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	@Override
 	public String getDisplayName() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, domainValueModel.getValue());
+		return actionMethodInfo.createTitle(domainValueModel.getValue());
 	}
 
 	@Override

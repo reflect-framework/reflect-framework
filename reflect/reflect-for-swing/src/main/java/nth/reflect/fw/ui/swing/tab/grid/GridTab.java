@@ -14,14 +14,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
-import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.swing.item.menubar.MenuBar;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
@@ -40,10 +38,9 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final PopupMenu menuPopUp;
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final ReflectionProvider reflectionProvider;
 
-	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
+	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
@@ -51,8 +48,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 		setLayout(new BorderLayout());
 
-		reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		TableInfo tableInfo=new TableInfoForGridTab(this);
+		TableInfo tableInfo = new TableInfoForGridTab(this);
 		tableModel = new MethodTableModel(tableInfo);
 		grid = createGrid(tableModel);
 		JScrollPane tableContainer = new JScrollPane(grid);
@@ -135,12 +131,12 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	@Override
 	public String getDisplayName() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
+		return actionMethodInfo.createTitle(methodParameterValue);
 	}
 
 	@Override
 	public String getDescription() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
+		return actionMethodInfo.createTitle(methodParameterValue);
 	}
 
 	@Override
@@ -190,15 +186,15 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 																								// multi
 																								// selection
 																								// to!
-						// // multiple rows selected
-						// List<Object> selectedDomainObjects = new
-						// ArrayList<Object>();
-						// for (int selectedRow : table.getSelectedRows()) {
-						// Object domainObject =
-						// tableModel.getDomainValue(selectedRow);
-						// selectedDomainObjects.add(domainObject);
-						// }
-						// return selectedDomainObjects;
+					// // multiple rows selected
+					// List<Object> selectedDomainObjects = new
+					// ArrayList<Object>();
+					// for (int selectedRow : table.getSelectedRows()) {
+					// Object domainObject =
+					// tableModel.getDomainValue(selectedRow);
+					// selectedDomainObjects.add(domainObject);
+					// }
+					// return selectedDomainObjects;
 					}
 				}
 
@@ -219,7 +215,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		return selectedRowsModel;
 	}
 
-	
+	@Override
 	public ActionMethodInfo getMethodInfo() {
 		return actionMethodInfo;
 	}

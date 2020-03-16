@@ -1,12 +1,9 @@
 package nth.reflect.fw.javafx.control.tab.grid;
 
-import nth.reflect.fw.generic.util.TitleUtil;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.javafx.control.table.Table;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
@@ -16,17 +13,14 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final Object methodParameterValue;
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final ReflectionProvider reflectionProvider;
 	private final Table grid;
 
-	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
+	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
-
-		reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 
 		grid = new Table(this);
 		setCenter(grid);
@@ -35,12 +29,12 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	@Override
 	public String getDisplayName() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
+		return actionMethodInfo.createTitle(methodParameterValue);
 	}
 
 	@Override
 	public String getDescription() {
-		return TitleUtil.createTitle(reflectionProvider, actionMethodInfo, methodParameterValue);
+		return actionMethodInfo.createTitle(methodParameterValue);
 	}
 
 	@Override
