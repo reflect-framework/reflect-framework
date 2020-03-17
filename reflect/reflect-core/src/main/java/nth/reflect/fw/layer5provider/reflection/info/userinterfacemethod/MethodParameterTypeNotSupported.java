@@ -3,27 +3,24 @@ package nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod;
 import java.lang.reflect.Method;
 
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.InvalidActionMethodException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodException;
 
-public class MethodParameterTypeNotSupported extends InvalidActionMethodException {
+public class MethodParameterTypeNotSupported extends ActionMethodException {
 
 	private static final long serialVersionUID = -6178835316096085356L;
 
+	private static final TranslatableString MESSAGE = new TranslatableString(
+			MethodReturnTypeNotSupported.class.getCanonicalName() + ".message",
+			"Action method: %s can not be processed because it's parameter type: %s "
+					+ "is not supported (the %s class does not contain a method: %s with this parameter type)");
+
 	public MethodParameterTypeNotSupported(Class<? extends UserInterfaceController> controllerClass,
 			String processMethodName, Method actionMethod) {
-		super(createMessage(controllerClass, processMethodName, actionMethod));
-	}
-
-	private static String createMessage(Class<? extends UserInterfaceController> controllerClass,
-			String processMethodName, Method actionMethod) {
-		String message = "Action method: %1$s can not be processed because it's parameter type: %2$s is not supported (the %3$s class does not contain a method: %4$s with parameter type: %2$s)";
-		String actionMethodName = ActionMethodInfo.createCanonicalName(actionMethod);
-		Class<?> parameterType = getParameterType(actionMethod);
-		String actionMethodParameterName = parameterType.getCanonicalName();
-		String userInterfaceControllerName = controllerClass.getCanonicalName();
-		return String.format(message, actionMethodName, actionMethodParameterName, userInterfaceControllerName,
-				processMethodName);
+		super(MESSAGE.withParameters(ActionMethodInfo.createCanonicalName(actionMethod), getParameterType(actionMethod),
+				getParameterType(actionMethod).getCanonicalName(), controllerClass.getCanonicalName(),
+				processMethodName));
 	}
 
 	private static Class<?> getParameterType(Method actionMethod) {

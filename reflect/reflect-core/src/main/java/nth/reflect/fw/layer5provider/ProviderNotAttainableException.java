@@ -2,10 +2,10 @@ package nth.reflect.fw.layer5provider;
 
 import java.lang.reflect.Method;
 
-import nth.reflect.fw.generic.exception.ReflectTranslatableException;
+import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
-public class ProviderNotAttainableException extends ReflectTranslatableException {
+public class ProviderNotAttainableException extends TranslatableException {
 
 	private static final long serialVersionUID = -8235951268136959328L;
 

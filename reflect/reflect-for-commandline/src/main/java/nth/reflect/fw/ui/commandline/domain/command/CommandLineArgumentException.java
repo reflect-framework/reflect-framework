@@ -1,10 +1,10 @@
 package nth.reflect.fw.ui.commandline.domain.command;
 
-import nth.reflect.fw.generic.exception.ReflectTranslatableException;
+import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
-public class CommandLineArgumentException extends ReflectTranslatableException {
+public class CommandLineArgumentException extends TranslatableException {
 
 	private static final long serialVersionUID = -1999227066227643604L;
 

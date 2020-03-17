@@ -1,12 +1,12 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel;
 
-import nth.reflect.fw.generic.exception.ReflectTranslatableException;
+import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
-public class PropertyFieldNotFoundException extends ReflectTranslatableException {
+public class PropertyFieldNotFoundException extends TranslatableException {
 
 	private static final long serialVersionUID = 4720848439949333460L;
 	private static final TranslatableString MESSAGE = new TranslatableString(

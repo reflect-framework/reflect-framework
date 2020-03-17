@@ -8,7 +8,6 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.generic.exception.MethodNotSupportedException;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;

@@ -20,6 +20,7 @@ import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.swing.item.menubar.MenuBar;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
@@ -38,10 +39,12 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final PopupMenu menuPopUp;
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
+	private final LanguageProvider languageProvider;
 
 	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
+		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
@@ -131,12 +134,12 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	@Override
 	public String getDisplayName() {
-		return actionMethodInfo.createTitle(methodParameterValue);
+		return actionMethodInfo.createTitle(methodParameterValue).translate(languageProvider);
 	}
 
 	@Override
 	public String getDescription() {
-		return actionMethodInfo.createTitle(methodParameterValue);
+		return actionMethodInfo.createTitle(methodParameterValue).translate(languageProvider);
 	}
 
 	@Override

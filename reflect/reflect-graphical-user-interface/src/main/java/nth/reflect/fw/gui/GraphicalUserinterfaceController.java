@@ -51,19 +51,6 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY_PANEL>
 		extends UserInterfaceController {
 
-	private static final TranslatableString RESULT_DIALOG_MESSAGE = new TranslatableString(
-			GraphicalUserinterfaceController.class.getCanonicalName() + ".result.dialog.message", "%s: Result is: %s");
-	private static final TranslatableString SUCCESS_DIALOG_MESSAGE = new TranslatableString(
-			GraphicalUserinterfaceController.class.getCanonicalName() + ".success.dialog.message",
-			"%s was successfully executed.");
-	private static final TranslatableString ERROR_DIALOG_MESSAGE = new TranslatableString(
-			GraphicalUserinterfaceController.class.getCanonicalName() + ".error.dialog.message", "Failed to execute.");
-	private static final TranslatableString CONFIRMATION_DIALOG_TITLE = new TranslatableString(
-			GraphicalUserinterfaceController.class.getCanonicalName() + ".confirmation.dialog.title", "Confirmation");
-	private static final TranslatableString CONFIRMATION_DIALOG_QUESTION = new TranslatableString(
-			GraphicalUserinterfaceController.class.getCanonicalName() + ".confirmation.dialog.question",
-			"Do you want to execute: %s ?");
-
 	private static final int PERCENT_0 = 0;
 	private static final int PERCENT_100 = 100;
 	private final Tabs<TAB> tabs;
@@ -86,9 +73,9 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		items.add(cancelItem);
 
 		// create the confirmation MaterialAppBarTitle and message
-		String title = languageProvider.getText(CONFIRMATION_DIALOG_TITLE);
-		String methodTitle = methodInfo.createTitle(methodParameter);
-		String question = languageProvider.getText(CONFIRMATION_DIALOG_QUESTION.withParameters(methodTitle));
+		TranslatableString title = CONFIRMATION_DIALOG_TITLE;
+		TranslatableString methodTitle = methodInfo.createTitle(methodParameter);
+		TranslatableString question = CONFIRMATION_DIALOG_QUESTION.withParameters(methodTitle);
 
 		// show the dialog
 		showDialog(DialogType.QUESTION, title, question, items);
@@ -134,14 +121,14 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		// executed (if invalid: throw exception)
 
 		// show ProgressDialog
-		String title = actionMethodInfo.createTitle(methodParameterValue);
+		TranslatableString title = actionMethodInfo.createTitle(methodParameterValue);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
 		// start method execution thread
 		try {
 			startMethodExecutionThread(serviceObject, actionMethodInfo, methodParameterValue);
 		} catch (Exception exception) {
-			String message = languageProvider.getText(ERROR_DIALOG_MESSAGE);
+			TranslatableString message = ERROR_EXECUTE;
 			showErrorDialog(title, message, exception);
 		}
 	}
@@ -188,8 +175,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 					// show method result
 					processActionMethodResult(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
 				} catch (Exception exception) {
-					String title = actionMethodInfo.createTitle(methodParameterValue);
-					String message = languageProvider.getText(ERROR_DIALOG_MESSAGE);
+					TranslatableString title = actionMethodInfo.createTitle(methodParameterValue);
+					TranslatableString message = ERROR_EXECUTE;
 					showErrorDialog(title, message, exception);
 				}
 
@@ -290,11 +277,10 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			Object methodParameterValue, Object methodReturnValue);
 
 	@Override
-	public void showErrorDialog(String title, String message, Throwable throwable) {
+	public void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable) {
 
 		throwable.printStackTrace();
-		// to help debugging (stack trace in eclipse console has hyper links to
-		// code)
+		// to help debugging (stack trace in IDE console has hyper links to code)
 
 		List<Item> items = new ArrayList<Item>();
 		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(userInterfaceContainer, title,
@@ -317,8 +303,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 */
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		String title = methodInfo.createTitle(methodParameter);
-		String message = languageProvider.getText(SUCCESS_DIALOG_MESSAGE.withParameters(title));
+		TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
+		TranslatableString message = SUCCESS_DIALOG_MESSAGE.withParameters(actionMethodTitle);
 		showInfoMessage(message);
 	}
 
@@ -414,8 +400,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			String methodResult) {
-		String title = methodInfo.createTitle(methodParameter);
-		String message = languageProvider.getText(RESULT_DIALOG_MESSAGE.withParameters(title, methodResult));
+		TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
+		TranslatableString message = RESULT_DIALOG_MESSAGE.withParameters(actionMethodTitle, methodResult);
 		showInfoMessage(message);
 
 	}
@@ -428,9 +414,10 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * 
 	 * @param message
 	 */
-	public abstract void showInfoMessage(String message);
+	public abstract void showInfoMessage(TranslatableString message);
 
-	public abstract void showDialog(DialogType dialogType, String title, String message, List<Item> items);
+	public abstract void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
+			List<Item> items);
 
 	/**
 	 * TODO refactor so that progress dialog shows multiple thread monitors, while
@@ -440,7 +427,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * @param currentValue
 	 * @param maxValue
 	 */
-	public abstract void showProgressDialog(String taskDescription, int currentValue, int maxValue);
+	public abstract void showProgressDialog(TranslatableString taskDescription, int currentValue, int maxValue);
 
 	/**
 	 * TODO remove. progress dialog should close automatically when all tasks are

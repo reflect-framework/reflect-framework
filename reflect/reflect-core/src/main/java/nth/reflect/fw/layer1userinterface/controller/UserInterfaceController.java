@@ -40,11 +40,35 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  */
 public abstract class UserInterfaceController implements NotificationListener {
 
+	public static final TranslatableString ERROR_DIALOG_TITLE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + "error.dialog.title", "Error");
+	public static final TranslatableString ERROR_SHOW_RESULT = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".error.show.result",
+			"Error while displaying an action result: %s");
+	public static final TranslatableString ERROR_OPEN_URI = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".error.open.uri", "Error browsing URI: %s");
+	public static final TranslatableString ERROR_SAVE_FILE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".error.save.file", "Failed to save file.");
+	public static final TranslatableString ERROR_OPEN_FILE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".error.open.file", "Failed to open file.");
+	public static final TranslatableString ERROR_EXECUTE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".error.dialog.message", "Failed to execute.");
+	public static final TranslatableString RESULT_DIALOG_MESSAGE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".result.dialog.message", "%s: Result is: %s");
+	public static final TranslatableString SUCCESS_DIALOG_MESSAGE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".success.dialog.message",
+			"%s was successfully executed.");
+	public static final TranslatableString CONFIRMATION_DIALOG_TITLE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".confirmation.dialog.title", "Confirmation");
+	public static final TranslatableString CONFIRMATION_DIALOG_QUESTION = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".confirmation.dialog.question",
+			"Do you want to execute: %s ?");
 	private static final TranslatableString DISPLAY_ERROR_DIALOG_TITLE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.title",
 			"Error while displaying an action result");
 	private static final TranslatableString DISPLAY_ERROR_DIALOG_MESSAGE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.message", "Action: %s");
+
 	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;
 	protected final UserInterfaceContainer userInterfaceContainer;
@@ -55,7 +79,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 	}
 
-	public abstract void showErrorDialog(String title, String message, Throwable throwable);
+	public abstract void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable);
 
 	/**
 	 * This method is called when a user sends an command to the
@@ -114,9 +138,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 				break;
 			}
 		} catch (Throwable throwable) {
-			String title = languageProvider.getText(DISPLAY_ERROR_DIALOG_TITLE);
-			String actionMethod = methodInfo.createTitle(methodParameter);
-			String message = languageProvider.getText(DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod));
+			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
+			TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
+			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
 			showErrorDialog(title, message, throwable);
 		}
 
@@ -158,9 +182,9 @@ public abstract class UserInterfaceController implements NotificationListener {
 		try {
 			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
-			String title = languageProvider.getText(DISPLAY_ERROR_DIALOG_TITLE);
-			String actionMethod = methodInfo.createTitle(methodParameter);
-			String message = languageProvider.getText(DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod));
+			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
+			TranslatableString actionMethod = methodInfo.createTitle(methodParameter);
+			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod);
 			showErrorDialog(title, message, exception);
 		}
 

@@ -1,9 +1,9 @@
 package nth.reflect.fw.ui.commandline.domain.command;
 
-import nth.reflect.fw.generic.exception.ReflectTranslatableException;
+import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
-public class ReflectApplicationHasNoServiceObjectsException extends ReflectTranslatableException {
+public class ReflectApplicationHasNoServiceObjectsException extends TranslatableException {
 
 	private static final long serialVersionUID = -5808138348441149153L;
 

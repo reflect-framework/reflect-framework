@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.reflection.behavior.order.Order;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodException;
 
 public class ActionMethodInfoFactory {
 
@@ -20,7 +21,7 @@ public class ActionMethodInfoFactory {
 				try {
 					ActionMethodInfo actionMethodInfo = new ActionMethodInfo(providerContainer, method);
 					actionMethodInfos.add(actionMethodInfo);
-				} catch (InvalidActionMethodException e) {
+				} catch (ActionMethodException e) {
 					// method is not a valid ActionMethod
 				}
 			}

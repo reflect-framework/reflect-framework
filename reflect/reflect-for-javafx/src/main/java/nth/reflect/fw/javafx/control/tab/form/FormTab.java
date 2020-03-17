@@ -7,6 +7,7 @@ import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
@@ -20,6 +21,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	private final FormMode formMode;
 	private final BufferedDomainValueModel domainValueModel;
 	private final PropertyGrid propertyGrid;
+	private final LanguageProvider languageProvider;
 
 	public FormTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object domainObject, FormMode formMode) {
@@ -33,6 +35,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 		domainValueModel = new BufferedDomainValueModel(userInterfaceContainer, domainObject, formMode);
 
 		ValidationProvider validationProvider = userInterfaceContainer.get(ValidationProvider.class);
+		languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 
 		propertyGrid = new PropertyGrid(validationProvider, this);
 		setCenter(propertyGrid);
@@ -49,7 +52,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	@Override
 	public String getDisplayName() {
-		return actionMethodInfo.createTitle(domainValueModel.getValue());
+		return actionMethodInfo.createTitle(domainValueModel.getValue()).translate(languageProvider);
 	}
 
 	@Override

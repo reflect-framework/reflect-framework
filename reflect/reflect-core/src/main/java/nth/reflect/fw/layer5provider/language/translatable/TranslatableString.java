@@ -43,18 +43,59 @@ public class TranslatableString {
 	}
 
 	public String translate(LanguageProvider languageProvider) {
-		String translatedText = languageProvider.getText(englishText);
-		String translatedTextWithParameters = String.format(translatedText, parameters);
+		String translatedText = languageProvider.getText(key, englishText);
+		Object[] translatedParameters = getTranslatedParameters(languageProvider);
+		String translatedTextWithParameters = String.format(translatedText, translatedParameters);
 		return translatedTextWithParameters;
 	}
 
+	private Object[] getTranslatedParameters(LanguageProvider languageProvider) {
+		Object translatedParameters[] = new Object[parameters.length];
+		for (int i = 0; i < parameters.length; i++) {
+			Object parameter = parameters[i];
+			if (parameter instanceof TranslatableString) {
+				TranslatableString translatableString = (TranslatableString) parameter;
+				String translatedString = translatableString.translate(languageProvider);
+				translatedParameters[i] = translatedString;
+			} else {
+				translatedParameters[i] = parameter;
+			}
+		}
+		return translatedParameters;
+	}
+
 	public String translateToEnglish() {
-		String translatedTextWithParameters = String.format(englishText, parameters);
+		Object[] englishParameters = getEnglishParameters();
+		String translatedTextWithParameters = String.format(englishText, englishParameters);
 		return translatedTextWithParameters;
+	}
+
+	private Object[] getEnglishParameters() {
+		Object translatedParameters[] = new Object[parameters.length];
+		for (int i = 0; i < parameters.length; i++) {
+			Object parameter = parameters[i];
+			if (parameter instanceof TranslatableString) {
+				TranslatableString translatableString = (TranslatableString) parameter;
+				String englishString = translatableString.translateToEnglish();
+				translatedParameters[i] = englishString;
+			} else {
+				translatedParameters[i] = parameter;
+			}
+		}
+		return translatedParameters;
+	}
+
+	@Override
+	public String toString() {
+		return translateToEnglish();
 	}
 
 	public String getKey() {
 		return key;
+	}
+
+	public TranslatableString append(String appendix) {
+		return new TranslatableString("", "%s%s", this, appendix);
 	}
 
 }

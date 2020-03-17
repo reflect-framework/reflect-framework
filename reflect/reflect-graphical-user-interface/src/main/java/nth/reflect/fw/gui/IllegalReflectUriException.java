@@ -1,9 +1,9 @@
 package nth.reflect.fw.gui;
 
-import nth.reflect.fw.generic.exception.ReflectTranslatableException;
+import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
-public class IllegalReflectUriException extends ReflectTranslatableException {
+public class IllegalReflectUriException extends TranslatableException {
 
 	private static final long serialVersionUID = -8899215681660490943L;
 	private static final TranslatableString MESSAGE = new TranslatableString(

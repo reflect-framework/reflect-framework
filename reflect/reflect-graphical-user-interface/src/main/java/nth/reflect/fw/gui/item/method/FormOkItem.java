@@ -4,7 +4,6 @@ import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -19,15 +18,13 @@ public class FormOkItem extends MethodItem {
 		super(formTab.getUserInterfaceContainer(), methodOwner, actionMethodInfo, domainValueModel);
 		final GraphicalUserinterfaceController userInterfaceController = formTab.getUserInterfaceContainer()
 				.get(GraphicalUserinterfaceController.class);
-		final LanguageProvider languageProvider = formTab.getUserInterfaceContainer().get(LanguageProvider.class);
 		setAction(new Action() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void run() {
 				if (FormMode.EDIT == formTab.getFormMode()) {
 					if (!domainValueModel.isValid()) {
-						userInterfaceController
-								.showInfoMessage(ONE_ORE_MORE_PROPERTIES_ARE_INVALID.translate(languageProvider));
+						userInterfaceController.showInfoMessage(ONE_ORE_MORE_PROPERTIES_ARE_INVALID);
 						return;
 					} else {
 						domainValueModel.commit();

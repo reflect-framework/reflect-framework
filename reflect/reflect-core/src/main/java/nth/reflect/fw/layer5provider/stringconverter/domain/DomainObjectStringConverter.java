@@ -1,6 +1,5 @@
 package nth.reflect.fw.layer5provider.stringconverter.domain;
 
-import nth.reflect.fw.generic.exception.MethodNotSupportedException;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;

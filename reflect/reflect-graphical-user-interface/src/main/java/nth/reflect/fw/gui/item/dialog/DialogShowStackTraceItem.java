@@ -16,14 +16,14 @@ public class DialogShowStackTraceItem extends Item {
 
 	private static final TranslatableString SHOW_STACK_TRACE_TEXT = new TranslatableString(
 			DialogShowStackTraceItem.class.getCanonicalName() + ".text", "Show stack trace");
-	private static final TranslatableString SHOW_STACK_TRACE__DESCRIPTION = new TranslatableString(
+	private static final TranslatableString SHOW_STACK_TRACE_DESCRIPTION = new TranslatableString(
 			DialogShowStackTraceItem.class.getCanonicalName() + ".description", "Show more details on error");
 
-	public DialogShowStackTraceItem(UserInterfaceContainer userInterfaceContainer, String title, String message,
-			Throwable throwable) {
+	public DialogShowStackTraceItem(UserInterfaceContainer userInterfaceContainer, TranslatableString title,
+			TranslatableString message, Throwable throwable) {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		setText(SHOW_STACK_TRACE_TEXT);
-		setDescription(SHOW_STACK_TRACE__DESCRIPTION);
+		setDescription(SHOW_STACK_TRACE_DESCRIPTION);
 		GraphicalUserinterfaceController<?, ?> userInterfaceController = userInterfaceContainer
 				.get(GraphicalUserinterfaceController.class);
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
@@ -32,24 +32,25 @@ public class DialogShowStackTraceItem extends Item {
 	}
 
 	private Action createAction(final GraphicalUserinterfaceController<?, ?> userInterfaceController,
-			final LanguageProvider languageProvider, final String title, final String message,
+			final LanguageProvider languageProvider, final TranslatableString title, final TranslatableString message,
 			final Throwable throwable) {
 		return new Action() {
 
 			@Override
 			public void run() {
-				StringBuffer messageWithStackTrace = new StringBuffer(message);
-				// add stack trace
-				if (throwable != null) {
-					messageWithStackTrace.append("\n\n");
-					messageWithStackTrace.append(ExceptionUtil.getRootCauseStackTrace(throwable, languageProvider));
+				TranslatableString message2;
+				if (throwable == null) {
+					message2 = message;
+				} else {
+					message2 = message
+							.append("\n\n" + ExceptionUtil.getRootCauseStackTrace(throwable, languageProvider));
 				}
 
 				DialogCloseItem dialogCloseItem = new DialogCloseItem(languageProvider);
 				List<Item> items = new ArrayList<Item>();
 				items.add(dialogCloseItem);
 
-				userInterfaceController.showDialog(DialogType.ERROR, title, messageWithStackTrace.toString(), items);
+				userInterfaceController.showDialog(DialogType.ERROR, title, message2, items);
 			}
 		};
 	}

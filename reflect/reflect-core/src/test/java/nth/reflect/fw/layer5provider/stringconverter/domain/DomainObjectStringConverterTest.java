@@ -6,7 +6,6 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.generic.exception.MethodNotSupportedException;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;

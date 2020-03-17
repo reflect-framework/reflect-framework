@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.NoParameterFactoryException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodHasNoParameterFactoryException;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
@@ -130,7 +130,7 @@ public class Command {
 		try {
 			try {
 				return actionMethodInfo.createMethodParameter(serviceObject);
-			} catch (NoParameterFactoryException e) {
+			} catch (ActionMethodHasNoParameterFactoryException e) {
 				Class<?> parameterType = actionMethodInfo.getFirstParameterTypeInfo().getType();
 				return parameterType.newInstance();
 			}

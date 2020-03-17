@@ -1,10 +1,10 @@
 package nth.reflect.fw.gui.component.table.info;
 
-import nth.reflect.fw.generic.exception.ReflectTranslatableException;
+import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
-public class MethodReturnTypeNotSupportedException extends ReflectTranslatableException {
+public class MethodReturnTypeNotSupportedException extends TranslatableException {
 
 	private static final long serialVersionUID = -9040797962147978326L;
 	private static final TranslatableString MESSAGE = new TranslatableString(

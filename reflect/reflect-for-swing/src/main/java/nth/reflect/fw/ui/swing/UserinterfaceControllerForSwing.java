@@ -23,6 +23,7 @@ import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast.Style;
@@ -51,7 +52,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public void showProgressDialog(String taskDescription, int currentValue, int maxValue) {
+	public void showProgressDialog(TranslatableString taskDescription, int currentValue, int maxValue) {
 		// TODO Auto-generated method stub
 
 	}
@@ -67,14 +68,15 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public void showInfoMessage(String message) {
-		Toast.makeText(mainWindow, message, Style.NORMAL).display();
+	public void showInfoMessage(TranslatableString message) {
+		String translatedMessage = message.translate(languageProvider);
+		Toast.makeText(mainWindow, translatedMessage, Style.NORMAL).display();
 	}
 
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		final JFileChooser fc = new JFileChooser();
-		String title = methodInfo.createTitle(uploadStream);
+		String title = methodInfo.createTitle(uploadStream).translate(languageProvider);
 		fc.setDialogTitle(title);
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(uploadStream.getFileTypeDescription(),
@@ -107,13 +109,13 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 				inputStream.close();
 
 			} catch (Exception e) {
-				showErrorDialog("Error saving file", "Failed to save file.", e);
+				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
 			}
 			// open file
 			try {
 				Desktop.getDesktop().open(file);
 			} catch (Exception e) {
-				showErrorDialog("Error opening file", "Failed to open file.", e);
+				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
 			}
 		}
 	}
@@ -143,12 +145,15 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		try {
 			Desktop.getDesktop().browse(uri);
 		} catch (IOException exception) {
-			showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
+			TranslatableString title = ERROR_DIALOG_TITLE;
+			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
+			showErrorDialog(title, message, exception);
 		}
 	}
 
 	@Override
-	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
+	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
+			List<Item> items) {
 
 		// get dialog type
 		int messageType = 0;
@@ -168,8 +173,10 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		Object defaultOption = options[items.size() - 1];
 
 		// show dialog
-		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, message, title, JOptionPane.DEFAULT_OPTION,
-				messageType, null, options, defaultOption);
+		String translatedMessage = message.translate(languageProvider);
+		String translatedTitle = title.translate(languageProvider);
+		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, translatedMessage, translatedTitle,
+				JOptionPane.DEFAULT_OPTION, messageType, null, options, defaultOption);
 
 		// execute selected item
 		if (selectedIndex != -1) {

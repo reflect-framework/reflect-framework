@@ -20,6 +20,7 @@ import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.ui.vaadin.dialog.Dialog;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
@@ -38,8 +39,8 @@ public class UserInterfaceControllerForVaadin14
 
 	public UserInterfaceControllerForVaadin14(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-		reflectAppForVaadin=userInterfaceContainer.get(ReflectApplicationForVaadin14.class);
-		PropertyFieldProvider propertyFieldProvider=userInterfaceContainer.get(PropertyFieldProvider.class);
+		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin14.class);
+		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
 		propertyPanelFactory = new PropertyPanelFactory(propertyFieldProvider);
 		dialog = new Dialog();
 	}
@@ -54,7 +55,7 @@ public class UserInterfaceControllerForVaadin14
 	}
 
 	@Override
-	public void showProgressDialog(String taskDescription, int currentValue, int maxValue) {
+	public void showProgressDialog(TranslatableString taskDescription, int currentValue, int maxValue) {
 		// TODO Auto-generated method stub
 
 	}
@@ -66,9 +67,9 @@ public class UserInterfaceControllerForVaadin14
 	}
 
 	@Override
-	public void showInfoMessage(String message) {
-		Notification notification = new Notification(
-		        message, 3000);
+	public void showInfoMessage(TranslatableString message) {
+		String translatedMessage = message.translate(languageProvider);
+		Notification notification = new Notification(translatedMessage, 3000);
 		notification.open();
 	}
 
@@ -152,13 +153,18 @@ public class UserInterfaceControllerForVaadin14
 		try {
 			Desktop.getDesktop().browse(uri);
 		} catch (IOException exception) {
-			showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
+			TranslatableString title = ERROR_DIALOG_TITLE;
+			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
+			showErrorDialog(title, message, exception);
 		}
 	}
 
 	@Override
-	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
-		dialog.open(title, message, items);
+	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
+			List<Item> items) {
+		String translatedTitle = title.translate(languageProvider);
+		String translatedMessage = message.translate(languageProvider);
+		dialog.open(translatedTitle, translatedMessage, items);
 	}
 
 	@SuppressWarnings("serial")

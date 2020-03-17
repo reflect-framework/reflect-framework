@@ -36,11 +36,10 @@ import nth.reflect.fw.ui.commandline.view.TableView;
 public class UserInterfaceControllerForCommandLine extends UserInterfaceController {
 
 	private final ProviderContainer providerContainer;
-	private static final TranslatableString DISPLAY_ERROR_DIALOG_TITLE = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.title",
-			"Error while displaying an action result");
-	private static final TranslatableString DISPLAY_ERROR_DIALOG_MESSAGE = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".display.error.dialog.message", "Action: %s");
+
+	private static final TranslatableString ERROR_DIALOG_EXECUTING_A_COMMAND_MESSAGE = new TranslatableString(
+			UserInterfaceController.class.getCanonicalName() + ".error.dialog.executing.command",
+			"Error executing a command");
 
 	public UserInterfaceControllerForCommandLine(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
@@ -66,7 +65,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			}
 			// System.exit(0);
 		} catch (Exception e) {
-			showErrorDialog("Error", "Error executing a command", e);
+			showErrorDialog(ERROR_DIALOG_TITLE, ERROR_DIALOG_EXECUTING_A_COMMAND_MESSAGE, e);
 		}
 
 	}
@@ -147,9 +146,9 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		try {
 			processActionMethodExecution(methodOwner, methodInfo, methodParameter);
 		} catch (Exception exception) {
-			String title = languageProvider.getText(DISPLAY_ERROR_DIALOG_TITLE);
-			String actionMethod = methodInfo.createTitle(methodParameter);
-			String message = languageProvider.getText(DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod));
+			TranslatableString title = ERROR_DIALOG_TITLE;
+			TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
+			TranslatableString message = ERROR_SHOW_RESULT.withParameters(actionMethodTitle);
 			showErrorDialog(title, message, exception);
 		}
 
@@ -184,11 +183,11 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	@Override
-	public void showErrorDialog(String title, String message, Throwable throwable) {
+	public void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable) {
 		StringBuilder txt = new StringBuilder();
-		txt.append(title);
+		txt.append(title.translate(languageProvider));
 		txt.append("\n");
-		txt.append(message);
+		txt.append(message.translate(languageProvider));
 		txt.append("\n");
 		txt.append("Cause: ");
 		txt.append(ExceptionUtil.getRootCause(throwable, languageProvider).getMessage());
@@ -249,7 +248,9 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		try {
 			Desktop.getDesktop().browse(uri);
 		} catch (IOException exception) {
-			showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
+			TranslatableString title = ERROR_DIALOG_TITLE;
+			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
+			showErrorDialog(title, message, exception);
 		}
 	}
 
@@ -281,13 +282,13 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 				inputStream.close();
 
 			} catch (Exception e) {
-				showErrorDialog("Error saving file", "Failed to save file.", e);
+				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
 			}
 			// open file
 			try {
 				Desktop.getDesktop().open(file);
 			} catch (Exception e) {
-				showErrorDialog("Error opening file", "Failed to open file.", e);
+				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
 			}
 		}
 	}

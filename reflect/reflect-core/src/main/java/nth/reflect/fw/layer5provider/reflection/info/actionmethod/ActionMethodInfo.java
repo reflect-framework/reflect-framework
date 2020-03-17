@@ -11,6 +11,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.DescriptionModel;
@@ -26,7 +27,15 @@ import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFacto
 import nth.reflect.fw.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactoryModelFactory;
+import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodHasNoParameterFactoryException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodMaxOneParameterException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodMayNotBeAMethodOfObjectClass;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodMayNotBeBehavioralMethodException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodMayNotBeGetterMethodException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodMayNotBeSetterMethodException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodMayNotBeStaticException;
 import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
@@ -128,19 +137,19 @@ public class ActionMethodInfo implements NameInfo {
 
 	private void validateNoOrSingleParameter(Method method) {
 		if (method.getParameterTypes().length > 1) {
-			throw new InvalidActionMethodException("ActionMethod: %s has more than 1 parameter", method);
+			throw new ActionMethodMaxOneParameterException(method);
 		}
 	}
 
 	private void validateNoStaticMethod(Method method) {
 		if (Modifier.isStatic(method.getModifiers())) {
-			throw new InvalidActionMethodException("ActionMethod: %s may not be be static", method);
+			throw new ActionMethodMayNotBeStaticException(method);
 		}
 	}
 
 	private void validateNoBehavioralMethod(Method method) {
 		if (BehavioralMethods.isBehavioralMethod(method)) {
-			throw new InvalidActionMethodException("ActionMethod: %s may not be a BehavioralMethod", method);
+			throw new ActionMethodMayNotBeBehavioralMethodException(method);
 		}
 	}
 
@@ -148,8 +157,7 @@ public class ActionMethodInfo implements NameInfo {
 		String methodName = method.getName();
 		for (Method methodOfObjectClass : Object.class.getMethods()) {
 			if (methodOfObjectClass.getName().equals(methodName)) {
-				throw new InvalidActionMethodException("ActionMethod: %s may not be a method of the Object Class",
-						method);
+				throw new ActionMethodMayNotBeAMethodOfObjectClass(method);
 			}
 		}
 	}
@@ -157,10 +165,10 @@ public class ActionMethodInfo implements NameInfo {
 	private void validateNoGettersOrSetterMethod(Method method) {
 		String methodName = method.getName();
 		if (methodName.startsWith("get") || methodName.startsWith("is")) {
-			throw new InvalidActionMethodException("ActionMethod: %s may not be a getter method", method);
+			throw new ActionMethodMayNotBeGetterMethodException(method);
 		}
 		if (methodName.startsWith("set")) {
-			throw new InvalidActionMethodException("ActionMethod: %s may not be a setter method", method);
+			throw new ActionMethodMayNotBeSetterMethodException(method);
 		}
 	}
 
@@ -214,9 +222,17 @@ public class ActionMethodInfo implements NameInfo {
 		return returnTypeInfo;
 	}
 
-	public String createTitle(Object actionMethodParameter) {
-		String title = ActionMethodTitleFactory.create(reflectionProvider, this, actionMethodParameter);
-		return title;
+	public TranslatableString createTitle(Object actionMethodParameter) {
+		String key = getCanonicalName() + DisplayNameModel.DISPLAY_NAME_SUFFIX;
+		String englishText = getDisplayName();
+		if (actionMethodParameter != null) {
+			TitleModel titleModel = new TitleModel(reflectionProvider);
+			String parameterTitle = titleModel.getTitle(actionMethodParameter);
+			if (!parameterTitle.trim().isEmpty()) {
+				englishText = englishText + " (" + parameterTitle + ")";
+			}
+		}
+		return new TranslatableString(key, englishText);
 	}
 
 	/**
@@ -236,7 +252,7 @@ public class ActionMethodInfo implements NameInfo {
 		if (hasParameterFactory()) {
 			return parameterFactoryModel.createNewMethodParameter(obj);
 		} else {
-			throw new NoParameterFactoryException(getCanonicalName());
+			throw new ActionMethodHasNoParameterFactoryException(actionMethod);
 		}
 	}
 

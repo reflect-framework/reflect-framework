@@ -3,7 +3,7 @@ package nth.reflect.fw.generic.util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import nth.reflect.fw.generic.exception.ReflectTranslatableException;
+import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 
@@ -12,8 +12,8 @@ public class ExceptionUtil {
 		Throwable cause = throwable;
 		while (cause.getCause()!=null) {
 			cause=cause.getCause();
-			if (cause instanceof ReflectTranslatableException) {
-				ReflectTranslatableException translatableCause=(ReflectTranslatableException) cause;
+			if (cause instanceof TranslatableException) {
+				TranslatableException translatableCause=(TranslatableException) cause;
 				translatableCause.setLanguageProvider(languageProvider);
 			}
 		}

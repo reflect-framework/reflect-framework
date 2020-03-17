@@ -34,12 +34,23 @@ import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 
 public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
+//	private static final TranslatableString ERROR_DIALOG_TITLE = new TranslatableString(
+//			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".error.dialog.title", "Error");
+//	private static final TranslatableString ERROR_OPEN_URI_MESSAGE = new TranslatableString(
+//			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".error.open.uri.message",
+//			"Error opening URI: %s");
+//	private static final TranslatableString ERROR_SAVE_FIlE_MESSAGE = new TranslatableString(
+//			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".error.file.save.message",
+//			"Error saving file.");
+	private static final TranslatableString INFO_DIALOG_TITLE = new TranslatableString(
+			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".info.dialog.title", "Info");
 	private MainWindow mainWindow;
 
 	public UserinterfaceControllerForJavaFX(UserInterfaceContainer userInterfaceContainer) {
@@ -67,20 +78,23 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	}
 
 	@Override
-	public void showInfoMessage(String message) {
+	public void showInfoMessage(TranslatableString message) {
 		List<Item> items = new ArrayList();
 		items.add(new DialogCloseItem(languageProvider));
-		showDialog(null, "", message, items);
+		showDialog(null, INFO_DIALOG_TITLE, message, items);
 	}
 
 	@Override
-	public void showDialog(DialogType dialogType, String title, String message, List<Item> items) {
-		Dialog dialog = new Dialog(mainWindow, title, message, items);
+	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
+			List<Item> items) {
+		String translatedTitle = title.translate(languageProvider);
+		String translatedMessage = message.translate(languageProvider);
+		Dialog dialog = new Dialog(mainWindow, translatedTitle, translatedMessage, items);
 		dialog.show(mainWindow);
 	}
 
 	@Override
-	public void showProgressDialog(String taskDescription, int currentValue, int maxValue) {
+	public void showProgressDialog(TranslatableString taskDescription, int currentValue, int maxValue) {
 		// TODO Auto-generated method stub
 
 	}
@@ -96,7 +110,9 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		try {
 			Desktop.getDesktop().browse(uri);
 		} catch (IOException exception) {
-			showErrorDialog("Error", "Error browsing URI: " + uri.toString(), exception);
+			TranslatableString title = ERROR_DIALOG_TITLE;
+			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
+			showErrorDialog(title, message, exception);
 		}
 	}
 
@@ -124,7 +140,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 				out.close();
 				inputStream.close();
 			} catch (Exception e) {
-				showErrorDialog("Error saving file", "Failed to save file.", e);
+				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
 			}
 		}
 
@@ -169,7 +185,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		FileChooser fileChooser = new FileChooser();
-		String title = methodInfo.createTitle(uploadStream);
+		String title = methodInfo.createTitle(uploadStream).translate(languageProvider);
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),
