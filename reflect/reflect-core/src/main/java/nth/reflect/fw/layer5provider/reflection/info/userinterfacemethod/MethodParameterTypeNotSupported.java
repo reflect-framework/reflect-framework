@@ -2,9 +2,9 @@ package nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod;
 
 import java.lang.reflect.Method;
 
+import nth.reflect.fw.generic.util.MethodCanonicalName;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodException;
 
 public class MethodParameterTypeNotSupported extends ActionMethodException {
@@ -18,7 +18,7 @@ public class MethodParameterTypeNotSupported extends ActionMethodException {
 
 	public MethodParameterTypeNotSupported(Class<? extends UserInterfaceController> controllerClass,
 			String processMethodName, Method actionMethod) {
-		super(MESSAGE.withParameters(ActionMethodInfo.createCanonicalName(actionMethod), getParameterType(actionMethod),
+		super(MESSAGE.withParameters(MethodCanonicalName.getFor(actionMethod), getParameterType(actionMethod),
 				getParameterType(actionMethod).getCanonicalName(), controllerClass.getCanonicalName(),
 				processMethodName));
 	}

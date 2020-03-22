@@ -25,6 +25,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.ui.swing.item.menubar.MenuBar;
 import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.tab.Tab;
+import nth.reflect.fw.ui.swing.tab.form.proppanel.field.TableNotInSingleSelectionModeException;
 
 public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
 
@@ -182,13 +183,8 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 						// single row selected
 						return tableModel.getDomainValue(selectedRows[0]);
 					default:
-						throw new RuntimeException("Table must be in single selection mode!!!");// TODO
-																								// in
-																								// future:
-																								// support
-																								// multi
-																								// selection
-																								// to!
+						throw new TableNotInSingleSelectionModeException();
+					// TODO in future: support multi selection to!
 					// // multiple rows selected
 					// List<Object> selectedDomainObjects = new
 					// ArrayList<Object>();

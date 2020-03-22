@@ -213,7 +213,7 @@ public class XmlConverter {
 		Map<String, Object> unMarshaledObjects = new HashMap<String, Object>();
 		Element rootElement = document.getDocumentElement();
 		if (!rootElement.getNodeName().equals(REFLECT_FRAMEWORK)) {
-			throw new RuntimeException("The XML document must have a root element <" + REFLECT_FRAMEWORK + ">");
+			throw new MustHaveReflectFrameworkRootElementException(REFLECT_FRAMEWORK);
 		}
 
 		// create objects
@@ -232,13 +232,12 @@ public class XmlConverter {
 	/**
 	 * Creates an object form a element.<br>
 	 * 
-	 * @param objectElement
-	 *            Element that represents the object. <br>
-	 *            By {@link ReflectFramework} convention: the elements tag name
-	 *            must correspond with the canonical class name.<br>
-	 *            This class name needs to be in the class path and must have
-	 *            default constructor (no-argument constructor) in order to be
-	 *            instantiated
+	 * @param objectElement Element that represents the object. <br>
+	 *                      By {@link ReflectFramework} convention: the elements tag
+	 *                      name must correspond with the canonical class name.<br>
+	 *                      This class name needs to be in the class path and must
+	 *                      have default constructor (no-argument constructor) in
+	 *                      order to be instantiated
 	 * @return
 	 * @throws Exception
 	 */
@@ -316,10 +315,7 @@ public class XmlConverter {
 				list.add(listItemObject);
 			}
 		} else {
-			StringBuffer message = new StringBuffer("A collection of type: ");
-			message.append(propertyType.getCanonicalName());
-			message.append(" is not supported yet");
-			throw new RuntimeException(message.toString());
+			throw new CollectionTypeNotSupportedException(propertyType);
 			// TODO implement other type of collections and maybe even arrays?
 		}
 		return propertyValue;
@@ -343,7 +339,7 @@ public class XmlConverter {
 		Class<?> propertyType = propertyInfo.getTypeInfo().getType();
 		Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
 		if (primitiveWrapperType.isPresent()) {
-			propertyType =primitiveWrapperType.get();			
+			propertyType = primitiveWrapperType.get();
 		}
 
 		// get xml transformer and transform value
@@ -353,21 +349,10 @@ public class XmlConverter {
 			return transform.read(value);
 		} catch (Exception e) {
 			if (transform == null) {
-				StringBuffer message = new StringBuffer("Type: ");
-				message.append(propertyType.getCanonicalName());
-				message.append(" for property: ");
-				message.append(propertyInfo.getCanonicalName());
-				message.append(" is not supported in ");
-				message.append(XmlConverter.class.getCanonicalName());
-				throw new RuntimeException(message.toString());
+				throw new PropertyTypeNotSupportedException(propertyType, propertyInfo);
 			} else {
-				StringBuffer message = new StringBuffer("Error converting type: ");
-				message.append(propertyType.getCanonicalName());
-				message.append(" for property: ");
-				message.append(propertyInfo.getCanonicalName());
-				message.append("  in ");
-				message.append(XmlConverter.class.getCanonicalName());
-				throw new RuntimeException(message.toString());
+
+				throw new PropertyTypeConversionException(propertyType, propertyInfo);
 			}
 		}
 
@@ -377,9 +362,9 @@ public class XmlConverter {
 	private String printElementValue(Class<?> type, Object value) {
 		Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(type);
 		if (primitiveWrapperType.isPresent()) {
-			type =primitiveWrapperType.get();			
+			type = primitiveWrapperType.get();
 		}
-		
+
 		// get xml transformer and transform value
 		Transform<Object> transform = null;
 		try {
@@ -387,17 +372,9 @@ public class XmlConverter {
 			return transform.write(value);
 		} catch (Exception e) {
 			if (transform == null) {
-				StringBuffer message = new StringBuffer("Type: ");
-				message.append(type.getCanonicalName());
-				message.append(" is not supported in ");
-				message.append(XmlConverter.class.getCanonicalName());
-				throw new RuntimeException(message.toString());
+				throw new TypeNotSupportedException(type);
 			} else {
-				StringBuffer message = new StringBuffer("Error converting type: ");
-				message.append(type.getCanonicalName());
-				message.append("  in ");
-				message.append(XmlConverter.class.getCanonicalName());
-				throw new RuntimeException(message.toString());
+				throw new TypeConversionException(type);
 			}
 		}
 	}

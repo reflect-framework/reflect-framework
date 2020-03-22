@@ -49,8 +49,6 @@ public class VerticalFlingScroller implements ReflectJavaFxControl {
 		node.setOnMouseDragged(createOnMouseDraggerdHandler());
 	}
 
-
-
 	public VerticalFlingScroller(ListView<?> listView) {
 		this(listView, createTotalContentHeightProperty(listView));
 	}
@@ -98,8 +96,7 @@ public class VerticalFlingScroller implements ReflectJavaFxControl {
 			}
 
 			/**
-			 * scroll further up or down after flinging gesture (wheel of
-			 * fortune effect)
+			 * scroll further up or down after flinging gesture (wheel of fortune effect)
 			 * 
 			 * @param velocity
 			 */
@@ -117,8 +114,7 @@ public class VerticalFlingScroller implements ReflectJavaFxControl {
 				transition.setEndValue(startValue - displacement * velocity);
 				transition.fractionProperty().addListener(new ChangeListener() {
 					@Override
-					public void changed(ObservableValue observable, Object oldValue,
-							Object newValue) {
+					public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 						moveScrollBar((double) newValue, scrollbar);
 
 					}
@@ -203,8 +199,7 @@ public class VerticalFlingScroller implements ReflectJavaFxControl {
 				}
 			}
 		}
-		throw new RuntimeException("Could not find the vertical scrollbar in component: "
-				+ node.getClass().getCanonicalName());
+		throw new NoScrollBarInComponentException(node);
 	}
 
 	private EventHandler<MouseEvent> createOnMousePressedHandler() {

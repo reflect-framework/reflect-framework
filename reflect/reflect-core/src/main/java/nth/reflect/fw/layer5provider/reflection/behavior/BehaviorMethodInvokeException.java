@@ -2,22 +2,20 @@ package nth.reflect.fw.layer5provider.reflection.behavior;
 
 import java.lang.reflect.Method;
 
-public class BehaviorMethodInvokeException extends RuntimeException {
+import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
+
+public class BehaviorMethodInvokeException extends TranslatableException {
 
 	private static final long serialVersionUID = -8447500654942721817L;
 
+	private static final TranslatableString MESSAGE = new TranslatableString(
+			BehaviorMethodInvokeException.class.getCanonicalName() + ".message",
+			"Error invoking behavioral method: %s.%s");
+
 	public BehaviorMethodInvokeException(Method behavioralMethod, Exception exception) {
-		super(createMessage(behavioralMethod), exception);
+		super(MESSAGE.withParameters(behavioralMethod.getDeclaringClass().getCanonicalName(),
+				behavioralMethod.getName()));
 	}
 
-	private static String createMessage(Method behavioralMethod) {
-		StringBuilder message=new StringBuilder();
-		message.append("Error invoking behavioral method: ");
-		message.append(behavioralMethod.getDeclaringClass().getCanonicalName());
-		message.append(".");
-		message.append(behavioralMethod.getName());
-		return message.toString();
-	}
-
-	
 }

@@ -23,6 +23,13 @@ import nth.reflect.fw.layer5provider.reflection.behavior.order.OrderFactory;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfoFactory;
+import nth.reflect.fw.layer5provider.reflection.info.property.exception.CouldNotReadPropertyValue;
+import nth.reflect.fw.layer5provider.reflection.info.property.exception.CouldNotSetDisabledPropertyValueException;
+import nth.reflect.fw.layer5provider.reflection.info.property.exception.CouldNotSetPropertyValueException;
+import nth.reflect.fw.layer5provider.reflection.info.property.exception.CouldNotSetPropertyValueWithNullException;
+import nth.reflect.fw.layer5provider.reflection.info.property.exception.GetterMethodMayNotContainParameterException;
+import nth.reflect.fw.layer5provider.reflection.info.property.exception.GetterMethodMustReturnValueException;
+import nth.reflect.fw.layer5provider.reflection.info.property.exception.NotGetterMethodException;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
@@ -95,15 +102,13 @@ public class PropertyInfo implements NameInfo {
 
 	private void checkGetterMethodHasNoParameter(Method getterMethod) {
 		if (getterMethod.getParameterTypes().length > 0) {
-			throw new RuntimeException("Getter method: " + getterMethod.getClass().getCanonicalName() + "."
-					+ getterMethod.getName() + " may not contain a parameter");
+			throw new GetterMethodMayNotContainParameterException(getterMethod);
 		}
 	}
 
 	private void checkGetterMethodReturnType(Method getterMethod) {
 		if (getterMethod.getReturnType() == Void.class) {
-			throw new RuntimeException("Getter method: " + getterMethod.getClass().getCanonicalName() + "."
-					+ getterMethod.getName() + " must return a value");
+			throw new GetterMethodMustReturnValueException(getterMethod);
 		}
 	}
 
@@ -155,8 +160,7 @@ public class PropertyInfo implements NameInfo {
 			name.append(readMethodName.substring(GET_PREFIX.length() + 1));
 			return name.toString();
 		} else {
-			throw new RuntimeException("Method: " + readMethod.getClass().getCanonicalName() + "."
-					+ readMethod.getName() + " is not a getter method");
+			throw new NotGetterMethodException(readMethod);
 		}
 	}
 
@@ -204,18 +208,15 @@ public class PropertyInfo implements NameInfo {
 
 	public void setValue(Object domainObject, Object value) {
 		if (!isEnabled(domainObject)) {
-			throw new RuntimeException(
-					"Could not set value of property: " + canonicalName + " when it is disabled or read only");
+			throw new CouldNotSetDisabledPropertyValueException(canonicalName);
 		}
 		try {
 			setterMethod.invoke(domainObject, new Object[] { value });
 		} catch (Exception e) {
 			if (value == null) {
-				throw new RuntimeException("Could not set value of property: " + canonicalName + " with value: null",
-						e);
+				throw new CouldNotSetPropertyValueWithNullException(canonicalName, e);
 			} else {
-				throw new RuntimeException("Could not set value of property: " + canonicalName + " with value: " + value
-						+ " of type" + value.getClass().getCanonicalName(), e);
+				throw new CouldNotSetPropertyValueException(canonicalName, value, e);
 			}
 		}
 	}
@@ -224,7 +225,7 @@ public class PropertyInfo implements NameInfo {
 		try {
 			return getGetterMethod().invoke(obj);
 		} catch (Exception e) {
-			throw new RuntimeException("Could not read value of property: " + canonicalName, e);
+			throw new CouldNotReadPropertyValue(canonicalName, e);
 		}
 	}
 

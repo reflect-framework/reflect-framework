@@ -32,7 +32,7 @@ public class PropertyValueModel implements ReadWriteValueModel {
 			propertyInfo.setValue(domainValueModel.getValue(), value);
 			invokeListeners();
 		} else {
-			throw new RuntimeException("This method may not be called in read only mode!");
+			throw new SetMethodCalledInReadOnlyException();
 		}
 	}
 

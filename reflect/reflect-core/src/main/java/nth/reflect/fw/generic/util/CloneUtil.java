@@ -58,7 +58,7 @@ public class CloneUtil {
 			Object destinationObject = instanceFactory.createInstance(classesWaitingToBeInstantiated);
 			return clone(reflectionProvider, sourceObject, destinationObject);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new CloneException(sourceObject, e);
 		}
 
 	}

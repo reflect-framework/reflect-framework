@@ -123,8 +123,7 @@ public abstract class SqlRepository {
 				Object value = resultSet.getObject(columnNr);
 				PropertyInfo propertyInfo = propertyInfos.get(columnName);
 				if (propertyInfo == null) {
-					throw new RuntimeException(
-							"Could not find property: " + columnName + " in class: " + domainClass.getCanonicalName());
+					throw new CouldNotFindPropertyException(columnName, domainClass);
 				}
 				try {
 					propertyInfo.setValue(domainObject, value);
@@ -134,8 +133,7 @@ public abstract class SqlRepository {
 					// domainClass.getCanonicalName()+"."+propertyInfo.getName()+"
 					// must be of type"+value.getClass().getCanonicalName());
 				} catch (Exception e) {
-					throw new RuntimeException("Could not set property: " + domainClass.getCanonicalName() + "."
-							+ propertyInfo.getSimpleName(), e);
+					throw new CouldNotSetPropertyException(domainClass, propertyInfo, e);
 				}
 			}
 			results.add(domainObject);

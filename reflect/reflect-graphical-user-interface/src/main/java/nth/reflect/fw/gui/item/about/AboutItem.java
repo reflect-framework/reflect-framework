@@ -40,11 +40,7 @@ public class AboutItem extends Item {
 					ActionMethodInfo actionMethodInfo = actionMethodInfos.get(0);
 					userInterfaceController.processActionMethod(versionProvider, actionMethodInfo, null);
 				} else {
-					StringBuffer message = new StringBuffer("Could not find ");
-					message.append(ABOUT_METHOD);
-					message.append(" method in ");
-					message.append(versionProvider.getClass().getCanonicalName());
-					throw new RuntimeException(message.toString());
+					throw new NoAboutMethodException(versionProvider, ABOUT_METHOD);
 				}
 			}
 		});

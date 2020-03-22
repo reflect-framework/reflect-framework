@@ -5,11 +5,13 @@ import java.io.ByteArrayOutputStream;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 
 /**
- * @deprecated There no longer is a {@link ReportProvider}. You can create a {@link InfrastructureObject}
- * that could create E.G. a PdfReportFactory. These classes do not need to have
- * a superclass nor implement a an interface. The {@link ReportProvider} is therefore no
- * longer needed and needs to be removed where possible
+ * @deprecated There no longer is a {@link ReportProvider}. You can create a
+ *             {@link InfrastructureObject} that could create E.G. a
+ *             PdfReportFactory. These classes do not need to have a superclass
+ *             nor implement a an interface. The {@link ReportProvider} is
+ *             therefore no longer needed and needs to be removed where possible
  */
+@Deprecated
 public abstract class ReportProvider<T> {
 
 	public ByteArrayOutputStream createReport(Report report) {
@@ -22,25 +24,18 @@ public abstract class ReportProvider<T> {
 				FormSection formSection = (FormSection) section;
 				addFormSection(document, report, formSection);
 			} else {
-				throw new RuntimeException("Report section "
-						+ section.getClass().getCanonicalName()
-						+ " is not supported for "
-						+ this.getClass().getCanonicalName());
+				throw new ReportSectionNotSupportedException(section, this);
 			}
 		}
-		ByteArrayOutputStream outputStream = createOutputStream(document,
-				report);
+		ByteArrayOutputStream outputStream = createOutputStream(document, report);
 		return outputStream;
 	}
 
 	public abstract T createDocument(Report report);
 
-	public abstract void addFormSection(T document, Report report,
-			FormSection formSection);
+	public abstract void addFormSection(T document, Report report, FormSection formSection);
 
-	public abstract void addTableSection(T document, Report report,
-			TableSection tableSection);
+	public abstract void addTableSection(T document, Report report, TableSection tableSection);
 
-	public abstract ByteArrayOutputStream createOutputStream(T document,
-			Report report);
+	public abstract ByteArrayOutputStream createOutputStream(T document, Report report);
 }

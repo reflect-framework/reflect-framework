@@ -223,7 +223,7 @@ public class Table extends TableView<Object> {
 		if (node instanceof TableRow) {
 			return (TableRow<?>) node;
 		} else {
-			throw new RuntimeException("Expected Group with only TableRows as children");
+			throw new NoTableRowTypeException();
 		}
 	}
 

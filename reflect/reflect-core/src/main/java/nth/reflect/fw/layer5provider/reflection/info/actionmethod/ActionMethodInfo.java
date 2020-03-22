@@ -6,6 +6,7 @@ import java.lang.reflect.Modifier;
 import java.net.URL;
 
 import nth.reflect.fw.ReflectApplication;
+import nth.reflect.fw.generic.util.MethodCanonicalName;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
@@ -96,7 +97,7 @@ public class ActionMethodInfo implements NameInfo {
 
 		this.actionMethod = method;
 		this.simpleName = method.getName();
-		this.canonicalName = createCanonicalName(method);
+		this.canonicalName = MethodCanonicalName.getFor(method);
 		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName, canonicalName);
 		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName, canonicalName);
 		this.order = OrderFactory.create(method);
@@ -170,14 +171,6 @@ public class ActionMethodInfo implements NameInfo {
 		if (methodName.startsWith("set")) {
 			throw new ActionMethodMayNotBeSetterMethodException(method);
 		}
-	}
-
-	public static String createCanonicalName(Method method) {
-		StringBuffer conicalName = new StringBuffer();
-		conicalName.append(method.getDeclaringClass().getCanonicalName());
-		conicalName.append(".");
-		conicalName.append(method.getName());
-		return conicalName.toString();
 	}
 
 	@Override

@@ -21,9 +21,9 @@ import nth.reflect.infra.excel.repository.reader.ExcelReader;
 import nth.reflect.infra.excel.repository.writer.ExcelFormWriter;
 import nth.reflect.infra.excel.repository.writer.ExcelTableWriter;
 
-
 /**
- * TODO implement Marshaller, Unmarshaller, Parser and Printer, see reflect-infrastructure-converter
+ * TODO implement Marshaller, Unmarshaller, Parser and Printer, see
+ * reflect-infrastructure-converter
  * 
  * {@link InfrastructureObject} to access Microsoft Excel files:
  * <ul>
@@ -40,24 +40,25 @@ import nth.reflect.infra.excel.repository.writer.ExcelTableWriter;
  */
 public abstract class ExcelRepository<T> {
 
-private final ReflectionProvider reflectionProvider;
+	private final ReflectionProvider reflectionProvider;
 
-public ExcelRepository(ReflectionProvider reflectionProvider) {
-	this.reflectionProvider = reflectionProvider;
-}
+	public ExcelRepository(ReflectionProvider reflectionProvider) {
+		this.reflectionProvider = reflectionProvider;
+	}
+
 	public List<T> readFromTable(ExcelReader<T> excelReader) throws Exception {
 		return excelReader.readAll();
 	}
 
-	public XSSFWorkbook writeAsForm(XSSFWorkbook workbook, String title,T object) throws IOException {
+	public XSSFWorkbook writeAsForm(XSSFWorkbook workbook, String title, T object) throws IOException {
 		return new ExcelFormWriter().write(workbook, title, reflectionProvider, object);
 	}
 
-	
-	public XSSFWorkbook writeAsTable(XSSFWorkbook workbook, String title,Class<?> objectType, Collection<T> objects) throws IOException {
+	public XSSFWorkbook writeAsTable(XSSFWorkbook workbook, String title, Class<?> objectType, Collection<T> objects)
+			throws IOException {
 		return new ExcelTableWriter().write(workbook, title, reflectionProvider, objectType, objects);
 	}
-	
+
 	public XSSFWorkbook readOrCreateExcelFile(File excelFile) throws IOException {
 		if (excelFile.exists()) {
 			return readExcelFile(excelFile);
@@ -67,7 +68,7 @@ public ExcelRepository(ReflectionProvider reflectionProvider) {
 
 	public XSSFWorkbook createWorkbook() {
 		XSSFWorkbook workbook = new XSSFWorkbook();
-		return workbook ;
+		return workbook;
 	}
 
 	public void writeExcelFile(File excelFile, XSSFWorkbook workbook) throws IOException {
@@ -76,36 +77,34 @@ public ExcelRepository(ReflectionProvider reflectionProvider) {
 		fileOut.flush();
 		fileOut.close();
 	}
-	
+
 	public XSSFWorkbook readExcelFile(File excelFile) throws IOException {
 		FileInputStream inputStream = new FileInputStream(excelFile);
 		XSSFWorkbook workBook = new XSSFWorkbook(inputStream);
 		return workBook;
 	}
-	
-public DownloadStream createDownloadStream( XSSFWorkbook  workbook, String title) {
-	try {
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		workbook.write(buffer);
-		InputStream inputStream = new ByteArrayInputStream(
-				buffer.toByteArray());
-		String filePath = getFilePath(title);
-		File file = new File(filePath);
-		DownloadStream downloadStream = new DownloadStream(file,
-				inputStream);
-		return downloadStream;
-	} catch (Exception e) {
-		throw new RuntimeException("Error creating excel report", e);
-	}
-}
 
-private String getFilePath(String title) {
-	SimpleDateFormat format = new SimpleDateFormat("-yyyy-MM-dd-HH-mm");
-	StringBuilder filePath = new StringBuilder();
-	filePath.append(title);
-	filePath.append(format.format(new Date()));
-	filePath.append(".xlsx");
-	return filePath.toString();
-}
+	public DownloadStream createDownloadStream(XSSFWorkbook workbook, String title) {
+		try {
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+			workbook.write(buffer);
+			InputStream inputStream = new ByteArrayInputStream(buffer.toByteArray());
+			String filePath = getFilePath(title);
+			File file = new File(filePath);
+			DownloadStream downloadStream = new DownloadStream(file, inputStream);
+			return downloadStream;
+		} catch (Exception e) {
+			throw new CreatingExcelReportException(e);
+		}
+	}
+
+	private String getFilePath(String title) {
+		SimpleDateFormat format = new SimpleDateFormat("-yyyy-MM-dd-HH-mm");
+		StringBuilder filePath = new StringBuilder();
+		filePath.append(title);
+		filePath.append(format.format(new Date()));
+		filePath.append(".xlsx");
+		return filePath.toString();
+	}
 
 }

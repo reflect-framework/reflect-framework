@@ -1,21 +1,18 @@
 package nth.reflect.fw.layer5provider.reflection.behavior;
 
+import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
-public class BehaviorMethodNotFoundException extends Exception {
+public class BehaviorMethodNotFoundException extends TranslatableException {
 
 	private static final long serialVersionUID = -8447500654942721817L;
 
+	private static final TranslatableString MESSAGE = new TranslatableString(
+			BehaviorMethodInvokeException.class.getCanonicalName() + ".message",
+			"Behavioral method: %s could not be found.");
+
 	public BehaviorMethodNotFoundException(String behavioralMethodName) {
-		super(createMessage(behavioralMethodName));
+		super(MESSAGE.withParameters(behavioralMethodName));
 	}
 
-	private static String createMessage(String behavioralMethodName) {
-		StringBuilder message=new StringBuilder();
-		message.append("Behavioral method: ");
-		message.append(behavioralMethodName);
-		message.append(" could not be found");
-		return message.toString();
-	}
-
-	
 }

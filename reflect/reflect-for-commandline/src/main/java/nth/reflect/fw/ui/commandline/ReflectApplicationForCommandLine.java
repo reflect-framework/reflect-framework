@@ -33,11 +33,12 @@ import nth.reflect.fw.layer5provider.version.VersionProvider;
  * If you execute the application with parameters it will:
  * <ul>
  * <li>parse the given command line</li>
- * <li>call one of the {@link ServiceObjectActionMethod}'s with an optional parameter</li>
+ * <li>call one of the {@link ServiceObjectActionMethod}'s with an optional
+ * parameter</li>
  * <li>Return the result of the method or return a message if a method was
  * successfully executed or not</li>
- * <li>The {@link ReflectApplicationForCommandLine} is than terminated (state
- * is lost unless the application stores state somehow)</li>
+ * <li>The {@link ReflectApplicationForCommandLine} is than terminated (state is
+ * lost unless the application stores state somehow)</li>
  * </ul>
  * If you execute the application without parameters it will:
  * <ul>
@@ -102,23 +103,22 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 	public UrlProvider getUrlProvider() {
 		return new UrlProvider(new ClassResourceUrlStreamHandler());
 	}
-	
+
 	@Override
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
 	}
-	
+
 	public String[] getCommandLineArguments() {
 		return commandLineArguments;
 	}
 
 	/**
-	 * Launch a stand-alone application. This method is typically called from
-	 * the main method(). It must not be called more than once or an exception
-	 * will be thrown. This is equivalent to launch(TheClass.class, args) where
-	 * TheClass is the immediately enclosing class of the method that called
-	 * launch. It must be a subclass of Application or a RuntimeException will
-	 * be thrown.
+	 * Launch a stand-alone application. This method is typically called from the
+	 * main method(). It must not be called more than once or an exception will be
+	 * thrown. This is equivalent to launch(TheClass.class, args) where TheClass is
+	 * the immediately enclosing class of the method that called launch. It must be
+	 * a subclass of Application or a RuntimeException will be thrown.
 	 *
 	 * Typical usage is:
 	 * <ul>
@@ -130,13 +130,11 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 	 * </pre>
 	 * </ul>
 	 *
-	 * @param args
-	 *            the command line arguments passed to the application. An
-	 *            application may get these parameters using the
-	 *            {@link #getParameters()} method.
+	 * @param args the command line arguments passed to the application. An
+	 *             application may get these parameters using the
+	 *             {@link #getParameters()} method.
 	 *
-	 * @throws IllegalStateException
-	 *             if this method is called more than once.
+	 * @throws IllegalStateException if this method is called more than once.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void launch(String... args) {
@@ -160,22 +158,21 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 		}
 
 		if (callingClassName == null) {
-			throw new RuntimeException("Error: unable to determine Application class");
+			throw new NoApplicationClassException();
 		}
 
 		try {
-			Class theClass = Class.forName(callingClassName, true,
+			Class applicationClass = Class.forName(callingClassName, true,
 					Thread.currentThread().getContextClassLoader());
-			if (ReflectApplicationForCommandLine.class.isAssignableFrom(theClass)) {
-				Class<? extends ReflectApplicationForCommandLine> appClass = theClass;
+			if (ReflectApplicationForCommandLine.class.isAssignableFrom(applicationClass)) {
+				Class<? extends ReflectApplicationForCommandLine> appClass = applicationClass;
 				Constructor<? extends ReflectApplicationForCommandLine> constructor = (Constructor<? extends ReflectApplicationForCommandLine>) appClass
 						.getConstructors()[0];
 				ReflectApplicationForCommandLine app = constructor.newInstance();
 				app.setCommandlineArguments(args);
 				ReflectFramework.launch(app);
 			} else {
-				throw new RuntimeException("Error: " + theClass + " is not a subclass of "
-						+ ReflectApplicationForCommandLine.class.getCanonicalName());
+				throw new NoApplicationSubClassException(applicationClass);
 			}
 		} catch (RuntimeException ex) {
 			throw ex;

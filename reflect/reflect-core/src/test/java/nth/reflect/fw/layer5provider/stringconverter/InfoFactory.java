@@ -39,8 +39,7 @@ public class InfoFactory {
 				return method;
 			}
 		}
-		throw new RuntimeException(
-				"Could not find method " + domainObjectGetterMethod + " in " + DomainObject.class.getCanonicalName());
+		throw new MethodNotFoundException(domainObjectGetterMethod);
 	}
 
 }

@@ -33,7 +33,7 @@ import nth.reflect.fw.ui.swing.tab.form.proppanel.field.OneToOneOrManyFieldFacto
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.TextFieldFactory;
 
 /**
- * {@link ReflecttApplicationForSwing} is an implementation of the
+ * {@link ReflectApplicationForSwing} is an implementation of the
  * {@link ReflectFramework} for desktop computers such as ...
  * 
  * <h3>How to download a ReflectForSwing demo project</h3>
@@ -51,7 +51,7 @@ import nth.reflect.fw.ui.swing.tab.form.proppanel.field.TextFieldFactory;
  */
 
 //TODO see https://github.com/atarw/material-ui-swing
-public abstract class ReflecttApplicationForSwing implements GraphicalUserInterfaceApplication {
+public abstract class ReflectApplicationForSwing implements GraphicalUserInterfaceApplication {
 
 	@Override
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass() {
@@ -93,12 +93,12 @@ public abstract class ReflecttApplicationForSwing implements GraphicalUserInterf
 		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this),
 				new FontIconUrlStreamHandler());
 	}
-	
+
 	@Override
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
 	}
-	
+
 	@Override
 	public PropertyFieldProvider getPropertyFieldProvider() {
 		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
@@ -142,27 +142,27 @@ public abstract class ReflecttApplicationForSwing implements GraphicalUserInterf
 			if (foundThisMethod) {
 				callingClassName = className;
 				break;
-			} else if (ReflecttApplicationForSwing.class.getName().equals(className) && "launch".equals(methodName)) {
+			} else if (ReflectApplicationForSwing.class.getName().equals(className) && "launch".equals(methodName)) {
 
 				foundThisMethod = true;
 			}
 		}
 
 		if (callingClassName == null) {
-			throw new RuntimeException("Error: unable to determine Application class");
+			throw new NoApplicationClassException();
 		}
 
 		try {
-			Class theClass = Class.forName(callingClassName, true, Thread.currentThread().getContextClassLoader());
-			if (ReflecttApplicationForSwing.class.isAssignableFrom(theClass)) {
-				Class<? extends ReflecttApplicationForSwing> appClass = theClass;
-				Constructor<? extends ReflecttApplicationForSwing> constructor = (Constructor<? extends ReflecttApplicationForSwing>) appClass
+			Class applicationClass = Class.forName(callingClassName, true,
+					Thread.currentThread().getContextClassLoader());
+			if (ReflectApplicationForSwing.class.isAssignableFrom(applicationClass)) {
+				Class<? extends ReflectApplicationForSwing> appClass = applicationClass;
+				Constructor<? extends ReflectApplicationForSwing> constructor = (Constructor<? extends ReflectApplicationForSwing>) appClass
 						.getConstructors()[0];
-				ReflecttApplicationForSwing app = constructor.newInstance();
+				ReflectApplicationForSwing app = constructor.newInstance();
 				ReflectFramework.launch(app);
 			} else {
-				throw new RuntimeException("Error: " + theClass + " is not a subclass of "
-						+ ReflecttApplicationForSwing.class.getCanonicalName());
+				throw new NoApplicationSubClassException(applicationClass);
 			}
 		} catch (RuntimeException ex) {
 			throw ex;

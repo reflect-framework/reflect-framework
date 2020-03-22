@@ -2,21 +2,20 @@ package nth.reflect.fw.layer5provider.validation;
 
 import java.lang.reflect.Method;
 
-public class ValidationMethodInvokenationException extends RuntimeException {
+import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.generic.util.MethodCanonicalName;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
+
+public class ValidationMethodInvokenationException extends TranslatableException {
 
 	private static final long serialVersionUID = -9046908889355740168L;
 
-	public ValidationMethodInvokenationException(Method validationMethod, Throwable throwable) {
-		super(createMessage(validationMethod), throwable);
-	}
+	private static final TranslatableString MESSAGE = new TranslatableString(
+			ValidationMethodInvokenationException.class.getCanonicalName() + ".message",
+			"Error invoking validation method: %s");
 
-	private static String createMessage(Method validationMethod) {
-		StringBuilder message=new StringBuilder();
-		message.append("Error invoking validation method: ");
-		message.append(validationMethod.getDeclaringClass().getCanonicalName());
-		message.append(".");
-		message.append(validationMethod.getName());
-		return message.toString();
+	public ValidationMethodInvokenationException(Method validationMethod, Throwable throwable) {
+		super(MESSAGE.withParameters(MethodCanonicalName.getFor(validationMethod)), throwable);
 	}
 
 }

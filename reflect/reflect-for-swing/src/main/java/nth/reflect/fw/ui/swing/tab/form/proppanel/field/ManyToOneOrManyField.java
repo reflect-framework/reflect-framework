@@ -53,7 +53,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 
 		setLayout(new BorderLayout());
 
-		TableInfo tableInfo=new TableInfoForFormTabProperty(formTab, propertyValueModel);
+		TableInfo tableInfo = new TableInfoForFormTabProperty(formTab, propertyValueModel);
 		tableModel = new MethodTableModel(tableInfo);
 		table = createTable(tableModel);
 		JScrollPane tabelContainer = createTableContainer();
@@ -176,16 +176,16 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 						// single row selected
 						return tableModel.getDomainValue(selectedRows[0]);
 					default:
-						throw new RuntimeException("Table must be in single selection mode!!!");
-						// TODO in future: support multiple selection
-						// List<Object> selectedDomainObjects = new
-						// ArrayList<Object>();
-						// for (int selectedRow : table.getSelectedRows()) {
-						// Object domainObject =
-						// tableModel.getDomainValue(selectedRow);
-						// selectedDomainObjects.add(domainObject);
-						// }
-						// return selectedDomainObjects;
+						throw new TableNotInSingleSelectionModeException();
+					// TODO in future: support multiple selection
+					// List<Object> selectedDomainObjects = new
+					// ArrayList<Object>();
+					// for (int selectedRow : table.getSelectedRows()) {
+					// Object domainObject =
+					// tableModel.getDomainValue(selectedRow);
+					// selectedDomainObjects.add(domainObject);
+					// }
+					// return selectedDomainObjects;
 					}
 				}
 

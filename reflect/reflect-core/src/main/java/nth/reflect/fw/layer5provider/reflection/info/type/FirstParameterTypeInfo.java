@@ -14,9 +14,7 @@ public class FirstParameterTypeInfo extends TypeInfo {
 	private static Class<?> getFirstParameterType(Method method) {
 		Class<?>[] parameterTypes = method.getParameterTypes();
 		if (parameterTypes.length != 1) {
-			throw new RuntimeException("Method: " + method.getClass().getCanonicalName()
-					+ " may have only one parameter if you want to create a: "
-					+ FirstParameterTypeInfo.class.getCanonicalName());
+			throw new MethodCanHaveOnlyOneParameterException(method);
 		}
 		return parameterTypes[0];
 	}
@@ -24,9 +22,7 @@ public class FirstParameterTypeInfo extends TypeInfo {
 	private static Type getFirstGenericParameterType(Method method) {
 		Type[] genericParameterTypes = method.getGenericParameterTypes();
 		if (genericParameterTypes.length != 1) {
-			throw new RuntimeException("Method: " + method.getClass().getCanonicalName()
-					+ " may have only one generic parameter if you want to create a: "
-					+ FirstParameterTypeInfo.class.getCanonicalName());
+			throw new MethodCanHaveOnlyOneGenericParameterException(method);
 		}
 		return genericParameterTypes[0];
 	}

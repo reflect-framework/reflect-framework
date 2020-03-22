@@ -1,15 +1,18 @@
 package nth.reflect.infra.excel.repository.exception;
 
-public class ConversionError extends RuntimeException {
+import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
-	private static final long serialVersionUID = 5325897750871580412L;
+public abstract class ConversionError extends TranslatableException {
 
-	public ConversionError(String message) {
+	private static final long serialVersionUID = -8170096916385373543L;
+
+	public ConversionError(TranslatableString message) {
 		super(message);
 	}
 
-	public ConversionError(String message, Exception exception) {
-		super(message, exception);
+	public ConversionError(TranslatableString message, Throwable cause) {
+		super(message, cause);
 	}
 
 }
