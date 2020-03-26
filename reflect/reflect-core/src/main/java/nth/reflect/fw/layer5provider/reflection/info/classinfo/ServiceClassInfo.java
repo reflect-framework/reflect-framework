@@ -8,7 +8,10 @@ import java.util.stream.Collectors;
 
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.description.TranslatedServiceClassDescription;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
@@ -28,11 +31,14 @@ public class ServiceClassInfo extends ClassInfo {
 	private final FontIconModel fontIconModel;
 	private final List<Method> validationMethods;
 	private final List<ActionMethodInfo> actionMethodInfosSorted;
+	private final TranslatedString desciption;
 
 	public ServiceClassInfo(ProviderContainer providerContainer, Class<?> serviceClass) {
 		super(providerContainer, serviceClass);
+		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
 		ReflectionProvider reflectionProvider = providerContainer.get(ReflectionProvider.class);
 		this.titleModel = new TitleModel(reflectionProvider);
+		this.desciption = new TranslatedServiceClassDescription(languageProvider, serviceClass, this);
 		this.fontIconModel = FontIconModelFactory.create(serviceClass);
 		this.validationMethods = ValidationMethodFactory.create(serviceClass);
 		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, serviceClass);
@@ -69,4 +75,8 @@ public class ServiceClassInfo extends ClassInfo {
 		return filteredActionMethods;
 	}
 
+	@Override
+	public TranslatedString getDescription() {
+		return desciption;
+	}
 }

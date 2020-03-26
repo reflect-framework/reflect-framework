@@ -31,6 +31,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeField
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.Format;
+import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.PropertyActionMethod;
 
 /**
  * <p>
@@ -734,6 +736,21 @@ public class DomainObject {
 
 	public void setMyDomainObjectList(List<DomainObject> myDomainObjectList) {
 		this.myDomainObjectList = myDomainObjectList;
+	}
+
+	public static final String ADD_DOMAIN_OBJECT = "addDomainObject";
+
+	@PropertyActionMethod("myDomainObjectList")
+	@ParameterFactory
+	public void addDomainObject(DomainObject domainObject) {
+		myDomainObjectList.add(domainObject);
+	}
+
+	public static final String ACTION_METHOD = "actionMethod";
+
+	@ParameterFactory
+	public void actionMethod(DomainObject domainObject) {
+		myDomainObjectList.add(domainObject);
 	}
 
 	public static final String GET_MY_DOMAIN_OBJECT = "getMyDomainObject";

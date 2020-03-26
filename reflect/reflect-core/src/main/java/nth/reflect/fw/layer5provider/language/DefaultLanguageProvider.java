@@ -171,6 +171,6 @@ public class DefaultLanguageProvider implements LanguageProvider {
 
 	@Override
 	public String getText(TranslatableString translatableString) {
-		return getText(translatableString.getKey(), translatableString.translateToEnglish());
+		return getText(translatableString.getKey(), translatableString.getDefaultEnglish());
 	}
 }

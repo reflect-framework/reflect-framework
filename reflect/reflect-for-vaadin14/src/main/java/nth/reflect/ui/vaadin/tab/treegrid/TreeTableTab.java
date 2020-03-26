@@ -21,7 +21,7 @@ public class TreeTableTab extends Tab {
 
 	@Override
 	public String getDescription() {
-		return actionMethodInfo.getDescription();
+		return actionMethodInfo.getDescription().getTranslation();
 	}
 
 	@Override

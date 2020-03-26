@@ -30,7 +30,7 @@ public class PropertyPanel extends JPanel implements
 
 		setLayout(null); // NOTE no layout manager! Layout is handled by the
 							// PropertyGridLayout
-		setToolTipText(propertyValueModel.getPropertyInfo().getDescription());
+		setToolTipText(propertyValueModel.getPropertyInfo().getDescription().getTranslation());
 		setBackground(ColorUtil.getLightColor());
 
 		propertyLabel = new PropertyLabel();

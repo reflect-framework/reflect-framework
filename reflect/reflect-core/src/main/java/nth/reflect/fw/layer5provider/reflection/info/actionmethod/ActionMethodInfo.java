@@ -13,9 +13,10 @@ import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
-import nth.reflect.fw.layer5provider.reflection.behavior.description.DescriptionModel;
+import nth.reflect.fw.layer5provider.reflection.behavior.description.TranslatedMethodDescription;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
@@ -60,7 +61,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final Method actionMethod;
 	private final double order;
 	private final DisplayNameModel displayNameModel;
-	private final DescriptionModel descriptionModel;
+	private final TranslatedString description;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
 	private final ParameterFactoryModel parameterFactoryModel;
@@ -99,7 +100,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.simpleName = method.getName();
 		this.canonicalName = MethodCanonicalName.getFor(method);
 		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName, canonicalName);
-		this.descriptionModel = new DescriptionModel(languageProvider, method, simpleName, canonicalName);
+		this.description = new TranslatedMethodDescription(languageProvider, method, this);
 		this.order = OrderFactory.create(method);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, method);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, method);
@@ -187,8 +188,8 @@ public class ActionMethodInfo implements NameInfo {
 		return displayNameModel.getText();
 	}
 
-	public String getDescription() {
-		return descriptionModel.getText();
+	public TranslatedString getDescription() {
+		return description;
 	}
 
 	public URL getFontIconUrl(Object obj) {

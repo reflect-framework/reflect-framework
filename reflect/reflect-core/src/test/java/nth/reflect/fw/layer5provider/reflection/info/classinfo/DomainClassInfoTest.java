@@ -1,7 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection.info.classinfo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.stubs.DomainObjectStub;
 
@@ -34,100 +32,84 @@ public class DomainClassInfoTest {
 
 	@Test
 	public void testGetSimpleName() {
-		assertEquals(domainObjectClass.getSimpleName(), domainClassInfo.getSimpleName());
+		assertThat(domainClassInfo.getSimpleName()).isEqualTo(domainObjectClass.getSimpleName());
 	}
 
 	@Test
 	public void testGetCanonicalName() {
-		assertEquals(domainObjectClass.getCanonicalName(), domainClassInfo.getCanonicalName());
+		assertThat(domainClassInfo.getCanonicalName()).isEqualTo(domainObjectClass.getCanonicalName());
 	}
 
 	@Test
 	public void testGetObjectClass() {
-		assertEquals(domainObjectClass, domainClassInfo.getObjectClass());
+		assertThat(domainClassInfo.getObjectClass()).isEqualTo(domainObjectClass);
 	}
 
 	@Test
 	public void testGetDisplayName() {
-		assertEquals(StringUtil.convertToNormalCase(domainObjectClass.getSimpleName()),
-				domainClassInfo.getDisplayName());
+		String expected = StringUtil.convertToNormalCase(domainObjectClass.getSimpleName());
+		assertThat(domainClassInfo.getDisplayName()).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetDescription() {
-		assertEquals(DomainObjectStub.DESCRIPTION, domainClassInfo.getDescription());
+		assertThat(domainClassInfo.getDescription().toString()).isEqualTo(DomainObjectStub.DESCRIPTION);
 	}
 
 	@Test
 	public void testGetIconURI() {
-		assertNull(domainClassInfo.getFontIconUrl(new DomainObjectStub()));
+		assertThat(domainClassInfo.getFontIconUrl(new DomainObjectStub())).isNull();
 	}
 
 	@Test
 	public void testGetTitle() {
-		assertEquals(DomainObjectStub.TITLE, domainClassInfo.getTitle(new DomainObjectStub()));
+		assertThat(domainClassInfo.getTitle(new DomainObjectStub())).isEqualTo(DomainObjectStub.TITLE);
 	}
 
 	@Test
 	public void testToString() {
-		assertEquals(domainObjectClass.getCanonicalName(), domainClassInfo.toString());
+		assertThat(domainClassInfo.toString()).isEqualTo(domainObjectClass.getCanonicalName());
 	}
 
 	@Test
 	public void testGetAllValidationMethods() {
-		assertEquals(0, domainClassInfo.getAllValidationMethods().size());
+		assertThat(domainClassInfo.getAllValidationMethods().size()).isEqualTo(0);
 	}
 
 	@Test
 	public void testGetPropertyInfosSorted() {
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
-		assertEquals(2, propertyInfos.size());
-		// assertEquals(DomainObjectStub.class.getCanonicalName()
-		// + "." + DomainObjectStub.PROPERTY1, propertyInfos
-		// .get(0).getCanonicalName());
-		// assertEquals(DomainObjectStub.class.getCanonicalName()
-		// + "." + DomainObjectStub.PROPERTY2, propertyInfos
-		// .get(1).getCanonicalName());
+		assertThat(propertyInfos.size()).isEqualTo(2);
 	}
 
 	@Test
 	public void testGetPropertyInfo() {
-		PropertyInfo propertyInfo = domainClassInfo.getPropertyInfo(DomainObjectStub.PROPERTY1);
-		assertEquals(DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.PROPERTY1,
-				propertyInfo.getCanonicalName());
+		String result = domainClassInfo.getPropertyInfo(DomainObjectStub.PROPERTY1).getCanonicalName();
+		String expected = DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.PROPERTY1;
+		assertThat(result).isEqualTo(expected);
 	}
 
 	@Test
 	public final void testGetPropertyInfosClassOfQ() {
-		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
-		assertEquals(2, propertyInfos.size());
-		// assertEquals(DomainObjectStub.class.getCanonicalName()
-		// + "." + DomainObjectStub.PROPERTY1, propertyInfos
-		// .get(0).getCanonicalName());
-		// assertEquals(DomainObjectStub.class.getCanonicalName()
-		// + "." + DomainObjectStub.PROPERTY2, propertyInfos
-		// .get(1).getCanonicalName());
+		int result = domainClassInfo.getPropertyInfosSorted().size();
+		assertThat(result).isEqualTo(2);
 	}
 
 	@Test
 	public void testGetActionMethodSorted() {
 		List<ActionMethodInfo> actionMethods = domainClassInfo.getActionMethodInfosSorted();
-		assertEquals(1, actionMethods.size());
-		assertEquals(DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.CLASS_ACTION_METHOD,
-				actionMethods.get(0).getCanonicalName());
-//		assertEquals(
-//				DomainObjectStub.class.getCanonicalName() + "."
-//						+ DomainObjectStub.PROPERTY1_ACTION_METHOD,
-//				actionMethods.get(1).getCanonicalName());
+		assertThat(actionMethods.size()).isEqualTo(1);
+		String expected = DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.CLASS_ACTION_METHOD;
+		assertThat(actionMethods.get(0).getCanonicalName()).isEqualTo(expected);
 	}
 
 	@Test
 	public final void testGetMethodInfosClassOfQFilterOfActionMethodInfo() {
 		List<ActionMethodInfo> actionMethods = domainClassInfo
 				.getActionMethodInfos(new MethodNameFilter(DomainObjectStub.CLASS_ACTION_METHOD));
-		assertEquals(1, actionMethods.size());
-		assertEquals(DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.CLASS_ACTION_METHOD,
-				actionMethods.get(0).getCanonicalName());
+		assertThat(actionMethods.size()).isEqualTo(1);
+		String expected = DomainObjectStub.class.getCanonicalName() + "." + DomainObjectStub.CLASS_ACTION_METHOD;
+		assertThat(actionMethods.get(0).getCanonicalName()).isEqualTo(expected);
 	}
 
 }

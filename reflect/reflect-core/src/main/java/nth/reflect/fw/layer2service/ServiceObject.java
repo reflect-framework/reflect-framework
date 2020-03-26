@@ -14,13 +14,13 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <p>
  * The word 'service' implies:
  * <ul>
- * <li>There is a client that needs to be served. For the ReflectFramework
- * this is the user, trough the {@link UserInterfaceController}</li>
+ * <li>There is a client that needs to be served. For the ReflectFramework this
+ * is the user, trough the {@link UserInterfaceController}</li>
  * <li>There are activities\ operations. For the ReflectFramework these are
  * defined as {@link ActionMethod}'s</li>
  * <li>An activity\ operation is done with other things. For the
- * ReflectFramework these operations are done with or on {@link DomainObject}
- * s trough {@link ActionMethod} parameters and return values</li>
+ * ReflectFramework these operations are done with or on {@link DomainObject} s
+ * trough {@link ActionMethod} parameters and return values</li>
  * </ul>
  * </p>
  * Eric Evans explains in his book
@@ -100,15 +100,16 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * <h3>Construction</h3>
  * <p>
- * The principle of <a href="https://en.wikipedia.org/wiki/Naked_objects">“naked objects”</a> is that any
+ * The principle of <a href="https://en.wikipedia.org/wiki/Naked_objects">“naked
+ * objects”</a> is that any
  * <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object">'Plain Old Java
  * Object' (POJO)</a> can function as a {@link ServiceObject}. In other words: a
  * service class does not have to inherit from any special class, nor implement
  * any particular interface, nor have any specific attributes.
  * </p>
  * <p>
- * {@link ServiceObject}s are instantiated by the {@link ReflectFramework},
- * and therefore need to be registered to the
+ * {@link ServiceObject}s are instantiated by the {@link ReflectFramework}, and
+ * therefore need to be registered to the
  * {@link ReflectApplication#getServiceClasses()} method.
  * </p>
  * In example:
@@ -157,6 +158,19 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * 
  * @author Nils ten Hoeve
  */
-public interface ServiceObject extends ReflectDocumentationInterface {
+public class ServiceObject implements ReflectDocumentationInterface {
+
+	/**
+	 * The contents of this class serves several purposes:
+	 * <ul>
+	 * <li>An example of a {@link ServiceObject}</li>
+	 * <li>A show case of all types that are supported by the
+	 * {@link ReflectFramework} by default</li>
+	 * <li>A test class for JUnit testing</li>
+	 * </ul>
+	 * 
+	 * Note that the purpose of the public static final String fields is only for
+	 * Junit testing only. Normally you would not need them.
+	 */
 
 }

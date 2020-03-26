@@ -25,8 +25,7 @@ public class MethodItem extends Item {
 	private final ReadOnlyValueModel methodParameterValueModel;
 
 	/**
-	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the
-	 * getters
+	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the getters
 	 * 
 	 * @param methodOwner
 	 * @param actionMethodInfo
@@ -72,7 +71,7 @@ public class MethodItem extends Item {
 
 	@Override
 	public String getDescription() {
-		return actionMethodInfo.getDescription();
+		return actionMethodInfo.getDescription().getTranslation();
 	}
 
 	private boolean isMethodInvokable() {

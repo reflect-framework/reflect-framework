@@ -10,7 +10,6 @@
 
 	<artifactId>reflect-core</artifactId>
 
-	<name>reflect for vaadin14 archetype</name>
 	<description>Maven project containing the essential Maven modules of the Reflect Framework</description>
 
 	<dependencies>

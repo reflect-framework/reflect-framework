@@ -185,9 +185,9 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	@Override
 	public void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable) {
 		StringBuilder txt = new StringBuilder();
-		txt.append(title.translate(languageProvider));
+		txt.append(title.getTranslation(languageProvider));
 		txt.append("\n");
-		txt.append(message.translate(languageProvider));
+		txt.append(message.getTranslation(languageProvider));
 		txt.append("\n");
 		txt.append("Cause: ");
 		txt.append(ExceptionUtil.getRootCause(throwable, languageProvider).getMessage());

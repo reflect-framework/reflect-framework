@@ -28,11 +28,11 @@ public class TranslatableException extends RuntimeException {
 
 	@Override
 	public String getMessage() {
-		return message.translateToEnglish();
+		return message.getDefaultEnglish();
 	}
 
 	@Override
 	public String getLocalizedMessage() {
-		return message.translate(languageProvider);
+		return message.getTranslation(languageProvider);
 	}
 }

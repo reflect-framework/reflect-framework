@@ -44,7 +44,7 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 		if (visible) {
 			setEnabled(enabled);
 
-			String description = propertyInfo.getDescription();
+			String description = propertyInfo.getDescription().getTranslation();
 			setDescription(description);
 
 			PropertyLabel propertyLabel = getPropertyLabel();

@@ -69,14 +69,14 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 
 	@Override
 	public void showInfoMessage(TranslatableString message) {
-		String translatedMessage = message.translate(languageProvider);
+		String translatedMessage = message.getTranslation(languageProvider);
 		Toast.makeText(mainWindow, translatedMessage, Style.NORMAL).display();
 	}
 
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		final JFileChooser fc = new JFileChooser();
-		String title = methodInfo.createTitle(uploadStream).translate(languageProvider);
+		String title = methodInfo.createTitle(uploadStream).getTranslation(languageProvider);
 		fc.setDialogTitle(title);
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(uploadStream.getFileTypeDescription(),
@@ -173,8 +173,8 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		Object defaultOption = options[items.size() - 1];
 
 		// show dialog
-		String translatedMessage = message.translate(languageProvider);
-		String translatedTitle = title.translate(languageProvider);
+		String translatedMessage = message.getTranslation(languageProvider);
+		String translatedTitle = title.getTranslation(languageProvider);
 		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, translatedMessage, translatedTitle,
 				JOptionPane.DEFAULT_OPTION, messageType, null, options, defaultOption);
 

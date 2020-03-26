@@ -59,7 +59,7 @@ public class DialogMethodItem extends Item {
 
 	@Override
 	public String getDescription() {
-		return actionMethodInfo.getDescription();
+		return actionMethodInfo.getDescription().getTranslation();
 	}
 
 }

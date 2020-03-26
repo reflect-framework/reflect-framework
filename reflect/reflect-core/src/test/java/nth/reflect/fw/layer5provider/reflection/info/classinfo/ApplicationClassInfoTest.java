@@ -1,7 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection.info.classinfo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +9,6 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 
 public class ApplicationClassInfoTest {
 
@@ -28,38 +26,38 @@ public class ApplicationClassInfoTest {
 
 	@Test
 	public void testGetSimpleName() {
-		assertEquals(applicationClass.getSimpleName(), applicationClassInfo.getSimpleName());
+		assertThat(applicationClassInfo.getSimpleName()).isEqualTo(applicationClass.getSimpleName());
 	}
 
 	@Test
 	public void testGetCanonicalName() {
-		assertEquals(applicationClass.getCanonicalName(), applicationClassInfo.getCanonicalName());
+		assertThat(applicationClassInfo.getCanonicalName()).isEqualTo(applicationClass.getCanonicalName());
 	}
 
 	@Test
 	public void testGetObjectClass() {
-		assertEquals(applicationClass, applicationClassInfo.getObjectClass());
+		assertThat(applicationClassInfo.getObjectClass()).isEqualTo(applicationClass);
 	}
 
 	@Test
 	public void testGetDisplayName() {
-		assertEquals(StringUtil.convertToNormalCase(applicationClass.getSimpleName()),
-				applicationClassInfo.getDisplayName());
+		String expected = StringUtil.convertToNormalCase(applicationClass.getSimpleName());
+		assertThat(applicationClassInfo.getDisplayName()).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetDescription() {
-		assertEquals("Reflect application for jUnit", applicationClassInfo.getDescription());
+		assertThat(applicationClassInfo.getDescription().toString()).isEqualTo("Reflect application for jUnit");
 	}
 
 	@Test
 	public void testGetIconURI() {
-		assertNull(applicationClassInfo.getIcon());
+		assertThat(applicationClassInfo.getIcon()).isNull();
 	}
 
 	@Test
 	public void testToString() {
-		assertEquals(applicationClass.getCanonicalName(), applicationClassInfo.toString());
+		assertThat(applicationClassInfo.toString()).isEqualTo(applicationClass.getCanonicalName());
 	}
 
 }

@@ -70,7 +70,7 @@ public class PropertyInfoTest {
 
 	@Test
 	public void testGetDescription() {
-		assertThat(propertyInfo.getDescription()).isEqualTo(DomainObjectStub.PROPERTY1_DESCRIPTION);
+		assertThat(propertyInfo.getDescription().toString()).isEqualTo(DomainObjectStub.PROPERTY1_DESCRIPTION);
 	}
 
 	@Test

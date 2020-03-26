@@ -87,8 +87,8 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	@Override
 	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
 			List<Item> items) {
-		String translatedTitle = title.translate(languageProvider);
-		String translatedMessage = message.translate(languageProvider);
+		String translatedTitle = title.getTranslation(languageProvider);
+		String translatedMessage = message.getTranslation(languageProvider);
 		Dialog dialog = new Dialog(mainWindow, translatedTitle, translatedMessage, items);
 		dialog.show(mainWindow);
 	}
@@ -185,7 +185,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		FileChooser fileChooser = new FileChooser();
-		String title = methodInfo.createTitle(uploadStream).translate(languageProvider);
+		String title = methodInfo.createTitle(uploadStream).getTranslation(languageProvider);
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),

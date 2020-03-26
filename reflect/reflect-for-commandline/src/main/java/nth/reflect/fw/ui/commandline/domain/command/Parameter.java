@@ -24,7 +24,7 @@ public class Parameter {
 	}
 
 	public String getDescription() {
-		return propertyInfo.getDescription();
+		return propertyInfo.getDescription().getTranslation();
 	}
 
 	public String getUsage() {

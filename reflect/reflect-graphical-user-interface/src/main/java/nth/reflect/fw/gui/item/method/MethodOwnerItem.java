@@ -68,7 +68,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 
 	@Override
 	public String getDescription() {
-		return methodOwnerInfo.getDescription();
+		return methodOwnerInfo.getDescription().getTranslation();
 	}
 
 	@Override

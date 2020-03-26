@@ -68,7 +68,7 @@ public class UserInterfaceControllerForVaadin14
 
 	@Override
 	public void showInfoMessage(TranslatableString message) {
-		String translatedMessage = message.translate(languageProvider);
+		String translatedMessage = message.getTranslation(languageProvider);
 		Notification notification = new Notification(translatedMessage, 3000);
 		notification.open();
 	}
@@ -162,8 +162,8 @@ public class UserInterfaceControllerForVaadin14
 	@Override
 	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
 			List<Item> items) {
-		String translatedTitle = title.translate(languageProvider);
-		String translatedMessage = message.translate(languageProvider);
+		String translatedTitle = title.getTranslation(languageProvider);
+		String translatedMessage = message.getTranslation(languageProvider);
 		dialog.open(translatedTitle, translatedMessage, items);
 	}
 

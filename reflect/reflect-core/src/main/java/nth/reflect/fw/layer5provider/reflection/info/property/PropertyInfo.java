@@ -10,7 +10,8 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.description.DescriptionModel;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
+import nth.reflect.fw.layer5provider.reflection.behavior.description.TranslatedMethodDescription;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
@@ -54,7 +55,7 @@ public class PropertyInfo implements NameInfo {
 	private final Method getterMethod;
 	private final Method setterMethod;
 	private final DisplayNameModel displayNameModel;
-	private final DescriptionModel descriptionModel;
+	private final TranslatedString description;
 	private final TypeInfo typeInfo;
 	private final double order;
 	private final String formatPattern;
@@ -75,7 +76,7 @@ public class PropertyInfo implements NameInfo {
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(getterMethod, simpleName);
 		this.displayNameModel = new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
-		this.descriptionModel = new DescriptionModel(languageProvider, getterMethod, simpleName, canonicalName);
+		this.description = new TranslatedMethodDescription(languageProvider, getterMethod, this);
 		this.typeInfo = new ReturnTypeInfo(reflectApplication, getterMethod);
 		this.getterMethod = getterMethod;
 		this.setterMethod = getSetterMethod(getterMethod, simpleName, typeInfo.getType());
@@ -186,8 +187,8 @@ public class PropertyInfo implements NameInfo {
 		return displayNameModel.getText();
 	}
 
-	public String getDescription() {
-		return descriptionModel.getText();
+	public TranslatedString getDescription() {
+		return description;
 	}
 
 	public double getOrder() {

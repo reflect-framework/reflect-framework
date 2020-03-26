@@ -55,8 +55,8 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 
 	@Override
 	public void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable) {
-		events.add(title.translate(languageProvider));
-		events.add(message.translate(languageProvider));
+		events.add(title.getTranslation(languageProvider));
+		events.add(message.getTranslation(languageProvider));
 		events.add(ExceptionUtil.getRootCauseStackTrace(throwable, languageProvider));
 		throw new RuntimeException(throwable);
 	}

@@ -16,15 +16,15 @@ public class HelpView extends CommandLineView {
 
 		Row row = table.addRow();
 		row.addCell(message, Table.MAX_WIDTH_IN_COLS);
-		
+
 		row = table.addRow();
 		row.addCell("", Table.MAX_WIDTH_IN_COLS);
-		
+
 		for (Command command : commands) {
 			row = table.addRow();
 			row.addCell(command.getUsage(), Table.MAX_WIDTH_IN_COLS);
 
-			String description = command.getMethodInfo().getDescription();
+			String description = command.getMethodInfo().getDescription().getTranslation();
 			if (description != null && !description.trim().isEmpty()) {
 				row = table.addRow();
 				row.addCell("", Table.INDENT);
@@ -56,6 +56,5 @@ public class HelpView extends CommandLineView {
 	public String toString() {
 		return table.toString();
 	}
-
 
 }
