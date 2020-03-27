@@ -32,7 +32,6 @@ import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldMode
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.Format;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.PropertyActionMethod;
 
 /**
  * <p>
@@ -97,13 +96,13 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.PropertyAction
  * There are 2 ways to create new {@link DomainObject}s:
  * <ul>
  * <li>Creating a new {@link DomainObject} with the new keyword:<br>
- * In example: PropertyActionMethod order=new PropertyActionMethod()</li>
+ * In example: Order order=new Order()</li>
  * <li>Creating a domain object using Dependency Injection:<br>
  * Sometimes you want a new {@link DomainObject} to have references to other
  * objects (being other {@link DomainObject}s, {@link InfrastructureObject}s or
  * {@link Provider}Objects). In example: A Customer object needs a references to
  * a ShoppingCartFactory object. The Customer object can therefore be created by
- * the {@link DomainContainer} with Customer customer=(Customer)
+ * the {@link DomainContainer} with Customer customer=
  * domainContainer.getObject(Customer.class). The ShopingCart object will
  * automatically be injected as a constructor parameter of the Customer class.
  * In order to create {@link DomainObject}s using dependency injection you need
@@ -738,11 +737,10 @@ public class DomainObject {
 		this.myDomainObjectList = myDomainObjectList;
 	}
 
-	public static final String ADD_DOMAIN_OBJECT = "addDomainObject";
+	public static final String MY_DOMAIN_OBJECT_LIST_ADD = "myDomainObjectListAdd";
 
-	@PropertyActionMethod("myDomainObjectList")
 	@ParameterFactory
-	public void addDomainObject(DomainObject domainObject) {
+	public void myDomainObjectListAdd(DomainObject domainObject) {
 		myDomainObjectList.add(domainObject);
 	}
 

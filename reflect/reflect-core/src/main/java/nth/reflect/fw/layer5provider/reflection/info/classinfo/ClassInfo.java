@@ -20,16 +20,16 @@ public abstract class ClassInfo implements NameInfo {
 	private final String simpleName;
 	private final String canonicalName;
 	private final TranslatedString description;
-	private final Class<?> objectClass;
+	private final Class<?> type;
 	private final DisplayNameModel displayNameModel;
 
-	public ClassInfo(ProviderContainer providerContainer, Class<?> objectClass) {
+	public ClassInfo(ProviderContainer providerContainer, Class<?> type) {
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
-		this.simpleName = objectClass.getSimpleName();
-		this.canonicalName = objectClass.getCanonicalName();
-		this.objectClass = objectClass;
-		this.displayNameModel = new DisplayNameModel(languageProvider, objectClass, simpleName, canonicalName);
-		this.description = new TranslatedClassDescription(languageProvider, objectClass, this);
+		this.simpleName = type.getSimpleName();
+		this.canonicalName = type.getCanonicalName();
+		this.type = type;
+		this.displayNameModel = new DisplayNameModel(languageProvider, type, simpleName, canonicalName);
+		this.description = new TranslatedClassDescription(languageProvider, type, this);
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public abstract class ClassInfo implements NameInfo {
 		return canonicalName;
 	}
 
-	public Class<?> getObjectClass() {
-		return objectClass;
+	public Class<?> getType() {
+		return type;
 	}
 
 	public String getDisplayName() {

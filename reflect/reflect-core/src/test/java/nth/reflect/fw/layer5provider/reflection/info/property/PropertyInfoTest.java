@@ -135,9 +135,33 @@ public class PropertyInfoTest {
 	}
 
 	@Test
-	public void testGetActionMethodInfos() {
+	public void testGetActionMethodInfos_givenDomainObjectStub_returns1() {
 		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
 		assertThat(actionMethodInfos).hasSize(1);
+	}
+
+	@Test
+	public void testGetActionMethodInfosFirstCanonicalName_givenDomainObjectStub_returnsPath() {
+		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
+		ActionMethodInfo firstActionMethodInfo = actionMethodInfos.get(0);
+		assertThat(firstActionMethodInfo.getCanonicalName())
+				.isEqualTo(propertyInfo.getCanonicalName() + DomainObjectStub.PROPERTY1_ACTION_METHOD);
+	}
+
+	@Test
+	public void testGetActionMethodInfosFirstSimpleName_givenDomainObjectStub_returnsSimpleName() {
+		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
+		ActionMethodInfo firstActionMethodInfo = actionMethodInfos.get(0);
+		String expected = StringUtil.firstCharToLowerCase(DomainObjectStub.PROPERTY1_ACTION_METHOD);
+		assertThat(firstActionMethodInfo.getSimpleName()).isEqualTo(expected);
+	}
+
+	@Test
+	public void testGetActionMethodInfosFirstDisplayName_givenDomainObjectStub_returnsDisplayName() {
+		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
+		ActionMethodInfo firstActionMethodInfo = actionMethodInfos.get(0);
+		String expected = StringUtil.convertToNormalCase(DomainObjectStub.PROPERTY1_ACTION_METHOD);
+		assertThat(firstActionMethodInfo.getDisplayName()).isEqualTo(expected);
 	}
 
 	@Test

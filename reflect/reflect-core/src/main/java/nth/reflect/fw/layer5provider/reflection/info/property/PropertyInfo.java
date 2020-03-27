@@ -86,7 +86,7 @@ public class PropertyInfo implements NameInfo {
 		this.optionModel = OptionsModelFactory.create(getterMethod);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, getterMethod, setterMethod);
 		this.hiddenModel = HiddenModelFactory.create(authorizationProvider, getterMethod, setterMethod);
-		this.actionMethodInfos = ActionMethodInfoFactory.createSorted(providerContainer, domainObjectClass, simpleName);
+		this.actionMethodInfos = ActionMethodInfoFactory.createSorted(providerContainer, this);
 	}
 
 	private Optional<StringConverter> createStringConverter(ProviderContainer providerContainer) {

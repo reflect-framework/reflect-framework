@@ -21,7 +21,7 @@ public class ApplicationClassInfoTest {
 		DependencyInjectionContainer container = application.createContainer();
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		applicationClassInfo = reflectionProvider.getApplicationClassInfo();
-		applicationClass = applicationClassInfo.getObjectClass();
+		applicationClass = applicationClassInfo.getType();
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class ApplicationClassInfoTest {
 
 	@Test
 	public void testGetObjectClass() {
-		assertThat(applicationClassInfo.getObjectClass()).isEqualTo(applicationClass);
+		assertThat(applicationClassInfo.getType()).isEqualTo(applicationClass);
 	}
 
 	@Test

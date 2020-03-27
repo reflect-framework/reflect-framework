@@ -20,7 +20,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * 
  * <h2>Display Name</h2> {@insert DisplayNameModel}
  * 
- * <h2>Description</h2> {@insert DescriptionModel}
+ * <h2>Description</h2> {@insert TranslatedDescription}
  * 
  * <h2>Title</h2> {@insert TitleModel}
  * 
@@ -32,7 +32,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * 
  * <h2>Disabled</h2> {@insert DisabledModelFactory}
  * 
- * <h2>PropertyActionMethod</h2> {@insert PropertyActionMethod}
+ * <h2>Order</h2> {@insert Order}
  * 
  * <h2>Format</h2>{@insert Format}
  * 
@@ -41,8 +41,6 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * <h2>Date Time Field Mode</h2> {@insert DateTimeFieldMode}
  * 
  * <h2>Execution Mode</h2>{@insert ExecutionMode}
- * 
- * <h2>Property Action Method</h2>{@insert PropertyActionMethod}
  * 
  * <h2>Read Only Action Method</h2>{@insert ReadOnlyActionMethod}
  * 

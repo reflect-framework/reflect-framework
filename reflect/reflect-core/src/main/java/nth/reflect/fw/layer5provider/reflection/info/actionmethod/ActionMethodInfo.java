@@ -7,6 +7,7 @@ import java.net.URL;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.MethodCanonicalName;
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
@@ -75,7 +76,9 @@ public class ActionMethodInfo implements NameInfo {
 	private final boolean isReadOnly;
 	private final ReflectionProvider reflectionProvider;
 
-	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
+	public ActionMethodInfo(ProviderContainer providerContainer, Method method, String propertyName) {
+		this.simpleName = createSimpleName(method, propertyName);
+
 		validateNoObjectClassMethod(method);
 		validateNoGettersOrSetterMethod(method);
 		validateNoBehavioralMethod(method);
@@ -97,7 +100,6 @@ public class ActionMethodInfo implements NameInfo {
 		this.showResultMethod = ShowMethodFactory.create(controllerClass, executionMode, method, returnTypeInfo);
 
 		this.actionMethod = method;
-		this.simpleName = method.getName();
 		this.canonicalName = MethodCanonicalName.getFor(method);
 		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName, canonicalName);
 		this.description = new TranslatedMethodDescription(languageProvider, method, this);
@@ -107,6 +109,20 @@ public class ActionMethodInfo implements NameInfo {
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
 		this.isReadOnly = method.isAnnotationPresent(ReadOnlyActionMethod.class);
+	}
+
+	private String createSimpleName(Method method, String propertyName) {
+		if (propertyName == null) {
+			return method.getName();
+		} else {
+			String methodNameWithoutPropertyName = method.getName().replaceFirst("^" + propertyName, "");
+			String simpleName = StringUtil.firstCharToLowerCase(methodNameWithoutPropertyName);
+			return simpleName;
+		}
+	}
+
+	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
+		this(providerContainer, method, null);
 	}
 
 	/**
@@ -156,8 +172,8 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	private void validateNoObjectClassMethod(Method method) {
-		String methodName = method.getName();
 		for (Method methodOfObjectClass : Object.class.getMethods()) {
+			String methodName = method.getName();
 			if (methodOfObjectClass.getName().equals(methodName)) {
 				throw new ActionMethodMayNotBeAMethodOfObjectClass(method);
 			}

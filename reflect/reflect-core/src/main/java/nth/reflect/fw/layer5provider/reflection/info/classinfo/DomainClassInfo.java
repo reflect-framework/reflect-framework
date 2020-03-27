@@ -39,7 +39,7 @@ public class DomainClassInfo extends ClassInfo {
 		this.fontIconModel = FontIconModelFactory.create(domainClass);
 		this.validationMethods = ValidationMethodFactory.create(domainClass);
 		this.propertyInfosSorted = PropertyInfoFactory.createSorted(providerContainer, domainClass);
-		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, domainClass);
+		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, this);
 	}
 
 	public URL getFontIconUrl(Object obj) {

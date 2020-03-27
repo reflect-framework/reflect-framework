@@ -41,7 +41,7 @@ public class ServiceClassInfo extends ClassInfo {
 		this.desciption = new TranslatedServiceClassDescription(languageProvider, serviceClass, this);
 		this.fontIconModel = FontIconModelFactory.create(serviceClass);
 		this.validationMethods = ValidationMethodFactory.create(serviceClass);
-		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, serviceClass);
+		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, this);
 	}
 
 	public URL getFontIconUrl(Object obj) {

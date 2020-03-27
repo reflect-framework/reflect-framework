@@ -28,7 +28,7 @@ public class ServiceClassInfoTest {
 		DependencyInjectionContainer container = application.createContainer();
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		serviceClassInfo = reflectionProvider.getServiceClassInfo(ServiceObjectStub.class);
-		serviceClass = serviceClassInfo.getObjectClass();
+		serviceClass = serviceClassInfo.getType();
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class ServiceClassInfoTest {
 
 	@Test
 	public void testGetObjectClass() {
-		assertThat(serviceClassInfo.getObjectClass()).isEqualTo(serviceClass);
+		assertThat(serviceClassInfo.getType()).isEqualTo(serviceClass);
 	}
 
 	@Test

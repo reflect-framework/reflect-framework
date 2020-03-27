@@ -105,7 +105,6 @@ import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.Execution
  * <li>visibility</li>
  * <li>enabled state</li>
  * <li>{@link ExecutionMode}</li>
- * <li>{@link PropertyActionMethod}</li>
  * <li>{@link ReadOnlyActionMethod}</li>
  * </ul>
  * Etc. See the sections on {@link ObjectBehavior}.

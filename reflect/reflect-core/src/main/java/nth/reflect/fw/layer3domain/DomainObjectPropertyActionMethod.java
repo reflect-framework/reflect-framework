@@ -2,27 +2,26 @@ package nth.reflect.fw.layer3domain;
 
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.PropertyActionMethod;
 
 /**
  * <p>
  * {@link DomainObject}s may have {@link ActionMethod}s that do something with
- * the value of a {@link DomainObjectProperty}, e.g. modify it or display it or
- * open it in a browser. In this case the we need to annotate it with
- * the @{@link PropertyActionMethod} annotation to indicated that the
- * {@link ActionMethod} is an {@link DomainObjectPropertyActionMethod} and needs
- * to be displayed in the {@link PropertyPanelMenu}. You therefore must specify
- * the {@link DomainObjectProperty} name in the @{@link PropertyActionMethod}
- * annotation.
+ * the value of a {@link DomainObjectProperty}, e.g. modify it or display it.
+ * These {@link DomainObjectPropertyActionMethod}'s are displayed in a
+ * {@link PropertyPanelMenu}
  * </p>
  * <p>
- * Examples:
+ * The name of the {@link ActionMethod} for a {@link DomainObjectProperty}
+ * always begins with the {@link DomainObjectProperty}name, followed by the
+ * {@link ActionMethod}name.
+ * </p>
+ * <p>
+ * Example: A WebShop object may have an property products that has a
+ * {@link DomainObjectPropertyActionMethod}s such as:
  * <ul>
- * <li>A ShoppingCar object may have an property lineItems that has a
- * {@link DomainObjectPropertyActionMethod}s such as addLineItem(LineItem
- * lineItem) or removeLineItem(LineItem lineItem) or removeAllLineItems().</li>
- * <li>A Customer object may have an property address that has a
- * PropertyActionMethod such as moveToNewAddress(Address new Address)</li>
+ * <li>productsAdd(Product product)</li>
+ * <li>productsRemove(Product product)</li>
+ * <li>productsFind(String query)</li>
  * </ul>
  * </p>
  */

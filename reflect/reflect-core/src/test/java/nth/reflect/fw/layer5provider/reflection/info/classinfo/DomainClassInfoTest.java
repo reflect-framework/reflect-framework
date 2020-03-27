@@ -42,7 +42,7 @@ public class DomainClassInfoTest {
 
 	@Test
 	public void testGetObjectClass() {
-		assertThat(domainClassInfo.getObjectClass()).isEqualTo(domainObjectClass);
+		assertThat(domainClassInfo.getType()).isEqualTo(domainObjectClass);
 	}
 
 	@Test
