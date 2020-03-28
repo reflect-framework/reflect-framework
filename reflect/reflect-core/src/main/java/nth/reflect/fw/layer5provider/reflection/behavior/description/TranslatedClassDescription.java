@@ -17,7 +17,7 @@ public class TranslatedClassDescription extends TranslatedDescription {
 			String defaultEnglishDescription = StringUtil.convertToNormalCase(simpleName);
 			return defaultEnglishDescription;
 		} else {
-			String defaultEnglishDescription = annotation.englishDescription();
+			String defaultEnglishDescription = annotation.defaultEnglish();
 			return defaultEnglishDescription;
 		}
 	}

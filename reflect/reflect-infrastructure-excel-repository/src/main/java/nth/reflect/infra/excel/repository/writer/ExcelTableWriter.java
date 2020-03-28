@@ -63,7 +63,7 @@ public class ExcelTableWriter extends ExcelWriter {
 		Cell cell;
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			cell = row.createCell(columnNr++);
-			String columnHeaderText = propertyInfo.getDisplayName();
+			String columnHeaderText = propertyInfo.getDisplayName().getTranslation();
 			cell.setCellValue(columnHeaderText);
 			cell.setCellStyle(HEADER_COLUMNS_STYLE);
 		}

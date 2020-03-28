@@ -57,7 +57,7 @@ public class AppTitleBar extends HBox {
 	private String getTitle(UserInterfaceContainer userInterfaceContainer) {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		ApplicationClassInfo applicationInfo = reflectionProvider.getApplicationClassInfo();
-		String title = applicationInfo.getDisplayName();
+		String title = applicationInfo.getDisplayName().getTranslation();
 		return title;
 	}
 

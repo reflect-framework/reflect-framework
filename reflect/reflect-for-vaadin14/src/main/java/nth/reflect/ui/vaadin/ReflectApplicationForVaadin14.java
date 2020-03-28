@@ -181,7 +181,7 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this),
 				new FontIconUrlStreamHandler());
 	}
-	
+
 	@Override
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
@@ -200,7 +200,7 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 	public String getPageTitle() {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		ApplicationClassInfo applicationClassInfo = reflectionProvider.getApplicationClassInfo();
-		String title = applicationClassInfo.getDisplayName();
+		String title = applicationClassInfo.getDisplayName().getTranslation();
 		return title;
 	}
 }

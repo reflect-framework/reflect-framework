@@ -48,7 +48,7 @@ public class DomainClassInfoTest {
 	@Test
 	public void testGetDisplayName() {
 		String expected = StringUtil.convertToNormalCase(domainObjectClass.getSimpleName());
-		assertThat(domainClassInfo.getDisplayName()).isEqualTo(expected);
+		assertThat(domainClassInfo.getDisplayName().getTranslation()).isEqualTo(expected);
 	}
 
 	@Test

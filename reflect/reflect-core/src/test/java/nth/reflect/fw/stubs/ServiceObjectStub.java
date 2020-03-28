@@ -13,7 +13,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.Parame
  * @author nilsth
  *
  */
-@Description(englishDescription = ServiceObjectStub.DESCRIPTION)
+@Description(defaultEnglish = ServiceObjectStub.DESCRIPTION)
 public class ServiceObjectStub {
 
 	public static final String DESCRIPTION = "Description";

@@ -14,7 +14,7 @@ import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.TranslatedMethodDescription;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
-import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
+import nth.reflect.fw.layer5provider.reflection.behavior.displayname.TranslatedMethodDisplayName;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatPatternFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenModelFactory;
@@ -54,7 +54,7 @@ public class PropertyInfo implements NameInfo {
 	private final String canonicalName;
 	private final Method getterMethod;
 	private final Method setterMethod;
-	private final DisplayNameModel displayNameModel;
+	private final TranslatedString displayName;
 	private final TranslatedString description;
 	private final TypeInfo typeInfo;
 	private final double order;
@@ -77,7 +77,7 @@ public class PropertyInfo implements NameInfo {
 		this.domainClass = domainClass;
 		this.simpleName = getSimpleName(getterMethod);
 		this.canonicalName = getCanonicalName(domainClass, simpleName);
-		this.displayNameModel = new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
+		this.displayName = new TranslatedMethodDisplayName(languageProvider, getterMethod, this);
 		this.description = new TranslatedMethodDescription(languageProvider, getterMethod, this);
 		this.typeInfo = new ReturnTypeInfo(reflectApplication, getterMethod);
 		this.getterMethod = getterMethod;
@@ -185,8 +185,8 @@ public class PropertyInfo implements NameInfo {
 		return setterMethod;
 	}
 
-	public String getDisplayName() {
-		return displayNameModel.getText();
+	public TranslatedString getDisplayName() {
+		return displayName;
 	}
 
 	public TranslatedString getDescription() {

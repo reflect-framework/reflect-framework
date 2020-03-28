@@ -4,7 +4,7 @@ import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.TranslatedClassDescription;
-import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
+import nth.reflect.fw.layer5provider.reflection.behavior.displayname.TranslatedClassDisplayName;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 
 /**
@@ -19,16 +19,16 @@ public abstract class ClassInfo implements NameInfo {
 
 	private final String simpleName;
 	private final String canonicalName;
+	private final TranslatedString displayName;
 	private final TranslatedString description;
 	private final Class<?> type;
-	private final DisplayNameModel displayNameModel;
 
 	public ClassInfo(ProviderContainer providerContainer, Class<?> type) {
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
 		this.simpleName = type.getSimpleName();
 		this.canonicalName = type.getCanonicalName();
 		this.type = type;
-		this.displayNameModel = new DisplayNameModel(languageProvider, type, simpleName, canonicalName);
+		this.displayName = new TranslatedClassDisplayName(languageProvider, type, this);
 		this.description = new TranslatedClassDescription(languageProvider, type, this);
 	}
 
@@ -46,8 +46,8 @@ public abstract class ClassInfo implements NameInfo {
 		return type;
 	}
 
-	public String getDisplayName() {
-		return displayNameModel.getText();
+	public TranslatedString getDisplayName() {
+		return displayName;
 	}
 
 	public TranslatedString getDescription() {

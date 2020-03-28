@@ -65,7 +65,8 @@ public class PropertyInfoTest {
 
 	@Test
 	public void testGetDisplayName() {
-		assertThat(propertyInfo.getDisplayName()).isEqualTo(StringUtil.firstCharToUpperCase(PROPERTY_NAME));
+		assertThat(propertyInfo.getDisplayName().getTranslation())
+				.isEqualTo(StringUtil.firstCharToUpperCase(PROPERTY_NAME));
 	}
 
 	@Test
@@ -161,7 +162,7 @@ public class PropertyInfoTest {
 		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
 		ActionMethodInfo firstActionMethodInfo = actionMethodInfos.get(0);
 		String expected = StringUtil.convertToNormalCase(DomainObjectStub.PROPERTY1_ACTION_METHOD);
-		assertThat(firstActionMethodInfo.getDisplayName()).isEqualTo(expected);
+		assertThat(firstActionMethodInfo.getDisplayName().getTranslation()).isEqualTo(expected);
 	}
 
 	@Test

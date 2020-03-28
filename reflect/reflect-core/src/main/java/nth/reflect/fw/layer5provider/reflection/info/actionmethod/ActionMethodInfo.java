@@ -20,7 +20,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.TranslatedMethodDescription;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.disabled.DisabledModelFactory;
-import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayNameModel;
+import nth.reflect.fw.layer5provider.reflection.behavior.displayname.TranslatedDisplayName;
+import nth.reflect.fw.layer5provider.reflection.behavior.displayname.TranslatedMethodDisplayName;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModel;
@@ -61,7 +62,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final String canonicalName;
 	private final Method actionMethod;
 	private final double order;
-	private final DisplayNameModel displayNameModel;
+	private final TranslatedString displayName;
 	private final TranslatedString description;
 	private final DisabledModel disabledModel;
 	private final HiddenModel hiddenModel;
@@ -101,7 +102,7 @@ public class ActionMethodInfo implements NameInfo {
 
 		this.actionMethod = method;
 		this.canonicalName = MethodCanonicalName.getFor(method);
-		this.displayNameModel = new DisplayNameModel(languageProvider, method, simpleName, canonicalName);
+		this.displayName = new TranslatedMethodDisplayName(languageProvider, method, this);
 		this.description = new TranslatedMethodDescription(languageProvider, method, this);
 		this.order = OrderFactory.create(method);
 		this.disabledModel = DisabledModelFactory.create(authorizationProvider, method);
@@ -200,8 +201,8 @@ public class ActionMethodInfo implements NameInfo {
 		return canonicalName;
 	}
 
-	public String getDisplayName() {
-		return displayNameModel.getText();
+	public TranslatedString getDisplayName() {
+		return displayName;
 	}
 
 	public TranslatedString getDescription() {
@@ -233,8 +234,8 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	public TranslatableString createTitle(Object actionMethodParameter) {
-		String key = getCanonicalName() + DisplayNameModel.DISPLAY_NAME_SUFFIX;
-		String englishText = getDisplayName();
+		String key = getCanonicalName() + TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
+		String englishText = getDisplayName().getTranslation();
 		if (actionMethodParameter != null) {
 			TitleModel titleModel = new TitleModel(reflectionProvider);
 			String parameterTitle = titleModel.getTitle(actionMethodParameter);

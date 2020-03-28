@@ -6,8 +6,8 @@ public class TranslatedString extends TranslatableString {
 
 	public final LanguageProvider languageProvider;
 
-	public TranslatedString(LanguageProvider languageProvider, String key, String englishText, Object... parameters) {
-		super(key, englishText, parameters);
+	public TranslatedString(LanguageProvider languageProvider, String key, String defaultEnglish, Object... parameters) {
+		super(key, defaultEnglish, parameters);
 		this.languageProvider = languageProvider;
 	}
 

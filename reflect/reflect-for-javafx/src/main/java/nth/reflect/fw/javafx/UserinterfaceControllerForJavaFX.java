@@ -168,7 +168,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		ReflectionProvider reflectProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		ApplicationClassInfo applicationClassInfo = reflectProvider.getApplicationClassInfo();
 		initIcon(primaryStage, applicationClassInfo);
-		String title = applicationClassInfo.getDisplayName();
+		String title = applicationClassInfo.getDisplayName().getTranslation();
 		primaryStage.setTitle(title);
 		primaryStage.setMaximized(true);
 		primaryStage.show();

@@ -113,7 +113,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private void setTitle(ApplicationClassInfo applicationInfo) {
-		String title = applicationInfo.getDisplayName();
+		String title = applicationInfo.getDisplayName().getTranslation();
 		setTitle(title);
 	}
 

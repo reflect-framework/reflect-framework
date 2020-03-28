@@ -54,7 +54,7 @@ public class ExcelFormWriter extends ExcelWriter {
 				rowNr = sheet.getPhysicalNumberOfRows();
 				Row row = sheet.createRow(rowNr);
 				Cell nameCell = row.createCell(0);
-				nameCell.setCellValue(propertyInfo.getDisplayName());
+				nameCell.setCellValue(propertyInfo.getDisplayName().getTranslation());
 				nameCell.setCellStyle(PROPERTY_NAME_STYLE);
 
 				Cell valueCell = row.createCell(1);
@@ -78,8 +78,8 @@ public class ExcelFormWriter extends ExcelWriter {
 	}
 
 	private void addPropertyTable(Sheet sheet, Cell cell, PropertyInfo propertyInfo, Object value) {
-		//TODO arrays
-		//TODO string converters for PrimartTypes and PrimaryWrapperTypes
+		// TODO arrays
+		// TODO string converters for PrimartTypes and PrimaryWrapperTypes
 		Row row = cell.getRow();
 		Class<?> objectClass = propertyInfo.getTypeInfo().getArrayOrCollectionTypeInfo().get().getType();
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(objectClass);
@@ -113,7 +113,7 @@ public class ExcelFormWriter extends ExcelWriter {
 		for (PropertyInfo columnInfo : propertyInfos) {
 			cellNr++;
 			cell = row.createCell(cellNr);
-			cell.setCellValue(columnInfo.getDisplayName());
+			cell.setCellValue(columnInfo.getDisplayName().getTranslation());
 			cell.setCellStyle(COLUMN_HEADER_STYLE);
 		}
 	}

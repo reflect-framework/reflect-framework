@@ -56,7 +56,7 @@ public class MethodItem extends Item {
 
 	@Override
 	public String getText() {
-		return actionMethodInfo.getDisplayName();
+		return actionMethodInfo.getDisplayName().getTranslation();
 	}
 
 	@Override

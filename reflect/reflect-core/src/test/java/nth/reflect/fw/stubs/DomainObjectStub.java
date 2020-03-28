@@ -13,7 +13,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.order.Order;
  * @author nilsth
  *
  */
-@Description(englishDescription = DomainObjectStub.DESCRIPTION)
+@Description(defaultEnglish = DomainObjectStub.DESCRIPTION)
 public class DomainObjectStub {
 
 	public static String TITLE = DomainObjectStub.class.getSimpleName();
@@ -33,7 +33,7 @@ public class DomainObjectStub {
 	}
 
 	@Hidden
-	@Description(englishDescription = PROPERTY1_DESCRIPTION)
+	@Description(defaultEnglish = PROPERTY1_DESCRIPTION)
 	@Order(PROPERTY1_ORDER)
 	public String getProperty1() {
 		return property1;

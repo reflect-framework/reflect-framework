@@ -27,5 +27,5 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface Description {
-	public String englishDescription();
+	public String defaultEnglish();
 }

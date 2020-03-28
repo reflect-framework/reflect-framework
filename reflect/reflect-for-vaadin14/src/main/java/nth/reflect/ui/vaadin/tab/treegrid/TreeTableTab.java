@@ -16,7 +16,7 @@ public class TreeTableTab extends Tab {
 
 	@Override
 	public String getDisplayName() {
-		return actionMethodInfo.getDisplayName();
+		return actionMethodInfo.getDisplayName().getTranslation();
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class MaterialAppBarTitle extends JLabel {
 	public MaterialAppBarTitle(UserInterfaceContainer userInterfaceContainer) {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		ApplicationClassInfo applicationInfo = reflectionProvider.getApplicationClassInfo();
-		String title = applicationInfo.getDisplayName();
+		String title = applicationInfo.getDisplayName().getTranslation();
 		setText(title);
 		ColorProvider colorProvider = userInterfaceContainer.get(ColorProvider.class);
 		setForeground(ColorFactory.create(ApplicationBarStyle.getForeground1(colorProvider)));

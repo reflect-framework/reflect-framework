@@ -48,7 +48,7 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 			setDescription(description);
 
 			PropertyLabel propertyLabel = getPropertyLabel();
-			String displayName = propertyInfo.getDisplayName();
+			String displayName = propertyInfo.getDisplayName().getTranslation();
 			propertyLabel.setText(displayName);
 			propertyLabel.setDescription(description);
 

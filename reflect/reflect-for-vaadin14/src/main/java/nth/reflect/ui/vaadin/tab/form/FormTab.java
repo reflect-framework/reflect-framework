@@ -126,7 +126,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	@Override
 	public String getDisplayName() {
-		return actionMethodInfo.getDisplayName();
+		return actionMethodInfo.getDisplayName().getTranslation();
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class ApplicationClassInfoTest {
 	@Test
 	public void testGetDisplayName() {
 		String expected = StringUtil.convertToNormalCase(applicationClass.getSimpleName());
-		assertThat(applicationClassInfo.getDisplayName()).isEqualTo(expected);
+		assertThat(applicationClassInfo.getDisplayName().getTranslation()).isEqualTo(expected);
 	}
 
 	@Test

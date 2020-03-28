@@ -63,7 +63,7 @@ public class MethodOwnerItem extends HierarchicalItem {
 
 	@Override
 	public String getText() {
-		return methodOwnerInfo.getDisplayName();
+		return methodOwnerInfo.getDisplayName().getTranslation();
 	}
 
 	@Override

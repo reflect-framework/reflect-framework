@@ -13,7 +13,7 @@ public class ApplicationTitle extends Div {
 	public ApplicationTitle(UserInterfaceContainer userInterfaceContainer) {
 		ReflectionProvider reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		ApplicationClassInfo applicationClassInfo = reflectionProvider.getApplicationClassInfo();
-		String title = applicationClassInfo.getDisplayName();
+		String title = applicationClassInfo.getDisplayName().getTranslation();
 		setText(title);
 	}
 }

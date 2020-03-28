@@ -78,7 +78,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	@Override
 	public String getDisplayName() {
-		return actionMethodInfo.getDisplayName();
+		return actionMethodInfo.getDisplayName().getTranslation();
 	}
 
 	@Override

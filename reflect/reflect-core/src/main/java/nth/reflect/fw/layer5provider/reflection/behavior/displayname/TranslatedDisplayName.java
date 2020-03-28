@@ -1,11 +1,10 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.displayname;
 
-import java.lang.reflect.Method;
-
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
-import nth.reflect.fw.layer5provider.reflection.behavior.TextModel;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
+import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
@@ -46,35 +45,16 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * @author nilsth
  *
  */
-public class DisplayNameModel extends TextModel {
+public abstract class TranslatedDisplayName extends TranslatedString {
 
-	public static final String DISPLAY_NAME_SUFFIX = ".displayname";
+	public static final String DISPLAY_NAME_KEY_SUFFIX = ".displayName";
 
-	public DisplayNameModel(LanguageProvider languageProvider, Class<?> objectType, String simpleName,
-			String canonicalName) {
-		super(languageProvider, objectType, simpleName, canonicalName);
+	public TranslatedDisplayName(LanguageProvider languageProvider, NameInfo nameInfo, String defaultEnglish) {
+		super(languageProvider, createKey(nameInfo), defaultEnglish);
 	}
 
-	public DisplayNameModel(LanguageProvider languageProvider, Method getterMethod, String simpleName,
-			String canonicalName) {
-		super(languageProvider, getterMethod, simpleName, canonicalName);
-	}
-
-	@Override
-	public String createKey(String canonicalName) {
-		return canonicalName.concat(DISPLAY_NAME_SUFFIX);
-	}
-
-	@Override
-	public String getDefaultTextFromAnnotation(Class<?> objectType) {
-		DisplayName annotation = objectType.getAnnotation(DisplayName.class);
-		return (annotation == null) ? null : annotation.englishName();
-	}
-
-	@Override
-	public String getDefaultTextFromAnnotation(Method method) {
-		DisplayName annotation = method.getAnnotation(DisplayName.class);
-		return (annotation == null) ? null : annotation.englishName();
+	private static String createKey(NameInfo nameInfo) {
+		return nameInfo.getCanonicalName() + DISPLAY_NAME_KEY_SUFFIX;
 	}
 
 }

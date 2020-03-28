@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -48,8 +47,7 @@ public class ServiceClassInfoTest {
 
 	@Test
 	public void testGetDisplayName() {
-		assertThat(serviceClassInfo.getDisplayName())
-				.isEqualTo(StringUtil.convertToNormalCase(serviceClass.getSimpleName()));
+		assertThat(serviceClassInfo.getDisplayName().getTranslation()).isEqualTo("Service object stubs");
 	}
 
 	@Test

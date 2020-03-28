@@ -16,6 +16,8 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 
 public class TranslatedDomainClassDescriptionTest {
 
+	private static final String KOMMENTIERTES_DOMÄNENOBJEKT = "Kommentiertes Domänenobjekt";
+	private static final String DOMÄNENOBJEKT_BESCHREIBUNG = "Domänenobjekt Beschreibung";
 	private TranslatedString domainObjectDescription;
 	private TranslatedString annotatedDomainObjectDescription;
 
@@ -32,22 +34,22 @@ public class TranslatedDomainClassDescriptionTest {
 
 	@Test
 	public void testToString_givenDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(domainObjectDescription.toString()).isEqualTo("Domänenobjekt");
+		assertThat(domainObjectDescription.toString()).isEqualTo(DOMÄNENOBJEKT_BESCHREIBUNG);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedDomainObjectDescription.toString()).isEqualTo("Kommentiertes Domänenobjekt");
+		assertThat(annotatedDomainObjectDescription.toString()).isEqualTo(KOMMENTIERTES_DOMÄNENOBJEKT);
 	}
 
 	@Test
 	public void testGetTranslation_givenDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(domainObjectDescription.getTranslation()).isEqualTo("Domänenobjekt");
+		assertThat(domainObjectDescription.getTranslation()).isEqualTo(DOMÄNENOBJEKT_BESCHREIBUNG);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedDomainObjectDescription.getTranslation()).isEqualTo("Kommentiertes Domänenobjekt");
+		assertThat(annotatedDomainObjectDescription.getTranslation()).isEqualTo(KOMMENTIERTES_DOMÄNENOBJEKT);
 	}
 
 	@Test

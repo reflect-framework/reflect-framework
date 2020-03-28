@@ -20,8 +20,7 @@ public class PropertyColumnInfo implements ColumnInfo {
 
 	@Override
 	public String getName() {
-		String displayName = propertyInfo.getDisplayName();
-		return displayName;
+		return propertyInfo.getDisplayName().getTranslation();
 	}
 
 	@Override

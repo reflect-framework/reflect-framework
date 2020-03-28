@@ -41,8 +41,8 @@ public abstract class TranslatedDescription extends TranslatedString {
 
 	public final static String DESCRIPTION_KEY_SUFFIX = ".description";
 
-	public TranslatedDescription(LanguageProvider languageProvider, NameInfo nameInfo, String englishText) {
-		super(languageProvider, createKey(nameInfo), englishText);
+	public TranslatedDescription(LanguageProvider languageProvider, NameInfo nameInfo, String defaultEnglish) {
+		super(languageProvider, createKey(nameInfo), defaultEnglish);
 	}
 
 	private static String createKey(NameInfo nameInfo) {

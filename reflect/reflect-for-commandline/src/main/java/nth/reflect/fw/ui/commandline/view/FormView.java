@@ -27,7 +27,7 @@ public class FormView extends CommandLineView {
 		// add properties to form
 		for (PropertyInfo propertyInfo : propertyInfos) {
 			row = table.addRow();
-			row.addCell(propertyInfo.getDisplayName(), 18);
+			row.addCell(propertyInfo.getDisplayName().getTranslation(), 18);
 			row.addCell(propertyInfo.getValue(domainObject).toString(), 60);
 		}
 	}

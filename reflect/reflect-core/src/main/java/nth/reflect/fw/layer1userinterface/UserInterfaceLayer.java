@@ -1,6 +1,5 @@
 package nth.reflect.fw.layer1userinterface;
 
-import javafx.scene.control.Tab;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.container.DependencyInjectionContainer;
@@ -59,10 +58,9 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * <h2>Customized tabs</h2>
  * <p>
  * The {@link GridTab} and {@link FormTab} are normally used to select a
- * {@link DomainObject} and view or manipulate it. You can create your own
- * {@link Tab} and configure it to be used in your {@link ReflectApplication} if
- * you need a different representation of the {@link DomainObject}s. Typical
- * examples are:
+ * {@link DomainObject} and view or manipulate it. You can create your own Tab
+ * and configure it to be used in your {@link ReflectApplication} if you need a
+ * different representation of the {@link DomainObject}s. Typical examples are:
  * <ul>
  * <li>A <a href="https://en.wikipedia.org/wiki/Blog">Blog</a> where a list of
  * Comments ({@link DomainObject}s) are displayed in a alternative manner (See

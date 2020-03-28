@@ -44,7 +44,7 @@ public class DialogMethodItem extends Item {
 
 	@Override
 	public String getText() {
-		return actionMethodInfo.getDisplayName();
+		return actionMethodInfo.getDisplayName().getTranslation();
 	}
 
 	@Override

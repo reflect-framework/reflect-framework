@@ -69,7 +69,7 @@ public class PropertyMethodItem extends MethodItem {
 		// text.append(TitleUtil.createTitle(reflectionProvider,
 		// propertyMethodInfo, parameterValue));
 		// return text.toString();
-		return propertyMethodInfo.getDisplayName();
+		return propertyMethodInfo.getDisplayName().getTranslation();
 	}
 
 	/**

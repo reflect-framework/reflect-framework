@@ -12,6 +12,7 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.TranslatedServiceClassDescription;
+import nth.reflect.fw.layer5provider.reflection.behavior.displayname.TranslatedServiceClassDisplayName;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.fonticon.FontIconModelFactory;
 import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
@@ -31,14 +32,16 @@ public class ServiceClassInfo extends ClassInfo {
 	private final FontIconModel fontIconModel;
 	private final List<Method> validationMethods;
 	private final List<ActionMethodInfo> actionMethodInfosSorted;
-	private final TranslatedString desciption;
+	private final TranslatedString displayName;
+	private final TranslatedString description;
 
 	public ServiceClassInfo(ProviderContainer providerContainer, Class<?> serviceClass) {
 		super(providerContainer, serviceClass);
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
 		ReflectionProvider reflectionProvider = providerContainer.get(ReflectionProvider.class);
 		this.titleModel = new TitleModel(reflectionProvider);
-		this.desciption = new TranslatedServiceClassDescription(languageProvider, serviceClass, this);
+		this.displayName = new TranslatedServiceClassDisplayName(languageProvider, serviceClass, this);
+		this.description = new TranslatedServiceClassDescription(languageProvider, serviceClass, this);
 		this.fontIconModel = FontIconModelFactory.create(serviceClass);
 		this.validationMethods = ValidationMethodFactory.create(serviceClass);
 		this.actionMethodInfosSorted = ActionMethodInfoFactory.createSorted(providerContainer, this);
@@ -76,7 +79,12 @@ public class ServiceClassInfo extends ClassInfo {
 	}
 
 	@Override
+	public TranslatedString getDisplayName() {
+		return displayName;
+	}
+
+	@Override
 	public TranslatedString getDescription() {
-		return desciption;
+		return description;
 	}
 }
