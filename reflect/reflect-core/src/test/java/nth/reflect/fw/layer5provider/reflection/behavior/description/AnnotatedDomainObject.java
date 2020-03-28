@@ -21,4 +21,10 @@ public class AnnotatedDomainObject extends DomainObject {
 	public Byte getMyByte() {
 		return super.getMyByte();
 	}
+
+	@Description(englishDescription = ANNOTATED_PROPERTY_ACTION_METHOD_DESCRIPTION)
+	@Override
+	public void myDomainObjectListAdd(DomainObject domainObject) {
+		super.myDomainObjectListAdd(domainObject);
+	}
 }

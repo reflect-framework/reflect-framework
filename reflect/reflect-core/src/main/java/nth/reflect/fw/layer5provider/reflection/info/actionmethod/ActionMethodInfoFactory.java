@@ -58,7 +58,7 @@ public class ActionMethodInfoFactory {
 	public static List<ActionMethodInfo> createSorted(ProviderContainer providerContainer, PropertyInfo propertyInfo) {
 		String simpleName = propertyInfo.getSimpleName();
 		Predicate<Method> methodFilter = new PropertyActionMethodFilter(simpleName);
-		Class<?> domainClass = propertyInfo.getGetterMethod().getDeclaringClass();
+		Class<?> domainClass = propertyInfo.getDomainClass();
 		return createSorted(providerContainer, domainClass, methodFilter);
 	}
 

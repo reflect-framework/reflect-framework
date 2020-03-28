@@ -64,8 +64,9 @@ public class PropertyInfo implements NameInfo {
 	private final OptionsModel optionModel;
 	private final List<ActionMethodInfo> actionMethodInfos;
 	private final Optional<StringConverter> stringConverter;
+	private final Class<?> domainClass;
 
-	public PropertyInfo(ProviderContainer providerContainer, Class<?> domainObjectClass, Method getterMethod) {
+	public PropertyInfo(ProviderContainer providerContainer, Class<?> domainClass, Method getterMethod) {
 		checkGetterMethodReturnType(getterMethod);
 		checkGetterMethodHasNoParameter(getterMethod);
 
@@ -73,8 +74,9 @@ public class PropertyInfo implements NameInfo {
 		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
 
+		this.domainClass = domainClass;
 		this.simpleName = getSimpleName(getterMethod);
-		this.canonicalName = getCanonicalName(getterMethod, simpleName);
+		this.canonicalName = getCanonicalName(domainClass, simpleName);
 		this.displayNameModel = new DisplayNameModel(languageProvider, getterMethod, simpleName, canonicalName);
 		this.description = new TranslatedMethodDescription(languageProvider, getterMethod, this);
 		this.typeInfo = new ReturnTypeInfo(reflectApplication, getterMethod);
@@ -140,11 +142,11 @@ public class PropertyInfo implements NameInfo {
 		}
 	}
 
-	private String getCanonicalName(Method readMethod, String name) {
+	private String getCanonicalName(Class<?> domainClass, String simplePropertyName) {
 		StringBuffer canonicalName = new StringBuffer();
-		canonicalName.append(readMethod.getDeclaringClass().getCanonicalName());
+		canonicalName.append(domainClass.getCanonicalName());
 		canonicalName.append(".");
-		canonicalName.append(name);
+		canonicalName.append(simplePropertyName);
 		return canonicalName.toString();
 	}
 
@@ -310,6 +312,10 @@ public class PropertyInfo implements NameInfo {
 	 */
 	public List<Object> getOptions(Object domainObject) {
 		return optionModel.getOptions(domainObject);
+	}
+
+	public Class<?> getDomainClass() {
+		return domainClass;
 	}
 
 }
