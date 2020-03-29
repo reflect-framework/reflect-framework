@@ -13,11 +13,10 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedDomainClassDescriptionTest {
 
-	private static final String KOMMENTIERTES_DOMÄNENOBJEKT = "Kommentiertes Domänenobjekt";
-	private static final String DOMÄNENOBJEKT_BESCHREIBUNG = "Domänenobjekt Beschreibung";
 	private TranslatedString domainObjectDescription;
 	private TranslatedString annotatedDomainObjectDescription;
 
@@ -34,22 +33,34 @@ public class TranslatedDomainClassDescriptionTest {
 
 	@Test
 	public void testToString_givenDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(domainObjectDescription.toString()).isEqualTo(DOMÄNENOBJEKT_BESCHREIBUNG);
+		String actual = domainObjectDescription.toString();
+		String key = domainObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedDomainObjectDescription.toString()).isEqualTo(KOMMENTIERTES_DOMÄNENOBJEKT);
+		String actual = annotatedDomainObjectDescription.toString();
+		String key = annotatedDomainObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(domainObjectDescription.getTranslation()).isEqualTo(DOMÄNENOBJEKT_BESCHREIBUNG);
+		String actual = domainObjectDescription.getTranslation();
+		String key = domainObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedDomainObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedDomainObjectDescription.getTranslation()).isEqualTo(KOMMENTIERTES_DOMÄNENOBJEKT);
+		String actual = annotatedDomainObjectDescription.getTranslation();
+		String key = annotatedDomainObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

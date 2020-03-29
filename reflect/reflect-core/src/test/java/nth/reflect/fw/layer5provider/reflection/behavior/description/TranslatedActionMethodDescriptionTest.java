@@ -14,6 +14,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedActionMethodDescriptionTest {
 
@@ -35,22 +36,34 @@ public class TranslatedActionMethodDescriptionTest {
 
 	@Test
 	public void testToString_givenMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(methodDescription.getTranslation()).isEqualTo("Domänenobjekt hinzufügen");
+		String actual = methodDescription.toString();
+		String key = methodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedMethodDescription.getTranslation()).isEqualTo("Kommentiertes Domänenobjekt hinzufügen");
+		String actual = annotatedMethodDescription.toString();
+		String key = annotatedMethodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(methodDescription.getTranslation()).isEqualTo("Domänenobjekt hinzufügen");
+		String actual = methodDescription.getTranslation();
+		String key = methodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedMethodDescription.getTranslation()).isEqualTo("Kommentiertes Domänenobjekt hinzufügen");
+		String actual = annotatedMethodDescription.getTranslation();
+		String key = annotatedMethodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

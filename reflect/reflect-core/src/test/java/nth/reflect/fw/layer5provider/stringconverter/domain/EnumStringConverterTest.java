@@ -9,8 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.DomainObject.MyEnum;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class EnumStringConverterTest extends StringConverterTest {
 
@@ -37,8 +39,11 @@ public class EnumStringConverterTest extends StringConverterTest {
 	public void testToString_givenEnumWithGerman_mustReturnString() {
 		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
-		String result = enumStringConverter.toString(DomainObject.MyEnum.second);
-		assertThat(result).isEqualTo("Zweite");
+		MyEnum enumValue = DomainObject.MyEnum.second;
+		String actual = enumStringConverter.toString(enumValue);
+		String key = languageProvider.getKey(enumValue);
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

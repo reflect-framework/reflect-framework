@@ -12,6 +12,7 @@ import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedServiceClassDescriptionTest {
 
@@ -32,22 +33,34 @@ public class TranslatedServiceClassDescriptionTest {
 
 	@Test
 	public void testToString_givenServiceObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(serviceObjectDescription.toString()).isEqualTo("Menschen");
+		String actual = serviceObjectDescription.toString();
+		String key = serviceObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedServiceObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedServiceObjectDescription.toString()).isEqualTo("Kommentiertes Menschen");
+		String actual = annotatedServiceObjectDescription.toString();
+		String key = annotatedServiceObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenServiceObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(serviceObjectDescription.getTranslation()).isEqualTo("Menschen");
+		String actual = serviceObjectDescription.getTranslation();
+		String key = serviceObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedServiceObjectDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedServiceObjectDescription.getTranslation()).isEqualTo("Kommentiertes Menschen");
+		String actual = annotatedServiceObjectDescription.getTranslation();
+		String key = annotatedServiceObjectDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

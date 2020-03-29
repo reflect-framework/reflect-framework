@@ -15,11 +15,10 @@ import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.AnnotatedDomainObject;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedActionMethodDisplayNameTest {
 
-	private static final String DOMÄNENOBJEKT_AKTIONSMETHODE = "Domänenobjekt Aktionsmethode";
-	private static final String ANZEIGENAME_DER_KOMMENTIERTEN_AKTIONSMETHODE = "Anzeigename der kommentierten Aktionsmethode";
 	private static final String METHOD_NAME = DomainObject.ACTION_METHOD;
 	private TranslatedString methodDisplayName;
 	private TranslatedString annotatedMethodDisplayName;
@@ -38,22 +37,34 @@ public class TranslatedActionMethodDisplayNameTest {
 
 	@Test
 	public void testToString_givenMethodDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(methodDisplayName.getTranslation()).isEqualTo(DOMÄNENOBJEKT_AKTIONSMETHODE);
+		String actual = methodDisplayName.toString();
+		String key = methodDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedMethodDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedMethodDisplayName.getTranslation()).isEqualTo(ANZEIGENAME_DER_KOMMENTIERTEN_AKTIONSMETHODE);
+		String actual = annotatedMethodDisplayName.toString();
+		String key = annotatedMethodDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenMethodDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(methodDisplayName.getTranslation()).isEqualTo(DOMÄNENOBJEKT_AKTIONSMETHODE);
+		String actual = methodDisplayName.getTranslation();
+		String key = methodDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedMethodDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedMethodDisplayName.getTranslation()).isEqualTo(ANZEIGENAME_DER_KOMMENTIERTEN_AKTIONSMETHODE);
+		String actual = annotatedMethodDisplayName.getTranslation();
+		String key = annotatedMethodDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

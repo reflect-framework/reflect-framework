@@ -13,12 +13,11 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedPropertyActionMethodDescriptionTest {
 
-	private static final String HINZUFÜGEN = "Hinzufügen";
 	private static final String ADD = "Add";
-	private static final String BESCHREIBUNG_DER_KOMMENTIERTEN_EIGENSCHAFTSAKTIONSMETHODE = "Beschreibung der kommentierten Eigenschaftsaktionsmethode";
 	private static final String PROPERTY_NAME = DomainObject.GET_MY_DOMAIN_OBJECT_LIST.replace("getM", "m");
 	private TranslatedString propertyActionMethodDescription;
 	private TranslatedString annotatedPropertyActionMethodDescription;
@@ -41,24 +40,34 @@ public class TranslatedPropertyActionMethodDescriptionTest {
 
 	@Test
 	public void testToString_givenPropertyActionMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(propertyActionMethodDescription.getTranslation()).isEqualTo(HINZUFÜGEN);
+		String actual = propertyActionMethodDescription.toString();
+		String key = propertyActionMethodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedPropertyActionMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedPropertyActionMethodDescription.getTranslation())
-				.isEqualTo(BESCHREIBUNG_DER_KOMMENTIERTEN_EIGENSCHAFTSAKTIONSMETHODE);
+		String actual = annotatedPropertyActionMethodDescription.toString();
+		String key = annotatedPropertyActionMethodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenPropertyActionMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(propertyActionMethodDescription.getTranslation()).isEqualTo(HINZUFÜGEN);
+		String actual = propertyActionMethodDescription.getTranslation();
+		String key = propertyActionMethodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedPropertyActionMethodDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedPropertyActionMethodDescription.getTranslation())
-				.isEqualTo(BESCHREIBUNG_DER_KOMMENTIERTEN_EIGENSCHAFTSAKTIONSMETHODE);
+		String actual = annotatedPropertyActionMethodDescription.getTranslation();
+		String key = annotatedPropertyActionMethodDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

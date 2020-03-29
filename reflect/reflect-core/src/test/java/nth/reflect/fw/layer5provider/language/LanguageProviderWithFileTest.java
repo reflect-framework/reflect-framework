@@ -1,6 +1,6 @@
 package nth.reflect.fw.layer5provider.language;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Locale;
 
@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.stubs.Address;
 import nth.reflect.fw.stubs.Country;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class LanguageProviderWithFileTest {
 
@@ -34,43 +34,44 @@ public class LanguageProviderWithFileTest {
 	public void getKey() {
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(Address.class);
 		String key = languageProvider.getKey(domainClassInfo);
-		assertEquals(Address.class.getCanonicalName(), key);
+		assertThat(key).isEqualTo(Address.class.getCanonicalName());
 
 		key = languageProvider.getKey(Address.class.getCanonicalName());
-		assertEquals(Address.class.getCanonicalName(), key);
+		assertThat(key).isEqualTo(Address.class.getCanonicalName());
 
 		key = languageProvider.getKey(Country.NETHERLANDS);
-		assertEquals(Country.class.getCanonicalName() + ".NETHERLANDS", key);
+		assertThat(key).isEqualTo(Country.class.getCanonicalName() + ".NETHERLANDS");
 
 		key = languageProvider.getKey(COM_ACME_LABEL1);
-		assertEquals(COM_ACME_LABEL1, key);
+		assertThat(key).isEqualTo(COM_ACME_LABEL1);
 	}
 
 	@Test
 	public void getDefaultValue() {
-		String defaultValue = languageProvider.getDefaultValueFromKey(COM_ACME_LABEL1);
-		assertEquals("Label1", defaultValue);
+		String actual = languageProvider.getDefaultValueFromKey(COM_ACME_LABEL1);
+		assertThat(actual).isEqualTo("Label1");
 
-		defaultValue = languageProvider.getDefaultValueFromKey("closeApplication");
-		assertEquals(CLOSE_APPLICATION, defaultValue);
+		actual = languageProvider.getDefaultValueFromKey("closeApplication");
+		assertThat(actual).isEqualTo(CLOSE_APPLICATION);
 	}
 
 	@Test
 	public void getTextForDefaultText() {
-		String defaultValue = languageProvider.getText(CLOSE_APPLICATION);
-		assertEquals(CLOSE_APPLICATION, defaultValue);
+		String actual = languageProvider.getText(CLOSE_APPLICATION);
+		assertThat(actual).isEqualTo(CLOSE_APPLICATION);
 	}
 
 	@Test
 	public void getTextForKeyAndDefaultText() {
-		String defaultValue = languageProvider.getText(COM_ACME_LABEL1, CLOSE_APPLICATION);
-		assertEquals(CLOSE_APPLICATION, defaultValue);
+		String actual = languageProvider.getText(COM_ACME_LABEL1, CLOSE_APPLICATION);
+		assertThat(actual).isEqualTo(CLOSE_APPLICATION);
 	}
 
 	@Test
-	public void getTextForLocaleAndKeyAndDefaultText() {
-		String defaultValue = languageProvider.getText(Locale.FRENCH, COM_ACME_LABEL1, CLOSE_APPLICATION);
-		assertEquals("From France file", defaultValue);
+	public void getText_givenGermanAndKeyAndDefaultText_returnsTextFromGermanLanguageFile() {
+		String actual = languageProvider.getText(Locale.GERMAN, COM_ACME_LABEL1, CLOSE_APPLICATION);
+		String expected = GermanLanguageFile.get(COM_ACME_LABEL1);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 }

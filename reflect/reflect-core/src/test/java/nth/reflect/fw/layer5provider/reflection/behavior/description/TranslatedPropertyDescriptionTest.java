@@ -14,6 +14,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedPropertyDescriptionTest {
 
@@ -35,22 +36,34 @@ public class TranslatedPropertyDescriptionTest {
 
 	@Test
 	public void testToString_givenPropertyDescription_returnsTranslationFromPropertyFile() {
-		assertThat(propertyDescription.getTranslation()).isEqualTo("Mein Byte");
+		String actual = propertyDescription.toString();
+		String key = propertyDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedPropertyDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedPropertyDescription.getTranslation()).isEqualTo("Kommentierte mein Byte");
+		String actual = annotatedPropertyDescription.toString();
+		String key = annotatedPropertyDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenPropertyDescription_returnsTranslationFromPropertyFile() {
-		assertThat(propertyDescription.getTranslation()).isEqualTo("Mein Byte");
+		String actual = propertyDescription.getTranslation();
+		String key = propertyDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedPropertyDescription_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedPropertyDescription.getTranslation()).isEqualTo("Kommentierte mein Byte");
+		String actual = annotatedPropertyDescription.getTranslation();
+		String key = annotatedPropertyDescription.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

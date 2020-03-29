@@ -15,11 +15,10 @@ import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.AnnotatedDomainObject;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedPropertyDisplayNameTest {
 
-	private static final String MEIN_BYTE_ANZEIGENAME = "Mein Byte Anzeigename";
-	private static final String KOMMENTIERTES_DOMÄNENOBJEKT_MEIN_BYTE_ANZEIGENAME = "Kommentiertes Domänenobjekt Mein Byte Anzeigename";
 	private static final String PROPERTY_NAME = DomainObject.GET_MY_BYTE.replace("getM", "m");
 	private TranslatedString propertyDisplayName;
 	private TranslatedString annotatedPropertyDisplayName;
@@ -38,24 +37,34 @@ public class TranslatedPropertyDisplayNameTest {
 
 	@Test
 	public void testToString_givenPropertyDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(propertyDisplayName.getTranslation()).isEqualTo(MEIN_BYTE_ANZEIGENAME);
+		String actual = propertyDisplayName.getTranslation();
+		String key = propertyDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedPropertyDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedPropertyDisplayName.getTranslation())
-				.isEqualTo(KOMMENTIERTES_DOMÄNENOBJEKT_MEIN_BYTE_ANZEIGENAME);
+		String actual = annotatedPropertyDisplayName.getTranslation();
+		String key = annotatedPropertyDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenPropertyDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(propertyDisplayName.getTranslation()).isEqualTo(MEIN_BYTE_ANZEIGENAME);
+		String actual = propertyDisplayName.getTranslation();
+		String key = propertyDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedPropertyDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedPropertyDisplayName.getTranslation())
-				.isEqualTo(KOMMENTIERTES_DOMÄNENOBJEKT_MEIN_BYTE_ANZEIGENAME);
+		String actual = annotatedPropertyDisplayName.getTranslation();
+		String key = annotatedPropertyDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

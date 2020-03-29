@@ -14,11 +14,10 @@ import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.AnnotatedPersonService;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.PersonService;
+import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedServiceClassDisplayNameTest {
 
-	private static final String ANZEIGENAME_DER_SERVICEKLASSE = "Anzeigename der Serviceklasse";
-	private static final String ANZEIGENAME_DER_KOMMENTIERTEN_SERVICEKLASSE = "Anzeigename der kommentierten Serviceklasse";
 	private TranslatedString serviceObjectDisplayName;
 	private TranslatedString annotatedServiceObjectDisplayName;
 
@@ -36,23 +35,34 @@ public class TranslatedServiceClassDisplayNameTest {
 
 	@Test
 	public void testToString_givenServiceObjectDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(serviceObjectDisplayName.toString()).isEqualTo(ANZEIGENAME_DER_SERVICEKLASSE);
+		String actual = serviceObjectDisplayName.toString();
+		String key = serviceObjectDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testToString_givenAnnotatedServiceObjectDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedServiceObjectDisplayName.toString()).isEqualTo(ANZEIGENAME_DER_KOMMENTIERTEN_SERVICEKLASSE);
+		String actual = annotatedServiceObjectDisplayName.toString();
+		String key = annotatedServiceObjectDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenServiceObjectDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(serviceObjectDisplayName.getTranslation()).isEqualTo(ANZEIGENAME_DER_SERVICEKLASSE);
+		String actual = serviceObjectDisplayName.getTranslation();
+		String key = serviceObjectDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetTranslation_givenAnnotatedServiceObjectDisplayName_returnsTranslationFromPropertyFile() {
-		assertThat(annotatedServiceObjectDisplayName.getTranslation())
-				.isEqualTo(ANZEIGENAME_DER_KOMMENTIERTEN_SERVICEKLASSE);
+		String actual = annotatedServiceObjectDisplayName.getTranslation();
+		String key = annotatedServiceObjectDisplayName.getKey();
+		String expected = GermanLanguageFile.get(key);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
