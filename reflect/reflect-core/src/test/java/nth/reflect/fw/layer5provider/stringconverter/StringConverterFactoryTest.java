@@ -9,6 +9,13 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 
+/**
+ * Abstract concinience class to test {@link StringConverterFactory}s, using
+ * {@link StringConverterFactoryInfoMap}.
+ * 
+ * @author nilsth
+ *
+ */
 public abstract class StringConverterFactoryTest {
 
 	private StringConverterFactory stringConverterFactory;

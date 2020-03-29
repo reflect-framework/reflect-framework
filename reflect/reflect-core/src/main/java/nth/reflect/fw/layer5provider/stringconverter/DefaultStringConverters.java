@@ -4,6 +4,7 @@ import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringCo
 import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverterFactory;
+import nth.reflect.fw.layer5provider.stringconverter.domain.TranslatableStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
@@ -83,6 +84,7 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConvert
  * <ul>
  * <li>{@link EnumStringConverter}</li>
  * <li>{@link DomainObjectStringConverter}</li>
+ * <li>{@link TranslatedStringConverter}</li>
  * </ul>
  * 
  * 
@@ -105,7 +107,8 @@ public class DefaultStringConverters {
 			new LocalDateTimeStringConverterFactory(), new LocalDateStringConverterFactory(),
 			new LocalTimeStringConverterFactory(),
 			// Domain types
-			new EnumStringConverterFactory(), new DomainObjectStringConverterFactory() };
+			new EnumStringConverterFactory(), new DomainObjectStringConverterFactory(),
+			new TranslatableStringConverterFactory() };
 
 	public static StringConverterFactory[] getAll() {
 		return allStringConverterFactories;

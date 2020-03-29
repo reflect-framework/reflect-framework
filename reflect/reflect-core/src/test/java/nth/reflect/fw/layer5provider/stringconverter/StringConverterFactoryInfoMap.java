@@ -8,6 +8,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.domain.TranslatableStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
@@ -57,6 +58,7 @@ public class StringConverterFactoryInfoMap
 	private void addDomainTypes() {
 		put(DomainObject.GET_MY_ENUM, EnumStringConverter.class);
 		put(DomainObject.GET_MY_DOMAIN_OBJECT, DomainObjectStringConverter.class);
+		put(DomainObject.GET_MY_TRANSLATABLE_STRING, TranslatableStringConverter.class);
 	}
 
 	private void addJavaDateTimeTypes() {

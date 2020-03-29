@@ -25,6 +25,7 @@ import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldMode;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldModeType;
@@ -222,6 +223,7 @@ public class DomainObject {
 	// Domain
 	private MyEnum myEnum;
 	private DomainObject myDomainObject;
+	private TranslatableString myTranslatableString;
 
 	public enum MyEnum {
 		first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth
@@ -761,8 +763,19 @@ public class DomainObject {
 		this.myDomainObject = myDomainObject;
 	}
 
+	public static final String GET_MY_TRANSLATABLE_STRING = "getMyTranslatableString";
+
+	public TranslatableString getMyTranslatableString() {
+		return myTranslatableString;
+	}
+
+	public void setMyTranslatableString(TranslatableString myTranslatableString) {
+		this.myTranslatableString = myTranslatableString;
+	}
+
 	@Override
 	public String toString() {
 		return new TitleBuilder().append(DomainObject.class.getSimpleName()).append(myPrimitiveInt).toString();
 	}
+
 }

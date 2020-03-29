@@ -1,6 +1,7 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.description;
 
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.reflection.behavior.description.Description;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayName;
 
 @DisplayName(defaultEnglish = AnnotatedDomainObject.ANNOTATED_CLASS_DISPLAY_NAME)

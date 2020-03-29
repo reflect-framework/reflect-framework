@@ -8,7 +8,7 @@ import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 
 public class DefaultLanguageProvider implements LanguageProvider {
-	private static final String PREFIX_LANGUAGE_FILE = "language";
+	public static final String PREFIX_LANGUAGE_FILE = "language";
 	private static final String DOT = ".";
 	private ResourceBundleClassLoader resourceBundleClassLoader;
 	private Locale defaultLocale;
