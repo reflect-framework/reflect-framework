@@ -241,7 +241,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	/**
 	 * Allows the user interface objects to be build (i.e. the creation of a main
 	 * window). All information needed to start the application (like the command
-	 * line arguments or web ap URL) should be available in the
+	 * line arguments or web application URL) should be available in the
 	 * {@link ReflectApplication}
 	 */
 	public abstract void launch();

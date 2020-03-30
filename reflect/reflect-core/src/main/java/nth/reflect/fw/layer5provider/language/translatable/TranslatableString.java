@@ -22,16 +22,16 @@ public class TranslatableString {
 	 * {@link TranslatableString}s in an application and create and or update
 	 * {@link LanguageProvider} {@link Properties} files.
 	 * 
-	 * @param key                the key that is used in property files to look up a
-	 *                           text in a language other than English
+	 * @param key            the key that is used in property files to look up a
+	 *                       text in a language other than English
 	 * @param defaultEnglish English text which will be used as default when no
-	 *                           translations can be found, or when creating
-	 *                           language property files. This text is directly
-	 *                           derived from the code base. Text may contain place
-	 *                           holders for parameters (e.g. numbers or dates). See
-	 *                           {@link String#format(String, Object...)}.
-	 * @param parameters         optional parameters that will replace the place
-	 *                           holders in the englishText
+	 *                       translations can be found, or when creating language
+	 *                       property files. This text is directly derived from the
+	 *                       code base. Text may contain place holders for
+	 *                       parameters (e.g. numbers or dates). See
+	 *                       {@link String#format(String, Object...)}.
+	 * @param parameters     optional parameters that will replace the place holders
+	 *                       in the englishText
 	 */
 	public TranslatableString(String key, String defaultEnglish, Object... parameters) {
 		this.key = key;
@@ -63,6 +63,10 @@ public class TranslatableString {
 			}
 		}
 		return translatedParameters;
+	}
+
+	public String getDefaultEnglishWithoutParameters() {
+		return defaultEnglish;
 	}
 
 	public String getDefaultEnglish() {

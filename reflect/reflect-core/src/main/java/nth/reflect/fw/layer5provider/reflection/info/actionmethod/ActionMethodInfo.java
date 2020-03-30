@@ -201,10 +201,12 @@ public class ActionMethodInfo implements NameInfo {
 		return canonicalName;
 	}
 
+	@Override
 	public TranslatedString getDisplayName() {
 		return displayName;
 	}
 
+	@Override
 	public TranslatedString getDescription() {
 		return description;
 	}

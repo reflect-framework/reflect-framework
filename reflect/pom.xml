@@ -145,6 +145,7 @@
 		<module>reflect-infrastructure-sql-repository</module>
 		<module>reflect-infrastructure-xml-converter</module>
 		<module>reflect-infrastructure-xml-file-repository</module>
+		<module>reflect-language-file-maven-plugin</module>
 	</modules>
 
 	<dependencyManagement>
