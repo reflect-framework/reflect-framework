@@ -1,9 +1,10 @@
-package nth.reflect.fw.language.file.texts;
+package nth.reflect.maven.plugin.language.files.texts;
 
 import java.util.List;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer4infrastructure.InfrastructureContainer;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 
 public class InfrasturctureTexts extends Texts {
 
@@ -12,6 +13,7 @@ public class InfrasturctureTexts extends Texts {
 	public InfrasturctureTexts(DependencyInjectionContainer container) {
 		InfrastructureContainer infrastructureContainer = container.get(InfrastructureContainer.class);
 		List<Class<?>> infrastructureClasses = infrastructureContainer.getAllClasses();
+		infrastructureClasses.remove(ProviderContainer.class);
 		for (Class<?> infraStructureClass : infrastructureClasses) {
 			putPropertiesFromTranslatableStringsFromStaticFields(infraStructureClass);
 		}

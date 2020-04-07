@@ -124,7 +124,7 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
 	}
-	
+
 	@Override
 	public PropertyFieldProvider getPropertyFieldProvider() {
 		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
@@ -132,8 +132,6 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 				new TableFieldFactory(), new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
 	}
 
-	
-	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}

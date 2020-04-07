@@ -10,6 +10,7 @@ import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
 public class DefaultLanguageProvider implements LanguageProvider {
 	public static final String PREFIX_LANGUAGE_FILE = "language";
 	private static final String DOT = ".";
+	public static final String PROPERTIES_EXTENSION = ".properties";
 	private ResourceBundleClassLoader resourceBundleClassLoader;
 	private Locale defaultLocale;
 

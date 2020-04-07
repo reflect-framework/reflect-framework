@@ -1,4 +1,4 @@
-package nth.reflect.fw.language.file.texts;
+package nth.reflect.maven.plugin.language.files.texts;
 
 import java.util.LinkedList;
 import java.util.List;

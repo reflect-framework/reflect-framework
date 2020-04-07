@@ -7,8 +7,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
-import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.gui.style.ColorProvider;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.ReflectApplicationForJavaFX;
 import nth.reflect.fw.javafx.control.button.ContentBottomToolbarButton;
 import nth.reflect.fw.javafx.control.button.ContentButton;
@@ -34,19 +34,23 @@ import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 public class StyleSheetUrlHandler extends ReflectUrlStreamHandler {
 
-	private final String css;
+	private String css;
 
 	public StyleSheetUrlHandler(ReflectApplicationForJavaFX applicationForJavaFX) {
+		try {
+			StyleSheet styleSheet = new StyleSheet();
 
-		StyleSheet styleSheet = new StyleSheet();
+			appendColorDefinitions(styleSheet, applicationForJavaFX);
+			appendPanes(styleSheet);
+			appendControls(styleSheet);
 
-		appendColorDefinitions(styleSheet, applicationForJavaFX);
-		appendPanes(styleSheet);
-		appendControls(styleSheet);
+			System.out.println(styleSheet.toString());
 
-		System.out.println(styleSheet.toString());
-
-		css = styleSheet.toString();
+			css = styleSheet.toString();
+		} catch (Throwable e) {
+			// Failed: toolbox not initialized?
+			css = "";
+		}
 	}
 
 	private void appendControls(StyleSheet styleSheet) {
@@ -93,8 +97,8 @@ public class StyleSheetUrlHandler extends ReflectUrlStreamHandler {
 
 	/**
 	 * Fixme: get colors from
-	 * {@link ReflectionProvider#getApplicationInfo().getColors() with
-	 * annotaions in ReflectApplication class}
+	 * {@link ReflectionProvider#getApplicationInfo().getColors() with annotaions in
+	 * ReflectApplication class}
 	 * 
 	 * @param styleSheet
 	 * @param applicationForJavaFX

@@ -8,7 +8,7 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 public class TranslatableString {
 
-	protected final String key;
+	private final String key;
 	private final String defaultEnglish;
 	private final Object[] parameters;
 

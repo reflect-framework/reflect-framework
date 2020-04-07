@@ -1,4 +1,4 @@
-package nth.reflect.fw.language.file.texts;
+package nth.reflect.maven.plugin.language.files.texts;
 
 import java.util.List;
 
@@ -15,8 +15,9 @@ public class ServiceTexts extends Texts {
 	public ServiceTexts(DependencyInjectionContainer container) {
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		ServiceContainer serviceContainer = container.get(ServiceContainer.class);
-		List<Class<?>> serviceClasses = serviceContainer.getAllClasses();
-		for (Class<?> serviceClass : serviceClasses) {
+		List<Object> serviceObjects = serviceContainer.getServiceObjects();
+		for (Object serviceObject : serviceObjects) {
+			Class<?> serviceClass = serviceObject.getClass();
 			ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(serviceClass);
 
 			put(serviceClassInfo);
