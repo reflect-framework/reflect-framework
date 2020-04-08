@@ -18,7 +18,7 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * 
  * <h3>Behavioral Methods</h3> {@insert BehavioralMethod}
  * 
- * <h2>Display Name</h2> {@insert DisplayNameModel}
+ * <h2>Display Name</h2> {@insert TranslatedDisplayName}
  * 
  * <h2>Description</h2> {@insert TranslatedDescription}
  * 

@@ -8,8 +8,8 @@ import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 /**
  * <p>
  * The {@link ProviderLayer} contains {@link Provider} objects that provide
- * generic {@link ReflectFramework} capabilities (<a
- * href="cross cutting concerns">cross cutting concerns</a>) to support the
+ * generic {@link ReflectFramework} capabilities
+ * (<a href="cross cutting concerns">cross cutting concerns</a>) to support the
  * higher layers (see {@link ReflectArchitecture})
  * </p>
  * <p>
@@ -19,12 +19,12 @@ import nth.reflect.fw.documentation.ReflectDocumentationInterface;
  * </p>
  * </p>
  * <p>
- * Note that this layer is the bottom layer (see {@link ReflectArchitecture}
- * ), which means that objects in the upper layers may haved references to
+ * Note that this layer is the bottom layer (see {@link ReflectArchitecture} ),
+ * which means that objects in the upper layers may haved references to
  * {@link Provider}Objects, but not visa versa!
  * </p>
  * 
- * <h2>Provider Objects</h2> {@insert Provider}
+ * <h2>Providers</h2> {@insert Provider}
  * 
  * @author Nils ten Hoeve
  * 

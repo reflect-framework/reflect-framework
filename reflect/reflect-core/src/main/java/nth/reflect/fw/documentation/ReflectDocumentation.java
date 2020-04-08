@@ -3,7 +3,8 @@ package nth.reflect.fw.documentation;
 import nth.reflect.fw.ReflectFramework;
 
 /**
- * <img src="ReflectLogo.png" alt="Reflect Framework Logo"> <h1>The Reflect Framework</h1>
+ * <img src="ReflectLogo.png" alt="Reflect Framework Logo">
+ * <h1>The Reflect Framework</h1>
  * 
  * <h1>The Reflect Framework</h1> {@insert ReflectFramework}
  * 
@@ -29,6 +30,8 @@ import nth.reflect.fw.ReflectFramework;
  * <h1>Reflect Infrastructure Projects</h1>
  * {@insert ReflectInfrastructureProjects}
  * 
+ * <h1>Reflect Util Projects</h1> {@insert ReflectUtilProjects}
+ * 
  * <h1>Downloads</h1> {@insert ReflectDownloads}
  * 
  * <h1>Documentation</h1>
@@ -40,11 +43,11 @@ import nth.reflect.fw.ReflectFramework;
  * </p>
  * <ul>
  * <li><a href=
- * "https://github.com/reflect-framework/reflect-framework/wiki">Documentation as Git
- * Hub Wiki</a></li>
+ * "https://github.com/reflect-framework/reflect-framework/wiki">Documentation
+ * as Git Hub Wiki</a></li>
  * <li><a href=
- * "http://reflect-framework.github.io/ReflectDocumentation.html">Documentation as Web
- * Page</a></li>
+ * "http://reflect-framework.github.io/ReflectDocumentation.html">Documentation
+ * as Web Page</a></li>
  * <li><a href=
  * "http://reflect-framework.github.io/ReflectDocumentation_Printable.html">Documentation
  * as a printable Web Page (single page)</a></li>
