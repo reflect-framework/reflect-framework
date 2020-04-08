@@ -6,6 +6,6 @@
     <version>0.0.2-SNAPSHOT</version>
   </parent>
   <artifactId>reflect-util-java-archive-scanner</artifactId>
-  <name>Java Archive Scanner</name>
+  <name>Reflect Util Java Archive Scanner</name>
   <description>Library to scan for classes, fields, methods in Java archives (e.g. from a class path)</description>
 </project>

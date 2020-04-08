@@ -12,6 +12,14 @@ import com.reflect.util.java.archive.loader.ClassLoaderFactory;
 import com.reflect.util.java.archive.streamfactory.DirectoryStreamFactory;
 import com.reflect.util.java.archive.streamfactory.JarStreamFactory;
 
+/**
+ * The {@link JavaArchiveScanner} is a library for scanning Java archives
+ * (jar,war,ear files or folders with classes) for classes or class members
+ * (fields, methods or properties) using a filter and a {@link Collector}
+ * 
+ * @author nilsth
+ *
+ */
 public class JavaArchiveScanner {
 	protected final List<Path> archivePaths;
 	private final DirectoryStreamFactory directoryStreamFactory;
