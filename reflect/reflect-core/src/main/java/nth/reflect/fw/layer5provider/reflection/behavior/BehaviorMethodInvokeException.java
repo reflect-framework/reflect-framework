@@ -2,7 +2,7 @@ package nth.reflect.fw.layer5provider.reflection.behavior;
 
 import java.lang.reflect.Method;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class BehaviorMethodInvokeException extends TranslatableException {

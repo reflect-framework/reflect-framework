@@ -1,6 +1,6 @@
 package nth.reflect.infra.excel.repository.exception;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public abstract class ConversionError extends TranslatableException {

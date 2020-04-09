@@ -1,6 +1,6 @@
 package nth.reflect.fw.generic.contractor;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class NoSuitableContractorFoundException extends TranslatableException {

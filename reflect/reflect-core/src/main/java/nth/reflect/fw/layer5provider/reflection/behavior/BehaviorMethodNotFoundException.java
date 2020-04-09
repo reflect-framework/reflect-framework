@@ -1,6 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection.behavior;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class BehaviorMethodNotFoundException extends TranslatableException {

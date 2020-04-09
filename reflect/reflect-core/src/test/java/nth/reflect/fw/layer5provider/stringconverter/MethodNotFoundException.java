@@ -1,7 +1,7 @@
 package nth.reflect.fw.layer5provider.stringconverter;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class MethodNotFoundException extends TranslatableException {

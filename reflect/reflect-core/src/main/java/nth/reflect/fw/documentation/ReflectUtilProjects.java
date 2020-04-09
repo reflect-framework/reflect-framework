@@ -9,6 +9,8 @@ import nth.reflect.fw.ReflectFramework;
  * <p>
  * <h2>reflect-util-maven-plugin</h2> {@insert ReflectUtilMavenPlugin}
  * <p>
+ * <h2>reflect-util-random-generator</h2> {@insert Random}
+ * <p>
  * <h2>reflect-util-java-archive-scanner</h2> {@insert JavaArchiveScanner}
  * 
  * @author nilsth

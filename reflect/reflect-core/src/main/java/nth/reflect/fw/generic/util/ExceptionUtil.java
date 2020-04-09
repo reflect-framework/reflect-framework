@@ -3,8 +3,8 @@ package nth.reflect.fw.generic.util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 
 
 public class ExceptionUtil {

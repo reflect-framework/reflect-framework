@@ -1,6 +1,6 @@
 package nth.reflect.infra.excel.repository;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class CreatingExcelReportException extends TranslatableException {

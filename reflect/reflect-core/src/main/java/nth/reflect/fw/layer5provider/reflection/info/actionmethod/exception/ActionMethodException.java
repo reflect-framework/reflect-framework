@@ -2,8 +2,8 @@ package nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception;
 
 import java.lang.reflect.Method;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
 import nth.reflect.fw.generic.util.MethodCanonicalName;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class ActionMethodException extends TranslatableException {

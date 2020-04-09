@@ -1,7 +1,7 @@
 package nth.reflect.fw.javafx.control.verticalflingscroller;
 
 import javafx.scene.Node;
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class NoScrollBarInComponentException extends TranslatableException {

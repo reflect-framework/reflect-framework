@@ -1,6 +1,6 @@
 package nth.reflect.fw.ui.swing.tab.form.proppanel.field;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class TableNotInSingleSelectionModeException extends TranslatableException {

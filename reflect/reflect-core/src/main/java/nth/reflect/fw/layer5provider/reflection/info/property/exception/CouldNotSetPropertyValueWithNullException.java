@@ -1,6 +1,6 @@
 package nth.reflect.fw.layer5provider.reflection.info.property.exception;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class CouldNotSetPropertyValueWithNullException extends TranslatableException {

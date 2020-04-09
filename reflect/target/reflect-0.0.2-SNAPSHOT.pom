@@ -141,12 +141,12 @@
 		<module>reflect-infrastructure-excel-repository</module>
 		<module>reflect-infrastructure-hibernate-repository</module>
 		<module>reflect-infrastructure-pdf-factory</module>
-		<module>reflect-infrastructure-random-generator</module>
 		<module>reflect-infrastructure-sql-repository</module>
 		<module>reflect-infrastructure-xml-converter</module>
 		<module>reflect-infrastructure-xml-file-repository</module>
 		<module>reflect-util-maven-plugin</module>
 		<module>reflect-util-java-archive-scanner</module>
+		<module>reflect-util-random-generator</module>
 	</modules>
 
 	<dependencyManagement>

@@ -1,6 +1,6 @@
 package nth.reflect.fw.javafx.control.table;
 
-import nth.reflect.fw.generic.exception.TranslatableException;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
 public class NoTableRowTypeException extends TranslatableException {
