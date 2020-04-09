@@ -1,13 +1,13 @@
-package nth.reflect.fw.generic.plural.predicate;
+package nth.reflect.util.english.plural.predicate;
 
 import java.util.regex.Pattern;
 
-import nth.reflect.fw.generic.plural.EnglishPlural;
-import nth.reflect.fw.generic.plural.PluralRule;
-import nth.reflect.fw.generic.plural.action.AppendWith;
-import nth.reflect.fw.generic.plural.action.PluralAction;
-import nth.reflect.fw.generic.plural.action.ReplaceIgnoreConsolantWith;
-import nth.reflect.fw.generic.plural.action.ReplaceWith;
+import nth.reflect.util.english.plural.EnglishPlural;
+import nth.reflect.util.english.plural.PluralRule;
+import nth.reflect.util.english.plural.action.AppendWith;
+import nth.reflect.util.english.plural.action.PluralAction;
+import nth.reflect.util.english.plural.action.ReplaceIgnoreConsolantWith;
+import nth.reflect.util.english.plural.action.ReplaceWith;
 
 public class EndsWithPredicate {
 

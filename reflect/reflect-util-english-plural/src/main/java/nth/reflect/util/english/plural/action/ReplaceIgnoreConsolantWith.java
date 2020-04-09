@@ -1,8 +1,8 @@
-package nth.reflect.fw.generic.plural.action;
+package nth.reflect.util.english.plural.action;
 
 import java.util.regex.Pattern;
 
-import nth.reflect.fw.generic.plural.predicate.EndsWithPredicate;
+import nth.reflect.util.english.plural.predicate.EndsWithPredicate;
 
 public class ReplaceIgnoreConsolantWith implements PluralAction {
 

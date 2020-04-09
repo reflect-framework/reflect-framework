@@ -1,9 +1,9 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.description;
 
-import nth.reflect.fw.generic.plural.EnglishPlural;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.NameInfo;
+import nth.reflect.util.english.plural.EnglishPlural;
 
 public class TranslatedServiceClassDescription extends TranslatedDescription {
 

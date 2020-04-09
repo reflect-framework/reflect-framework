@@ -1,66 +1,10 @@
-package nth.reflect.fw.generic.plural;
+package nth.reflect.util.english.plural;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
 public class EnglishPluralTest {
-
-//	public static void main(String[] args) {
-//		List<String> list = new ArrayList();
-//		list.add("fez_fezzes");
-//		list.add("gas_gasses");
-//		list.add("truss_trusses");
-//		list.add("bus_buses");
-//		list.add("marsh_marshes");
-//		list.add("lunch_lunches");
-//		list.add("tax_taxes");
-//		list.add("blitz_blitzes");
-//		list.add("roof_roofs");
-//		list.add("belief_beliefs");
-//		list.add("chef_chefs");
-//		list.add("chief_chiefs");
-//		list.add("wolf_wolves");
-//		list.add("wife_wives");
-//		list.add("city_cities");
-//		list.add("puppy_puppies");
-//		list.add("photo_photos");
-//		list.add("piano_pianos");
-//		list.add("halo_halos");
-//		list.add("potato_potatoes");
-//		list.add("tomato_tomatoes");
-//		list.add("cactus_cacti");
-//		list.add("focus_foci");
-//		list.add("analysis_analyses");
-//		list.add("ellipsis_ellipses");
-//		list.add("phenomenon_phenomena");
-//		list.add("criterion_criteria");
-//		list.add("sheep_sheep");
-//		list.add("series_series");
-//		list.add("species_species");
-//		list.add("deer_deer");
-//		list.add("fish_fish");
-//		list.add("child_children");
-//		list.add("goose_geese");
-//		list.add("man_men");
-//		list.add("woman_women");
-//		list.add("tooth_teeth");
-//		list.add("foot_feet");
-//		list.add("mouse_mice");
-//		list.add("person_people");
-//		for (String item : list) {
-//			String[] items = item.split("_");
-//			String singular = items[0];
-//			String plural = items[1];
-//			System.out.println("	@Test");
-//			System.out
-//					.println("	public void testFromSingularNoun_given" + StringUtil.convertToCamelCase(singular, true)
-//							+ "_mustReturn" + StringUtil.convertToCamelCase(plural, true) + "() {");
-//			System.out.println("		assertThat(EnglishPlural.fromSingularNoun(\"" + singular + "\")).isEqualTo(\""
-//					+ plural + "\");");
-//			System.out.println("	}");
-//		}
-//	}
 
 	@Test
 	public void testFromSingularNoun_givenFez_mustReturnFezzes() {

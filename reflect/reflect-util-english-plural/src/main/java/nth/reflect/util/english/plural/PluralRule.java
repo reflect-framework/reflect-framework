@@ -1,7 +1,7 @@
-package nth.reflect.fw.generic.plural;
+package nth.reflect.util.english.plural;
 
-import nth.reflect.fw.generic.plural.action.PluralAction;
-import nth.reflect.fw.generic.plural.predicate.EndsWithPredicate;
+import nth.reflect.util.english.plural.action.PluralAction;
+import nth.reflect.util.english.plural.predicate.EndsWithPredicate;
 
 public class PluralRule {
 

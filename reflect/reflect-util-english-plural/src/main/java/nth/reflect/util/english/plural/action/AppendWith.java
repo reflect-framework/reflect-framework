@@ -1,4 +1,4 @@
-package nth.reflect.fw.generic.plural.action;
+package nth.reflect.util.english.plural.action;
 
 public class AppendWith implements PluralAction {
 

@@ -1,8 +1,8 @@
-package nth.reflect.fw.generic.plural;
+package nth.reflect.util.english.plural;
 
 import java.util.ArrayList;
 
-import nth.reflect.fw.generic.plural.action.AppendWith;
+import nth.reflect.util.english.plural.action.AppendWith;
 
 /**
  * This is a helper class to convert a english singular noun to a plural form.
