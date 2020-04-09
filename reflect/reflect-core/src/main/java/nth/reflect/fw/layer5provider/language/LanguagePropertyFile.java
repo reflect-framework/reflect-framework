@@ -2,6 +2,7 @@ package nth.reflect.fw.layer5provider.language;
 
 import java.util.Locale;
 
+import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 
 /**
@@ -22,8 +23,9 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
  * <a href="https://en.wikipedia.org/wiki/.properties">.properties</a> standard
  * and thus contain key value pairs.
  * <ul>
- * <li>The key is an reference to part of the code. Keys have the following
- * format: &lt;packageName&gt;.&lt;classname&gt; or
+ * <li>The key is an unique reference to a text. The {@link ReflectFramework}
+ * therefore uses the canonical name of the class of class member. Keys have the
+ * following format: &lt;packageName&gt;.&lt;classname&gt; or
  * &lt;packageName&gt;.&lt;classname&gt;.&lt;propertyName&gt; or
  * &lt;packageName&gt;.&lt;classname&gt;.&lt;actionMethodName&gt;, followed by
  * .displayname or.description (see examples below)</li>

@@ -20,8 +20,8 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * incorrect</li>
  * </ul>
  * <p>
- * In these cases you can override the English default text with the language property file or with a 
- * {@link DisplayName} annotation, The {@link DisplayName} annotation is placed:
+ * In these cases you can use a {@link DisplayName} annotation. The
+ * {@link DisplayName} annotation is placed:
  * <ul>
  * <li>before the class keyword</li>
  * <li>before the getter method of a {@link DomainObjectProperty}</li>

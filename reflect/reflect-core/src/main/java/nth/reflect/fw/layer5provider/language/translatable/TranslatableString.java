@@ -1,11 +1,18 @@
 package nth.reflect.fw.layer5provider.language.translatable;
 
 import java.lang.reflect.Field;
-import java.util.Properties;
 
-import nth.reflect.fw.ReflectApplication;
+import nth.reflect.fw.layer5provider.language.LanguagePropertyFile;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
+/**
+ * A {@link TranslatableString} will provide the translated text using the
+ * {@link LanguageProvider} and then replace the place holders (e.g. %s) with
+ * the parameter values (if any). {@link TranslatableString}s can best be
+ * created as a static {@link Field}, so that the {@link ReflectUtilMavenPligin}
+ * can automatically find all {@link TranslatableString}s in an application and
+ * and update {@link LanguagePropertyFile}s.
+ */
 public class TranslatableString {
 
 	private final String key;
@@ -13,15 +20,6 @@ public class TranslatableString {
 	private final Object[] parameters;
 
 	/**
-	 * A {@link TranslatableString} can be used when the {@link ReflectApplication}
-	 * needs to support multiple languages. It will translate the englishText using
-	 * the {@link LanguageProvider} and then replace the place holders with the
-	 * parameter values (if any). {@link TranslatableString} can best be implemented
-	 * by creating a {@link Field} of type {@link TranslatableString} without
-	 * parameters, so a translation tool can automatically find all
-	 * {@link TranslatableString}s in an application and create and or update
-	 * {@link LanguageProvider} {@link Properties} files.
-	 * 
 	 * @param key            the key that is used in property files to look up a
 	 *                       text in a language other than English
 	 * @param defaultEnglish English text which will be used as default when no

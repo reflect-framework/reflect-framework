@@ -18,7 +18,7 @@ import nth.reflect.util.maven.plugin.language.files.file.LanguageFileService;
 
 /**
  * 
- * The {@link UpdateLanguageFiles} goal will:
+ * The {@link ReflectUtilMavenPlugin}:{@link UpdateLanguageFiles} goal will:
  * <ul>
  * <li>Find all texts within a {@link ReflectApplication} that will need to be
  * translated</li>
