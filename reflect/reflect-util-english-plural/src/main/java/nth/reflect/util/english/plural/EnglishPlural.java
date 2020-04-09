@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import nth.reflect.util.english.plural.action.AppendWith;
 
 /**
- * This is a helper class to convert a english singular noun to a plural form.
- * Note this is on best effort. Not all forms are covered! <br>
+ * {@link EnglishPlural} converts a English singular noun to a plural form by a
+ * set of rules. Note this is on best effort. Not all forms are covered! <br>
  * Based on <a href=
  * "https://www.grammarly.com/blog/plural-nouns/">https://www.grammarly.com/blog/plural-nouns/</a>
  * 
