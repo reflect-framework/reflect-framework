@@ -1,4 +1,4 @@
-package nth.reflect.fw.generic.regex;
+package nth.reflect.util.regex;
 
 public class Repetition {
 

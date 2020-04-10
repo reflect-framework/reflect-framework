@@ -1,4 +1,4 @@
-package nth.reflect.fw.generic.regex;
+package nth.reflect.util.regex;
 
 public enum LetterTypes {
 	UPPER_CASE("[A-Z]"), LOWER_CASE("[a-z]"), ALL_CASE("[a-zA-Z]");

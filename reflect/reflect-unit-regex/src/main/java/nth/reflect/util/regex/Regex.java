@@ -1,4 +1,4 @@
-package nth.reflect.fw.generic.regex;
+package nth.reflect.util.regex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <a href="http://en.wikipedia.org/wiki/Fluent_interface">Fluent
+ * A <a href="http://en.wikipedia.org/wiki/Fluent_interface">Fluent
  * interface</a> to create regular expressions (see {@link Pattern})
  * 
  * @author nilsth
@@ -14,8 +14,7 @@ import java.util.regex.Pattern;
  */
 public class Regex {
 
-	private static final char[] SPECIAL_CHARS = { '\\', '[', ']', '{', '}',
-			'*', '+', '$','.' };
+	private static final char[] SPECIAL_CHARS = { '\\', '[', ']', '{', '}', '*', '+', '$', '.' };
 	private final StringBuilder regex;
 
 	public Regex() {
@@ -25,19 +24,19 @@ public class Regex {
 	public java.util.regex.Pattern toPattern() {
 		return java.util.regex.Pattern.compile(regex.toString());
 	}
-	
+
 	public Matcher toMatcher(String input) {
 		return toPattern().matcher(input);
 	}
-	
+
 	public boolean hasMatchIn(String input) {
-		Matcher matcher=toMatcher(input);
+		Matcher matcher = toMatcher(input);
 		return matcher.find();
 	}
-	
+
 	public List<String> findMatches(String input) {
-		Matcher matcher=toMatcher(input);
-		List<String> matches=new ArrayList<>();
+		Matcher matcher = toMatcher(input);
+		List<String> matches = new ArrayList<>();
 		while (matcher.find()) {
 			String match = matcher.group();
 			matches.add(match);
@@ -45,23 +44,20 @@ public class Regex {
 		return matches;
 	}
 
-
 	public String findFirstMatchIn(String input) {
-		Matcher matcher=toMatcher(input);
+		Matcher matcher = toMatcher(input);
 		if (matcher.find()) {
 			String match = matcher.group();
 			return match;
-		} 
+		}
 		return null;
 	}
-
 
 	@Override
 	public String toString() {
 		return regex.toString();
 	}
 
-	
 	public Regex beginOfLine() {
 		regex.append("^");
 		return this;
@@ -106,8 +102,7 @@ public class Regex {
 	private String replaceSpecialChars(String text) {
 		for (char specialChar : SPECIAL_CHARS) {
 			String specialCharWithSlash = "\\" + specialChar;
-			text = text.replace(String.valueOf(specialChar),
-					specialCharWithSlash);
+			text = text.replace(String.valueOf(specialChar), specialCharWithSlash);
 		}
 		return text;
 	}
@@ -178,7 +173,7 @@ public class Regex {
 		literal(">");
 		return this;
 	}
-	
+
 	public Regex xmlEndElement(String elementName) {
 		literal("</");
 		whiteSpace(Repetition.zeroOrMoreTimes());
@@ -210,7 +205,6 @@ public class Regex {
 		return this;
 	}
 
-	
 	public Regex letters(Repetition repetition) {
 		letters();
 		regex.append(repetition);
@@ -222,7 +216,6 @@ public class Regex {
 		regex.append(repetition);
 		return this;
 	}
-
 
 	public Regex group(Regex group, Repetition repetition) {
 		group(group);

@@ -11,6 +11,8 @@ import nth.reflect.fw.ReflectFramework;
  * <p>
  * <h2>reflect-util-random-generator</h2> {@insert Random}
  * <p>
+ * <h2>reflect-util-regex</h2> {@insert Regex}
+ * <p>
  * <h2>reflect-util-java-archive-scanner</h2> {@insert JavaArchiveScanner}
  * <p>
  * <h2>reflect-util-english-plural</h2> {@insert EnglishPlural}
