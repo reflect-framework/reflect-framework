@@ -36,7 +36,9 @@ public class LanguageFileFinder {
 
 	private static List<Path> findLanguageFiles(Path srcFolderPath) {
 		try {
-			List<Path> languageFiles = Files.walk(srcFolderPath).filter(path -> isLanguageFile(path))
+			List<Path> languageFiles = Files
+					.walk(srcFolderPath)
+					.filter(path -> isLanguageFile(path))
 					.collect(Collectors.toList());
 			if (languageFiles.size() > 0) {
 				return languageFiles;
@@ -108,9 +110,8 @@ public class LanguageFileFinder {
 			DependencyInjectionContainer container) {
 		List<Path> archivePaths = MavenProjectClassPathFactory.createArchivePaths(mavenProject);
 		JavaArchiveScanner scanner = new JavaArchiveScanner(archivePaths);
-
 		Class<? extends ReflectApplication> applicationClass = container.get(ReflectApplication.class).getClass();
-		SubClassFilter filter = new SubClassFilter(archivePaths, applicationClass);
+		SubClassFilter filter = new SubClassFilter(applicationClass);
 		ClassFileInsideArchiveCollector collector = new ClassFileInsideArchiveCollector();
 		List<ClassFileInsideArchive> classFilesInsideArchive = scanner.find(filter, collector);
 		return classFilesInsideArchive;

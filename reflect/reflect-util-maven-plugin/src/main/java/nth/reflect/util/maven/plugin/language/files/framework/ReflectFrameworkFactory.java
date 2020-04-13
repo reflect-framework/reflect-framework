@@ -63,7 +63,8 @@ public class ReflectFrameworkFactory {
 				mavenProject);
 
 		List<Class<? extends ReflectApplication>> foundNoneReflectForJUnitApplications = allFoundReflectApplicationClasses
-				.stream().filter(c -> !ReflectApplicationForJUnit.class.isAssignableFrom(c)
+				.stream()
+				.filter(c -> !ReflectApplicationForJUnit.class.isAssignableFrom(c)
 						&& !Modifier.isAbstract(c.getModifiers()))
 				.collect(Collectors.toList());
 
@@ -73,7 +74,7 @@ public class ReflectFrameworkFactory {
 	private static Set<Class<? extends ReflectApplication>> findAllReflectApplications(MavenProject mavenProject) {
 		List<Path> archivePaths = MavenProjectClassPathFactory.createArchivePaths(mavenProject);
 		JavaArchiveScanner scanner = new JavaArchiveScanner(archivePaths);
-		SubClassFilter subClassFilter = new SubClassFilter(archivePaths, ReflectApplication.class);
+		SubClassFilter subClassFilter = new SubClassFilter(ReflectApplication.class);
 		ClassInsideArchiveCollector<Object> collector = new ClassInsideArchiveCollector();
 		List<Class<? extends Object>> classList = scanner.find(subClassFilter, collector);
 		HashSet classSet = new HashSet(classList);

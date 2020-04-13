@@ -1,7 +1,5 @@
 package com.reflect.util.java.archive.filter;
 
-import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import com.reflect.util.java.archive.file.ClassFileInsideArchive;
@@ -11,11 +9,11 @@ public class SubClassFilter implements Predicate<FileInsideArchive> {
 
 	private String canonicalNameOfSuperClassToFind;
 
-	public SubClassFilter(List<Path> classPaths, Class<?> superClassToFind) {
+	public SubClassFilter(Class<?> superClassToFind) {
 		this.canonicalNameOfSuperClassToFind = superClassToFind.getCanonicalName();
 	}
 
-	public SubClassFilter(List<Path> classPaths, String canonicalNameOfSuperClassToFind) {
+	public SubClassFilter(String canonicalNameOfSuperClassToFind) {
 		this.canonicalNameOfSuperClassToFind = canonicalNameOfSuperClassToFind;
 	}
 

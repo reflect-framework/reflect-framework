@@ -31,21 +31,34 @@
 			<version>3.6.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.reflect-framework</groupId>
+			<artifactId>reflect-core</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			<version>4.1.1.201511131810-r</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8.1</version>
+		</dependency>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
 			<artifactId>reflect-util-java-archive-scanner</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>0.9.12</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-core</artifactId>
+			<artifactId>reflect-unit-regex</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

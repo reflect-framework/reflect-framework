@@ -1,5 +1,7 @@
 package nth.reflect.util.maven.plugin.language.files.texts;
 
+import org.apache.maven.project.MavenProject;
+
 import nth.reflect.fw.container.DependencyInjectionContainer;
 
 public class AllTexts extends Texts {
@@ -11,7 +13,7 @@ public class AllTexts extends Texts {
 	private final Texts infrasturctureTexts;
 	private final Texts reflectFrameWorkTexts;
 
-	public AllTexts(DependencyInjectionContainer container) {
+	public AllTexts(MavenProject mavenProject, DependencyInjectionContainer container) {
 
 		reflectApplicationTexts = new ApplicationTexts(container);
 		putAll(reflectApplicationTexts);
@@ -25,7 +27,7 @@ public class AllTexts extends Texts {
 		infrasturctureTexts = new InfrasturctureTexts(container);
 		putAll(infrasturctureTexts);
 
-		reflectFrameWorkTexts = new ReflectFrameworkTexts();
+		reflectFrameWorkTexts = new ReflectFrameworkTexts(mavenProject);
 		putAll(reflectFrameWorkTexts);
 
 	}

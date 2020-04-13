@@ -15,7 +15,7 @@ public class LanguageFileService {
 	public static void update(MavenProject mavenProject, Log log) {
 		DependencyInjectionContainer container = ReflectFrameworkFactory.createContainer(mavenProject);
 
-		AllTexts allTexts = new AllTexts(container);
+		AllTexts allTexts = new AllTexts(mavenProject, container);
 
 		List<Path> languageFiles = LanguageFileFinder.find(mavenProject, container);
 
