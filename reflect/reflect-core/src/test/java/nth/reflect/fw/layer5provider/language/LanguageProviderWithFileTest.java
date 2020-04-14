@@ -11,9 +11,8 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
-import nth.reflect.fw.stubs.Address;
-import nth.reflect.fw.stubs.Country;
-import nth.reflect.fw.stubs.GermanLanguageFile;
+import nth.reflect.fw.layer5provider.validation.Address;
+import nth.reflect.fw.layer5provider.validation.Country;
 
 public class LanguageProviderWithFileTest {
 

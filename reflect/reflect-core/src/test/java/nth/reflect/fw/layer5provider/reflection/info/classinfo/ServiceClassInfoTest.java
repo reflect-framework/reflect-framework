@@ -12,9 +12,9 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.description.PersonService;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
-import nth.reflect.fw.stubs.ServiceObjectStub;
 
 public class ServiceClassInfoTest {
 
@@ -24,10 +24,10 @@ public class ServiceClassInfoTest {
 	@Before
 	public void setUp() throws Exception {
 		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit();
-		application.addServiceClass(ServiceObjectStub.class);
+		application.addServiceClass(PersonService.class);
 		DependencyInjectionContainer container = application.createContainer();
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		serviceClassInfo = reflectionProvider.getServiceClassInfo(ServiceObjectStub.class);
+		serviceClassInfo = reflectionProvider.getServiceClassInfo(PersonService.class);
 		serviceClass = serviceClassInfo.getType();
 	}
 
@@ -48,12 +48,12 @@ public class ServiceClassInfoTest {
 
 	@Test
 	public void testGetDisplayName() {
-		assertThat(serviceClassInfo.getDisplayName().getTranslation()).isEqualTo("Service object stubs");
+		assertThat(serviceClassInfo.getDisplayName().getTranslation()).isEqualTo(PersonService.DISPLAY_NAME);
 	}
 
 	@Test
 	public void testGetDescription() {
-		assertThat(serviceClassInfo.getDescription().toString()).isEqualTo(ServiceObjectStub.DESCRIPTION);
+		assertThat(serviceClassInfo.getDescription().toString()).isEqualTo(PersonService.DESCRIPTION);
 	}
 
 	@Test
@@ -83,16 +83,16 @@ public class ServiceClassInfoTest {
 	public void testGetActionMethodSorted() {
 		List<ActionMethodInfo> actionMethods = serviceClassInfo.getActionMethodInfosSorted();
 		assertThat(actionMethods.size()).isEqualTo(1);
-		String expectyed = ServiceObjectStub.class.getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME;
+		String expectyed = PersonService.class.getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME;
 		assertThat(actionMethods.get(0).getCanonicalName()).isEqualTo(expectyed);
 	}
 
 	@Test
 	public final void testGetMethodInfosClassOfQFilterOfActionMethodInfo() {
 		List<ActionMethodInfo> actionMethods = serviceClassInfo
-				.getActionMethodInfos(new MethodNameFilter(ServiceObjectStub.ACTION_METHOD_NAME));
+				.getActionMethodInfos(new MethodNameFilter(PersonService.ACTION_METHOD_NAME));
 		assertThat(actionMethods.size()).isEqualTo(1);
-		String expected = ServiceObjectStub.class.getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME;
+		String expected = PersonService.class.getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME;
 		assertThat(actionMethods.get(0).getCanonicalName()).isEqualTo(expected);
 	}
 

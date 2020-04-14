@@ -1,4 +1,4 @@
-package nth.reflect.fw.stubs;
+package nth.reflect.fw.layer5provider.language;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

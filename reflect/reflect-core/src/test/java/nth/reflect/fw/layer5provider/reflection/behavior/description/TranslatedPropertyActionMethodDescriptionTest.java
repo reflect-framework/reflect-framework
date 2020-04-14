@@ -11,9 +11,9 @@ import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
+import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedPropertyActionMethodDescriptionTest {
 

@@ -8,9 +8,9 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer5provider.reflection.behavior.description.PersonService;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
-import nth.reflect.fw.stubs.ServiceObjectStub;
 
 public class ReflectionProviderTest {
 
@@ -19,7 +19,7 @@ public class ReflectionProviderTest {
 	@Before
 	public void setUp() throws Exception {
 		ReflectApplicationForJUnit application = new ReflectApplicationForJUnit();
-		application.addServiceClass(ServiceObjectStub.class);
+		application.addServiceClass(PersonService.class);
 		DependencyInjectionContainer container = application.createContainer();
 		reflectionProvider = container.get(ReflectionProvider.class);
 	}

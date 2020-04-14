@@ -11,10 +11,10 @@ import org.junit.Test;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
+import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
-import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatableStringConverterTest extends StringConverterTest {
 

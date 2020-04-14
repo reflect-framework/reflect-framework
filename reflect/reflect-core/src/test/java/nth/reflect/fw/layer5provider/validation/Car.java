@@ -1,4 +1,4 @@
-package nth.reflect.fw.stubs;
+package nth.reflect.fw.layer5provider.validation;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
