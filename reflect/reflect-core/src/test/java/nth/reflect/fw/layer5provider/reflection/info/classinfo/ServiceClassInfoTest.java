@@ -2,6 +2,7 @@ package nth.reflect.fw.layer5provider.reflection.info.classinfo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URL;
 import java.util.List;
 
 import org.junit.Before;
@@ -9,10 +10,10 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
-import nth.reflect.fw.stubs.DomainObjectStub;
 import nth.reflect.fw.stubs.ServiceObjectStub;
 
 public class ServiceClassInfoTest {
@@ -57,12 +58,15 @@ public class ServiceClassInfoTest {
 
 	@Test
 	public void testGetIconURI() {
-		assertThat(serviceClassInfo.getFontIconUrl(new DomainObjectStub())).isNull();
+		URL actual = serviceClassInfo.getFontIconUrl(new FullFeatureDomainObject());
+		assertThat(actual).isNull();
 	}
 
 	@Test
 	public void testGetTitle() {
-		assertThat(serviceClassInfo.getTitle(new DomainObjectStub())).isEqualTo(DomainObjectStub.TITLE);
+		String actual = serviceClassInfo.getTitle(new FullFeatureDomainObject());
+		String expected = FullFeatureDomainObject.class.getSimpleName() + ", 0";
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test

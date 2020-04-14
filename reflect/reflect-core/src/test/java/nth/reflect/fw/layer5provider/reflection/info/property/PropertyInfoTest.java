@@ -3,6 +3,8 @@ package nth.reflect.fw.layer5provider.reflection.info.property;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -11,19 +13,20 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.java.other.StringStringConverter;
-import nth.reflect.fw.stubs.DomainObjectStub;
+import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverter;
 
 public class PropertyInfoTest {
 
-	private static final String PROPERTY_VALUE = "123";
-	private static final String PROPERTY_NAME = DomainObjectStub.PROPERTY1;
-	private static final Class<DomainObjectStub> DOMAIN_OBJECT_TYPE = DomainObjectStub.class;
-	private DomainObjectStub domainObject;
+	private static final String PROPERTY_ACTION_METHOD = FullFeatureDomainObject.GET_MY_ANNOTATED_DATE_TODAY;
+	private static final Date PROPERTY_VALUE = new Date();
+	private static final String PROPERTY_NAME = FullFeatureDomainObject.GET_MY_ANNOTATED_DATE.replace("getM", "m");
+	private static final Class<FullFeatureDomainObject> DOMAIN_OBJECT_TYPE = FullFeatureDomainObject.class;
+	private FullFeatureDomainObject domainObject;
 	private PropertyInfo propertyInfo;
 
 	@Before
@@ -37,51 +40,63 @@ public class PropertyInfoTest {
 
 	@Test
 	public void testGetTypeInfo() {
-		assertThat(propertyInfo.getTypeInfo().getType()).isEqualTo(String.class);
+		Class<?> actual = propertyInfo.getTypeInfo().getType();
+		Class<? extends Date> expected = PROPERTY_VALUE.getClass();
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetSimpleName() {
-		assertThat(propertyInfo.getSimpleName()).isEqualTo(PROPERTY_NAME);
+		String actual = propertyInfo.getSimpleName();
+		assertThat(actual).isEqualTo(PROPERTY_NAME);
 	}
 
 	@Test
 	public void testGetCanonicalName() {
-		assertThat(propertyInfo.getCanonicalName())
-				.isEqualTo(DOMAIN_OBJECT_TYPE.getCanonicalName() + "." + PROPERTY_NAME);
+		String actual = propertyInfo.getCanonicalName();
+		String expected = DOMAIN_OBJECT_TYPE.getCanonicalName() + "." + PROPERTY_NAME;
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetGetterMethod() {
-		assertThat(propertyInfo.getGetterMethod().getName())
-				.isEqualTo("get" + StringUtil.firstCharToUpperCase(PROPERTY_NAME));
+		String actual = propertyInfo.getGetterMethod().getName();
+		String expected = "get" + StringUtil.firstCharToUpperCase(PROPERTY_NAME);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetSetterMethod() {
-		assertThat(propertyInfo.getSetterMethod().getName())
-				.isEqualTo("set" + StringUtil.firstCharToUpperCase(PROPERTY_NAME));
+		String actual = propertyInfo.getSetterMethod().getName();
+		String expected = "set" + StringUtil.firstCharToUpperCase(PROPERTY_NAME);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetDisplayName() {
-		assertThat(propertyInfo.getDisplayName().getTranslation())
-				.isEqualTo(StringUtil.firstCharToUpperCase(PROPERTY_NAME));
+		String actual = propertyInfo.getDisplayName().getTranslation();
+		String expected = StringUtil.convertToNormalCase(PROPERTY_NAME);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetDescription() {
-		assertThat(propertyInfo.getDescription().toString()).isEqualTo(DomainObjectStub.PROPERTY1_DESCRIPTION);
+		String actual = propertyInfo.getDescription().toString();
+		String expected = StringUtil.convertToNormalCase(PROPERTY_NAME);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetOrder() {
-		assertThat(propertyInfo.getOrder()).isEqualTo(DomainObjectStub.PROPERTY1_ORDER);
+		double order = propertyInfo.getOrder();
+		double expected = FullFeatureDomainObject.GET_MY_ANNOTATED_DATE_ORDER;
+		assertThat(order).isEqualTo(expected);
 	}
 
 	@Test
 	public void testIsVisibleInForm() {
-		assertThat(propertyInfo.isVisibleInForm(domainObject)).isEqualTo(false);
+		Boolean actual = propertyInfo.isVisibleInForm(domainObject);
+		assertThat(actual).isFalse();
 	}
 
 	@Test
@@ -97,12 +112,15 @@ public class PropertyInfoTest {
 	@Test
 	public void testSetAndGetValue() {
 		propertyInfo.setValue(domainObject, PROPERTY_VALUE);
-		assertThat(propertyInfo.getValue(domainObject)).isEqualTo(PROPERTY_VALUE);
+		Object actual = propertyInfo.getValue(domainObject);
+		assertThat(actual).isEqualTo(PROPERTY_VALUE);
 	}
 
 	@Test
 	public void testToString() {
-		assertThat(propertyInfo.toString()).isEqualTo(DOMAIN_OBJECT_TYPE.getCanonicalName() + "." + PROPERTY_NAME);
+		String actual = propertyInfo.toString();
+		String expected = DOMAIN_OBJECT_TYPE.getCanonicalName() + "." + PROPERTY_NAME;
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
@@ -116,15 +134,17 @@ public class PropertyInfoTest {
 	}
 
 	@Test
-	public void testGetFormat() {
+	public void testGetStringConverter() {
 		StringConverter stringConverter = propertyInfo.getStringConverter().get();
-		assertThat(stringConverter).isInstanceOf(StringStringConverter.class);
+		assertThat(stringConverter).isInstanceOf(DateStringConverter.class);
 	}
 
 	@Test
 	public void testGetFormatedValue() {
-		domainObject.setProperty1(PROPERTY_VALUE);
-		assertThat(propertyInfo.getStringValue(domainObject)).isEqualTo(PROPERTY_VALUE);
+		domainObject.setMyAnnotatedDate(PROPERTY_VALUE);
+		String actual = propertyInfo.getStringValue(domainObject);
+		String expected = new SimpleDateFormat().format(PROPERTY_VALUE);
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
@@ -145,23 +165,25 @@ public class PropertyInfoTest {
 	public void testGetActionMethodInfosFirstCanonicalName_givenDomainObjectStub_returnsPath() {
 		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
 		ActionMethodInfo firstActionMethodInfo = actionMethodInfos.get(0);
-		assertThat(firstActionMethodInfo.getCanonicalName())
-				.isEqualTo(propertyInfo.getCanonicalName() + DomainObjectStub.PROPERTY1_ACTION_METHOD);
+		String actual = firstActionMethodInfo.getCanonicalName();
+		String expected = propertyInfo.getCanonicalName() + PROPERTY_ACTION_METHOD.replace(PROPERTY_NAME, "");
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetActionMethodInfosFirstSimpleName_givenDomainObjectStub_returnsSimpleName() {
 		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
 		ActionMethodInfo firstActionMethodInfo = actionMethodInfos.get(0);
-		String expected = StringUtil.firstCharToLowerCase(DomainObjectStub.PROPERTY1_ACTION_METHOD);
-		assertThat(firstActionMethodInfo.getSimpleName()).isEqualTo(expected);
+		String expected = StringUtil.firstCharToLowerCase(PROPERTY_ACTION_METHOD.replace(PROPERTY_NAME, ""));
+		String actual = firstActionMethodInfo.getSimpleName();
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
 	public void testGetActionMethodInfosFirstDisplayName_givenDomainObjectStub_returnsDisplayName() {
 		List<ActionMethodInfo> actionMethodInfos = propertyInfo.getActionMethodInfos();
 		ActionMethodInfo firstActionMethodInfo = actionMethodInfos.get(0);
-		String expected = StringUtil.convertToNormalCase(DomainObjectStub.PROPERTY1_ACTION_METHOD);
+		String expected = StringUtil.convertToNormalCase(PROPERTY_ACTION_METHOD.replace(PROPERTY_NAME, ""));
 		assertThat(firstActionMethodInfo.getDisplayName().getTranslation()).isEqualTo(expected);
 	}
 

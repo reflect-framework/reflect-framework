@@ -7,10 +7,9 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
-import nth.reflect.fw.stubs.DomainObjectStub;
 import nth.reflect.fw.stubs.ServiceObjectStub;
 
 public class ReflectionProviderTest {
@@ -33,8 +32,8 @@ public class ReflectionProviderTest {
 
 	@Test
 	public final void testGetDomainClassInfo() {
-		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(DomainObjectStub.class);
-		assertEquals(DomainObjectStub.class.getCanonicalName(), domainClassInfo.getCanonicalName());
+		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(FullFeatureDomainObject.class);
+		assertEquals(FullFeatureDomainObject.class.getCanonicalName(), domainClassInfo.getCanonicalName());
 	}
 
 }

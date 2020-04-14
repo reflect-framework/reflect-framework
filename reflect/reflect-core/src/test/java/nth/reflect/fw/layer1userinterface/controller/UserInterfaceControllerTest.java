@@ -11,10 +11,10 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.junit.UserInterfaceControllerForJUnit;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
-import nth.reflect.fw.stubs.DomainObjectStub;
 import nth.reflect.fw.stubs.ServiceObjectStub;
 
 public class UserInterfaceControllerTest {
@@ -23,7 +23,7 @@ public class UserInterfaceControllerTest {
 	private UserInterfaceControllerForJUnit controller;
 	private ServiceObjectStub serviceObject;
 	private ServiceClassInfo serviceClassInfo;
-	private DomainObjectStub domainObject;
+	private FullFeatureDomainObject domainObject;
 
 	@Before
 	public void setUp() throws Exception {
@@ -32,7 +32,7 @@ public class UserInterfaceControllerTest {
 		serviceObject = container.get(ServiceObjectStub.class);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		serviceClassInfo = reflectionProvider.getServiceClassInfo(ServiceObjectStub.class);
-		domainObject = new DomainObjectStub();
+		domainObject = new FullFeatureDomainObject();
 	}
 
 	@Test
@@ -47,20 +47,25 @@ public class UserInterfaceControllerTest {
 		assertNotNull(methodInfo);
 		controller.processActionMethod(serviceObject, methodInfo, null);
 		List<String> events = controller.getEvents();
-		assertThat(events.get(0)).isEqualTo("processActionMethod(" + serviceObject.toString() + ", "
-				+ serviceObject.getClass().getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME + ", null)");
-		assertThat(events.get(1)).isEqualTo("editActionMethodParameter(" + serviceObject.toString() + ", "
-				+ serviceObject.getClass().getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME + ", "
-				+ domainObject + ")");
+		assertThat(events.get(0))
+				.isEqualTo("processActionMethod(" + serviceObject.toString() + ", "
+						+ serviceObject.getClass().getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME
+						+ ", null)");
+		assertThat(events.get(1))
+				.isEqualTo("editActionMethodParameter(" + serviceObject.toString() + ", "
+						+ serviceObject.getClass().getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME
+						+ ", " + domainObject + ")");
 
 		controller.processActionMethod(serviceObject, methodInfo, domainObject);
 		events = controller.getEvents();
-		assertThat(events.get(0)).isEqualTo(
-				"processActionMethod(" + serviceObject.toString() + ", " + serviceObject.getClass().getCanonicalName()
-						+ "." + ServiceObjectStub.ACTION_METHOD_NAME + ", " + domainObject + ")");
-		assertThat(events.get(1)).isEqualTo("editActionMethodParameter(" + serviceObject.toString() + ", "
-				+ serviceObject.getClass().getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME + ", "
-				+ domainObject + ")");
+		assertThat(events.get(0))
+				.isEqualTo("processActionMethod(" + serviceObject.toString() + ", "
+						+ serviceObject.getClass().getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME
+						+ ", " + domainObject + ")");
+		assertThat(events.get(1))
+				.isEqualTo("editActionMethodParameter(" + serviceObject.toString() + ", "
+						+ serviceObject.getClass().getCanonicalName() + "." + ServiceObjectStub.ACTION_METHOD_NAME
+						+ ", " + domainObject + ")");
 
 		// TODO verify editActionMethodWithoutParameter
 	}

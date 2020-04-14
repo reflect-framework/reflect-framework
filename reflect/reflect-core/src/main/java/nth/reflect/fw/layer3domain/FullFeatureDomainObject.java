@@ -26,6 +26,9 @@ import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeField
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldMode;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.Format;
+import nth.reflect.fw.layer5provider.reflection.behavior.hidden.Hidden;
+import nth.reflect.fw.layer5provider.reflection.behavior.hidden.HiddenFor;
+import nth.reflect.fw.layer5provider.reflection.behavior.order.Order;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 
 /**
@@ -42,6 +45,8 @@ import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.Parame
  */
 
 public class FullFeatureDomainObject implements DomainObject {
+
+	public static final Object NR_OF_PROPERTIES = 52;
 
 	// Java Numbers
 	private byte myPrimitiveByte;
@@ -105,6 +110,9 @@ public class FullFeatureDomainObject implements DomainObject {
 	private MyEnum myEnum;
 	private FullFeatureDomainObject myDomainObject;
 	private TranslatableString myTranslatableString;
+
+	// annotated
+	private Date myAnnotatedDate;
 
 	public enum MyEnum {
 		first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth
@@ -652,6 +660,25 @@ public class FullFeatureDomainObject implements DomainObject {
 
 	public void setMyTranslatableString(TranslatableString myTranslatableString) {
 		this.myTranslatableString = myTranslatableString;
+	}
+
+	public static final String GET_MY_ANNOTATED_DATE = "getMyAnnotatedDate";
+	public static final double GET_MY_ANNOTATED_DATE_ORDER = 12;
+
+	@Order(GET_MY_ANNOTATED_DATE_ORDER)
+	@Hidden(propertyHiddenFor = HiddenFor.TABLES_AND_FORMS)
+	public Date getMyAnnotatedDate() {
+		return myAnnotatedDate;
+	}
+
+	public void setMyAnnotatedDate(Date myAnnotatedDate) {
+		this.myAnnotatedDate = myAnnotatedDate;
+	}
+
+	public static final String GET_MY_ANNOTATED_DATE_TODAY = "myAnnotatedDateToday";
+
+	public void myAnnotatedDateToday() {
+		this.myAnnotatedDate = new Date();
 	}
 
 	@Override

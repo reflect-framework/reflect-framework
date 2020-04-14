@@ -1,6 +1,7 @@
 package nth.reflect.fw.stubs;
 
 import nth.reflect.fw.layer2service.ServiceObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.Description;
 import nth.reflect.fw.layer5provider.reflection.behavior.order.Order;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
@@ -21,7 +22,7 @@ public class ServiceObjectStub {
 
 	@Order(value = 1)
 	@ParameterFactory
-	public void createDomainTestObject(DomainObjectStub domainObjectStub) {
+	public void createDomainTestObject(FullFeatureDomainObject domainObjectStub) {
 
 	}
 
