@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
@@ -22,7 +23,7 @@ public class TranslatableStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_TRANSLATABLE_STRING);
+		StringConverterFactoryInfo info = createInfo(FullFeatureDomainObject.GET_MY_TRANSLATABLE_STRING);
 		stringConverter = new TranslatableStringConverter(info);
 	}
 
@@ -34,7 +35,7 @@ public class TranslatableStringConverterTest extends StringConverterTest {
 
 	@Test
 	public void testToString_giveTranslatableStringAndEnglish_mustReturnDefaultEnglishTranslation() {
-		String key = DomainObject.class.getCanonicalName() + "." + DomainObject.GET_MY_TRANSLATABLE_STRING;
+		String key = DomainObject.class.getCanonicalName() + "." + FullFeatureDomainObject.GET_MY_TRANSLATABLE_STRING;
 		TranslatableString translatableString = new TranslatableString(key, DEFAULT_ENGLISH);
 		String result = stringConverter.toString(translatableString);
 		assertThat(result).isEqualTo(DEFAULT_ENGLISH);
@@ -42,10 +43,11 @@ public class TranslatableStringConverterTest extends StringConverterTest {
 
 	@Test
 	public void testToString_giveTranslatableStringAndGerman_mustReturnGermanTranslation() {
-		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_TRANSLATABLE_STRING);
+		StringConverterFactoryInfo info = createInfo(FullFeatureDomainObject.GET_MY_TRANSLATABLE_STRING);
 		DefaultLanguageProvider languageProvider = info.getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
-		String key = DomainObject.class.getCanonicalName() + "." + DomainObject.GET_MY_TRANSLATABLE_STRING;
+		String key = FullFeatureDomainObject.class.getCanonicalName() + "."
+				+ FullFeatureDomainObject.GET_MY_TRANSLATABLE_STRING;
 		TranslatableString translatableString = new TranslatableString(key, DEFAULT_ENGLISH);
 		String result = stringConverter.toString(translatableString);
 		assertThat(result).isEqualTo(GermanLanguageFile.get(key));

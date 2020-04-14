@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -26,8 +26,9 @@ public class TranslatedDomainClassDescriptionTest {
 		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		domainObjectDescription = reflectionProvider.getDomainClassInfo(DomainObject.class).getDescription();
-		annotatedDomainObjectDescription = reflectionProvider.getDomainClassInfo(AnnotatedDomainObject.class)
+		domainObjectDescription = reflectionProvider.getDomainClassInfo(FullFeatureDomainObject.class).getDescription();
+		annotatedDomainObjectDescription = reflectionProvider
+				.getDomainClassInfo(AnnotatedDomainObject.class)
 				.getDescription();
 	}
 
@@ -65,7 +66,7 @@ public class TranslatedDomainClassDescriptionTest {
 
 	@Test
 	public void testGetDefaultEnglish_givenDomainObjectDescription_returnsDomain_Object() {
-		assertThat(domainObjectDescription.getDefaultEnglish()).isEqualTo("Domain object");
+		assertThat(domainObjectDescription.getDefaultEnglish()).isEqualTo("Full feature domain object");
 	}
 
 	@Test
@@ -76,7 +77,8 @@ public class TranslatedDomainClassDescriptionTest {
 
 	@Test
 	public void testGetKey_givenDomainObjectDescription_returnsDomainObjectCanonialName() {
-		String expected = DomainObject.class.getCanonicalName() + TranslatedDescription.DESCRIPTION_KEY_SUFFIX;
+		String expected = FullFeatureDomainObject.class.getCanonicalName()
+				+ TranslatedDescription.DESCRIPTION_KEY_SUFFIX;
 		assertThat(domainObjectDescription.getKey()).isEqualTo(expected);
 	}
 

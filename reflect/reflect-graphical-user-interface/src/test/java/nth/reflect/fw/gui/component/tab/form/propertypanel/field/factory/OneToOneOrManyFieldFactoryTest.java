@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 
 public class OneToOneOrManyFieldFactoryTest extends FieldFactoryTest {
 
@@ -29,12 +29,12 @@ public class OneToOneOrManyFieldFactoryTest extends FieldFactoryTest {
 
 	@Test
 	public void testCanCreate_givenString_mustReturnFalse() {
-		assertCanCreate(fieldFactory, DomainObject.GET_MY_TEXT, false);
+		assertCanCreate(fieldFactory, FullFeatureDomainObject.GET_MY_TEXT, false);
 	}
 
 	@Test
-	public void testCanCreate_givenDomainObject_mustReturnTrue() {
-		assertCanCreate(fieldFactory, DomainObject.GET_MY_DOMAIN_OBJECT, true);
+	public void testCanCreate_givenFullFeatureDomainObject_mustReturnTrue() {
+		assertCanCreate(fieldFactory, FullFeatureDomainObject.GET_MY_DOMAIN_OBJECT, true);
 	}
 
 }

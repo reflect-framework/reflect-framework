@@ -10,7 +10,7 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -19,7 +19,7 @@ import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedActionMethodDisplayNameTest {
 
-	private static final String METHOD_NAME = DomainObject.ACTION_METHOD;
+	private static final String METHOD_NAME = FullFeatureDomainObject.ACTION_METHOD;
 	private TranslatedString methodDisplayName;
 	private TranslatedString annotatedMethodDisplayName;
 
@@ -29,10 +29,14 @@ public class TranslatedActionMethodDisplayNameTest {
 		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		methodDisplayName = reflectionProvider.getDomainClassInfo(DomainObject.class).getActionMethodInfo(METHOD_NAME)
+		methodDisplayName = reflectionProvider
+				.getDomainClassInfo(FullFeatureDomainObject.class)
+				.getActionMethodInfo(METHOD_NAME)
 				.getDisplayName();
-		annotatedMethodDisplayName = reflectionProvider.getDomainClassInfo(AnnotatedDomainObject.class)
-				.getActionMethodInfo(METHOD_NAME).getDisplayName();
+		annotatedMethodDisplayName = reflectionProvider
+				.getDomainClassInfo(AnnotatedDomainObject.class)
+				.getActionMethodInfo(METHOD_NAME)
+				.getDisplayName();
 	}
 
 	@Test
@@ -81,7 +85,7 @@ public class TranslatedActionMethodDisplayNameTest {
 
 	@Test
 	public void testGetKey_givenMethodDisplayName_returnsMethodDisplayNameKey() {
-		String expected = DomainObject.class.getCanonicalName() + "." + METHOD_NAME
+		String expected = FullFeatureDomainObject.class.getCanonicalName() + "." + METHOD_NAME
 				+ TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
 		assertThat(methodDisplayName.getKey()).isEqualTo(expected);
 	}

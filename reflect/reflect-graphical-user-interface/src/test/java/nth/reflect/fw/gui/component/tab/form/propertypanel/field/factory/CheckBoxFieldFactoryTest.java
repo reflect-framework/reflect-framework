@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 
 public class CheckBoxFieldFactoryTest extends FieldFactoryTest {
 
@@ -29,17 +29,17 @@ public class CheckBoxFieldFactoryTest extends FieldFactoryTest {
 	@Test
 	public void testCanCreate_forSimpleBooleanProperty_mustReturnTrue()
 			throws NoSuchMethodException, SecurityException {
-		assertCanCreate(checkBoxFieldFactory, DomainObject.IS_MY_PRIMITIVE_BOOLEAN, true);
+		assertCanCreate(checkBoxFieldFactory, FullFeatureDomainObject.IS_MY_PRIMITIVE_BOOLEAN, true);
 	}
 
 	@Test
 	public void testCanCreate_forBooleanProperty_mustReturnTrue() throws NoSuchMethodException, SecurityException {
-		assertCanCreate(checkBoxFieldFactory, DomainObject.IS_MY_BOOLEAN, true);
+		assertCanCreate(checkBoxFieldFactory, FullFeatureDomainObject.IS_MY_BOOLEAN, true);
 	}
 
 	@Test
 	public void testCanCreate_forStringProperty_mustReturnFalse() throws NoSuchMethodException, SecurityException {
-		assertCanCreate(checkBoxFieldFactory, DomainObject.GET_MY_TEXT, false);
+		assertCanCreate(checkBoxFieldFactory, FullFeatureDomainObject.GET_MY_TEXT, false);
 	}
 
 }

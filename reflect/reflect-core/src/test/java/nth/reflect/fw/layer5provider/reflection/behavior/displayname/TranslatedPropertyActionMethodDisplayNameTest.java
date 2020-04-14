@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -19,7 +19,7 @@ import nth.reflect.fw.stubs.GermanLanguageFile;
 public class TranslatedPropertyActionMethodDisplayNameTest {
 
 	private static final String ADD = "Add";
-	private static final String PROPERTY_NAME = DomainObject.GET_MY_DOMAIN_OBJECT_LIST.replace("getM", "m");
+	private static final String PROPERTY_NAME = FullFeatureDomainObject.GET_MY_DOMAIN_OBJECT_LIST.replace("getM", "m");
 	private TranslatedString propertyActionMethodDisplayName;
 	private TranslatedString annotatedPropertyActionMethodDisplayName;
 
@@ -29,14 +29,24 @@ public class TranslatedPropertyActionMethodDisplayNameTest {
 		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		propertyActionMethodDisplayName = reflectionProvider.getDomainClassInfo(DomainObject.class)
-				.getPropertyInfo(PROPERTY_NAME).getActionMethodInfos().stream()
-				.filter(p -> p.getMethod().getName().contentEquals(DomainObject.MY_DOMAIN_OBJECT_LIST_ADD)).findFirst()
-				.get().getDisplayName();
-		annotatedPropertyActionMethodDisplayName = reflectionProvider.getDomainClassInfo(AnnotatedDomainObject.class)
-				.getPropertyInfo(PROPERTY_NAME).getActionMethodInfos().stream()
-				.filter(p -> p.getMethod().getName().contentEquals(DomainObject.MY_DOMAIN_OBJECT_LIST_ADD)).findFirst()
-				.get().getDisplayName();
+		propertyActionMethodDisplayName = reflectionProvider
+				.getDomainClassInfo(FullFeatureDomainObject.class)
+				.getPropertyInfo(PROPERTY_NAME)
+				.getActionMethodInfos()
+				.stream()
+				.filter(p -> p.getMethod().getName().contentEquals(FullFeatureDomainObject.MY_DOMAIN_OBJECT_LIST_ADD))
+				.findFirst()
+				.get()
+				.getDisplayName();
+		annotatedPropertyActionMethodDisplayName = reflectionProvider
+				.getDomainClassInfo(AnnotatedDomainObject.class)
+				.getPropertyInfo(PROPERTY_NAME)
+				.getActionMethodInfos()
+				.stream()
+				.filter(p -> p.getMethod().getName().contentEquals(FullFeatureDomainObject.MY_DOMAIN_OBJECT_LIST_ADD))
+				.findFirst()
+				.get()
+				.getDisplayName();
 	}
 
 	@Test
@@ -84,7 +94,7 @@ public class TranslatedPropertyActionMethodDisplayNameTest {
 
 	@Test
 	public void testGetKey_givenPropertyActionMethodDisplayName_returnsPropertyActionMethodDisplayNameKey() {
-		String expected = DomainObject.class.getCanonicalName() + "." + PROPERTY_NAME + ADD
+		String expected = FullFeatureDomainObject.class.getCanonicalName() + "." + PROPERTY_NAME + ADD
 				+ TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
 		assertThat(propertyActionMethodDisplayName.getKey()).isEqualTo(expected);
 	}

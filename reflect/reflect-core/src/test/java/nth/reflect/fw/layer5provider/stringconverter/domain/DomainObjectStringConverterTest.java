@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
@@ -16,7 +16,7 @@ public class DomainObjectStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_DOMAIN_OBJECT);
+		StringConverterFactoryInfo info = createInfo(FullFeatureDomainObject.GET_MY_DOMAIN_OBJECT);
 		stringConverter = new DomainObjectStringConverter(info);
 	}
 
@@ -28,7 +28,7 @@ public class DomainObjectStringConverterTest extends StringConverterTest {
 
 	@Test
 	public void testToString_givenDomainObject_mustReturnTitle() {
-		DomainObject domainObject = new DomainObject();
+		FullFeatureDomainObject domainObject = new FullFeatureDomainObject();
 		String result = stringConverter.toString(domainObject);
 		assertThat(result).isEqualTo(domainObject.toString());
 	}

@@ -2,7 +2,7 @@ package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
 import java.math.BigInteger;
 
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
@@ -10,7 +10,7 @@ public class BigIntegerStringConverterTest extends NumberStringConverterTest {
 
 	@Override
 	protected StringConverter createStringConverter(String formatPattern) {
-		StringConverterFactoryInfo info = createInfo(DomainObject.GET_MY_BIG_INTEGER, formatPattern);
+		StringConverterFactoryInfo info = createInfo(FullFeatureDomainObject.GET_MY_BIG_INTEGER, formatPattern);
 		return new BigIntegerStringConverter(info);
 	}
 

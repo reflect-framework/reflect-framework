@@ -14,6 +14,7 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
@@ -41,52 +42,52 @@ public abstract class FieldFactoryTest {
 	}
 
 	private FormTab createFormTab() {
-		FormTab formTab=new FormTab() {
-			
+		FormTab formTab = new FormTab() {
+
 			@Override
 			public void onRefresh() {
 			}
-			
+
 			@Override
 			public String getDisplayName() {
 				return null;
 			}
-			
+
 			@Override
 			public String getDescription() {
 				return null;
 			}
-			
+
 			@Override
 			public Object getMethodParameter() {
 				return null;
 			}
-			
+
 			@Override
 			public Object getMethodOwner() {
 				return null;
 			}
-			
+
 			@Override
 			public ActionMethodInfo getMethodInfo() {
 				return null;
 			}
-			
+
 			@Override
 			public UserInterfaceContainer getUserInterfaceContainer() {
 				return container.get(UserInterfaceContainer.class);
 			}
-			
+
 			@Override
 			public FormMode getFormMode() {
 				return null;
 			}
-			
+
 			@Override
 			public ReadOnlyValueModel getDomainValueModel() {
 				return null;
 			}
-			
+
 			@Override
 			public Object getDomainObject() {
 				return null;
@@ -108,7 +109,7 @@ public abstract class FieldFactoryTest {
 	}
 
 	private Method getMethod(String getterMethodName) throws NoSuchMethodException {
-		Method getterMethod = DomainObject.class.getMethod(getterMethodName);
+		Method getterMethod = FullFeatureDomainObject.class.getMethod(getterMethodName);
 		return getterMethod;
 	}
 

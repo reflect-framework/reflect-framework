@@ -10,7 +10,7 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -18,7 +18,7 @@ import nth.reflect.fw.stubs.GermanLanguageFile;
 
 public class TranslatedPropertyDescriptionTest {
 
-	private static final String PROPERTY_NAME = DomainObject.GET_MY_BYTE.replace("getM", "m");
+	private static final String PROPERTY_NAME = FullFeatureDomainObject.GET_MY_BYTE.replace("getM", "m");
 	private TranslatedString propertyDescription;
 	private TranslatedString annotatedPropertyDescription;
 
@@ -28,10 +28,14 @@ public class TranslatedPropertyDescriptionTest {
 		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		propertyDescription = reflectionProvider.getDomainClassInfo(DomainObject.class).getPropertyInfo(PROPERTY_NAME)
+		propertyDescription = reflectionProvider
+				.getDomainClassInfo(FullFeatureDomainObject.class)
+				.getPropertyInfo(PROPERTY_NAME)
 				.getDescription();
-		annotatedPropertyDescription = reflectionProvider.getDomainClassInfo(AnnotatedDomainObject.class)
-				.getPropertyInfo(PROPERTY_NAME).getDescription();
+		annotatedPropertyDescription = reflectionProvider
+				.getDomainClassInfo(AnnotatedDomainObject.class)
+				.getPropertyInfo(PROPERTY_NAME)
+				.getDescription();
 	}
 
 	@Test
@@ -80,7 +84,7 @@ public class TranslatedPropertyDescriptionTest {
 
 	@Test
 	public void testGetKey_givenPropertyDescription_returnsPropertyDescriptionKey() {
-		String expected = DomainObject.class.getCanonicalName() + "." + PROPERTY_NAME
+		String expected = FullFeatureDomainObject.class.getCanonicalName() + "." + PROPERTY_NAME
 				+ TranslatedDescription.DESCRIPTION_KEY_SUFFIX;
 		assertThat(propertyDescription.getKey()).isEqualTo(expected);
 	}

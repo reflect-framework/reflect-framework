@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -27,8 +27,9 @@ public class TranslatedDomainClassDisplayNameTest {
 		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		domainObjectDisplayName = reflectionProvider.getDomainClassInfo(DomainObject.class).getDisplayName();
-		annotatedDomainObjectDisplayName = reflectionProvider.getDomainClassInfo(AnnotatedDomainObject.class)
+		domainObjectDisplayName = reflectionProvider.getDomainClassInfo(FullFeatureDomainObject.class).getDisplayName();
+		annotatedDomainObjectDisplayName = reflectionProvider
+				.getDomainClassInfo(AnnotatedDomainObject.class)
 				.getDisplayName();
 	}
 
@@ -66,7 +67,7 @@ public class TranslatedDomainClassDisplayNameTest {
 
 	@Test
 	public void testGetDefaultEnglish_givenDomainObjectDisplayName_returnsDomain_Object() {
-		assertThat(domainObjectDisplayName.getDefaultEnglish()).isEqualTo("Domain object");
+		assertThat(domainObjectDisplayName.getDefaultEnglish()).isEqualTo("Full feature domain object");
 	}
 
 	@Test
@@ -77,7 +78,8 @@ public class TranslatedDomainClassDisplayNameTest {
 
 	@Test
 	public void testGetKey_givenDomainObjectDisplayName_returnsDomainObjectCanonialName() {
-		String expected = DomainObject.class.getCanonicalName() + TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
+		String expected = FullFeatureDomainObject.class.getCanonicalName()
+				+ TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
 		assertThat(domainObjectDisplayName.getKey()).isEqualTo(expected);
 	}
 

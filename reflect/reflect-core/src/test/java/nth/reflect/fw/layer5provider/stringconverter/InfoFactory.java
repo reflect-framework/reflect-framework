@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
@@ -33,7 +33,7 @@ public class InfoFactory {
 	}
 
 	private static Method findMethod(String domainObjectGetterMethod) {
-		Method[] allMethods = DomainObject.class.getDeclaredMethods();
+		Method[] allMethods = FullFeatureDomainObject.class.getDeclaredMethods();
 		for (Method method : allMethods) {
 			if (method.getName().equals(domainObjectGetterMethod)) {
 				return method;

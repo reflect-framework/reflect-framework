@@ -8,8 +8,8 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer3domain.DomainObject.MyEnum;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject.MyEnum;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.stubs.GermanLanguageFile;
@@ -20,7 +20,7 @@ public class EnumStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() {
-		enumStringConverter = new EnumStringConverter(createInfo(DomainObject.GET_MY_TEXT));
+		enumStringConverter = new EnumStringConverter(createInfo(FullFeatureDomainObject.GET_MY_TEXT));
 	}
 
 	@Test
@@ -31,7 +31,7 @@ public class EnumStringConverterTest extends StringConverterTest {
 
 	@Test
 	public void testToString_givenEnumWithDefaultEnglish_mustReturnSecond() {
-		String result = enumStringConverter.toString(DomainObject.MyEnum.second);
+		String result = enumStringConverter.toString(FullFeatureDomainObject.MyEnum.second);
 		assertThat(result).isEqualTo("Second");
 	}
 
@@ -39,7 +39,7 @@ public class EnumStringConverterTest extends StringConverterTest {
 	public void testToString_givenEnumWithGerman_mustReturnString() {
 		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
-		MyEnum enumValue = DomainObject.MyEnum.second;
+		MyEnum enumValue = FullFeatureDomainObject.MyEnum.second;
 		String actual = enumStringConverter.toString(enumValue);
 		String key = languageProvider.getKey(enumValue);
 		String expected = GermanLanguageFile.get(key);

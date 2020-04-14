@@ -10,8 +10,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
+import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 
 public class ReturnTypeInfoDomainTypeTest {
 
@@ -19,7 +18,7 @@ public class ReturnTypeInfoDomainTypeTest {
 	private TypeInfo typeInfo;
 
 	public DomainObject theMethod() {
-		return new DomainObject();
+		return new FullFeatureDomainObject();
 	}
 
 	@Before
