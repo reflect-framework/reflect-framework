@@ -3,6 +3,7 @@ package nth.reflect.fw.gui;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.component.mainwindow.MainWindow;
@@ -129,7 +130,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			startMethodExecutionThread(serviceObject, actionMethodInfo, methodParameterValue);
 		} catch (Exception exception) {
 			TranslatableString message = ERROR_EXECUTE;
-			showErrorDialog(title, message, exception);
+			showError(title, message, exception);
 		}
 	}
 
@@ -143,7 +144,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * threading may need to be differently implemented for each user interface
 	 * framework. <br>
 	 * - catch errors during the execution of the thread and call
-	 * {@link #showErrorDialog(String, String, Throwable)} if needed<br>
+	 * {@link #showError(String, String, Throwable)} if needed<br>
 	 * - invoke
 	 * {@link GraphicalUserinterfaceController#processActionMethodReturnValue(Object, ActionMethodInfo, Object, Object)}
 	 * <br>
@@ -153,31 +154,33 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * 
 	 * @param methodOwner
 	 * @param actionMethodInfo
-	 * @param methodParameterValue
+	 * @param methodParameter
 	 * 
 	 */
 
 	public void startMethodExecutionThread(final Object methodOwner, final ActionMethodInfo actionMethodInfo,
-			final Object methodParameterValue) {
+			final Object methodParameter) {
 
 		Runnable runnable = new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					Object methodReturnValue = actionMethodInfo.invoke(methodOwner, methodParameterValue);
-					// update current tab (calling a method on a object is most
-					// likely to change its state
+					Object methodReturnValue = actionMethodInfo.invoke(methodOwner, methodParameter);
+
+					// Calling a method on a object can change its state
+					// We therefore must update current tab
 					Tab selectedTab = getTabs().getSelected();
 					if (selectedTab != null) {
 						selectedTab.onRefresh();
 					}
 					// show method result
-					processActionMethodResult(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
+					processActionMethodResult(methodOwner, actionMethodInfo, methodParameter, methodReturnValue);
 				} catch (Exception exception) {
-					TranslatableString title = actionMethodInfo.createTitle(methodParameterValue);
+					Optional<Object> optionalMethodParameter = Optional.ofNullable(methodOwner);
+					TranslatableString title = actionMethodInfo.createTitle(optionalMethodParameter);
 					TranslatableString message = ERROR_EXECUTE;
-					showErrorDialog(title, message, exception);
+					showError(title, message, exception);
 				}
 
 			}
@@ -277,7 +280,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			Object methodParameterValue, Object methodReturnValue);
 
 	@Override
-	public void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable) {
+	public void showError(TranslatableString title, TranslatableString message, Throwable throwable) {
 
 		throwable.printStackTrace();
 		// to help debugging (stack trace in IDE console has hyper links to code)
@@ -290,22 +293,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		items.add(closeItem);
 
 		showDialog(DialogType.ERROR, title, message, items);
-	}
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
-		TranslatableString message = SUCCESS_DIALOG_MESSAGE.withParameters(actionMethodTitle);
-		showInfoMessage(message);
 	}
 
 	/**
@@ -402,7 +389,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			String methodResult) {
 		TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
 		TranslatableString message = RESULT_DIALOG_MESSAGE.withParameters(actionMethodTitle, methodResult);
-		showInfoMessage(message);
+		showMessage(message);
 
 	}
 
@@ -414,7 +401,8 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * 
 	 * @param message
 	 */
-	public abstract void showInfoMessage(TranslatableString message);
+	@Override
+	public abstract void showMessage(TranslatableString message);
 
 	public abstract void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
 			List<Item> items);

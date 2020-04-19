@@ -38,7 +38,6 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		grid = createGrid();
 		grid.setSizeFull();
 		add(grid);
-
 	}
 
 	private Grid<Object> createGrid() {

@@ -14,6 +14,7 @@ import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -79,7 +80,8 @@ import nth.reflect.fw.layer5provider.version.VersionProvider;
  * 	&#064;Before
  * 	public void setUp() throws Exception {
  * 		DependencyInjectionContainer container = new ReflectApplicationForJUnit()
- * 				.addServiceClass(ProductService.class).addInfrastructureClass(ProductRepositoryMockup.class)
+ * 				.addServiceClass(ProductService.class)
+ * 				.addInfrastructureClass(ProductRepositoryMockup.class)
  * 				.createContainer();
  * 		productService = container.get(ProductService.class);
  * 	}
@@ -122,9 +124,10 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	/**
 	 * Fluent interface method to add InfrastructureClasses
 	 * 
-	 * @param infrastructureClass A class that represents a {@link InfrastructureObject}
+	 * @param infrastructureClass A class that represents a
+	 *                            {@link InfrastructureObject}
 	 * @return {@link ReflectApplicationForJUnit} to be used for testing
-	 * */
+	 */
 	public ReflectApplicationForJUnit addInfrastructureClass(Class<?> infrastructureClass) {
 		infrastructureClasses.add(infrastructureClass);
 		return this;
@@ -186,9 +189,14 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	public UrlProvider getUrlProvider() {
 		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this));
 	}
-	
+
 	@Override
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
+	}
+
+	@Override
+	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
+		return new ActionMethodExecutionProvider(new JunitActionMethodResultHandler());
 	}
 }

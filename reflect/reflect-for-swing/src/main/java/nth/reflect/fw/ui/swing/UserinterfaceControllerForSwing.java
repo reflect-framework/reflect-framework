@@ -68,7 +68,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public void showInfoMessage(TranslatableString message) {
+	public void showMessage(TranslatableString message) {
 		String translatedMessage = message.getTranslation(languageProvider);
 		Toast.makeText(mainWindow, translatedMessage, Style.NORMAL).display();
 	}
@@ -109,13 +109,13 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 				inputStream.close();
 
 			} catch (Exception e) {
-				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
+				showError(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
 			}
 			// open file
 			try {
 				Desktop.getDesktop().open(file);
 			} catch (Exception e) {
-				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
+				showError(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
 			}
 		}
 	}
@@ -147,7 +147,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		} catch (IOException exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showErrorDialog(title, message, exception);
+			showError(title, message, exception);
 		}
 	}
 

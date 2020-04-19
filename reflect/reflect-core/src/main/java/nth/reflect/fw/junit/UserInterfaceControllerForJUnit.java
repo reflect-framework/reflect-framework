@@ -54,7 +54,7 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 	}
 
 	@Override
-	public void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable) {
+	public void showError(TranslatableString title, TranslatableString message, Throwable throwable) {
 		events.add(title.getTranslation(languageProvider));
 		events.add(message.getTranslation(languageProvider));
 		events.add(ExceptionUtil.getRootCauseStackTrace(throwable, languageProvider));
@@ -63,8 +63,10 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object actionMethodParameterValue) {
-		events.add(String.format("editActionMethodParameter(%s, %s, %s)", actionMethodOwner, actionMethodInfo,
-				actionMethodParameterValue));
+		events
+				.add(String
+						.format("editActionMethodParameter(%s, %s, %s)", actionMethodOwner, actionMethodInfo,
+								actionMethodParameterValue));
 
 	}
 
@@ -78,29 +80,30 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 	}
 
 	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		events.add(String.format("showActionMethodResult(%s, %s, %s)", methodOwner, methodInfo, methodParameter));
-	}
-
-	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
-		events.add(String.format("showActionMethodResult(%s, %s, %s, (DomainObject) %s)", methodOwner, methodInfo,
-				methodParameter, methodResult));
+		events
+				.add(String
+						.format("showActionMethodResult(%s, %s, %s, (DomainObject) %s)", methodOwner, methodInfo,
+								methodParameter, methodResult));
 	}
 
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			List<?> methodResult) {
-		events.add(String.format("showActionMethodResult(%s, %s, %s, (List<?>) %s)", methodOwner, methodInfo,
-				methodParameter, methodResult));
+		events
+				.add(String
+						.format("showActionMethodResult(%s, %s, %s, (List<?>) %s)", methodOwner, methodInfo,
+								methodParameter, methodResult));
 	}
 
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			String methodResult) {
-		events.add(String.format("showActionMethodResult(%s, %s, %s, (String) %s)", methodOwner, methodInfo,
-				methodParameter, methodResult));
+		events
+				.add(String
+						.format("showActionMethodResult(%s, %s, %s, (String) %s)", methodOwner, methodInfo,
+								methodParameter, methodResult));
 	}
 
 	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
@@ -114,6 +117,11 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 		}
 		events.clear();
 		return eventsClone;
+	}
+
+	@Override
+	public void showMessage(TranslatableString message) {
+		events.add(String.format("showMessage(%s)", message));
 	}
 
 }

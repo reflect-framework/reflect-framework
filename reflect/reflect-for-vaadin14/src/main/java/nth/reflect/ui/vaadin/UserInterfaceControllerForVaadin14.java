@@ -67,7 +67,7 @@ public class UserInterfaceControllerForVaadin14
 	}
 
 	@Override
-	public void showInfoMessage(TranslatableString message) {
+	public void showMessage(TranslatableString message) {
 		String translatedMessage = message.getTranslation(languageProvider);
 		Notification notification = new Notification(translatedMessage, 3000);
 		notification.open();
@@ -155,7 +155,7 @@ public class UserInterfaceControllerForVaadin14
 		} catch (IOException exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showErrorDialog(title, message, exception);
+			showError(title, message, exception);
 		}
 	}
 

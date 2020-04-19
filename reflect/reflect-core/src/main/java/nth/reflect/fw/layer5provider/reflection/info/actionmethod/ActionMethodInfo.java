@@ -11,6 +11,8 @@ import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -45,7 +47,6 @@ import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.ConfirmMethodFactory;
 import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.EditParameterMethodFactory;
-import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.ShowMethodFactory;
 
 /**
  * <p>
@@ -71,11 +72,11 @@ public class ActionMethodInfo implements NameInfo {
 	private final FontIconModel fontIconModel;
 	private final Method editParameterMethod;
 	private final Method confirmMethod;
-	private final Method showResultMethod;
 	private final TypeInfo returnTypeInfo;
 	private final TypeInfo firstParameterTypeInfo;
 	private final boolean isReadOnly;
 	private final ReflectionProvider reflectionProvider;
+	private final ActionMethodResultHandler actionMethodResultHandler;
 
 	public ActionMethodInfo(ProviderContainer providerContainer, Method method, String propertyName) {
 		this.simpleName = createSimpleName(method, propertyName);
@@ -94,11 +95,10 @@ public class ActionMethodInfo implements NameInfo {
 		this.executionMode = ExecutionModeFactory.create(method);
 		this.returnTypeInfo = createReturnTypeInfo(application, method);
 		this.firstParameterTypeInfo = createFirstParameterTypeInfo(application, method);
-		this.editParameterMethod = EditParameterMethodFactory.create(controllerClass, executionMode, method,
-				firstParameterTypeInfo);
-		this.confirmMethod = ConfirmMethodFactory.create(controllerClass, executionMode, method,
-				firstParameterTypeInfo);
-		this.showResultMethod = ShowMethodFactory.create(controllerClass, executionMode, method, returnTypeInfo);
+		this.editParameterMethod = EditParameterMethodFactory
+				.create(controllerClass, executionMode, method, firstParameterTypeInfo);
+		this.confirmMethod = ConfirmMethodFactory
+				.create(controllerClass, executionMode, method, firstParameterTypeInfo);
 
 		this.actionMethod = method;
 		this.canonicalName = MethodCanonicalName.getFor(method);
@@ -110,6 +110,9 @@ public class ActionMethodInfo implements NameInfo {
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
 		this.isReadOnly = method.isAnnotationPresent(ReadOnlyActionMethod.class);
+		ActionMethodExecutionProvider actionMethodExecutionProvider = providerContainer
+				.get(ActionMethodExecutionProvider.class);
+		this.actionMethodResultHandler = actionMethodExecutionProvider.getActionMethodResultHandler(this);
 	}
 
 	private String createSimpleName(Method method, String propertyName) {
@@ -235,12 +238,12 @@ public class ActionMethodInfo implements NameInfo {
 		return returnTypeInfo;
 	}
 
-	public TranslatableString createTitle(Object actionMethodParameter) {
+	public TranslatableString createTitle(Object methodParameter) {
 		String key = getCanonicalName() + TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
 		String englishText = getDisplayName().getTranslation();
-		if (actionMethodParameter != null) {
+		if (methodParameter != null) {
 			TitleModel titleModel = new TitleModel(reflectionProvider);
-			String parameterTitle = titleModel.getTitle(actionMethodParameter);
+			String parameterTitle = titleModel.getTitle(methodParameter);
 			if (!parameterTitle.trim().isEmpty()) {
 				englishText = englishText + " (" + parameterTitle + ")";
 			}
@@ -312,18 +315,12 @@ public class ActionMethodInfo implements NameInfo {
 	}
 
 	/**
-	 * Method to invoke a ShowActionMethodResult method of the
-	 * {@link UserInterfaceController}
+	 * Processes the result after the invocation of the {@link ActionMethod} by a
+	 * ActionMethodResultHandler.
 	 */
-	public void invokeShowResult(UserInterfaceController userInterfaceController, Object methodOwner,
-			Object methodParameter, Object methodResult)
-			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if (hasReturnValue()) {
-			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter, methodResult);
-		} else {
-			showResultMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
-		}
-
+	public void processResult(UserInterfaceController userInterfaceController, Object methodOwner,
+			Object methodParameter, Object methodResult) {
+		actionMethodResultHandler.process(userInterfaceController, methodOwner, this, methodParameter, methodResult);
 	}
 
 	/**

@@ -78,7 +78,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	}
 
 	@Override
-	public void showInfoMessage(TranslatableString message) {
+	public void showMessage(TranslatableString message) {
 		List<Item> items = new ArrayList();
 		items.add(new DialogCloseItem(languageProvider));
 		showDialog(null, INFO_DIALOG_TITLE, message, items);
@@ -112,7 +112,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		} catch (IOException exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showErrorDialog(title, message, exception);
+			showError(title, message, exception);
 		}
 	}
 
@@ -140,7 +140,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 				out.close();
 				inputStream.close();
 			} catch (Exception e) {
-				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
+				showError(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
 			}
 		}
 

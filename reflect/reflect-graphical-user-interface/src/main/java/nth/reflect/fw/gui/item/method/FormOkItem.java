@@ -24,7 +24,7 @@ public class FormOkItem extends MethodItem {
 			public void run() {
 				if (FormMode.EDIT == formTab.getFormMode()) {
 					if (!domainValueModel.isValid()) {
-						userInterfaceController.showInfoMessage(ONE_ORE_MORE_PROPERTIES_ARE_INVALID);
+						userInterfaceController.showMessage(ONE_ORE_MORE_PROPERTIES_ARE_INVALID);
 						return;
 					} else {
 						domainValueModel.commit();

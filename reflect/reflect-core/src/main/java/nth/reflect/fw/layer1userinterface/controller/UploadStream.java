@@ -2,6 +2,13 @@ package nth.reflect.fw.layer1userinterface.controller;
 
 import java.io.File;
 
+/**
+ * Receives a file from the user to the application (e.g. opens a file selection
+ * dialog)
+ * 
+ * @author nilsth
+ *
+ */
 public class UploadStream {
 
 	private final String fileTypeDescription;
@@ -25,7 +32,7 @@ public class UploadStream {
 		return fileTypeDescription;
 	}
 
-	//TODO rename to getFileExtentionFilter and fix FormatFactory for String[]
+	// TODO rename to getFileExtentionFilter and fix FormatFactory for String[]
 	public String[] fileExtentionFilters() {
 		return fileExtentionFilters;
 	}

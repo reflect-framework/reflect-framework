@@ -16,6 +16,9 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.OneToOneOrManyFiel
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TableFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
+import nth.reflect.fw.layer5provider.actionmethodexecution.result.depricated.DeprecatedActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -121,15 +124,20 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
+	public PropertyFieldProvider getPropertyFieldProvider() {
+		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
+				new CheckBoxFieldFactory(), new DateTimeFieldFactory(), new ComboBoxFieldFactory(),
+				new TableFieldFactory(), new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
+	}
+
+	@Override
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
 	}
 
 	@Override
-	public PropertyFieldProvider getPropertyFieldProvider() {
-		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
-				new CheckBoxFieldFactory(), new DateTimeFieldFactory(), new ComboBoxFieldFactory(),
-				new TableFieldFactory(), new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
+	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
+		return new ActionMethodExecutionProvider(new NoResultHandler(), new DeprecatedActionMethodResultHandler(this));
 	}
 
 	public Stage getPrimaryStage() {

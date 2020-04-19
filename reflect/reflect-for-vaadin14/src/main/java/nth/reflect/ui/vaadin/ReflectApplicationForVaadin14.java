@@ -14,6 +14,9 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.Propert
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
+import nth.reflect.fw.layer5provider.actionmethodexecution.result.depricated.DeprecatedActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -194,6 +197,11 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 //				new DateTimeFieldFactory(), new ComboBoxFieldFactory(), new TableFieldFactory(),
 //				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() 
 				});
+	}
+
+	@Override
+	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
+		return new ActionMethodExecutionProvider(new NoResultHandler(), new DeprecatedActionMethodResultHandler(this));
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
@@ -117,7 +118,9 @@ public interface ReflectApplication {
 	public UrlProvider getUrlProvider();
 
 	public StringConverterProvider getStringConverterProvider();
-	
+
+	public ActionMethodExecutionProvider getActionMethodExecutionProvider();
+
 	public List<Class<?>> getServiceClasses();
 
 	public List<Class<?>> getInfrastructureClasses();

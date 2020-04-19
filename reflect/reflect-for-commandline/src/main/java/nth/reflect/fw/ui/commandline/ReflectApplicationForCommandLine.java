@@ -6,6 +6,8 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -109,6 +111,11 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 		return new StringConverterProvider(DefaultStringConverters.getAll());
 	}
 
+	@Override
+	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
+		return new ActionMethodExecutionProvider(new NoResultHandler());
+	}
+
 	public String[] getCommandLineArguments() {
 		return commandLineArguments;
 	}
@@ -162,8 +169,8 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 		}
 
 		try {
-			Class applicationClass = Class.forName(callingClassName, true,
-					Thread.currentThread().getContextClassLoader());
+			Class applicationClass = Class
+					.forName(callingClassName, true, Thread.currentThread().getContextClassLoader());
 			if (ReflectApplicationForCommandLine.class.isAssignableFrom(applicationClass)) {
 				Class<? extends ReflectApplicationForCommandLine> appClass = applicationClass;
 				Constructor<? extends ReflectApplicationForCommandLine> constructor = (Constructor<? extends ReflectApplicationForCommandLine>) appClass

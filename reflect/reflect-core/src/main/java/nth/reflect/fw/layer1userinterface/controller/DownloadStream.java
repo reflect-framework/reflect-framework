@@ -5,8 +5,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 
-
-public class DownloadStream  {
+/**
+ * Sends a file from the application to the user (e.g. opens a save or download
+ * dialog for the user)
+ * 
+ * @author nilsth
+ *
+ */
+public class DownloadStream {
 
 	private final File file;
 	private final InputStream inputStream;
@@ -15,7 +21,7 @@ public class DownloadStream  {
 		this.file = file;
 		this.inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 	}
-	
+
 	public DownloadStream(File file, InputStream inputStream) {
 		this.file = file;
 		this.inputStream = inputStream;

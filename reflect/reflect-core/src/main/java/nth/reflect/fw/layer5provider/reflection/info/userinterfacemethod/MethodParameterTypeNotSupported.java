@@ -12,15 +12,16 @@ public class MethodParameterTypeNotSupported extends ActionMethodException {
 	private static final long serialVersionUID = -6178835316096085356L;
 
 	private static final TranslatableString MESSAGE = new TranslatableString(
-			MethodReturnTypeNotSupported.class.getCanonicalName() + ".message",
+			MethodParameterTypeNotSupported.class.getCanonicalName() + ".message",
 			"Action method: %s can not be processed because it's parameter type: %s "
 					+ "is not supported (the %s class does not contain a method: %s with this parameter type)");
 
 	public MethodParameterTypeNotSupported(Class<? extends UserInterfaceController> controllerClass,
 			String processMethodName, Method actionMethod) {
-		super(MESSAGE.withParameters(MethodCanonicalName.getFor(actionMethod), getParameterType(actionMethod),
-				getParameterType(actionMethod).getCanonicalName(), controllerClass.getCanonicalName(),
-				processMethodName));
+		super(MESSAGE
+				.withParameters(MethodCanonicalName.getFor(actionMethod), getParameterType(actionMethod),
+						getParameterType(actionMethod).getCanonicalName(), controllerClass.getCanonicalName(),
+						processMethodName));
 	}
 
 	private static Class<?> getParameterType(Method actionMethod) {

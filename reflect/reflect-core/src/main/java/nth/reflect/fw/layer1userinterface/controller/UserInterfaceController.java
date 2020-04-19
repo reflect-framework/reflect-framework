@@ -1,7 +1,7 @@
 package nth.reflect.fw.layer1userinterface.controller;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.documentation.ReflectArchitecture;
@@ -55,9 +55,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 			UserInterfaceController.class.getCanonicalName() + ".error.dialog.message", "Failed to execute.");
 	public static final TranslatableString RESULT_DIALOG_MESSAGE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".result.dialog.message", "%s: Result is: %s");
-	public static final TranslatableString SUCCESS_DIALOG_MESSAGE = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".success.dialog.message",
-			"%s was successfully executed.");
 	public static final TranslatableString CONFIRMATION_DIALOG_TITLE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".confirmation.dialog.title", "Confirmation");
 	public static final TranslatableString CONFIRMATION_DIALOG_QUESTION = new TranslatableString(
@@ -78,8 +75,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 	}
-
-	public abstract void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable);
 
 	/**
 	 * This method is called when a user sends an command to the
@@ -139,9 +134,10 @@ public abstract class UserInterfaceController implements NotificationListener {
 			}
 		} catch (Throwable throwable) {
 			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
-			TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
+			Optional<Object> optionalMethodParameter = Optional.ofNullable(methodParameter);
+			TranslatableString actionMethodTitle = methodInfo.createTitle(optionalMethodParameter);
 			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
-			showErrorDialog(title, message, throwable);
+			showError(title, message, throwable);
 		}
 
 	}
@@ -171,36 +167,33 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * the thread is completed.<br>
 	 * It will open a new Tab or InfoDialog to show the method return value
 	 * 
+	 * 
 	 * @param serviceObject
 	 * @param actionMethodInfo
-	 * @param methodParameterValue
-	 * @param methodReturnValue
+	 * @param optionalMethodParameter
+	 * @param optionalMethodResult
 	 */
 
 	public void processActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
 		try {
-			methodInfo.invokeShowResult(this, methodOwner, methodParameter, methodResult);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
+			methodInfo.processResult(this, methodOwner, methodParameter, methodResult);
+		} catch (Throwable exception) {
 			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
-			TranslatableString actionMethod = methodInfo.createTitle(methodParameter);
-			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethod);
-			showErrorDialog(title, message, exception);
+			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(methodParameter);
+			showError(title, message, exception);
 		}
 
 	}
 
+	public abstract void showError(TranslatableString title, TranslatableString message, Throwable throwable);
+
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
+	 * Provides simple feedback about an operation
+	 * 
+	 * @param message
 	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter);
+	public abstract void showMessage(TranslatableString message);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return type

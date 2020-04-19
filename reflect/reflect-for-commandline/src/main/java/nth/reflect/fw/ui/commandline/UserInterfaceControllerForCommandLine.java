@@ -65,7 +65,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			}
 			// System.exit(0);
 		} catch (Exception e) {
-			showErrorDialog(ERROR_DIALOG_TITLE, ERROR_DIALOG_EXECUTING_A_COMMAND_MESSAGE, e);
+			showError(ERROR_DIALOG_TITLE, ERROR_DIALOG_EXECUTING_A_COMMAND_MESSAGE, e);
 		}
 
 	}
@@ -149,7 +149,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
 			TranslatableString message = ERROR_SHOW_RESULT.withParameters(actionMethodTitle);
-			showErrorDialog(title, message, exception);
+			showError(title, message, exception);
 		}
 
 	}
@@ -183,7 +183,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	@Override
-	public void showErrorDialog(TranslatableString title, TranslatableString message, Throwable throwable) {
+	public void showError(TranslatableString title, TranslatableString message, Throwable throwable) {
 		StringBuilder txt = new StringBuilder();
 		txt.append(title.getTranslation(languageProvider));
 		txt.append("\n");
@@ -216,11 +216,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		System.out.println("Succesfully executed");
-	}
-
-	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
 		FormView formView = new FormView(reflectionProvider, methodInfo, methodResult);
@@ -250,7 +245,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		} catch (IOException exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showErrorDialog(title, message, exception);
+			showError(title, message, exception);
 		}
 	}
 
@@ -282,13 +277,13 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 				inputStream.close();
 
 			} catch (Exception e) {
-				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
+				showError(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
 			}
 			// open file
 			try {
 				Desktop.getDesktop().open(file);
 			} catch (Exception e) {
-				showErrorDialog(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
+				showError(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
 			}
 		}
 	}
@@ -304,5 +299,11 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			Object actionMethodParameterValue) {
 		// Do nothing: The user interface controller will create the
 		// domainObject from the command line arguments
+	}
+
+	@Override
+	public void showMessage(TranslatableString message) {
+		String translation = message.getTranslation(languageProvider);
+		System.out.println(translation);
 	}
 }
