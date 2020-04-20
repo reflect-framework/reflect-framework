@@ -1,13 +1,10 @@
 package nth.reflect.fw.layer5provider.actionmethodexecution;
 
-import java.lang.reflect.Array;
 import java.net.URI;
-import java.util.Collection;
 
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
@@ -18,10 +15,8 @@ import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
  * <ul>
  * <li>Show a Message that the {@link ActionMethod} is executed, when
  * {@link ActionMethod} result is {@link Void}.</li>
- * <li>Show a {@link TranslatableString}</li>
  * <li>Show a {@link DomainObject}</li>
- * <li>Show a {@link Collection}</li>
- * <li>Show an {@link Array}</li>
+ * <li>Show a {@link TableInfo}</li>
  * <li>Send a {@link DownloadStream}</li>
  * <li>Open a {@link URL}</li>
  * <li>Open a {@link URI}</li>

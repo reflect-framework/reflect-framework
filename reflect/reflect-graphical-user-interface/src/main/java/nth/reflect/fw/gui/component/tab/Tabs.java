@@ -3,6 +3,7 @@ package nth.reflect.fw.gui.component.tab;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.component.ReflectGuiComponent;
@@ -49,7 +50,7 @@ public class Tabs<TAB extends Tab> implements Iterable<TAB> {
 	}
 
 	public void setSelected(TAB tab) {
-		if (!tabs.contains(tab) && tab!=null) {
+		if (!tabs.contains(tab) && tab != null) {
 			tabs.add(tab);
 			fireOnAddTab(tab);
 		}
@@ -61,12 +62,8 @@ public class Tabs<TAB extends Tab> implements Iterable<TAB> {
 		return selectedTab;
 	}
 
-	public void add(TAB newTab) {
-		setSelected(newTab);
-	}
-
 	public void remove(TAB tabToRemove) {
-		int tabToRemoveIndex=tabs.indexOf(tabToRemove);
+		int tabToRemoveIndex = tabs.indexOf(tabToRemove);
 		if (tabs.contains(tabToRemove)) {
 			tabs.remove(tabToRemove);
 			fireOnRemoveTab(tabToRemove);
@@ -74,7 +71,7 @@ public class Tabs<TAB extends Tab> implements Iterable<TAB> {
 		if (tabs.isEmpty()) {
 			setSelected(null);
 		} else if (selectedTab == tabToRemove) {
-			int newSelectedIndex=(tabToRemoveIndex>=tabs.size())?tabs.size()-1:tabToRemoveIndex;
+			int newSelectedIndex = (tabToRemoveIndex >= tabs.size()) ? tabs.size() - 1 : tabToRemoveIndex;
 			setSelected(tabs.get(newSelectedIndex));
 		}
 	}
@@ -118,8 +115,8 @@ public class Tabs<TAB extends Tab> implements Iterable<TAB> {
 	}
 
 	/**
-	 * The {@link Tabs<TAB>} implements a read only {@link Iterable} so that it
-	 * can be used in a for loop
+	 * The {@link Tabs<TAB>} implements a read only {@link Iterable} so that it can
+	 * be used in a for loop
 	 */
 
 	@Override
@@ -138,6 +135,10 @@ public class Tabs<TAB extends Tab> implements Iterable<TAB> {
 			}
 
 		};
+	}
+
+	public Stream<TAB> stream() {
+		return tabs.stream();
 	}
 
 	public void addListener(TabsListener<TAB> tabsListener) {

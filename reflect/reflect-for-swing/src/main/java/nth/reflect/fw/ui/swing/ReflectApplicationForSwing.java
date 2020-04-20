@@ -7,9 +7,6 @@ import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactory;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.depricated.DeprecatedActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -107,11 +104,6 @@ public abstract class ReflectApplicationForSwing implements GraphicalUserInterfa
 		return new PropertyFieldProvider(new PropertyFieldFactory[] { new TextFieldFactory(),
 				new CheckBoxFieldFactory(), new DateTimeFieldFactory(), new ComboBoxFieldFactory(),
 				new ManyToOneOrManyFieldFactory(), new OneToOneOrManyFieldFactory() });
-	}
-
-	@Override
-	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
-		return new ActionMethodExecutionProvider(new NoResultHandler(), new DeprecatedActionMethodResultHandler(this));
 	}
 
 	/**

@@ -11,6 +11,7 @@ import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.FormTabFilter;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.gui.component.tab.grid.GridTab;
 import nth.reflect.fw.gui.item.dialog.DialogCancelItem;
@@ -23,6 +24,7 @@ import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
@@ -106,8 +108,34 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object actionMethodParameterValue) {
-		openFormTab(actionMethodOwner, actionMethodInfo, actionMethodParameterValue, actionMethodParameterValue,
+		showFormTab(actionMethodOwner, actionMethodInfo, actionMethodParameterValue, actionMethodParameterValue,
 				FormMode.EDIT);
+	}
+
+	/**
+	 * TODO move to {@link ActionMethodResultHandler}
+	 * 
+	 * @param methodOwner
+	 * @param actionMethodInfo
+	 * @param methodParameter
+	 * @param methodResult
+	 * @param formMode
+	 */
+	public void showFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameter,
+			Object methodResult, FormMode formMode) {
+
+		Tabs tabs = getTabs();
+
+		FormTabFilter formTabFilter = new FormTabFilter(methodOwner, actionMethodInfo, methodParameter, methodResult,
+				formMode);
+		Optional<FormTab> result = tabs.stream().filter(formTabFilter).findFirst();
+
+		if (result.isPresent()) {
+			tabs.setSelected(result.get());
+		} else {
+			Tab formTab = createFormTab(methodOwner, actionMethodInfo, methodParameter, methodResult, formMode);
+			tabs.setSelected(formTab);
+		}
 	}
 
 	public abstract void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
@@ -197,28 +225,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	public abstract void executeInThread(Runnable methodExecutionRunnable);
 
 	@SuppressWarnings("unchecked")
-	public void openFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object domainObject, FormMode formMode) {
-		Tabs<TAB> tabs = getTabs();
-		for (Tab tab : tabs) {
-			if (tab instanceof FormTab) {
-				FormTab formTab = (FormTab) tab;
-				// identical FormTab?
-				if (methodOwner == formTab.getMethodOwner() && actionMethodInfo == formTab.getMethodInfo()
-						&& methodParameterValue == formTab.getMethodParameter()
-						&& domainObject == formTab.getDomainObject() && formMode == formTab.getFormMode()) {
-					// activate identical FormTab
-					tabs.setSelected((TAB) formTab);
-					return;
-				}
-			}
-		}
-		// FormTab not found so create and show a new FormTab
-		TAB formTab = createFormTab(methodOwner, actionMethodInfo, methodParameterValue, domainObject, formMode);
-		tabs.add(formTab);
-	}
-
-	@SuppressWarnings("unchecked")
 	public void openTableTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
 		Tabs<TAB> tabs = getTabs();
@@ -236,7 +242,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		}
 		// GridTab not found so create and show a new GridTab
 		TAB tableTab = createTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
-		tabs.add(tableTab);
+		tabs.setSelected(tableTab);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -257,12 +263,13 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		}
 		// GridTab not found so create and show a new GridTab
 		TAB treeTableTab = createTreeTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
-		tabs.add(treeTableTab);
+		tabs.setSelected(treeTableTab);
 	}
 
 	/**
 	 * NOTE that the FormOkItem linked to the OK button of the FormTab will need to
 	 * call {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
+	 * TODO move to {@link ActionMethodResultHandler}
 	 * 
 	 * @param actionMethodOwner
 	 * @param actionMethodInfo
@@ -293,23 +300,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		items.add(closeItem);
 
 		showDialog(DialogType.ERROR, title, message, items);
-	}
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult) {
-		Object domainObject = methodResult;
-		openFormTab(methodOwner, methodInfo, methodParameter, domainObject, FormMode.READ_ONLY);
-
 	}
 
 	/**

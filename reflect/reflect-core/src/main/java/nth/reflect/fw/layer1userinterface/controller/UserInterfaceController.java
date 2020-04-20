@@ -205,18 +205,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param methodParameter
 	 */
 	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult);
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			List<?> methodResult);
 
 	/**
@@ -239,4 +227,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 */
 	public abstract void launch();
 
+	public UserInterfaceContainer getUserInterfaceContainer() {
+		return userInterfaceContainer;
+	}
 }

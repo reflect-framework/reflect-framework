@@ -24,6 +24,7 @@ import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
+import nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result.DomainObjectResultHandler;
 
 /**
  * <p>
@@ -113,7 +114,7 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 
 	@Override
 	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
-		return new ActionMethodExecutionProvider(new NoResultHandler());
+		return new ActionMethodExecutionProvider(new NoResultHandler(), new DomainObjectResultHandler());
 	}
 
 	public String[] getCommandLineArguments() {

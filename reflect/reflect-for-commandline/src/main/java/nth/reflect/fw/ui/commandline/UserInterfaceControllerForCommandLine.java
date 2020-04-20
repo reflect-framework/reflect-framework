@@ -29,7 +29,6 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.ui.commandline.domain.command.Command;
 import nth.reflect.fw.ui.commandline.domain.command.CommandService;
 import nth.reflect.fw.ui.commandline.domain.command.Parameter;
-import nth.reflect.fw.ui.commandline.view.FormView;
 import nth.reflect.fw.ui.commandline.view.HelpView;
 import nth.reflect.fw.ui.commandline.view.TableView;
 
@@ -213,13 +212,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		}
 		// show method result
 		processActionMethodResult(methodOwner, methodInfo, methodParameter, methodReturnValue);
-	}
-
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult) {
-		FormView formView = new FormView(reflectionProvider, methodInfo, methodResult);
-		System.out.println(formView.toString());
 	}
 
 	@Override

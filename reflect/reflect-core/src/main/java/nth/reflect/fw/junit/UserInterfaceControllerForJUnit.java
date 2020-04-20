@@ -81,15 +81,6 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult) {
-		events
-				.add(String
-						.format("showActionMethodResult(%s, %s, %s, (DomainObject) %s)", methodOwner, methodInfo,
-								methodParameter, methodResult));
-	}
-
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			List<?> methodResult) {
 		events
 				.add(String

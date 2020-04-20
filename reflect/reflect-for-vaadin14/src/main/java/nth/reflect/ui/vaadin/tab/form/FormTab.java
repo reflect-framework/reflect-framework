@@ -65,6 +65,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 		FormLayout formLayout = createFormLayout();
 		add(formLayout);
+		updateFormRows();
 	}
 
 	private void updateFormRows() {
@@ -108,7 +109,10 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	private FormLayout createFormLayout() {
 
 		FormLayout formLayout = new FormLayout();
-		new StyleBuilder().setHeight(100, SizeUnit.PERCENT).setOverflow(Overflow.AUTO).setPadding(PADDING)
+		new StyleBuilder()
+				.setHeight(100, SizeUnit.PERCENT)
+				.setOverflow(Overflow.AUTO)
+				.setPadding(PADDING)
 				.setFor(formLayout);
 
 		for (PropertyPanel propertyPanel : propertyPanels) {
