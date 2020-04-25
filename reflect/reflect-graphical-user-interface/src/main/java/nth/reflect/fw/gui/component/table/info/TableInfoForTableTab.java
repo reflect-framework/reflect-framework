@@ -6,30 +6,26 @@ import java.util.List;
 import com.vaadin.flow.data.provider.DataProvider;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
-import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfoFactory;
 import nth.reflect.fw.gui.component.table.info.dataprovider.DataProviderFactory;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
-public class TableInfoForFormTabProperty implements TableInfo {
+public class TableInfoForTableTab implements TableInfo {
 
 	private final List<ColumnInfo> columnInfos;
 	private final DataProvider dataProvider;
-	private final FormTab formTab;
-	private final PropertyInfo propertyInfo;
+	private final GridTab gridTab;
 	private final TypeInfo typeInfo;
 
-	public TableInfoForFormTabProperty(FormTab formTab, PropertyValueModel propertyValueModel) {
-		this.propertyInfo = propertyValueModel.getPropertyInfo();
-		this.formTab = formTab;
-		typeInfo = TypeInfoFactory.createfor(formTab);
-		columnInfos = ColumnInfoFactory.createFor(formTab, propertyValueModel);
-		dataProvider = DataProviderFactory.createFor(propertyValueModel);
+	public TableInfoForTableTab(GridTab gridTab) {
+		this.gridTab = gridTab;
+		typeInfo = TypeInfoFactory.createfor(gridTab);
+		columnInfos = ColumnInfoFactory.createFor(gridTab);
+		dataProvider = DataProviderFactory.createFor(gridTab);
 	}
 
 	@Override
@@ -49,8 +45,7 @@ public class TableInfoForFormTabProperty implements TableInfo {
 
 	@Override
 	public Collection<Item> getRowMenuItems(ReadOnlyValueModel actionMethodParameterModel) {
-		PropertyPanelMenuItems items = new PropertyPanelMenuItems(formTab, actionMethodParameterModel, propertyInfo);
-		return items;
+		return new GridTabMenuItems(gridTab, actionMethodParameterModel);
 	}
 
 }

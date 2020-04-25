@@ -3,13 +3,10 @@ package nth.reflect.ui.vaadin.tab.grid;
 import java.util.List;
 
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.function.ValueProvider;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.component.table.info.TableInfo;
-import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
+import nth.reflect.fw.gui.component.table.info.TableInfoForTableTab;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -23,7 +20,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
 	private final Grid<?> grid;
-	private final TableInfo tableInfo;
+	private final TableInfoForTableTab tableInfo;
 	private ReadOnlyValueModel selectedRowsModel;
 
 	public GridTab(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
@@ -32,7 +29,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		this.actionMethodOwner = actionMethodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
-		tableInfo = new TableInfoForGridTab(this);
+		tableInfo = new TableInfoForTableTab(this);
 
 		setSizeFull();
 		grid = createGrid();
@@ -42,7 +39,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	private Grid<Object> createGrid() {
 		Grid<Object> grid = new Grid<Object>();
-		grid.setDataProvider(createDataProvider());
+		grid.setDataProvider(tableInfo.getDataProvider());
 		addGridColumns(grid);
 		return grid;
 	}
@@ -65,14 +62,6 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 				return columnInfo.toString(value);
 			}
 		};
-	}
-
-	//
-	private DataProvider<Object, ?> createDataProvider() {
-		List<Object> values = tableInfo.getValueList();
-		// TODO override DataProvider or one of its sub classes so that it
-		// refreshes when needed
-		return new ListDataProvider<>(values);
 	}
 
 	@Override

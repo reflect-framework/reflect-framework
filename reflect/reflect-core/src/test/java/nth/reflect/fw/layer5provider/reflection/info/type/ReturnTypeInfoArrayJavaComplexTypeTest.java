@@ -34,7 +34,7 @@ public class ReturnTypeInfoArrayJavaComplexTypeTest {
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getArrayOrCollectionTypeInfo().get().getType()).isEqualTo(Long.class);
+		assertThat(typeInfo.getGenericTypeInfo().get().getType()).isEqualTo(Long.class);
 	}
 
 	@Test

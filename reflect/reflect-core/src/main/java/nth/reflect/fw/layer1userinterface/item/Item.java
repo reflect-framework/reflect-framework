@@ -46,7 +46,7 @@ public class Item {
 	public Item(LanguageProvider languageProvider, TranslatableString text, Action action) {
 		this.languageProvider = languageProvider;
 		if (text == null) {
-			throw new IllegalArgumentException("caption cannot be null");
+			throw new IllegalArgumentException("text cannot be null");
 		}
 		setText(text);
 		setDescription(text);

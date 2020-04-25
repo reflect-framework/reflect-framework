@@ -104,7 +104,7 @@ public class DomainTexts extends Texts {
 			if (typeInfo.isDomainClass()) {
 				append(foundDomainClasses, typeInfo.getType());
 			} else {
-				Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getArrayOrCollectionTypeInfo();
+				Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getGenericTypeInfo();
 				if (arrayOrCollectionTypeInfo.isPresent() && arrayOrCollectionTypeInfo.get().isDomainClass()) {
 					append(foundDomainClasses, arrayOrCollectionTypeInfo.get().getType());
 				}

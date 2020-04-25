@@ -33,7 +33,7 @@ public class FirstParameterTypeInfoCollectionDomainType {
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getArrayOrCollectionTypeInfo().get().getType()).isEqualTo(DomainObject.class);
+		assertThat(typeInfo.getGenericTypeInfo().get().getType()).isEqualTo(DomainObject.class);
 	}
 
 	@Test

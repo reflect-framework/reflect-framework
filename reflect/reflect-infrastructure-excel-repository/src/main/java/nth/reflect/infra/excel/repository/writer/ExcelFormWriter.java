@@ -81,7 +81,7 @@ public class ExcelFormWriter extends ExcelWriter {
 		// TODO arrays
 		// TODO string converters for PrimartTypes and PrimaryWrapperTypes
 		Row row = cell.getRow();
-		Class<?> objectClass = propertyInfo.getTypeInfo().getArrayOrCollectionTypeInfo().get().getType();
+		Class<?> objectClass = propertyInfo.getTypeInfo().getGenericTypeInfo().get().getType();
 		DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(objectClass);
 		List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSortedAndVisibleInTable();
 

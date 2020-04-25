@@ -12,7 +12,7 @@ public abstract class ManyToOneOrManyFieldFactory implements PropertyFieldFactor
 		if (!typeInfo.isArrayOrCollection()) {
 			return false;
 		} else {
-			Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getArrayOrCollectionTypeInfo();
+			Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getGenericTypeInfo();
 			return arrayOrCollectionTypeInfo.get().isDomainClass();
 		}
 	}

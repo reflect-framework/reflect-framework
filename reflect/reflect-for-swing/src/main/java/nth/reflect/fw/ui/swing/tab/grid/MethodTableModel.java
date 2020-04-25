@@ -1,8 +1,12 @@
 package nth.reflect.fw.ui.swing.tab.grid;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.table.AbstractTableModel;
+
+import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.data.provider.Query;
 
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
@@ -10,6 +14,7 @@ import nth.reflect.fw.layer1userinterface.controller.Refreshable;
 
 public class MethodTableModel extends AbstractTableModel implements DomainTableModel, Refreshable {
 
+	private static final Query QUERY_ALL = new Query();
 	private static final long serialVersionUID = 605374068245011236L;
 	private final TableInfo tableInfo;
 	private List<Object> values;
@@ -52,10 +57,14 @@ public class MethodTableModel extends AbstractTableModel implements DomainTableM
 		return values.get(rowIndex);
 	}
 
+	/**
+	 * TODO: This only works for { {@link ListDataProvider} but not for big streams
+	 * from a {link CallbackDataProvider}
+	 */
 	@Override
 	public void refresh() {
 		try {
-			values = tableInfo.getValueList();
+			values = (List<Object>) tableInfo.getDataProvider().fetch(QUERY_ALL).collect(Collectors.toList());
 			fireTableDataChanged();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

@@ -137,9 +137,11 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 		// register space and enter keys to open the context menu. Note that we
 		// do not use the key listener because we want to override the default
 		// enter key behavior (go to next row)
-		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+		table
+				.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), ON_ROW_CLICK);
-		table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+		table
+				.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), ON_ROW_CLICK);
 		table.getActionMap().put(ON_ROW_CLICK, new AbstractAction() {
 

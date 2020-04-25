@@ -37,7 +37,7 @@ public class ReturnTypeInfoMapTest {
 
 	@Test
 	public void testGetGenericType() {
-		assertThat(typeInfo.getArrayOrCollectionTypeInfo().get().getType()).isEqualTo(Map.class);
+		assertThat(typeInfo.getGenericTypeInfo().get().getType()).isEqualTo(Map.class);
 	}
 
 	@Test

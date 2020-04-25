@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
@@ -26,7 +27,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 public class TypeInfo {
 
 	private final Class<?> type;
-	private final Optional<TypeInfo> arrayOrCollectionTypeInfo;
+	private final Optional<TypeInfo> arrayGenericTypeInfo;
 	private final boolean isVoid;
 	private final boolean isCollection;
 	private final boolean hasMultipleValues;
@@ -39,7 +40,7 @@ public class TypeInfo {
 
 	public TypeInfo(ReflectApplication reflectApplication, Class<?> type, Type genericType) {
 		this.type = type;
-		this.arrayOrCollectionTypeInfo = getArrayOrCollectionTypeInfo(reflectApplication, genericType);
+		this.arrayGenericTypeInfo = getGenericTypeInfo(reflectApplication, genericType);
 		this.isVoid = isVoid(type);
 		this.isCollection = Collection.class.isAssignableFrom(this.type);
 		this.isMap = Map.class.isAssignableFrom(this.type);
@@ -62,10 +63,10 @@ public class TypeInfo {
 	 * @return If type is an {@link Array} it returns its type<br>
 	 *         If type is an {@link ParameterizedType} (e.g. the parameter or the
 	 *         return type of a method) it returns the generic type of a
-	 *         collection<br>
-	 *         Otherwise it returns
+	 *         {@link Collection} or {@link Stream}<br>
+	 *         Otherwise it returns {@link Optional#empty()}
 	 */
-	public static Optional<TypeInfo> getArrayOrCollectionTypeInfo(ReflectApplication application, Type type) {
+	public static Optional<TypeInfo> getGenericTypeInfo(ReflectApplication application, Type type) {
 		if (type == null) {
 			return Optional.empty();
 		}
@@ -103,10 +104,10 @@ public class TypeInfo {
 	}
 
 	/**
-	 * See {@link #getArrayOrCollectionTypeInfo(ReflectApplication, Type)}
+	 * See {@link #getGenericTypeInfo(ReflectApplication, Type)}
 	 */
-	public Optional<TypeInfo> getArrayOrCollectionTypeInfo() {
-		return arrayOrCollectionTypeInfo;
+	public Optional<TypeInfo> getGenericTypeInfo() {
+		return arrayGenericTypeInfo;
 	}
 
 	public Class<?> getType() {
@@ -191,7 +192,7 @@ public class TypeInfo {
 	}
 
 	public boolean isJavaType(Class<?> type) {
-		if (PrimitiveType.isPrimitive(type) || isVoid || (isArray && arrayOrCollectionTypeInfo.get().isJavaType)) {
+		if (PrimitiveType.isPrimitive(type) || isVoid || (isArray && arrayGenericTypeInfo.get().isJavaType)) {
 			return true;
 		}
 		String canonicalName = type.getCanonicalName();

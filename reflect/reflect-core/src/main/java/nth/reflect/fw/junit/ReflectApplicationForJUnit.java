@@ -136,7 +136,7 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	/**
 	 * @return a {@link DependencyInjectionContainer} for testing
 	 */
-	public DependencyInjectionContainer createContainer() {
+	public UserInterfaceContainer createContainer() {
 		return new UserInterfaceContainer(this, false);
 	}
 

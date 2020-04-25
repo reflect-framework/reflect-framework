@@ -4,7 +4,6 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.ReflectGuiComponent;
 import nth.reflect.fw.gui.component.tab.ActionMethodTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanel;
-import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -33,7 +32,4 @@ public interface FormTab extends ActionMethodTab {
 	public FormMode getFormMode();
 
 	public Object getDomainObject();
-
-	public UserInterfaceContainer getUserInterfaceContainer();
-
 }

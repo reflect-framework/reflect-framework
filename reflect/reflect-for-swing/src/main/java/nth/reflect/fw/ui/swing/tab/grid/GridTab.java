@@ -17,7 +17,7 @@ import javax.swing.KeyStroke;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
-import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
+import nth.reflect.fw.gui.component.table.info.TableInfoForTableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -52,7 +52,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 		setLayout(new BorderLayout());
 
-		TableInfo tableInfo = new TableInfoForGridTab(this);
+		TableInfo tableInfo = new TableInfoForTableTab(this);
 		tableModel = new MethodTableModel(tableInfo);
 		grid = createGrid(tableModel);
 		JScrollPane tableContainer = new JScrollPane(grid);
@@ -100,9 +100,11 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		// register space and enter keys to open the context menu. Note that we
 		// do not use the key listener because we want to override the default
 		// enter key behavior (go to next row)
-		grid.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+		grid
+				.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), ON_ROW_CLICK);
-		grid.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+		grid
+				.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), ON_ROW_CLICK);
 		grid.getActionMap().put(ON_ROW_CLICK, new AbstractAction() {
 

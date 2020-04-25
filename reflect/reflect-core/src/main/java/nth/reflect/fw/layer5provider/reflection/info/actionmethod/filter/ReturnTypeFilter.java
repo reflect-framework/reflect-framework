@@ -20,7 +20,7 @@ public class ReturnTypeFilter implements Predicate<ActionMethodInfo> {
 		if (returnType.isAssignableFrom(typeInfo.getType())) {
 			return true;
 		}
-		Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getArrayOrCollectionTypeInfo();
+		Optional<TypeInfo> arrayOrCollectionTypeInfo = typeInfo.getGenericTypeInfo();
 		if (arrayOrCollectionTypeInfo.isPresent()) {
 			return returnType.isAssignableFrom(arrayOrCollectionTypeInfo.get().getType());
 		}

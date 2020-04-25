@@ -2,8 +2,13 @@ package nth.reflect.fw.javafx.control.table;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.sun.javafx.collections.ObservableListWrapper;
+import com.vaadin.flow.data.provider.CallbackDataProvider;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.data.provider.Query;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
@@ -14,11 +19,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.FontWeight;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
+import nth.reflect.fw.gui.component.tab.ActionMethodTab;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForFormTabProperty;
-import nth.reflect.fw.gui.component.table.info.TableInfoForGridTab;
+import nth.reflect.fw.gui.component.table.info.TableInfoForTableTab;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.gui.style.MaterialFont;
 import nth.reflect.fw.gui.style.ReflectColorName;
@@ -28,11 +34,12 @@ import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 @SuppressWarnings("restriction")
 public class Table extends TableView<Object> {
 
+	private static final Query QUERY_ALL = new Query();
 	// ROW_HEIGHT: Material design says 48 but we use same height as menu items
 	private static final int ROW_HEIGHT = ItemTreeCell.ITEM_HEIGHT;
 	private static final int ROW_FONT_SIZE = 14;
@@ -40,43 +47,41 @@ public class Table extends TableView<Object> {
 	private final PopupWindow popupMenu;
 	private TableInfo tableInfo;
 	private ReadOnlyValueModel actionMethodParameterModel;
+	private final LanguageProvider languageProvider;
 
-	public Table() {
-		// TODO new VerticalFlingScroller(this);
+	public Table(ActionMethodTab tab, TableInfo tableInfo) {
+		this.tableInfo = tableInfo;
+		this.languageProvider = tab.getUserInterfaceContainer().get(LanguageProvider.class);
+
 		addStyleClass();
+
 		popupMenu = new PopupWindow();
+		initColumns();
+		updateData();
+
 		setOnMouseClicked(this::onMouseClicked);
 	}
 
 	/**
-	 * Constructor for creating a table that shows a {@link ActionMethod} result
-	 * 
-	 * @param reflectionProvider
-	 * @param languageProvider
-	 * @param methodOwner
-	 * @param actionMethodInfo
-	 * @param methodParameterValue
-	 * @param tableView
+	 * TODO: Converting the {@link DataProvider#fetch(Query)} result to a
+	 * {@link List} works for a {@link ListDataProvider} but might not work well for
+	 * slow and or huge data sets from a {@link CallbackDataProvider}.
 	 */
-	public Table(TableInfo tableInfo) {
-		this();
-		this.tableInfo = tableInfo;
-		initColumns();
-		updateData();
-	}
-
 	public void updateData() {
-		List<Object> list = tableInfo.getValueList();
+		DataProvider dataProvider = tableInfo.getDataProvider();
+		dataProvider.refreshAll();
+		List<Object> list = (List<Object>) dataProvider.fetch(QUERY_ALL).collect(Collectors.toList());
+
 		ObservableListWrapper<Object> observableList = new ObservableListWrapper<Object>(list);
 		setItems(observableList);
 	}
 
 	public Table(nth.reflect.fw.gui.component.tab.grid.GridTab gridTab) {
-		this(new TableInfoForGridTab(gridTab));
+		this(gridTab, new TableInfoForTableTab(gridTab));
 	}
 
 	public Table(FormTab formTab, PropertyValueModel propertyValueModel) {
-		this(new TableInfoForFormTabProperty(formTab, propertyValueModel));
+		this(formTab, new TableInfoForFormTabProperty(formTab, propertyValueModel));
 	}
 
 	private void initColumns() {
@@ -177,7 +182,7 @@ public class Table extends TableView<Object> {
 
 	private ItemTreePanel createRowMenu(Collection<Item> menuItems) {
 
-		ItemTreePanel rowMenuContent = new ItemTreePanel(menuItems, tableInfo.getLanguageProvider(), popupMenu);
+		ItemTreePanel rowMenuContent = new ItemTreePanel(menuItems, languageProvider, popupMenu);
 		return rowMenuContent;
 	}
 
@@ -276,39 +281,57 @@ public class Table extends TableView<Object> {
 
 	public static void appendStyleGroups(StyleSheet styleSheet, Class<? extends Table> componentClass,
 			String backGroundColor, String backGroundHighLighted) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(componentClass)).getProperties()
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(componentClass))
+				.getProperties()
 				.setFont(MaterialFont.getRobotoRegular(ROW_FONT_SIZE))
 				// remove focus border
 				.setBackground(backGroundColor);
-		styleSheet.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header")).getProperties()
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header"))
+				.getProperties()
 				.setBackground(backGroundColor)
 				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),
 						backGroundHighLighted, ReflectColorName.CONTENT.TRANSPARENT())
 				.setSize(ROW_HEIGHT);
-		styleSheet.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header-background"))
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header-background"))
 				.getProperties()
 				// hide vertical line in header
 				.setBackground(backGroundColor);
 		styleSheet
-				.addStyleGroup(StyleSelector.createFor(componentClass).appendChild("column-header-background")
+				.addStyleGroup(StyleSelector
+						.createFor(componentClass)
+						.appendChild("column-header-background")
 						.appendChild("filler"))
-				.getProperties().setBackground(backGroundColor).setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(),
-						ReflectColorName.CONTENT.TRANSPARENT(), backGroundHighLighted,
-						ReflectColorName.CONTENT.TRANSPARENT());
+				.getProperties()
+				.setBackground(backGroundColor)
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),
+						backGroundHighLighted, ReflectColorName.CONTENT.TRANSPARENT());
 		styleSheet
 				.addStyleGroup(
 						StyleSelector.createFor(componentClass).appendChild("column-header").appendChild(Label.class))
-				.getProperties().setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
-				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setFontWeight(FontWeight.NORMAL)
+				.getProperties()
+				.setFont(MaterialFont.getRobotoMedium(HEADER_FONT_SIZE))
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+				.setFontWeight(FontWeight.NORMAL)
 				.setProperty("-fx-alignment", "CENTER-LEFT");
-		styleSheet.addStyleGroup(StyleSelector.createFor(".table-column")).getProperties()
-				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT()).setProperty("-fx-alignment", "CENTER-LEFT");
-		styleSheet.addStyleGroup(StyleSelector.createFor(".table-row-cell")).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(".table-column"))
+				.getProperties()
+				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT())
+				.setProperty("-fx-alignment", "CENTER-LEFT");
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(".table-row-cell"))
+				.getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
 				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),
 						backGroundHighLighted, ReflectColorName.CONTENT.TRANSPARENT())
 				.setCellSize(ROW_HEIGHT);
-		styleSheet.addStyleGroup(StyleSelector.createFor(".table-row-cell").appendFocused()).getProperties()
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(".table-row-cell").appendFocused())
+				.getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND_12())
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
 				.setBorderColor(ReflectColorName.CONTENT.TRANSPARENT(), ReflectColorName.CONTENT.TRANSPARENT(),

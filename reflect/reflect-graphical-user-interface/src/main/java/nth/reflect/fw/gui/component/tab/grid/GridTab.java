@@ -4,7 +4,6 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.ReflectGuiComponent;
 import nth.reflect.fw.gui.component.tab.ActionMethodTab;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -27,6 +26,7 @@ public interface GridTab extends ActionMethodTab, ReflectGuiComponent {
 
 	public ReadOnlyValueModel getSelectedRowModel();
 
+	@Override
 	public UserInterfaceContainer getUserInterfaceContainer();
 
 }
