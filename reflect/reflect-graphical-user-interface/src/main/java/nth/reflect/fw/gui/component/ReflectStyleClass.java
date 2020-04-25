@@ -2,7 +2,7 @@ package nth.reflect.fw.gui.component;
 
 import nth.reflect.fw.documentation.ReflectApplicationProjects;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
-import nth.reflect.fw.gui.component.grid.Grid;
+import nth.reflect.fw.gui.component.table.Table;
 
 /**
  * <p>
@@ -13,7 +13,7 @@ import nth.reflect.fw.gui.component.grid.Grid;
  *
  * <p>
  * {@link ReflectStyleClass}es are named: &lt;{@link ReflectGuiComponent}
- * name&gt;Style. E.g. the GridStyle for the {@link Grid} component
+ * name&gt;Style. E.g. the GridStyle for the {@link Table} component
  * </p>
  * 
  * <p>

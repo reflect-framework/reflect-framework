@@ -51,13 +51,13 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * 
  * <h2>Tabs</h2>{@insert nth.reflect.fw.gui.component.tab.Tab}
  * 
- * <h2>Grid Tab</h2>{@insert nth.reflect.fw.gui.component.tab.grid.GridTab}
+ * <h2>Table Tab</h2>{@insert nth.reflect.fw.gui.component.tab.table.TableTab}
  * 
- * <h2>Form Tab</h2>{@insert nth.reflect.fw.gui.component.tab.form.FormTab}
+ * <h2>Form Tab</h2>{@insert nth.reflect.ui.vaadin.tab.form.FormTab}
  * 
  * <h2>Customized tabs</h2>
  * <p>
- * The {@link GridTab} and {@link FormTab} are normally used to select a
+ * The {@link TableTab} and {@link FormTab} are normally used to select a
  * {@link DomainObject} and view or manipulate it. You can create your own Tab
  * and configure it to be used in your {@link ReflectApplication} if you need a
  * different representation of the {@link DomainObject}s. Typical examples are:

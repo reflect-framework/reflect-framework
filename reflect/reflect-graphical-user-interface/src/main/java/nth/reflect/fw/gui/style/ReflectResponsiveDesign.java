@@ -4,11 +4,11 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.gui.component.applicationbar.ApplicationBar;
-import nth.reflect.fw.gui.component.grid.Grid;
 import nth.reflect.fw.gui.component.mainmenu.MainMenu;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanel;
+import nth.reflect.fw.gui.component.table.Table;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.title.TitleModel;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -46,7 +46,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * "https://material.io/design/components/navigation-drawer.html">navigation
  * drawer</a> (overlapping the content area (tab panels) because there is no
  * space to show both of them at the same time).</li>
- * <li>{@link Grid}s only have one column that show the {@link DomainObject}
+ * <li>{@link Table}s only have one column that show the {@link DomainObject}
  * {@link TitleModel} because there is no space to show more columns</li>
  * <li>{@link FormTab}s show all {@link PropertyPanel}'s underneath each
  * other</li>
@@ -64,7 +64,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * "https://material.io/design/components/navigation-drawer.html">navigation
  * drawer</a> (overlapping the content area (tab panels) because there is no
  * space to show both of them at the same time).</li>
- * <li>{@link Grid}s only can have a few columns, depending on the available
+ * <li>{@link Table}s only can have a few columns, depending on the available
  * width</li>
  * <li>{@link FormTab}s could have more {@link PropertyPanel}'s next to each
  * other, depending on the available width.</li>
@@ -80,7 +80,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <li>The {@link MainMenu} is displayed on the left when it is not hidden
  * (shifting the content area (tab panels) to the right so that both are
  * visible)</li>
- * <li>{@link Grid}s only can have multiple columns, depending on the available
+ * <li>{@link Table}s only can have multiple columns, depending on the available
  * width</li>
  * <li>{@link FormTab}s could have more {@link PropertyPanel}'s next to each
  * other, depending on the available width</li>

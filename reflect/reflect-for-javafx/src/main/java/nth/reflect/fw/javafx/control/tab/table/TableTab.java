@@ -1,4 +1,4 @@
-package nth.reflect.fw.javafx.control.tab.grid;
+package nth.reflect.fw.javafx.control.tab.table;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.javafx.control.tab.Tab;
@@ -7,7 +7,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
+public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.table.TableTab {
 
 	private final LanguageProvider languageProvider;
 	private final Object methodOwner;
@@ -15,9 +15,9 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final Object methodParameterValue;
 	private ReadOnlyValueModel selectedRowsModel;
 	private final UserInterfaceContainer userInterfaceContainer;
-	private final Table grid;
+	private final Table table;
 
-	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
+	public TableTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
@@ -25,8 +25,8 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameterValue = methodParameterValue;
 
-		grid = new Table(this);
-		setCenter(grid);
+		table = new Table(this);
+		setCenter(table);
 
 	}
 
@@ -42,7 +42,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 	@Override
 	public void onRefresh() {
-		grid.updateData();
+		table.updateData();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public Object getValue() {
-					return grid.getSelectionModel().getSelectedItem();
+					return table.getSelectionModel().getSelectedItem();
 				}
 
 				@Override
@@ -62,7 +62,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public boolean canGetValue() {
-					return !grid.getSelectionModel().isEmpty();
+					return !table.getSelectionModel().isEmpty();
 				}
 
 			};

@@ -1,4 +1,4 @@
-package nth.reflect.ui.vaadin.tab.treegrid;
+package nth.reflect.ui.vaadin.tab.treetable;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;

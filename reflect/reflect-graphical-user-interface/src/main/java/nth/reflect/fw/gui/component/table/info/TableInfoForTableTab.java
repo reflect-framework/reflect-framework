@@ -6,8 +6,8 @@ import java.util.List;
 import com.vaadin.flow.data.provider.DataProvider;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.component.tab.grid.GridTab;
-import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
+import nth.reflect.fw.gui.component.tab.table.TableTabMenuItems;
+import nth.reflect.fw.gui.component.tab.table.TableTab;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfoFactory;
 import nth.reflect.fw.gui.component.table.info.dataprovider.DataProviderFactory;
@@ -18,14 +18,14 @@ public class TableInfoForTableTab implements TableInfo {
 
 	private final List<ColumnInfo> columnInfos;
 	private final DataProvider dataProvider;
-	private final GridTab gridTab;
+	private final TableTab tableTab;
 	private final TypeInfo typeInfo;
 
-	public TableInfoForTableTab(GridTab gridTab) {
-		this.gridTab = gridTab;
-		typeInfo = TypeInfoFactory.createfor(gridTab);
-		columnInfos = ColumnInfoFactory.createFor(gridTab);
-		dataProvider = DataProviderFactory.createFor(gridTab);
+	public TableInfoForTableTab(TableTab tableTab) {
+		this.tableTab = tableTab;
+		typeInfo = TypeInfoFactory.createfor(tableTab);
+		columnInfos = ColumnInfoFactory.createFor(tableTab);
+		dataProvider = DataProviderFactory.createFor(tableTab);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class TableInfoForTableTab implements TableInfo {
 
 	@Override
 	public Collection<Item> getRowMenuItems(ReadOnlyValueModel actionMethodParameterModel) {
-		return new GridTabMenuItems(gridTab, actionMethodParameterModel);
+		return new TableTabMenuItems(tableTab, actionMethodParameterModel);
 	}
 
 }

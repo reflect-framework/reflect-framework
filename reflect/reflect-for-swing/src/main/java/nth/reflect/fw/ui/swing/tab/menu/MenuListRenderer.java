@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
-import nth.reflect.fw.gui.component.grid.GridStyle;
+import nth.reflect.fw.gui.component.table.TableStyle;
 import nth.reflect.fw.gui.item.method.MethodOwnerItem;
 import nth.reflect.fw.gui.style.ColorProvider;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -24,7 +24,7 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 	public MenuListRenderer(ColorProvider colorProvider) {
 		this.colorProvider=colorProvider;
 		setOpaque(true);
-		setPreferredSize(new Dimension(0, GridStyle.getMinHeight()));
+		setPreferredSize(new Dimension(0, TableStyle.getMinHeight()));
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 	private Component getCellRendererComponent(MethodOwnerItem serviceObjectItem,
 			boolean isSelected, boolean hasFocus) {
 		// TODO Color separatorColor =
-		EmptyBorder padding = new EmptyBorder(0, GridStyle.getPaddingLeft(), 0,
-				GridStyle.getPaddingRight());
+		EmptyBorder padding = new EmptyBorder(0, TableStyle.getPaddingLeft(), 0,
+				TableStyle.getPaddingRight());
 		setBorder(padding);
 
 		setText(serviceObjectItem.getText());
@@ -52,13 +52,13 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 		setEnabled(serviceObjectItem.isEnabled());
 		// setIcon(entry.getImage());
 
-		setFont(AwtFontFactory.create(GridStyle.getCellFont()));
+		setFont(AwtFontFactory.create(TableStyle.getCellFont()));
 
 		Color red = Color.RED;//TODO
-		Color foreground = isSelected ? red : ColorFactory.create(GridStyle.getTextColor(colorProvider));
+		Color foreground = isSelected ? red : ColorFactory.create(TableStyle.getTextColor(colorProvider));
 		setForeground(foreground);
-		Color background = hasFocus ? ColorFactory.create(GridStyle.getBackgroundHighLighted(colorProvider))
-				: ColorFactory.create(GridStyle.getBackground(colorProvider));
+		Color background = hasFocus ? ColorFactory.create(TableStyle.getBackgroundHighLighted(colorProvider))
+				: ColorFactory.create(TableStyle.getBackground(colorProvider));
 		setBackground(background);
 		return this;
 	};
@@ -66,9 +66,9 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 	private Component getCellRendererComponent(Item actionMethodItem,
 			boolean isSelected, boolean hasFocus) {
 		setBorder(new EmptyBorder(0,
-				GridStyle.getPaddingLeft()
-						+ GridStyle.getIndent(),
-				0, GridStyle.getPaddingRight()));
+				TableStyle.getPaddingLeft()
+						+ TableStyle.getIndent(),
+				0, TableStyle.getPaddingRight()));
 
 
 		setText(actionMethodItem.getText());
@@ -77,13 +77,13 @@ public class MenuListRenderer extends JLabel implements ListCellRenderer<Item> {
 		setEnabled(actionMethodItem.isEnabled());
 		// setIcon(entry.getImage());
 
-		setFont(AwtFontFactory.create(GridStyle.getCellFont()));
+		setFont(AwtFontFactory.create(TableStyle.getCellFont()));
 
 		Color red = Color.RED;//TODO
-		Color foreground = isSelected ? red : ColorFactory.create(GridStyle.getTextColor(colorProvider));
+		Color foreground = isSelected ? red : ColorFactory.create(TableStyle.getTextColor(colorProvider));
 		setForeground(foreground);
-		Color background = hasFocus ? ColorFactory.create(GridStyle.getBackgroundHighLighted(colorProvider))
-				: ColorFactory.create(GridStyle.getBackground(colorProvider));
+		Color background = hasFocus ? ColorFactory.create(TableStyle.getBackgroundHighLighted(colorProvider))
+				: ColorFactory.create(TableStyle.getBackground(colorProvider));
 		setBackground(background);
 		return this;
 	}

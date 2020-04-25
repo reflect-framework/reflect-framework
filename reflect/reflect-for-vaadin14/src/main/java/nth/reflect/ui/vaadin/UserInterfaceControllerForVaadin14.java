@@ -27,8 +27,8 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.tab.form.FormTab;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanelFactory;
-import nth.reflect.ui.vaadin.tab.grid.GridTab;
-import nth.reflect.ui.vaadin.tab.treegrid.TreeTableTab;
+import nth.reflect.ui.vaadin.tab.table.TableTab;
+import nth.reflect.ui.vaadin.tab.treetable.TreeTableTab;
 
 public class UserInterfaceControllerForVaadin14
 		extends GraphicalUserinterfaceController<nth.reflect.ui.vaadin.tab.Tab, PropertyPanel> {
@@ -137,9 +137,9 @@ public class UserInterfaceControllerForVaadin14
 	}
 
 	@Override
-	public GridTab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
+	public TableTab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
-		return new GridTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
+		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override

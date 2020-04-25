@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import com.vaadin.flow.data.provider.DataProvider;
 
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.tab.table.TableTab;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
@@ -25,11 +25,11 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
  */
 public class DataProviderFactory {
 
-	public static DataProvider createFor(GridTab gridTab) {
-		ActionMethodInfo methodInfo = gridTab.getMethodInfo();
+	public static DataProvider createFor(TableTab tableTab) {
+		ActionMethodInfo methodInfo = tableTab.getMethodInfo();
 		Method method = methodInfo.getMethod();
-		Object methodOwner = gridTab.getMethodOwner();
-		Object methodParameter = gridTab.getMethodParameter();
+		Object methodOwner = tableTab.getMethodOwner();
+		Object methodParameter = tableTab.getMethodParameter();
 		return create(method, methodOwner, methodParameter);
 
 	}

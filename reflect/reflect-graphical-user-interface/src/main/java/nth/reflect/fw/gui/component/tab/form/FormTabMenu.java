@@ -1,7 +1,7 @@
 package nth.reflect.fw.gui.component.tab.form;
 
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
-import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.tab.table.TableTab;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -13,7 +13,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * <a href="https://en.wikipedia.org/wiki/Toolbar">toolbar</a> of a
  * {@link FormTab} (that displays a {@link DomainObject}) or as a
  * <a href="">context menu</a> when the user clicks on a row of a
- * {@link GridTab}. The {@link FormTabMenu} allows a user to perform an action
+ * {@link TableTab}. The {@link FormTabMenu} allows a user to perform an action
  * on or with a {@link DomainObject}. An {@link FormTabMenu} contains all the
  * {@link ActionMethod}s of the {@link DomainObject} and all
  * {@link ActionMethod} s of {@link ServiceObject}s that take the

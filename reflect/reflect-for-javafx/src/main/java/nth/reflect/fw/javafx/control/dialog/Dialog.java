@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import nth.reflect.fw.gui.component.grid.GridStyle;
+import nth.reflect.fw.gui.component.table.TableStyle;
 import nth.reflect.fw.gui.style.MaterialFont;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.button.PrimaryButton;
@@ -78,7 +78,7 @@ public class Dialog extends JFXDialog {
 	public static void appendStyleGroups(StyleSheet styleSheet) {
 		styleSheet.addStyleGroup(StyleSelector.createFor(Dialog.class)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setTextFill(ReflectColorName.CONTENT.FOREGROUND())
-				.setFont(MaterialFont.getRobotoRegular(GridStyle.FONT_SIZE)).setPadding(0);
+				.setFont(MaterialFont.getRobotoRegular(TableStyle.FONT_SIZE)).setPadding(0);
 
 		// Remove annoying border
 		styleSheet.addStyleGroup(StyleSelector.createFor(Dialog.class).append(ScrollPane.class)).getProperties()

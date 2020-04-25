@@ -1,13 +1,13 @@
 package nth.reflect.fw.gui.component.table.info.dataprovider;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.tab.table.TableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
 
-public class FellowshipGridTab implements GridTab {
+public class FellowshipGridTab implements TableTab {
 
 	private static final Object NO_PARAMETER = null;
 	private final UserInterfaceContainer userInterfaceContainer;

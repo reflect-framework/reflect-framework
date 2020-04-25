@@ -13,7 +13,7 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.FormTabFilter;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
-import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.tab.table.TableTab;
 import nth.reflect.fw.gui.item.dialog.DialogCancelItem;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.gui.item.dialog.DialogMethodItem;
@@ -229,13 +229,13 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			Object methodReturnValue) {
 		Tabs<TAB> tabs = getTabs();
 		for (Tab tab : tabs) {
-			if (tab instanceof GridTab) {
-				GridTab gridTab = (GridTab) tab;
+			if (tab instanceof TableTab) {
+				TableTab tableTab = (TableTab) tab;
 				// identical GridTab?
-				if (methodOwner == gridTab.getMethodOwner() && actionMethodInfo == gridTab.getMethodInfo()
-						&& methodParameterValue == gridTab.getMethodParameter()) {
+				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
+						&& methodParameterValue == tableTab.getMethodParameter()) {
 					// activate identical GridTab
-					tabs.setSelected((TAB) gridTab);
+					tabs.setSelected((TAB) tableTab);
 					return;
 				}
 			}
@@ -250,13 +250,13 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			Object methodReturnValue) {
 		Tabs<TAB> tabs = getTabs();
 		for (Tab tab : tabs) {
-			if (tab instanceof GridTab) {
-				GridTab gridTab = (GridTab) tab;
+			if (tab instanceof TableTab) {
+				TableTab tableTab = (TableTab) tab;
 				// identical GridTab?
-				if (methodOwner == gridTab.getMethodOwner() && actionMethodInfo == gridTab.getMethodInfo()
-						&& methodParameterValue == gridTab.getMethodParameter()) {
+				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
+						&& methodParameterValue == tableTab.getMethodParameter()) {
 					// activate identical GridTab
-					tabs.setSelected((TAB) gridTab);
+					tabs.setSelected((TAB) tableTab);
 					return;
 				}
 			}

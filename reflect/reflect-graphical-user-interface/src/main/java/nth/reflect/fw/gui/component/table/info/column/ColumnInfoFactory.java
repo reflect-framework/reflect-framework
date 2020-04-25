@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.gui.component.tab.grid.GridTab;
+import nth.reflect.fw.gui.component.tab.table.TableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatPatternFactory;
@@ -22,10 +22,10 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFact
 
 public class ColumnInfoFactory {
 
-	public static List<ColumnInfo> createFor(GridTab gridTab) {
-		UserInterfaceContainer container = gridTab.getUserInterfaceContainer();
+	public static List<ColumnInfo> createFor(TableTab tableTab) {
+		UserInterfaceContainer container = tableTab.getUserInterfaceContainer();
 
-		ActionMethodInfo methodInfo = gridTab.getMethodInfo();
+		ActionMethodInfo methodInfo = tableTab.getMethodInfo();
 		Method method = methodInfo.getMethod();
 
 		Optional<TypeInfo> optionalGenericTypeInfo = methodInfo.getReturnTypeInfo().getGenericTypeInfo();

@@ -1,4 +1,4 @@
-package nth.reflect.fw.ui.swing.tab.grid;
+package nth.reflect.fw.ui.swing.tab.table;
 
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.component.tab.grid.GridTabMenuItems;
+import nth.reflect.fw.gui.component.tab.table.TableTabMenuItems;
 import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.TableInfoForTableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -27,14 +27,14 @@ import nth.reflect.fw.ui.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.TableNotInSingleSelectionModeException;
 
-public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
+public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.table.TableTab {
 
 	private static final String ON_ROW_CLICK = "onRowClick";
 	private static final long serialVersionUID = 6381153012201315532L;
 	private final Object methodOwner;
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodParameterValue;
-	private final JTable grid;
+	private final JTable table;
 	private final MethodTableModel tableModel;
 	private final MenuBar menuBar;
 	private final PopupMenu menuPopUp;
@@ -42,8 +42,8 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final UserInterfaceContainer userInterfaceContainer;
 	private final LanguageProvider languageProvider;
 
-	public GridTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue) {
+	public TableTab(UserInterfaceContainer userInterfaceContainer, Object methodOwner,
+			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		this.methodOwner = methodOwner;
@@ -54,25 +54,27 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 		TableInfo tableInfo = new TableInfoForTableTab(this);
 		tableModel = new MethodTableModel(tableInfo);
-		grid = createGrid(tableModel);
-		JScrollPane tableContainer = new JScrollPane(grid);
-		tableContainer.getViewport().setBackground(grid.getBackground());
+		table = createTable(tableModel);
+		JScrollPane tableContainer = new JScrollPane(table);
+		tableContainer.getViewport().setBackground(table.getBackground());
 		// tableContainer.setFocusable(false); TODO test
 		// tableContainer.addMouseListener TODO test
 
-		Collection<Item> menuItems = new GridTabMenuItems(this);
+		Collection<Item> menuItems = new TableTabMenuItems(this);
 		menuPopUp = createPopUpMenu(menuItems);
 		menuBar = createMenuBar(menuItems);
 		add(menuBar, BorderLayout.NORTH);
 		add(tableContainer, BorderLayout.CENTER);
+
+		tableModel.refresh();
 	}
 
-	private JTable createGrid(final MethodTableModel tableModel) {
-		final JTable grid = new JTable();
-		grid.setModel(tableModel);
-		grid.setRowHeight(22);// Row HEIGHT a bit higher than default: 1.5 * 16
+	private JTable createTable(final MethodTableModel tableModel) {
+		final JTable table = new JTable();
+		table.setModel(tableModel);
+		table.setRowHeight(22);// Row HEIGHT a bit higher than default: 1.5 * 16
 
-		grid.addMouseListener(new MouseListener() {
+		table.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -100,31 +102,31 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		// register space and enter keys to open the context menu. Note that we
 		// do not use the key listener because we want to override the default
 		// enter key behavior (go to next row)
-		grid
+		table
 				.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), ON_ROW_CLICK);
-		grid
+		table
 				.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), ON_ROW_CLICK);
-		grid.getActionMap().put(ON_ROW_CLICK, new AbstractAction() {
+		table.getActionMap().put(ON_ROW_CLICK, new AbstractAction() {
 
 			private static final long serialVersionUID = -7373360094398512228L;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int selectedRow = grid.getSelectedRow();
-				Rectangle positionInTable = grid.getCellRect(selectedRow, 0, true);
+				int selectedRow = table.getSelectedRow();
+				Rectangle positionInTable = table.getCellRect(selectedRow, 0, true);
 				onTableRowSelect(positionInTable.x + 20, positionInTable.y);
 
 			}
 		});
-		return grid;
+		return table;
 	}
 
 	protected void onTableRowSelect(int x, int y) {
-		Collection<Item> menuItems = new GridTabMenuItems(GridTab.this);
+		Collection<Item> menuItems = new TableTabMenuItems(TableTab.this);
 		menuPopUp.repopulate(menuItems);
-		menuPopUp.show(grid, x, y);
+		menuPopUp.show(table, x, y);
 	}
 
 	public PopupMenu createPopUpMenu(final Collection<Item> menuItems) {
@@ -149,15 +151,15 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	public void onRefresh() {
 		// get selected domain object
 		Object selectedDomainObject = null;
-		int selectedRow = grid.getSelectedRow();
+		int selectedRow = table.getSelectedRow();
 		if (selectedRow != -1) {
-			selectedDomainObject = tableModel.getDomainValue(selectedRow);
+			selectedDomainObject = tableModel.getValue(selectedRow);
 		}
 
 		// update table
 		tableModel.refresh();
 		// update menus
-		Collection<Item> menuItems = new GridTabMenuItems(this);
+		Collection<Item> menuItems = new TableTabMenuItems(this);
 		menuPopUp.repopulate(menuItems);
 		menuBar.repopulate(menuItems);
 		// set focus (preferably on the same domain object)
@@ -165,8 +167,8 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 		if (selectedRow == -1) {
 			selectedRow = 0;
 		}
-		grid.changeSelection(selectedRow, 0, false, false);
-		grid.requestFocus();
+		table.changeSelection(selectedRow, 0, false, false);
+		table.requestFocus();
 	}
 
 	@Override
@@ -176,14 +178,14 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public Object getValue() {
-					int[] selectedRows = grid.getSelectedRows();
+					int[] selectedRows = table.getSelectedRows();
 					switch (selectedRows.length) {
 					case 0:
 						// nothing selected
 						return null;
 					case 1:
 						// single row selected
-						return tableModel.getDomainValue(selectedRows[0]);
+						return tableModel.getValue(selectedRows[0]);
 					default:
 						throw new TableNotInSingleSelectionModeException();
 					// TODO in future: support multi selection to!
@@ -206,7 +208,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 
 				@Override
 				public boolean canGetValue() {
-					return grid.getSelectedRow() != -1;// can only get a value
+					return table.getSelectedRow() != -1;// can only get a value
 														// when a row is
 														// selected
 				}

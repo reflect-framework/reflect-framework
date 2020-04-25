@@ -116,7 +116,7 @@ public class TypeInfo {
 
 	/**
 	 * @return true if the type can contain multiple values (can be displayed as a
-	 *         table or grid) at a given time. Note that a {@link Enum} only
+	 *         {@link Table}) at a given time. Note that a {@link Enum} only
 	 *         contains one value at a time.
 	 */
 	public boolean hasMultipleValues() {

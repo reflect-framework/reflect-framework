@@ -8,7 +8,7 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import nth.reflect.fw.gui.component.grid.GridStyle;
+import nth.reflect.fw.gui.component.table.TableStyle;
 import nth.reflect.fw.gui.item.HierarchicalItem;
 import nth.reflect.fw.gui.item.method.MethodOwnerItem;
 import nth.reflect.fw.gui.style.ReflectColorName;
@@ -28,7 +28,7 @@ import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrl;
  */
 public class ItemTreeCell extends TreeCell<Item> implements ReflectJavaFxControl {
 
-	public static final int ITEM_HEIGHT = GridStyle.getMinHeight();
+	public static final int ITEM_HEIGHT = TableStyle.getMinHeight();
 	public static final String FONT_WEIGHT_BOLD = new StyleProperties().setFontWeight(FontWeight.BOLD).toString();
 	public static final String FONT_WEIGHT_NORMAL = new StyleProperties().setFontWeight(FontWeight.NORMAL).toString();
 
@@ -75,7 +75,7 @@ public class ItemTreeCell extends TreeCell<Item> implements ReflectJavaFxControl
 	public static void appendStyleGroups(StyleSheet styleSheet) {
 		// TODO add RfxItemTree.class in style selector
 		styleSheet.addStyleGroup(StyleSelector.createFor(TreeCell.class)).getProperties()
-				.setFont(GridStyle.getCellFont()).setMaxHeight(ITEM_HEIGHT).setMinHeight(ITEM_HEIGHT)
+				.setFont(TableStyle.getCellFont()).setMaxHeight(ITEM_HEIGHT).setMinHeight(ITEM_HEIGHT)
 				.setBackground("transparent");
 		// TODO add RfxItemTree.class in style selector
 		styleSheet.addStyleGroup(StyleSelector.createFor(TreeCell.class).appendSelected()).getProperties()

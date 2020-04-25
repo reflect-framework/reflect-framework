@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.component.tab.grid;
+package nth.reflect.fw.gui.component.tab.table;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,31 +19,31 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.Paramet
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.ParameterTypeFilter;
 
 /**
- * Menu {@link Item}s for a {@link GridTabMenu}
+ * Menu {@link Item}s for a {@link TableTabMenu}
  */
-public class GridTabMenuItems extends ItemCollection {
+public class TableTabMenuItems extends ItemCollection {
 
 	private static final long serialVersionUID = 6211256666484535772L;
 
-	public GridTabMenuItems(GridTab gridTab) {
-		super(create(gridTab));
+	public TableTabMenuItems(TableTab tableTab) {
+		super(create(tableTab));
 	}
 
-	public GridTabMenuItems(GridTab gridTab, ReadOnlyValueModel actionMethodParameterModel) {
-		super(create(gridTab, actionMethodParameterModel));
+	public TableTabMenuItems(TableTab tableTab, ReadOnlyValueModel actionMethodParameterModel) {
+		super(create(tableTab, actionMethodParameterModel));
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Collection<? extends Item> create(GridTab gridTab) {
+	private static Collection<? extends Item> create(TableTab tableTab) {
 		List<Item> items = new ArrayList<Item>();
 
 		// get info from table tab
-		ActionMethodInfo methodInfoToExclude = gridTab.getMethodInfo();
-		ReadOnlyValueModel parameterModel = gridTab.getSelectedRowModel();
-		Object serviceObject = gridTab.getMethodOwner();
+		ActionMethodInfo methodInfoToExclude = tableTab.getMethodInfo();
+		ReadOnlyValueModel parameterModel = tableTab.getSelectedRowModel();
+		Object serviceObject = tableTab.getMethodOwner();
 
 		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userinterfaceController = gridTab.getUserInterfaceContainer()
+		GraphicalUserinterfaceController userinterfaceController = tableTab.getUserInterfaceContainer()
 				.get(GraphicalUserinterfaceController.class);
 		Tabs<Tab> tabs = userinterfaceController.getTabs();
 		items.addAll(new PropertyMethodOwnerItems(tabs, parameterModel, null));
@@ -52,18 +52,18 @@ public class GridTabMenuItems extends ItemCollection {
 		Class<?> domainType = parameterModel.getValueType();
 		Predicate<ActionMethodInfo> filter = new ParameterTypeFilter(domainType)
 				.and(actionMethod -> !actionMethod.equals(methodInfoToExclude));
-		UserInterfaceContainer userInterfaceContainer = gridTab.getUserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer = tableTab.getUserInterfaceContainer();
 		items.addAll(new ServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
 
 		return items;
 	}
 
-	private static Collection<? extends Item> create(GridTab gridTab, ReadOnlyValueModel actionMethodParameterModel) {
+	private static Collection<? extends Item> create(TableTab tableTab, ReadOnlyValueModel actionMethodParameterModel) {
 		List<Item> items = new ArrayList<>();
 
 		// get info from table tab
-		ReadOnlyValueModel parameterModel = gridTab.getSelectedRowModel();
-		Object serviceObject = gridTab.getMethodOwner();
+		ReadOnlyValueModel parameterModel = tableTab.getSelectedRowModel();
+		Object serviceObject = tableTab.getMethodOwner();
 		//
 		// @SuppressWarnings("rawtypes")
 		// GraphicalUserinterfaceController userinterfaceController =
@@ -77,7 +77,7 @@ public class GridTabMenuItems extends ItemCollection {
 		// create filter for service object items
 
 		ParameterModelFilter filter = new ParameterModelFilter(actionMethodParameterModel);
-		UserInterfaceContainer userInterfaceContainer = gridTab.getUserInterfaceContainer();
+		UserInterfaceContainer userInterfaceContainer = tableTab.getUserInterfaceContainer();
 		items.addAll(new ServiceObjectItems(userInterfaceContainer, serviceObject, parameterModel, filter));
 
 		return items;

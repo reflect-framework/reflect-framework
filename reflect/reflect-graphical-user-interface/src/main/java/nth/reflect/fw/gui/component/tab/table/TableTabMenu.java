@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.component.tab.grid;
+package nth.reflect.fw.gui.component.tab.table;
 
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
 import nth.reflect.fw.layer2service.ServiceObject;
@@ -6,9 +6,9 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
- * TODO PICTURE {@link GridTabMenu}
+ * TODO PICTURE {@link TableTabMenu}
  * <p>
- * A {@link GridTabMenu} is displayed as a
+ * A {@link TableTabMenu} is displayed as a
  * <a href="https://en.wikipedia.org/wiki/Context_menu">context menu</a> when a
  * user clicks on one of the rows of the grid or table. It contains all the
  * {@link ActionMethod}s of the {@link DomainObject} and all
@@ -21,5 +21,5 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  *
  */
 
-public interface GridTabMenu extends ReflectDocumentationInterface {
+public interface TableTabMenu extends ReflectDocumentationInterface {
 }

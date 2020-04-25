@@ -1,4 +1,4 @@
-package nth.reflect.ui.vaadin.tab.grid;
+package nth.reflect.ui.vaadin.tab.table;
 
 public class Person {
 

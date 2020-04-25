@@ -1,4 +1,4 @@
-package nth.reflect.fw.ui.swing.tab.grid;
+package nth.reflect.fw.ui.swing.tab.table;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +12,7 @@ import nth.reflect.fw.gui.component.table.info.TableInfo;
 import nth.reflect.fw.gui.component.table.info.column.ColumnInfo;
 import nth.reflect.fw.layer1userinterface.controller.Refreshable;
 
-public class MethodTableModel extends AbstractTableModel implements DomainTableModel, Refreshable {
+public class MethodTableModel extends AbstractTableModel implements Refreshable {
 
 	private static final Query QUERY_ALL = new Query();
 	private static final long serialVersionUID = 605374068245011236L;
@@ -52,8 +52,7 @@ public class MethodTableModel extends AbstractTableModel implements DomainTableM
 		}
 	}
 
-	@Override
-	public Object getDomainValue(int rowIndex) {// TODO rename to value?
+	public Object getValue(int rowIndex) {
 		return values.get(rowIndex);
 	}
 

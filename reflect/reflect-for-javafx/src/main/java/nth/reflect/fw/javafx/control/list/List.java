@@ -1,7 +1,7 @@
 package nth.reflect.fw.javafx.control.list;
 
 import javafx.scene.control.ListView;
-import nth.reflect.fw.gui.component.grid.GridStyle;
+import nth.reflect.fw.gui.component.table.TableStyle;
 import nth.reflect.fw.gui.style.MaterialFont;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.control.ReflectJavaFxControl;
@@ -54,7 +54,7 @@ public class List<T> extends ListView<T> implements ReflectJavaFxControl {
 	public static void appendStyleGroups(StyleSheet styleSheet) {
 		styleSheet.addStyleGroup(StyleSelector.createFor(List.class)).getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setTextFill(ReflectColorName.CONTENT.FOREGROUND())
-				.setFont(MaterialFont.getRobotoRegular(GridStyle.FONT_SIZE)).setPadding(0);
+				.setFont(MaterialFont.getRobotoRegular(TableStyle.FONT_SIZE)).setPadding(0);
 
 		// TODO set row background color transparent, not intermediate
 		// TODO set focused row

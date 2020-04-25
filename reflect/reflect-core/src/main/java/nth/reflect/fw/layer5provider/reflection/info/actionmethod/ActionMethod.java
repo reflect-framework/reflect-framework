@@ -24,7 +24,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.Execution
  * There are several menu's where these {@link ActionMethod}s are displayed:
  * <ul>
  * <li>{@link MainMenu}</li>
- * <li>{@link GridTabMenu}</li>
+ * <li>{@link TableTabMenu}</li>
  * <li>{@link FormTabMenu}</li>
  * <li>{@link PropertyPanelMenu}</li>
  * </ul>

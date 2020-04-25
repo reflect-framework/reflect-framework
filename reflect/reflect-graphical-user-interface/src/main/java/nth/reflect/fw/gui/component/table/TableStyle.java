@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.component.grid;
+package nth.reflect.fw.gui.component.table;
 
 import nth.reflect.fw.gui.component.ReflectStyleClass;
 import nth.reflect.fw.gui.style.MaterialFont;
@@ -7,12 +7,12 @@ import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.fw.gui.style.basic.Font;
 
 /**
- * {@link GridStyle} is a {@link ReflectStyleClass} for a {@link Grid}
+ * {@link TableStyle} is a {@link ReflectStyleClass} for a {@link Table}
  * 
  * @author nilsth
  *
  */
-public class GridStyle implements ReflectStyleClass {
+public class TableStyle implements ReflectStyleClass {
 
 	public static Color getTextColor(ColorProvider colorProvider) {
 		return colorProvider.getContentColors().getForeground();

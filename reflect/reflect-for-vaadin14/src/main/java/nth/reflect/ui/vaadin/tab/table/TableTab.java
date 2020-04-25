@@ -1,4 +1,4 @@
-package nth.reflect.ui.vaadin.tab.grid;
+package nth.reflect.ui.vaadin.tab.table;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.ui.vaadin.tab.Tab;
 
-public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.grid.GridTab {
+public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.table.TableTab {
 
 	private static final long serialVersionUID = -7981487179996807252L;
 	private final UserInterfaceContainer userInterfaceContainer;
@@ -23,7 +23,7 @@ public class GridTab extends Tab implements nth.reflect.fw.gui.component.tab.gri
 	private final TableInfoForTableTab tableInfo;
 	private ReadOnlyValueModel selectedRowsModel;
 
-	public GridTab(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
+	public TableTab(UserInterfaceContainer userInterfaceContainer, Object actionMethodOwner,
 			ActionMethodInfo actionMethodInfo, Object methodParameterValue) {
 		this.userInterfaceContainer = userInterfaceContainer;
 		this.actionMethodOwner = actionMethodOwner;

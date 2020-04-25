@@ -76,8 +76,8 @@ public class Table extends TableView<Object> {
 		setItems(observableList);
 	}
 
-	public Table(nth.reflect.fw.gui.component.tab.grid.GridTab gridTab) {
-		this(gridTab, new TableInfoForTableTab(gridTab));
+	public Table(nth.reflect.fw.gui.component.tab.table.TableTab tableTab) {
+		this(tableTab, new TableInfoForTableTab(tableTab));
 	}
 
 	public Table(FormTab formTab, PropertyValueModel propertyValueModel) {
