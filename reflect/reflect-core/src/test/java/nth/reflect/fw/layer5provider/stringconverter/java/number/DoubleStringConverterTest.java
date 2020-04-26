@@ -1,6 +1,6 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
@@ -8,7 +8,7 @@ public class DoubleStringConverterTest extends NumberStringConverterTest {
 
 	@Override
 	protected StringConverter createStringConverter(String formatPattern) {
-		StringConverterFactoryInfo info = createInfo(FullFeatureDomainObject.GET_MY_DOUBLE, formatPattern);
+		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_DOUBLE, formatPattern);
 		return new DoubleStringConverter(info);
 	}
 

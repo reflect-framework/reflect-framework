@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.FormTabStyle;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldNotFoundException;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueChangeListener;
@@ -116,8 +117,7 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 	}
 
 	/**
-	 * Creating the children in order of display order (for the proper focus
-	 * order)
+	 * Creating the children in order of display order (for the proper focus order)
 	 * 
 	 * @param reflectionProvider
 	 * @param formTab
@@ -126,35 +126,45 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 	 */
 	private List<PropertyPanel> createPropertyPanels(FormTab formTab, List<PropertyInfo> propertyInfos) {
 		List<PropertyPanel> propertyPanels = new ArrayList<>();
-		FormMode formMode = formTab.getFormMode();
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyPanel propertyPanel = createPropertyPanel(formTab, domainValueModel, formMode, propertyInfo);
-			propertyPanels.add(propertyPanel);
+			try {
+				PropertyPanel propertyPanel = createPropertyPanel(formTab, domainValueModel, propertyInfo);
+				propertyPanels.add(propertyPanel);
+			} catch (PropertyFieldNotFoundException e) {
+			}
+
 		}
 		return propertyPanels;
 	}
 
 	private PropertyPanel createPropertyPanel(FormTab formTab, BufferedDomainValueModel domainValueModel,
-			FormMode formMode, PropertyInfo propertyInfo) {
+			PropertyInfo propertyInfo) {
 		UserInterfaceContainer userInterfaceContainer = formTab.getUserInterfaceContainer();
 		UserinterfaceControllerForJavaFX userinterfaceController = userInterfaceContainer
 				.get(UserinterfaceControllerForJavaFX.class);
 		PropertyPanelFactory<PropertyPanel> propertyPanelFactory = userinterfaceController.getPropertyPanelFactory();
-		PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
+		PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo);
 		propertyValueModel.addListener(this);
 		PropertyPanel propertyPanel = propertyPanelFactory.createPropertyPanel(formTab, propertyValueModel);
 		return propertyPanel;
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyGrid.class)).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setPadding(FormTabStyle.PADDING);
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(PropertyGrid.class))
+				.getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setPadding(FormTabStyle.PADDING);
 		styleSheet
 				.addStyleGroup(
 						StyleSelector.createFor(PropertyGrid.class).append(StyleSelector.createFor("> .viewport")))
-				.getProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND());
-		styleSheet.addStyleGroup(StyleSelector.createFor(PropertyGrid.class, CONTENT)).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setSpacing(FormTabStyle.SPACING);
+				.getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(PropertyGrid.class, CONTENT))
+				.getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setSpacing(FormTabStyle.SPACING);
 	}
 
 	@Override

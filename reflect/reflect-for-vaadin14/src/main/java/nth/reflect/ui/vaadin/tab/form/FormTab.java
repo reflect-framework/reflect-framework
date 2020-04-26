@@ -79,7 +79,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 		DomainClassInfo domainInfo = reflectionProvider.getDomainClassInfo(domainObject.getClass());
 		List<PropertyInfo> propertyInfos = domainInfo.getPropertyInfosSorted();
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
+			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo);
 			PropertyPanel propertyPanel = formRowFactory.createPropertyPanel(this, propertyValueModel);
 			propertyPanels.add(propertyPanel);
 		}

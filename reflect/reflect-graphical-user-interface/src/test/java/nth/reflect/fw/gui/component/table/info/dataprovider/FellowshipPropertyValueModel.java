@@ -12,8 +12,7 @@ public class FellowshipPropertyValueModel extends PropertyValueModel {
 	private static final FormMode FORM_MODE_EDIT = FormMode.EDIT;
 
 	public FellowshipPropertyValueModel(UserInterfaceContainer userInterfaceContainer, String methodName) {
-		super(createDomainValueModel(userInterfaceContainer), createPropertyInfo(userInterfaceContainer),
-				FORM_MODE_EDIT);
+		super(createDomainValueModel(userInterfaceContainer), createPropertyInfo(userInterfaceContainer));
 	}
 
 	private static PropertyInfo createPropertyInfo(UserInterfaceContainer userInterfaceContainer) {

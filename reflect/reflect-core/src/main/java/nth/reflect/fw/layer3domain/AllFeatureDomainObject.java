@@ -34,7 +34,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.Parame
 /**
  * The contents of this class serves several purposes:
  * <ul>
- * <li>An example of a {@link FullFeatureDomainObject}</li>
+ * <li>An example of a {@link AllFeatureDomainObject}</li>
  * <li>A show case of all types that are supported by the
  * {@link ReflectFramework} by default</li>
  * <li>A test class for (JUnit) testing</li>
@@ -44,7 +44,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.Parame
  * Junit testing only. Normally you would not need them.
  */
 
-public class FullFeatureDomainObject implements DomainObject {
+public class AllFeatureDomainObject implements DomainObject {
 
 	public static final Object NR_OF_PROPERTIES = 52;
 
@@ -100,15 +100,15 @@ public class FullFeatureDomainObject implements DomainObject {
 	// Arrays
 	private int[] myPrimitiveIntArray;
 	private String[] myStringArray;
-	private FullFeatureDomainObject[] myDomainObjectArray;
+	private AllFeatureDomainObject[] myDomainObjectArray;
 
 	// Collections
 	private Set<String> myStringSet = new HashSet<String>();
-	private List<FullFeatureDomainObject> myDomainObjectList = new ArrayList<FullFeatureDomainObject>();
+	private List<AllFeatureDomainObject> myDomainObjectList = new ArrayList<AllFeatureDomainObject>();
 
 	// Domain
 	private MyEnum myEnum;
-	private FullFeatureDomainObject myDomainObject;
+	private AllFeatureDomainObject myDomainObject;
 	private TranslatableString myTranslatableString;
 
 	// annotated
@@ -600,11 +600,11 @@ public class FullFeatureDomainObject implements DomainObject {
 
 	public static final String GET_MY_DOMAIN_OBJECT_ARRAY = "getMyDomainObjectArray";
 
-	public FullFeatureDomainObject[] getMyDomainObjectArray() {
+	public AllFeatureDomainObject[] getMyDomainObjectArray() {
 		return myDomainObjectArray;
 	}
 
-	public void setMyDomainObjectArray(FullFeatureDomainObject[] myDomainObjectArray) {
+	public void setMyDomainObjectArray(AllFeatureDomainObject[] myDomainObjectArray) {
 		this.myDomainObjectArray = myDomainObjectArray;
 	}
 
@@ -620,35 +620,35 @@ public class FullFeatureDomainObject implements DomainObject {
 
 	public static final String GET_MY_DOMAIN_OBJECT_LIST = "getMyDomainObjectList";
 
-	public List<FullFeatureDomainObject> getMyDomainObjectList() {
+	public List<AllFeatureDomainObject> getMyDomainObjectList() {
 		return myDomainObjectList;
 	}
 
-	public void setMyDomainObjectList(List<FullFeatureDomainObject> myDomainObjectList) {
+	public void setMyDomainObjectList(List<AllFeatureDomainObject> myDomainObjectList) {
 		this.myDomainObjectList = myDomainObjectList;
 	}
 
 	public static final String MY_DOMAIN_OBJECT_LIST_ADD = "myDomainObjectListAdd";
 
 	@ParameterFactory
-	public void myDomainObjectListAdd(FullFeatureDomainObject domainObject) {
+	public void myDomainObjectListAdd(AllFeatureDomainObject domainObject) {
 		myDomainObjectList.add(domainObject);
 	}
 
 	public static final String ACTION_METHOD = "actionMethod";
 
 	@ParameterFactory
-	public void actionMethod(FullFeatureDomainObject domainObject) {
+	public void actionMethod(AllFeatureDomainObject domainObject) {
 		myDomainObjectList.add(domainObject);
 	}
 
 	public static final String GET_MY_DOMAIN_OBJECT = "getMyDomainObject";
 
-	public FullFeatureDomainObject getMyDomainObject() {
+	public AllFeatureDomainObject getMyDomainObject() {
 		return myDomainObject;
 	}
 
-	public void setMyDomainObject(FullFeatureDomainObject myDomainObject) {
+	public void setMyDomainObject(AllFeatureDomainObject myDomainObject) {
 		this.myDomainObject = myDomainObject;
 	}
 
@@ -684,7 +684,7 @@ public class FullFeatureDomainObject implements DomainObject {
 	@Override
 	public String toString() {
 		return new TitleBuilder()
-				.append(FullFeatureDomainObject.class.getSimpleName())
+				.append(AllFeatureDomainObject.class.getSimpleName())
 				.append(myPrimitiveInt)
 				.toString();
 	}

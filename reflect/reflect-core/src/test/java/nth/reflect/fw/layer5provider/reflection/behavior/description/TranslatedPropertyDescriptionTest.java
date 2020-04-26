@@ -10,7 +10,7 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
@@ -18,7 +18,7 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 
 public class TranslatedPropertyDescriptionTest {
 
-	private static final String PROPERTY_NAME = FullFeatureDomainObject.GET_MY_BYTE.replace("getM", "m");
+	private static final String PROPERTY_NAME = AllFeatureDomainObject.GET_MY_BYTE.replace("getM", "m");
 	private TranslatedString propertyDescription;
 	private TranslatedString annotatedPropertyDescription;
 
@@ -29,7 +29,7 @@ public class TranslatedPropertyDescriptionTest {
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		propertyDescription = reflectionProvider
-				.getDomainClassInfo(FullFeatureDomainObject.class)
+				.getDomainClassInfo(AllFeatureDomainObject.class)
 				.getPropertyInfo(PROPERTY_NAME)
 				.getDescription();
 		annotatedPropertyDescription = reflectionProvider
@@ -84,7 +84,7 @@ public class TranslatedPropertyDescriptionTest {
 
 	@Test
 	public void testGetKey_givenPropertyDescription_returnsPropertyDescriptionKey() {
-		String expected = FullFeatureDomainObject.class.getCanonicalName() + "." + PROPERTY_NAME
+		String expected = AllFeatureDomainObject.class.getCanonicalName() + "." + PROPERTY_NAME
 				+ TranslatedDescription.DESCRIPTION_KEY_SUFFIX;
 		assertThat(propertyDescription.getKey()).isEqualTo(expected);
 	}

@@ -1,12 +1,11 @@
-package nth.reflect.fw.gui.component.table.info.dataprovider;
+package nth.reflect.fw.gui.component.table.info.dataprovider.exception;
 
 import java.lang.reflect.Method;
 
 import nth.reflect.fw.generic.util.MethodCanonicalName;
-import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 
-public class MethodReturnTypeNotSupportedException extends TranslatableException {
+public class MethodReturnTypeNotSupportedException extends DataProviderException {
 
 	private static final long serialVersionUID = -9040797962147978326L;
 	private static final TranslatableString MESSAGE = new TranslatableString(

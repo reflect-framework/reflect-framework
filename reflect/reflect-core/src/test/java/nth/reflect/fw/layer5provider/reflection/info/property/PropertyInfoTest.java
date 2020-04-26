@@ -13,7 +13,7 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
@@ -22,11 +22,11 @@ import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringCon
 
 public class PropertyInfoTest {
 
-	private static final String PROPERTY_ACTION_METHOD = FullFeatureDomainObject.GET_MY_ANNOTATED_DATE_TODAY;
+	private static final String PROPERTY_ACTION_METHOD = AllFeatureDomainObject.GET_MY_ANNOTATED_DATE_TODAY;
 	private static final Date PROPERTY_VALUE = new Date();
-	private static final String PROPERTY_NAME = FullFeatureDomainObject.GET_MY_ANNOTATED_DATE.replace("getM", "m");
-	private static final Class<FullFeatureDomainObject> DOMAIN_OBJECT_TYPE = FullFeatureDomainObject.class;
-	private FullFeatureDomainObject domainObject;
+	private static final String PROPERTY_NAME = AllFeatureDomainObject.GET_MY_ANNOTATED_DATE.replace("getM", "m");
+	private static final Class<AllFeatureDomainObject> DOMAIN_OBJECT_TYPE = AllFeatureDomainObject.class;
+	private AllFeatureDomainObject domainObject;
 	private PropertyInfo propertyInfo;
 
 	@Before
@@ -89,7 +89,7 @@ public class PropertyInfoTest {
 	@Test
 	public void testGetOrder() {
 		double order = propertyInfo.getOrder();
-		double expected = FullFeatureDomainObject.GET_MY_ANNOTATED_DATE_ORDER;
+		double expected = AllFeatureDomainObject.GET_MY_ANNOTATED_DATE_ORDER;
 		assertThat(order).isEqualTo(expected);
 	}
 

@@ -1,11 +1,11 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.description;
 
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.displayname.DisplayName;
 
 @DisplayName(defaultEnglish = AnnotatedDomainObject.ANNOTATED_CLASS_DISPLAY_NAME)
 @Description(defaultEnglish = AnnotatedDomainObject.ANNOTATED_CLASS_DESCRIPTION)
-public class AnnotatedDomainObject extends FullFeatureDomainObject {
+public class AnnotatedDomainObject extends AllFeatureDomainObject {
 
 	public static final String ANNOTATED_CLASS_DISPLAY_NAME = "Annotated Class Display Name";
 	public static final String ANNOTATED_CLASS_DESCRIPTION = "Annotated Class Description";
@@ -19,7 +19,7 @@ public class AnnotatedDomainObject extends FullFeatureDomainObject {
 	@Description(defaultEnglish = ANNOTATED_ACTION_METHOD_DESCRIPTION)
 	@DisplayName(defaultEnglish = ANNOTATED_ACTION_METHOD_DISPLAY_NAME)
 	@Override
-	public void actionMethod(FullFeatureDomainObject domainObject) {
+	public void actionMethod(AllFeatureDomainObject domainObject) {
 		super.actionMethod(domainObject);
 	}
 
@@ -33,7 +33,7 @@ public class AnnotatedDomainObject extends FullFeatureDomainObject {
 	@DisplayName(defaultEnglish = ANNOTATED_PROPERTY_ACTION_METHOD_DISPLAY_NAME)
 	@Description(defaultEnglish = ANNOTATED_PROPERTY_ACTION_METHOD_DESCRIPTION)
 	@Override
-	public void myDomainObjectListAdd(FullFeatureDomainObject domainObject) {
+	public void myDomainObjectListAdd(AllFeatureDomainObject domainObject) {
 		super.myDomainObjectListAdd(domainObject);
 	}
 }

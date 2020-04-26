@@ -15,6 +15,7 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldNotFoundException;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -34,9 +35,7 @@ import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory;
 
 @SuppressWarnings("serial")
-public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.form.FormTab { // implements
-																							// ReadOnlyValueModel
-																							// {
+public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.form.FormTab {
 
 	private final ActionMethodInfo actionMethodInfo;
 	private final Object methodOwner;
@@ -106,12 +105,14 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 		List<PropertyPanel> propertyPanels = new ArrayList<>();
 		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
-		;
 		PropertyPanelFactory propertyPanelFactory = new PropertyPanelFactory(propertyFieldProvider);
 		for (PropertyInfo propertyInfo : propertyInfos) {
-			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo, formMode);
-			PropertyPanel propertyPanel = propertyPanelFactory.createPropertyPanel(this, propertyValueModel);
-			propertyPanels.add(propertyPanel);
+			PropertyValueModel propertyValueModel = new PropertyValueModel(domainValueModel, propertyInfo);
+			try {
+				PropertyPanel propertyPanel = propertyPanelFactory.createPropertyPanel(this, propertyValueModel);
+				propertyPanels.add(propertyPanel);
+			} catch (PropertyFieldNotFoundException e) {
+			}
 		}
 		return propertyPanels;
 	}

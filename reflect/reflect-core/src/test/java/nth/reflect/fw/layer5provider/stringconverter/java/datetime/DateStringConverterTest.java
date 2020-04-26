@@ -8,7 +8,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
@@ -17,7 +17,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenNullAndNullFormat_mustReturnEmptyString() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE));
 		String result = dateStringConverter.toString(null);
 		assertThat(result).isEqualTo(EMPTY);
 	}
@@ -25,7 +25,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenDateWithNullFormat_mustReturnDateWith() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE));
 		String result = dateStringConverter.toString(DateTimeTestUtil.DATE_WITH_DATE_TIME);
 		SimpleDateFormat format = new SimpleDateFormat();
 		String expected = format.format(DateTimeTestUtil.DATE_WITH_DATE_TIME.getTime());
@@ -35,7 +35,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenDateWithDateFormat_mustReturnDateString() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_FORMAT_PATTERN));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_FORMAT_PATTERN));
 		String result = dateStringConverter.toString(DateTimeTestUtil.DATE_WITH_DATE_TIME);
 		assertThat(result).isEqualTo(DateTimeTestUtil.DATE_FORMAT_RESULT);
 	}
@@ -43,7 +43,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenDateWithTimeFormat_mustReturnTimeString() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.TIME_FORMAT_PATTERN));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.TIME_FORMAT_PATTERN));
 		String result = dateStringConverter.toString(DateTimeTestUtil.DATE_WITH_DATE_TIME);
 		assertThat(result).isEqualTo(DateTimeTestUtil.TIME_FORMAT_RESULT);
 	}
@@ -51,7 +51,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenDateWithDateTimeFormat_mustReturnDateTimeString() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN));
 		String result = dateStringConverter.toString(DateTimeTestUtil.DATE_WITH_DATE_TIME);
 		assertThat(result).isEqualTo(DateTimeTestUtil.DATE_TIME_FORMAT_RESULT);
 	}
@@ -59,7 +59,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenNull_mustReturnNull() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE));
 		Date result = dateStringConverter.fromString(null);
 		assertThat(result).isNull();
 	}
@@ -67,7 +67,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenEmptyString_mustReturnNull() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE));
 		Date result = dateStringConverter.fromString(EMPTY);
 		assertThat(result).isNull();
 	}
@@ -75,7 +75,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenBogusValue_mustThrowException() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE));
 		assertThrows(StringConverterException.class, () -> {
 			dateStringConverter.fromString(BOGUS);
 		});
@@ -84,7 +84,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenSpaceDate_mustReturnDateWithDate() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_FORMAT_PATTERN));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_FORMAT_PATTERN));
 		Date result = dateStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_FORMAT_RESULT);
 		assertThat(result).isEqualToIgnoringMillis(DateTimeTestUtil.DATE_WITH_DATE);
 	}
@@ -92,7 +92,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenTimeSpace_mustReturnDateWithTime() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.TIME_FORMAT_PATTERN));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.TIME_FORMAT_PATTERN));
 		Date result = dateStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + SPACE);
 		assertThat(result).isEqualToIgnoringMillis(DateTimeTestUtil.DATE_WITH_TIME);
 	}
@@ -100,7 +100,7 @@ public class DateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenSpaceDateTimeSpace_mustReturnDateWithDateTime() {
 		DateStringConverter dateStringConverter = new DateStringConverter(
-				createInfo(FullFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN));
+				createInfo(AllFeatureDomainObject.GET_MY_DATE, DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN));
 		Date result = dateStringConverter.fromString(SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + SPACE);
 		assertThat(result).isEqualToIgnoringMillis(DateTimeTestUtil.DATE_WITH_DATE_TIME);
 	}

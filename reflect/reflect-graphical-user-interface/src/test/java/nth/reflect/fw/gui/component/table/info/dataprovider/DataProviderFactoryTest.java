@@ -11,6 +11,8 @@ import org.junit.Test;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.Query;
 
+import nth.reflect.fw.gui.component.table.info.dataprovider.exception.GettingTableValuesException;
+import nth.reflect.fw.gui.component.table.info.dataprovider.exception.MethodReturnTypeNotSupportedException;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 

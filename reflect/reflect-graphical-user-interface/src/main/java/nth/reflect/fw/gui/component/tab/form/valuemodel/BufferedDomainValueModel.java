@@ -70,4 +70,8 @@ public class BufferedDomainValueModel implements ReadOnlyValueModel {
 		return constraintViolations.isEmpty();
 	}
 
+	public FormMode getFormMode() {
+		return formMode;
+	}
+
 }

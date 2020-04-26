@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 
 public class ComboBoxFieldFactoryTest extends FieldFactoryTest {
 
@@ -28,19 +28,19 @@ public class ComboBoxFieldFactoryTest extends FieldFactoryTest {
 
 	@Test
 	public void testCanCreate_forEnumProperty_shouldReturnTrue() throws NoSuchMethodException, SecurityException {
-		assertCanCreate(comboBoxFieldFactory, FullFeatureDomainObject.GET_MY_ENUM, true);
+		assertCanCreate(comboBoxFieldFactory, AllFeatureDomainObject.GET_MY_ENUM, true);
 	}
 
 	@Test
 	public void testCanCreate_forPropertyWithOptionsMethod_shouldReturnTrue()
 			throws NoSuchMethodException, SecurityException {
-		assertCanCreate(comboBoxFieldFactory, FullFeatureDomainObject.GET_MY_CHOICE, true);
+		assertCanCreate(comboBoxFieldFactory, AllFeatureDomainObject.GET_MY_CHOICE, true);
 	}
 
 	@Test
 	public void testCanCreate_forPropertyWithoutOptions_shouldReturnFalse()
 			throws NoSuchMethodException, SecurityException {
-		assertCanCreate(comboBoxFieldFactory, FullFeatureDomainObject.GET_MY_TEXT, false);
+		assertCanCreate(comboBoxFieldFactory, AllFeatureDomainObject.GET_MY_TEXT, false);
 	}
 
 }

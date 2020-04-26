@@ -1,6 +1,6 @@
 package nth.reflect.fw.layer5provider.actionmethodexecution.result;
 
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 
 public class ResultHandlerSerice {
 
@@ -12,8 +12,8 @@ public class ResultHandlerSerice {
 
 	public static final String DOMAIN_OBJECT_RETURN_VALUE = "domainObjectReturnValue";
 
-	public FullFeatureDomainObject domainObjectReturnValue() {
-		return new FullFeatureDomainObject();
+	public AllFeatureDomainObject domainObjectReturnValue() {
+		return new AllFeatureDomainObject();
 	}
 
 }

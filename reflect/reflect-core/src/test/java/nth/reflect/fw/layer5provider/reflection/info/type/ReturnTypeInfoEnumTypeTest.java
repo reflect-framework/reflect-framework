@@ -9,15 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 
 public class ReturnTypeInfoEnumTypeTest {
 
 	private ReflectApplicationForJUnit application;
 	private TypeInfo typeInfo;
 
-	public FullFeatureDomainObject.MyEnum theMethod() {
-		return FullFeatureDomainObject.MyEnum.first;
+	public AllFeatureDomainObject.MyEnum theMethod() {
+		return AllFeatureDomainObject.MyEnum.first;
 	}
 
 	@Before
@@ -29,7 +29,7 @@ public class ReturnTypeInfoEnumTypeTest {
 
 	@Test
 	public void testGetType() {
-		assertThat(typeInfo.getType()).isEqualTo(FullFeatureDomainObject.MyEnum.class);
+		assertThat(typeInfo.getType()).isEqualTo(AllFeatureDomainObject.MyEnum.class);
 	}
 
 	@Test

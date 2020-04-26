@@ -10,7 +10,7 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
@@ -18,7 +18,7 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 
 public class TranslatedActionMethodDescriptionTest {
 
-	private static final String METHOD_NAME = FullFeatureDomainObject.ACTION_METHOD;
+	private static final String METHOD_NAME = AllFeatureDomainObject.ACTION_METHOD;
 	private TranslatedString methodDescription;
 	private TranslatedString annotatedMethodDescription;
 
@@ -29,7 +29,7 @@ public class TranslatedActionMethodDescriptionTest {
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		methodDescription = reflectionProvider
-				.getDomainClassInfo(FullFeatureDomainObject.class)
+				.getDomainClassInfo(AllFeatureDomainObject.class)
 				.getActionMethodInfo(METHOD_NAME)
 				.getDescription();
 		annotatedMethodDescription = reflectionProvider
@@ -84,7 +84,7 @@ public class TranslatedActionMethodDescriptionTest {
 
 	@Test
 	public void testGetKey_givenMethodDescription_returnsMethodDescriptionKey() {
-		String expected = FullFeatureDomainObject.class.getCanonicalName() + "." + METHOD_NAME
+		String expected = AllFeatureDomainObject.class.getCanonicalName() + "." + METHOD_NAME
 				+ TranslatedDescription.DESCRIPTION_KEY_SUFFIX;
 		assertThat(methodDescription.getKey()).isEqualTo(expected);
 	}

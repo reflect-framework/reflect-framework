@@ -23,7 +23,8 @@ public abstract class PropertyPanelFactory<PROPERTY_PANEL> {
 
 		if (propertyFieldProvider.canCreate(info)) {
 			PropertyField propertyField = propertyFieldProvider.create(info);
-			return createPropertyPanel(formTab, propertyValueModel, propertyField);
+			PROPERTY_PANEL propertyPanel = createPropertyPanel(formTab, propertyValueModel, propertyField);
+			return propertyPanel;
 		} else {
 			throw new PropertyFieldNotFoundException(info);
 		}

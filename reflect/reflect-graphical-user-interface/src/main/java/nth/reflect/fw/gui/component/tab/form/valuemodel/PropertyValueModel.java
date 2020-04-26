@@ -11,13 +11,11 @@ public class PropertyValueModel implements ReadWriteValueModel {
 
 	private final PropertyInfo propertyInfo;
 	private final BufferedDomainValueModel domainValueModel;
-	private final FormMode formMode;
 	private final List<PropertyValueChangeListener> listeners;
 
-	public PropertyValueModel(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo, FormMode formMode) {
+	public PropertyValueModel(BufferedDomainValueModel domainValueModel, PropertyInfo propertyInfo) {
 		this.domainValueModel = domainValueModel;
 		this.propertyInfo = propertyInfo;
-		this.formMode = formMode;
 		listeners = new ArrayList<>();
 	}
 
@@ -44,6 +42,7 @@ public class PropertyValueModel implements ReadWriteValueModel {
 
 	@Override
 	public boolean canSetValue() {
+		FormMode formMode = domainValueModel.getFormMode();
 		return FormMode.EDIT == formMode && propertyInfo.isEnabled(domainValueModel.getValue());
 	}
 

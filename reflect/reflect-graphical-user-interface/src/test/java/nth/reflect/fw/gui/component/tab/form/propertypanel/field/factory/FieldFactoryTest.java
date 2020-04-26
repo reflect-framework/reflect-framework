@@ -6,22 +6,22 @@ import java.lang.reflect.Method;
 
 import org.junit.Before;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 public abstract class FieldFactoryTest {
 
-	private DependencyInjectionContainer container;
+	private UserInterfaceContainer container;
 
 	@Before
 	public void setUp() throws Exception {
@@ -33,9 +33,13 @@ public abstract class FieldFactoryTest {
 		container = application.createContainer();
 	}
 
-	public PropertyFieldFactoryInfo createPropertyFieldFactoryInfo(String getterMethodName) {
+	public PropertyFieldFactoryInfo createPropertyFieldFactoryInfo(UserInterfaceContainer userInterfaceContainer,
+			String getterMethodName) {
 		PropertyInfo propertyInfo = createPropertyInfo(getterMethodName);
-		PropertyValueModel propertyValueModel = new PropertyValueModel(null, propertyInfo, null);
+		Object domainObject = new AllFeatureDomainObject();
+		BufferedDomainValueModel bufferedDomainValueModel = new BufferedDomainValueModel(userInterfaceContainer,
+				domainObject, FormMode.EDIT);
+		PropertyValueModel propertyValueModel = new PropertyValueModel(bufferedDomainValueModel, propertyInfo);
 		FormTab formTab = createFormTab();
 		PropertyFieldFactoryInfo propertyFieldFactoryInfo = new PropertyFieldFactoryInfo(formTab, propertyValueModel);
 		return propertyFieldFactoryInfo;
@@ -75,12 +79,12 @@ public abstract class FieldFactoryTest {
 
 			@Override
 			public UserInterfaceContainer getUserInterfaceContainer() {
-				return container.get(UserInterfaceContainer.class);
+				return container;
 			}
 
 			@Override
 			public FormMode getFormMode() {
-				return null;
+				return FormMode.EDIT;
 			}
 
 			@Override
@@ -109,13 +113,13 @@ public abstract class FieldFactoryTest {
 	}
 
 	private Method getMethod(String getterMethodName) throws NoSuchMethodException {
-		Method getterMethod = FullFeatureDomainObject.class.getMethod(getterMethodName);
+		Method getterMethod = AllFeatureDomainObject.class.getMethod(getterMethodName);
 		return getterMethod;
 	}
 
 	public void assertCanCreate(PropertyFieldFactory fieldFactory, String getterMethodName,
 			boolean expectedReturnValue) {
-		PropertyFieldFactoryInfo info = createPropertyFieldFactoryInfo(getterMethodName);
+		PropertyFieldFactoryInfo info = createPropertyFieldFactoryInfo(container, getterMethodName);
 		boolean result = fieldFactory.canCreate(info);
 		assertThat(result)
 				.describedAs("%s.canCreate(PropertyFieldFactoryInfo for %s.%s) resulted in a incorrect return value",

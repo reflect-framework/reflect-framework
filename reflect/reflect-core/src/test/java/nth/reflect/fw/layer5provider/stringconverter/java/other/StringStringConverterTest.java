@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
@@ -16,7 +16,7 @@ public class StringStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo createInfo = createInfo(FullFeatureDomainObject.GET_MY_TEXT);
+		StringConverterFactoryInfo createInfo = createInfo(AllFeatureDomainObject.GET_MY_TEXT);
 		stringStringConverter = new StringStringConverter(createInfo);
 	}
 

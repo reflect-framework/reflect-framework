@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 
 public class TableFieldFactoryTest extends FieldFactoryTest {
 
@@ -28,32 +28,32 @@ public class TableFieldFactoryTest extends FieldFactoryTest {
 
 	@Test
 	public void testCanCreate_givenString_mustReturnFalse() {
-		assertCanCreate(tableFieldFactory, FullFeatureDomainObject.GET_MY_TEXT, false);
+		assertCanCreate(tableFieldFactory, AllFeatureDomainObject.GET_MY_TEXT, false);
 	}
 
 	@Test
 	public void testCanCreate_givenSimpleIntArray_mustReturnTrue() {
-		assertCanCreate(tableFieldFactory, FullFeatureDomainObject.GET_MY_PRIMITIVE_INT_ARRAY, true);
+		assertCanCreate(tableFieldFactory, AllFeatureDomainObject.GET_MY_PRIMITIVE_INT_ARRAY, true);
 	}
 
 	@Test
 	public void testCanCreate_givenStringArray_mustReturnTrue() {
-		assertCanCreate(tableFieldFactory, FullFeatureDomainObject.GET_MY_STRING_ARRAY, true);
+		assertCanCreate(tableFieldFactory, AllFeatureDomainObject.GET_MY_STRING_ARRAY, true);
 	}
 
 	@Test
-	public void testCanCreate_givenFullFeatureDomainObjectArray_mustReturnFalse() {
-		assertCanCreate(tableFieldFactory, FullFeatureDomainObject.GET_MY_DOMAIN_OBJECT_ARRAY, false);
+	public void testCanCreate_givenFullFeatureDomainObjectArray_mustReturnTrue() {
+		assertCanCreate(tableFieldFactory, AllFeatureDomainObject.GET_MY_DOMAIN_OBJECT_ARRAY, true);
 	}
 
 	@Test
 	public void testCanCreate_givenStringCollection_mustReturnTrue() {
-		assertCanCreate(tableFieldFactory, FullFeatureDomainObject.GET_MY_STRING_SET, true);
+		assertCanCreate(tableFieldFactory, AllFeatureDomainObject.GET_MY_STRING_SET, true);
 	}
 
 	@Test
-	public void testCanCreate_givenFullFeatureDomainObjectCollection_mustReturnFalse() {
-		assertCanCreate(tableFieldFactory, FullFeatureDomainObject.GET_MY_DOMAIN_OBJECT_LIST, false);
+	public void testCanCreate_givenFullFeatureDomainObjectCollection_mustReturnTrue() {
+		assertCanCreate(tableFieldFactory, AllFeatureDomainObject.GET_MY_DOMAIN_OBJECT_LIST, true);
 	}
 
 }

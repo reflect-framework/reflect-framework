@@ -7,7 +7,7 @@ import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
@@ -19,7 +19,7 @@ public class FileStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(FullFeatureDomainObject.GET_MY_FILE);
+		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_FILE);
 		stringConverter = new FileStringConverter(info);
 	}
 

@@ -1,5 +1,6 @@
 package nth.reflect.fw.gui.component.table.info;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class TableInfoForFormTabProperty implements TableInfo {
 	public TableInfoForFormTabProperty(FormTab formTab, PropertyValueModel propertyValueModel) {
 		this.propertyInfo = propertyValueModel.getPropertyInfo();
 		this.formTab = formTab;
-		typeInfo = TypeInfoFactory.createfor(formTab);
+		Method method = propertyInfo.getGetterMethod();
+		TypeInfo returnTypeInfo = propertyInfo.getTypeInfo();
+		this.typeInfo = TypeInfoFactory.createfor(method, returnTypeInfo);
 		columnInfos = ColumnInfoFactory.createFor(formTab, propertyValueModel);
 		dataProvider = DataProviderFactory.createFor(propertyValueModel);
 	}

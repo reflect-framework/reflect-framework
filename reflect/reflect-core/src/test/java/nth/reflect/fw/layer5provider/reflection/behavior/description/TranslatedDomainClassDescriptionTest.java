@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
@@ -26,7 +27,7 @@ public class TranslatedDomainClassDescriptionTest {
 		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		domainObjectDescription = reflectionProvider.getDomainClassInfo(FullFeatureDomainObject.class).getDescription();
+		domainObjectDescription = reflectionProvider.getDomainClassInfo(AllFeatureDomainObject.class).getDescription();
 		annotatedDomainObjectDescription = reflectionProvider
 				.getDomainClassInfo(AnnotatedDomainObject.class)
 				.getDescription();
@@ -66,7 +67,10 @@ public class TranslatedDomainClassDescriptionTest {
 
 	@Test
 	public void testGetDefaultEnglish_givenDomainObjectDescription_returnsDomain_Object() {
-		assertThat(domainObjectDescription.getDefaultEnglish()).isEqualTo("Full feature domain object");
+		String simpleClassName = AllFeatureDomainObject.class.getSimpleName();
+		String expected = StringUtil.convertToNormalCase(simpleClassName);
+		String actual = domainObjectDescription.getDefaultEnglish();
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
@@ -77,7 +81,7 @@ public class TranslatedDomainClassDescriptionTest {
 
 	@Test
 	public void testGetKey_givenDomainObjectDescription_returnsDomainObjectCanonialName() {
-		String expected = FullFeatureDomainObject.class.getCanonicalName()
+		String expected = AllFeatureDomainObject.class.getCanonicalName()
 				+ TranslatedDescription.DESCRIPTION_KEY_SUFFIX;
 		assertThat(domainObjectDescription.getKey()).isEqualTo(expected);
 	}

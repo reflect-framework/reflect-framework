@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.TranslatableStringConverter;
@@ -34,7 +34,7 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConvert
 /**
  * This {@link Map} contains {@link StringConverterFactoryInfo}s (created from
  * {@link FullFeatureDomainObjectProperty}s of the
- * {@link FullFeatureDomainObject} class) and their corresponding
+ * {@link AllFeatureDomainObject} class) and their corresponding
  * {@link StringConverter} type. {@link StringConverterFactoryInfoMap} is used
  * for JUnit testing
  * 
@@ -56,58 +56,58 @@ public class StringConverterFactoryInfoMap
 	}
 
 	private void addDomainTypes() {
-		put(FullFeatureDomainObject.GET_MY_ENUM, EnumStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DOMAIN_OBJECT, DomainObjectStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_TRANSLATABLE_STRING, TranslatableStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_ENUM, EnumStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DOMAIN_OBJECT, DomainObjectStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_TRANSLATABLE_STRING, TranslatableStringConverter.class);
 	}
 
 	private void addJavaDateTimeTypes() {
-		put(FullFeatureDomainObject.GET_MY_CALENDAR, CalendarStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_ANNOTATION, CalendarStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_FORMAT, CalendarStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_TIME_ANNOTATION, CalendarStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_TIME_FORMAT, CalendarStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_CALENDAR_WITH_TIME_ANNOTATION, CalendarStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_CALENDAR_WITH_TIME_FORMAT, CalendarStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DATE, DateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DATE_WITH_DATE_ANNOTATION, DateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DATE_WITH_DATE_FORMAT, DateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DATE_WITH_DATE_TIME_ANNOTATION, DateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DATE_WITH_DATE_TIME_FORMAT, DateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DATE_WITH_TIME_ANNOTATION, DateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DATE_WITH_TIME_FORMAT, DateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_LOCAL_DATE_TIME, LocalDateTimeStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_LOCAL_DATE, LocalDateStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_LOCAL_TIME, LocalTimeStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CALENDAR, CalendarStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_ANNOTATION, CalendarStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_FORMAT, CalendarStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_TIME_ANNOTATION, CalendarStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CALENDAR_WITH_DATE_TIME_FORMAT, CalendarStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CALENDAR_WITH_TIME_ANNOTATION, CalendarStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CALENDAR_WITH_TIME_FORMAT, CalendarStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DATE, DateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DATE_WITH_DATE_ANNOTATION, DateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DATE_WITH_DATE_FORMAT, DateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DATE_WITH_DATE_TIME_ANNOTATION, DateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DATE_WITH_DATE_TIME_FORMAT, DateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DATE_WITH_TIME_ANNOTATION, DateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DATE_WITH_TIME_FORMAT, DateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_LOCAL_DATE_TIME, LocalDateTimeStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_LOCAL_DATE, LocalDateStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_LOCAL_TIME, LocalTimeStringConverter.class);
 	}
 
 	private void addJavaOtherTypes() {
-		put(FullFeatureDomainObject.GET_MY_TEXT, StringStringConverter.class);
-		put(FullFeatureDomainObject.IS_MY_BOOLEAN, BooleanStringConverter.class);
-		put(FullFeatureDomainObject.IS_MY_PRIMITIVE_BOOLEAN, BooleanStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_CHARACTER, CharacterStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PRIMITIVE_CHAR, CharacterStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_URI, UriStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_URL, UrlStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_FILE, FileStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PATH, PathStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_TEXT, StringStringConverter.class);
+		put(AllFeatureDomainObject.IS_MY_BOOLEAN, BooleanStringConverter.class);
+		put(AllFeatureDomainObject.IS_MY_PRIMITIVE_BOOLEAN, BooleanStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_CHARACTER, CharacterStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PRIMITIVE_CHAR, CharacterStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_URI, UriStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_URL, UrlStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_FILE, FileStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PATH, PathStringConverter.class);
 	}
 
 	private void addJavaNumberTypes() {
-		put(FullFeatureDomainObject.GET_MY_BYTE, ByteStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PRIMITIVE_BYTE, ByteStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_SHORT, ShortStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PRIMITIVE_SHORT, ShortStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_INTEGER, IntegerStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PRIMITIVE_INT, IntegerStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_LONG, LongStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PRIMITIVE_LONG, LongStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_DOUBLE, DoubleStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PRIMITIVE_DOUBLE, DoubleStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_FLOAT, FloatStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_PRIMITIVE_FLOAT, FloatStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_BIG_INTEGER, BigIntegerStringConverter.class);
-		put(FullFeatureDomainObject.GET_MY_BIG_DECIMAL, BigDecimalStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_BYTE, ByteStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PRIMITIVE_BYTE, ByteStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_SHORT, ShortStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PRIMITIVE_SHORT, ShortStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_INTEGER, IntegerStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PRIMITIVE_INT, IntegerStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_LONG, LongStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PRIMITIVE_LONG, LongStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_DOUBLE, DoubleStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PRIMITIVE_DOUBLE, DoubleStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_FLOAT, FloatStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_PRIMITIVE_FLOAT, FloatStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_BIG_INTEGER, BigIntegerStringConverter.class);
+		put(AllFeatureDomainObject.GET_MY_BIG_DECIMAL, BigDecimalStringConverter.class);
 	}
 
 	private void put(String domainObjectGetterMethod, Class<? extends StringConverter> expectedStringConverterType) {

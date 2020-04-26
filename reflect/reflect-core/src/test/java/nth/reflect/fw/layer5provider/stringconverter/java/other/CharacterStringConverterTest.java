@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
@@ -20,7 +20,7 @@ public class CharacterStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(FullFeatureDomainObject.GET_MY_CHARACTER);
+		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_CHARACTER);
 		characterStringConverter = new CharacterStringConverter(info);
 	}
 

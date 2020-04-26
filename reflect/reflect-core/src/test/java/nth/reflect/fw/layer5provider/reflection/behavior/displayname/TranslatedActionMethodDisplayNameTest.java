@@ -10,7 +10,7 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
@@ -19,7 +19,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.description.AnnotatedDo
 
 public class TranslatedActionMethodDisplayNameTest {
 
-	private static final String METHOD_NAME = FullFeatureDomainObject.ACTION_METHOD;
+	private static final String METHOD_NAME = AllFeatureDomainObject.ACTION_METHOD;
 	private TranslatedString methodDisplayName;
 	private TranslatedString annotatedMethodDisplayName;
 
@@ -30,7 +30,7 @@ public class TranslatedActionMethodDisplayNameTest {
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		methodDisplayName = reflectionProvider
-				.getDomainClassInfo(FullFeatureDomainObject.class)
+				.getDomainClassInfo(AllFeatureDomainObject.class)
 				.getActionMethodInfo(METHOD_NAME)
 				.getDisplayName();
 		annotatedMethodDisplayName = reflectionProvider
@@ -85,7 +85,7 @@ public class TranslatedActionMethodDisplayNameTest {
 
 	@Test
 	public void testGetKey_givenMethodDisplayName_returnsMethodDisplayNameKey() {
-		String expected = FullFeatureDomainObject.class.getCanonicalName() + "." + METHOD_NAME
+		String expected = AllFeatureDomainObject.class.getCanonicalName() + "." + METHOD_NAME
 				+ TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
 		assertThat(methodDisplayName.getKey()).isEqualTo(expected);
 	}

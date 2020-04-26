@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
@@ -27,7 +28,7 @@ public class TranslatedDomainClassDisplayNameTest {
 		DefaultLanguageProvider languageProvider = container.get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		domainObjectDisplayName = reflectionProvider.getDomainClassInfo(FullFeatureDomainObject.class).getDisplayName();
+		domainObjectDisplayName = reflectionProvider.getDomainClassInfo(AllFeatureDomainObject.class).getDisplayName();
 		annotatedDomainObjectDisplayName = reflectionProvider
 				.getDomainClassInfo(AnnotatedDomainObject.class)
 				.getDisplayName();
@@ -67,7 +68,10 @@ public class TranslatedDomainClassDisplayNameTest {
 
 	@Test
 	public void testGetDefaultEnglish_givenDomainObjectDisplayName_returnsDomain_Object() {
-		assertThat(domainObjectDisplayName.getDefaultEnglish()).isEqualTo("Full feature domain object");
+		String simpleClassName = AllFeatureDomainObject.class.getSimpleName();
+		String expected = StringUtil.convertToNormalCase(simpleClassName);
+		String actual = domainObjectDisplayName.getDefaultEnglish();
+		assertThat(actual).isEqualTo(expected);
 	}
 
 	@Test
@@ -78,7 +82,7 @@ public class TranslatedDomainClassDisplayNameTest {
 
 	@Test
 	public void testGetKey_givenDomainObjectDisplayName_returnsDomainObjectCanonialName() {
-		String expected = FullFeatureDomainObject.class.getCanonicalName()
+		String expected = AllFeatureDomainObject.class.getCanonicalName()
 				+ TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
 		assertThat(domainObjectDisplayName.getKey()).isEqualTo(expected);
 	}

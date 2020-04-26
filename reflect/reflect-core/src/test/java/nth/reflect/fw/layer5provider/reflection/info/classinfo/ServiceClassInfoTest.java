@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer3domain.FullFeatureDomainObject;
+import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.description.PersonService;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -58,14 +58,14 @@ public class ServiceClassInfoTest {
 
 	@Test
 	public void testGetIconURI() {
-		URL actual = serviceClassInfo.getFontIconUrl(new FullFeatureDomainObject());
+		URL actual = serviceClassInfo.getFontIconUrl(new AllFeatureDomainObject());
 		assertThat(actual).isNull();
 	}
 
 	@Test
 	public void testGetTitle() {
-		String actual = serviceClassInfo.getTitle(new FullFeatureDomainObject());
-		String expected = FullFeatureDomainObject.class.getSimpleName() + ", 0";
+		String actual = serviceClassInfo.getTitle(new AllFeatureDomainObject());
+		String expected = AllFeatureDomainObject.class.getSimpleName() + ", 0";
 		assertThat(actual).isEqualTo(expected);
 	}
 
