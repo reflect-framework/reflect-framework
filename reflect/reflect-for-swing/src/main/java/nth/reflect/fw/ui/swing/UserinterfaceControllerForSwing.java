@@ -32,7 +32,6 @@ import nth.reflect.fw.ui.swing.tab.Tab;
 import nth.reflect.fw.ui.swing.tab.form.FormTab;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.PropertyPanelFactory;
-import nth.reflect.fw.ui.swing.tab.table.TableTab;
 
 public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
@@ -128,12 +127,6 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
-	}
-
-	@Override
 	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object methodReturnValue) {
 		// TODO Auto-generated method stub
@@ -175,8 +168,9 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		// show dialog
 		String translatedMessage = message.getTranslation(languageProvider);
 		String translatedTitle = title.getTranslation(languageProvider);
-		int selectedIndex = JOptionPane.showOptionDialog(mainWindow, translatedMessage, translatedTitle,
-				JOptionPane.DEFAULT_OPTION, messageType, null, options, defaultOption);
+		int selectedIndex = JOptionPane
+				.showOptionDialog(mainWindow, translatedMessage, translatedTitle, JOptionPane.DEFAULT_OPTION,
+						messageType, null, options, defaultOption);
 
 		// execute selected item
 		if (selectedIndex != -1) {

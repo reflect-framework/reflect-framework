@@ -197,6 +197,6 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 
 	@Override
 	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
-		return new ActionMethodExecutionProvider(new JunitActionMethodResultHandler());
+		return new ActionMethodExecutionProvider(new JunitActionMethodResultHandlerFactory());
 	}
 }

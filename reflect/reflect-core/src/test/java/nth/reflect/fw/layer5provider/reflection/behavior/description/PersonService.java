@@ -14,7 +14,8 @@ public class PersonService {
 			.firstCharToUpperCase(
 					EnglishPlural.fromSingularNoun(PersonService.class.getSimpleName().replace("Service", "")));
 	public static final String DESCRIPTION = DISPLAY_NAME;
-	public static final String ACTION_METHOD_NAME = "find";
+
+	public static final String FIND_METHOD_NAME = "find";
 
 	@Order(value = 1)
 	@ParameterFactory

@@ -2,8 +2,8 @@ package nth.reflect.fw.layer5provider.actionmethodexecution;
 
 import java.net.URI;
 
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -32,7 +32,16 @@ public interface ActionMethodResultHandler {
 
 	public boolean canProcess(ActionMethodInfo actionMethodInfo);
 
-	public void process(UserInterfaceController userInterfaceController, Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameter, Object methodResult);
+	/**
+	 * 
+	 * TODO public void process(UserInterfaceContainer container, Object
+	 * methodOwner, ActionMethodInfo methodInfo, Object methodParameter);<br>
+	 * Remove method result: the ActionMethodResultHandler needs to get the method
+	 * result {@link TableResultHandler} does not need it.<br>
+	 * see https://stackoverflow.com/questions/9148899/returning-value-from-thread
+	 */
+
+	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, Object methodResult);
 
 }

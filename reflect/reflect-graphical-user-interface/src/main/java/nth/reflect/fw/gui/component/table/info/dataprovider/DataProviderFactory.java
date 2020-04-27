@@ -45,7 +45,7 @@ public class DataProviderFactory {
 		return create(getterMethod, domainObject, noMethodParameter);
 	}
 
-	private static DataProvider create(Method method, Object methodOwner, Object methodParameter) {
+	public static DataProvider create(Method method, Object methodOwner, Object methodParameter) {
 
 		Class<?> returnType = method.getReturnType();
 
@@ -66,6 +66,33 @@ public class DataProviderFactory {
 
 		} else {
 			throw new MethodReturnTypeNotSupportedException(method);
+		}
+	}
+
+	public static boolean canCreateFor(ActionMethodInfo actionMethodInfo) {
+		Method method = actionMethodInfo.getMethod();
+		if (method.getParameterCount() > 1) {
+			return false;
+		}
+		Class<?> returnType = method.getReturnType();
+
+		if (returnType.isArray()) {
+			return true;
+
+		} else if (Collection.class.isAssignableFrom(returnType)) {
+			return true;
+
+		} else if (Iterator.class.isAssignableFrom(returnType)) {
+			return true;
+
+		} else if (Stream.class.isAssignableFrom(returnType)) {
+			return true;
+
+		} else if (DataProvider.class.isAssignableFrom(returnType)) {
+			return true;
+
+		} else {
+			return false;
 		}
 	}
 

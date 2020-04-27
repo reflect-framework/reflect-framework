@@ -1,5 +1,6 @@
 package nth.reflect.fw.layer5provider.actionmethodexecution.result;
 
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -24,11 +25,12 @@ public class NoResultHandler implements ActionMethodResultHandler {
 	}
 
 	@Override
-	public void process(UserInterfaceController userInterfaceController, Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameter, Object methodResult) {
+	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameter, Object methodResult) {
 		TranslatableString actionMethodTitle = actionMethodInfo.createTitle(methodParameter);
 		TranslatableString message = MESSAGE.withParameters(actionMethodTitle);
-		userInterfaceController.showMessage(message);
+		UserInterfaceController userInterface = container.get(UserInterfaceController.class);
+		userInterface.showMessage(message);
 	}
 
 }

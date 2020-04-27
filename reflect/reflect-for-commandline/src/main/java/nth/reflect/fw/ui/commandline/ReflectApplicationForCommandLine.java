@@ -7,7 +7,6 @@ import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -24,7 +23,7 @@ import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
-import nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result.DomainObjectResultHandler;
+import nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result.ActionMethodResultHandlerFactory;
 
 /**
  * <p>
@@ -114,7 +113,7 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 
 	@Override
 	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
-		return new ActionMethodExecutionProvider(new NoResultHandler(), new DomainObjectResultHandler());
+		return new ActionMethodExecutionProvider(new ActionMethodResultHandlerFactory());
 	}
 
 	public String[] getCommandLineArguments() {

@@ -1,6 +1,5 @@
 package nth.reflect.fw.layer5provider.actionmethodexecution;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +10,8 @@ public class ActionMethodExecutionProvider implements Provider {
 
 	private List<ActionMethodResultHandler> actionMethodResultHandlers;
 
-	public ActionMethodExecutionProvider(ActionMethodResultHandler... actionMethodResultHandlers) {
-		this.actionMethodResultHandlers = Arrays.asList(actionMethodResultHandlers);
+	public ActionMethodExecutionProvider(ActionMethodResultHandlerFactory actionMethodResultHandlerFactory) {
+		this.actionMethodResultHandlers = actionMethodResultHandlerFactory.getAll();
 	}
 
 	public ActionMethodResultHandler getActionMethodResultHandler(ActionMethodInfo actionMethodInfo) {

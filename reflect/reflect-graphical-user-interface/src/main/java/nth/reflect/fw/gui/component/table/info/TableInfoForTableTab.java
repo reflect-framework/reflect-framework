@@ -33,6 +33,10 @@ public class TableInfoForTableTab implements TableInfo {
 		dataProvider = DataProviderFactory.createFor(tableTab);
 	}
 
+	public static boolean supports(ActionMethodInfo actionMethodInfo) {
+		return TypeInfoFactory.canCreatefor(actionMethodInfo) && DataProviderFactory.canCreateFor(actionMethodInfo);
+	}
+
 	@Override
 	public TypeInfo getTypeInfo() {
 		return typeInfo;

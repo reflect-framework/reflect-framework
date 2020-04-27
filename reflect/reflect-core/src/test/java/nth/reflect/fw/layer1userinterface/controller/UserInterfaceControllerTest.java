@@ -44,27 +44,27 @@ public class UserInterfaceControllerTest {
 
 	@Test
 	public void testEditActionMethodParameter() {
-		ActionMethodInfo methodInfo = serviceClassInfo.getActionMethodInfo(PersonService.ACTION_METHOD_NAME);
+		ActionMethodInfo methodInfo = serviceClassInfo.getActionMethodInfo(PersonService.FIND_METHOD_NAME);
 		assertNotNull(methodInfo);
 		controller.processActionMethod(personService, methodInfo, null);
 		List<String> events = controller.getEvents();
 		assertThat(events.get(0))
 				.isEqualTo("processActionMethod(" + personService.toString() + ", "
-						+ personService.getClass().getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME
+						+ personService.getClass().getCanonicalName() + "." + PersonService.FIND_METHOD_NAME
 						+ ", null)");
 		String expected = "editActionMethodParameter(" + personService.toString() + ", "
-				+ personService.getClass().getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME + ", )";
+				+ personService.getClass().getCanonicalName() + "." + PersonService.FIND_METHOD_NAME + ", )";
 		assertThat(events.get(1)).isEqualTo(expected);
 
 		controller.processActionMethod(personService, methodInfo, person);
 		events = controller.getEvents();
 		assertThat(events.get(0))
 				.isEqualTo("processActionMethod(" + personService.toString() + ", "
-						+ personService.getClass().getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME + ", "
+						+ personService.getClass().getCanonicalName() + "." + PersonService.FIND_METHOD_NAME + ", "
 						+ person + ")");
 		assertThat(events.get(1))
 				.isEqualTo("editActionMethodParameter(" + personService.toString() + ", "
-						+ personService.getClass().getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME + ", )");
+						+ personService.getClass().getCanonicalName() + "." + PersonService.FIND_METHOD_NAME + ", )");
 
 		// TODO verify editActionMethodWithoutParameter
 	}

@@ -28,7 +28,6 @@ import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
-import nth.reflect.fw.javafx.control.tab.table.TableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
@@ -55,19 +54,6 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	public UserinterfaceControllerForJavaFX(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-	}
-
-	@Override
-	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object domainObject, FormMode formMode) {
-		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
-				formMode);
-	}
-
-	@Override
-	public Tab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override
@@ -188,8 +174,10 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		String title = methodInfo.createTitle(uploadStream).getTranslation(languageProvider);
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),
-				uploadStream.fileExtentionFilters()));
+		fileChooser
+				.getExtensionFilters()
+				.addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),
+						uploadStream.fileExtentionFilters()));
 		ReflectApplicationForJavaFX application = userInterfaceContainer.get(ReflectApplicationForJavaFX.class);
 		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());
 		if (selectedFile != null) {
@@ -212,6 +200,14 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
 		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
 		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(propertyFieldProvider);
+	}
+
+	@Override
+	public nth.reflect.fw.gui.component.tab.Tab createFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameter, Object methodResult, FormMode formMode) {
+		// TODO Auto-generated method stub
+		return new FormTab(userInterfaceContainer, methodOwner, actionMethodInfo, methodParameter, methodResult,
+				formMode);
 	}
 
 }

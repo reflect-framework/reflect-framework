@@ -6,7 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
+import nth.reflect.fw.gui.component.tab.Tab;
+import nth.reflect.fw.gui.component.tab.form.FormMode;
+import nth.reflect.fw.gui.provider.actionmethodexecution.result.FormResultHandler;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
@@ -15,12 +19,21 @@ public class DomainObjectResultHandlerTest {
 
 	private static final Class<ResultHandlerSerice> SERVICE_CLASS = ResultHandlerSerice.class;
 	private DependencyInjectionContainer container;
-	private DomainObjectResultHandler resultHandler;
+	private FormResultHandler resultHandler;
 
 	@Before
 	public void setUp() throws Exception {
 		container = new ReflectApplicationForJUnit().addServiceClass(SERVICE_CLASS).createContainer();
-		resultHandler = new DomainObjectResultHandler();
+		resultHandler = new FormResultHandler() {
+
+			@Override
+			public Tab createFormTab(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+					Object methodParameter, Object methodResult, FormMode formMode) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+		};
 	}
 
 	@Test

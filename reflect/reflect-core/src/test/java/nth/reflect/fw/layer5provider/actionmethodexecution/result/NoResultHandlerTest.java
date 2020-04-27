@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.junit.UserInterfaceControllerForJUnit;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
@@ -15,7 +15,7 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
 public class NoResultHandlerTest {
 
 	private static final Class<ResultHandlerSerice> SERVICE_CLASS = ResultHandlerSerice.class;
-	private DependencyInjectionContainer container;
+	private UserInterfaceContainer container;
 	private NoResultHandler resultHandler;
 
 	@Before
@@ -45,14 +45,14 @@ public class NoResultHandlerTest {
 
 	@Test
 	public void testExecutesActionMethod_givenNoResultHanlder_showsMessage() {
-		UserInterfaceControllerForJUnit userInterface = container.get(UserInterfaceControllerForJUnit.class);
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		ResultHandlerSerice serviceObject = container.get(SERVICE_CLASS);
 		ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(SERVICE_CLASS);
 		ActionMethodInfo actionMethodInfo = serviceClassInfo.getActionMethodInfo(ResultHandlerSerice.NO_RETURN_VALUE);
 		Object methodParameter = null;
 		Object methodResult = null;
-		resultHandler.process(userInterface, serviceObject, actionMethodInfo, methodParameter, methodResult);
+		resultHandler.process(container, serviceObject, actionMethodInfo, methodParameter, methodResult);
+		UserInterfaceControllerForJUnit userInterface = container.get(UserInterfaceControllerForJUnit.class);
 		assertThat(userInterface.getEvents()).contains("showMessage(No return value was successfully executed.)");
 
 	}

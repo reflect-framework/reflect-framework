@@ -8,6 +8,7 @@ import java.net.URL;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.MethodCanonicalName;
 import nth.reflect.fw.generic.util.StringUtil;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
@@ -318,9 +319,9 @@ public class ActionMethodInfo implements NameInfo {
 	 * Processes the result after the invocation of the {@link ActionMethod} by a
 	 * ActionMethodResultHandler.
 	 */
-	public void processResult(UserInterfaceController userInterfaceController, Object methodOwner,
-			Object methodParameter, Object methodResult) {
-		actionMethodResultHandler.process(userInterfaceController, methodOwner, this, methodParameter, methodResult);
+	public void processResult(UserInterfaceContainer container, Object methodOwner, Object methodParameter,
+			Object methodResult) {
+		actionMethodResultHandler.process(container, methodOwner, this, methodParameter, methodResult);
 	}
 
 	/**

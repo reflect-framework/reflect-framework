@@ -15,7 +15,10 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyFie
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.OneToOneOrManyFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TableFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
+import nth.reflect.fw.javafx.layer5provider.actionmethodexecution.ActionMethodResultProviderFactory;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandlerFactory;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -130,6 +133,12 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	@Override
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
+	}
+
+	@Override
+	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
+		ActionMethodResultHandlerFactory actionMethodResultHandlerFactory = new ActionMethodResultProviderFactory(this);
+		return new ActionMethodExecutionProvider(actionMethodResultHandlerFactory);
 	}
 
 	public Stage getPrimaryStage() {

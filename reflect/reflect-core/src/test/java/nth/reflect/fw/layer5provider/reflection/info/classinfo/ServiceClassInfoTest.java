@@ -83,16 +83,16 @@ public class ServiceClassInfoTest {
 	public void testGetActionMethodSorted() {
 		List<ActionMethodInfo> actionMethods = serviceClassInfo.getActionMethodInfosSorted();
 		assertThat(actionMethods.size()).isEqualTo(1);
-		String expectyed = PersonService.class.getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME;
+		String expectyed = PersonService.class.getCanonicalName() + "." + PersonService.FIND_METHOD_NAME;
 		assertThat(actionMethods.get(0).getCanonicalName()).isEqualTo(expectyed);
 	}
 
 	@Test
 	public final void testGetMethodInfosClassOfQFilterOfActionMethodInfo() {
 		List<ActionMethodInfo> actionMethods = serviceClassInfo
-				.getActionMethodInfos(new MethodNameFilter(PersonService.ACTION_METHOD_NAME));
+				.getActionMethodInfos(new MethodNameFilter(PersonService.FIND_METHOD_NAME));
 		assertThat(actionMethods.size()).isEqualTo(1);
-		String expected = PersonService.class.getCanonicalName() + "." + PersonService.ACTION_METHOD_NAME;
+		String expected = PersonService.class.getCanonicalName() + "." + PersonService.FIND_METHOD_NAME;
 		assertThat(actionMethods.get(0).getCanonicalName()).isEqualTo(expected);
 	}
 

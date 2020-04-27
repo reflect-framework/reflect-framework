@@ -1,6 +1,5 @@
 package nth.reflect.fw.layer1userinterface.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
@@ -177,7 +176,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 	public void processActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			Object methodResult) {
 		try {
-			methodInfo.processResult(this, methodOwner, methodParameter, methodResult);
+			methodInfo.processResult(userInterfaceContainer, methodOwner, methodParameter, methodResult);
 		} catch (Throwable exception) {
 			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
 			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(methodParameter);
@@ -194,18 +193,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param message
 	 */
 	public abstract void showMessage(TranslatableString message);
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			List<?> methodResult);
 
 	/**
 	 * Process method to show the result of an {@link ActionMethod} with return type

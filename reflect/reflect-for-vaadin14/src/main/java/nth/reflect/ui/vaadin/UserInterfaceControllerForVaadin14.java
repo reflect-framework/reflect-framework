@@ -27,7 +27,6 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.tab.form.FormTab;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanelFactory;
-import nth.reflect.ui.vaadin.tab.table.TableTab;
 import nth.reflect.ui.vaadin.tab.treetable.TreeTableTab;
 
 public class UserInterfaceControllerForVaadin14
@@ -134,12 +133,6 @@ public class UserInterfaceControllerForVaadin14
 			Object domainObject, FormMode formMode) {
 		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
 				formMode);
-	}
-
-	@Override
-	public TableTab createTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		return new TableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
 	}
 
 	@Override

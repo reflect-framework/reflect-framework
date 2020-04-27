@@ -1,7 +1,6 @@
 package nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -14,7 +13,7 @@ import nth.reflect.fw.ui.commandline.view.FormView;
  * @author nilsth
  *
  */
-public class DomainObjectResultHandler implements ActionMethodResultHandler {
+public class FormResultHandler implements ActionMethodResultHandler {
 
 	@Override
 	public boolean canProcess(ActionMethodInfo actionMethodInfo) {
@@ -23,11 +22,10 @@ public class DomainObjectResultHandler implements ActionMethodResultHandler {
 	}
 
 	@Override
-	public void process(UserInterfaceController userInterfaceController, Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameter, Object methodResult) {
-		UserInterfaceContainer container = userInterfaceController.getUserInterfaceContainer();
+	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+			Object methodParameter, Object methodResult) {
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-		FormView formView = new FormView(reflectionProvider, actionMethodInfo, methodResult);
+		FormView formView = new FormView(reflectionProvider, methodInfo, methodResult);
 		System.out.println(formView.toString());
 	}
 }

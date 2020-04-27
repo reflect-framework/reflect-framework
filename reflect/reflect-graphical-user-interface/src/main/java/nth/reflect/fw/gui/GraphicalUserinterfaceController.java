@@ -24,6 +24,7 @@ import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
@@ -138,6 +139,9 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		}
 	}
 
+	public abstract Tab createFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameter,
+			Object methodResult, FormMode formMode);
+
 	public abstract void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
 			UploadStream uploadStream);
 
@@ -218,32 +222,12 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 
 	/**
 	 * Hook so that each type of user interface can execute the method using
-	 * threading in they way preferred by user interface
+	 * threading in they way preferred by user interface TODO move to
+	 * {@link ActionMethodExecutionProvider}
 	 * 
 	 * @param methodExecutionRunnable
 	 */
 	public abstract void executeInThread(Runnable methodExecutionRunnable);
-
-	@SuppressWarnings("unchecked")
-	public void openTableTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		Tabs<TAB> tabs = getTabs();
-		for (Tab tab : tabs) {
-			if (tab instanceof TableTab) {
-				TableTab tableTab = (TableTab) tab;
-				// identical GridTab?
-				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
-						&& methodParameterValue == tableTab.getMethodParameter()) {
-					// activate identical GridTab
-					tabs.setSelected((TAB) tableTab);
-					return;
-				}
-			}
-		}
-		// GridTab not found so create and show a new GridTab
-		TAB tableTab = createTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
-		tabs.setSelected(tableTab);
-	}
 
 	@SuppressWarnings("unchecked")
 	public void openTreeTableTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
@@ -266,23 +250,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		tabs.setSelected(treeTableTab);
 	}
 
-	/**
-	 * NOTE that the FormOkItem linked to the OK button of the FormTab will need to
-	 * call {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)};
-	 * TODO move to {@link ActionMethodResultHandler}
-	 * 
-	 * @param actionMethodOwner
-	 * @param actionMethodInfo
-	 * @param methodParameterValue
-	 * @param domainObject
-	 * @return
-	 */
-	public abstract TAB createFormTab(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object domainObject, FormMode formMode);
-
-	public abstract TAB createTableTab(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue);
-
 	public abstract TAB createTreeTableTab(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameterValue, Object methodReturnValue);
 
@@ -300,21 +267,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		items.add(closeItem);
 
 		showDialog(DialogType.ERROR, title, message, items);
-	}
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link List}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			List<?> methodResult) {
-		openTableTab(methodOwner, methodInfo, methodParameter, methodResult);
 	}
 
 	/**

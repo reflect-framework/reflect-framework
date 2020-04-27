@@ -14,6 +14,8 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.Propert
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandlerFactory;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -33,6 +35,7 @@ import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
+import nth.reflect.ui.vaadin.layer5provider.actionmethodexecution.ActionMethodResultProviderFactory;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.tab.form.row.field.CheckBoxFieldFactory;
 import nth.reflect.ui.vaadin.tab.form.row.field.TextFieldFactory;
@@ -185,6 +188,12 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 	@Override
 	public StringConverterProvider getStringConverterProvider() {
 		return new StringConverterProvider(DefaultStringConverters.getAll());
+	}
+
+	@Override
+	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
+		ActionMethodResultHandlerFactory actionMethodResultHandlerFactory = new ActionMethodResultProviderFactory(this);
+		return new ActionMethodExecutionProvider(actionMethodResultHandlerFactory);
 	}
 
 	@Override

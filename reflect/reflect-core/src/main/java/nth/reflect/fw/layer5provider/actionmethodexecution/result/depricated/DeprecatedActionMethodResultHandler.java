@@ -3,6 +3,7 @@ package nth.reflect.fw.layer5provider.actionmethodexecution.result.depricated;
 import java.lang.reflect.Method;
 
 import nth.reflect.fw.ReflectApplication;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -36,18 +37,17 @@ public class DeprecatedActionMethodResultHandler implements ActionMethodResultHa
 	}
 
 	@Override
-	public void process(UserInterfaceController userInterfaceController, Object methodOwner,
-			ActionMethodInfo actionMethodInfo, Object methodParameter, Object methodResult) {
+	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,
+			Object methodParameter, Object methodResult) {
 		Method actionMethod = actionMethodInfo.getMethod();
 		TypeInfo typeInfo = actionMethodInfo.getReturnTypeInfo();
-		Method showResultMethod = DeprecatedShowMethodFactory
-				.create(userInterfaceController.getClass(), actionMethod, typeInfo);
+		UserInterfaceController userInterface = container.get(UserInterfaceController.class);
+		Method showResultMethod = DeprecatedShowMethodFactory.create(userInterface.getClass(), actionMethod, typeInfo);
 		try {
 			if (actionMethodInfo.hasReturnValue()) {
-				showResultMethod
-						.invoke(userInterfaceController, methodOwner, actionMethodInfo, methodParameter, methodResult);
+				showResultMethod.invoke(userInterface, methodOwner, actionMethodInfo, methodParameter, methodResult);
 			} else {
-				showResultMethod.invoke(userInterfaceController, methodOwner, actionMethodInfo, methodParameter);
+				showResultMethod.invoke(userInterface, methodOwner, actionMethodInfo, methodParameter);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
