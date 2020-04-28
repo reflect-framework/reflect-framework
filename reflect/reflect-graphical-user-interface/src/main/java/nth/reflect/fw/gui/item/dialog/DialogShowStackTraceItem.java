@@ -6,7 +6,6 @@ import java.util.List;
 import nth.reflect.fw.generic.util.ExceptionUtil;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -50,7 +49,7 @@ public class DialogShowStackTraceItem extends Item {
 				List<Item> items = new ArrayList<Item>();
 				items.add(dialogCloseItem);
 
-				userInterfaceController.showDialog(DialogType.ERROR, title, message2, items);
+				userInterfaceController.showDialog(title, message2, items);
 			}
 		};
 	}

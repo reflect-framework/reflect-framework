@@ -52,7 +52,7 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	@Override
 	public String getDisplayName() {
-		return actionMethodInfo.createTitle(domainValueModel.getValue()).getTranslation(languageProvider);
+		return actionMethodInfo.getTitle(domainValueModel.getValue()).getTranslation(languageProvider);
 	}
 
 	@Override

@@ -134,7 +134,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 		} catch (Throwable throwable) {
 			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
 			Optional<Object> optionalMethodParameter = Optional.ofNullable(methodParameter);
-			TranslatableString actionMethodTitle = methodInfo.createTitle(optionalMethodParameter);
+			TranslatableString actionMethodTitle = methodInfo.getTitle(optionalMethodParameter);
 			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
 			showError(title, message, throwable);
 		}

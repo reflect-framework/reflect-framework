@@ -10,6 +10,7 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.AllFeatureServiceObject;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
@@ -20,6 +21,7 @@ public class FormResultHandlerTest {
 	private UserInterfaceContainer container;
 	private AllFeatureServiceObject serviceObject;
 	private ServiceClassInfo serviceClassInfo;
+	private ProviderContainer providerContainer;
 
 	@Before
 	public void setUp() throws Exception {
@@ -27,8 +29,8 @@ public class FormResultHandlerTest {
 		container = new ReflectApplicationForJUnit().addServiceClass(AllFeatureServiceObject.class).createContainer();
 		serviceObject = new AllFeatureServiceObject();
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
+		providerContainer = container.get(ProviderContainer.class);
 		serviceClassInfo = reflectionProvider.getServiceClassInfo(serviceObject.getClass());
-
 	}
 
 	private FormResultHandler createFormResultHandler() {
@@ -45,14 +47,14 @@ public class FormResultHandlerTest {
 	@Test
 	public void testCanProcess_GivenReturnValueDomainObject_mustReturnTrue() {
 		ActionMethodInfo methodInfo = serviceClassInfo.getActionMethodInfo(AllFeatureServiceObject.VIEW_METHOD_NAME);
-		boolean actual = resultHandler.canProcess(methodInfo);
+		boolean actual = resultHandler.canProcess(providerContainer, methodInfo);
 		assertThat(actual).isTrue();
 	}
 
 	@Test
 	public void testCanProcess_GivenReturnValueList_mustReturnFalse() {
 		ActionMethodInfo methodInfo = serviceClassInfo.getActionMethodInfo(AllFeatureServiceObject.ALL_METHOD_NAME);
-		boolean actual = resultHandler.canProcess(methodInfo);
+		boolean actual = resultHandler.canProcess(providerContainer, methodInfo);
 		assertThat(actual).isFalse();
 	}
 

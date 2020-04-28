@@ -18,7 +18,6 @@ import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -75,7 +74,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		final JFileChooser fc = new JFileChooser();
-		String title = methodInfo.createTitle(uploadStream).getTranslation(languageProvider);
+		String title = methodInfo.getTitle(uploadStream).getTranslation(languageProvider);
 		fc.setDialogTitle(title);
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(uploadStream.getFileTypeDescription(),
@@ -127,13 +126,6 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void openURI(URI uri) {
 		try {
 			Desktop.getDesktop().browse(uri);
@@ -145,18 +137,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
-			List<Item> items) {
-
-		// get dialog type
-		int messageType = 0;
-		switch (dialogType) {
-		case QUESTION:
-			messageType = JOptionPane.QUESTION_MESSAGE;
-			break;
-		case ERROR:
-			messageType = JOptionPane.ERROR_MESSAGE;
-		}
+	public void showDialog(TranslatableString title, TranslatableString message, List<Item> items) {
 
 		// get options, assuming that all items are enabled and visible
 		Object[] options = new String[items.size()];
@@ -170,7 +151,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		String translatedTitle = title.getTranslation(languageProvider);
 		int selectedIndex = JOptionPane
 				.showOptionDialog(mainWindow, translatedMessage, translatedTitle, JOptionPane.DEFAULT_OPTION,
-						messageType, null, options, defaultOption);
+						JOptionPane.PLAIN_MESSAGE, null, options, defaultOption);
 
 		// execute selected item
 		if (selectedIndex != -1) {

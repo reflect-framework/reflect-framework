@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 public class ActionMethodExecutionProvider implements Provider {
@@ -14,10 +15,11 @@ public class ActionMethodExecutionProvider implements Provider {
 		this.actionMethodResultHandlers = actionMethodResultHandlerFactory.getAll();
 	}
 
-	public ActionMethodResultHandler getActionMethodResultHandler(ActionMethodInfo actionMethodInfo) {
+	public ActionMethodResultHandler getActionMethodResultHandler(ProviderContainer container,
+			ActionMethodInfo actionMethodInfo) {
 		Optional<ActionMethodResultHandler> result = actionMethodResultHandlers
 				.stream()
-				.filter(a -> a.canProcess(actionMethodInfo))
+				.filter(a -> a.canProcess(container, actionMethodInfo))
 				.findFirst();
 		return result.orElseThrow(() -> new NoActionMethodResultHandlerFoundException(actionMethodInfo));
 	}

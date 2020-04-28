@@ -16,7 +16,6 @@ import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -27,7 +26,6 @@ import nth.reflect.ui.vaadin.mainwindow.MainWindow;
 import nth.reflect.ui.vaadin.tab.form.FormTab;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanel;
 import nth.reflect.ui.vaadin.tab.form.row.PropertyPanelFactory;
-import nth.reflect.ui.vaadin.tab.treetable.TreeTableTab;
 
 public class UserInterfaceControllerForVaadin14
 		extends GraphicalUserinterfaceController<nth.reflect.ui.vaadin.tab.Tab, PropertyPanel> {
@@ -136,12 +134,6 @@ public class UserInterfaceControllerForVaadin14
 	}
 
 	@Override
-	public TreeTableTab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue) {
-		return new TreeTableTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue);
-	}
-
-	@Override
 	public void openURI(URI uri) {
 		try {
 			Desktop.getDesktop().browse(uri);
@@ -153,8 +145,7 @@ public class UserInterfaceControllerForVaadin14
 	}
 
 	@Override
-	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
-			List<Item> items) {
+	public void showDialog(TranslatableString title, TranslatableString message, List<Item> items) {
 		String translatedTitle = title.getTranslation(languageProvider);
 		String translatedMessage = message.getTranslation(languageProvider);
 		dialog.open(translatedTitle, translatedMessage, items);

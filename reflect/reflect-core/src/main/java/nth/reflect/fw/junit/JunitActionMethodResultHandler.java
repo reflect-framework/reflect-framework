@@ -3,13 +3,14 @@ package nth.reflect.fw.junit;
 import java.util.List;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
 public class JunitActionMethodResultHandler implements ActionMethodResultHandler {
 
 	@Override
-	public boolean canProcess(ActionMethodInfo actionMethodInfo) {
+	public boolean canProcess(ProviderContainer container, ActionMethodInfo actionMethodInfo) {
 		return true;
 	}
 

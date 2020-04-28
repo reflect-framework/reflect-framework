@@ -144,7 +144,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			processActionMethodExecution(methodOwner, methodInfo, methodParameter);
 		} catch (Exception exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
-			TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
+			TranslatableString actionMethodTitle = methodInfo.getTitle(methodParameter);
 			TranslatableString message = ERROR_SHOW_RESULT.withParameters(actionMethodTitle);
 			showError(title, message, exception);
 		}

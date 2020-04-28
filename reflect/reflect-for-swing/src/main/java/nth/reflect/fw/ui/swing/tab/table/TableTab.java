@@ -139,12 +139,12 @@ public class TableTab extends Tab implements nth.reflect.fw.gui.component.tab.ta
 
 	@Override
 	public String getDisplayName() {
-		return actionMethodInfo.createTitle(methodParameterValue).getTranslation(languageProvider);
+		return actionMethodInfo.getTitle(methodParameterValue).getTranslation(languageProvider);
 	}
 
 	@Override
 	public String getDescription() {
-		return actionMethodInfo.createTitle(methodParameterValue).getTranslation(languageProvider);
+		return actionMethodInfo.getTitle(methodParameterValue).getTranslation(languageProvider);
 	}
 
 	@Override

@@ -79,7 +79,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final ReflectionProvider reflectionProvider;
 	private final ActionMethodResultHandler actionMethodResultHandler;
 
-	public ActionMethodInfo(ProviderContainer providerContainer, Method method, String propertyName) {
+	public ActionMethodInfo(ProviderContainer container, Method method, String propertyName) {
 		this.simpleName = createSimpleName(method, propertyName);
 
 		validateNoObjectClassMethod(method);
@@ -88,11 +88,11 @@ public class ActionMethodInfo implements NameInfo {
 		validateNoStaticMethod(method);
 		validateNoOrSingleParameter(method);
 
-		ReflectApplication application = providerContainer.get(ReflectApplication.class);
+		ReflectApplication application = container.get(ReflectApplication.class);
 		Class<? extends UserInterfaceController> controllerClass = application.getUserInterfaceControllerClass();
-		LanguageProvider languageProvider = providerContainer.get(LanguageProvider.class);
-		AuthorizationProvider authorizationProvider = providerContainer.get(AuthorizationProvider.class);
-		this.reflectionProvider = providerContainer.get(ReflectionProvider.class);
+		LanguageProvider languageProvider = container.get(LanguageProvider.class);
+		AuthorizationProvider authorizationProvider = container.get(AuthorizationProvider.class);
+		this.reflectionProvider = container.get(ReflectionProvider.class);
 		this.executionMode = ExecutionModeFactory.create(method);
 		this.returnTypeInfo = createReturnTypeInfo(application, method);
 		this.firstParameterTypeInfo = createFirstParameterTypeInfo(application, method);
@@ -111,9 +111,9 @@ public class ActionMethodInfo implements NameInfo {
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
 		this.isReadOnly = method.isAnnotationPresent(ReadOnlyActionMethod.class);
-		ActionMethodExecutionProvider actionMethodExecutionProvider = providerContainer
+		ActionMethodExecutionProvider actionMethodExecutionProvider = container
 				.get(ActionMethodExecutionProvider.class);
-		this.actionMethodResultHandler = actionMethodExecutionProvider.getActionMethodResultHandler(this);
+		this.actionMethodResultHandler = actionMethodExecutionProvider.getActionMethodResultHandler(container, this);
 	}
 
 	private String createSimpleName(Method method, String propertyName) {
@@ -126,8 +126,8 @@ public class ActionMethodInfo implements NameInfo {
 		}
 	}
 
-	public ActionMethodInfo(ProviderContainer providerContainer, Method method) {
-		this(providerContainer, method, null);
+	public ActionMethodInfo(ProviderContainer container, Method method) {
+		this(container, method, null);
 	}
 
 	/**
@@ -239,7 +239,7 @@ public class ActionMethodInfo implements NameInfo {
 		return returnTypeInfo;
 	}
 
-	public TranslatableString createTitle(Object methodParameter) {
+	public TranslatableString getTitle(Object methodParameter) {
 		String key = getCanonicalName() + TranslatedDisplayName.DISPLAY_NAME_KEY_SUFFIX;
 		String englishText = getDisplayName().getTranslation();
 		if (methodParameter != null) {

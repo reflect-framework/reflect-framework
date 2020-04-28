@@ -8,6 +8,7 @@ import org.junit.Test;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.junit.UserInterfaceControllerForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
@@ -27,19 +28,21 @@ public class NoResultHandlerTest {
 	@Test
 	public void testCanProcess_givenMethodWithoutReturnValue_isTrue() {
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
+		ProviderContainer providerContainer = container.get(ProviderContainer.class);
 		ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(SERVICE_CLASS);
 		ActionMethodInfo actionMethodInfo = serviceClassInfo.getActionMethodInfo(ResultHandlerSerice.NO_RETURN_VALUE);
-		boolean actual = resultHandler.canProcess(actionMethodInfo);
+		boolean actual = resultHandler.canProcess(providerContainer, actionMethodInfo);
 		assertThat(actual).isTrue();
 	}
 
 	@Test
 	public void testCanProcess_givenMethodWithReturnValue_isFalse() {
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
+		ProviderContainer providerContainer = container.get(ProviderContainer.class);
 		ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(SERVICE_CLASS);
 		ActionMethodInfo actionMethodInfo = serviceClassInfo
 				.getActionMethodInfo(ResultHandlerSerice.DOMAIN_OBJECT_RETURN_VALUE);
-		boolean actual = resultHandler.canProcess(actionMethodInfo);
+		boolean actual = resultHandler.canProcess(providerContainer, actionMethodInfo);
 		assertThat(actual).isFalse();
 	}
 

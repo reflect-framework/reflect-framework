@@ -2,6 +2,7 @@ package nth.reflect.fw.layer5provider.actionmethodexecution.result;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
@@ -20,14 +21,14 @@ public class NoResultHandler implements ActionMethodResultHandler {
 			NoResultHandler.class.getCanonicalName() + ".message", "%s was successfully executed.");
 
 	@Override
-	public boolean canProcess(ActionMethodInfo actionMethodInfo) {
+	public boolean canProcess(ProviderContainer container, ActionMethodInfo actionMethodInfo) {
 		return !actionMethodInfo.hasReturnValue();
 	}
 
 	@Override
 	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameter, Object methodResult) {
-		TranslatableString actionMethodTitle = actionMethodInfo.createTitle(methodParameter);
+		TranslatableString actionMethodTitle = actionMethodInfo.getTitle(methodParameter);
 		TranslatableString message = MESSAGE.withParameters(actionMethodTitle);
 		UserInterfaceController userInterface = container.get(UserInterfaceController.class);
 		userInterface.showMessage(message);

@@ -13,13 +13,11 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.FormTabFilter;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
-import nth.reflect.fw.gui.component.tab.table.TableTab;
 import nth.reflect.fw.gui.item.dialog.DialogCancelItem;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.gui.item.dialog.DialogMethodItem;
 import nth.reflect.fw.gui.item.dialog.DialogShowStackTraceItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
@@ -78,11 +76,11 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 
 		// create the confirmation MaterialAppBarTitle and message
 		TranslatableString title = CONFIRMATION_DIALOG_TITLE;
-		TranslatableString methodTitle = methodInfo.createTitle(methodParameter);
+		TranslatableString methodTitle = methodInfo.getTitle(methodParameter);
 		TranslatableString question = CONFIRMATION_DIALOG_QUESTION.withParameters(methodTitle);
 
 		// show the dialog
-		showDialog(DialogType.QUESTION, title, question, items);
+		showDialog(title, question, items);
 
 	}
 
@@ -154,7 +152,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		// executed (if invalid: throw exception)
 
 		// show ProgressDialog
-		TranslatableString title = actionMethodInfo.createTitle(methodParameterValue);
+		TranslatableString title = actionMethodInfo.getTitle(methodParameterValue);
 		showProgressDialog(title, PERCENT_0, PERCENT_100);
 
 		// start method execution thread
@@ -210,7 +208,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 					processActionMethodResult(methodOwner, actionMethodInfo, methodParameter, methodReturnValue);
 				} catch (Exception exception) {
 					Optional<Object> optionalMethodParameter = Optional.ofNullable(methodOwner);
-					TranslatableString title = actionMethodInfo.createTitle(optionalMethodParameter);
+					TranslatableString title = actionMethodInfo.getTitle(optionalMethodParameter);
 					TranslatableString message = ERROR_EXECUTE;
 					showError(title, message, exception);
 				}
@@ -229,30 +227,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 */
 	public abstract void executeInThread(Runnable methodExecutionRunnable);
 
-	@SuppressWarnings("unchecked")
-	public void openTreeTableTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		Tabs<TAB> tabs = getTabs();
-		for (Tab tab : tabs) {
-			if (tab instanceof TableTab) {
-				TableTab tableTab = (TableTab) tab;
-				// identical GridTab?
-				if (methodOwner == tableTab.getMethodOwner() && actionMethodInfo == tableTab.getMethodInfo()
-						&& methodParameterValue == tableTab.getMethodParameter()) {
-					// activate identical GridTab
-					tabs.setSelected((TAB) tableTab);
-					return;
-				}
-			}
-		}
-		// GridTab not found so create and show a new GridTab
-		TAB treeTableTab = createTreeTableTab(methodOwner, actionMethodInfo, methodParameterValue, methodReturnValue);
-		tabs.setSelected(treeTableTab);
-	}
-
-	public abstract TAB createTreeTableTab(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue, Object methodReturnValue);
-
 	@Override
 	public void showError(TranslatableString title, TranslatableString message, Throwable throwable) {
 
@@ -266,7 +240,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		DialogCloseItem closeItem = new DialogCloseItem(languageProvider);
 		items.add(closeItem);
 
-		showDialog(DialogType.ERROR, title, message, items);
+		showDialog(title, message, items);
 	}
 
 	/**
@@ -329,7 +303,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	@Override
 	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
 			String methodResult) {
-		TranslatableString actionMethodTitle = methodInfo.createTitle(methodParameter);
+		TranslatableString actionMethodTitle = methodInfo.getTitle(methodParameter);
 		TranslatableString message = RESULT_DIALOG_MESSAGE.withParameters(actionMethodTitle, methodResult);
 		showMessage(message);
 
@@ -346,8 +320,16 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	@Override
 	public abstract void showMessage(TranslatableString message);
 
-	public abstract void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
-			List<Item> items);
+	/**
+	 * Shows a pop-up dialog containing a message and one or more buttons (items).
+	 * Note that the dialog needs to scroll the message when it does not fit inside
+	 * the dialog.
+	 * 
+	 * @param title
+	 * @param message
+	 * @param items
+	 */
+	public abstract void showDialog(TranslatableString title, TranslatableString message, List<Item> items);
 
 	/**
 	 * TODO refactor so that progress dialog shows multiple thread monitors, while

@@ -29,7 +29,6 @@ import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DialogType;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -57,22 +56,14 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	}
 
 	@Override
-	public Tab createTreeTableTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object methodReturnValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void showMessage(TranslatableString message) {
 		List<Item> items = new ArrayList();
 		items.add(new DialogCloseItem(languageProvider));
-		showDialog(null, INFO_DIALOG_TITLE, message, items);
+		showDialog(INFO_DIALOG_TITLE, message, items);
 	}
 
 	@Override
-	public void showDialog(DialogType dialogType, TranslatableString title, TranslatableString message,
-			List<Item> items) {
+	public void showDialog(TranslatableString title, TranslatableString message, List<Item> items) {
 		String translatedTitle = title.getTranslation(languageProvider);
 		String translatedMessage = message.getTranslation(languageProvider);
 		Dialog dialog = new Dialog(mainWindow, translatedTitle, translatedMessage, items);
@@ -171,7 +162,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	@Override
 	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
 		FileChooser fileChooser = new FileChooser();
-		String title = methodInfo.createTitle(uploadStream).getTranslation(languageProvider);
+		String title = methodInfo.getTitle(uploadStream).getTranslation(languageProvider);
 		fileChooser.setTitle(title);
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser

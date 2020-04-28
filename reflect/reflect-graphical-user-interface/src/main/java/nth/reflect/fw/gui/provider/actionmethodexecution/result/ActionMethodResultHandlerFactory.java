@@ -13,14 +13,13 @@ public abstract class ActionMethodResultHandlerFactory
 		implements nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandlerFactory {
 
 	private final List<ActionMethodResultHandler> all;
-	private final ReflectApplication reflectApplication;
 
 	public ActionMethodResultHandlerFactory(ReflectApplication reflectApplication) {
-		this.reflectApplication = reflectApplication;
 		all = new ArrayList();
 		all.add(createNoResultHandler());
 		all.add(createFormResultHandler());
 		all.add(createTableResultHandler());
+		all.add(createDialogResultHandler());
 		all.add(createDepricatedActionMethods());
 	}
 
@@ -37,13 +36,17 @@ public abstract class ActionMethodResultHandlerFactory
 
 	public abstract TableResultHandler createTableResultHandler();
 
+	public DialogResultHandler createDialogResultHandler() {
+		return new DialogResultHandler();
+	}
+
 	/**
 	 * TODO remove this method and the {@link #reflectApplication} field when all
 	 * {@link UserInterfaceController} open... methods are moved to
 	 * {@link ActionMethodResultHandler}s
 	 */
 	public ActionMethodResultHandler createDepricatedActionMethods() {
-		return new DeprecatedActionMethodResultHandler(reflectApplication);
+		return new DeprecatedActionMethodResultHandler();
 	}
 
 }

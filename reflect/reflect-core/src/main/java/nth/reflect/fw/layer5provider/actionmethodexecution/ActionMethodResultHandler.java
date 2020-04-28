@@ -5,6 +5,7 @@ import java.net.URI;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
@@ -30,7 +31,7 @@ import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
  */
 public interface ActionMethodResultHandler {
 
-	public boolean canProcess(ActionMethodInfo actionMethodInfo);
+	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo);
 
 	/**
 	 * 
