@@ -292,24 +292,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			String methodResult) {
-		TranslatableString actionMethodTitle = methodInfo.getTitle(methodParameter);
-		TranslatableString message = RESULT_DIALOG_MESSAGE.withParameters(actionMethodTitle, methodResult);
-		showMessage(message);
-
-	}
-
-	/**
 	 * Provides simple feedback about an operation in a small popup. It only fills
 	 * the amount of space required for the message and the current activity remains
 	 * visible and interactive. The message popup will automatically disappear after

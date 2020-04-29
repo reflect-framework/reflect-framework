@@ -79,15 +79,6 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 		events.add(String.format("processActionMethodExecution(%s, %s, %s)", methodOwner, methodInfo, methodParameter));
 	}
 
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			String methodResult) {
-		events
-				.add(String
-						.format("showActionMethodResult(%s, %s, %s, (String) %s)", methodOwner, methodInfo,
-								methodParameter, methodResult));
-	}
-
 	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		events.add(String.format("confirmActionMethod(%s, %s, %s, %s)", methodOwner, methodInfo, methodParameter));
 	}

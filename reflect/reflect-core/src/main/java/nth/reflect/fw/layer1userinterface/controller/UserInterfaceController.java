@@ -52,8 +52,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 			UserInterfaceController.class.getCanonicalName() + ".error.open.file", "Failed to open file.");
 	public static final TranslatableString ERROR_EXECUTE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".error.dialog.message", "Failed to execute.");
-	public static final TranslatableString RESULT_DIALOG_MESSAGE = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".result.dialog.message", "%s: Result is: %s");
 	public static final TranslatableString CONFIRMATION_DIALOG_TITLE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".confirmation.dialog.title", "Confirmation");
 	public static final TranslatableString CONFIRMATION_DIALOG_QUESTION = new TranslatableString(
@@ -193,18 +191,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 	 * @param message
 	 */
 	public abstract void showMessage(TranslatableString message);
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public abstract void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			String methodResult);
 
 	/**
 	 * Allows the user interface objects to be build (i.e. the creation of a main

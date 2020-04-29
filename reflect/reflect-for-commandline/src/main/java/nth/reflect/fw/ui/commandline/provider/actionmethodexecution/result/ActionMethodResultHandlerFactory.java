@@ -16,6 +16,7 @@ public class ActionMethodResultHandlerFactory
 		all.add(new NoResultHandler());
 		all.add(new FormResultHandler());
 		all.add(new TableResultHandler());
+		all.add(new StringConverterResultHandler());
 	}
 
 	@Override

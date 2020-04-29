@@ -271,13 +271,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		}
 	}
 
-	@Override
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			String methodResult) {
-		System.out.println(methodResult);
-
-	}
-
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
 			Object actionMethodParameterValue) {
 		// Do nothing: The user interface controller will create the
