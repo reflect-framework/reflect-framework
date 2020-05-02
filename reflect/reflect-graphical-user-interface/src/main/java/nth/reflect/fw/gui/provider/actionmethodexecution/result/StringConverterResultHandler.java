@@ -12,16 +12,25 @@ import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHan
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatPatternFactory;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class DialogResultHandler implements ActionMethodResultHandler {
+/**
+ * Shows the return value from an {@link ActionMethod} in a Dialog, if the
+ * return value type is supported by the {@link StringConverterFactory}
+ * 
+ * @author nilsth
+ *
+ */
+public class StringConverterResultHandler implements ActionMethodResultHandler {
 
 	public static final TranslatableString MESSAGE = new TranslatableString(
-			DialogResultHandler.class.getCanonicalName() + ".message", "Result is: %s");
+			StringConverterResultHandler.class.getCanonicalName() + ".message", "Result is: %s");
 
 	@Override
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {

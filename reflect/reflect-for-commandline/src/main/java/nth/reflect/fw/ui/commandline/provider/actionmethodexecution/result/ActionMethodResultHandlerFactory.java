@@ -15,7 +15,7 @@ public class ActionMethodResultHandlerFactory
 		all = new ArrayList();
 		all.add(new NoResultHandler());
 		all.add(new DomainObjectResultHandler());
-		all.add(new TableResultHandler());
+		all.add(new MultipleValueResultHandler());
 		all.add(new UriResultHandler());
 		all.add(new UrlResultHandler());
 		all.add(new StringConverterResultHandler());

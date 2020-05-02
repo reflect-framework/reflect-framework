@@ -1,7 +1,6 @@
 package nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result;
 
 import java.util.Collection;
-import java.util.List;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.ProviderContainer;
@@ -11,12 +10,12 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.ui.commandline.view.TableView;
 
 /**
- * Shows the {@link List} as a table
+ * Shows the {@link Collection} as a table
  * 
  * @author nilsth
  *
  */
-public class TableResultHandler implements ActionMethodResultHandler {
+public class MultipleValueResultHandler implements ActionMethodResultHandler {
 
 	@Override
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {

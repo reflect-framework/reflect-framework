@@ -15,8 +15,8 @@ public class ActionMethodResultProviderFactory
 	}
 
 	@Override
-	public TableResultHandler createTableResultHandler() {
-		return new TableResultHandler();
+	public MultipleValueResultHandler createMultipleValueResultHandler() {
+		return new MultipleValueResultHandler();
 	}
 
 	@Override

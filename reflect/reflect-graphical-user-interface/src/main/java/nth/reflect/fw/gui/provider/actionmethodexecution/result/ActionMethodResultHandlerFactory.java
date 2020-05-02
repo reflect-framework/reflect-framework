@@ -20,10 +20,10 @@ public abstract class ActionMethodResultHandlerFactory
 		all = new ArrayList();
 		all.add(createNoResultHandler());
 		all.add(createDomainObjectResultHandler());
-		all.add(createTableResultHandler());
+		all.add(createMultipleValueResultHandler());
 		all.add(createUrlResultHandler());
 		all.add(createUriResultHandler());
-		all.add(createDialogResultHandler());
+		all.add(createStringConverterResultHandler());
 		all.add(createDepricatedActionMethods());
 	}
 
@@ -38,14 +38,14 @@ public abstract class ActionMethodResultHandlerFactory
 
 	public abstract DomainObjectResultHandler createDomainObjectResultHandler();
 
-	public abstract TableResultHandler createTableResultHandler();
+	public abstract MultipleValueResultHandler createMultipleValueResultHandler();
 
 	public abstract UriResultHandler createUriResultHandler();
 
 	public abstract UrlResultHandler createUrlResultHandler();
 
-	public DialogResultHandler createDialogResultHandler() {
-		return new DialogResultHandler();
+	public StringConverterResultHandler createStringConverterResultHandler() {
+		return new StringConverterResultHandler();
 	}
 
 	/**

@@ -14,9 +14,9 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
 
-public class TableResultHandlerTest {
+public class MultipleValueResultHandlerTest {
 
-	private TableResultHandler resultHandler;
+	private MultipleValueResultHandler resultHandler;
 	private UserInterfaceContainer container;
 	private AllFeatureServiceObject serviceObject;
 	private ServiceClassInfo serviceClassInfo;
@@ -24,7 +24,7 @@ public class TableResultHandlerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		resultHandler = createTableResultHandler();
+		resultHandler = createMultipleValueResultHandler();
 		container = new ReflectApplicationForJUnit().addServiceClass(AllFeatureServiceObject.class).createContainer();
 		serviceObject = new AllFeatureServiceObject();
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
@@ -32,13 +32,12 @@ public class TableResultHandlerTest {
 		serviceClassInfo = reflectionProvider.getServiceClassInfo(serviceObject.getClass());
 	}
 
-	private TableResultHandler createTableResultHandler() {
-		return new TableResultHandler() {
+	private MultipleValueResultHandler createMultipleValueResultHandler() {
+		return new MultipleValueResultHandler() {
 
 			@Override
 			public TableTab createTableTab(UserInterfaceContainer container, Object methodOwner,
 					ActionMethodInfo actionMethodInfo, Object methodParameter) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		};

@@ -11,9 +11,18 @@ import nth.reflect.fw.gui.component.table.info.TableInfoForTableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
-public abstract class TableResultHandler implements ActionMethodResultHandler {
+/**
+ * Shows the return values of a {@link ActionMethod} in a {@link TableTab}, if
+ * these values are supported by
+ * {@link TableInfoForTableTab#supports(ActionMethodInfo)}
+ * 
+ * @author nilsth
+ *
+ */
+public abstract class MultipleValueResultHandler implements ActionMethodResultHandler {
 
 	@Override
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {
