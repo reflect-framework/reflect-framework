@@ -1,11 +1,9 @@
 package nth.reflect.fw.gui;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.component.mainwindow.MainWindow;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
@@ -29,8 +27,6 @@ import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.filter.MethodNameFilter;
-import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 
 /**
  * <p>
@@ -247,39 +243,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * Process method to show the result of an {@link ActionMethod} with return type
 	 * {@link DownloadStream}. See
 	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			URI methodResult) {
-		URI uri = methodResult;
-		String uriString = uri.toString();
-		if (uriString.toLowerCase().startsWith(ReflectFramework.class.getSimpleName().toLowerCase() + ":")) {
-			try {
-				int positionColon = uriString.indexOf(":");
-				int positionLastDot = uriString.lastIndexOf(".");
-				String serviceClassName = uriString.substring(positionColon + 1, positionLastDot);
-				String methodName = uriString.substring(positionLastDot + 1);
-				Class<?> serviceClass = Class.forName(serviceClassName);
-				DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(serviceClass);
-				List<ActionMethodInfo> actionMethodInfos = domainClassInfo
-						.getActionMethodInfos(new MethodNameFilter(methodName));
-				processActionMethod(methodOwner, actionMethodInfos.get(0), null);
-			} catch (Exception exception) {
-				throw new IllegalReflectUriException(exception);
-			}
-		} else {
-			openURI(uri);
-		}
-
-	}
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
 	 * 
 	 * @param methodOwner
 	 * @param methodInfo
@@ -328,8 +291,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * completed
 	 */
 	public abstract void closeProgressDialog();
-
-	public abstract void openURI(URI uri);
 
 	public abstract void downloadFile(DownloadStream downloadStream);
 

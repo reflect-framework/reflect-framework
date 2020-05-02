@@ -47,7 +47,7 @@ public class UserInterfaceControllerTest {
 		ActionMethodInfo methodInfo = serviceClassInfo.getActionMethodInfo(PersonService.FIND_METHOD_NAME);
 		assertNotNull(methodInfo);
 		controller.processActionMethod(personService, methodInfo, null);
-		List<String> events = controller.getEvents();
+		List<String> events = controller.getEventsAndClear();
 		assertThat(events.get(0))
 				.isEqualTo("processActionMethod(" + personService.toString() + ", "
 						+ personService.getClass().getCanonicalName() + "." + PersonService.FIND_METHOD_NAME
@@ -57,7 +57,7 @@ public class UserInterfaceControllerTest {
 		assertThat(events.get(1)).isEqualTo(expected);
 
 		controller.processActionMethod(personService, methodInfo, person);
-		events = controller.getEvents();
+		events = controller.getEventsAndClear();
 		assertThat(events.get(0))
 				.isEqualTo("processActionMethod(" + personService.toString() + ", "
 						+ personService.getClass().getCanonicalName() + "." + PersonService.FIND_METHOD_NAME + ", "

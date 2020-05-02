@@ -19,4 +19,14 @@ public class ActionMethodResultProviderFactory
 		return new TableResultHandler();
 	}
 
+	@Override
+	public UriResultHandler createUriResultHandler() {
+		return new UriResultHandler();
+	}
+
+	@Override
+	public UrlResultHandler createUrlResultHandler() {
+		return new UrlResultHandler();
+	}
+
 }

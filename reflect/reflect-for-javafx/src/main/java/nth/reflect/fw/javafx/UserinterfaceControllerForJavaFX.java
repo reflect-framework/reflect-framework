@@ -1,13 +1,10 @@
 package nth.reflect.fw.javafx;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,17 +77,6 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	public void closeProgressDialog() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void openURI(URI uri) {
-		try {
-			Desktop.getDesktop().browse(uri);
-		} catch (IOException exception) {
-			TranslatableString title = ERROR_DIALOG_TITLE;
-			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showError(title, message, exception);
-		}
 	}
 
 	@Override

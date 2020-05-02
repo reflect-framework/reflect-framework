@@ -2,10 +2,10 @@ package nth.reflect.fw.ui.swing.layer5provider.actionmethodexecution;
 
 import nth.reflect.fw.ReflectApplication;
 
-public class ActionMethodResultProviderFactory
+public class ActionMethodResultHandlerFactory
 		extends nth.reflect.fw.gui.provider.actionmethodexecution.result.ActionMethodResultHandlerFactory {
 
-	public ActionMethodResultProviderFactory(ReflectApplication reflectApplication) {
+	public ActionMethodResultHandlerFactory(ReflectApplication reflectApplication) {
 		super(reflectApplication);
 	}
 
@@ -17,6 +17,16 @@ public class ActionMethodResultProviderFactory
 	@Override
 	public TableResultHandler createTableResultHandler() {
 		return new TableResultHandler();
+	}
+
+	@Override
+	public UriResultHandler createUriResultHandler() {
+		return new UriResultHandler();
+	}
+
+	@Override
+	public UrlResultHandler createUrlResultHandler() {
+		return new UrlResultHandler();
 	}
 
 }

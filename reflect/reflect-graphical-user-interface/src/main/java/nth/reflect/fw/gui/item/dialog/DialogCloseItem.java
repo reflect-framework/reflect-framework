@@ -15,7 +15,17 @@ public class DialogCloseItem extends Item {
 		super(languageProvider);
 		setText(CLOSE_TEXT);
 		setDescription(CLOSE_DESCRIPTION);
-		// no action. Dialog will close it self
+		setAction(createAction());
+	}
+
+	private Action createAction() {
+		return new Action() {
+
+			@Override
+			public void run() {
+				// no action. Dialog will close it self
+			}
+		};
 	}
 
 }

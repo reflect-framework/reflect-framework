@@ -18,7 +18,7 @@ public class JunitActionMethodResultHandler implements ActionMethodResultHandler
 	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameter, Object methodResult) {
 		UserInterfaceControllerForJUnit userInterface = container.get(UserInterfaceControllerForJUnit.class);
-		List<String> events = userInterface.getEvents();
+		List<String> events = userInterface.getEventsAndClear();
 		events
 				.add(String
 						.format("%s.process(%s, %s, %s", JunitActionMethodResultHandler.class.getSimpleName(),

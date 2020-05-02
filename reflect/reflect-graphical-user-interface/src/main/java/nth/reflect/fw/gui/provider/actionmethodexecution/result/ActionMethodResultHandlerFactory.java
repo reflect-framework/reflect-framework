@@ -7,6 +7,8 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
+import nth.reflect.fw.layer5provider.actionmethodexecution.result.UriResultHandler;
+import nth.reflect.fw.layer5provider.actionmethodexecution.result.UrlResultHandler;
 import nth.reflect.fw.layer5provider.actionmethodexecution.result.depricated.DeprecatedActionMethodResultHandler;
 
 public abstract class ActionMethodResultHandlerFactory
@@ -19,6 +21,8 @@ public abstract class ActionMethodResultHandlerFactory
 		all.add(createNoResultHandler());
 		all.add(createFormResultHandler());
 		all.add(createTableResultHandler());
+		all.add(createUrlResultHandler());
+		all.add(createUriResultHandler());
 		all.add(createDialogResultHandler());
 		all.add(createDepricatedActionMethods());
 	}
@@ -35,6 +39,10 @@ public abstract class ActionMethodResultHandlerFactory
 	public abstract FormResultHandler createFormResultHandler();
 
 	public abstract TableResultHandler createTableResultHandler();
+
+	public abstract UriResultHandler createUriResultHandler();
+
+	public abstract UrlResultHandler createUrlResultHandler();
 
 	public DialogResultHandler createDialogResultHandler() {
 		return new DialogResultHandler();

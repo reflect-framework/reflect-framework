@@ -16,6 +16,8 @@ public class ActionMethodResultHandlerFactory
 		all.add(new NoResultHandler());
 		all.add(new FormResultHandler());
 		all.add(new TableResultHandler());
+		all.add(new UriResultHandler());
+		all.add(new UrlResultHandler());
 		all.add(new StringConverterResultHandler());
 	}
 

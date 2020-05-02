@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -210,26 +209,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		}
 		// show method result
 		processActionMethodResult(methodOwner, methodInfo, methodParameter, methodReturnValue);
-	}
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			URI uri) {
-		try {
-			Desktop.getDesktop().browse(uri);
-		} catch (IOException exception) {
-			TranslatableString title = ERROR_DIALOG_TITLE;
-			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showError(title, message, exception);
-		}
 	}
 
 	/**

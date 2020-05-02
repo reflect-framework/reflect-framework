@@ -68,7 +68,8 @@ public class Dialog extends JFXDialog {
 		double textHeight = text.getBoundsInLocal().getHeight() + 20;
 		double maxHeight = owner.getHeight() * 0.7;
 		body.setMinHeight(Math.min(textHeight, maxHeight));
-		body.getStyleClass()
+		body
+				.getStyleClass()
 				.add(StyleSheet.createStyleClassName(Dialog.class, StyleSheet.createStyleClassName(ScrollPane.class)));
 
 		// TODO: BackgroundColor > .viewport and hide focus line
@@ -76,19 +77,30 @@ public class Dialog extends JFXDialog {
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(Dialog.class)).getProperties()
-				.setBackground(ReflectColorName.CONTENT.BACKGROUND()).setTextFill(ReflectColorName.CONTENT.FOREGROUND())
-				.setFont(MaterialFont.getRobotoRegular(TableStyle.FONT_SIZE)).setPadding(0);
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(Dialog.class))
+				.getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+				.setFont(MaterialFont.getRobotoRegular(TableStyle.FONT_SIZE))
+				.setPadding(0);
 
 		// Remove annoying border
-		styleSheet.addStyleGroup(StyleSelector.createFor(Dialog.class).append(ScrollPane.class)).getProperties()
-				.setBorderWidth(0).setPadding(0).setBackgroundInsets(0);
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(Dialog.class).append(ScrollPane.class))
+				.getProperties()
+				.setBorderWidth(0)
+				.setPadding(0)
+				.setBackgroundInsets(0);
 
 		// scroll pane viewport background white
 		styleSheet
-				.addStyleGroup(StyleSelector.createFor(Dialog.class).append(ScrollPane.class)
+				.addStyleGroup(StyleSelector
+						.createFor(Dialog.class)
+						.append(ScrollPane.class)
 						.append(StyleSelector.createFor("> .viewport")))
-				.getProperties().setBackground(ReflectColorName.CONTENT.BACKGROUND())
+				.getProperties()
+				.setBackground(ReflectColorName.CONTENT.BACKGROUND())
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND());
 
 	}

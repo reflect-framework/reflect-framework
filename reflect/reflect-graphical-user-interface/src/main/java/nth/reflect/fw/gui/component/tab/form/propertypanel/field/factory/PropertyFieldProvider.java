@@ -26,7 +26,7 @@ import nth.reflect.fw.layer5provider.Provider;
 public class PropertyFieldProvider extends DelegatingContractor<PropertyField, PropertyFieldFactoryInfo>
 		implements Provider {
 
-	public PropertyFieldProvider(PropertyFieldFactory[] propertyFieldFactories) {
+	public PropertyFieldProvider(PropertyFieldFactory... propertyFieldFactories) {
 		super(propertyFieldFactories);
 	}
 

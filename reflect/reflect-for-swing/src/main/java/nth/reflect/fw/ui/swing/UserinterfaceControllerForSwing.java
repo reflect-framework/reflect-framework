@@ -3,11 +3,9 @@ package nth.reflect.fw.ui.swing;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -123,17 +121,6 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 			Object domainObject, FormMode formMode) {
 		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
 				formMode);
-	}
-
-	@Override
-	public void openURI(URI uri) {
-		try {
-			Desktop.getDesktop().browse(uri);
-		} catch (IOException exception) {
-			TranslatableString title = ERROR_DIALOG_TITLE;
-			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showError(title, message, exception);
-		}
 	}
 
 	@Override

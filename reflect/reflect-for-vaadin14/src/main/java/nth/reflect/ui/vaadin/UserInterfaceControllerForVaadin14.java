@@ -1,8 +1,5 @@
 package nth.reflect.ui.vaadin;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,17 +128,6 @@ public class UserInterfaceControllerForVaadin14
 			Object domainObject, FormMode formMode) {
 		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
 				formMode);
-	}
-
-	@Override
-	public void openURI(URI uri) {
-		try {
-			Desktop.getDesktop().browse(uri);
-		} catch (IOException exception) {
-			TranslatableString title = ERROR_DIALOG_TITLE;
-			TranslatableString message = ERROR_OPEN_URI.withParameters(uri.toString());
-			showError(title, message, exception);
-		}
 	}
 
 	@Override

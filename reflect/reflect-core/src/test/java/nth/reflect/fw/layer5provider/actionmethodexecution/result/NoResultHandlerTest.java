@@ -47,7 +47,7 @@ public class NoResultHandlerTest {
 	}
 
 	@Test
-	public void testExecutesActionMethod_givenNoResultHanlder_showsMessage() {
+	public void testExecutesActionMethod_givenNoResultHandler_showsMessage() {
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		ResultHandlerSerice serviceObject = container.get(SERVICE_CLASS);
 		ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(SERVICE_CLASS);
@@ -56,7 +56,7 @@ public class NoResultHandlerTest {
 		Object methodResult = null;
 		resultHandler.process(container, serviceObject, actionMethodInfo, methodParameter, methodResult);
 		UserInterfaceControllerForJUnit userInterface = container.get(UserInterfaceControllerForJUnit.class);
-		assertThat(userInterface.getEvents()).contains("showMessage(No return value was successfully executed.)");
+		assertThat(userInterface.getEventsAndClear()).contains("showMessage(No return value was successfully executed.)");
 
 	}
 
