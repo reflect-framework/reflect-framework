@@ -14,7 +14,7 @@ import nth.reflect.fw.ui.commandline.view.FormView;
  * @author nilsth
  *
  */
-public class FormResultHandler implements ActionMethodResultHandler {
+public class DomainObjectResultHandler implements ActionMethodResultHandler {
 
 	@Override
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {

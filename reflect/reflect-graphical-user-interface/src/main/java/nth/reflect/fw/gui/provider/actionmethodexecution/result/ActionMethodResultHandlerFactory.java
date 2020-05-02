@@ -19,7 +19,7 @@ public abstract class ActionMethodResultHandlerFactory
 	public ActionMethodResultHandlerFactory(ReflectApplication reflectApplication) {
 		all = new ArrayList();
 		all.add(createNoResultHandler());
-		all.add(createFormResultHandler());
+		all.add(createDomainObjectResultHandler());
 		all.add(createTableResultHandler());
 		all.add(createUrlResultHandler());
 		all.add(createUriResultHandler());
@@ -36,7 +36,7 @@ public abstract class ActionMethodResultHandlerFactory
 		return new NoResultHandler();
 	}
 
-	public abstract FormResultHandler createFormResultHandler();
+	public abstract DomainObjectResultHandler createDomainObjectResultHandler();
 
 	public abstract TableResultHandler createTableResultHandler();
 

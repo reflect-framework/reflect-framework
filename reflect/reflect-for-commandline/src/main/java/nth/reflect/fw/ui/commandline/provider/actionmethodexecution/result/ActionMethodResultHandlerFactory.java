@@ -14,7 +14,7 @@ public class ActionMethodResultHandlerFactory
 	public ActionMethodResultHandlerFactory() {
 		all = new ArrayList();
 		all.add(new NoResultHandler());
-		all.add(new FormResultHandler());
+		all.add(new DomainObjectResultHandler());
 		all.add(new TableResultHandler());
 		all.add(new UriResultHandler());
 		all.add(new UrlResultHandler());

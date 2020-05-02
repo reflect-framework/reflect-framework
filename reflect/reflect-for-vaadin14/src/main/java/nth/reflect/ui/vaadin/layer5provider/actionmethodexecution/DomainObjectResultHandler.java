@@ -6,7 +6,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.ui.vaadin.tab.form.FormTab;
 
-public class FormResultHandler extends nth.reflect.fw.gui.provider.actionmethodexecution.result.FormResultHandler {
+public class DomainObjectResultHandler extends nth.reflect.fw.gui.provider.actionmethodexecution.result.DomainObjectResultHandler {
 
 	@Override
 	public Tab createFormTab(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,

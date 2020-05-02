@@ -15,9 +15,9 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
 
-public class FormResultHandlerTest {
+public class DomainObjectResultHandlerTest {
 
-	private FormResultHandler resultHandler;
+	private DomainObjectResultHandler resultHandler;
 	private UserInterfaceContainer container;
 	private AllFeatureServiceObject serviceObject;
 	private ServiceClassInfo serviceClassInfo;
@@ -33,8 +33,8 @@ public class FormResultHandlerTest {
 		serviceClassInfo = reflectionProvider.getServiceClassInfo(serviceObject.getClass());
 	}
 
-	private FormResultHandler createFormResultHandler() {
-		return new FormResultHandler() {
+	private DomainObjectResultHandler createFormResultHandler() {
+		return new DomainObjectResultHandler() {
 
 			@Override
 			public Tab createFormTab(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,

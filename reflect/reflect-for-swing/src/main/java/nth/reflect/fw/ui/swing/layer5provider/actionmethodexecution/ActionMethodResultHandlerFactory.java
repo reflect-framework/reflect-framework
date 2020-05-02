@@ -10,8 +10,8 @@ public class ActionMethodResultHandlerFactory
 	}
 
 	@Override
-	public FormResultHandler createFormResultHandler() {
-		return new FormResultHandler();
+	public DomainObjectResultHandler createDomainObjectResultHandler() {
+		return new DomainObjectResultHandler();
 	}
 
 	@Override
