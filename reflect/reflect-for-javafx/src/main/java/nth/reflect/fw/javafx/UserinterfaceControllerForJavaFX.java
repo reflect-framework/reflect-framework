@@ -26,13 +26,13 @@ import nth.reflect.fw.javafx.control.tab.Tab;
 import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
-import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
+import nth.reflect.fw.stream.DownloadStream;
+import nth.reflect.fw.stream.UploadStream;
 
 public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 

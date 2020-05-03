@@ -1,6 +1,7 @@
 package nth.reflect.fw.ui.swing;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
@@ -8,6 +9,7 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.Propert
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -22,11 +24,12 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlStreamHandler;
+import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrlStreamHandler;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
-import nth.reflect.fw.ui.swing.layer5provider.actionmethodexecution.ActionMethodResultHandlerFactory;
+import nth.reflect.fw.ui.swing.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.CheckBoxFieldFactory;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.ComboBoxFieldFactory;
 import nth.reflect.fw.ui.swing.tab.form.proppanel.field.DateTimeFieldFactory;
@@ -93,7 +96,7 @@ public abstract class ReflectApplicationForSwing implements GraphicalUserInterfa
 	@Override
 	public UrlProvider getUrlProvider() {
 		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this),
-				new FontIconUrlStreamHandler());
+				new FontIconUrlStreamHandler(), new ServiceMethodUrlStreamHandler());
 	}
 
 	@Override
@@ -109,9 +112,13 @@ public abstract class ReflectApplicationForSwing implements GraphicalUserInterfa
 	}
 
 	@Override
-	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
-		ActionMethodResultHandlerFactory actionMethodResultHandlerFactory = new ActionMethodResultHandlerFactory(this);
-		return new ActionMethodExecutionProvider(actionMethodResultHandlerFactory);
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProvider() {
+		return ActionMethodExecutionProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends ActionMethodResultHandler>> getActionMethodResultHandlerClasses() {
+		return new ActionMethodResultHandlerClasses();
 	}
 
 	/**

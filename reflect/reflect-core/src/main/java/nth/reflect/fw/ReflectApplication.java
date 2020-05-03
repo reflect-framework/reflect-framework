@@ -3,12 +3,17 @@ package nth.reflect.fw;
 import java.util.List;
 
 import nth.reflect.fw.documentation.ReflectApplicationProjects;
+import nth.reflect.fw.layer1userinterface.UserInterfaceLayer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer2service.ServiceLayer;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
+import nth.reflect.fw.layer4infrastructure.InfrastructureLayer;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.ProviderLayer;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
@@ -101,7 +106,27 @@ import nth.reflect.fw.layer5provider.version.VersionProvider;
 
 public interface ReflectApplication {
 
+	/**
+	 * {@link UserInterfaceLayer}
+	 */
+
 	public Class<? extends UserInterfaceController> getUserInterfaceControllerClass();
+
+	/**
+	 * {@link ServiceLayer}
+	 */
+
+	public List<Class<?>> getServiceClasses();
+
+	/**
+	 * {@link InfrastructureLayer}
+	 */
+
+	public List<Class<?>> getInfrastructureClasses();
+
+	/**
+	 * {@link ProviderLayer}
+	 */
 
 	public Class<? extends ReflectionProvider> getReflectionProviderClass();
 
@@ -119,10 +144,8 @@ public interface ReflectApplication {
 
 	public StringConverterProvider getStringConverterProvider();
 
-	public ActionMethodExecutionProvider getActionMethodExecutionProvider();
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProvider();
 
-	public List<Class<?>> getServiceClasses();
-
-	public List<Class<?>> getInfrastructureClasses();
+	public List<Class<? extends ActionMethodResultHandler>> getActionMethodResultHandlerClasses();
 
 }

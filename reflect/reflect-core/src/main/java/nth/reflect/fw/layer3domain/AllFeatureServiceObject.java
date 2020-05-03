@@ -11,10 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 import nth.reflect.fw.ReflectFramework;
-import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
+import nth.reflect.fw.stream.DownloadStream;
 
 /**
  * The contents of this class serves several purposes:

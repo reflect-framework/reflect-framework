@@ -14,9 +14,9 @@ import java.util.List;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.stream.DownloadStream;
 import nth.reflect.infra.excel.repository.reader.ExcelReader;
 import nth.reflect.infra.excel.repository.writer.ExcelFormWriter;
 import nth.reflect.infra.excel.repository.writer.ExcelTableWriter;

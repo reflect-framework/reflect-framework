@@ -16,7 +16,6 @@ import javax.swing.JFileChooser;
 
 import nth.reflect.fw.generic.util.ExceptionUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -24,6 +23,7 @@ import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.stream.DownloadStream;
 import nth.reflect.fw.ui.commandline.domain.command.Command;
 import nth.reflect.fw.ui.commandline.domain.command.CommandService;
 import nth.reflect.fw.ui.commandline.domain.command.Parameter;
@@ -161,9 +161,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 
 	private File getCommandFile(String[] arguments) {
 		return new File(arguments[0]);
-	}
-
-	public void downloadFile(DownloadStream downloadStream) {
 	}
 
 	@Override

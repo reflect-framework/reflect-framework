@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer1userinterface.controller;
+package nth.reflect.fw.stream;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

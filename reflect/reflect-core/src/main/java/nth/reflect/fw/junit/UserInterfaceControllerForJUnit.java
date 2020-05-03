@@ -5,7 +5,6 @@ import java.util.List;
 
 import nth.reflect.fw.generic.util.ExceptionUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.Task;
@@ -68,10 +67,6 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 						.format("editActionMethodParameter(%s, %s, %s)", actionMethodOwner, actionMethodInfo,
 								actionMethodParameterValue));
 
-	}
-
-	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
-		events.add(String.format("editActionMethodParameter(%s, %s, %s)", methodOwner, methodInfo, uploadStream));
 	}
 
 	@Override

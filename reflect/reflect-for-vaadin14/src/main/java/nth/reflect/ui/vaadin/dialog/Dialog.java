@@ -37,7 +37,11 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 	}
 
 	private void setMessage(String message) {
-		messageDiv.setText(message);
+		message = message.replace("\r\n", "<br>");
+		message = message.replace("\r", "<br>");
+		message = message.replace("\n", "<br>");
+//		messageDiv.setText(message);
+		messageDiv.getElement().setProperty("innerHTML", message);
 	}
 
 	private void setTitle(String title) {
@@ -94,7 +98,10 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 
 	private Div createMessageDiv() {
 		Div messageLabel = new Div();
-		new StyleBuilder().setMargin(10, 0, 10, 0).setProperty("max-height", "300px").setOverflow(Overflow.AUTO)
+		new StyleBuilder()
+				.setMargin(10, 0, 10, 0)
+				.setProperty("max-height", "300px")
+				.setOverflow(Overflow.AUTO)
 				.setFor(messageLabel);
 		return messageLabel;
 	}

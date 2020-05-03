@@ -1,5 +1,7 @@
 package nth.reflect.fw.javafx;
 
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nth.reflect.fw.ReflectFramework;
@@ -14,10 +16,10 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyFie
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.OneToOneOrManyFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TableFieldFactory;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
-import nth.reflect.fw.javafx.layer5provider.actionmethodexecution.ActionMethodResultProviderFactory;
+import nth.reflect.fw.javafx.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandlerFactory;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -32,6 +34,7 @@ import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlStreamHandler;
+import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrlStreamHandler;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
@@ -119,7 +122,7 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	@Override
 	public UrlProvider getUrlProvider() {
 		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this),
-				new FontIconUrlStreamHandler(), new StyleSheetUrlHandler(this));
+				new FontIconUrlStreamHandler(), new StyleSheetUrlHandler(this), new ServiceMethodUrlStreamHandler());
 	}
 
 	@Override
@@ -135,9 +138,13 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
-		ActionMethodResultHandlerFactory actionMethodResultHandlerFactory = new ActionMethodResultProviderFactory(this);
-		return new ActionMethodExecutionProvider(actionMethodResultHandlerFactory);
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProvider() {
+		return ActionMethodExecutionProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends ActionMethodResultHandler>> getActionMethodResultHandlerClasses() {
+		return new ActionMethodResultHandlerClasses();
 	}
 
 	public Stage getPrimaryStage() {

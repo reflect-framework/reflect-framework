@@ -7,8 +7,6 @@ import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.behavior.format.FormatPatternFactory;
@@ -27,19 +25,8 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFact
  * @author nilsth
  *
  */
-public class StringConverterResultHandler implements ActionMethodResultHandler {
-
-	public static final TranslatableString MESSAGE = new TranslatableString(
-			StringConverterResultHandler.class.getCanonicalName() + ".message", "Result is: %s");
-
-	@Override
-	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {
-		StringConverterProvider stringConverterProvider = container.get(StringConverterProvider.class);
-		TypeInfo typeInfo = methodInfo.getReturnTypeInfo();
-		String formatPattern = FormatPatternFactory.create(methodInfo.getMethod());
-		StringConverterFactoryInfo info = new StringConverterFactoryInfo(typeInfo, container, formatPattern);
-		return stringConverterProvider.canCreate(info);
-	}
+public class StringConverterResultHandler
+		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.StringConverterResultHandler {
 
 	@Override
 	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,

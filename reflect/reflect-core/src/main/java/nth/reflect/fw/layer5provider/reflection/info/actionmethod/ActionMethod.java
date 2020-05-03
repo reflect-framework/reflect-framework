@@ -2,7 +2,6 @@ package nth.reflect.fw.layer5provider.reflection.info.actionmethod;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
-import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
@@ -11,6 +10,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralAnnotation;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethod;
 import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
+import nth.reflect.fw.stream.DownloadStream;
 
 /**
  * <p>

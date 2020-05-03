@@ -18,7 +18,9 @@ public class UriResultHandler extends nth.reflect.fw.layer5provider.actionmethod
 
 			Page page = UI.getCurrent().getPage();
 
-			String javaScript = "window.open( '" + url + "' ," + OPEN_IN_NEW_BROWSER_OR_TAB + ")";
+			// String javaScript = "window.open( '" + url + "' ," +
+			// OPEN_IN_NEW_BROWSER_OR_TAB + ")";
+			String javaScript = "window.open( '" + url + "')";
 			page.executeJs(javaScript);
 		} catch (Exception exception) {
 			throw new CouldNotOpenUriException(uri, exception);

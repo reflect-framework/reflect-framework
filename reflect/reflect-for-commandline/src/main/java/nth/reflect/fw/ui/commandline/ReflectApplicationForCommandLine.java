@@ -1,12 +1,14 @@
 package nth.reflect.fw.ui.commandline;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -23,7 +25,7 @@ import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
-import nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result.ActionMethodResultHandlerFactory;
+import nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result.ActionMethodResultHandlerClasses;
 
 /**
  * <p>
@@ -112,8 +114,13 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 	}
 
 	@Override
-	public ActionMethodExecutionProvider getActionMethodExecutionProvider() {
-		return new ActionMethodExecutionProvider(new ActionMethodResultHandlerFactory());
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProvider() {
+		return ActionMethodExecutionProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends ActionMethodResultHandler>> getActionMethodResultHandlerClasses() {
+		return new ActionMethodResultHandlerClasses();
 	}
 
 	public String[] getCommandLineArguments() {

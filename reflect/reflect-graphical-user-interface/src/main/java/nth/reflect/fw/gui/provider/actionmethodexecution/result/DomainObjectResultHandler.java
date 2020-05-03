@@ -10,8 +10,6 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.FormTabFilter;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -22,15 +20,10 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * @author nilsth
  *
  */
-public abstract class DomainObjectResultHandler implements ActionMethodResultHandler {
+public abstract class DomainObjectResultHandler
+		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.DomainObjectResultHandler {
 
 	private static final FormMode READ_ONLY = FormMode.READ_ONLY;
-
-	@Override
-	public boolean canProcess(ProviderContainer container, ActionMethodInfo actionMethodInfo) {
-		boolean returntTypeIsDomainClass = actionMethodInfo.getReturnTypeInfo().isDomainClass();
-		return returntTypeIsDomainClass;
-	}
 
 	@Override
 	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,

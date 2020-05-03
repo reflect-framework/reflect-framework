@@ -16,8 +16,6 @@ import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.gui.item.dialog.DialogMethodItem;
 import nth.reflect.fw.gui.item.dialog.DialogShowStackTraceItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.DownloadStream;
-import nth.reflect.fw.layer1userinterface.controller.UploadStream;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
@@ -27,6 +25,8 @@ import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.stream.DownloadStream;
+import nth.reflect.fw.stream.UploadStream;
 
 /**
  * <p>
@@ -203,8 +203,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 					// show method result
 					processActionMethodResult(methodOwner, actionMethodInfo, methodParameter, methodReturnValue);
 				} catch (Exception exception) {
-					Optional<Object> optionalMethodParameter = Optional.ofNullable(methodOwner);
-					TranslatableString title = actionMethodInfo.getTitle(optionalMethodParameter);
+					TranslatableString title = actionMethodInfo.getTitle(methodParameter);
 					TranslatableString message = ERROR_EXECUTE;
 					showError(title, message, exception);
 				}

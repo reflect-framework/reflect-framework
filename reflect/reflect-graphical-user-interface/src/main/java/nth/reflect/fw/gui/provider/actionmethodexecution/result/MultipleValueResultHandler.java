@@ -10,7 +10,6 @@ import nth.reflect.fw.gui.component.tab.table.TableTabFilter;
 import nth.reflect.fw.gui.component.table.info.TableInfoForTableTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -22,7 +21,8 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  * @author nilsth
  *
  */
-public abstract class MultipleValueResultHandler implements ActionMethodResultHandler {
+public abstract class MultipleValueResultHandler
+		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.MultipleValueResultHandler {
 
 	@Override
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {

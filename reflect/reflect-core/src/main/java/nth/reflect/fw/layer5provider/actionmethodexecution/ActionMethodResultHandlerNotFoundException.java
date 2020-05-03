@@ -4,14 +4,14 @@ import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.ActionMethodException;
 
-public class NoActionMethodResultHandlerFoundException extends ActionMethodException {
+public class ActionMethodResultHandlerNotFoundException extends ActionMethodException {
 
 	private static final long serialVersionUID = -4206493834374235530L;
 	private static final TranslatableString MESSAGE = new TranslatableString(
-			NoActionMethodResultHandlerFoundException.class.getCanonicalName() + ".message",
+			ActionMethodResultHandlerNotFoundException.class.getCanonicalName() + ".message",
 			"Could not found a %s for: %s.");
 
-	public NoActionMethodResultHandlerFoundException(ActionMethodInfo actionMethodInfo) {
+	public ActionMethodResultHandlerNotFoundException(ActionMethodInfo actionMethodInfo) {
 		super(MESSAGE.withParameters(ActionMethodResultHandler.class.getSimpleName(), actionMethodInfo.toString()));
 	}
 }
