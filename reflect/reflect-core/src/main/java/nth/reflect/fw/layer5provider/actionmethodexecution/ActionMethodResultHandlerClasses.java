@@ -35,4 +35,5 @@ public abstract class ActionMethodResultHandlerClasses extends ArrayList<Class<?
 	public abstract Class<? extends UriResultHandler> getUriResultHandler();
 
 	public abstract Class<? extends StringConverterResultHandler> getStringConverterResultHandler();
+
 }

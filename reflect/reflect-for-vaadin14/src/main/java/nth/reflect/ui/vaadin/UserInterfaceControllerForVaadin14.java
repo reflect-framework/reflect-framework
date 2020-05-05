@@ -16,7 +16,6 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.stream.DownloadStream;
 import nth.reflect.fw.stream.UploadStream;
 import nth.reflect.ui.vaadin.dialog.Dialog;
 import nth.reflect.ui.vaadin.mainwindow.MainWindow;
@@ -86,38 +85,6 @@ public class UserInterfaceControllerForVaadin14
 		// processActionMethodExecution(methodOwner, methodInfo, uploadStream);
 		// }
 	};
-
-	@Override
-	public void downloadFile(DownloadStream downloadStream) {
-		// TODO
-		// JFileChooser chooser = new JFileChooser();
-		// chooser.setSelectedFile(downloadStream.getFile());
-		// InputStream inputStream = downloadStream.getInputStream();
-		// int returnVal = chooser.showSaveDialog(reflectApplicationForVaadin);
-		// if (returnVal == JFileChooser.APPROVE_OPTION) {
-		// File file = chooser.getSelectedFile();
-		// // safe file
-		// try {
-		// OutputStream out = new FileOutputStream(file);
-		// byte buf[] = new byte[1024];
-		// int len;
-		// while ((len = inputStream.read(buf)) > 0)
-		// out.write(buf, 0, len);
-		// out.close();
-		// inputStream.close();
-		//
-		// } catch (Exception e) {
-		// showErrorDialog("Error saving file", "Failed to save file.", e);
-		// }
-		// // open file
-		// try {
-		// Desktop.getDesktop().open(file);
-		// } catch (Exception e) {
-		// showErrorDialog("Error opening file", "Failed to open file.", e);
-		// }
-		// }
-
-	}
 
 	private MainWindow getMainWindow() {
 		return reflectAppForVaadin.getMainWindow();

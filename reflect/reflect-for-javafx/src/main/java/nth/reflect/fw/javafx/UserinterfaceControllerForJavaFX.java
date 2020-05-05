@@ -1,9 +1,6 @@
 package nth.reflect.fw.javafx;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +28,6 @@ import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
-import nth.reflect.fw.stream.DownloadStream;
 import nth.reflect.fw.stream.UploadStream;
 
 public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
@@ -76,36 +72,6 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	@Override
 	public void closeProgressDialog() {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void downloadFile(DownloadStream downloadStream) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Save File");
-		fileChooser.setInitialFileName(downloadStream.getFile().getName());
-		File directory = downloadStream.getFile().getParentFile();
-		if (directory != null) {
-			fileChooser.setInitialDirectory(directory);
-		}
-		ReflectApplicationForJavaFX application = userInterfaceContainer.get(ReflectApplicationForJavaFX.class);
-		Stage stage = application.getPrimaryStage();
-		File file = fileChooser.showSaveDialog(stage);
-		if (file != null) {
-			// safe file
-			try {
-				InputStream inputStream = downloadStream.getInputStream();
-				OutputStream out = new FileOutputStream(file);
-				byte buf[] = new byte[1024];
-				int len;
-				while ((len = inputStream.read(buf)) > 0)
-					out.write(buf, 0, len);
-				out.close();
-				inputStream.close();
-			} catch (Exception e) {
-				showError(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
-			}
-		}
 
 	}
 

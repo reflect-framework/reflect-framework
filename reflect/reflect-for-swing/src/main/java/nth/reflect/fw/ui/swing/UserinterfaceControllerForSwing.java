@@ -1,10 +1,6 @@
 package nth.reflect.fw.ui.swing;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.util.List;
 
@@ -20,7 +16,6 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.stream.DownloadStream;
 import nth.reflect.fw.stream.UploadStream;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast;
 import nth.reflect.fw.ui.swing.dialog.toast.Toast.Style;
@@ -85,36 +80,6 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 			processActionMethodExecution(methodOwner, methodInfo, uploadStream);
 		}
 	};
-
-	@Override
-	public void downloadFile(DownloadStream downloadStream) {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setSelectedFile(downloadStream.getFile());
-		InputStream inputStream = downloadStream.getInputStream();
-		int returnVal = chooser.showSaveDialog(mainWindow);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = chooser.getSelectedFile();
-			// safe file
-			try {
-				OutputStream out = new FileOutputStream(file);
-				byte buf[] = new byte[1024];
-				int len;
-				while ((len = inputStream.read(buf)) > 0)
-					out.write(buf, 0, len);
-				out.close();
-				inputStream.close();
-
-			} catch (Exception e) {
-				showError(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
-			}
-			// open file
-			try {
-				Desktop.getDesktop().open(file);
-			} catch (Exception e) {
-				showError(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
-			}
-		}
-	}
 
 	@Override
 	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,

@@ -11,8 +11,11 @@ public abstract class ActionMethodResultHandlerClasses
 
 	public ActionMethodResultHandlerClasses() {
 		super();
+		add(1, getDownloadStreamResultHandler());
 		add(getDepricatedActionMethodsClass());
 	}
+
+	public abstract Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.DownloadStreamResultHandler> getDownloadStreamResultHandler();
 
 	/**
 	 * Overriding this method so that the {@link DomainObjectResultHandler} in this

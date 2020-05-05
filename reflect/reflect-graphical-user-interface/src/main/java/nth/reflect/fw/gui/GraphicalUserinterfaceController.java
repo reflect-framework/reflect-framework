@@ -23,9 +23,7 @@ import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHan
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.stream.DownloadStream;
 import nth.reflect.fw.stream.UploadStream;
 
 /**
@@ -239,21 +237,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	}
 
 	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 * 
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			DownloadStream methodResult) {
-		DownloadStream downloadStream = methodResult;
-		downloadFile(downloadStream);
-	}
-
-	/**
 	 * Provides simple feedback about an operation in a small popup. It only fills
 	 * the amount of space required for the message and the current activity remains
 	 * visible and interactive. The message popup will automatically disappear after
@@ -290,8 +273,6 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	 * completed
 	 */
 	public abstract void closeProgressDialog();
-
-	public abstract void downloadFile(DownloadStream downloadStream);
 
 	public Tabs<TAB> getTabs() {
 		return tabs;

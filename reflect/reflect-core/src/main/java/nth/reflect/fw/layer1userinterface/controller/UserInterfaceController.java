@@ -44,10 +44,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 	public static final TranslatableString ERROR_SHOW_RESULT = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".error.show.result",
 			"Error while displaying an action result: %s");
-	public static final TranslatableString ERROR_SAVE_FILE = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".error.save.file", "Failed to save file.");
-	public static final TranslatableString ERROR_OPEN_FILE = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".error.open.file", "Failed to open file.");
 	public static final TranslatableString ERROR_EXECUTE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".error.dialog.message", "Failed to execute.");
 	public static final TranslatableString CONFIRMATION_DIALOG_TITLE = new TranslatableString(

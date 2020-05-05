@@ -25,4 +25,9 @@ public class ActionMethodResultHandlerClasses
 		return UriResultHandler.class;
 	}
 
+	@Override
+	public Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.DownloadStreamResultHandler> getDownloadStreamResultHandler() {
+		return DownloadStreamResultHandler.class;
+	}
+
 }

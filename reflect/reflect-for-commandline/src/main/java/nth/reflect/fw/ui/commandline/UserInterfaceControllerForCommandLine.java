@@ -1,18 +1,12 @@
 package nth.reflect.fw.ui.commandline;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFileChooser;
 
 import nth.reflect.fw.generic.util.ExceptionUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -21,9 +15,7 @@ import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.stream.DownloadStream;
 import nth.reflect.fw.ui.commandline.domain.command.Command;
 import nth.reflect.fw.ui.commandline.domain.command.CommandService;
 import nth.reflect.fw.ui.commandline.domain.command.Parameter;
@@ -206,45 +198,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		}
 		// show method result
 		processActionMethodResult(methodOwner, methodInfo, methodParameter, methodReturnValue);
-	}
-
-	/**
-	 * Process method to show the result of an {@link ActionMethod} with return type
-	 * {@link DownloadStream}. See
-	 * {@link ActionMethodInfo#invokeShowResult(UserInterfaceController, Object, Object, Object)}
-	 *
-	 * @param methodOwner
-	 * @param methodInfo
-	 * @param methodParameter
-	 */
-	public void showActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			DownloadStream methodResult) {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setSelectedFile(methodResult.getFile());
-		InputStream inputStream = methodResult.getInputStream();
-		int returnVal = chooser.showSaveDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = chooser.getSelectedFile();
-			// safe file
-			try {
-				OutputStream out = new FileOutputStream(file);
-				byte buf[] = new byte[1024];
-				int len;
-				while ((len = inputStream.read(buf)) > 0)
-					out.write(buf, 0, len);
-				out.close();
-				inputStream.close();
-
-			} catch (Exception e) {
-				showError(ERROR_DIALOG_TITLE, ERROR_SAVE_FILE, e);
-			}
-			// open file
-			try {
-				Desktop.getDesktop().open(file);
-			} catch (Exception e) {
-				showError(ERROR_DIALOG_TITLE, ERROR_OPEN_FILE, e);
-			}
-		}
 	}
 
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,

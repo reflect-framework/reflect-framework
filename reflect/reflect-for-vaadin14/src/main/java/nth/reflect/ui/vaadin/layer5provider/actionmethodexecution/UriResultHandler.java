@@ -9,8 +9,6 @@ import nth.reflect.fw.layer5provider.url.exception.CouldNotOpenUriException;
 
 public class UriResultHandler extends nth.reflect.fw.layer5provider.actionmethodexecution.result.UriResultHandler {
 
-	private static final String OPEN_IN_NEW_BROWSER_OR_TAB = "_blank";
-
 	@Override
 	public void openUri(URI uri) {
 		try {
@@ -18,8 +16,6 @@ public class UriResultHandler extends nth.reflect.fw.layer5provider.actionmethod
 
 			Page page = UI.getCurrent().getPage();
 
-			// String javaScript = "window.open( '" + url + "' ," +
-			// OPEN_IN_NEW_BROWSER_OR_TAB + ")";
 			String javaScript = "window.open( '" + url + "')";
 			page.executeJs(javaScript);
 		} catch (Exception exception) {
