@@ -148,7 +148,7 @@
 		<module>reflect-util-java-archive-scanner</module>
 		<module>reflect-util-random-generator</module>
 		<module>reflect-util-english-plural</module>
-		<module>reflect-unit-regex</module>
+		<module>reflect-util-regex</module>
 	</modules>
 
 	<dependencyManagement>

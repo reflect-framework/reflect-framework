@@ -5,5 +5,5 @@
     <artifactId>reflect</artifactId>
     <version>0.0.2-SNAPSHOT</version>
   </parent>
-  <artifactId>reflect-unit-regex</artifactId>
+  <artifactId>reflect-util-regex</artifactId>
 </project>

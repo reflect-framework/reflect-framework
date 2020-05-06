@@ -11,7 +11,6 @@
 
 	<packaging>maven-plugin</packaging>
 
-	<name>Reflect Util Maven Plugin</name>
 	<description>Maven plugin with goals to create or update documentation or language files for the Reflect Framework</description>
 
 
