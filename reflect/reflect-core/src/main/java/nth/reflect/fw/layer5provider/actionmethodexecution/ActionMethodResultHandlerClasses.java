@@ -3,7 +3,6 @@ package nth.reflect.fw.layer5provider.actionmethodexecution;
 import java.util.ArrayList;
 
 import nth.reflect.fw.layer5provider.actionmethodexecution.result.DomainObjectResultHandler;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.MultipleValueResultHandler;
 import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
 import nth.reflect.fw.layer5provider.actionmethodexecution.result.StringConverterResultHandler;
 import nth.reflect.fw.layer5provider.actionmethodexecution.result.UriResultHandler;
@@ -28,7 +27,7 @@ public abstract class ActionMethodResultHandlerClasses extends ArrayList<Class<?
 
 	public abstract Class<? extends DomainObjectResultHandler> getDomainObjectResultHandler();
 
-	public abstract Class<? extends MultipleValueResultHandler> getMultipleValueResultHandler();
+	public abstract Class<? extends ActionMethodResultHandler> getMultipleValueResultHandler();
 
 	public abstract Class<? extends UrlResultHandler> getUrlResultHandler();
 

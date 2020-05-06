@@ -1,7 +1,6 @@
 package nth.reflect.fw.ui.commandline.provider.actionmethodexecution.result;
 
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.DomainObjectResultHandler;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.MultipleValueResultHandler;
+import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
 
 public class ActionMethodResultHandlerClasses
 		extends nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses {
@@ -14,7 +13,7 @@ public class ActionMethodResultHandlerClasses
 	}
 
 	@Override
-	public Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.MultipleValueResultHandler> getMultipleValueResultHandler() {
+	public Class<? extends ActionMethodResultHandler> getMultipleValueResultHandler() {
 		return MultipleValueResultHandler.class;
 	}
 

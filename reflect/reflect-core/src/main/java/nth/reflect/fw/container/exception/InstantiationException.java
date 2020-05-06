@@ -14,9 +14,11 @@ public class InstantiationException extends ReflectContainerException {
 			"%s: Could not create a new instance for: %s(%s)");
 
 	public InstantiationException(DependencyInjectionContainer container, Constructor<?> constructor,
-			Exception exception) {
-		super(MESSAGE.withParameters(container.getName(), constructor.getDeclaringClass().getCanonicalName(),
-				constructor.getParameters()), exception);
+			Throwable exception) {
+		super(MESSAGE
+				.withParameters(container.getName(), constructor.getDeclaringClass().getCanonicalName(),
+						constructor.getParameters()),
+				exception);
 	}
 
 }

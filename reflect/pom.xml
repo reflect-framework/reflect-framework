@@ -153,6 +153,7 @@
 		<module>reflect-example-all-feature-for-javafx</module>
 		<module>reflect-example-account-vault-domain</module>
 		<module>reflect-example-account-vault-for-javafx</module>
+		<module>reflect-example-all-feature-for-commandline</module>
 	</modules>
 
 	<dependencyManagement>

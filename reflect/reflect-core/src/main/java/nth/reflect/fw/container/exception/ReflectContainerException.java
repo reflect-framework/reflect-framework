@@ -11,7 +11,7 @@ public class ReflectContainerException extends TranslatableException {
 		super(message);
 	}
 
-	public ReflectContainerException(TranslatableString message, Exception exception) {
+	public ReflectContainerException(TranslatableString message, Throwable exception) {
 		super(message, exception);
 	}
 }

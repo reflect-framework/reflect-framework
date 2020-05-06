@@ -25,8 +25,8 @@ public class InstanceFactory {
 		this.dependencyClasses.addAll(Arrays.asList(bestConstructor.getParameterTypes()));
 	}
 
-	private Constructor<?> findBestConstructor(Class<?> classToInstantiate,
-			DependencyInjectionContainer container) throws ClassHasNoUsableConstructorException {
+	private Constructor<?> findBestConstructor(Class<?> classToInstantiate, DependencyInjectionContainer container)
+			throws ClassHasNoUsableConstructorException {
 		List<Class<?>> allowedDependencyClasses = container.getAllClasses();
 		Constructor<?> bestConstructor = null;
 		for (Constructor<?> constructor : classToInstantiate.getConstructors()) {
@@ -51,15 +51,13 @@ public class InstanceFactory {
 		return constructor1.getParameterTypes().length > constructor2.getParameterTypes().length;
 	}
 
-	private boolean isValidConstructor(Constructor<?> constructor,
-			List<Class<?>> allowedDependecyClasses) {
+	private boolean isValidConstructor(Constructor<?> constructor, List<Class<?>> allowedDependecyClasses) {
 		Class<?>[] parameterTypes = constructor.getParameterTypes();
 
 		// check is all parameter types are ok
 		for (Class<?> parameterType : parameterTypes) {
 			if (parameterType == getClassToInstantiate()// no loops to it self
-					|| !NearestParentFinder.containsParent(allowedDependecyClasses,
-							parameterType)) {
+					|| !NearestParentFinder.containsParent(allowedDependecyClasses, parameterType)) {
 				return false;
 			}
 		}
@@ -111,28 +109,25 @@ public class InstanceFactory {
 
 	public boolean needsToGoBefore(InstanceFactory instantiationInfo) {
 		List<Class<?>> dependencyClasses = instantiationInfo.getDependencyClasses();
-		boolean needsToGoBefore = NearestParentFinder.containsParent(dependencyClasses,
-				classToInstantiate);
+		boolean needsToGoBefore = NearestParentFinder.containsParent(dependencyClasses, classToInstantiate);
 		return needsToGoBefore;
 	}
 
-	public Object createInstance(List<Class<?>> classesWaitingToBeInstantiated)
-			throws ReflectContainerException {
+	public Object createInstance(List<Class<?>> classesWaitingToBeInstantiated) throws ReflectContainerException {
 
 		Class<?>[] constructorParameterTypes = bestConstructor.getParameterTypes();
 
 		checkForLoopedDependency(constructorParameterTypes, classesWaitingToBeInstantiated);
 
-		Object[] constructorParameterValues = getConstructorParameterValues(container,
-				constructorParameterTypes, classesWaitingToBeInstantiated);
+		Object[] constructorParameterValues = getConstructorParameterValues(container, constructorParameterTypes,
+				classesWaitingToBeInstantiated);
 
 		Object object;
 		try {
 			object = bestConstructor.newInstance(constructorParameterValues);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
-			throw new nth.reflect.fw.container.exception.InstantiationException(container,
-					bestConstructor, e);
+			throw new nth.reflect.fw.container.exception.InstantiationException(container, bestConstructor, e);
 		}
 		return object;
 	}
@@ -155,8 +150,7 @@ public class InstanceFactory {
 		Object[] constructorParameterValues = new Object[constructorParameterTypes.length];
 		for (int index = 0; index < constructorParameterTypes.length; index++) {
 			Class<?> constructorParameterType = constructorParameterTypes[index];
-			Object constructorParameterValue = container.get(constructorParameterType,
-					classesWaitingToBeInstantiated);
+			Object constructorParameterValue = container.get(constructorParameterType, classesWaitingToBeInstantiated);
 			constructorParameterValues[index] = constructorParameterValue;
 		}
 		return constructorParameterValues;
