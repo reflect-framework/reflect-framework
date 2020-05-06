@@ -149,6 +149,8 @@
 		<module>reflect-util-random-generator</module>
 		<module>reflect-util-english-plural</module>
 		<module>reflect-util-regex</module>
+		<module>reflect-example-all-feature-domain</module>
+		<module>reflect-example-all-feature-for-javafx</module>
 	</modules>
 
 	<dependencyManagement>
