@@ -151,6 +151,7 @@
 		<module>reflect-util-regex</module>
 		<module>reflect-example-all-feature-domain</module>
 		<module>reflect-example-all-feature-for-javafx</module>
+		<module>reflect-example-account-vault-domain</module>
 	</modules>
 
 	<dependencyManagement>
