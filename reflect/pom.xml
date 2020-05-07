@@ -162,6 +162,7 @@
 		<module>reflect-framework-for-vaadin14-archetype</module>
 		<module>reflect-example-web-shop-domain</module>
 		<module>reflect-example-web-shop-for-javafx</module>
+		<module>reflect-example-web-shop-for-swing</module>
 	</modules>
 
 	<dependencyManagement>
