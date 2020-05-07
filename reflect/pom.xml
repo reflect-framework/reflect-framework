@@ -163,6 +163,7 @@
 		<module>reflect-example-web-shop-domain</module>
 		<module>reflect-example-web-shop-for-javafx</module>
 		<module>reflect-example-web-shop-for-swing</module>
+		<module>reflect-example-web-shop-for-vaadin</module>
 	</modules>
 
 	<dependencyManagement>
