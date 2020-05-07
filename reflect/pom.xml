@@ -157,6 +157,7 @@
 		<module>reflect-example-all-feature-for-swing</module>
 		<module>reflect-example-all-feature-for-vaadin14</module>
 		<module>reflect-example-class-diagram-domain</module>
+		<module>reflect-example-contact-domain</module>
 	</modules>
 
 	<dependencyManagement>
