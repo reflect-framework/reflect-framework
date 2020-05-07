@@ -26,21 +26,22 @@ public class LanguageFileLines extends ArrayList<String> {
 		addSection("DomainObjects", newTexts.getDomainTexts());
 		addSection("InfrastructureObjects", newTexts.getInfrasturctureTexts());
 		addSection("ReflectFramework", newTexts.getReflectFrameWorkTexts());
-		addDepricatedSection(newTexts);
+		addDeprecatedSection(newTexts);
 	}
 
-	private void addDepricatedSection(AllTexts newTexts) {
+	private void addDeprecatedSection(AllTexts newTexts) {
 		DepricatedTexts depricatedTexts = new DepricatedTexts(newTexts, oldTexts);
 		if (!depricatedTexts.isEmpty()) {
-			addSectionTitle("Depricated");
+			addSectionTitle("Deprecated");
 			addTexts(depricatedTexts);
 		}
 	}
 
 	private void addHeader() {
-		add(String.format("# This file was updated by the reflect-maven-plugin:%s on %s",
-				UpdateLanguageFiles.class.getSimpleName(),
-				LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)));
+		add(String
+				.format("# This file was updated by the reflect-maven-plugin:%s on %s",
+						UpdateLanguageFiles.class.getSimpleName(),
+						LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)));
 		add(EMPTY_LINE);
 		add("# Guidlines for translations:");
 		add("# - DO NOT remove lines! Each line contains information that is used by the applications and may not be removed");
