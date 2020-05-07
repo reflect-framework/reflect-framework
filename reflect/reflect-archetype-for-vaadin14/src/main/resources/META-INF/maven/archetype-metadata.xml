@@ -1,0 +1,30 @@
+<archetype-descriptor
+	xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 http://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
+	name="quickstart">
+
+	<requiredProperties>
+		<requiredProperty key="application-class-name">
+			<defaultValue>MyApplication</defaultValue>
+			<validationRegex>([a-zA-Z_$][a-zA-Z\d_$]*)</validationRegex>
+		</requiredProperty>
+	</requiredProperties>
+	<fileSets>
+		<fileSet filtered="true" packaged="true">
+			<directory>src/main/java</directory>
+		</fileSet>
+		<fileSet>
+			<directory>src/test/java</directory>
+		</fileSet>
+		<fileSet>
+			<directory>node_modules</directory>
+		</fileSet>
+		<fileSet>
+			<directory />
+			<includes>
+				<include>.gitignore</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</archetype-descriptor>

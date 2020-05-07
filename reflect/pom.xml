@@ -158,6 +158,8 @@
 		<module>reflect-example-all-feature-for-vaadin14</module>
 		<module>reflect-example-class-diagram-domain</module>
 		<module>reflect-example-contact-domain</module>
+		<module>reflect-archetype-for-vaadin14</module>
+		<module>reflect-framework-for-vaadin14-archetype</module>
 	</modules>
 
 	<dependencyManagement>
