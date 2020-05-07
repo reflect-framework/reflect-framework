@@ -160,6 +160,7 @@
 		<module>reflect-example-contact-domain</module>
 		<module>reflect-archetype-for-vaadin14</module>
 		<module>reflect-framework-for-vaadin14-archetype</module>
+		<module>reflect-example-web-shop-domain</module>
 	</modules>
 
 	<dependencyManagement>
