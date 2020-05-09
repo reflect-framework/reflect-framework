@@ -8,7 +8,7 @@
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>reflect-core</artifactId>
+	<artifactId>reflect-framework</artifactId>
 
 	<description>Maven project containing the essential Maven modules of the Reflect Framework</description>
 
