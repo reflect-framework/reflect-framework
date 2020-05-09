@@ -137,7 +137,7 @@
 		<module>reflect-framework-for-commandline</module>
 		<module>reflect-framework-for-javafx</module>
 		<module>reflect-framework-for-swing</module>
-		<module>reflect-for-vaadin14</module>
+		<module>reflect-framework-for-vaadin14</module>
 		<module>reflect-infrastructure-excel-repository</module>
 		<module>reflect-infrastructure-hibernate-repository</module>
 		<module>reflect-infrastructure-pdf-factory</module>
