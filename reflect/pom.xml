@@ -135,7 +135,7 @@
 		<module>reflect-framework-documentation</module>
 		<module>reflect-framework-for-gui</module>
 		<module>reflect-framework-for-commandline</module>
-		<module>reflect-for-javafx</module>
+		<module>reflect-framework-for-javafx</module>
 		<module>reflect-for-swing</module>
 		<module>reflect-for-vaadin14</module>
 		<module>reflect-infrastructure-excel-repository</module>

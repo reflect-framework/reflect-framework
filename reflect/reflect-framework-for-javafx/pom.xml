@@ -15,7 +15,7 @@
 		</repository>
 	</repositories>
 
-	<artifactId>reflect-for-javafx</artifactId>
+	<artifactId>reflect-framework-for-javafx</artifactId>
 	<description>Project for writing java FX desktop applications using the Reflect Famework</description>
 	<dependencies>
 		<dependency>
