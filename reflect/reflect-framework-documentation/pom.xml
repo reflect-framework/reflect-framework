@@ -7,7 +7,7 @@
 		<artifactId>reflect</artifactId>
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
-	<artifactId>reflect-documentation</artifactId>
+	<artifactId>reflect-framework-documentation</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>

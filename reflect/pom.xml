@@ -132,7 +132,7 @@
 
 	<modules>
 		<module>reflect-framework</module>
-		<module>reflect-documentation</module>
+		<module>reflect-framework-documentation</module>
 		<module>reflect-graphical-user-interface</module>
 		<module>reflect-for-commandline</module>
 		<module>reflect-for-javafx</module>
