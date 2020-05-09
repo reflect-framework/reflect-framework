@@ -8,7 +8,7 @@
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>reflect-graphical-user-interface</artifactId>
+	<artifactId>reflect-framework-for-gui</artifactId>
 
 	<description>Project needed for all Reflect Framework project with a graphical user interface</description>
 
