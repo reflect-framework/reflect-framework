@@ -16,8 +16,8 @@
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.reflect-framework.example</groupId>
-			<artifactId>reflect-account-vault-domain</artifactId>
+			<groupId>com.github.reflect-framework</groupId>
+			<artifactId>reflect-example-account-vault-domain</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
