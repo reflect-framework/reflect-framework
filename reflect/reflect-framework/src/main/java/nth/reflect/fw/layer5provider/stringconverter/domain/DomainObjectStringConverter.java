@@ -2,16 +2,17 @@ package nth.reflect.fw.layer5provider.stringconverter.domain;
 
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class DomainObjectStringConverter extends StringConverter<Object> {
+public class DomainObjectStringConverter implements StringConverter<Object> {
 
-	private ReflectionProvider reflectionProvider;
+	private final ReflectionProvider reflectionProvider;
+	private final TypeInfo typeInfo;
 
-	public DomainObjectStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		reflectionProvider = container.get(ReflectionProvider.class);
+	public DomainObjectStringConverter(ReflectionProvider reflectionProvider, TypeInfo typeInfo) {
+		this.reflectionProvider = reflectionProvider;
+		this.typeInfo = typeInfo;
 	}
 
 	@Override

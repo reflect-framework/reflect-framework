@@ -6,28 +6,28 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public abstract class NumberStringConverter<T extends Number> extends StringConverter<T> {
+public abstract class NumberStringConverter<T extends Number> implements StringConverter<T> {
 
 	private final NumberFormat decimalFormat;
+	private final LanguageProvider languageProvider;
 
-	public NumberStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		decimalFormat = createDecimalFormat();
+	public NumberStringConverter(LanguageProvider languageProvider, String formatPattern) {
+		this.languageProvider = languageProvider;
+		this.decimalFormat = createDecimalFormat(formatPattern);
 	}
 
-	private NumberFormat createDecimalFormat() {
-		LanguageProvider languageProvider = container.get(LanguageProvider.class);
+	private NumberFormat createDecimalFormat(String formatPattern) {
 		Locale locale = languageProvider.getDefaultLocale();
-		if (formatPattern.isPresent()) {
-			DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
-			return new DecimalFormat(formatPattern.get(), symbols);
-		} else {
+		if (StringUtil.isNullOrEmpty(formatPattern)) {
 			return DecimalFormat.getNumberInstance(locale);
+		} else {
+			DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+			return new DecimalFormat(formatPattern, symbols);
 		}
 	}
 

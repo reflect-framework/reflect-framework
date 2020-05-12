@@ -1,20 +1,27 @@
 package nth.reflect.fw.layer5provider.stringconverter.domain;
 
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class EnumStringConverterFactory implements StringConverterFactory {
 
-	@Override
-	public boolean canCreate(StringConverterFactoryInfo info) {
-		Class<?> type = info.getTypeInfo().getType();
-		return type.isEnum();
+	private final LanguageProvider languageProvider;
+
+	public EnumStringConverterFactory(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
 	}
 
 	@Override
-	public StringConverter create(StringConverterFactoryInfo info) {
-		EnumStringConverter stringConverter = new EnumStringConverter(info);
+	public boolean canCreate(TypeInfo typeInfo) {
+		boolean isEnum = typeInfo.isEnum();
+		return isEnum;
+	}
+
+	@Override
+	public StringConverter create(TypeInfo typeInfo, String format) {
+		EnumStringConverter stringConverter = new EnumStringConverter(languageProvider);
 		return stringConverter;
 	}
 

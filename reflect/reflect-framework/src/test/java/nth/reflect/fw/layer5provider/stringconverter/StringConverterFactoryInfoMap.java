@@ -1,15 +1,18 @@
 package nth.reflect.fw.layer5provider.stringconverter;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
+import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.TranslatableStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.CalendarStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.DateStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.java.datetime.LocalDateStringConverter;
@@ -32,23 +35,23 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.UriStringConvert
 import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConverter;
 
 /**
- * This {@link Map} contains {@link StringConverterFactoryInfo}s (created from
+ * This {@link Map} contains {@link TypeInfo} and expected
+ * {@link StringConverter} (created from
  * {@link FullFeatureDomainObjectProperty}s of the
  * {@link AllFeatureDomainObject} class) and their corresponding
- * {@link StringConverter} type. {@link StringConverterFactoryInfoMap} is used
- * for JUnit testing
+ * {@link StringConverter} type. {@link StringConverterFactoryInfoMap} is used for
+ * JUnit testing
  * 
  * @author nilsth
  *
  */
-public class StringConverterFactoryInfoMap
-		extends HashMap<StringConverterFactoryInfo, Class<? extends StringConverter>> {
+public class StringConverterFactoryInfoMap extends HashMap<TypeInfo, Class<? extends StringConverter>> {
 
 	private static final long serialVersionUID = 799702481550723556L;
-	private DependencyInjectionContainer container;
+	private ReflectApplication application;
 
 	public StringConverterFactoryInfoMap(DependencyInjectionContainer container) {
-		this.container = container;
+		application = container.get(ReflectApplication.class);
 		addJavaNumberTypes();
 		addJavaDateTimeTypes();
 		addJavaOtherTypes();
@@ -111,8 +114,19 @@ public class StringConverterFactoryInfoMap
 	}
 
 	private void put(String domainObjectGetterMethod, Class<? extends StringConverter> expectedStringConverterType) {
-		StringConverterFactoryInfo info = InfoFactory.create(container, domainObjectGetterMethod);
-		put(info, expectedStringConverterType);
+		Method method = findMethod(domainObjectGetterMethod);
+		ReturnTypeInfo typeInfo = new ReturnTypeInfo(application, method);
+		put(typeInfo, expectedStringConverterType);
+	}
+
+	private static Method findMethod(String domainObjectGetterMethod) {
+		Method[] allMethods = AllFeatureDomainObject.class.getDeclaredMethods();
+		for (Method method : allMethods) {
+			if (method.getName().equals(domainObjectGetterMethod)) {
+				return method;
+			}
+		}
+		throw new MethodNotFoundException(domainObjectGetterMethod);
 	}
 
 }

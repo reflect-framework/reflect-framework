@@ -1,11 +1,11 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 public class ByteStringConverter extends NumberStringConverter<Byte> {
 
-	public ByteStringConverter(StringConverterFactoryInfo info) {
-		super(info);
+	public ByteStringConverter(LanguageProvider languageProvider, String formatPattern) {
+		super(languageProvider, formatPattern);
 	}
 
 	@Override

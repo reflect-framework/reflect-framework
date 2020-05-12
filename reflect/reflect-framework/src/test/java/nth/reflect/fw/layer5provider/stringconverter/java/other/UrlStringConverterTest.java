@@ -8,10 +8,8 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class UrlStringConverterTest extends StringConverterTest {
 
@@ -21,8 +19,7 @@ public class UrlStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_URL);
-		urlStringConverter = new UrlStringConverter(info);
+		urlStringConverter = new UrlStringConverter();
 		URL_VALUE = new URL(URL_STRING);
 	}
 

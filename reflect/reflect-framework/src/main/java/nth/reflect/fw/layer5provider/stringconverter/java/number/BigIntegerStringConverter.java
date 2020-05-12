@@ -2,12 +2,12 @@ package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
 import java.math.BigInteger;
 
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
 public class BigIntegerStringConverter extends NumberStringConverter<BigInteger> {
 
-	public BigIntegerStringConverter(StringConverterFactoryInfo info) {
-		super(info);
+	public BigIntegerStringConverter(LanguageProvider languageProvider, String formatPattern) {
+		super(languageProvider, formatPattern);
 	}
 
 	@Override

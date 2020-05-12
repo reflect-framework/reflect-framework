@@ -4,25 +4,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class LocalDateStringConverter extends StringConverter<LocalDate> {
+public class LocalDateStringConverter implements StringConverter<LocalDate> {
 
 	private final DateTimeFormatter dateTimeFormatter;
 
-	public LocalDateStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		dateTimeFormatter = createDateTimeFormatter();
+	public LocalDateStringConverter(String formatPattern) {
+		dateTimeFormatter = createDateTimeFormatter(formatPattern);
 	}
 
-	private DateTimeFormatter createDateTimeFormatter() {
-		// TODO multi language
-		if (formatPattern.isPresent()) {
-			return DateTimeFormatter.ofPattern(formatPattern.get());
-		} else {
+	private DateTimeFormatter createDateTimeFormatter(String formatPattern) {
+		// TODO multiple language support
+		if (StringUtil.isNullOrEmpty(formatPattern)) {
 			return DateTimeFormatter.ISO_DATE;
+		} else {
+			return DateTimeFormatter.ofPattern(formatPattern);
 		}
 	}
 

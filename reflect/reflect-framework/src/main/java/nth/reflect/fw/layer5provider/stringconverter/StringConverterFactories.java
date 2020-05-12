@@ -1,5 +1,7 @@
 package nth.reflect.fw.layer5provider.stringconverter;
 
+import java.util.ArrayList;
+
 import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.domain.DomainObjectStringConverterFactory;
 import nth.reflect.fw.layer5provider.stringconverter.domain.EnumStringConverter;
@@ -91,27 +93,50 @@ import nth.reflect.fw.layer5provider.stringconverter.java.other.UrlStringConvert
  * @author nilsth
  *
  */
-public class DefaultStringConverters {
+public class StringConverterFactories extends ArrayList<Class<? extends StringConverterFactory>> {
 
-	private static StringConverterFactory[] allStringConverterFactories = {
-			// Java Types (other than numbers or date & time)
-			new StringStringConverterFactory(), new BooleanStringConverterFactory(),
-			new CharacterStringConverterFactory(), new UriStringConverterFactory(), new UrlStringConverterFactory(),
-			new FileStringConverterFactory(), new PathStringConverterFactory(),
-			// Java Numbers
-			new ByteStringConverterFactory(), new ShortStringConverterFactory(), new DoubleStringConverterFactory(),
-			new FloatStringConverterFactory(), new IntegerStringConverterFactory(), new LongStringConverterFactory(),
-			new BigDecimalStringConverterFactory(), new BigIntegerStringConverterFactory(),
-			// Java Date & Time
-			new CalendarStringConverterFactory(), new DateStringConverterFactory(),
-			new LocalDateTimeStringConverterFactory(), new LocalDateStringConverterFactory(),
-			new LocalTimeStringConverterFactory(),
-			// Domain types
-			new EnumStringConverterFactory(), new DomainObjectStringConverterFactory(),
-			new TranslatableStringConverterFactory() };
+	private static final long serialVersionUID = 6818666850966910988L;
 
-	public static StringConverterFactory[] getAll() {
-		return allStringConverterFactories;
+	public StringConverterFactories() {
+		addJavaTypeFactories();
+		addJavaNumberFactories();
+		addJavaDateTimeFactories();
+		addDomainTypeFactories();
+	}
+
+	private void addJavaTypeFactories() {
+		add(StringStringConverterFactory.class);
+		add(BooleanStringConverterFactory.class);
+		add(CharacterStringConverterFactory.class);
+		add(UriStringConverterFactory.class);
+		add(UrlStringConverterFactory.class);
+		add(FileStringConverterFactory.class);
+		add(PathStringConverterFactory.class);
+	}
+
+	private void addJavaNumberFactories() {
+		add(ByteStringConverterFactory.class);
+		add(ShortStringConverterFactory.class);
+		add(DoubleStringConverterFactory.class);
+		add(FloatStringConverterFactory.class);
+		add(IntegerStringConverterFactory.class);
+		add(LongStringConverterFactory.class);
+		add(BigDecimalStringConverterFactory.class);
+		add(BigIntegerStringConverterFactory.class);
+	}
+
+	private void addJavaDateTimeFactories() {
+		add(CalendarStringConverterFactory.class);
+		add(DateStringConverterFactory.class);
+		add(LocalDateTimeStringConverterFactory.class);
+		add(LocalDateStringConverterFactory.class);
+		add(LocalTimeStringConverterFactory.class);
+	}
+
+	private void addDomainTypeFactories() {
+		add(EnumStringConverterFactory.class);
+		add(DomainObjectStringConverterFactory.class);
+		add(TranslatableStringConverterFactory.class);
 	}
 
 }

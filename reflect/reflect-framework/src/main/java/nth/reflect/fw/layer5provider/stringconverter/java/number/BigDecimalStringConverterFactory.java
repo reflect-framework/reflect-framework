@@ -2,21 +2,28 @@ package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
 import java.math.BigDecimal;
 
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class BigDecimalStringConverterFactory implements StringConverterFactory {
 
+	private final LanguageProvider languageProvider;
+
+	public BigDecimalStringConverterFactory(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
+	}
+
 	@Override
-	public boolean canCreate(StringConverterFactoryInfo info) {
-		Class<?> type = info.getTypeInfo().getType();
+	public boolean canCreate(TypeInfo typeInfo) {
+		Class<?> type = typeInfo.getType();
 		return BigDecimal.class.isAssignableFrom(type);
 	}
 
 	@Override
-	public StringConverter create(StringConverterFactoryInfo info) {
-		BigDecimalStringConverter stringConverter = new BigDecimalStringConverter(info);
+	public StringConverter create(TypeInfo typeInfo, String formatPattern) {
+		BigDecimalStringConverter stringConverter = new BigDecimalStringConverter(languageProvider, formatPattern);
 		return stringConverter;
 	}
 

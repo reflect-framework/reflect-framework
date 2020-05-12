@@ -1,10 +1,5 @@
 package nth.reflect.fw.layer5provider.stringconverter.generic;
 
-import java.util.Optional;
-
-import nth.reflect.fw.container.DependencyInjectionContainer;
-import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
-
 /**
  * A {@link StringConverter} converts between a string and a given type. The
  * type of objects and formats of strings are defined by the subclasses of the
@@ -16,17 +11,7 @@ import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
  *
  * @param <T> The type that the {@link StringConverter} converts from or to.
  */
-public abstract class StringConverter<T extends Object> {
-
-	protected final DependencyInjectionContainer container;
-	protected final Optional<String> formatPattern;
-	protected final TypeInfo typeInfo;
-
-	public StringConverter(StringConverterFactoryInfo info) {
-		this.container = info.getContainer();
-		this.typeInfo = info.getTypeInfo();
-		this.formatPattern = info.getFormatPattern();
-	}
+public interface StringConverter<T extends Object> {
 
 	/**
 	 * Converts the object provided into its string form. Format of the returned

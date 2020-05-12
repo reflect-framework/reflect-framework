@@ -6,9 +6,8 @@ import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class BooleanStringConverter extends StringConverter<Boolean> {
+public class BooleanStringConverter implements StringConverter<Boolean> {
 
 	private static final TranslatableString TRUE = new TranslatableString(
 			BooleanStringConverter.class.getCanonicalName() + ".true", "True");
@@ -17,9 +16,8 @@ public class BooleanStringConverter extends StringConverter<Boolean> {
 
 	private final LanguageProvider languageProvider;
 
-	public BooleanStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		languageProvider = container.get(LanguageProvider.class);
+	public BooleanStringConverter(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
 	}
 
 	@Override

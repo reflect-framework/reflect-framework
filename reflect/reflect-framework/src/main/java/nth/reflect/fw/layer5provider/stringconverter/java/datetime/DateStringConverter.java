@@ -4,25 +4,24 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class DateStringConverter extends StringConverter<Date> {
+public class DateStringConverter implements StringConverter<Date> {
 
 	private final SimpleDateFormat format;
 
-	public DateStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		format = createFormat();
+	public DateStringConverter(String formatPatter) {
+		format = createFormat(formatPatter);
 	}
 
-	private SimpleDateFormat createFormat() {
-		// TODO multi language
-		if (formatPattern.isPresent()) {
-			return new SimpleDateFormat(formatPattern.get());
-		} else {
+	private SimpleDateFormat createFormat(String formatPattern) {
+		// TODO multiple language support
+		if (StringUtil.isNullOrEmpty(formatPattern)) {
 			return new SimpleDateFormat();
+		} else {
+			return new SimpleDateFormat(formatPattern);
 		}
 	}
 

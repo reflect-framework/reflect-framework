@@ -7,9 +7,7 @@ import java.net.URI;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class UriStringConverterTest extends StringConverterTest {
 
@@ -19,8 +17,7 @@ public class UriStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_URI);
-		uriStringConverter = new UriStringConverter(info);
+		uriStringConverter = new UriStringConverter();
 		URI_VALUE = new URI(URI_STRING);
 	}
 

@@ -7,7 +7,7 @@ public class DomainObjectStringConverterFactoryTest extends StringConverterFacto
 
 	@Override
 	protected StringConverterFactory getStringConverterFactory() {
-		return new DomainObjectStringConverterFactory();
+		return new DomainObjectStringConverterFactory(getReflectionProvider());
 	}
 
 }

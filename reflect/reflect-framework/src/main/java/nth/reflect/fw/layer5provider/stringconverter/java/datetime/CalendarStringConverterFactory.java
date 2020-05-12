@@ -2,21 +2,21 @@ package nth.reflect.fw.layer5provider.stringconverter.java.datetime;
 
 import java.util.Calendar;
 
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class CalendarStringConverterFactory implements StringConverterFactory {
 
 	@Override
-	public boolean canCreate(StringConverterFactoryInfo info) {
-		Class<?> type = info.getTypeInfo().getType();
+	public boolean canCreate(TypeInfo typeInfo) {
+		Class<?> type = typeInfo.getType();
 		return Calendar.class.isAssignableFrom(type);
 	}
 
 	@Override
-	public StringConverter create(StringConverterFactoryInfo info) {
-		CalendarStringConverter stringConverter = new CalendarStringConverter(info);
+	public StringConverter create(TypeInfo typeInfo, String formatPattern) {
+		CalendarStringConverter stringConverter = new CalendarStringConverter(formatPattern);
 		return stringConverter;
 	}
 

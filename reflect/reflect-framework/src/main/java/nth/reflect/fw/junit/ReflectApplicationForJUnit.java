@@ -24,8 +24,9 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.stringconverter.DefaultStringConverters;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterFactories;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.url.application.ApplicationUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
@@ -194,8 +195,13 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	}
 
 	@Override
-	public StringConverterProvider getStringConverterProvider() {
-		return new StringConverterProvider(DefaultStringConverters.getAll());
+	public Class<? extends StringConverterProvider> getStringConverterProviderClass() {
+		return StringConverterProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends StringConverterFactory>> getStringConverterClasses() {
+		return new StringConverterFactories();
 	}
 
 	@Override

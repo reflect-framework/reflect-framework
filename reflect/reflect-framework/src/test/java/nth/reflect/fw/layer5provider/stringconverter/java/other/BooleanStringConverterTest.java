@@ -8,11 +8,9 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class BooleanStringConverterTest extends StringConverterTest {
 
@@ -27,8 +25,7 @@ public class BooleanStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.IS_MY_BOOLEAN);
-		booleanStringConverter = new BooleanStringConverter(info);
+		booleanStringConverter = new BooleanStringConverter(getLanguageProvider());
 	}
 
 	@Test

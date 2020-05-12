@@ -7,9 +7,11 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 public class StringConverterProviderTest {
 
+	private static final String NO_FORMAT = null;
 	private StringConverterProvider stringConverterProvider;
 	private StringConverterFactoryInfoMap stringConverterFactoryInfoMap;
 
@@ -23,14 +25,18 @@ public class StringConverterProviderTest {
 	@Test
 	public void testCanCreate() {
 		assertThat(stringConverterFactoryInfoMap).allSatisfy((info, stringConverterType) -> {
-			assertThat(stringConverterProvider.canCreate(info)).isTrue();
+			boolean canCreate = stringConverterProvider.canCreate(info);
+			assertThat(canCreate).isTrue();
 		});
 	}
 
 	@Test
 	public void testCreate() {
 		assertThat(stringConverterFactoryInfoMap).allSatisfy((info, stringConverterType) -> {
-			assertThat(stringConverterProvider.create(info).getClass()).isEqualTo(stringConverterType);
+			Class<? extends StringConverter> stringConverterClass = stringConverterProvider
+					.create(info, NO_FORMAT)
+					.getClass();
+			assertThat(stringConverterClass).isEqualTo(stringConverterType);
 		});
 	}
 

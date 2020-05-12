@@ -2,21 +2,21 @@ package nth.reflect.fw.layer5provider.stringconverter.java.other;
 
 import java.io.File;
 
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class FileStringConverterFactory implements StringConverterFactory {//
+public class FileStringConverterFactory implements StringConverterFactory {
 
 	@Override
-	public boolean canCreate(StringConverterFactoryInfo info) {
-		Class<?> type = info.getTypeInfo().getType();
+	public boolean canCreate(TypeInfo typeInfo) {
+		Class<?> type = typeInfo.getType();
 		return File.class.isAssignableFrom(type);
 	}
 
 	@Override
-	public StringConverter create(StringConverterFactoryInfo info) {
-		FileStringConverter stringConverter = new FileStringConverter(info);
+	public StringConverter create(TypeInfo typeInfo, String formatPattern) {
+		FileStringConverter stringConverter = new FileStringConverter();
 		return stringConverter;
 	}
 

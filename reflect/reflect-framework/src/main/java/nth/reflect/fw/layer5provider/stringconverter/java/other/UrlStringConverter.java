@@ -4,13 +4,8 @@ import java.net.URL;
 
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class UrlStringConverter extends StringConverter<URL> {
-
-	public UrlStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-	}
+public class UrlStringConverter implements StringConverter<URL> {
 
 	@Override
 	public String toString(URL value) {

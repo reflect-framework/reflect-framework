@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
 
@@ -16,16 +15,14 @@ public class LocalDateStringConverterTest extends StringConverterTest {
 
 	@Test
 	public void testToString_givenNullWithNullFormat_mustReturnEmptyString() {
-		LocalDateStringConverter localLocalDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE));
+		LocalDateStringConverter localLocalDateStringConverter = new LocalDateStringConverter(NO_FORMAT);
 		String result = localLocalDateStringConverter.toString(null);
 		assertThat(result).isEqualTo(EMPTY);
 	}
 
 	@Test
 	public void testToString_givenLocalDateWithNullFormat_mustReturnDateString() {
-		LocalDateStringConverter localLocalDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE));
+		LocalDateStringConverter localLocalDateStringConverter = new LocalDateStringConverter(NO_FORMAT);
 		String result = localLocalDateStringConverter.toString(DateTimeTestUtil.LOCAL_DATE);
 		DateTimeFormatter format = DateTimeFormatter.ISO_DATE;
 		String expected = format.format(DateTimeTestUtil.LOCAL_DATE);
@@ -35,7 +32,7 @@ public class LocalDateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenLocalDateWithDateFormat_mustReturnDateString() {
 		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE, DateTimeTestUtil.DATE_FORMAT_PATTERN));
+				DateTimeTestUtil.DATE_FORMAT_PATTERN);
 		String result = localDateStringConverter.toString(DateTimeTestUtil.LOCAL_DATE);
 		assertThat(result).isEqualTo(DateTimeTestUtil.DATE_FORMAT_RESULT);
 	}
@@ -43,7 +40,7 @@ public class LocalDateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenLocalDateWithTimeFormat_mustThrowException() {
 		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE, DateTimeTestUtil.TIME_FORMAT_PATTERN));
+				DateTimeTestUtil.TIME_FORMAT_PATTERN);
 		assertThrows(StringConverterException.class, () -> {
 			localDateStringConverter.toString(DateTimeTestUtil.LOCAL_DATE);
 		});
@@ -52,31 +49,28 @@ public class LocalDateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testToString_givenLocalDateWithDateFormat_mustReturnString() {
 		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE, DateTimeTestUtil.DATE_FORMAT_PATTERN));
+				DateTimeTestUtil.DATE_FORMAT_PATTERN);
 		String result = localDateStringConverter.toString(DateTimeTestUtil.LOCAL_DATE);
 		assertThat(result).isEqualTo(DateTimeTestUtil.DATE_FORMAT_RESULT);
 	}
 
 	@Test
 	public void testFromString_givenNull_mustReturnNull() {
-		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE));
+		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(NO_FORMAT);
 		LocalDate result = localDateStringConverter.fromString(null);
 		assertThat(result).isNull();
 	}
 
 	@Test
 	public void testFromString_givenEmptyString_mustReturnNull() {
-		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE));
+		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(NO_FORMAT);
 		LocalDate result = localDateStringConverter.fromString(EMPTY);
 		assertThat(result).isNull();
 	}
 
 	@Test
 	public void testFromString_givenBogusValue_mustThrowException() {
-		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE));
+		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(NO_FORMAT);
 		assertThrows(StringConverterException.class, () -> {
 			localDateStringConverter.fromString(BOGUS);
 		});
@@ -85,7 +79,7 @@ public class LocalDateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenTimeSpace_mustThrowException() {
 		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE, DateTimeTestUtil.TIME_FORMAT_PATTERN));
+				DateTimeTestUtil.TIME_FORMAT_PATTERN);
 		assertThrows(StringConverterException.class, () -> {
 			localDateStringConverter.fromString(DateTimeTestUtil.TIME_FORMAT_RESULT + SPACE);
 		});
@@ -94,7 +88,7 @@ public class LocalDateStringConverterTest extends StringConverterTest {
 	@Test
 	public void testFromString_givenSpaceDateSpace_mustReturnLocalDate() {
 		LocalDateStringConverter localDateStringConverter = new LocalDateStringConverter(
-				createInfo(AllFeatureDomainObject.GET_MY_LOCAL_DATE, DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN));
+				DateTimeTestUtil.DATE_TIME_FORMAT_PATTERN);
 		LocalDate result = localDateStringConverter
 				.fromString(SPACE + DateTimeTestUtil.DATE_TIME_FORMAT_RESULT + SPACE);
 		assertThat(result).isEqualTo(DateTimeTestUtil.LOCAL_DATE);

@@ -3,33 +3,23 @@ package nth.reflect.fw.layer5provider.stringconverter;
 import java.lang.reflect.Method;
 
 import nth.reflect.fw.ReflectApplication;
-import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
-/**
- * Utility class to create a {@link StringConverterFactoryInfo} for Junit
- * testing
- * 
- * @author nilsth
- *
- */
 public class InfoFactory {
 
-	public static StringConverterFactoryInfo create(DependencyInjectionContainer container,
-			String domainObjectGetterMethod) {
-		return create(container, domainObjectGetterMethod, null);
+	private static final String NO_FORMAT = null;
+
+	public static TypeInfo create(ReflectApplication application, String domainObjectGetterMethod) {
+		return create(application, domainObjectGetterMethod, NO_FORMAT);
 	}
 
-	public static StringConverterFactoryInfo create(DependencyInjectionContainer container,
-			String domainObjectGetterMethod, String formatPattern) {
+	public static TypeInfo create(ReflectApplication application, String domainObjectGetterMethod,
+			String formatPattern) {
 		Method method = findMethod(domainObjectGetterMethod);
-		ReflectApplication application = container.get(ReflectApplication.class);
 		ReturnTypeInfo typeInfo = new ReturnTypeInfo(application, method);
-		StringConverterFactoryInfo stringConverterFactoryInfo = new StringConverterFactoryInfo(typeInfo, container,
-				formatPattern);
-		return stringConverterFactoryInfo;
+		return typeInfo;
 	}
 
 	private static Method findMethod(String domainObjectGetterMethod) {

@@ -3,15 +3,13 @@ package nth.reflect.fw.layer5provider.stringconverter.domain;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class EnumStringConverter extends StringConverter<Enum<?>> {
+public class EnumStringConverter implements StringConverter<Enum<?>> {
 
-	private LanguageProvider languageProvider;
+	private final LanguageProvider languageProvider;
 
-	public EnumStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		languageProvider = container.get(LanguageProvider.class);
+	public EnumStringConverter(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
 	}
 
 	@Override

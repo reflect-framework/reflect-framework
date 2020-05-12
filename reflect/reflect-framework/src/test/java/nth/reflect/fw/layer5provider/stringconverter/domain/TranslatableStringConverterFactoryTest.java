@@ -7,7 +7,7 @@ public class TranslatableStringConverterFactoryTest extends StringConverterFacto
 
 	@Override
 	protected StringConverterFactory getStringConverterFactory() {
-		return new TranslatableStringConverterFactory();
+		return new TranslatableStringConverterFactory(getLanguageProvider());
 	}
 
 }

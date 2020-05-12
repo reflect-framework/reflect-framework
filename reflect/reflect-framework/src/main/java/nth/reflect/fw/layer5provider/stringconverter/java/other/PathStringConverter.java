@@ -5,13 +5,8 @@ import java.nio.file.Paths;
 
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class PathStringConverter extends StringConverter<Path> {
-
-	public PathStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-	}
+public class PathStringConverter implements StringConverter<Path> {
 
 	@Override
 	public String toString(Path value) {

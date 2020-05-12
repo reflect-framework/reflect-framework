@@ -20,7 +20,7 @@ public class EnumStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() {
-		enumStringConverter = new EnumStringConverter(createInfo(AllFeatureDomainObject.GET_MY_TEXT));
+		enumStringConverter = new EnumStringConverter(getLanguageProvider());
 	}
 
 	@Test

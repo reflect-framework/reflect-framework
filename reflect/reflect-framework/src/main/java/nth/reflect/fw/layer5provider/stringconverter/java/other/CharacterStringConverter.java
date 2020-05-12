@@ -2,7 +2,6 @@ package nth.reflect.fw.layer5provider.stringconverter.java.other;
 
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 /**
  * A stupid {@link StringConverter}, but it is needed so that Strings are
@@ -12,11 +11,7 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFact
  * @author nilsth
  *
  */
-public class CharacterStringConverter extends StringConverter<Character> {
-
-	public CharacterStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-	}
+public class CharacterStringConverter implements StringConverter<Character> {
 
 	@Override
 	public String toString(Character value) {

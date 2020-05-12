@@ -1,20 +1,27 @@
 package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
+import nth.reflect.fw.layer5provider.language.LanguageProvider;
+import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class LongStringConverterFactory implements StringConverterFactory {//
+public class LongStringConverterFactory implements StringConverterFactory {
+
+	private final LanguageProvider languageProvider;
+
+	public LongStringConverterFactory(LanguageProvider languageProvider) {
+		this.languageProvider = languageProvider;
+	}
 
 	@Override
-	public boolean canCreate(StringConverterFactoryInfo info) {
-		Class<?> type = info.getTypeInfo().getType();
+	public boolean canCreate(TypeInfo typeInfo) {
+		Class<?> type = typeInfo.getType();
 		return type == long.class || type == Long.class;
 	}
 
 	@Override
-	public StringConverter create(StringConverterFactoryInfo info) {
-		LongStringConverter stringConverter = new LongStringConverter(info);
+	public StringConverter create(TypeInfo typeInfo, String formatPattern) {
+		LongStringConverter stringConverter = new LongStringConverter(languageProvider, formatPattern);
 		return stringConverter;
 	}
 

@@ -4,13 +4,8 @@ import java.io.File;
 
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class FileStringConverter extends StringConverter<File> {
-
-	public FileStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-	}
+public class FileStringConverter implements StringConverter<File> {
 
 	@Override
 	public String toString(File value) {

@@ -5,25 +5,24 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class CalendarStringConverter extends StringConverter<Calendar> {
+public class CalendarStringConverter implements StringConverter<Calendar> {
 
 	private final SimpleDateFormat format;
 
-	public CalendarStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		format = createFormat();
+	public CalendarStringConverter(String formatPatter) {
+		format = createFormat(formatPatter);
 	}
 
-	private SimpleDateFormat createFormat() {
-		// TODO multilanguage
-		if (formatPattern.isPresent()) {
-			return new SimpleDateFormat(formatPattern.get());
-		} else {
+	private SimpleDateFormat createFormat(String formatPattern) {
+		// TODO multiple language support
+		if (StringUtil.isNullOrEmpty(formatPattern)) {
 			return new SimpleDateFormat();
+		} else {
+			return new SimpleDateFormat(formatPattern);
 		}
 	}
 

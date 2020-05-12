@@ -2,16 +2,13 @@ package nth.reflect.fw.layer5provider.stringconverter.java.number;
 
 import java.math.BigDecimal;
 
-import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class BigDecimalStringConverterTest extends NumberStringConverterTest {
 
 	@Override
 	protected StringConverter createStringConverter(String formatPattern) {
-		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_BIG_DECIMAL, formatPattern);
-		return new BigDecimalStringConverter(info);
+		return new BigDecimalStringConverter(getLanguageProvider(), formatPattern);
 	}
 
 	@Override

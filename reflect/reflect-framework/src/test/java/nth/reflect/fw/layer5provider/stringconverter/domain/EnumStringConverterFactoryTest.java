@@ -7,7 +7,7 @@ public class EnumStringConverterFactoryTest extends StringConverterFactoryTest {
 
 	@Override
 	protected StringConverterFactory getStringConverterFactory() {
-		return new EnumStringConverterFactory();
+		return new EnumStringConverterFactory(getLanguageProvider());
 	}
 
 }

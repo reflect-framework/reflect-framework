@@ -8,13 +8,12 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
+import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
 import nth.reflect.fw.layer5provider.language.GermanLanguageFile;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class TranslatableStringConverterTest extends StringConverterTest {
 
@@ -23,8 +22,7 @@ public class TranslatableStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_TRANSLATABLE_STRING);
-		stringConverter = new TranslatableStringConverter(info);
+		stringConverter = new TranslatableStringConverter(getLanguageProvider());
 	}
 
 	@Test
@@ -43,8 +41,7 @@ public class TranslatableStringConverterTest extends StringConverterTest {
 
 	@Test
 	public void testToString_giveTranslatableStringAndGerman_mustReturnGermanTranslation() {
-		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_TRANSLATABLE_STRING);
-		DefaultLanguageProvider languageProvider = info.getContainer().get(DefaultLanguageProvider.class);
+		DefaultLanguageProvider languageProvider = getContainer().get(DefaultLanguageProvider.class);
 		languageProvider.setDefaultLocale(Locale.GERMAN);
 		String key = AllFeatureDomainObject.class.getCanonicalName() + "."
 				+ AllFeatureDomainObject.GET_MY_TRANSLATABLE_STRING;

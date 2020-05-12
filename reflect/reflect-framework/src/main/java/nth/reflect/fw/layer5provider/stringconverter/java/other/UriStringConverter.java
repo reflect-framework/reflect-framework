@@ -4,13 +4,8 @@ import java.net.URI;
 
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterException;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class UriStringConverter extends StringConverter<URI> {
-
-	public UriStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-	}
+public class UriStringConverter implements StringConverter<URI> {
 
 	@Override
 	public String toString(URI value) {

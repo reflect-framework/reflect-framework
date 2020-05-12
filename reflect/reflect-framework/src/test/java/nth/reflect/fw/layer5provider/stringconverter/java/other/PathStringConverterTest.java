@@ -8,9 +8,7 @@ import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Test;
 
-import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterTest;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class PathStringConverterTest extends StringConverterTest {
 
@@ -20,8 +18,7 @@ public class PathStringConverterTest extends StringConverterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		StringConverterFactoryInfo info = createInfo(AllFeatureDomainObject.GET_MY_PATH);
-		stringConverter = new PathStringConverter(info);
+		stringConverter = new PathStringConverter();
 	}
 
 	@Test

@@ -3,15 +3,13 @@ package nth.reflect.fw.layer5provider.stringconverter.domain;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
-public class TranslatableStringConverter extends StringConverter<TranslatableString> {
+public class TranslatableStringConverter implements StringConverter<TranslatableString> {
 
 	private final LanguageProvider languageProvide;
 
-	public TranslatableStringConverter(StringConverterFactoryInfo info) {
-		super(info);
-		languageProvide = container.get(LanguageProvider.class);
+	public TranslatableStringConverter(LanguageProvider languageProvide) {
+		this.languageProvide = languageProvide;
 	}
 
 	@Override

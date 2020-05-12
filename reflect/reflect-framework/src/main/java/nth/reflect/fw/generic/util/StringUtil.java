@@ -121,12 +121,12 @@ public class StringUtil {
 		}
 	}
 
-	public static boolean isEmpty(String text) {
+	public static boolean isNullOrEmpty(String text) {
 		return text == null || text.trim().length()==0;
 	}
 	
 	public static int countMatches(String str, String sub) {
-        if (isEmpty(str) || isEmpty(sub)) {
+        if (isNullOrEmpty(str) || isNullOrEmpty(sub)) {
             return 0;
         }
         int count = 0;

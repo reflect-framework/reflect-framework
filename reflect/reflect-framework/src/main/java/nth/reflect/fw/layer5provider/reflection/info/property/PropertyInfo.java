@@ -35,7 +35,6 @@ import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 /**
  * Provides information on a {@link DomainObject} property.<br>
@@ -92,11 +91,9 @@ public class PropertyInfo implements NameInfo {
 	}
 
 	private Optional<StringConverter> createStringConverter(ProviderContainer providerContainer) {
-		StringConverterFactoryInfo stringConverterInfo = new StringConverterFactoryInfo(typeInfo, providerContainer,
-				formatPattern);
 		StringConverterProvider stringConverterProvider = providerContainer.get(StringConverterProvider.class);
 		try {
-			StringConverter stringConverter = stringConverterProvider.create(stringConverterInfo);
+			StringConverter stringConverter = stringConverterProvider.create(typeInfo, formatPattern);
 			return Optional.of(stringConverter);
 		} catch (Exception e) {
 			return Optional.empty();
@@ -185,10 +182,12 @@ public class PropertyInfo implements NameInfo {
 		return setterMethod;
 	}
 
+	@Override
 	public TranslatedString getDisplayName() {
 		return displayName;
 	}
 
+	@Override
 	public TranslatedString getDescription() {
 		return description;
 	}
