@@ -8,6 +8,7 @@ import org.junit.Test;
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatedString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 
 public class ApplicationClassInfoTest {
@@ -42,7 +43,9 @@ public class ApplicationClassInfoTest {
 	@Test
 	public void testGetDisplayName() {
 		String expected = StringUtil.convertToNormalCase(applicationClass.getSimpleName());
-		assertThat(applicationClassInfo.getDisplayName().getTranslation()).isEqualTo(expected);
+		TranslatedString displayName = applicationClassInfo.getDisplayName();
+		String translation = displayName.getTranslation();
+		assertThat(translation).isEqualTo(expected);
 	}
 
 	@Test

@@ -9,9 +9,11 @@ import java.util.Optional;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.Provider;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.ProviderHelperNotDeclaredException;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 /**
  * The {@link StringConverterProvider} is a {@link Provider} that provides a
@@ -40,8 +42,7 @@ public class StringConverterProvider implements Provider {
 	}
 
 	private List<StringConverterFactory> createFactories() {
-		ReflectApplication application = providerContainer.get(ReflectApplication.class);
-		List<Class<? extends StringConverterFactory>> factoryClasses = application.getStringConverterClasses();
+		List<Class<? extends StringConverterFactory>> factoryClasses = getFactoryClasses();
 		ArrayList<StringConverterFactory> factories = new ArrayList();
 		for (Class<? extends StringConverterFactory> factoryClass : factoryClasses) {
 			providerContainer.add(factoryClass);
@@ -49,6 +50,16 @@ public class StringConverterProvider implements Provider {
 			factories.add(factory);
 		}
 		return Collections.unmodifiableList(factories);
+	}
+
+	private List<Class<? extends StringConverterFactory>> getFactoryClasses() {
+		ReflectApplication application = providerContainer.get(ReflectApplication.class);
+		List<Class<? extends StringConverterFactory>> factoryClasses = application.getStringConverterClasses();
+		if (factoryClasses == null || factoryClasses.size() == 0) {
+			String canonicalMethodName = ReflectApplication.class.getSimpleName() + ".getStringConverterClasses";
+			throw new ProviderHelperNotDeclaredException(ReflectUrlStreamHandler.class, canonicalMethodName);
+		}
+		return factoryClasses;
 	}
 
 	public StringConverterFactory find(TypeInfo typeInfo) {

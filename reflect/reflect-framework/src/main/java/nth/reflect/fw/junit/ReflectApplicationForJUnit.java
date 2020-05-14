@@ -27,10 +27,9 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterFactories;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
-import nth.reflect.fw.layer5provider.url.application.ApplicationUrlStreamHandler;
-import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
-import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrlStreamHandler;
+import nth.reflect.fw.layer5provider.url.UrlStreamHandlers;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
@@ -189,9 +188,13 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	}
 
 	@Override
-	public UrlProvider getUrlProvider() {
-		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ServiceMethodUrlStreamHandler(),
-				new ApplicationUrlStreamHandler(this));
+	public Class<? extends UrlProvider> getUrlProviderClass() {
+		return UrlProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends ReflectUrlStreamHandler>> getUrlStreamHandlerClasses() {
+		return new UrlStreamHandlers();
 	}
 
 	@Override

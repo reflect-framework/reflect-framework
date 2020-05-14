@@ -21,6 +21,7 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.behavior.ObjectBehavior;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
@@ -141,7 +142,9 @@ public interface ReflectApplication {
 
 	public Class<? extends NotificationProvider> getNotificationProviderClass();
 
-	public UrlProvider getUrlProvider();
+	public Class<? extends UrlProvider> getUrlProviderClass();
+
+	public List<Class<? extends ReflectUrlStreamHandler>> getUrlStreamHandlerClasses();
 
 	public Class<? extends StringConverterProvider> getStringConverterProviderClass();
 

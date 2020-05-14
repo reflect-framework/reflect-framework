@@ -8,7 +8,9 @@ import java.util.Optional;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.Provider;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.ProviderHelperNotDeclaredException;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 public class ActionMethodExecutionProvider implements Provider {
 
@@ -19,9 +21,7 @@ public class ActionMethodExecutionProvider implements Provider {
 	}
 
 	private List<ActionMethodResultHandler> createHandlers(ProviderContainer providerContainer) {
-		ReflectApplication application = providerContainer.get(ReflectApplication.class);
-		List<Class<? extends ActionMethodResultHandler>> handlerClasses = application
-				.getActionMethodResultHandlerClasses();
+		List<Class<? extends ActionMethodResultHandler>> handlerClasses = getHandlerClasses(providerContainer);
 		ArrayList<ActionMethodResultHandler> handlers = new ArrayList();
 		for (Class<? extends ActionMethodResultHandler> handlerClass : handlerClasses) {
 			providerContainer.add(handlerClass);
@@ -29,6 +29,18 @@ public class ActionMethodExecutionProvider implements Provider {
 			handlers.add(handler);
 		}
 		return Collections.unmodifiableList(handlers);
+	}
+
+	private List<Class<? extends ActionMethodResultHandler>> getHandlerClasses(ProviderContainer providerContainer) {
+		ReflectApplication application = providerContainer.get(ReflectApplication.class);
+		List<Class<? extends ActionMethodResultHandler>> handlerClasses = application
+				.getActionMethodResultHandlerClasses();
+		if (handlerClasses == null || handlerClasses.size() == 0) {
+			String canonicalMethodName = ReflectApplication.class.getSimpleName()
+					+ ".getActionMethodResultHandlerClasses";
+			throw new ProviderHelperNotDeclaredException(ReflectUrlStreamHandler.class, canonicalMethodName);
+		}
+		return handlerClasses;
 	}
 
 	public ActionMethodResultHandler getActionMethodResultHandler(ProviderContainer container,
