@@ -4,14 +4,14 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.RandomGenerator;
+import nth.reflect.util.random.Random;
+import nth.reflect.util.random.RandomGenerator;
 
 public class EventGenerator extends RandomGenerator<List<Event>> {
 
 	@Override
 	public List<Event> generate() {
-		List<Event> events=new ArrayList<>();
+		List<Event> events = new ArrayList<>();
 		if (Random.bool().generate()) {
 			events.add(createBirthDay());
 		}

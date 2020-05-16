@@ -9,7 +9,6 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class StringConverterResultHandler
 		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.StringConverterResultHandler {
@@ -21,9 +20,7 @@ public class StringConverterResultHandler
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {
 		StringConverterProvider stringConverterProvider = container.get(StringConverterProvider.class);
 		TypeInfo typeInfo = methodInfo.getReturnTypeInfo();
-		String formatPattern = FormatPatternFactory.create(methodInfo.getMethod());
-		StringConverterFactoryInfo info = new StringConverterFactoryInfo(typeInfo, container, formatPattern);
-		return stringConverterProvider.canCreate(info);
+		return stringConverterProvider.canCreate(typeInfo);
 	}
 
 	@Override
@@ -34,8 +31,7 @@ public class StringConverterResultHandler
 		StringConverterProvider stringConverterProvider = container.get(StringConverterProvider.class);
 		TypeInfo typeInfo = methodInfo.getReturnTypeInfo();
 		String formatPattern = FormatPatternFactory.create(methodInfo.getMethod());
-		StringConverterFactoryInfo info = new StringConverterFactoryInfo(typeInfo, container, formatPattern);
-		StringConverter stringConverter = stringConverterProvider.create(info);
+		StringConverter stringConverter = stringConverterProvider.create(typeInfo, formatPattern);
 		String methodResultString = stringConverter.toString(methodResult);
 
 		TranslatableString title = methodInfo.getTitle(methodParameter);

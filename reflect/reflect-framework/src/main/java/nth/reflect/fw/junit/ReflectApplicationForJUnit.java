@@ -203,7 +203,7 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	}
 
 	@Override
-	public List<Class<? extends StringConverterFactory>> getStringConverterClasses() {
+	public List<Class<? extends StringConverterFactory>> getStringConverterFactoryClasses() {
 		return new StringConverterFactories();
 	}
 

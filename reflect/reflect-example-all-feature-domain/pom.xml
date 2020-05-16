@@ -10,12 +10,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-graphical-user-interface</artifactId>
+			<artifactId>reflect-framework-for-gui</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-infrastructure-random-generator</artifactId>
+			<artifactId>reflect-util-random-generator</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

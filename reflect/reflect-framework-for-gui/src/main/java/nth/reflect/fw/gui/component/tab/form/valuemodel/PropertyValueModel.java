@@ -73,4 +73,8 @@ public class PropertyValueModel implements ReadWriteValueModel {
 		listeners.add(listener);
 	}
 
+	@Override
+	public String toString() {
+		return propertyInfo.getCanonicalName();
+	}
 }

@@ -2,9 +2,8 @@ package nth.reflect.fw.gui.component.tab.form.propertypanel;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldFactoryInfo;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 
 public abstract class PropertyPanelFactory<PROPERTY_PANEL> {
 
@@ -19,15 +18,9 @@ public abstract class PropertyPanelFactory<PROPERTY_PANEL> {
 	 * {@link PropertyFieldProvider} to create fields.
 	 */
 	public PROPERTY_PANEL createPropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel) {
-		PropertyFieldFactoryInfo info = new PropertyFieldFactoryInfo(formTab, propertyValueModel);
-
-		if (propertyFieldProvider.canCreate(info)) {
-			PropertyField propertyField = propertyFieldProvider.create(info);
-			PROPERTY_PANEL propertyPanel = createPropertyPanel(formTab, propertyValueModel, propertyField);
-			return propertyPanel;
-		} else {
-			throw new PropertyFieldNotFoundException(info);
-		}
+		PropertyField propertyField = propertyFieldProvider.create(formTab, propertyValueModel);
+		PROPERTY_PANEL propertyPanel = createPropertyPanel(formTab, propertyValueModel, propertyField);
+		return propertyPanel;
 	}
 
 	/**

@@ -13,11 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.FormTabStyle;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyFieldNotFoundException;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueChangeListener;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldFactoryNotFoundException;
 import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.javafx.UserinterfaceControllerForJavaFX;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
@@ -130,7 +130,7 @@ public class PropertyGrid extends ScrollPane implements PropertyValueChangeListe
 			try {
 				PropertyPanel propertyPanel = createPropertyPanel(formTab, domainValueModel, propertyInfo);
 				propertyPanels.add(propertyPanel);
-			} catch (PropertyFieldNotFoundException e) {
+			} catch (PropertyFieldFactoryNotFoundException e) {
 			}
 
 		}

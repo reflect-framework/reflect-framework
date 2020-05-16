@@ -1,17 +1,17 @@
 package nth.reflect.fw.javafx.layer5provider.actionmethodexecution;
 
 public class ActionMethodResultHandlerClasses
-		extends nth.reflect.fw.gui.provider.actionmethodexecution.result.ActionMethodResultHandlerClasses {
+		extends nth.reflect.fw.gui.layer5provider.actionmethodexecution.result.ActionMethodResultHandlerClasses {
 
 	private static final long serialVersionUID = -4145632345975347980L;
 
 	@Override
-	public Class<? extends nth.reflect.fw.gui.provider.actionmethodexecution.result.DomainObjectResultHandler> getDomainObjectResultHandler() {
+	public Class<? extends nth.reflect.fw.gui.layer5provider.actionmethodexecution.result.DomainObjectResultHandler> getDomainObjectResultHandler() {
 		return DomainObjectResultHandler.class;
 	}
 
 	@Override
-	public Class<? extends nth.reflect.fw.gui.provider.actionmethodexecution.result.MultipleValueResultHandler> getMultipleValueResultHandler() {
+	public Class<? extends nth.reflect.fw.gui.layer5provider.actionmethodexecution.result.MultipleValueResultHandler> getMultipleValueResultHandler() {
 		return MultipleValueResultHandler.class;
 	}
 

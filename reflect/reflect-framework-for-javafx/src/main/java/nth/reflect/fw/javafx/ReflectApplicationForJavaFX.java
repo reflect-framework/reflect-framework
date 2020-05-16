@@ -6,17 +6,11 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.factory.PropertyFieldProvider;
+import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
+import nth.reflect.fw.gui.layer5provider.properyfield.factory.PropertyFieldFactory;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
-import nth.reflect.fw.javafx.control.style.StyleSheetUrlHandler;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CheckBoxFieldFactory;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ComboBoxFieldFactory;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.DateTimeFieldFactory;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyFieldFactory;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.OneToOneOrManyFieldFactory;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TableFieldFactory;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextFieldFactory;
 import nth.reflect.fw.javafx.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses;
+import nth.reflect.fw.javafx.layer5provider.url.UrlStreamHandlers;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
@@ -28,13 +22,11 @@ import nth.reflect.fw.layer5provider.notification.DefaultNotificationProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.reflection.DefaultReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.stringconverter.DefaultStringConverters;
+import nth.reflect.fw.layer5provider.stringconverter.StringConverterFactories;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
+import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactory;
+import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 import nth.reflect.fw.layer5provider.url.UrlProvider;
-import nth.reflect.fw.layer5provider.url.application.ApplicationUrlStreamHandler;
-import nth.reflect.fw.layer5provider.url.classresource.ClassResourceUrlStreamHandler;
-import nth.reflect.fw.layer5provider.url.fonticon.FontIconUrlStreamHandler;
-import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrlStreamHandler;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
@@ -120,21 +112,33 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public UrlProvider getUrlProvider() {
-		return new UrlProvider(new ClassResourceUrlStreamHandler(), new ApplicationUrlStreamHandler(this),
-				new FontIconUrlStreamHandler(), new StyleSheetUrlHandler(this), new ServiceMethodUrlStreamHandler());
+	public Class<? extends UrlProvider> getUrlProviderClass() {
+		return UrlProvider.class;
 	}
 
 	@Override
-	public PropertyFieldProvider getPropertyFieldProvider() {
-		return new PropertyFieldProvider(new TextFieldFactory(), new CheckBoxFieldFactory(), new DateTimeFieldFactory(),
-				new ComboBoxFieldFactory(), new TableFieldFactory(), new ManyToOneOrManyFieldFactory(),
-				new OneToOneOrManyFieldFactory());
+	public List<Class<? extends ReflectUrlStreamHandler>> getUrlStreamHandlerClasses() {
+		return new UrlStreamHandlers();
 	}
 
 	@Override
-	public StringConverterProvider getStringConverterProvider() {
-		return new StringConverterProvider(DefaultStringConverters.getAll());
+	public Class<? extends StringConverterProvider> getStringConverterProviderClass() {
+		return StringConverterProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends StringConverterFactory>> getStringConverterFactoryClasses() {
+		return new StringConverterFactories();
+	}
+
+	@Override
+	public Class<? extends PropertyFieldProvider> getPropertyFieldProviderClass() {
+		return PropertyFieldProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends PropertyFieldFactory>> getPropertyFieldFactoryClasses() {
+		return new PropertyFieldFactories();
 	}
 
 	@Override

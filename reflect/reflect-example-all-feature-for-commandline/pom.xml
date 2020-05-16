@@ -12,7 +12,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-for-commandline</artifactId>
+			<artifactId>reflect-framework-for-commandline</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

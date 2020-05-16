@@ -6,7 +6,7 @@ import nth.reflect.all.feature.AllFeatureColorProvider;
 import nth.reflect.all.feature.AllFeatureInfrastructureClasses;
 import nth.reflect.all.feature.AllFeatureServiceClasses;
 import nth.reflect.fw.gui.style.ColorProvider;
-import nth.reflect.fw.ui.swing.ReflectApplicationForSwing;
+import nth.reflect.fw.swing.ReflectApplicationForSwing;
 
 public class AllFeatureForSwing extends ReflectApplicationForSwing {
 

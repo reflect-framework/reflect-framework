@@ -148,7 +148,7 @@ public interface ReflectApplication {
 
 	public Class<? extends StringConverterProvider> getStringConverterProviderClass();
 
-	public List<Class<? extends StringConverterFactory>> getStringConverterClasses();
+	public List<Class<? extends StringConverterFactory>> getStringConverterFactoryClasses();
 
 	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProvider();
 

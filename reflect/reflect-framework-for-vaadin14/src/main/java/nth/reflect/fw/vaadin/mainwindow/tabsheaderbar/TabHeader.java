@@ -1,0 +1,34 @@
+package nth.reflect.fw.vaadin.mainwindow.tabsheaderbar;
+
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.tabs.Tab;
+
+import nth.reflect.fw.gui.component.tab.Tabs;
+
+public class TabHeader extends Tab {
+
+	private static final long serialVersionUID = -224589135647253332L;
+	private final nth.reflect.fw.vaadin.tab.Tab tab;
+
+	public TabHeader(Tabs<nth.reflect.fw.vaadin.tab.Tab> tabs, nth.reflect.fw.vaadin.tab.Tab tab) {
+		this.tab = tab;
+		setLabel(tab.getDisplayName());
+
+		Icon closeIcon = createCloseIcon(tabs, tab);
+		addComponentAtIndex(1, closeIcon);
+	}
+
+	private Icon createCloseIcon(Tabs<nth.reflect.fw.vaadin.tab.Tab> tabs, nth.reflect.fw.vaadin.tab.Tab tab) {
+		Icon closeIcon = VaadinIcon.CLOSE_SMALL.create();
+		closeIcon.addClickListener(l -> {
+			tabs.remove(tab);
+		});
+		return closeIcon;
+	}
+
+	public nth.reflect.fw.vaadin.tab.Tab getTab() {
+		return tab;
+	}
+
+}

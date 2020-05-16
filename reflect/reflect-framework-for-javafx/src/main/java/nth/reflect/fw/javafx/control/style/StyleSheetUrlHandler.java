@@ -25,11 +25,11 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyLabel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyLabelAndFieldPanel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyValidationLabel;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.CheckBoxField;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.ManyToOneOrManyField;
-import nth.reflect.fw.javafx.control.tab.form.proppanel.field.TextField;
 import nth.reflect.fw.javafx.control.table.Table;
 import nth.reflect.fw.javafx.control.toolbar.Toolbar;
+import nth.reflect.fw.javafx.layer5provider.properyfield.factory.CheckBoxField;
+import nth.reflect.fw.javafx.layer5provider.properyfield.factory.ManyToOneOrManyField;
+import nth.reflect.fw.javafx.layer5provider.properyfield.factory.TextField;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
 public class StyleSheetUrlHandler extends ReflectUrlStreamHandler {

@@ -6,10 +6,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 
-import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.RandomGenerator;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject.MyEnum;
+import nth.reflect.util.random.Random;
+import nth.reflect.util.random.RandomGenerator;
 
 public class DomainObjectRandomGenerator extends RandomGenerator<AllFeatureDomainObject> {
 

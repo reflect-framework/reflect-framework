@@ -52,7 +52,7 @@
 
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-core</artifactId>
+			<artifactId>reflect-framework</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

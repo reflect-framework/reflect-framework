@@ -2,12 +2,11 @@ package nth.reflect.example.domain.contact;
 
 import java.util.List;
 
-import nth.reflect.fw.infrastructure.random.Random;
-import nth.reflect.fw.infrastructure.random.RandomGenerator;
-import nth.reflect.fw.infrastructure.random.generator.address.RandomCountry;
+import nth.reflect.util.random.Random;
+import nth.reflect.util.random.RandomGenerator;
+import nth.reflect.util.random.generator.address.RandomCountry;
 
 public class ContactGenerator extends RandomGenerator<Contact> {
-
 
 	@Override
 	public Contact generate() {
@@ -33,16 +32,16 @@ public class ContactGenerator extends RandomGenerator<Contact> {
 		contact.geteMailAdresses().addAll(emailAddresses);
 
 		RandomCountry country = Random.country().generate();
-		
+
 		List<Address> addresses = new AddressGenerator(country).generate();
 		contact.setAddresses(addresses);
-		
-		List<String> phoneNumbers = Random.phoneNumber().forCountry(country).generateList(0,3);
+
+		List<String> phoneNumbers = Random.phoneNumber().forCountry(country).generateList(0, 3);
 		contact.setPhoneNumbers(phoneNumbers);
-		
+
 		List<Event> events = new EventGenerator().generate();
 		contact.setEvents(events);
-		
+
 		return contact;
 	}
 

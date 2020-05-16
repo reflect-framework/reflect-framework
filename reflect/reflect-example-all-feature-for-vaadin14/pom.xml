@@ -120,13 +120,13 @@
 
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-for-vaadin14</artifactId>
+			<artifactId>reflect-framework-for-vaadin14</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.github.reflect-framework.example</groupId>
-			<artifactId>reflect-all-feature-domain</artifactId>
+			<groupId>com.github.reflect-framework</groupId>
+			<artifactId>reflect-example-all-feature-domain</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 

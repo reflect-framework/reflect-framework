@@ -8,7 +8,7 @@ import com.acme.web.shop.WebShopServiceClasses;
 import com.vaadin.flow.router.Route;
 
 import nth.reflect.fw.gui.style.ReflectColors;
-import nth.reflect.ui.vaadin.ReflectApplicationForVaadin14;
+import nth.reflect.fw.vaadin.ReflectApplicationForVaadin14;
 
 @Route("")
 public class ${application-class-name} extends ReflectApplicationForVaadin14 {

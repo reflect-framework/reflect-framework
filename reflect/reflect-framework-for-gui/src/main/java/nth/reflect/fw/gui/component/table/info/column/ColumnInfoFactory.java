@@ -18,7 +18,6 @@ import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
-import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFactoryInfo;
 
 public class ColumnInfoFactory {
 
@@ -71,9 +70,7 @@ public class ColumnInfoFactory {
 			TypeInfo genericTypeInfo) {
 		String formatPattern = getFormatPattern(method);
 		StringConverterProvider stringConverterProvider = container.get(StringConverterProvider.class);
-		StringConverterFactoryInfo stringConverterInfo = new StringConverterFactoryInfo(genericTypeInfo, container,
-				formatPattern);
-		StringConverter<Object> stringConverter = stringConverterProvider.create(stringConverterInfo);
+		StringConverter<Object> stringConverter = stringConverterProvider.create(genericTypeInfo, formatPattern);
 		return stringConverter;
 	}
 

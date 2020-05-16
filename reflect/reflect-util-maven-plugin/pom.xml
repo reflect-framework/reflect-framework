@@ -32,7 +32,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-core</artifactId>
+			<artifactId>reflect-framework</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -57,7 +57,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.reflect-framework</groupId>
-			<artifactId>reflect-unit-regex</artifactId>
+			<artifactId>reflect-util-regex</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

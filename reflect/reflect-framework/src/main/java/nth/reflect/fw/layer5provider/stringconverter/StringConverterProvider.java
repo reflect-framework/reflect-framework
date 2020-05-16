@@ -54,7 +54,7 @@ public class StringConverterProvider implements Provider {
 
 	private List<Class<? extends StringConverterFactory>> getFactoryClasses() {
 		ReflectApplication application = providerContainer.get(ReflectApplication.class);
-		List<Class<? extends StringConverterFactory>> factoryClasses = application.getStringConverterClasses();
+		List<Class<? extends StringConverterFactory>> factoryClasses = application.getStringConverterFactoryClasses();
 		if (factoryClasses == null || factoryClasses.size() == 0) {
 			String canonicalMethodName = ReflectApplication.class.getSimpleName() + ".getStringConverterClasses";
 			throw new ProviderHelperNotDeclaredException(ReflectUrlStreamHandler.class, canonicalMethodName);
