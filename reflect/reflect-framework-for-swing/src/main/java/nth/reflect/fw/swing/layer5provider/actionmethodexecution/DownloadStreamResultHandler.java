@@ -15,7 +15,7 @@ import nth.reflect.fw.stream.FailedToOpenFileException;
 import nth.reflect.fw.stream.FailedToSaveFileException;
 
 public class DownloadStreamResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.DownloadStreamResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DownloadStreamResultHandler {
 
 	@Override
 	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,

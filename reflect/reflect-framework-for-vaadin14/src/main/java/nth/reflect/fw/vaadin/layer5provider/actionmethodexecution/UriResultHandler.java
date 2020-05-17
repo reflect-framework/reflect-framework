@@ -7,7 +7,7 @@ import com.vaadin.flow.component.page.Page;
 
 import nth.reflect.fw.layer5provider.url.exception.CouldNotOpenUriException;
 
-public class UriResultHandler extends nth.reflect.fw.layer5provider.actionmethodexecution.result.UriResultHandler {
+public class UriResultHandler extends nth.reflect.fw.layer5provider.actionmethod.result.handler.UriResultHandler {
 
 	@Override
 	public void openUri(URI uri) {

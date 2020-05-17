@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.ResultHandlerSerice;
+import nth.reflect.fw.layer5provider.actionmethod.result.handler.ResultHandlerSerice;
 
 public class ServiceMethodUrlTest {
 
@@ -81,7 +81,7 @@ public class ServiceMethodUrlTest {
 		})
 				.isInstanceOf(RuntimeException.class)
 				.hasMessage(
-						"Service class: nth.reflect.fw.layer5provider.actionmethodexecution.result could not be found.");
+						"Service class: nth.reflect.fw.layer5provider.actionmethod.result.handler could not be found.");
 	}
 
 	@Test

@@ -13,7 +13,7 @@ import nth.reflect.fw.ui.commandline.view.FormView;
  *
  */
 public class DomainObjectResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.DomainObjectResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DomainObjectResultHandler {
 
 	@Override
 	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,

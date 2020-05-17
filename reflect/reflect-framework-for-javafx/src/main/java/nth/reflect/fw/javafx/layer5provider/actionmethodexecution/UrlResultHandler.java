@@ -6,7 +6,7 @@ import java.net.URL;
 
 import nth.reflect.fw.layer5provider.url.exception.CouldNotOpenUrlException;
 
-public class UrlResultHandler extends nth.reflect.fw.layer5provider.actionmethodexecution.result.UrlResultHandler {
+public class UrlResultHandler extends nth.reflect.fw.layer5provider.actionmethod.result.handler.UrlResultHandler {
 
 	@Override
 	public void openUrl(URL url) {

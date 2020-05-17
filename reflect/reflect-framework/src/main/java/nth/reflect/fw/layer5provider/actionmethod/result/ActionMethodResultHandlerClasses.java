@@ -1,12 +1,12 @@
-package nth.reflect.fw.layer5provider.actionmethodexecution;
+package nth.reflect.fw.layer5provider.actionmethod.result;
 
 import java.util.ArrayList;
 
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.DomainObjectResultHandler;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.NoResultHandler;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.StringConverterResultHandler;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.UriResultHandler;
-import nth.reflect.fw.layer5provider.actionmethodexecution.result.UrlResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.handler.DomainObjectResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.handler.NoResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.handler.StringConverterResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.handler.UriResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.handler.UrlResultHandler;
 
 public abstract class ActionMethodResultHandlerClasses extends ArrayList<Class<? extends ActionMethodResultHandler>> {
 

@@ -16,17 +16,17 @@ public class ActionMethodResultHandelerClasses
 	}
 
 	@Override
-	public Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.UrlResultHandler> getUrlResultHandler() {
+	public Class<? extends nth.reflect.fw.layer5provider.actionmethod.result.handler.UrlResultHandler> getUrlResultHandler() {
 		return UrlResultHandler.class;
 	}
 
 	@Override
-	public Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.UriResultHandler> getUriResultHandler() {
+	public Class<? extends nth.reflect.fw.layer5provider.actionmethod.result.handler.UriResultHandler> getUriResultHandler() {
 		return UriResultHandler.class;
 	}
 
 	@Override
-	public Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.DownloadStreamResultHandler> getDownloadStreamResultHandler() {
+	public Class<? extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DownloadStreamResultHandler> getDownloadStreamResultHandler() {
 		return DownloadStreamResultHandler.class;
 	}
 

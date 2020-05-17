@@ -18,8 +18,8 @@ import nth.reflect.fw.gui.item.dialog.DialogShowStackTraceItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
@@ -215,7 +215,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 	/**
 	 * Hook so that each type of user interface can execute the method using
 	 * threading in they way preferred by user interface TODO move to
-	 * {@link ActionMethodExecutionProvider}
+	 * {@link ActionMethodResultProvider}
 	 * 
 	 * @param methodExecutionRunnable
 	 */

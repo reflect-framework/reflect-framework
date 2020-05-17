@@ -12,8 +12,8 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -117,9 +117,9 @@ public class ActionMethodInfo implements NameInfo {
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
 		this.isReadOnly = method.isAnnotationPresent(ReadOnlyActionMethod.class);
-		ActionMethodExecutionProvider actionMethodExecutionProvider = container
-				.get(ActionMethodExecutionProvider.class);
-		this.actionMethodResultHandler = actionMethodExecutionProvider.getActionMethodResultHandler(container, this);
+		ActionMethodResultProvider actionMethodResultProvider = container
+				.get(ActionMethodResultProvider.class);
+		this.actionMethodResultHandler = actionMethodResultProvider.getActionMethodResultHandler(container, this);
 	}
 
 	private String createSimpleName(Method method, String propertyName) {

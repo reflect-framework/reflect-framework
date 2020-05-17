@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.actionmethodexecution.result;
+package nth.reflect.fw.layer5provider.actionmethod.result.handler;
 
 import java.net.MalformedURLException;
 import java.net.URI;

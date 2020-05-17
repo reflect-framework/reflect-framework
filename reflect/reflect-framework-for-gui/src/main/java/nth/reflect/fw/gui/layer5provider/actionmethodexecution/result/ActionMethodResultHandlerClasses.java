@@ -1,7 +1,7 @@
 package nth.reflect.fw.gui.layer5provider.actionmethodexecution.result;
 
 public abstract class ActionMethodResultHandlerClasses
-		extends nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses {
+		extends nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandlerClasses {
 
 	private static final long serialVersionUID = -2972430128516924842L;
 
@@ -10,7 +10,7 @@ public abstract class ActionMethodResultHandlerClasses
 		add(1, getDownloadStreamResultHandler());
 	}
 
-	public abstract Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.DownloadStreamResultHandler> getDownloadStreamResultHandler();
+	public abstract Class<? extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DownloadStreamResultHandler> getDownloadStreamResultHandler();
 
 	/**
 	 * Overriding this method so that the {@link DomainObjectResultHandler} in this
@@ -32,7 +32,7 @@ public abstract class ActionMethodResultHandlerClasses
 	 * not have to implement it.
 	 */
 	@Override
-	public Class<? extends nth.reflect.fw.layer5provider.actionmethodexecution.result.StringConverterResultHandler> getStringConverterResultHandler() {
+	public Class<? extends nth.reflect.fw.layer5provider.actionmethod.result.handler.StringConverterResultHandler> getStringConverterResultHandler() {
 		return StringConverterResultHandler.class;
 	}
 

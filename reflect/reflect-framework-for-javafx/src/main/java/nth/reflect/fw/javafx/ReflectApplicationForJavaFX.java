@@ -12,8 +12,8 @@ import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses;
 import nth.reflect.fw.javafx.layer5provider.url.UrlStreamHandlers;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -142,8 +142,8 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProvider() {
-		return ActionMethodExecutionProvider.class;
+	public Class<? extends ActionMethodResultProvider> getActionMethodResultProvider() {
+		return ActionMethodResultProvider.class;
 	}
 
 	@Override

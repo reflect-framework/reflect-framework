@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.actionmethodexecution;
+package nth.reflect.fw.layer5provider.actionmethod.result;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,14 +9,22 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.layer5provider.Provider;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.ProviderHelperNotDeclaredException;
+import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
-public class ActionMethodExecutionProvider implements Provider {
+/**
+ * Processes the {@link ActionMethod} return value (e.g. displays the results)
+ * when the {@link ActionMethod} is invoked
+ * 
+ * @author nilsth
+ *
+ */
+public class ActionMethodResultProvider implements Provider {
 
 	private List<ActionMethodResultHandler> actionMethodResultHandlers;
 
-	public ActionMethodExecutionProvider(ProviderContainer providerContainer) {
+	public ActionMethodResultProvider(ProviderContainer providerContainer) {
 		actionMethodResultHandlers = createHandlers(providerContainer);
 	}
 

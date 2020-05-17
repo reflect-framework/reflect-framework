@@ -12,8 +12,8 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureLayer;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
 import nth.reflect.fw.layer5provider.ProviderLayer;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethodexecution.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
@@ -150,7 +150,7 @@ public interface ReflectApplication {
 
 	public List<Class<? extends StringConverterFactory>> getStringConverterFactoryClasses();
 
-	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProvider();
+	public Class<? extends ActionMethodResultProvider> getActionMethodResultProvider();
 
 	public List<Class<? extends ActionMethodResultHandler>> getActionMethodResultHandlerClasses();
 

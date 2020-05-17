@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.actionmethodexecution;
+package nth.reflect.fw.layer5provider.actionmethod.result;
 
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;

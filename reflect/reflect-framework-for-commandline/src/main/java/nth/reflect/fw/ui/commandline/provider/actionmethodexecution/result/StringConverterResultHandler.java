@@ -11,7 +11,7 @@ import nth.reflect.fw.layer5provider.stringconverter.StringConverterProvider;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
 public class StringConverterResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.StringConverterResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.StringConverterResultHandler {
 
 	public static final TranslatableString MESSAGE = new TranslatableString(
 			StringConverterResultHandler.class.getCanonicalName() + ".message", "%s: Result is: %s");

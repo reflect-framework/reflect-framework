@@ -22,7 +22,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  *
  */
 public abstract class MultipleValueResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.MultipleValueResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.MultipleValueResultHandler {
 
 	@Override
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {

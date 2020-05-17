@@ -25,7 +25,7 @@ import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverterFact
  *
  */
 public class StringConverterResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethodexecution.result.StringConverterResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.StringConverterResultHandler {
 
 	@Override
 	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
