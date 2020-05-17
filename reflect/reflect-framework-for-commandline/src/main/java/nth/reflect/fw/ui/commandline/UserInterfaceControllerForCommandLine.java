@@ -197,7 +197,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			throw new RuntimeException(e);
 		}
 		// show method result
-		processActionMethodResult(methodOwner, methodInfo, methodParameter, methodReturnValue);
+		methodInfo.processResult(userInterfaceContainer, methodOwner, methodParameter, methodReturnValue);
 	}
 
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,

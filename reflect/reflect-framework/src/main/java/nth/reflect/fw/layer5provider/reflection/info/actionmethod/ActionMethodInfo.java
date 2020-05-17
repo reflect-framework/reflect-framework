@@ -60,6 +60,12 @@ import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.EditPar
 
 public class ActionMethodInfo implements NameInfo {
 
+	private static final TranslatableString DISPLAY_ERROR_DIALOG_TITLE = new TranslatableString(
+			ActionMethodInfo.class.getCanonicalName() + ".display.error.dialog.title",
+			"Error while displaying an action result");
+	private static final TranslatableString DISPLAY_ERROR_DIALOG_MESSAGE = new TranslatableString(
+			ActionMethodInfo.class.getCanonicalName() + ".display.error.dialog.message", "Action: %s");
+
 	private final String simpleName;
 	private final String canonicalName;
 	private final Method actionMethod;
@@ -321,7 +327,15 @@ public class ActionMethodInfo implements NameInfo {
 	 */
 	public void processResult(UserInterfaceContainer container, Object methodOwner, Object methodParameter,
 			Object methodResult) {
-		actionMethodResultHandler.process(container, methodOwner, this, methodParameter, methodResult);
+		try {
+			actionMethodResultHandler.process(container, methodOwner, this, methodParameter, methodResult);
+		} catch (Throwable exception) {
+			UserInterfaceController userInterface = container.get(UserInterfaceController.class);
+			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
+			TranslatableString actionMethodTitle = getTitle(methodParameter);
+			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
+			userInterface.showError(title, message, exception);
+		}
 	}
 
 	/**

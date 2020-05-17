@@ -152,31 +152,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 	public abstract void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo,
 			Object methodParameter);
 
-	/**
-	 * This method is called from
-	 * {@link #startMethodExecutionThread(Object, ActionMethodInfo, Object)} when
-	 * the thread is completed.<br>
-	 * It will open a new Tab or InfoDialog to show the method return value
-	 * 
-	 * 
-	 * @param serviceObject
-	 * @param actionMethodInfo
-	 * @param optionalMethodParameter
-	 * @param optionalMethodResult
-	 */
-
-	public void processActionMethodResult(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter,
-			Object methodResult) {
-		try {
-			methodInfo.processResult(userInterfaceContainer, methodOwner, methodParameter, methodResult);
-		} catch (Throwable exception) {
-			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
-			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(methodParameter);
-			showError(title, message, exception);
-		}
-
-	}
-
 	public abstract void showError(TranslatableString title, TranslatableString message, Throwable throwable);
 
 	/**

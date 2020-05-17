@@ -198,8 +198,9 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 					if (selectedTab != null) {
 						selectedTab.onRefresh();
 					}
-					// show method result
-					processActionMethodResult(methodOwner, actionMethodInfo, methodParameter, methodReturnValue);
+					// process method result
+					actionMethodInfo
+							.processResult(userInterfaceContainer, methodOwner, methodParameter, methodReturnValue);
 				} catch (Exception exception) {
 					TranslatableString title = actionMethodInfo.getTitle(methodParameter);
 					TranslatableString message = ERROR_EXECUTE;
