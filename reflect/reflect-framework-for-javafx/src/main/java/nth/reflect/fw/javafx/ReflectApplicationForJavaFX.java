@@ -9,7 +9,8 @@ import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.gui.layer5provider.properyfield.factory.PropertyFieldFactory;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
-import nth.reflect.fw.javafx.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses;
+import nth.reflect.fw.javafx.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
+import nth.reflect.fw.javafx.layer5provider.actionmethod.result.ActionMethodResultHandlerClasses;
 import nth.reflect.fw.javafx.layer5provider.url.UrlStreamHandlers;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
@@ -142,7 +143,12 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 	}
 
 	@Override
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProvider() {
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProviderClass() {
+		return ActionMethodExecutionProvider.class;
+	}
+
+	@Override
+	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass() {
 		return ActionMethodResultProvider.class;
 	}
 

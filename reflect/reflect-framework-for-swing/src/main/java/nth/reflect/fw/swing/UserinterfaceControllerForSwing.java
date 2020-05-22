@@ -14,6 +14,7 @@ import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.stream.UploadStream;
@@ -28,15 +29,17 @@ import nth.reflect.fw.swing.tab.form.proppanel.PropertyPanelFactory;
 public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
 	private MainWindow mainWindow;
+	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
-	public UserinterfaceControllerForSwing(UserInterfaceContainer userInterfaceContainer) {
-		super(userInterfaceContainer);
+	public UserinterfaceControllerForSwing(UserInterfaceContainer container) {
+		super(container);
+		actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 	}
 
 	@Override
 	public void launch() {
 		try {
-			mainWindow = new MainWindow(userInterfaceContainer);
+			mainWindow = new MainWindow(container);
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
@@ -77,15 +80,14 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fc.getSelectedFile();
 			uploadStream.setFile(selectedFile);
-			processActionMethodExecution(methodOwner, methodInfo, uploadStream);
+			actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, uploadStream);
 		}
 	};
 
 	@Override
 	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
-				formMode);
+		return new FormTab(container, serviceObject, actionMethodInfo, methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
@@ -117,14 +119,8 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 	}
 
 	@Override
-	public void executeInThread(Runnable methodExecutionRunnable) {
-		Thread methodExecutionThread = new Thread(methodExecutionRunnable);
-		methodExecutionThread.start();
-	}
-
-	@Override
 	public PropertyPanelFactory getPropertyPanelFactory() {
-		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
+		PropertyFieldProvider propertyFieldProvider = container.get(PropertyFieldProvider.class);
 		return new PropertyPanelFactory(propertyFieldProvider);
 	}
 

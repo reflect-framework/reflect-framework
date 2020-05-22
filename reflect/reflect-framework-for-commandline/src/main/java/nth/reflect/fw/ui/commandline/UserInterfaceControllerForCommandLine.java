@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import nth.reflect.fw.generic.util.ExceptionUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
@@ -23,15 +23,16 @@ import nth.reflect.fw.ui.commandline.view.HelpView;
 
 public class UserInterfaceControllerForCommandLine extends UserInterfaceController {
 
-	private final ProviderContainer providerContainer;
-
 	private static final TranslatableString ERROR_DIALOG_EXECUTING_A_COMMAND_MESSAGE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".error.dialog.executing.command",
 			"Error executing a command");
+	private final ProviderContainer providerContainer;
+	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
-	public UserInterfaceControllerForCommandLine(UserInterfaceContainer userInterfaceContainer) {
-		super(userInterfaceContainer);
-		this.providerContainer = userInterfaceContainer.get(ProviderContainer.class);
+	public UserInterfaceControllerForCommandLine(UserInterfaceContainer container) {
+		super(container);
+		this.providerContainer = container.get(ProviderContainer.class);
+		this.actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 					.get(ReflectApplicationForCommandLine.class);
 			String[] arguments = commandLineApplication.getCommandLineArguments();
 
-			List<Command> commands = CommandService.getCommands(userInterfaceContainer);
+			List<Command> commands = CommandService.getCommands(container);
 
 			if (isCommandFile(arguments)) {
 				List<String[]> argumentsInFile = getArgumentsFromCommandFile(arguments);
@@ -132,7 +133,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	@Override
 	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		try {
-			processActionMethodExecution(methodOwner, methodInfo, methodParameter);
+			actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, methodParameter);
 		} catch (Exception exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString actionMethodTitle = methodInfo.getTitle(methodParameter);
@@ -181,23 +182,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		txt.append("\n");
 		txt.append(ExceptionUtil.getRootCauseStackTrace(throwable, languageProvider));
 		System.out.println(txt.toString());
-	}
-
-	@Override
-	public void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		// TODO check if the method is enabled before the method is executed
-		// (otherwise throw exception)
-		// TODO validate the method parameter value before the method is
-		// executed (if invalid: throw exception)
-
-		Object methodReturnValue;
-		try {
-			methodReturnValue = methodInfo.invoke(methodOwner, methodParameter);
-		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-			throw new RuntimeException(e);
-		}
-		// show method result
-		methodInfo.processResult(userInterfaceContainer, methodOwner, methodParameter, methodReturnValue);
 	}
 
 	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,

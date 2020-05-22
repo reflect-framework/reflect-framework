@@ -5,11 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import nth.reflect.fw.junit.LogProvider;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.junit.UserInterfaceControllerForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethod.result.handler.NoResultHandler;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
@@ -19,10 +18,12 @@ public class NoResultHandlerTest {
 	private static final Class<ResultHandlerSerice> SERVICE_CLASS = ResultHandlerSerice.class;
 	private UserInterfaceContainer container;
 	private NoResultHandler resultHandler;
+	private LogProvider log;
 
 	@Before
 	public void setUp() throws Exception {
 		container = new ReflectApplicationForJUnit().addServiceClass(SERVICE_CLASS).createContainer();
+		log = container.get(LogProvider.class);
 		resultHandler = new NoResultHandler();
 	}
 
@@ -55,10 +56,9 @@ public class NoResultHandlerTest {
 		ActionMethodInfo actionMethodInfo = serviceClassInfo.getActionMethodInfo(ResultHandlerSerice.NO_RETURN_VALUE);
 		Object methodParameter = null;
 		Object methodResult = null;
+		log.clear();
 		resultHandler.process(container, serviceObject, actionMethodInfo, methodParameter, methodResult);
-		UserInterfaceControllerForJUnit userInterface = container.get(UserInterfaceControllerForJUnit.class);
-		assertThat(userInterface.getEventsAndClear()).contains("showMessage(No return value was successfully executed.)");
-
+		assertThat(log).contains("showMessage(No return value was successfully executed.)");
 	}
 
 }

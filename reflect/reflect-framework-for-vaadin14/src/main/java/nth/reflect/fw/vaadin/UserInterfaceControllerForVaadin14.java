@@ -1,13 +1,10 @@
 package nth.reflect.fw.vaadin;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.server.Command;
 
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
@@ -18,7 +15,6 @@ import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.stream.UploadStream;
 import nth.reflect.fw.vaadin.dialog.Dialog;
-import nth.reflect.fw.vaadin.mainwindow.MainWindow;
 import nth.reflect.fw.vaadin.tab.form.FormTab;
 import nth.reflect.fw.vaadin.tab.form.row.PropertyPanel;
 import nth.reflect.fw.vaadin.tab.form.row.PropertyPanelFactory;
@@ -28,11 +24,9 @@ public class UserInterfaceControllerForVaadin14
 
 	private final PropertyPanelFactory propertyPanelFactory;
 	private final Dialog dialog;
-	private final ReflectApplicationForVaadin14 reflectAppForVaadin;
 
 	public UserInterfaceControllerForVaadin14(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
-		reflectAppForVaadin = userInterfaceContainer.get(ReflectApplicationForVaadin14.class);
 		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
 		propertyPanelFactory = new PropertyPanelFactory(propertyFieldProvider);
 		dialog = new Dialog();
@@ -86,15 +80,10 @@ public class UserInterfaceControllerForVaadin14
 		// }
 	};
 
-	private MainWindow getMainWindow() {
-		return reflectAppForVaadin.getMainWindow();
-	}
-
 	@Override
 	public FormTab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
 			Object domainObject, FormMode formMode) {
-		return new FormTab(userInterfaceContainer, serviceObject, actionMethodInfo, methodParameterValue, domainObject,
-				formMode);
+		return new FormTab(container, serviceObject, actionMethodInfo, methodParameterValue, domainObject, formMode);
 	}
 
 	@Override
@@ -102,22 +91,6 @@ public class UserInterfaceControllerForVaadin14
 		String translatedTitle = title.getTranslation(languageProvider);
 		String translatedMessage = message.getTranslation(languageProvider);
 		dialog.open(translatedTitle, translatedMessage, items);
-	}
-
-	@SuppressWarnings("serial")
-	@Override
-	public void executeInThread(Runnable methodExecutionRunnable) {
-		Optional<UI> ui = getMainWindow().getUI();
-		if (ui.isPresent()) {
-			ui.get().access(new Command() {
-
-				@Override
-				public void execute() {
-					methodExecutionRunnable.run();
-					;
-				}
-			});
-		}
 	}
 
 	@Override

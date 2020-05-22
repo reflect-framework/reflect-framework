@@ -7,11 +7,10 @@ import java.util.List;
 import nth.reflect.all.feature.commandline.dom.AllFeatureServiceObject;
 import nth.reflect.fw.ui.commandline.ReflectApplicationForCommandLine;
 
-public class AllFeatureForCommandLine extends
-		ReflectApplicationForCommandLine {
+public class AllFeatureForCommandLine extends ReflectApplicationForCommandLine {
 
 	public static void main(String[] arguments) {
-		launch(arguments);;
+		launch(arguments);
 	}
 
 	@Override

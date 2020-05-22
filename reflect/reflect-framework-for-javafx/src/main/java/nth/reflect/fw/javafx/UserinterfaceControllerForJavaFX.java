@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
@@ -24,6 +23,7 @@ import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -43,9 +43,11 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	private static final TranslatableString INFO_DIALOG_TITLE = new TranslatableString(
 			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".info.dialog.title", "Info");
 	private MainWindow mainWindow;
+	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
-	public UserinterfaceControllerForJavaFX(UserInterfaceContainer userInterfaceContainer) {
-		super(userInterfaceContainer);
+	public UserinterfaceControllerForJavaFX(UserInterfaceContainer container) {
+		super(container);
+		actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 	}
 
 	@Override
@@ -77,12 +79,12 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public void launch() {
-		ReflectApplicationForJavaFX application = userInterfaceContainer.get(ReflectApplicationForJavaFX.class);
+		ReflectApplicationForJavaFX application = container.get(ReflectApplicationForJavaFX.class);
 
 		Stage primaryStage = application.getPrimaryStage();
 
 		try {
-			mainWindow = new MainWindow(userInterfaceContainer);
+			mainWindow = new MainWindow(container);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,7 +96,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 		primaryStage.setScene(scene);
 
-		ReflectionProvider reflectProvider = userInterfaceContainer.get(ReflectionProvider.class);
+		ReflectionProvider reflectProvider = container.get(ReflectionProvider.class);
 		ApplicationClassInfo applicationClassInfo = reflectProvider.getApplicationClassInfo();
 		initIcon(primaryStage, applicationClassInfo);
 		String title = applicationClassInfo.getDisplayName().getTranslation();
@@ -121,27 +123,18 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 				.getExtensionFilters()
 				.addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),
 						uploadStream.fileExtentionFilters()));
-		ReflectApplicationForJavaFX application = userInterfaceContainer.get(ReflectApplicationForJavaFX.class);
+		ReflectApplicationForJavaFX application = container.get(ReflectApplicationForJavaFX.class);
 		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());
 		if (selectedFile != null) {
 			uploadStream.setFile(selectedFile);
-			processActionMethodExecution(methodOwner, methodInfo, uploadStream);
+			actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, uploadStream);
 		}
 
 	}
 
-	/**
-	 * JavaFX does not allow executing threads on the event thread, so we run it
-	 * later.
-	 */
-	@Override
-	public void executeInThread(Runnable methodExecutionRunnable) {
-		Platform.runLater(methodExecutionRunnable);
-	}
-
 	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		PropertyFieldProvider propertyFieldProvider = userInterfaceContainer.get(PropertyFieldProvider.class);
+		PropertyFieldProvider propertyFieldProvider = container.get(PropertyFieldProvider.class);
 		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(propertyFieldProvider);
 	}
 
@@ -149,8 +142,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 	public nth.reflect.fw.gui.component.tab.Tab createFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo,
 			Object methodParameter, Object methodResult, FormMode formMode) {
 		// TODO Auto-generated method stub
-		return new FormTab(userInterfaceContainer, methodOwner, actionMethodInfo, methodParameter, methodResult,
-				formMode);
+		return new FormTab(container, methodOwner, actionMethodInfo, methodParameter, methodResult, formMode);
 	}
 
 }

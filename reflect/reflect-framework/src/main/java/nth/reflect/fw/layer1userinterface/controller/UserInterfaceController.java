@@ -5,6 +5,7 @@ import java.util.Optional;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.documentation.ReflectArchitecture;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationListener;
@@ -59,12 +60,14 @@ public abstract class UserInterfaceController implements NotificationListener {
 
 	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;
-	protected final UserInterfaceContainer userInterfaceContainer;
+	protected final UserInterfaceContainer container;
+	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
-	public UserInterfaceController(UserInterfaceContainer userInterfaceContainer) {
-		this.userInterfaceContainer = userInterfaceContainer;
-		this.reflectionProvider = userInterfaceContainer.get(ReflectionProvider.class);
-		this.languageProvider = userInterfaceContainer.get(LanguageProvider.class);
+	public UserInterfaceController(UserInterfaceContainer container) {
+		this.container = container;
+		this.reflectionProvider = container.get(ReflectionProvider.class);
+		this.languageProvider = container.get(LanguageProvider.class);
+		actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 	}
 
 	/**
@@ -120,7 +123,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 				methodInfo.invokeConfirmMethod(this, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
-				processActionMethodExecution(methodOwner, methodInfo, methodParameter);
+				actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, methodParameter);
 				break;
 			}
 		} catch (Throwable throwable) {
@@ -132,25 +135,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 		}
 
 	}
-
-	/**
-	 * This method is called from
-	 * {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from the
-	 * {@link FormOkItem} linked to the OK button <br>
-	 * It needs the check if the method is enabled before the method is executed
-	 * <br>
-	 * It needs to validate the method parameter value before the method is executed
-	 * 
-	 * @param methodOwner          Domain or service object that owns the method
-	 * @param actionMethodInfo     {@link ActionMethodInfo} contains information on
-	 *                             an {@link ActionMethod}
-	 * @param methodParameterValue The value of the {@link ActionMethod} parameter
-	 * @throws Exception
-	 * 
-	 */
-
-	public abstract void processActionMethodExecution(Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter);
 
 	public abstract void showError(TranslatableString title, TranslatableString message, Throwable throwable);
 
@@ -170,6 +154,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 	public abstract void launch();
 
 	public UserInterfaceContainer getUserInterfaceContainer() {
-		return userInterfaceContainer;
+		return container;
 	}
 }

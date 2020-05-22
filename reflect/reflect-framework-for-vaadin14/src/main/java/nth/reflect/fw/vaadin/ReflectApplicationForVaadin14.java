@@ -37,7 +37,8 @@ import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
-import nth.reflect.fw.vaadin.layer5provider.actionmethodexecution.ActionMethodResultHandelerClasses;
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.ActionMethodResultHandelerClasses;
 import nth.reflect.fw.vaadin.layer5provider.properyfield.PropertyFieldFactories;
 import nth.reflect.fw.vaadin.mainwindow.MainWindow;
 
@@ -210,7 +211,12 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 	}
 
 	@Override
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProvider() {
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProviderClass() {
+		return ActionMethodExecutionProvider.class;
+	}
+
+	@Override
+	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass() {
 		return ActionMethodResultProvider.class;
 	}
 

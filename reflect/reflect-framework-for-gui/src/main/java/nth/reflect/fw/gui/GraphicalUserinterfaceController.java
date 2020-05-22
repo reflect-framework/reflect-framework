@@ -19,7 +19,6 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
@@ -47,8 +46,6 @@ import nth.reflect.fw.stream.UploadStream;
 public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY_PANEL>
 		extends UserInterfaceController {
 
-	private static final int PERCENT_0 = 0;
-	private static final int PERCENT_100 = 100;
 	private final Tabs<TAB> tabs;
 
 	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
@@ -62,8 +59,7 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 		// create the dialog items/ buttons
 
 		List<Item> items = new ArrayList<Item>();
-		DialogMethodItem methodExecuteItem = new DialogMethodItem(userInterfaceContainer, methodOwner, methodInfo,
-				methodParameter);
+		DialogMethodItem methodExecuteItem = new DialogMethodItem(container, methodOwner, methodInfo, methodParameter);
 		items.add(methodExecuteItem);
 		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
 		items.add(cancelItem);
@@ -138,98 +134,14 @@ public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY
 			UploadStream uploadStream);
 
 	@Override
-	public void processActionMethodExecution(Object serviceObject, ActionMethodInfo actionMethodInfo,
-			Object methodParameterValue) {
-		// TODO check if the method is enabled before the method is executed
-		// (otherwise throw exception)
-		// TODO validate the method parameter value before the method is
-		// executed (if invalid: throw exception)
-
-		// show ProgressDialog
-		TranslatableString title = actionMethodInfo.getTitle(methodParameterValue);
-		showProgressDialog(title, PERCENT_0, PERCENT_100);
-
-		// start method execution thread
-		try {
-			startMethodExecutionThread(serviceObject, actionMethodInfo, methodParameterValue);
-		} catch (Exception exception) {
-			TranslatableString message = ERROR_EXECUTE;
-			showError(title, message, exception);
-		}
-	}
-
-	/**
-	 * This method is called from
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} <br>
-	 * This method must do 3 things<br>
-	 * - invoke Object methodReturnValue=
-	 * {@link ActionMethodInfo#invoke(Object, Object)} in a separate thread (may be
-	 * time consuming). This will need to be implemented per user interface because
-	 * threading may need to be differently implemented for each user interface
-	 * framework. <br>
-	 * - catch errors during the execution of the thread and call
-	 * {@link #showError(String, String, Throwable)} if needed<br>
-	 * - invoke
-	 * {@link GraphicalUserinterfaceController#processActionMethodReturnValue(Object, ActionMethodInfo, Object, Object)}
-	 * <br>
-	 * <br>
-	 * This method can be overridden if the framework of the user interface
-	 * implementation requires a specific threading mechanism (i.e. Android)
-	 * 
-	 * @param methodOwner
-	 * @param actionMethodInfo
-	 * @param methodParameter
-	 * 
-	 */
-
-	public void startMethodExecutionThread(final Object methodOwner, final ActionMethodInfo actionMethodInfo,
-			final Object methodParameter) {
-
-		Runnable runnable = new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Object methodReturnValue = actionMethodInfo.invoke(methodOwner, methodParameter);
-
-					// Calling a method on a object can change its state
-					// We therefore must update current tab
-					Tab selectedTab = getTabs().getSelected();
-					if (selectedTab != null) {
-						selectedTab.onRefresh();
-					}
-					// process method result
-					actionMethodInfo
-							.processResult(userInterfaceContainer, methodOwner, methodParameter, methodReturnValue);
-				} catch (Exception exception) {
-					TranslatableString title = actionMethodInfo.getTitle(methodParameter);
-					TranslatableString message = ERROR_EXECUTE;
-					showError(title, message, exception);
-				}
-
-			}
-		};
-		executeInThread(runnable);
-	}
-
-	/**
-	 * Hook so that each type of user interface can execute the method using
-	 * threading in they way preferred by user interface TODO move to
-	 * {@link ActionMethodResultProvider}
-	 * 
-	 * @param methodExecutionRunnable
-	 */
-	public abstract void executeInThread(Runnable methodExecutionRunnable);
-
-	@Override
 	public void showError(TranslatableString title, TranslatableString message, Throwable throwable) {
 
 		throwable.printStackTrace();
 		// to help debugging (stack trace in IDE console has hyper links to code)
 
 		List<Item> items = new ArrayList<Item>();
-		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(userInterfaceContainer, title,
-				message, throwable);
+		DialogShowStackTraceItem showStackTraceItem = new DialogShowStackTraceItem(container, title, message,
+				throwable);
 		items.add(showStackTraceItem);
 		DialogCloseItem closeItem = new DialogCloseItem(languageProvider);
 		items.add(closeItem);

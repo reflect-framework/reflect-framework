@@ -14,6 +14,7 @@ import nth.reflect.fw.layer2service.ServiceObject;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
@@ -203,13 +204,22 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	}
 
 	@Override
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProviderClass() {
+		return ActionMethodExecutionProviderForJUnit.class;
+	}
+
+	@Override
 	public List<Class<? extends StringConverterFactory>> getStringConverterFactoryClasses() {
 		return new StringConverterFactories();
 	}
 
 	@Override
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProvider() {
+	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass() {
 		return ActionMethodResultProvider.class;
+	}
+
+	public Class<? extends LogProvider> getLogProviderClass() {
+		return LogProvider.class;
 	}
 
 	@Override

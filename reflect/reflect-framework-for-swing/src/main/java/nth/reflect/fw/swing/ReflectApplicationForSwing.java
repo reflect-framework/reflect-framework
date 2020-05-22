@@ -28,7 +28,8 @@ import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
-import nth.reflect.fw.swing.layer5provider.actionmethodexecution.ActionMethodResultHandlerClasses;
+import nth.reflect.fw.swing.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
+import nth.reflect.fw.swing.layer5provider.actionmethod.result.ActionMethodResultHandlerClasses;
 import nth.reflect.fw.swing.layer5provider.properyfield.PropertyFieldFactories;
 
 /**
@@ -118,7 +119,12 @@ public abstract class ReflectApplicationForSwing implements GraphicalUserInterfa
 	}
 
 	@Override
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProvider() {
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProviderClass() {
+		return ActionMethodExecutionProvider.class;
+	}
+
+	@Override
+	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass() {
 		return ActionMethodResultProvider.class;
 	}
 
