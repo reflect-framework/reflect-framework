@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import nth.reflect.fw.container.DependencyInjectionContainer;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
-import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationProvider;
 
 public class ValidationProviderTest {
 

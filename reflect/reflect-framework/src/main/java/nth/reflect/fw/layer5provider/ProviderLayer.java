@@ -20,7 +20,7 @@ import nth.reflect.fw.documentation.ReflectDocumentationInterface;
  * </p>
  * <p>
  * Note that this layer is the bottom layer (see {@link ReflectArchitecture} ),
- * which means that objects in the upper layers may haved references to
+ * which means that objects in the upper layers may have references to
  * {@link Provider}Objects, but not visa versa!
  * </p>
  * 

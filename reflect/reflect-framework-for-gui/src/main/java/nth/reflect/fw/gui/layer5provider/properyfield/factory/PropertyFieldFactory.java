@@ -17,7 +17,7 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
  * <p>
  * Implementations of the {@link PropertyFieldFactory} interface therefore need
  * to be registered to the
- * {@link GraphicalUserInterfaceApplication#getPropertyFieldFactories()} method.
+ * {@link GraphicalUserInterfaceApplication#getPropertyFieldFactoryClasses()} method.
  * This allows you to extend and add your own {@link PropertyField} and
  * {@link PropertyFieldFactory} implementations.
  * </p>

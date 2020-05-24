@@ -11,6 +11,7 @@ import javax.validation.ValidatorFactory;
 
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationProvider;
 
 public class DefaultValidationProvider implements ValidationProvider {
 

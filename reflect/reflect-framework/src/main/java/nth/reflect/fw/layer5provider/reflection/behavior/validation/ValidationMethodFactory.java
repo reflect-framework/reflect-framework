@@ -4,45 +4,32 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
-import nth.reflect.fw.layer3domain.DomainObjectProperty;
 import nth.reflect.fw.layer5provider.reflection.behavior.BehavioralMethods;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionMode;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
-import nth.reflect.fw.layer5provider.validation.ValidationProvider;
+import nth.reflect.fw.layer5provider.validation.ValidationAnnotation;
 import nth.reflect.fw.layer5provider.validation.ValidationViolations;
 
 /**
- * <p>
- * <p>
  * The {@link UserInterfaceController} sometimes let’s the user edit an
- * {@link DomainObject} before it is passed as an {@link ActionMethod} parameter
- * (depending on how the {@link ActionMethod} is annotated, see
- * {@link ExecutionMode}). The {@link UserInterfaceController} then validates
- * the edited {@link DomainObject} using the {@link ValidationProvider} before
- * the {@link ActionMethod} is called.The {@link ValidationProvider} will use
- * validation annotations and validation methods that are located in the
- * {@link DomainObject}s them selves to validate the {@link DomainObject}s.
- * </p>
- * 
+ * {@link ActionMethod} parameter (e.g. a primitive type or a
+ * {@link DomainObject}), depending on how the {@link ActionMethod} is
+ * annotated, see {@link ExecutionMode}. The {@link UserInterfaceController}
+ * then validates the edited {@link ActionMethod} parameter using the
+ * {@link ValidationProvider} before the {@link ActionMethod} is invoked. The
+ * {@link ValidationProvider} will use {@link ValidationAnnotation}s and
+ * {@link ValidationMethod}s.
+ * <p>
  * <h3>Validation annotations</h3>
  * <p>
- * A {@link DomainObjectProperty}s can be validated by putting validation
- * annotations before the getter method of a property. The
- * {@link ReflectFramework} uses the JSR303 complient Apache BVal library for
- * validation. Please read the BVal documentation on how to annotate the getter
- * methods of the properties.
- * </p>
+ * {@insert ValidationAnnotation}
+ * <p>
  * <h3>Validation methods</h3>
  * <p>
  * {@insert ValidationMethod}
  * </p>
- * </p>
- * 
- * 
- * 
  * 
  * @author nilsth
  *

@@ -48,9 +48,9 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * </p>
  * <h3>Service objects define an interface in terms of the domain model</h3>
  * <p>
- * {@link ServiceObject}s basically provides the user (via the
- * {@link UserInterfaceController}) access to {@link DomainObject}s, so that the
- * user can work on them (via the {@link UserInterfaceController}).
+ * {@link ServiceObject}s basically provides the user access to
+ * {@link DomainObject}s, so that the user can work on them (via the
+ * {@link UserInterfaceController}).
  * </p>
  * 
  * <h3>Service objects are state-less</h3>
@@ -159,18 +159,5 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  * @author Nils ten Hoeve
  */
 public class ServiceObject implements ReflectDocumentationInterface {
-
-	/**
-	 * The contents of this class serves several purposes:
-	 * <ul>
-	 * <li>An example of a {@link ServiceObject}</li>
-	 * <li>A show case of all types that are supported by the
-	 * {@link ReflectFramework} by default</li>
-	 * <li>A test class for JUnit testing</li>
-	 * </ul>
-	 * 
-	 * Note that the purpose of the public static final String fields is only for
-	 * Junit testing only. Normally you would not need them.
-	 */
 
 }

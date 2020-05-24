@@ -26,9 +26,9 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyValidationLabel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
+import nth.reflect.fw.layer5provider.reflection.behavior.validation.ValidationProvider;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
-import nth.reflect.fw.layer5provider.validation.ValidationProvider;
 
 /**
  * {@link PropertyGrid} contains {@link PropertyPanel}s. It shows scroll bars if

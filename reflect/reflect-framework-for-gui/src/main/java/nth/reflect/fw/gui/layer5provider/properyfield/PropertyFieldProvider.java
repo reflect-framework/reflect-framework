@@ -30,7 +30,7 @@ import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
  * method</li>
  * </ul>
  * <p>
- * {@insert PropertyFieldFactories}
+ * {@insert nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldFactoryClasses}
  * <p>
  * You can add custom fields by implementing {@link PropertyField} and
  * {@link PropertyFieldFactory} and overriding the

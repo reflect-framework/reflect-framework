@@ -22,7 +22,7 @@ import nth.reflect.fw.ReflectFramework;
  * tested on <a href="https://en.wikipedia.org/wiki/Microsoft_Windows">Microsoft
  * Windows</a>. It is therefore recommended to use
  * <a href="https://en.wikipedia.org/wiki/Microsoft_Windows">Microsoft
- * Windows</a> for your development computer. You might also be ale to use
+ * Windows</a> for your development computer. You might also be able to use
  * another operating system, because both
  * <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>
  * and <a href=
@@ -45,14 +45,15 @@ import nth.reflect.fw.ReflectFramework;
  * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
  * Development Environment</a> on your development computer. The
  * {@link ReflectFramework} was created with Eclipse and this is therefore
- * Recommended for your development computer. Eclipse is free and can be
- * down loaded from <a href=
+ * Recommended for your development computer. Eclipse is free and can be down
+ * loaded from <a href=
  * "https://www.eclipse.org/downloads/">https://www.eclipse.org/downloads/</a>
- * and then installed on your development computer. You might also be ale to use another <a href=
+ * and then installed on your development computer. You might also be ale to use
+ * another <a href=
  * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
  * Development Environment</a>. This however never was tested.</li>
  * </ul>
- *<!-- TODO add youtube film -->
+ * <!-- TODO add youtube film -->
  * 
  * <h2>Reflect for the Web</h2>
  * <p>
@@ -73,7 +74,7 @@ import nth.reflect.fw.ReflectFramework;
  * <h2>Possible future projects</h2>
  * <p>
  * This is a list of possible future projects (still to be developed)
-
+ * 
  * <h3>Reflect for Android</h3>
  * <p>
  * An application with a
@@ -82,14 +83,6 @@ import nth.reflect.fw.ReflectFramework;
  * <a href="https://en.wikipedia.org/wiki/Mobile_device">mobile devices</a> such
  * as <a href="https://en.wikipedia.org/wiki/Smartphone">smart phones</a> and
  * <a href="https://en.wikipedia.org/wiki/Tablet_computer">tablets</a>.
- * 
- * <h3>Reflect for Vaadin</h3>
- * <p>
- * A <a href="https://en.wikipedia.org/wiki/Web_application">web application</a>
- * with a
- * <a href="http://en.wikipedia.org/wiki/Graphical_user_interface">graphical
- * user interface</a> for
- * <a href="https://en.wikipedia.org/wiki/Web_browser">web browsers</a>
  * 
  * <h3>Reflect for SOAP</h3>
  * <p>

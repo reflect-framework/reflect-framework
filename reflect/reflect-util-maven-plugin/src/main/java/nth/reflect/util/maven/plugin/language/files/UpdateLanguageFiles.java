@@ -24,9 +24,9 @@ import nth.reflect.util.maven.plugin.language.files.file.LanguageFileService;
  * translated</li>
  * <li>Adds key and text values for text that where not already translated to
  * the {@link LanguagePropertyFile}. New text values will start with the @(at)
- * symbol to indicate that the English default text (derived from the code or a
- * annotation) needs to be translated to another language.</li>
- * <li>Adds the "deprecated." prefix to the key's for deprecated text that where
+ * symbol to indicate that the English default text (derived from the program
+ * code) needs to be translated to another language.</li>
+ * <li>Adds the "deprecated." prefix to the key's for deprecated texts that
  * where already translated but are no longer in use in the code.</li>
  * </ul>
  * <p>

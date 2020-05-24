@@ -4,19 +4,17 @@ import nth.reflect.fw.ReflectFramework;
 
 /**
  * <img src="ReflectLogo.png" alt="Reflect Framework Logo">
- * <h1>The Reflect Framework</h1>
- * 
  * <h1>The Reflect Framework</h1> {@insert ReflectFramework}
  * 
- * <h1>The Domain Layer</H1> {@insert DomainLayer}
+ * <h1>The Domain Layer</h1> {@insert DomainLayer}
  * 
- * <h1>The Service Layer</H1> {@insert ServiceLayer}
+ * <h1>The Service Layer</h1> {@insert ServiceLayer}
  * 
- * <h1>The Infrastructure Layer</H1> {@insert InfrastructureLayer}
+ * <h1>The Infrastructure Layer</h1> {@insert InfrastructureLayer}
  * 
- * <h1>The Provider Layer</H1> {@insert ProviderLayer}
+ * <h1>The Provider Layer</h1> {@insert ProviderLayer}
  * 
- * <h1>The UserInterface Layer</H1> {@insert UserInterfaceLayer}
+ * <h1>The UserInterface Layer</h1> {@insert UserInterfaceLayer}
  * 
  * <h1>Action Methods</h1> {@insert ActionMethod}
  * 
@@ -39,7 +37,7 @@ import nth.reflect.fw.ReflectFramework;
  * The documentation of the {@link ReflectFramework} is generated from its
  * JavaDoc (starting with the {@link ReflectDocumentation} file) and is
  * published in different formats and at different locations with help of the
- * SoftwareDocumentationGenerator:
+ * {@link ReflectUtilMavenPlugin}:
  * </p>
  * <ul>
  * <li><a href=

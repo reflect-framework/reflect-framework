@@ -26,9 +26,9 @@ import nth.reflect.fw.layer3domain.DomainObject;
  * without writing any
  * <a href="https://en.wikipedia.org/wiki/User_interface">user interface</a>
  * code. This means that the {@link ReflectFramework} is ideal for rapid
- * prototyping, rapid development, rapid protyping
+ * development and rapid prototyping
  * (<a href="https://en.wikipedia.org/wiki/Domain-driven_design">Domain Driven
- * Design</a>) or to learn programming (e.g.
+ * Design</a>) or to teach or learn programming (e.g.
  * <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object
  * Oriented Programming</a>).
  * </p>
