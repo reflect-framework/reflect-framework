@@ -9,7 +9,6 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldFactoryNotFoundException;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.TextFieldFactory;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.TextFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
@@ -37,7 +36,8 @@ public class TextFieldFactoryTest extends FieldFactoryTest {
 
 	@Test
 	public void testCanCreate_givenDomainOject_mustReturnFalse() {
-		assertCanCreate(textFieldFactory, AllFeatureDomainObject.GET_MY_DOMAIN_OBJECT, false);
+		assertCanCreate(textFieldFactory, AllFeatureDomainObject.GET_MY_DOMAIN_OBJECT, true);
+		// StringConverters without fromString must be readonly fields
 	}
 
 	@Test
@@ -63,46 +63,6 @@ public class TextFieldFactoryTest extends FieldFactoryTest {
 	@Test
 	public void testCanCreate_givenCharacter_mustReturnTrue() {
 		assertCanCreate(textFieldFactory, AllFeatureDomainObject.GET_MY_CHARACTER, true);
-	}
-
-	@Test
-	public void testIsCharacterType_givenInteger_mustReturnFalse() {
-		assertThat(TextFieldFactory.isCharacterType(Integer.class)).isEqualTo(false);
-	}
-
-	@Test
-	public void testIsCharacterType_givenPrimitiveChar_mustReturnTrue() {
-		assertThat(TextFieldFactory.isCharacterType(char.class)).isEqualTo(true);
-	}
-
-	@Test
-	public void testIsCharacterType_givenCharacter_mustReturnTrue() {
-		assertThat(TextFieldFactory.isCharacterType(Character.class)).isEqualTo(true);
-	}
-
-	@Test
-	public void testIsStringType_givenInteger_MustReturnFalse() {
-		assertThat(TextFieldFactory.isStringType(Integer.class)).isEqualTo(false);
-	}
-
-	@Test
-	public void testIsStringType_givenString_MustReturnTrue() {
-		assertThat(TextFieldFactory.isStringType(String.class)).isEqualTo(true);
-	}
-
-	@Test
-	public void testIsNumberType_givenString_mustReturnFalse() {
-		assertThat(TextFieldFactory.isNumberType(String.class)).isEqualTo(false);
-	}
-
-	@Test
-	public void testIsNumberType_givenPrimitiveInt_mustReturnTrue() {
-		assertThat(TextFieldFactory.isNumberType(int.class)).isEqualTo(true);
-	}
-
-	@Test
-	public void testIsNumberType_givenShort_mustReturnTrue() {
-		assertThat(TextFieldFactory.isNumberType(Short.class)).isEqualTo(true);
 	}
 
 	@Test

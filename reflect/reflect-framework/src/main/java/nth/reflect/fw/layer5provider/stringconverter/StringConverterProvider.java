@@ -25,7 +25,7 @@ import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
  * You can append or override custom {@link StringConverter}s by overriding the
  * {@link ReflectApplication#getStringConverterProviderClass()} method.
  * <p>
- * {@insert DefaultStringConverters}
+ * {@insert StringConverterFactories}
  * 
  * @author nilsth
  *

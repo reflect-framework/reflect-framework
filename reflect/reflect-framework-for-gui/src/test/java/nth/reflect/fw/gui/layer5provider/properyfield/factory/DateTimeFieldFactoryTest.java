@@ -11,7 +11,6 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldFactoryNotFoundException;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.DateTimeFieldFactory;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;

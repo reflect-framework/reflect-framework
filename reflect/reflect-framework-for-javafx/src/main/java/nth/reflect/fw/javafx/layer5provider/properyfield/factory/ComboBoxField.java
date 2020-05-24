@@ -8,7 +8,8 @@ import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 
-public class ComboBoxField extends ToDoField {
+public class ComboBoxField extends ToDoField
+		implements nth.reflect.fw.gui.layer5provider.properyfield.factory.ComboBoxField {
 //TODO fix#99
 
 	public ComboBoxField(PropertyValueModel propertyValueModel, ReflectionProvider reflectionProvider,

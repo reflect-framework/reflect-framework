@@ -11,6 +11,7 @@ import nth.reflect.fw.gui.layer5provider.properyfield.factory.PropertyFieldFacto
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.javafx.layer5provider.actionmethod.result.ActionMethodResultHandlerClasses;
+import nth.reflect.fw.javafx.layer5provider.properyfield.PropertyFieldFactoryClasses;
 import nth.reflect.fw.javafx.layer5provider.url.UrlStreamHandlers;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
@@ -139,7 +140,7 @@ public abstract class ReflectApplicationForJavaFX extends Application implements
 
 	@Override
 	public List<Class<? extends PropertyFieldFactory>> getPropertyFieldFactoryClasses() {
-		return new PropertyFieldFactories();
+		return new PropertyFieldFactoryClasses();
 	}
 
 	@Override

@@ -30,7 +30,7 @@ import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
 import nth.reflect.fw.swing.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.swing.layer5provider.actionmethod.result.ActionMethodResultHandlerClasses;
-import nth.reflect.fw.swing.layer5provider.properyfield.PropertyFieldFactories;
+import nth.reflect.fw.swing.layer5provider.properyfield.PropertyFieldFactoryClasses;
 
 /**
  * {@link ReflectApplicationForSwing} is an implementation of the
@@ -115,7 +115,7 @@ public abstract class ReflectApplicationForSwing implements GraphicalUserInterfa
 
 	@Override
 	public List<Class<? extends PropertyFieldFactory>> getPropertyFieldFactoryClasses() {
-		return new PropertyFieldFactories();
+		return new PropertyFieldFactoryClasses();
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.beans.value.ObservableValue;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldStyle;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -15,7 +14,8 @@ import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.stringconverter.generic.StringConverter;
 
-public class TextField extends JFXTextField implements PropertyField {
+public class TextField extends JFXTextField
+		implements nth.reflect.fw.gui.layer5provider.properyfield.factory.TextField {
 
 	private final PropertyValueModel propertyValueModel;
 
@@ -36,7 +36,9 @@ public class TextField extends JFXTextField implements PropertyField {
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(TextField.class)).getProperties()
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(TextField.class))
+				.getProperties()
 				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
 				.setProperty("-jfx-focus-color", ReflectColorName.ACCENT.BACKGROUND())
 				.setProperty("-jfx-unfocus-color", ReflectColorName.CONTENT.BACKGROUND_12())

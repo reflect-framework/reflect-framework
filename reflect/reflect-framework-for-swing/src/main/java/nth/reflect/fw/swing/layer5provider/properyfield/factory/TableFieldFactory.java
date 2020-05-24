@@ -4,13 +4,12 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 
-public class OneToOneOrManyFieldFactory
-		extends nth.reflect.fw.gui.layer5provider.properyfield.factory.OneToOneOrManyFieldFactory {
+public class TableFieldFactory
+		extends nth.reflect.fw.gui.layer5provider.properyfield.factory.TableFieldFactory {
 
 	@Override
 	public PropertyField create(FormTab formTab, PropertyValueModel propertyValueModel) {
-		OneToOneOrManyField oneToOneOrManyField = new OneToOneOrManyField(formTab, propertyValueModel);
-		return oneToOneOrManyField;
+		TableField tableField = new TableField(formTab, propertyValueModel);
+		return tableField;
 	}
-
 }

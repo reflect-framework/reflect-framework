@@ -11,8 +11,6 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.DateTimeFieldFactory;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.PropertyFieldFactory;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;

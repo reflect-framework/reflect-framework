@@ -7,7 +7,6 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldFactoryNotFoundException;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.CheckBoxFieldFactory;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 
 public class CheckBoxFieldFactoryTest extends FieldFactoryTest {

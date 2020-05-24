@@ -7,7 +7,8 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldModeType;
 
-public class DateTimeField extends ToDoField {
+public class DateTimeField extends ToDoField
+		implements nth.reflect.fw.gui.layer5provider.properyfield.factory.DateTimeField {
 
 	public DateTimeField(PropertyValueModel propertyValueModel, DateTimeFieldModeType mode) {
 		// TODO Auto-generated constructor stub

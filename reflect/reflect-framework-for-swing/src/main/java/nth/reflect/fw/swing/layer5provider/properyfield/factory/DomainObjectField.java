@@ -19,7 +19,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -30,14 +29,15 @@ import nth.reflect.fw.layer5provider.reflection.info.classinfo.DomainClassInfo;
 import nth.reflect.fw.swing.item.popupmenu.PopupMenu;
 
 //public class OneToOneField extends DropDownTextField implements Refreshable {
-public class OneToOneOrManyField extends DropDownTextfield<JTextField> implements PropertyField {
+public class DomainObjectField extends DropDownTextfield<JTextField>
+		implements nth.reflect.fw.gui.layer5provider.properyfield.factory.DomainObjectField {
 
 	private static final long serialVersionUID = -567238728222479488L;
 	private final PropertyValueModel propertyValueModel;
 	private final FormTab formTab;
 	private boolean allowTextChange;
 
-	public OneToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
+	public DomainObjectField(FormTab formTab, PropertyValueModel propertyValueModel) {
 		this.formTab = formTab;
 		this.propertyValueModel = propertyValueModel;
 		this.allowTextChange = false;

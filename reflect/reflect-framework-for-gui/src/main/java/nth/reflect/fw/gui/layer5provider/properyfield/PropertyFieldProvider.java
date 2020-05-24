@@ -18,17 +18,23 @@ import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
 
 /**
  * <p>
- * The {@link PropertyFieldProvider} is a {@link Provider} that creates all
- * {@link PropertyField}s. All
+ * The {@link PropertyFieldProvider} is a {@link Provider} that creates
+ * {@link PropertyField}s using {@link PropertyFieldFactory}s. These are
+ * configured in the {@link ReflectApplication}:
+ * <ul>
+ * <li>{@link PropertyFieldProvider} with the
  * {@link GraphicalUserInterfaceApplication#getPropertyFieldProviderClass()}
- * return a {@link PropertyFieldProvider} that contains
- * {@link PropertyFieldFactory}s to create a {@link PropertyField} for the most
- * common data types.
- * </p>
+ * method</li>
+ * <li>{@link PropertyFieldFactory}s with the
+ * {@link GraphicalUserInterfaceApplication#getPropertyFieldFactoryClasses()}
+ * method</li>
+ * </ul>
+ * <p>
+ * {@insert PropertyFieldFactories}
  * <p>
  * You can add custom fields by implementing {@link PropertyField} and
  * {@link PropertyFieldFactory} and overriding the
- * {@link GraphicalUserInterfaceApplication#getPropertyFieldProviderClass()}.
+ * {@link GraphicalUserInterfaceApplication#getPropertyFieldFactoryClasses()}.
  * Look at the existing implementations for inspiration.
  * <p>
  * 

@@ -1,5 +1,8 @@
 package nth.reflect.fw.swing.layer5provider.properyfield.factory;
 
+import java.util.Optional;
+
+import nth.reflect.fw.generic.util.PrimitiveType;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
@@ -18,6 +21,23 @@ public class TextFieldFactory extends nth.reflect.fw.gui.layer5provider.properyf
 		} else {
 			return createCharField(propertyValueModel);
 		}
+	}
+
+	public static boolean isCharacterType(Class<?> propertyType) {
+		boolean propertyIsCharType = propertyType == char.class || propertyType == Character.class;
+		return propertyIsCharType;
+	}
+
+	public static boolean isStringType(Class<?> propertyType) {
+		return propertyType == String.class;
+	}
+
+	public static boolean isNumberType(Class<?> propertyType) {
+		Optional<Class<?>> primitiveWrapperType = PrimitiveType.primitiveToWrapper(propertyType);
+		if (primitiveWrapperType.isPresent()) {
+			propertyType = primitiveWrapperType.get();
+		}
+		return Number.class.isAssignableFrom(propertyType);
 	}
 
 	private PropertyField createCharField(PropertyValueModel propertyValueModel) {

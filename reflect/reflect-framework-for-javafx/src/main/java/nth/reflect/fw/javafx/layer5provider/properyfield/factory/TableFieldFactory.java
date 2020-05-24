@@ -8,8 +8,8 @@ public class TableFieldFactory extends nth.reflect.fw.gui.layer5provider.propery
 
 	@Override
 	public PropertyField create(FormTab formTab, PropertyValueModel propertyValueModel) {
-		ManyToOneOrManyField manyToOneOrManyField = new ManyToOneOrManyField(formTab, propertyValueModel);
-		return manyToOneOrManyField;
+		TableField tableField = new TableField(formTab, propertyValueModel);
+		return tableField;
 	}
 
 }

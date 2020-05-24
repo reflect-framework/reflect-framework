@@ -19,7 +19,6 @@ import javax.swing.KeyStroke;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldStyle;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.menu.PropertyPanelMenuItems;
@@ -31,7 +30,7 @@ import nth.reflect.fw.swing.item.popupmenu.PopupMenu;
 import nth.reflect.fw.swing.style.ColorUtil;
 import nth.reflect.fw.swing.tab.table.MethodTableModel;
 
-public class ManyToOneOrManyField extends JPanel implements PropertyField {
+public class TableField extends JPanel implements nth.reflect.fw.gui.layer5provider.properyfield.factory.TableField {
 
 	private static final int ROW_HEIGHT = 22;
 	private static final long serialVersionUID = -3143477177672443570L;
@@ -44,7 +43,7 @@ public class ManyToOneOrManyField extends JPanel implements PropertyField {
 	private final FormTab formTab;
 	private ReadOnlyValueModel selectedRowModel;
 
-	public ManyToOneOrManyField(FormTab formTab, PropertyValueModel propertyValueModel) {
+	public TableField(FormTab formTab, PropertyValueModel propertyValueModel) {
 		this.formTab = formTab;
 		this.propertyValueModel = propertyValueModel;
 

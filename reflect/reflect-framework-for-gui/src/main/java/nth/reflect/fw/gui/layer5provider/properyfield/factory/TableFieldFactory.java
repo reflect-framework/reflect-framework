@@ -4,7 +4,16 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.component.table.info.TableInfoForFormTabProperty;
 import nth.reflect.fw.gui.component.table.info.column.TableInfoException;
+import nth.reflect.fw.gui.component.table.info.dataprovider.DataProviderFactory;
 
+/**
+ * {@link TableField}
+ * <p>
+ * {@link DataProviderFactory}
+ * 
+ * @author nilsth
+ *
+ */
 public abstract class TableFieldFactory implements PropertyFieldFactory {
 
 	/**

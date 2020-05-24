@@ -4,6 +4,18 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
+/**
+ * {@insert CheckBoxField}
+ * <p>
+ * Supports:
+ * <ul>
+ * <li>Primitive boolean</li>
+ * <li>{@link java.lang.Boolean}</li>
+ * </ul>
+ * 
+ * @author nilsth
+ *
+ */
 public abstract class CheckBoxFieldFactory implements PropertyFieldFactory {
 
 	@Override

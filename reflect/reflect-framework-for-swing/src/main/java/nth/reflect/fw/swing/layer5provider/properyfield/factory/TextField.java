@@ -6,13 +6,12 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWidth;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
 
 @SuppressWarnings("serial")
-public class TextField extends JTextField implements PropertyField {
+public class TextField extends JTextField implements nth.reflect.fw.gui.layer5provider.properyfield.factory.TextField {
 
 	public TextField(PropertyValueModel propertyValueModel) {
 		getDocument().addDocumentListener(createUpdater(propertyValueModel));

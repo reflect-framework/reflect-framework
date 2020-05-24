@@ -7,6 +7,14 @@ import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer5provider.reflection.behavior.fieldmode.DateTimeFieldModeType;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
+/**
+ * {@insert DateTimeField}
+ * <p>
+ * {@insert DateTimeFieldModeType}
+ * 
+ * @author nilsth
+ *
+ */
 public abstract class DateTimeFieldFactory implements PropertyFieldFactory {
 
 	@Override

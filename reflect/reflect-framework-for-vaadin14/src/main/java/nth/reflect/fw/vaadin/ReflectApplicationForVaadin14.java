@@ -39,7 +39,7 @@ import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
 import nth.reflect.fw.vaadin.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.ActionMethodResultHandelerClasses;
-import nth.reflect.fw.vaadin.layer5provider.properyfield.PropertyFieldFactories;
+import nth.reflect.fw.vaadin.layer5provider.properyfield.PropertyFieldFactoryClasses;
 import nth.reflect.fw.vaadin.mainwindow.MainWindow;
 
 /**
@@ -207,7 +207,7 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 
 	@Override
 	public List<Class<? extends PropertyFieldFactory>> getPropertyFieldFactoryClasses() {
-		return new PropertyFieldFactories();
+		return new PropertyFieldFactoryClasses();
 	}
 
 	@Override

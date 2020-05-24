@@ -7,11 +7,9 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldFactoryNotFoundException;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.OneToOneOrManyFieldFactory;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.PropertyFieldFactory;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 
-public class OneToOneOrManyFieldFactoryTest extends FieldFactoryTest {
+public class DomainObjectFieldFactoryTest extends FieldFactoryTest {
 
 	private PropertyFieldFactory fieldFactory;
 
@@ -23,7 +21,7 @@ public class OneToOneOrManyFieldFactoryTest extends FieldFactoryTest {
 	}
 
 	private PropertyFieldFactory createOneToOneOrManyFieldFactory() {
-		return new OneToOneOrManyFieldFactory() {
+		return new DomainObjectFieldFactory() {
 			@Override
 			public PropertyField create(FormTab formTab, PropertyValueModel propertyValueModel)
 					throws PropertyFieldFactoryNotFoundException {

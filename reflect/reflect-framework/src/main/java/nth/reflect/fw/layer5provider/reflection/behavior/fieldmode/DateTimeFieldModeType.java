@@ -11,6 +11,19 @@ import java.util.Optional;
 import nth.reflect.fw.generic.util.StringUtil;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
+/**
+ * Supports:
+ * <ul>
+ * <li>{@link java.util.Date}</li>
+ * <li>{@link java.util.Calendar}</li>
+ * <li>{@link java.time.LocalDate}</li>
+ * <li>{@link java.time.LocalTime}</li>
+ * <li>{@link java.time.LocalDateTime}</li>
+ * </ul>
+ * 
+ * @author nilsth
+ *
+ */
 public enum DateTimeFieldModeType {
 	DATE, TIME, DATE_TIME;
 
@@ -45,7 +58,7 @@ public enum DateTimeFieldModeType {
 
 	private static DateTimeFieldModeType getFromFormatPattern(PropertyInfo propertyInfo) {
 		String formatPattern = propertyInfo.getFormatPattern();
-		if (formatPattern==null) {
+		if (formatPattern == null) {
 			return DATE_TIME;
 		}
 		boolean hasDate = false;

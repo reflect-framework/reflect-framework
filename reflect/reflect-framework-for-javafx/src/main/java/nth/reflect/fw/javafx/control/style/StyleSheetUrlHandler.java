@@ -28,7 +28,7 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyValidationLabel;
 import nth.reflect.fw.javafx.control.table.Table;
 import nth.reflect.fw.javafx.control.toolbar.Toolbar;
 import nth.reflect.fw.javafx.layer5provider.properyfield.factory.CheckBoxField;
-import nth.reflect.fw.javafx.layer5provider.properyfield.factory.ManyToOneOrManyField;
+import nth.reflect.fw.javafx.layer5provider.properyfield.factory.TableField;
 import nth.reflect.fw.javafx.layer5provider.properyfield.factory.TextField;
 import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
 
@@ -65,7 +65,7 @@ public class StyleSheetUrlHandler extends ReflectUrlStreamHandler {
 	private void appendFields(StyleSheet styleSheet) {
 		TextField.appendStyleGroups(styleSheet);
 		CheckBoxField.appendStyleGroups(styleSheet);
-		ManyToOneOrManyField.appendStyleGroups(styleSheet);
+		TableField.appendStyleGroups(styleSheet);
 	}
 
 	private void appendPropertyPanel(StyleSheet styleSheet) {

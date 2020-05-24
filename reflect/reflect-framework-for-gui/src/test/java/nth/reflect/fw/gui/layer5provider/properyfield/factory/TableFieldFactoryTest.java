@@ -7,7 +7,6 @@ import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldFactoryNotFoundException;
-import nth.reflect.fw.gui.layer5provider.properyfield.factory.TableFieldFactory;
 import nth.reflect.fw.layer3domain.AllFeatureDomainObject;
 
 public class TableFieldFactoryTest extends FieldFactoryTest {
@@ -18,10 +17,10 @@ public class TableFieldFactoryTest extends FieldFactoryTest {
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		tableFieldFactory = createTavleFieldFactory();
+		tableFieldFactory = createTableFieldFactory();
 	}
 
-	private TableFieldFactory createTavleFieldFactory() {
+	private TableFieldFactory createTableFieldFactory() {
 		return new TableFieldFactory() {
 			@Override
 			public PropertyField create(FormTab formTab, PropertyValueModel propertyValueModel)

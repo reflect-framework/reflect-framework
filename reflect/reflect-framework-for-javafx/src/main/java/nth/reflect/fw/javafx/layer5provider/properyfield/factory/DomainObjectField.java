@@ -7,9 +7,10 @@ import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyFieldWi
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
 import nth.reflect.fw.layer1userinterface.item.Item;
 
-public class OneToOneOrManyField extends TextField {
+public class DomainObjectField extends TextField
+		implements nth.reflect.fw.gui.layer5provider.properyfield.factory.DomainObjectField {
 
-	public OneToOneOrManyField(PropertyValueModel propertyValueModel) {
+	public DomainObjectField(PropertyValueModel propertyValueModel) {
 		super(propertyValueModel);
 		setEnabled(false);
 	}
@@ -25,7 +26,7 @@ public class OneToOneOrManyField extends TextField {
 	}
 
 	/**
-	 * {@link OneToOneOrManyField} is not editable for now (only via
+	 * {@link DomainObjectField} is not editable for now (only via
 	 * {@link PropertyActionMethod}s).
 	 */
 	@SuppressWarnings("restriction")
@@ -35,7 +36,7 @@ public class OneToOneOrManyField extends TextField {
 	}
 
 	/**
-	 * {@link OneToOneOrManyField} is not editable for now, so propertyValue is not
+	 * {@link DomainObjectField} is not editable for now, so propertyValue is not
 	 * set via onChangeListener (only via {@link PropertyActionMethod}s).
 	 */
 	@Override

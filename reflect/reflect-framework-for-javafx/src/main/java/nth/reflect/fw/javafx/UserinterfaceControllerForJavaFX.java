@@ -32,18 +32,11 @@ import nth.reflect.fw.stream.UploadStream;
 
 public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
-//	private static final TranslatableString ERROR_DIALOG_TITLE = new TranslatableString(
-//			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".error.dialog.title", "Error");
-//	private static final TranslatableString ERROR_OPEN_URI_MESSAGE = new TranslatableString(
-//			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".error.open.uri.message",
-//			"Error opening URI: %s");
-//	private static final TranslatableString ERROR_SAVE_FIlE_MESSAGE = new TranslatableString(
-//			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".error.file.save.message",
-//			"Error saving file.");
 	private static final TranslatableString INFO_DIALOG_TITLE = new TranslatableString(
 			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".info.dialog.title", "Info");
 	private MainWindow mainWindow;
 	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
+	private nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory propertyPanelFactory;
 
 	public UserinterfaceControllerForJavaFX(UserInterfaceContainer container) {
 		super(container);
@@ -134,8 +127,12 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 
 	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
-		PropertyFieldProvider propertyFieldProvider = container.get(PropertyFieldProvider.class);
-		return new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(propertyFieldProvider);
+		if (propertyPanelFactory == null) {
+			PropertyFieldProvider propertyFieldProvider = container.get(PropertyFieldProvider.class);
+			propertyPanelFactory = new nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanelFactory(
+					propertyFieldProvider);
+		}
+		return propertyPanelFactory;
 	}
 
 	@Override

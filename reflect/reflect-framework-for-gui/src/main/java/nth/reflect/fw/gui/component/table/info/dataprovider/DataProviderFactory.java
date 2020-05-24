@@ -16,8 +16,14 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
 
 /**
- * Create for arrays, Collections, Iterators, Streams, Callbacks, DataProviders
- * otherwise throw {@link MethodReturnTypeNotSupportedException}
+ * Supports:
+ * <ul>
+ * <li>Array</li>
+ * <li>{@link java.util.Collection}</li>
+ * <li>{@link java.util.Iterator}</li>
+ * <li>{@link java.util.stream.Stream}</li>
+ * <li>{@link com.vaadin.flow.data.provider.DataProvider}</li>
+ * </ul>
  * 
  * @see MethodReturnTypeNotSupportedException
  * @see GettingTableValuesException
