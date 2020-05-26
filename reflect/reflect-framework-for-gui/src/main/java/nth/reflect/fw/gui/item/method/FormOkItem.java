@@ -5,7 +5,6 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -25,12 +24,8 @@ public class FormOkItem extends MethodItem {
 	private Action createAction(final FormTab formTab, Object methodOwner, final ActionMethodInfo methodInfo,
 			final BufferedDomainValueModel domainValueModel) {
 
-		GraphicalUserinterfaceController userInterface = formTab
-				.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class);
 		UserInterfaceContainer container = formTab.getUserInterfaceContainer();
-		ActionMethodExecutionProvider actionMethodExecutionProvider = container
-				.get(ActionMethodExecutionProvider.class);
+		GraphicalUserinterfaceController userInterface = container.get(GraphicalUserinterfaceController.class);
 
 		return new Action() {
 			@SuppressWarnings("unchecked")
@@ -44,7 +39,7 @@ public class FormOkItem extends MethodItem {
 						domainValueModel.commit();
 					}
 				}
-				actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, domainValueModel.getValue());
+				methodInfo.execute(container, methodOwner, domainValueModel.getValue());
 				userInterface.getTabs().remove(formTab);
 			}
 

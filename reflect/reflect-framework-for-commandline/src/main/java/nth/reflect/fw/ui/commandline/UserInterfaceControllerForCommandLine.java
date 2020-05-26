@@ -11,7 +11,6 @@ import nth.reflect.fw.generic.util.ExceptionUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
@@ -27,12 +26,10 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			UserInterfaceController.class.getCanonicalName() + ".error.dialog.executing.command",
 			"Error executing a command");
 	private final ProviderContainer providerContainer;
-	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
 	public UserInterfaceControllerForCommandLine(UserInterfaceContainer container) {
 		super(container);
 		this.providerContainer = container.get(ProviderContainer.class);
-		this.actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 	}
 
 	@Override
@@ -133,7 +130,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	@Override
 	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		try {
-			actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, methodParameter);
+			methodInfo.execute(container, methodOwner, methodParameter);
 		} catch (Exception exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString actionMethodTitle = methodInfo.getTitle(methodParameter);

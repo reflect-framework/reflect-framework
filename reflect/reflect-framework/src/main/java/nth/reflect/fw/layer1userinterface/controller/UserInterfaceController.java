@@ -5,7 +5,6 @@ import java.util.Optional;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.documentation.ReflectArchitecture;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationListener;
@@ -61,13 +60,11 @@ public abstract class UserInterfaceController implements NotificationListener {
 	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;
 	protected final UserInterfaceContainer container;
-	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
 	public UserInterfaceController(UserInterfaceContainer container) {
 		this.container = container;
 		this.reflectionProvider = container.get(ReflectionProvider.class);
 		this.languageProvider = container.get(LanguageProvider.class);
-		actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 	}
 
 	/**
@@ -123,7 +120,7 @@ public abstract class UserInterfaceController implements NotificationListener {
 				methodInfo.invokeConfirmMethod(this, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
-				actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, methodParameter);
+				methodInfo.execute(container, methodOwner, methodParameter);
 				break;
 			}
 		} catch (Throwable throwable) {

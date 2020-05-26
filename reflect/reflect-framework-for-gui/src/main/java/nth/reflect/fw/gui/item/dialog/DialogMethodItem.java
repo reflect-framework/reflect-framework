@@ -4,7 +4,6 @@ import java.net.URL;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -31,12 +30,10 @@ public class DialogMethodItem extends Item {
 
 	private Action createAction(UserInterfaceContainer container, final Object methodOwner,
 			final ActionMethodInfo methodInfo, final Object methodParameter) {
-		ActionMethodExecutionProvider actionMethodExecutionProvider = container
-				.get(ActionMethodExecutionProvider.class);
 		return new Action() {
 			@Override
 			public void run() {
-				actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, methodParameter);
+				methodInfo.execute(container, methodOwner, methodParameter);
 				;
 			}
 		};

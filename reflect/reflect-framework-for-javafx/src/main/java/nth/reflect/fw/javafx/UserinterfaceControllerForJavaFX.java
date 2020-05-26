@@ -120,7 +120,7 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());
 		if (selectedFile != null) {
 			uploadStream.setFile(selectedFile);
-			actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, uploadStream);
+			methodInfo.execute(container, methodOwner, uploadStream);
 		}
 
 	}

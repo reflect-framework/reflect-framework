@@ -12,6 +12,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
@@ -84,6 +85,7 @@ public class ActionMethodInfo implements NameInfo {
 	private final boolean isReadOnly;
 	private final ReflectionProvider reflectionProvider;
 	private final ActionMethodResultHandler actionMethodResultHandler;
+	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
 	public ActionMethodInfo(ProviderContainer container, Method method, String propertyName) {
 		this.simpleName = createSimpleName(method, propertyName);
@@ -98,6 +100,7 @@ public class ActionMethodInfo implements NameInfo {
 		Class<? extends UserInterfaceController> controllerClass = application.getUserInterfaceControllerClass();
 		LanguageProvider languageProvider = container.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = container.get(AuthorizationProvider.class);
+		this.actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 		this.reflectionProvider = container.get(ReflectionProvider.class);
 		this.executionMode = ExecutionModeFactory.create(method);
 		this.returnTypeInfo = createReturnTypeInfo(application, method);
@@ -117,8 +120,7 @@ public class ActionMethodInfo implements NameInfo {
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
 		this.isReadOnly = method.isAnnotationPresent(ReadOnlyActionMethod.class);
-		ActionMethodResultProvider actionMethodResultProvider = container
-				.get(ActionMethodResultProvider.class);
+		ActionMethodResultProvider actionMethodResultProvider = container.get(ActionMethodResultProvider.class);
 		this.actionMethodResultHandler = actionMethodResultProvider.getActionMethodResultHandler(container, this);
 	}
 
@@ -336,6 +338,24 @@ public class ActionMethodInfo implements NameInfo {
 			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
 			userInterface.showError(title, message, exception);
 		}
+	}
+
+	/**
+	 * This method is called from {@link ActionMethodInfo#execute(Object, Object)}
+	 * by {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from the
+	 * {@link FormOkItem} linked to the OK button <br>
+	 * It needs the check if the method is enabled before the method is executed
+	 * <br>
+	 * It needs to validate the method parameter value before the method is executed
+	 * 
+	 * @param methodOwner          Domain or service object that owns the method
+	 * @param methodParameterValue The value of the {@link ActionMethod} parameter
+	 * @throws Exception
+	 * 
+	 */
+
+	public void execute(UserInterfaceContainer container, Object methodOwner, Object methodParameter) {
+		actionMethodExecutionProvider.execute(container, methodOwner, this, methodParameter);
 	}
 
 	/**

@@ -14,7 +14,6 @@ import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.stream.UploadStream;
@@ -29,11 +28,9 @@ import nth.reflect.fw.swing.tab.form.proppanel.PropertyPanelFactory;
 public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
 
 	private MainWindow mainWindow;
-	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
 	public UserinterfaceControllerForSwing(UserInterfaceContainer container) {
 		super(container);
-		actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceContr
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fc.getSelectedFile();
 			uploadStream.setFile(selectedFile);
-			actionMethodExecutionProvider.execute(container, methodOwner, methodInfo, uploadStream);
+			methodInfo.execute(container, methodOwner, uploadStream);
 		}
 	};
 
