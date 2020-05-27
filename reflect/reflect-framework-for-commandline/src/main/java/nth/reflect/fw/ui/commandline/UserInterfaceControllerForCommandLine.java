@@ -122,12 +122,9 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	}
 
 	/**
-	 * Overriding this method for the {@link UserInterfaceControllerForCommandLine}
-	 * because a command line application only supports
-	 * {@link ExecutionModeType.EXECUTE_METHOD_DIRECTLY} only so we can call
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 * A {@link UserInterfaceControllerForCommandLine} only supports
+	 * {@link ExecutionModeType.EXECUTE_METHOD_DIRECTLY}
 	 */
-	@Override
 	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		try {
 			methodInfo.execute(container, methodOwner, methodParameter);
@@ -137,7 +134,6 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 			TranslatableString message = ERROR_SHOW_RESULT.withParameters(actionMethodTitle);
 			showError(title, message, exception);
 		}
-
 	}
 
 	private boolean isCommandFile(String[] arguments) {

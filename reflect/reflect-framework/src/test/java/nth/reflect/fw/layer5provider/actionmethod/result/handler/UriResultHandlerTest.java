@@ -84,7 +84,7 @@ public class UriResultHandlerTest {
 		Object methodResult = new ResultHandlerSerice().openServiceMethodUri();
 		log.clear();
 		resultHandler.process(container, serviceObject, actionMethodInfo, methodParameter, methodResult);
-		String expected = "processActionMethod(" + ResultHandlerSerice.class.getCanonicalName();
+		String expected = "execute(" + ResultHandlerSerice.class.getCanonicalName();
 		assertThat(log.get(0)).startsWith(expected);
 	}
 

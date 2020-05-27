@@ -4,7 +4,6 @@ import java.net.URL;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer3domain.DomainObjectActionMethod;
@@ -28,22 +27,20 @@ public class MethodItem extends Item {
 	 * Wraps a {@link ActionMethodInfo} in a {@link Item} by overwriting the getters
 	 * 
 	 * @param methodOwner
-	 * @param actionMethodInfo
+	 * @param methodInfo
 	 */
-	public MethodItem(final UserInterfaceContainer userInterfaceContainer, final Object methodOwner,
-			final ActionMethodInfo actionMethodInfo, final ReadOnlyValueModel methodParameterValueModel) {
-		super(userInterfaceContainer.get(LanguageProvider.class));
+	public MethodItem(final UserInterfaceContainer container, final Object methodOwner,
+			final ActionMethodInfo methodInfo, final ReadOnlyValueModel methodParameterValueModel) {
+		super(container.get(LanguageProvider.class));
 		this.methodOwner = methodOwner;
-		this.actionMethodInfo = actionMethodInfo;
+		this.actionMethodInfo = methodInfo;
 		this.methodParameterValueModel = methodParameterValueModel;
-		final UserInterfaceController userInterfaceController = userInterfaceContainer
-				.get(UserInterfaceController.class);
 		setAction(new Action() {
 			@Override
 			public void run() {
 				Object methodParameterValue = (methodParameterValueModel == null) ? null
 						: methodParameterValueModel.getValue();
-				userInterfaceController.processActionMethod(methodOwner, actionMethodInfo, methodParameterValue);
+				methodInfo.process(container, methodOwner, methodParameterValue);
 			}
 
 		});

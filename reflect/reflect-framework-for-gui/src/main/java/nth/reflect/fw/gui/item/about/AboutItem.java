@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.List;
 
 import nth.reflect.fw.gui.style.fontawesome.FontAwesomeUrl;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -19,10 +19,12 @@ public class AboutItem extends Item {
 	private static final String ABOUT_METHOD = "about";
 	private static final TranslatableString ABOUT_TEXT = new TranslatableString(
 			AboutItem.class.getCanonicalName() + ".text", "About");
+	protected static final Object NO_PARAMETER = null;
 
-	public AboutItem(final UserInterfaceController userInterfaceController, final ReflectionProvider reflectionProvider,
-			LanguageProvider languageProvider, final VersionProvider versionProvider) {
-		super(languageProvider);
+	public AboutItem(final UserInterfaceContainer container) {
+		super(container.get(LanguageProvider.class));
+		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
+		VersionProvider versionProvider = container.get(VersionProvider.class);
 		setText(ABOUT_TEXT);
 		setDescription(ABOUT_TEXT);
 		try {
@@ -38,7 +40,7 @@ public class AboutItem extends Item {
 				List<ActionMethodInfo> actionMethodInfos = domainClassInfo.getActionMethodInfos(methodFilter);
 				if (actionMethodInfos.size() == 1) {
 					ActionMethodInfo actionMethodInfo = actionMethodInfos.get(0);
-					userInterfaceController.processActionMethod(versionProvider, actionMethodInfo, null);
+					actionMethodInfo.process(container, versionProvider, NO_PARAMETER);
 				} else {
 					throw new NoAboutMethodException(versionProvider, ABOUT_METHOD);
 				}

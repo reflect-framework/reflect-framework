@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.MethodCanonicalName;
@@ -342,7 +343,7 @@ public class ActionMethodInfo implements NameInfo {
 
 	/**
 	 * This method is called from {@link ActionMethodInfo#execute(Object, Object)}
-	 * by {@link #processActionMethod(Object, ActionMethodInfo, Object)} or from the
+	 * by {@link #process(Object, ActionMethodInfo, Object)} or from the
 	 * {@link FormOkItem} linked to the OK button <br>
 	 * It needs the check if the method is enabled before the method is executed
 	 * <br>
@@ -356,6 +357,75 @@ public class ActionMethodInfo implements NameInfo {
 
 	public void execute(UserInterfaceContainer container, Object methodOwner, Object methodParameter) {
 		actionMethodExecutionProvider.execute(container, methodOwner, this, methodParameter);
+	}
+
+	/**
+	 * This method is called when a user sends an command to the
+	 * {@link UserInterfaceController}. this can come from different sources such
+	 * as:
+	 * <ul>
+	 * <li>command line</li>
+	 * <li>graphical user interface (when the user activates a menu item)</li>
+	 * <li>http request from a SOAP or Restfull client</li>
+	 * <li>etc</li>
+	 * </ul>
+	 * This method will process the {@link ActionMethod} parameter (depending on how
+	 * it is annotated):
+	 * <ul>
+	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_DIRECTLY }: Will call
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
+	 * directly (i.e. when there is no {@link ActionMethod} parameter)</li>
+	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will ask
+	 * the user for confirmation before the {@link ActionMethod} is executed. To do
+	 * this it will call one of the confirmActionMethodParameter(...) methods in the
+	 * {@link UserInterfaceController} implementation. After the confirmation the
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs
+	 * to be called (i.e. by a OK button).</li>
+	 * <li>{@link ExecutionModeType#EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL }:
+	 * Will let the user edit the {@link ActionMethod} parameter before the
+	 * {@link ActionMethod} is executed. To do this it will call one of the
+	 * editActionMethodParameter(...) methods in the {@link UserInterfaceController}
+	 * implementation. After the confirmation the
+	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs
+	 * to be called (i.e. by a OK button).</li>
+	 * </ul>
+	 * 
+	 * @param methodOwner     Domain or service object that owns the method
+	 * @param methodInfo      {@link ActionMethodInfo} contains information on an
+	 *                        {@link ActionMethod}
+	 * @param methodParameter The value of the {@link ActionMethod} parameter
+	 */
+
+	public void process(UserInterfaceContainer container, Object methodOwner, Object methodParameter) {
+
+		UserInterfaceController userInterface = container.get(UserInterfaceController.class);
+
+		try {
+			if (methodParameter == null && hasParameter() || hasParameterFactory()) {
+				methodParameter = createMethodParameter(methodOwner);
+			}
+
+			ExecutionModeType executionMode = getExecutionMode();
+
+			switch (executionMode) {
+			case EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL:
+				invokeEditParameterMethod(userInterface, methodOwner, methodParameter);
+				break;
+			case EXECUTE_METHOD_AFTER_CONFORMATION:
+				invokeConfirmMethod(userInterface, methodOwner, methodParameter);
+				break;
+			case EXECUTE_METHOD_DIRECTLY:
+				execute(container, methodOwner, methodParameter);
+				break;
+			}
+		} catch (Throwable throwable) {
+			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
+			Optional<Object> optionalMethodParameter = Optional.ofNullable(methodParameter);
+			TranslatableString actionMethodTitle = getTitle(optionalMethodParameter);
+			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
+			userInterface.showError(title, message, throwable);
+		}
+
 	}
 
 	/**

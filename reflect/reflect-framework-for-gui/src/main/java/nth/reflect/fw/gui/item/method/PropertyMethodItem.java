@@ -4,6 +4,7 @@ import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
 import nth.reflect.fw.gui.GraphicalUserinterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.DomainObjectPropertyActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.property.PropertyInfo;
@@ -21,12 +22,14 @@ public class PropertyMethodItem extends MethodItem {
 	private final ActionMethodInfo propertyMethodInfo;
 	private final ReadOnlyValueModel parameterValueModel;
 	private final FormTab formTab;
+	private final UserInterfaceContainer container;
 
 	public PropertyMethodItem(FormTab formTab, PropertyInfo propertyInfo, ActionMethodInfo propertyMethodInfo,
 			ReadOnlyValueModel parameterValueModel, boolean showPropertyName) {
 		super(formTab.getUserInterfaceContainer(), formTab.getDomainValueModel().getValue(), propertyMethodInfo,
 				parameterValueModel);
 		this.formTab = formTab;
+		this.container = formTab.getUserInterfaceContainer();
 		this.propertyOwnerModel = formTab.getDomainValueModel();
 		this.propertyMethodInfo = propertyMethodInfo;
 		this.parameterValueModel = parameterValueModel;
@@ -40,13 +43,13 @@ public class PropertyMethodItem extends MethodItem {
 			@Override
 			public void run() {
 				@SuppressWarnings("rawtypes")
-				GraphicalUserinterfaceController userInterfaceController = formTab.getUserInterfaceContainer()
+				GraphicalUserinterfaceController userInterfaceController = container
 						.get(GraphicalUserinterfaceController.class);
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 
 				userInterfaceController.getTabs().setSelected(formTab);
-				userInterfaceController.processActionMethod(propertyOwner, propertyMethodInfo, methodParameter);
+				propertyMethodInfo.process(container, propertyOwner, methodParameter);
 			}
 		};
 	}

@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Optional;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
@@ -12,8 +11,8 @@ import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
-import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrlMalformedException;
 import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrl;
+import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrlMalformedException;
 
 /**
  * Opens a URL on the local system:
@@ -55,11 +54,10 @@ public abstract class UrlResultHandler implements ActionMethodResultHandler {
 			String actionMethodName = serviceMethodUrl.getActionMethodName();
 
 			ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
-			UserInterfaceController userInterface = container.get(UserInterfaceController.class);
 			ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(serviceClass);
-			ActionMethodInfo actionMethodInfo = serviceClassInfo.getActionMethodInfo(actionMethodName);
+			ActionMethodInfo methodInfo = serviceClassInfo.getActionMethodInfo(actionMethodName);
 			Object serviceObject = container.get(serviceClass);
-			userInterface.processActionMethod(serviceObject, actionMethodInfo, null);
+			methodInfo.process(container, serviceObject, null);
 		} catch (Exception exception) {
 			throw new ServiceMethodUrlMalformedException(exception);
 		}

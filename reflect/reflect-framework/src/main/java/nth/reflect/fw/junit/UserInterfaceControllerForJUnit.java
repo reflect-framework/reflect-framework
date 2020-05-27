@@ -17,12 +17,6 @@ public class UserInterfaceControllerForJUnit extends UserInterfaceController {
 	}
 
 	@Override
-	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		log.add(String.format("processActionMethod(%s, %s, %s)", methodOwner, methodInfo, methodParameter));
-		super.processActionMethod(methodOwner, methodInfo, methodParameter);
-	}
-
-	@Override
 	public void onTaskChange(Task task) {
 		log.add(String.format("onTaskChange(%s)", task));
 	}
