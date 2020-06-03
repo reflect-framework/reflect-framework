@@ -39,7 +39,7 @@ public class UriResultHandlerTest {
 	private UriResultHandler createUriResultHandler() {
 		return new UriResultHandler() {
 			@Override
-			public void openUri(URI uri) {
+			public void openUri(UserInterfaceContainer container, URI uri) {
 				log.add(EXECUTED);
 			}
 		};

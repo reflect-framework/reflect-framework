@@ -4,13 +4,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.sun.javafx.collections.ObservableListWrapper;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.provider.Query;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -33,6 +34,7 @@ import nth.reflect.fw.javafx.control.itemtreelist.ItemTreePanel;
 import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 
@@ -51,7 +53,8 @@ public class Table extends TableView<Object> {
 
 	public Table(ActionMethodTab tab, TableInfo tableInfo) {
 		this.tableInfo = tableInfo;
-		this.languageProvider = tab.getUserInterfaceContainer().get(LanguageProvider.class);
+		UserInterfaceContainer container = tab.getUserInterfaceContainer();
+		this.languageProvider = container.get(LanguageProvider.class);
 
 		addStyleClass();
 
@@ -72,7 +75,7 @@ public class Table extends TableView<Object> {
 		dataProvider.refreshAll();
 		List<Object> list = (List<Object>) dataProvider.fetch(QUERY_ALL).collect(Collectors.toList());
 
-		ObservableListWrapper<Object> observableList = new ObservableListWrapper<Object>(list);
+		ObservableList<Object> observableList = FXCollections.observableList(list);
 		setItems(observableList);
 	}
 

@@ -72,21 +72,31 @@ public class ContentBottomToolbarButton extends JFXButton implements ReflectJava
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class)).getProperties()
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class))
+				.getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND_20())
-				.setTextFill(ReflectColorName.CONTENT.FOREGROUND()).setMinHeight(ButtonStyle.MIN_HEIGHT)
+				.setTextFill(ReflectColorName.CONTENT.FOREGROUND())
+				.setMinHeight(ButtonStyle.MIN_HEIGHT)
 				.setPadding(0, ButtonStyle.PADDING_SIDE, 0, ButtonStyle.PADDING_SIDE)
 				.setFont(MaterialFont.getRobotoMedium(ButtonStyle.FONT_SIZE));
 		// focused
-		styleSheet.addStyleGroup(StyleSelector.createFor(ContentButton.class).appendFocused()).getProperties()
-				.setBackground(ReflectColorName.ACCENT.BACKGROUND()).setTextFill(ReflectColorName.ACCENT.FOREGROUND());
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(ContentButton.class).appendFocused())
+				.getProperties()
+				.setBackground(ReflectColorName.ACCENT.BACKGROUND())
+				.setTextFill(ReflectColorName.ACCENT.FOREGROUND());
 		// rippler color
-		styleSheet.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild("jfx-rippler"))
-				.getProperties().put("-jfx-rippler-fill", ReflectColorName.CONTENT.BACKGROUND());
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild("jfx-rippler"))
+				.getProperties()
+				.put("-jfx-rippler-fill", ReflectColorName.CONTENT.BACKGROUND());
 
 		// icon color
-		styleSheet.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild(FontIcon.class))
-				.getProperties().setFill(ReflectColorName.CONTENT.FOREGROUND());
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(ContentBottomToolbarButton.class).appendChild(FontIcon.class))
+				.getProperties()
+				.setFill(ReflectColorName.CONTENT.FOREGROUND());
 	}
 
 }

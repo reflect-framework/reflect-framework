@@ -1,11 +1,11 @@
 package nth.reflect.fw.javafx.layer5provider.actionmethod.result;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javafx.application.HostServices;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -44,7 +44,7 @@ public class DownloadStreamResultHandler
 
 			saveFile(inputStream, file);
 
-			openFile(file);
+			openFile(container, file);
 		}
 	}
 
@@ -55,9 +55,11 @@ public class DownloadStreamResultHandler
 		return title;
 	}
 
-	private void openFile(File file) {
+	private void openFile(UserInterfaceContainer container, File file) {
 		try {
-			Desktop.getDesktop().open(file);
+			javafx.application.Application application = container.get(javafx.application.Application.class);
+			HostServices hostServices = application.getHostServices();
+			hostServices.showDocument(file.getAbsolutePath());
 		} catch (Exception e) {
 			throw new FailedToOpenFileException(file, e);
 		}

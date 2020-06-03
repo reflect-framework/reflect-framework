@@ -39,7 +39,8 @@ public class Command {
 			Class<?> returnClass = typeInfo.getType();
 			DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(returnClass);
 			List<PropertyInfo> propertyInfos = domainClassInfo.getPropertyInfosSorted();
-			List<PropertyInfo> editableSimplePropertyInfos = propertyInfos.stream()
+			List<PropertyInfo> editableSimplePropertyInfos = propertyInfos
+					.stream()
 					.filter(propertyInfo -> propertyInfo.isVisibleInTable() && !propertyInfo.isReadOnly())
 					.collect(Collectors.toList());
 

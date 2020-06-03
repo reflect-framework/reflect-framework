@@ -31,7 +31,6 @@ public abstract class UriResultHandler implements ActionMethodResultHandler {
 		Class<?> methodReturnType = methodInfo.getReturnTypeInfo().getType();
 		boolean isUri = URI.class.isAssignableFrom(methodReturnType);
 		return isUri;
-
 	}
 
 	@Override
@@ -43,9 +42,9 @@ public abstract class UriResultHandler implements ActionMethodResultHandler {
 		if (serviceMethodUrl.isPresent()) {
 			UrlResultHandler.openServiceMethodUrl(container, serviceMethodUrl.get());
 		} else {
-			openUri(uri);
+			openUri(container, uri);
 		}
 	}
 
-	public abstract void openUri(URI uri);
+	public abstract void openUri(UserInterfaceContainer container, URI uri);
 }

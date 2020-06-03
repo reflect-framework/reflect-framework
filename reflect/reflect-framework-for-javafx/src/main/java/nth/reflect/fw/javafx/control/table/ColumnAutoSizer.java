@@ -3,8 +3,6 @@ package nth.reflect.fw.javafx.control.table;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.sun.javafx.scene.control.skin.TableViewSkinBase;
-
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,8 +15,8 @@ public class ColumnAutoSizer {
 
 	static {
 		try {
-			columnToFitMethod = TableViewSkinBase.class.getDeclaredMethod(
-					"resizeColumnToFitContent", TableColumnBase.class, int.class);
+			columnToFitMethod = javafx.scene.control.skin.TableViewSkinBase.class
+					.getDeclaredMethod("resizeColumnToFitContent", TableColumnBase.class, int.class);
 			columnToFitMethod.setAccessible(true);
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
@@ -28,9 +26,8 @@ public class ColumnAutoSizer {
 	public static void autoFitTable(TableView tableView) {
 		tableView.skinProperty().addListener(new ChangeListener<Skin>() {
 			@Override
-			public void changed(ObservableValue<? extends Skin> observable, Skin oldValue,
-					Skin newValue) {
-				Platform.runLater(() -> resizeColumns(tableView));		
+			public void changed(ObservableValue<? extends Skin> observable, Skin oldValue, Skin newValue) {
+				Platform.runLater(() -> resizeColumns(tableView));
 			}
 
 			private void resizeColumns(TableView tableView) {
@@ -44,5 +41,5 @@ public class ColumnAutoSizer {
 			}
 		});
 	}
-	
+
 }

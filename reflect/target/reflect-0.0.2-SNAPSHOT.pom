@@ -34,8 +34,9 @@
 	</scm>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 
 	<distributionManagement>
@@ -51,6 +52,12 @@
 
 	<build>
 		<plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>3.8.1</version>
+	        </plugin>
+			
 			<plugin>
 				<!-- Plugin to create a jar containing the sources so that it can be 
 					stored in the Sonatype Nexus database (Maven Central) -->
@@ -133,7 +140,7 @@
 	<modules>
 		<module>reflect-framework</module>
 		<module>reflect-framework-documentation</module>
-		<module>reflect-framework-for-gui</module>
+		<module>reflect-framework-gui</module>
 		<module>reflect-framework-for-commandline</module>
 		<module>reflect-framework-for-javafx</module>
 		<module>reflect-framework-for-swing</module>

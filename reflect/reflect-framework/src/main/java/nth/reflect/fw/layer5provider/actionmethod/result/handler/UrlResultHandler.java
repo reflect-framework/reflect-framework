@@ -44,7 +44,7 @@ public abstract class UrlResultHandler implements ActionMethodResultHandler {
 		if (serviceMethodUrl.isPresent()) {
 			openServiceMethodUrl(container, serviceMethodUrl.get());
 		} else {
-			openUrl(url);
+			openUrl(container, url);
 		}
 	}
 
@@ -63,6 +63,6 @@ public abstract class UrlResultHandler implements ActionMethodResultHandler {
 		}
 	}
 
-	public abstract void openUrl(URL url);
+	public abstract void openUrl(UserInterfaceContainer container, URL url);
 
 }

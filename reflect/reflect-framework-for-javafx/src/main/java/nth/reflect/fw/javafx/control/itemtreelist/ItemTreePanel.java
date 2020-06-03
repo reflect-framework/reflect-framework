@@ -16,7 +16,6 @@ import nth.reflect.fw.gui.item.method.MethodOwnerItem;
 import nth.reflect.fw.javafx.control.popup.PopupWindow;
 import nth.reflect.fw.javafx.control.style.StyleSelector;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
-import nth.reflect.fw.javafx.control.verticalflingscroller.VerticalFlingScroller;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -160,8 +159,12 @@ public class ItemTreePanel extends TreeView<Item> {
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(ItemTreePanel.class)).getProperties().setPadding(0)
-				.setBackgroundInsets(0).setBackground("transparent");
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(ItemTreePanel.class))
+				.getProperties()
+				.setPadding(0)
+				.setBackgroundInsets(0)
+				.setBackground("transparent");
 	}
 
 }

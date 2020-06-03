@@ -5,6 +5,7 @@ import java.net.URL;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.page.Page;
 
+import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.url.exception.CouldNotOpenUrlException;
 
 public class UrlResultHandler extends nth.reflect.fw.layer5provider.actionmethod.result.handler.UrlResultHandler {
@@ -12,7 +13,7 @@ public class UrlResultHandler extends nth.reflect.fw.layer5provider.actionmethod
 	private static final String OPEN_IN_NEW_BROWSER_OR_TAB = "_blank";
 
 	@Override
-	public void openUrl(URL url) {
+	public void openUrl(UserInterfaceContainer container, URL url) {
 		try {
 			Page page = UI.getCurrent().getPage();
 
