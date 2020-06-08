@@ -36,19 +36,17 @@ import nth.reflect.fw.ReflectFramework;
  * <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java
  * code</a>. There are multiple Vendors that supply OpenJdk versions. The
  * {@link ReflectFramework} was created and tested with AdoptOpenJDK version 11
- * and this is therefore recommended for your development computer. You can use
- * and download it free from
- * <a href= "https://adoptopenjdk.net/">adoptopenjdk.net</a> and install the
- * correct version for your operating system.</li>
+ * and is therefore recommended for your development computer. You can install
+ * and use it for free by downloading the correct version for your operating
+ * system from <a href= "https://adoptopenjdk.net/">adoptopenjdk.net</a>.</li>
  * <li><b>Integrated Development Environment:</b> You need to install a <a href=
  * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
  * Development Environment</a> on your development computer. The
  * {@link ReflectFramework} was created with Eclipse and this is therefore
- * recommended for your development computer. Eclipse is free and can be down
- * loaded from <a href=
- * "https://www.eclipse.org/downloads/">https://www.eclipse.org/downloads/</a>
- * and then installed on your development computer. You might also be ale to use
- * another <a href=
+ * recommended for your development computer. You can install and use Eclipse
+ * for free by downloading the installer from <a href=
+ * "https://www.eclipse.org/downloads/">https://www.eclipse.org/downloads/</a>.
+ * You might also be ale to use another <a href=
  * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
  * Development Environment</a>. This however never was tested.</li>
  * </ul>
