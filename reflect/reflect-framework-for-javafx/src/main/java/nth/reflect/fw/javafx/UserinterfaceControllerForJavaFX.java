@@ -24,6 +24,7 @@ import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -120,7 +121,9 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceCont
 		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());
 		if (selectedFile != null) {
 			uploadStream.setFile(selectedFile);
-			methodInfo.execute(container, methodOwner, uploadStream);
+			Object methodParameter = uploadStream;
+			ActionMethodInvoker invoker = new ActionMethodInvoker(container, methodInfo, methodOwner, methodParameter);
+			invoker.run();
 		}
 
 	}

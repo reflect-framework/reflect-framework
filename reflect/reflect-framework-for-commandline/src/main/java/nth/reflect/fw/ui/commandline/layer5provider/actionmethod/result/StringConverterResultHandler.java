@@ -24,7 +24,7 @@ public class StringConverterResultHandler
 	}
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 		UserInterfaceController userinterface = container.get(UserInterfaceController.class);
 

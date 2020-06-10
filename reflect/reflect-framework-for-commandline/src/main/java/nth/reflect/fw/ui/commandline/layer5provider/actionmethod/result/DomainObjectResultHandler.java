@@ -16,7 +16,7 @@ public class DomainObjectResultHandler
 		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DomainObjectResultHandler {
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 		ReflectionProvider reflectionProvider = container.get(ReflectionProvider.class);
 		FormView formView = new FormView(reflectionProvider, methodInfo, methodResult);

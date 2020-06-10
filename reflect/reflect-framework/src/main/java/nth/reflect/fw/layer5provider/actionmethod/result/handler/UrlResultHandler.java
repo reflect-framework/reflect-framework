@@ -37,7 +37,7 @@ public abstract class UrlResultHandler implements ActionMethodResultHandler {
 	}
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 		URL url = (URL) methodResult;
 		Optional<ServiceMethodUrl> serviceMethodUrl = ServiceMethodUrl.createFor(url);

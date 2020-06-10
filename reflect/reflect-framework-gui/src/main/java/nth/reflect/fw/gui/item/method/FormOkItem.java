@@ -5,6 +5,7 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -39,7 +40,11 @@ public class FormOkItem extends MethodItem {
 						domainValueModel.commit();
 					}
 				}
-				methodInfo.execute(container, methodOwner, domainValueModel.getValue());
+				Object methodParameter = domainValueModel.getValue();
+				ActionMethodInvoker invoker = new ActionMethodInvoker(container, methodInfo, methodOwner,
+						methodParameter);
+				invoker.run();
+
 				userInterface.getTabs().remove(formTab);
 			}
 

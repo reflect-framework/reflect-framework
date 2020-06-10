@@ -57,7 +57,7 @@ public class NoResultHandlerTest {
 		Object methodParameter = null;
 		Object methodResult = null;
 		log.clear();
-		resultHandler.process(container, serviceObject, actionMethodInfo, methodParameter, methodResult);
+		resultHandler.process(container, actionMethodInfo, serviceObject, methodParameter, methodResult);
 		assertThat(log).contains("showMessage(No return value was successfully executed.)");
 	}
 

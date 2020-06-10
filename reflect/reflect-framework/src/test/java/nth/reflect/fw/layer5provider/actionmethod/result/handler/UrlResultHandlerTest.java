@@ -69,7 +69,7 @@ public class UrlResultHandlerTest {
 		Object methodParameter = null;
 		Object methodResult = new ResultHandlerSerice().openUrl();
 		log.clear();
-		resultHandler.process(container, serviceObject, actionMethodInfo, methodParameter, methodResult);
+		resultHandler.process(container, actionMethodInfo, serviceObject, methodParameter, methodResult);
 		assertThat(log).contains(EXECUTED);
 	}
 
@@ -83,8 +83,8 @@ public class UrlResultHandlerTest {
 		Object methodParameter = null;
 		Object methodResult = new ResultHandlerSerice().openServiceMethodUrl();
 		log.clear();
-		resultHandler.process(container, serviceObject, actionMethodInfo, methodParameter, methodResult);
-		String expected = "execute(" + SERVICE_CLASS.getCanonicalName();
+		resultHandler.process(container, actionMethodInfo, serviceObject, methodParameter, methodResult);
+		String expected = "execute()";
 		assertThat(log.get(0)).startsWith(expected);
 	}
 

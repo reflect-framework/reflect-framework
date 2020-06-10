@@ -11,6 +11,7 @@ import nth.reflect.fw.generic.util.ExceptionUtil;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
@@ -127,7 +128,8 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 	 */
 	public void processActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
 		try {
-			methodInfo.execute(container, methodOwner, methodParameter);
+			ActionMethodInvoker invoker = new ActionMethodInvoker(container, methodInfo, methodOwner, methodParameter);
+			invoker.run();
 		} catch (Exception exception) {
 			TranslatableString title = ERROR_DIALOG_TITLE;
 			TranslatableString actionMethodTitle = methodInfo.getTitle(methodParameter);

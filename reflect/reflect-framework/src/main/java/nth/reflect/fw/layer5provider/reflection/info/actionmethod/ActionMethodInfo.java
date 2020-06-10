@@ -13,7 +13,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
@@ -86,7 +86,6 @@ public class ActionMethodInfo implements NameInfo {
 	private final boolean isReadOnly;
 	private final ReflectionProvider reflectionProvider;
 	private final ActionMethodResultHandler actionMethodResultHandler;
-	private final ActionMethodExecutionProvider actionMethodExecutionProvider;
 
 	public ActionMethodInfo(ProviderContainer container, Method method, String propertyName) {
 		this.simpleName = createSimpleName(method, propertyName);
@@ -101,7 +100,6 @@ public class ActionMethodInfo implements NameInfo {
 		Class<? extends UserInterfaceController> controllerClass = application.getUserInterfaceControllerClass();
 		LanguageProvider languageProvider = container.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = container.get(AuthorizationProvider.class);
-		this.actionMethodExecutionProvider = container.get(ActionMethodExecutionProvider.class);
 		this.reflectionProvider = container.get(ReflectionProvider.class);
 		this.executionMode = ExecutionModeFactory.create(method);
 		this.returnTypeInfo = createReturnTypeInfo(application, method);
@@ -282,15 +280,6 @@ public class ActionMethodInfo implements NameInfo {
 		}
 	}
 
-	public Object invoke(Object methodOwner, Object methodParameter)
-			throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		if (hasParameter()) {
-			return actionMethod.invoke(methodOwner, methodParameter);
-		} else {
-			return actionMethod.invoke(methodOwner);
-		}
-	}
-
 	@Override
 	public String toString() {
 		return canonicalName;
@@ -322,41 +311,6 @@ public class ActionMethodInfo implements NameInfo {
 			Object methodParameter) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		confirmMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
 
-	}
-
-	/**
-	 * Processes the result after the invocation of the {@link ActionMethod} by a
-	 * ActionMethodResultHandler.
-	 */
-	public void processResult(UserInterfaceContainer container, Object methodOwner, Object methodParameter,
-			Object methodResult) {
-		try {
-			actionMethodResultHandler.process(container, methodOwner, this, methodParameter, methodResult);
-		} catch (Throwable exception) {
-			UserInterfaceController userInterface = container.get(UserInterfaceController.class);
-			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
-			TranslatableString actionMethodTitle = getTitle(methodParameter);
-			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
-			userInterface.showError(title, message, exception);
-		}
-	}
-
-	/**
-	 * This method is called from {@link ActionMethodInfo#execute(Object, Object)}
-	 * by {@link #process(Object, ActionMethodInfo, Object)} or from the
-	 * {@link FormOkItem} linked to the OK button <br>
-	 * It needs the check if the method is enabled before the method is executed
-	 * <br>
-	 * It needs to validate the method parameter value before the method is executed
-	 * 
-	 * @param methodOwner          Domain or service object that owns the method
-	 * @param methodParameterValue The value of the {@link ActionMethod} parameter
-	 * @throws Exception
-	 * 
-	 */
-
-	public void execute(UserInterfaceContainer container, Object methodOwner, Object methodParameter) {
-		actionMethodExecutionProvider.execute(container, methodOwner, this, methodParameter);
 	}
 
 	/**
@@ -415,7 +369,8 @@ public class ActionMethodInfo implements NameInfo {
 				invokeConfirmMethod(userInterface, methodOwner, methodParameter);
 				break;
 			case EXECUTE_METHOD_DIRECTLY:
-				execute(container, methodOwner, methodParameter);
+				ActionMethodInvoker invoker = new ActionMethodInvoker(container, this, methodOwner, methodParameter);
+				invoker.run();
 				break;
 			}
 		} catch (Throwable throwable) {
@@ -426,6 +381,10 @@ public class ActionMethodInfo implements NameInfo {
 			userInterface.showError(title, message, throwable);
 		}
 
+	}
+
+	public ActionMethodResultHandler getResultHandler() {
+		return actionMethodResultHandler;
 	}
 
 	/**

@@ -13,13 +13,13 @@ public class JunitActionMethodResultHandler implements ActionMethodResultHandler
 	}
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 		LogProvider log = container.get(LogProvider.class);
 		log
 				.add(String
 						.format("%s.process(%s, %s, %s", JunitActionMethodResultHandler.class.getSimpleName(),
-								methodOwner, actionMethodInfo, methodParameter, methodResult));
+								methodInfo, methodOwner, methodParameter, methodResult));
 
 	}
 

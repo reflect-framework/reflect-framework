@@ -5,6 +5,6 @@ import javafx.scene.control.SplitPane;
 public class Drawer extends SplitPane {
 
 	public Drawer() {
-		
+
 	}
 }

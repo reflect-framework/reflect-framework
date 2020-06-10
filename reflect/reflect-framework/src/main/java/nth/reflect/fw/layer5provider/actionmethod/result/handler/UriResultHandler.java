@@ -34,7 +34,7 @@ public abstract class UriResultHandler implements ActionMethodResultHandler {
 	}
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 		URI uri = (URI) methodResult;
 

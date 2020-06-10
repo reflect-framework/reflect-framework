@@ -26,9 +26,9 @@ public class NoResultHandler implements ActionMethodResultHandler {
 	}
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
-		TranslatableString actionMethodTitle = actionMethodInfo.getTitle(methodParameter);
+		TranslatableString actionMethodTitle = methodInfo.getTitle(methodParameter);
 		TranslatableString message = MESSAGE.withParameters(actionMethodTitle);
 		UserInterfaceController userInterface = container.get(UserInterfaceController.class);
 		userInterface.showMessage(message);

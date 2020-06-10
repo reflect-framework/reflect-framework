@@ -18,7 +18,7 @@ public class DownloadStreamResultHandler
 		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DownloadStreamResultHandler {
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 		DownloadStream downloadStream = (DownloadStream) methodResult;
 		JFileChooser chooser = new JFileChooser();

@@ -26,21 +26,20 @@ public abstract class DomainObjectResultHandler
 	private static final FormMode READ_ONLY = FormMode.READ_ONLY;
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo actionMethodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 		GraphicalUserinterfaceController userinterface = container.get(GraphicalUserinterfaceController.class);
 
 		Tabs tabs = userinterface.getTabs();
 
-		FormTabFilter formTabFilter = new FormTabFilter(methodOwner, actionMethodInfo, methodParameter, methodResult,
+		FormTabFilter formTabFilter = new FormTabFilter(methodOwner, methodInfo, methodParameter, methodResult,
 				READ_ONLY);
 		Optional<FormTab> result = tabs.stream().filter(formTabFilter).findFirst();
 
 		if (result.isPresent()) {
 			tabs.setSelected(result.get());
 		} else {
-			Tab formTab = createFormTab(container, methodOwner, actionMethodInfo, methodParameter, methodResult,
-					READ_ONLY);
+			Tab formTab = createFormTab(container, methodOwner, methodInfo, methodParameter, methodResult, READ_ONLY);
 			tabs.setSelected(formTab);
 		}
 	}

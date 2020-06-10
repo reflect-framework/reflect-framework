@@ -21,7 +21,7 @@ public class DownloadStreamResultHandler
 			DownloadStreamResultHandler.class.getCanonicalName() + ".title", "%s: Save as:");
 
 	@Override
-	public void process(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
+	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
 
 		DownloadStream downloadStream = (DownloadStream) methodResult;
