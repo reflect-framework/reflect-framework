@@ -8,7 +8,7 @@ import com.vaadin.flow.component.page.Page;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.url.exception.CouldNotOpenUriException;
 
-public class UriResultHandler extends nth.reflect.fw.layer5provider.actionmethod.result.handler.UriResultHandler {
+public class UriResultHandler extends nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl.UriResultHandler {
 
 	@Override
 	public void openUri(UserInterfaceContainer container, URI uri) {

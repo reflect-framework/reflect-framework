@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.actionmethod.result;
+package nth.reflect.fw.layer5provider.actionmethod.resulthandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,11 +20,11 @@ import nth.reflect.fw.layer5provider.url.ReflectUrlStreamHandler;
  * @author nilsth
  *
  */
-public class ActionMethodResultProvider implements Provider {
+public class ActionMethodResultHandlerProvider implements Provider {
 
 	private List<ActionMethodResultHandler> actionMethodResultHandlers;
 
-	public ActionMethodResultProvider(ProviderContainer providerContainer) {
+	public ActionMethodResultHandlerProvider(ProviderContainer providerContainer) {
 		actionMethodResultHandlers = createHandlers(providerContainer);
 	}
 
@@ -51,7 +51,7 @@ public class ActionMethodResultProvider implements Provider {
 		return handlerClasses;
 	}
 
-	public ActionMethodResultHandler getActionMethodResultHandler(ProviderContainer container,
+	public ActionMethodResultHandler get(ProviderContainer container,
 			ActionMethodInfo actionMethodInfo) {
 		Optional<ActionMethodResultHandler> result = actionMethodResultHandlers
 				.stream()

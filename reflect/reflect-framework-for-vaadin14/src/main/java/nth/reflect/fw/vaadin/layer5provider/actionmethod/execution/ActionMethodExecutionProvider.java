@@ -4,7 +4,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.Command;
 
 public class ActionMethodExecutionProvider
-		implements nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider {
+		extends nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider {
 
 	@SuppressWarnings("serial")
 	@Override

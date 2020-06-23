@@ -21,7 +21,7 @@ import nth.reflect.fw.stream.DownloadStream;
  *
  */
 public class DownloadStreamResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DownloadStreamResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl.DownloadStreamResultHandler {
 
 	@Override
 	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,

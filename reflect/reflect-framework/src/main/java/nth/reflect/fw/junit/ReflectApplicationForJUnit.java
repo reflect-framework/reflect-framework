@@ -1,6 +1,7 @@
 package nth.reflect.fw.junit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
@@ -15,8 +16,10 @@ import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
 import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerProvider;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandlerProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -204,29 +207,37 @@ public class ReflectApplicationForJUnit implements ReflectApplication {
 	}
 
 	@Override
-	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProviderClass() {
-		return ActionMethodExecutionProviderForJUnit.class;
-	}
-
-	@Override
 	public List<Class<? extends StringConverterFactory>> getStringConverterFactoryClasses() {
 		return new StringConverterFactories();
 	}
 
 	@Override
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass() {
-		return ActionMethodResultProvider.class;
+	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProviderClass() {
+		return ActionMethodExecutionProviderForJUnit.class;
 	}
 
-	public Class<? extends LogProvider> getLogProviderClass() {
-		return LogProvider.class;
+	@Override
+	public Class<? extends ActionMethodPreHandlerProvider> getActionMethodPreHandlerProviderClass() {
+		return ActionMethodPreHandlerProvider.class;
+	}
+
+	@Override
+	public List<Class<? extends ActionMethodPreHandler>> getActionMethodPreHandlerClasses() {
+		return Arrays.asList(JunitActionMethodPreHandler.class);
+	}
+
+	@Override
+	public Class<? extends ActionMethodResultHandlerProvider> getActionMethodResultHandlerProviderClass() {
+		return ActionMethodResultHandlerProvider.class;
 	}
 
 	@Override
 	public List<Class<? extends ActionMethodResultHandler>> getActionMethodResultHandlerClasses() {
-		List<Class<? extends ActionMethodResultHandler>> handlerClasses = new ArrayList();
-		handlerClasses.add(JunitActionMethodResultHandler.class);
-		return handlerClasses;
+		return Arrays.asList(JunitActionMethodResultHandler.class);
+	}
+
+	public Class<? extends LogProvider> getLogProviderClass() {
+		return LogProvider.class;
 	}
 
 }

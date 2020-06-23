@@ -2,7 +2,7 @@ package nth.reflect.fw.junit;
 
 import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 
-public class ActionMethodExecutionProviderForJUnit implements ActionMethodExecutionProvider {
+public class ActionMethodExecutionProviderForJUnit extends ActionMethodExecutionProvider {
 
 	private final LogProvider log;
 

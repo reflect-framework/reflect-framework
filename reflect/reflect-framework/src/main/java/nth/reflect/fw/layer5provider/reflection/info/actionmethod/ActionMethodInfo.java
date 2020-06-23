@@ -4,18 +4,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.util.Optional;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.MethodCanonicalName;
 import nth.reflect.fw.generic.util.StringUtil;
-import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerProvider;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandlerProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
@@ -62,12 +61,6 @@ import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.EditPar
 
 public class ActionMethodInfo implements NameInfo {
 
-	private static final TranslatableString DISPLAY_ERROR_DIALOG_TITLE = new TranslatableString(
-			ActionMethodInfo.class.getCanonicalName() + ".display.error.dialog.title",
-			"Error while displaying an action result");
-	private static final TranslatableString DISPLAY_ERROR_DIALOG_MESSAGE = new TranslatableString(
-			ActionMethodInfo.class.getCanonicalName() + ".display.error.dialog.message", "Action: %s");
-
 	private final String simpleName;
 	private final String canonicalName;
 	private final Method actionMethod;
@@ -85,7 +78,8 @@ public class ActionMethodInfo implements NameInfo {
 	private final TypeInfo firstParameterTypeInfo;
 	private final boolean isReadOnly;
 	private final ReflectionProvider reflectionProvider;
-	private final ActionMethodResultHandler actionMethodResultHandler;
+	private final ActionMethodResultHandler resultHandler;
+	private final ActionMethodPreHandler preHandler;
 
 	public ActionMethodInfo(ProviderContainer container, Method method, String propertyName) {
 		this.simpleName = createSimpleName(method, propertyName);
@@ -119,8 +113,13 @@ public class ActionMethodInfo implements NameInfo {
 		this.parameterFactoryModel = ParameterFactoryModelFactory.create(method, firstParameterTypeInfo.getType());
 		this.fontIconModel = FontIconModelFactory.create(method);
 		this.isReadOnly = method.isAnnotationPresent(ReadOnlyActionMethod.class);
-		ActionMethodResultProvider actionMethodResultProvider = container.get(ActionMethodResultProvider.class);
-		this.actionMethodResultHandler = actionMethodResultProvider.getActionMethodResultHandler(container, this);
+
+		ActionMethodPreHandlerProvider preHandlerProvider = container.get(ActionMethodPreHandlerProvider.class);
+		this.preHandler = preHandlerProvider.get(this);
+		ActionMethodResultHandlerProvider resultHandlerProvider = container
+				.get(ActionMethodResultHandlerProvider.class);
+		this.resultHandler = resultHandlerProvider.get(container, this);
+
 	}
 
 	private String createSimpleName(Method method, String propertyName) {
@@ -313,78 +312,12 @@ public class ActionMethodInfo implements NameInfo {
 
 	}
 
-	/**
-	 * This method is called when a user sends an command to the
-	 * {@link UserInterfaceController}. this can come from different sources such
-	 * as:
-	 * <ul>
-	 * <li>command line</li>
-	 * <li>graphical user interface (when the user activates a menu item)</li>
-	 * <li>http request from a SOAP or Restfull client</li>
-	 * <li>etc</li>
-	 * </ul>
-	 * This method will process the {@link ActionMethod} parameter (depending on how
-	 * it is annotated):
-	 * <ul>
-	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_DIRECTLY }: Will call
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)}
-	 * directly (i.e. when there is no {@link ActionMethod} parameter)</li>
-	 * <li>{@link ExecutionModeType#EXECUTE_METHOD_AFTER_CONFORMATION }: Will ask
-	 * the user for confirmation before the {@link ActionMethod} is executed. To do
-	 * this it will call one of the confirmActionMethodParameter(...) methods in the
-	 * {@link UserInterfaceController} implementation. After the confirmation the
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs
-	 * to be called (i.e. by a OK button).</li>
-	 * <li>{@link ExecutionModeType#EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL }:
-	 * Will let the user edit the {@link ActionMethod} parameter before the
-	 * {@link ActionMethod} is executed. To do this it will call one of the
-	 * editActionMethodParameter(...) methods in the {@link UserInterfaceController}
-	 * implementation. After the confirmation the
-	 * {@link #processActionMethodExecution(Object, ActionMethodInfo, Object)} needs
-	 * to be called (i.e. by a OK button).</li>
-	 * </ul>
-	 * 
-	 * @param methodOwner     Domain or service object that owns the method
-	 * @param methodInfo      {@link ActionMethodInfo} contains information on an
-	 *                        {@link ActionMethod}
-	 * @param methodParameter The value of the {@link ActionMethod} parameter
-	 */
-
-	public void process(UserInterfaceContainer container, Object methodOwner, Object methodParameter) {
-
-		UserInterfaceController userInterface = container.get(UserInterfaceController.class);
-
-		try {
-			if (methodParameter == null && hasParameter() || hasParameterFactory()) {
-				methodParameter = createMethodParameter(methodOwner);
-			}
-
-			ExecutionModeType executionMode = getExecutionMode();
-
-			switch (executionMode) {
-			case EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL:
-				invokeEditParameterMethod(userInterface, methodOwner, methodParameter);
-				break;
-			case EXECUTE_METHOD_AFTER_CONFORMATION:
-				invokeConfirmMethod(userInterface, methodOwner, methodParameter);
-				break;
-			case EXECUTE_METHOD_DIRECTLY:
-				ActionMethodInvoker invoker = new ActionMethodInvoker(container, this, methodOwner, methodParameter);
-				invoker.run();
-				break;
-			}
-		} catch (Throwable throwable) {
-			TranslatableString title = DISPLAY_ERROR_DIALOG_TITLE;
-			Optional<Object> optionalMethodParameter = Optional.ofNullable(methodParameter);
-			TranslatableString actionMethodTitle = getTitle(optionalMethodParameter);
-			TranslatableString message = DISPLAY_ERROR_DIALOG_MESSAGE.withParameters(actionMethodTitle);
-			userInterface.showError(title, message, throwable);
-		}
-
+	public ActionMethodPreHandler getPreHandler() {
+		return preHandler;
 	}
 
 	public ActionMethodResultHandler getResultHandler() {
-		return actionMethodResultHandler;
+		return resultHandler;
 	}
 
 	/**
@@ -398,6 +331,10 @@ public class ActionMethodInfo implements NameInfo {
 
 	public Method getMethod() {
 		return actionMethod;
+	}
+
+	public boolean needsToCreateParameter(Object methodParameter) {
+		return methodParameter == null && hasParameter() || hasParameterFactory();
 	}
 
 }

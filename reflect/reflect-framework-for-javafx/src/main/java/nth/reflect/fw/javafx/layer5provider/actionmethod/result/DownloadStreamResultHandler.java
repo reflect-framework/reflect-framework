@@ -15,7 +15,7 @@ import nth.reflect.fw.stream.FailedToOpenFileException;
 import nth.reflect.fw.stream.FailedToSaveFileException;
 
 public class DownloadStreamResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DownloadStreamResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl.DownloadStreamResultHandler {
 
 	public static final TranslatableString TITLE = new TranslatableString(
 			DownloadStreamResultHandler.class.getCanonicalName() + ".title", "%s: Save as:");

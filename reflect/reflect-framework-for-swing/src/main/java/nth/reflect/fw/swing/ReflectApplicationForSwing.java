@@ -8,8 +8,11 @@ import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.gui.layer5provider.properyfield.factory.PropertyFieldFactory;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerClasses;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerProvider;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandlerProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -124,8 +127,18 @@ public abstract class ReflectApplicationForSwing implements GraphicalUserInterfa
 	}
 
 	@Override
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass() {
-		return ActionMethodResultProvider.class;
+	public List<Class<? extends ActionMethodPreHandler>> getActionMethodPreHandlerClasses() {
+		return new ActionMethodPreHandlerClasses();
+	}
+
+	@Override
+	public Class<? extends ActionMethodPreHandlerProvider> getActionMethodPreHandlerProviderClass() {
+		return ActionMethodPreHandlerProvider.class;
+	}
+
+	@Override
+	public Class<? extends ActionMethodResultHandlerProvider> getActionMethodResultHandlerProviderClass() {
+		return ActionMethodResultHandlerProvider.class;
 	}
 
 	@Override

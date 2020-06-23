@@ -38,22 +38,6 @@ public class ActionMethodInvoker implements Action {
 		this(userInterfaceContainer, methodInfo.getResultHandler(), methodInfo, methodOwner, methodParameter);
 	}
 
-	public UserInterfaceContainer getUserInterfaceContainer() {
-		return userInterfaceContainer;
-	}
-
-	public ActionMethodCallback getCallBack() {
-		return callBack;
-	}
-
-	public ActionMethodInfo getMethodInfo() {
-		return methodInfo;
-	}
-
-	public Object getMethodOwner() {
-		return methodOwner;
-	}
-
 	@Override
 	public void run() {
 		try {

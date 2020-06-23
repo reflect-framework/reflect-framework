@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.actionmethod.result.handler;
+package nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl;
 
 import java.net.URL;
 import java.util.Optional;
@@ -6,7 +6,8 @@ import java.util.Optional;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
@@ -28,6 +29,8 @@ import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrlMalformed
  *
  */
 public abstract class UrlResultHandler implements ActionMethodResultHandler {
+
+	private static final Object NO_PARAMETER = null;
 
 	@Override
 	public boolean canProcess(ProviderContainer container, ActionMethodInfo methodInfo) {
@@ -57,7 +60,11 @@ public abstract class UrlResultHandler implements ActionMethodResultHandler {
 			ServiceClassInfo serviceClassInfo = reflectionProvider.getServiceClassInfo(serviceClass);
 			ActionMethodInfo methodInfo = serviceClassInfo.getActionMethodInfo(actionMethodName);
 			Object serviceObject = container.get(serviceClass);
-			methodInfo.process(container, serviceObject, null);
+			Object methodOwner = serviceObject;
+
+			ActionMethodExecutionProvider executionProvider = container.get(ActionMethodExecutionProvider.class);
+			executionProvider.process(container, methodInfo, methodOwner, NO_PARAMETER);
+
 		} catch (Exception exception) {
 			throw new ServiceMethodUrlMalformedException(exception);
 		}

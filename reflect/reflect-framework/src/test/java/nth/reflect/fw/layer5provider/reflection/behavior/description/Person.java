@@ -1,6 +1,8 @@
 package nth.reflect.fw.layer5provider.reflection.behavior.description;
 
 public class Person {
+
+	public final static String NO_NAME = "No name";
 	private String name;
 
 	public String getName() {
@@ -14,7 +16,7 @@ public class Person {
 	@Override
 	public String toString() {
 		if (name == null) {
-			return "";
+			return NO_NAME;
 		} else {
 			return name;
 		}

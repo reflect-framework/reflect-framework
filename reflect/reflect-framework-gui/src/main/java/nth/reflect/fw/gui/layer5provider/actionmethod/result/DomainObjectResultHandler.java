@@ -21,7 +21,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
  *
  */
 public abstract class DomainObjectResultHandler
-		extends nth.reflect.fw.layer5provider.actionmethod.result.handler.DomainObjectResultHandler {
+		extends nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl.DomainObjectResultHandler {
 
 	private static final FormMode READ_ONLY = FormMode.READ_ONLY;
 

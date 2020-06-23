@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>13</version>
+			<version>11.0.2</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->

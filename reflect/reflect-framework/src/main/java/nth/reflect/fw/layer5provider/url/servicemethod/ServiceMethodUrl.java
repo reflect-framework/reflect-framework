@@ -6,7 +6,7 @@ import java.net.URL;
 import java.util.Optional;
 
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
-import nth.reflect.fw.layer5provider.actionmethod.result.handler.UriResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl.UriResultHandler;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.url.ReflectUrl;
 

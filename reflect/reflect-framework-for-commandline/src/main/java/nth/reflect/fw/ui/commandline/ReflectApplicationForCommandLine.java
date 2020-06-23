@@ -1,6 +1,7 @@
 package nth.reflect.fw.ui.commandline;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.List;
 
 import nth.reflect.fw.ReflectApplication;
@@ -8,8 +9,11 @@ import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerProvider;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.impl.ProcessDirectly;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandlerProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.authorization.DefaultAuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.DefaultLanguageProvider;
@@ -132,8 +136,22 @@ public abstract class ReflectApplicationForCommandLine implements ReflectApplica
 	}
 
 	@Override
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass() {
-		return ActionMethodResultProvider.class;
+	public Class<? extends ActionMethodPreHandlerProvider> getActionMethodPreHandlerProviderClass() {
+		return ActionMethodPreHandlerProvider.class;
+	}
+
+	/**
+	 * {@link ReflectApplicationForCommandLine} only supports
+	 * {@link ProcessDirectly}
+	 */
+	@Override
+	public List<Class<? extends ActionMethodPreHandler>> getActionMethodPreHandlerClasses() {
+		return Arrays.asList(ProcessDirectly.class);
+	}
+
+	@Override
+	public Class<? extends ActionMethodResultHandlerProvider> getActionMethodResultHandlerProviderClass() {
+		return ActionMethodResultHandlerProvider.class;
 	}
 
 	@Override

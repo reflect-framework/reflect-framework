@@ -9,10 +9,12 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 
+import nth.reflect.fw.junit.JunitActionMethodPreHandler;
 import nth.reflect.fw.junit.LogProvider;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.ProviderContainer;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl.UrlResultHandler;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ServiceClassInfo;
@@ -84,7 +86,9 @@ public class UrlResultHandlerTest {
 		Object methodResult = new ResultHandlerSerice().openServiceMethodUrl();
 		log.clear();
 		resultHandler.process(container, actionMethodInfo, serviceObject, methodParameter, methodResult);
-		String expected = "execute()";
+		String expected = JunitActionMethodPreHandler.class.getSimpleName() + ".preProcess("
+				+ ResultHandlerSerice.class.getCanonicalName() + ".domainObjectReturnValue, "
+				+ ResultHandlerSerice.class.getCanonicalName() + ", null)";
 		assertThat(log.get(0)).startsWith(expected);
 	}
 

@@ -53,42 +53,33 @@ import nth.reflect.fw.layer5provider.version.VersionProvider;
  * {@link UserInterfaceController}.
  * </p>
  * 
- * <h2>Authorization Provider</h2>
+ * <h2>Authorization Provider</h2> {@insert AuthorizationProvider}
  * <p>
- * {@insert AuthorizationProvider}
- * </p>
- * <h2>Validation Provider</h2>
+ * <h2>Validation Provider</h2> {@insert ValidationProvider}
  * <p>
- * {@insert ValidationProvider}
- * </p>
- * <h2>Language Provider</h2>
+ * <h2>Language Provider</h2> {@insert LanguageProvider}
  * <p>
- * {@insert LanguageProvider}
- * </p>
- * <h2>Notification Provider</h2>
+ * <h2>Notification Provider</h2> {@insert NotificationProvider}
  * <p>
- * {@insert NotificationProvider}
- * </p>
- * <h2>Reflection Provider</h2>
+ * <h2>Reflection Provider</h2> {@insert ReflectionProvider}
  * <p>
- * {@insert ReflectionProvider}
- * </p>
- * <h2>Version Provider</h2>
+ * <h2>Version Provider</h2> {@insert VersionProvider}
  * <p>
- * {@insert VersionProvider}
- * </p>
- * <h2>URL Provider</h2>
+ * <h2>URL Provider</h2> {@insert UrlProvider}
  * <p>
- * {@insert UrlProvider}
- * </p>
- * <h2>String Converter Provider</h2>
+ * <h2>String Converter Provider</h2> {@insert StringConverterProvider}
  * <p>
- * {@insert StringConverterProvider}
- * </p>
- * <h2>Property Field Provider</h2>
+ * <h2>Property Field Provider</h2> {@insert PropertyFieldProvider}
  * <p>
- * {@insert PropertyFieldProvider}
- * </p>
+ * <h2>Property Action Method Execution Provider</h2>
+ * {@insert ActionMethodExecutionProvider}
+ * <p>
+ * <h2>Property Action Method Pre-Handler Provider</h2>
+ * {@insert ActionMethodPreHandlerProvider}
+ * <p>
+ * <h2>Property Action Method Result Handler Provider</h2>
+ * {@insert ActionMethodResultHandlerProvider}
+ * <p>
  * 
  * @author Nils ten Hoeve
  */

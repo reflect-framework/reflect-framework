@@ -7,6 +7,7 @@ import java.util.List;
 import nth.reflect.fw.gui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
@@ -33,14 +34,16 @@ public class AboutItem extends Item {
 			e.printStackTrace();
 		}
 		setAction(new Action() {
+
 			@Override
 			public void run() {
 				MethodNameFilter methodFilter = new MethodNameFilter(ABOUT_METHOD.toLowerCase());
 				DomainClassInfo domainClassInfo = reflectionProvider.getDomainClassInfo(versionProvider.getClass());
 				List<ActionMethodInfo> actionMethodInfos = domainClassInfo.getActionMethodInfos(methodFilter);
+				ActionMethodExecutionProvider executionProvider = container.get(ActionMethodExecutionProvider.class);
 				if (actionMethodInfos.size() == 1) {
-					ActionMethodInfo actionMethodInfo = actionMethodInfos.get(0);
-					actionMethodInfo.process(container, versionProvider, NO_PARAMETER);
+					ActionMethodInfo methodInfo = actionMethodInfos.get(0);
+					executionProvider.process(container, methodInfo, versionProvider, NO_PARAMETER);
 				} else {
 					throw new NoAboutMethodException(versionProvider, ABOUT_METHOD);
 				}

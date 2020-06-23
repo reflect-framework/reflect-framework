@@ -13,8 +13,10 @@ import nth.reflect.fw.layer4infrastructure.InfrastructureObject;
 import nth.reflect.fw.layer5provider.Provider;
 import nth.reflect.fw.layer5provider.ProviderLayer;
 import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultProvider;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerProvider;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandlerProvider;
 import nth.reflect.fw.layer5provider.authorization.AuthorizationProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
@@ -153,7 +155,11 @@ public interface ReflectApplication {
 
 	public Class<? extends ActionMethodExecutionProvider> getActionMethodExecutionProviderClass();
 
-	public Class<? extends ActionMethodResultProvider> getActionMethodResultProviderClass();
+	public Class<? extends ActionMethodPreHandlerProvider> getActionMethodPreHandlerProviderClass();
+
+	public List<Class<? extends ActionMethodPreHandler>> getActionMethodPreHandlerClasses();
+
+	public Class<? extends ActionMethodResultHandlerProvider> getActionMethodResultHandlerProviderClass();
 
 	public List<Class<? extends ActionMethodResultHandler>> getActionMethodResultHandlerClasses();
 

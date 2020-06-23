@@ -7,6 +7,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer3domain.DomainObjectActionMethod;
+import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 
@@ -35,12 +36,13 @@ public class MethodItem extends Item {
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = methodInfo;
 		this.methodParameterValueModel = methodParameterValueModel;
+		ActionMethodExecutionProvider executionProvider = container.get(ActionMethodExecutionProvider.class);
 		setAction(new Action() {
 			@Override
 			public void run() {
 				Object methodParameterValue = (methodParameterValueModel == null) ? null
 						: methodParameterValueModel.getValue();
-				methodInfo.process(container, methodOwner, methodParameterValue);
+				executionProvider.process(container, methodInfo, methodOwner, methodParameterValue);
 			}
 
 		});

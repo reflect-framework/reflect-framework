@@ -1,4 +1,4 @@
-package nth.reflect.fw.layer5provider.actionmethod.result.handler;
+package nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl;
 
 import java.net.URI;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
 import nth.reflect.fw.layer5provider.ProviderContainer;
-import nth.reflect.fw.layer5provider.actionmethod.result.ActionMethodResultHandler;
+import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.url.servicemethod.ServiceMethodUrl;

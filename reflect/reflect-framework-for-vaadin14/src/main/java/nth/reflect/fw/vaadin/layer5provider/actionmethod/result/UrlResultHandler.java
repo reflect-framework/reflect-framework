@@ -8,7 +8,7 @@ import com.vaadin.flow.component.page.Page;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.url.exception.CouldNotOpenUrlException;
 
-public class UrlResultHandler extends nth.reflect.fw.layer5provider.actionmethod.result.handler.UrlResultHandler {
+public class UrlResultHandler extends nth.reflect.fw.layer5provider.actionmethod.resulthandler.impl.UrlResultHandler {
 
 	private static final String OPEN_IN_NEW_BROWSER_OR_TAB = "_blank";
 
