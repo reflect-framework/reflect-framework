@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nth.reflect.fw.generic.util.ExceptionUtil;
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.language.LanguageProvider;
@@ -23,14 +23,14 @@ public class DialogShowStackTraceItem extends Item {
 		super(userInterfaceContainer.get(LanguageProvider.class));
 		setText(SHOW_STACK_TRACE_TEXT);
 		setDescription(SHOW_STACK_TRACE_DESCRIPTION);
-		GraphicalUserinterfaceController<?, ?> userInterfaceController = userInterfaceContainer
-				.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController<?, ?> userInterfaceController = userInterfaceContainer
+				.get(GraphicalUserInterfaceController.class);
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		Action action = createAction(userInterfaceController, languageProvider, title, message, throwable);
 		setAction(action);
 	}
 
-	private Action createAction(final GraphicalUserinterfaceController<?, ?> userInterfaceController,
+	private Action createAction(final GraphicalUserInterfaceController<?, ?> userInterfaceController,
 			final LanguageProvider languageProvider, final TranslatableString title, final TranslatableString message,
 			final Throwable throwable) {
 		return new Action() {

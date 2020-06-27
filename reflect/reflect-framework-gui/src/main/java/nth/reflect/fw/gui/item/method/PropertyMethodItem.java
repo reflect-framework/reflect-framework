@@ -1,7 +1,7 @@
 package nth.reflect.fw.gui.item.method;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -46,8 +46,8 @@ public class PropertyMethodItem extends MethodItem {
 			@Override
 			public void run() {
 				@SuppressWarnings("rawtypes")
-				GraphicalUserinterfaceController userInterfaceController = container
-						.get(GraphicalUserinterfaceController.class);
+				GraphicalUserInterfaceController userInterfaceController = container
+						.get(GraphicalUserInterfaceController.class);
 				Object propertyOwner = propertyOwnerModel.getValue();
 				Object methodParameter = parameterValueModel.getValue();
 

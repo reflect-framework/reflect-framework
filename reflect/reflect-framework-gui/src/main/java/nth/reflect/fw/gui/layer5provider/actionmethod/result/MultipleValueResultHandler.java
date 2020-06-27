@@ -2,7 +2,7 @@ package nth.reflect.fw.gui.layer5provider.actionmethod.result;
 
 import java.util.Optional;
 
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.table.TableTab;
@@ -32,7 +32,7 @@ public abstract class MultipleValueResultHandler
 	@Override
 	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
-		GraphicalUserinterfaceController userInterface = container.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController userInterface = container.get(GraphicalUserInterfaceController.class);
 
 		Tabs tabs = userInterface.getTabs();
 

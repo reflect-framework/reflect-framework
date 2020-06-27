@@ -11,9 +11,7 @@ import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.FormTabFilter;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
-import nth.reflect.fw.gui.item.dialog.DialogCancelItem;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
-import nth.reflect.fw.gui.item.dialog.DialogMethodItem;
 import nth.reflect.fw.gui.item.dialog.DialogShowStackTraceItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
@@ -27,10 +25,10 @@ import nth.reflect.fw.stream.UploadStream;
 
 /**
  * <p>
- * The {@link GraphicalUserinterfaceController} extends the
+ * The {@link GraphicalUserInterfaceController} extends the
  * {@link UserInterfaceController} and adds functionality needed for a
  * <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">Graphical
- * User Interface</a>. The {@link GraphicalUserinterfaceController} creates and
+ * User Interface</a>. The {@link GraphicalUserInterfaceController} creates and
  * manipulates a {@link MainWindow} for a person to interact with.
  * </p>
  * <p>
@@ -43,35 +41,16 @@ import nth.reflect.fw.stream.UploadStream;
  * @param <TAB> A user interface specific class (often a component container/
  *              layout) that implements {@link Tab}
  */
-public abstract class GraphicalUserinterfaceController<TAB extends Tab, PROPERTY_PANEL>
+public abstract class GraphicalUserInterfaceController<TAB extends Tab, PROPERTY_PANEL>
 		extends UserInterfaceController {
 
 	private final Tabs<TAB> tabs;
 
-	public GraphicalUserinterfaceController(UserInterfaceContainer userInterfaceContainer) {
+	public GraphicalUserInterfaceController(UserInterfaceContainer userInterfaceContainer) {
 		super(userInterfaceContainer);
 		tabs = new Tabs<TAB>();
 		NotificationProvider notificationProvider = userInterfaceContainer.get(NotificationProvider.class);
 		notificationProvider.addListener(this);
-	}
-
-	public void confirmActionMethod(Object methodOwner, ActionMethodInfo methodInfo, Object methodParameter) {
-		// create the dialog items/ buttons
-
-		List<Item> items = new ArrayList<Item>();
-		DialogMethodItem methodExecuteItem = new DialogMethodItem(container, methodOwner, methodInfo, methodParameter);
-		items.add(methodExecuteItem);
-		DialogCancelItem cancelItem = new DialogCancelItem(languageProvider);
-		items.add(cancelItem);
-
-		// create the confirmation MaterialAppBarTitle and message
-		TranslatableString title = CONFIRMATION_DIALOG_TITLE;
-		TranslatableString methodTitle = methodInfo.getTitle(methodParameter);
-		TranslatableString question = CONFIRMATION_DIALOG_QUESTION.withParameters(methodTitle);
-
-		// show the dialog
-		showDialog(title, question, items);
-
 	}
 
 	@Override

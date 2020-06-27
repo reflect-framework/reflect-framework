@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
@@ -31,7 +31,7 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodIn
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
 import nth.reflect.fw.stream.UploadStream;
 
-public class UserinterfaceControllerForJavaFX extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
+public class UserinterfaceControllerForJavaFX extends GraphicalUserInterfaceController<Tab, PropertyPanel> {
 
 	private static final TranslatableString INFO_DIALOG_TITLE = new TranslatableString(
 			UserinterfaceControllerForJavaFX.class.getCanonicalName() + ".info.dialog.title", "Info");

@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -26,7 +26,7 @@ import nth.reflect.fw.swing.tab.form.FormTab;
 import nth.reflect.fw.swing.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.swing.tab.form.proppanel.PropertyPanelFactory;
 
-public class UserinterfaceControllerForSwing extends GraphicalUserinterfaceController<Tab, PropertyPanel> {
+public class UserinterfaceControllerForSwing extends GraphicalUserInterfaceController<Tab, PropertyPanel> {
 
 	private MainWindow mainWindow;
 

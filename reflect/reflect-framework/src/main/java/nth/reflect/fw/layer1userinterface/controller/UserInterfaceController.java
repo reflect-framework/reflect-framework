@@ -41,11 +41,6 @@ public abstract class UserInterfaceController implements NotificationListener {
 			"Error while displaying an action result: %s");
 	public static final TranslatableString ERROR_EXECUTE = new TranslatableString(
 			UserInterfaceController.class.getCanonicalName() + ".error.dialog.message", "Failed to execute.");
-	public static final TranslatableString CONFIRMATION_DIALOG_TITLE = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".confirmation.dialog.title", "Confirmation");
-	public static final TranslatableString CONFIRMATION_DIALOG_QUESTION = new TranslatableString(
-			UserInterfaceController.class.getCanonicalName() + ".confirmation.dialog.question",
-			"Do you want to execute: %s ?");
 
 	protected final ReflectionProvider reflectionProvider;
 	protected final LanguageProvider languageProvider;

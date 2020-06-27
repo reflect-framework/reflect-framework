@@ -47,7 +47,6 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.Acti
 import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
-import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.ConfirmMethodFactory;
 import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.EditParameterMethodFactory;
 
 /**
@@ -73,7 +72,6 @@ public class ActionMethodInfo implements NameInfo {
 	private final ExecutionModeType executionMode;
 	private final FontIconModel fontIconModel;
 	private final Method editParameterMethod;
-	private final Method confirmMethod;
 	private final TypeInfo returnTypeInfo;
 	private final TypeInfo firstParameterTypeInfo;
 	private final boolean isReadOnly;
@@ -99,8 +97,6 @@ public class ActionMethodInfo implements NameInfo {
 		this.returnTypeInfo = createReturnTypeInfo(application, method);
 		this.firstParameterTypeInfo = createFirstParameterTypeInfo(application, method);
 		this.editParameterMethod = EditParameterMethodFactory
-				.create(controllerClass, executionMode, method, firstParameterTypeInfo);
-		this.confirmMethod = ConfirmMethodFactory
 				.create(controllerClass, executionMode, method, firstParameterTypeInfo);
 
 		this.actionMethod = method;
@@ -299,17 +295,6 @@ public class ActionMethodInfo implements NameInfo {
 	public void invokeEditParameterMethod(UserInterfaceController userInterfaceController, Object methodOwner,
 			Object methodParameter) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		editParameterMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
-	}
-
-	/**
-	 * Method to invoke a ConfirmActionMethod method of the
-	 * {@link UserInterfaceController}
-	 */
-
-	public void invokeConfirmMethod(UserInterfaceController userInterfaceController, Object methodOwner,
-			Object methodParameter) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		confirmMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
-
 	}
 
 	public ActionMethodPreHandler getPreHandler() {

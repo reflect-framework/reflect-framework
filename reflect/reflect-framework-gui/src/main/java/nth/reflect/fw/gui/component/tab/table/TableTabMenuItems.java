@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.item.ItemCollection;
@@ -43,8 +43,8 @@ public class TableTabMenuItems extends ItemCollection {
 		Object serviceObject = tableTab.getMethodOwner();
 
 		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userinterfaceController = tableTab.getUserInterfaceContainer()
-				.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController userinterfaceController = tableTab.getUserInterfaceContainer()
+				.get(GraphicalUserInterfaceController.class);
 		Tabs<Tab> tabs = userinterfaceController.getTabs();
 		items.addAll(new PropertyMethodOwnerItems(tabs, parameterModel, null));
 

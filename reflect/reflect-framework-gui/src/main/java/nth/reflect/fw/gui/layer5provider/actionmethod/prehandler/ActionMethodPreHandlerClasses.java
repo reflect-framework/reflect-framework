@@ -1,8 +1,8 @@
-package nth.reflect.fw.layer5provider.actionmethod.prehandler;
+package nth.reflect.fw.gui.layer5provider.actionmethod.prehandler;
 
 import java.util.ArrayList;
 
-import nth.reflect.fw.layer5provider.actionmethod.prehandler.impl.AskConfirmation;
+import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
 import nth.reflect.fw.layer5provider.actionmethod.prehandler.impl.EditDomainObject;
 import nth.reflect.fw.layer5provider.actionmethod.prehandler.impl.ProcessDirectly;
 

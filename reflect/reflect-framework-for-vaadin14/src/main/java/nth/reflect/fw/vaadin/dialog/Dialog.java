@@ -5,9 +5,9 @@ import java.util.List;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.charts.model.style.FontWeight;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
-import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
 import nth.reflect.fw.vaadin.button.Button;
@@ -56,6 +56,7 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 
 	private HorizontalLayout createButtonBar() {
 		HorizontalLayout buttonBar = new HorizontalLayout();
+		buttonBar.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
 		return buttonBar;
 	}
 
@@ -76,20 +77,23 @@ public class Dialog extends com.vaadin.flow.component.dialog.Dialog {
 	}
 
 	private Button createButton(Item item) {
-		if (item instanceof DialogCloseItem) {
-			item.setAction(createCloseAction());
-		}
+		addCloseAction(item);
 		Button button = new Button(ButtonTheme.SECONDARY, item);
 		return button;
 	}
 
-	private Action createCloseAction() {
-		return new Action() {
+	private void addCloseAction(Item item) {
+		Action itemAction = item.getAction();
+		Action withCloseAction = new Action() {
 			@Override
 			public void run() {
 				close();
+				if (itemAction != null) {
+					itemAction.run();
+				}
 			}
 		};
+		item.setAction(withCloseAction);
 	}
 
 	private boolean isLastButton(List<Item> items, int i) {

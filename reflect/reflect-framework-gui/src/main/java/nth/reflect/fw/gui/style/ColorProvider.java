@@ -2,7 +2,7 @@ package nth.reflect.fw.gui.style;
 
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.style.basic.Color;
 import nth.reflect.fw.layer5provider.Provider;
 
@@ -35,9 +35,9 @@ import nth.reflect.fw.layer5provider.Provider;
  * 
  * <p>
  * You can override the default colors by extending the
- * {@link GraphicalUserinterfaceController} and overriding the
- * {@link GraphicalUserinterfaceController#getColorProvider()} method. You then must
- * return this {@link GraphicalUserinterfaceController} by overriding the
+ * {@link GraphicalUserInterfaceController} and overriding the
+ * {@link GraphicalUserInterfaceController#getColorProvider()} method. You then must
+ * return this {@link GraphicalUserInterfaceController} by overriding the
  * {@link ReflectApplication#getUserInterfaceControllerClass()}
  * </p>
  */

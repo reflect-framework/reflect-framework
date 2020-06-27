@@ -2,7 +2,7 @@ package nth.reflect.fw.gui.layer5provider.actionmethod.result;
 
 import java.util.Optional;
 
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
@@ -28,7 +28,7 @@ public abstract class DomainObjectResultHandler
 	@Override
 	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
-		GraphicalUserinterfaceController userinterface = container.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController userinterface = container.get(GraphicalUserInterfaceController.class);
 
 		Tabs tabs = userinterface.getTabs();
 

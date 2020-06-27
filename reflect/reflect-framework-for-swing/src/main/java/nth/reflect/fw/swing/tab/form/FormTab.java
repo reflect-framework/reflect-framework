@@ -12,7 +12,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import nth.reflect.fw.generic.valuemodel.ReadOnlyValueModel;
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.Tabs;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
@@ -154,8 +154,8 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	public JButton createCloseButton() {
 		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
-				.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController userInterfaceController = userInterfaceContainer
+				.get(GraphicalUserInterfaceController.class);
 		Tabs<Tab> tabs = userInterfaceController.getTabs();
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		CloseThisTabItem closeItem = new CloseThisTabItem(languageProvider, tabs, this);
@@ -164,8 +164,8 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 
 	public JButton createCancelButton() {
 		@SuppressWarnings("rawtypes")
-		GraphicalUserinterfaceController userInterfaceController = userInterfaceContainer
-				.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController userInterfaceController = userInterfaceContainer
+				.get(GraphicalUserInterfaceController.class);
 		Tabs<Tab> tabs = userInterfaceController.getTabs();
 		LanguageProvider languageProvider = userInterfaceContainer.get(LanguageProvider.class);
 		CancelItem cancelItem = new CancelItem(languageProvider, tabs, this);

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.vaadin.flow.component.notification.Notification;
 
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
@@ -20,7 +20,7 @@ import nth.reflect.fw.vaadin.tab.form.row.PropertyPanel;
 import nth.reflect.fw.vaadin.tab.form.row.PropertyPanelFactory;
 
 public class UserInterfaceControllerForVaadin14
-		extends GraphicalUserinterfaceController<nth.reflect.fw.vaadin.tab.Tab, PropertyPanel> {
+		extends GraphicalUserInterfaceController<nth.reflect.fw.vaadin.tab.Tab, PropertyPanel> {
 
 	private final PropertyPanelFactory propertyPanelFactory;
 	private final Dialog dialog;

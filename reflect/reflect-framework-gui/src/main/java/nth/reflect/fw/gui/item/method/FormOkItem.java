@@ -1,6 +1,6 @@
 package nth.reflect.fw.gui.item.method;
 
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.BufferedDomainValueModel;
@@ -26,7 +26,7 @@ public class FormOkItem extends MethodItem {
 			final BufferedDomainValueModel domainValueModel) {
 
 		UserInterfaceContainer container = formTab.getUserInterfaceContainer();
-		GraphicalUserinterfaceController userInterface = container.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController userInterface = container.get(GraphicalUserInterfaceController.class);
 
 		return new Action() {
 			@SuppressWarnings("unchecked")

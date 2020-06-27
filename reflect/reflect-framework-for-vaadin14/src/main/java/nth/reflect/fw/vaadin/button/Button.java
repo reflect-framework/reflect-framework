@@ -15,7 +15,9 @@ public class Button extends com.vaadin.flow.component.button.Button {
 		this(buttonTheme);
 		setText(item.getText());
 		// TODO icon
-		getElement().addEventListener("click", e -> item.getAction().run());
+		if (item.getAction() != null) {
+			getElement().addEventListener("click", e -> item.getAction().run());
+		}
 	}
 
 }

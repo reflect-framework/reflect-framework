@@ -63,6 +63,16 @@ public class DomainObjectService {
 		return domainObjectRandomGenerator.generate();
 	}
 
+	@Order(21)
+	@ExecutionMode(mode = ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION)
+	public void deleteDomainObject(AllFeatureDomainObject domainObject) {
+		domainObjects.remove(domainObject);
+	}
+
+	public DomainObject deleteDomainObjectParameterFactory() {
+		return domainObjectRandomGenerator.generate();
+	}
+
 	@Order(30)
 	@ExecutionMode(mode = ExecutionModeType.EXECUTE_METHOD_DIRECTLY)
 	public DomainObject viewDomainObject(DomainObject domainObject) {
@@ -72,12 +82,6 @@ public class DomainObjectService {
 	@Order(40)
 	@ExecutionMode(mode = ExecutionModeType.EDIT_PARAMETER_THEN_EXECUTE_METHOD_OR_CANCEL)
 	public void modifyDomainObject(DomainObject domainObject) {
-	}
-
-	@Order(50)
-	@ExecutionMode(mode = ExecutionModeType.EXECUTE_METHOD_AFTER_CONFORMATION)
-	public void deleteDomainObject(DomainObject domainObject) {
-		domainObjects.remove(domainObject);
 	}
 
 	@Order(60)

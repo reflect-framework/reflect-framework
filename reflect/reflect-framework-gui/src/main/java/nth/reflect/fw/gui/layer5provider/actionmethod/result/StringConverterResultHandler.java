@@ -3,7 +3,7 @@ package nth.reflect.fw.gui.layer5provider.actionmethod.result;
 import java.util.ArrayList;
 import java.util.List;
 
-import nth.reflect.fw.gui.GraphicalUserinterfaceController;
+import nth.reflect.fw.gui.GraphicalUserInterfaceController;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
@@ -30,7 +30,7 @@ public class StringConverterResultHandler
 	@Override
 	public void process(UserInterfaceContainer container, ActionMethodInfo methodInfo, Object methodOwner,
 			Object methodParameter, Object methodResult) {
-		GraphicalUserinterfaceController userinterface = container.get(GraphicalUserinterfaceController.class);
+		GraphicalUserInterfaceController userinterface = container.get(GraphicalUserInterfaceController.class);
 		LanguageProvider languageProvider = container.get(LanguageProvider.class);
 
 		StringConverterProvider stringConverterProvider = container.get(StringConverterProvider.class);
