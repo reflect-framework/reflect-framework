@@ -1,6 +1,5 @@
 package nth.reflect.fw.javafx;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,10 +7,8 @@ import java.util.List;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nth.reflect.fw.gui.GraphicalUserInterfaceController;
-import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
@@ -19,17 +16,13 @@ import nth.reflect.fw.javafx.control.dialog.Dialog;
 import nth.reflect.fw.javafx.control.mainwindow.MainWindow;
 import nth.reflect.fw.javafx.control.style.StyleSheet;
 import nth.reflect.fw.javafx.control.tab.Tab;
-import nth.reflect.fw.javafx.control.tab.form.FormTab;
 import nth.reflect.fw.javafx.control.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.ReflectionProvider;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
 import nth.reflect.fw.layer5provider.reflection.info.classinfo.ApplicationClassInfo;
-import nth.reflect.fw.stream.UploadStream;
 
 public class UserinterfaceControllerForJavaFX extends GraphicalUserInterfaceController<Tab, PropertyPanel> {
 
@@ -108,27 +101,6 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserInterfaceCont
 	}
 
 	@Override
-	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
-		FileChooser fileChooser = new FileChooser();
-		String title = methodInfo.getTitle(uploadStream).getTranslation(languageProvider);
-		fileChooser.setTitle(title);
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		fileChooser
-				.getExtensionFilters()
-				.addAll(new FileChooser.ExtensionFilter(uploadStream.getFileTypeDescription(),
-						uploadStream.fileExtentionFilters()));
-		ReflectApplicationForJavaFX application = container.get(ReflectApplicationForJavaFX.class);
-		File selectedFile = fileChooser.showOpenDialog(application.getPrimaryStage());
-		if (selectedFile != null) {
-			uploadStream.setFile(selectedFile);
-			Object methodParameter = uploadStream;
-			ActionMethodInvoker invoker = new ActionMethodInvoker(container, methodInfo, methodOwner, methodParameter);
-			invoker.run();
-		}
-
-	}
-
-	@Override
 	public PropertyPanelFactory<PropertyPanel> getPropertyPanelFactory() {
 		if (propertyPanelFactory == null) {
 			PropertyFieldProvider propertyFieldProvider = container.get(PropertyFieldProvider.class);
@@ -136,13 +108,6 @@ public class UserinterfaceControllerForJavaFX extends GraphicalUserInterfaceCont
 					propertyFieldProvider);
 		}
 		return propertyPanelFactory;
-	}
-
-	@Override
-	public nth.reflect.fw.gui.component.tab.Tab createFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo,
-			Object methodParameter, Object methodResult, FormMode formMode) {
-		// TODO Auto-generated method stub
-		return new FormTab(container, methodOwner, actionMethodInfo, methodParameter, methodResult, formMode);
 	}
 
 }

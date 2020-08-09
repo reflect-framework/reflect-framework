@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import nth.reflect.fw.gui.component.tab.table.TableTab;
-import nth.reflect.fw.gui.layer5provider.actionmethod.result.MultipleValueResultHandler;
+import nth.reflect.fw.gui.layer5provider.actionmethod.result.impl.MultipleValueResultHandler;
 import nth.reflect.fw.junit.ReflectApplicationForJUnit;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer3domain.AllFeatureServiceObject;

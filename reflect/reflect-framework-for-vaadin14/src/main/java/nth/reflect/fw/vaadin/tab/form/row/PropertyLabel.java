@@ -4,6 +4,7 @@ import com.vaadin.flow.component.html.Span;
 
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyLabelStyle;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.vaadin.css.SizeUnit;
 import nth.reflect.fw.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")
@@ -24,14 +25,16 @@ public class PropertyLabel extends Span implements nth.reflect.fw.gui.component.
 	public PropertyLabel() {
 		// Material design: font-family: Raleway; font-size: 12px; font-style:
 		// SemiBold ; padding 0,12,0,12
-		new StyleBuilder().setFont("font-size: 8px").setPadding(0, 10, 0, 10).setFor(this);
-		setText("Some label");// TODO
+		new StyleBuilder()
+				.setFontSize(14, SizeUnit.PX)
+				.setFont("Roboto Condensed")
+				.setPadding(0, 10, 0, 10)
+				.setFor(this);
 	}
 
 	@Override
 	public void setText(String text) {
 		super.setText(text);
-
 	}
 
 	@Override

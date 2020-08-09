@@ -8,8 +8,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyIconButton;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelStyle;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
 import nth.reflect.fw.gui.component.tab.form.valuemodel.PropertyValueModel;
+import nth.reflect.fw.vaadin.css.StyleBuilder;
 
 @SuppressWarnings("serial")
 public class PropertyPanel extends VerticalLayout implements
@@ -17,22 +19,26 @@ public class PropertyPanel extends VerticalLayout implements
 
 	private final PropertyValueModel propertyValueModel;
 	private final PropertyField propertyField;
+	private final PropertyLabel propertyLabel;
+	private final PropertyValidationLabel propertyValidationLabel;
 
 	public PropertyPanel(FormTab formTab, PropertyValueModel propertyValueModel, PropertyField propertyField) {
 		this.propertyValueModel = propertyValueModel;
+		this.propertyLabel = new PropertyLabel();
 		this.propertyField = propertyField;
+		this.propertyValidationLabel = new PropertyValidationLabel();
 
 		getThemeList().clear();// remove theme "padding spacing"
+		new StyleBuilder().setPadding(0, 0, PropertyPanelStyle.BOTTOM_PADDING, 0).setFor(this);
 
 		add(getPropertyLabel());
 		add((Component) propertyField);// FIXME YUK!!!
 		add(getPropertyValidationLabel());
-
 	}
 
 	@Override
 	public PropertyLabel getPropertyLabel() {
-		return new PropertyLabel();
+		return propertyLabel;
 	}
 
 	@Override
@@ -42,7 +48,7 @@ public class PropertyPanel extends VerticalLayout implements
 
 	@Override
 	public PropertyValidationLabel getPropertyValidationLabel() {
-		return new PropertyValidationLabel();
+		return propertyValidationLabel;
 	}
 
 	@Override

@@ -1,17 +1,23 @@
 package nth.reflect.fw.vaadin.layer5provider.actionmethod.result;
 
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.impl.DomainObjectResultHandler;
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.impl.DownloadStreamResultHandler;
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.impl.MultipleValueResultHandler;
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.impl.UriResultHandler;
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.impl.UrlResultHandler;
+
 public class ActionMethodResultHandelerClasses
 		extends nth.reflect.fw.gui.layer5provider.actionmethod.result.ActionMethodResultHandlerClasses {
 
 	private static final long serialVersionUID = 2547177520256232384L;
 
 	@Override
-	public Class<? extends nth.reflect.fw.gui.layer5provider.actionmethod.result.DomainObjectResultHandler> getDomainObjectResultHandler() {
+	public Class<? extends nth.reflect.fw.gui.layer5provider.actionmethod.result.impl.DomainObjectResultHandler> getDomainObjectResultHandler() {
 		return DomainObjectResultHandler.class;
 	}
 
 	@Override
-	public Class<? extends nth.reflect.fw.gui.layer5provider.actionmethod.result.MultipleValueResultHandler> getMultipleValueResultHandler() {
+	public Class<? extends nth.reflect.fw.gui.layer5provider.actionmethod.result.impl.MultipleValueResultHandler> getMultipleValueResultHandler() {
 		return MultipleValueResultHandler.class;
 	}
 

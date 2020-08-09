@@ -1,4 +1,4 @@
-package nth.reflect.fw.swing.layer5provider.actionmethod.result;
+package nth.reflect.fw.swing.layer5provider.actionmethod.result.impl;
 
 import java.awt.Desktop;
 import java.net.URI;

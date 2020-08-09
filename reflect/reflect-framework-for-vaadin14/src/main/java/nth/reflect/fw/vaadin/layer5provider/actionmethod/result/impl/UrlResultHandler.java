@@ -1,4 +1,4 @@
-package nth.reflect.fw.vaadin.layer5provider.actionmethod.result;
+package nth.reflect.fw.vaadin.layer5provider.actionmethod.result.impl;
 
 import java.net.URL;
 

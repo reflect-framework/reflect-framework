@@ -1,5 +1,9 @@
 package nth.reflect.fw.gui.layer5provider.actionmethod.result;
 
+import nth.reflect.fw.gui.layer5provider.actionmethod.result.impl.DomainObjectResultHandler;
+import nth.reflect.fw.gui.layer5provider.actionmethod.result.impl.MultipleValueResultHandler;
+import nth.reflect.fw.gui.layer5provider.actionmethod.result.impl.StringConverterResultHandler;
+
 public abstract class ActionMethodResultHandlerClasses
 		extends nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandlerClasses {
 

@@ -1,20 +1,24 @@
 package nth.reflect.fw.gui.component.tab.form.propertypanel;
 
 import nth.reflect.fw.gui.component.ReflectStyleClass;
+import nth.reflect.fw.gui.style.ReflectColorName;
 import nth.reflect.fw.gui.style.basic.Color;
-import nth.reflect.fw.gui.style.basic.Font;
 
 /**
  * A {@link ReflectStyleClass} for a {@link PropertyValidationLabel}
+ * 
  * @author nilsth
  *
  */
-public class PropertyValidationLabelStyle implements ReflectStyleClass {
+public class PropertyValidationLabelStyle extends PropertyLabelStyle implements ReflectStyleClass {
 
-	public static Font getFont() {
-		return PropertyLabelStyle.getFont();
-	}
-	
+	public static final String FONT_COLOR = ReflectColorName.ERROR.BACKGROUND();
+
+	/**
+	 * @deprecated use {@link #FONT_COLOR}
+	 * @return
+	 */
+	@Deprecated
 	public static Color getFontColor() {
 		return Color.RED;
 	}

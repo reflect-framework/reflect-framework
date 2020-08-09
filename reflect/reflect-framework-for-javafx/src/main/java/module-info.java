@@ -1,5 +1,6 @@
 module nth.reflect.fw.javafx {
 	exports nth.reflect.fw.javafx.control;
+	exports nth.reflect.fw.javafx.layer5provider.actionmethod.result.impl;
 	exports nth.reflect.fw.javafx.layer5provider.properyfield.factory;
 	exports nth.reflect.fw.javafx.control.tab.form.proppanel;
 	exports nth.reflect.fw.javafx.control.table;
@@ -10,12 +11,14 @@ module nth.reflect.fw.javafx {
 	exports nth.reflect.fw.javafx.control.dialog;
 	exports nth.reflect.fw.javafx.control.fonticon;
 	exports nth.reflect.fw.javafx.control.toolbar;
+	exports nth.reflect.fw.javafx.layer5provider.actionmethod.prehandler;
 	exports nth.reflect.fw.javafx.control.tab;
 	exports nth.reflect.fw.javafx.control.tab.form;
 	exports nth.reflect.fw.javafx.control.style;
 	exports nth.reflect.fw.javafx.layer5provider.url;
 	exports nth.reflect.fw.javafx.layer5provider.properyfield;
 	exports nth.reflect.fw.javafx.layer5provider.actionmethod.execution;
+	exports nth.reflect.fw.javafx.layer5provider.actionmethod.prehandler.impl;
 	exports nth.reflect.fw.javafx.layer5provider.actionmethod.result;
 	exports nth.reflect.fw.javafx.control.tab.table;
 	exports nth.reflect.fw.javafx.control.button;

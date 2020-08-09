@@ -5,11 +5,14 @@ import java.util.HashMap;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.charts.model.style.FontWeight;
 
+import nth.reflect.fw.gui.style.ColorProvider;
+import nth.reflect.fw.gui.style.ReflectColorName;
+import nth.reflect.fw.gui.style.ReflectColorSet;
 import nth.reflect.fw.gui.style.basic.Color;
 
 /**
- * Fluent interface style to set style properties.
- * FIXME: better use CSS files???
+ * Fluent interface style to set style properties. FIXME: better use CSS
+ * files???
  * 
  * @author nilsth
  *
@@ -389,4 +392,19 @@ public class StyleBuilder extends HashMap<String, String> {
 		return this;
 	}
 
+	public StyleBuilder setReflectColors(ColorProvider colorProvider) {
+		setReflectColors(ReflectColorName.PRIMARY, colorProvider.getPrimaryColors());
+		setReflectColors(ReflectColorName.ACCENT, colorProvider.getAccentColors());
+		setReflectColors(ReflectColorName.CONTENT, colorProvider.getContentColors());
+		setReflectColors(ReflectColorName.ERROR, colorProvider.getErrorColors());
+		return this;
+	}
+
+	private StyleBuilder setReflectColors(ReflectColorName colorSetName, ReflectColorSet colorSet) {
+		put(colorSetName.BACKGROUND(), getRGB(colorSet.getBackground()));
+		put(colorSetName.BACKGROUND_12(), getRGB(colorSet.getBackground12()));
+		put(colorSetName.BACKGROUND_20(), getRGB(colorSet.getBackground20()));
+		put(colorSetName.FOREGROUND(), getRGB(colorSet.getForeground()));
+		return this;
+	}
 }

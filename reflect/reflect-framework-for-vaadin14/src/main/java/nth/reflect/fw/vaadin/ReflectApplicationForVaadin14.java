@@ -12,7 +12,6 @@ import com.vaadin.flow.server.VaadinSession;
 
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.gui.GraphicalUserInterfaceApplication;
-import nth.reflect.fw.gui.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerClasses;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.gui.layer5provider.properyfield.factory.PropertyFieldFactory;
 import nth.reflect.fw.gui.style.ColorProvider;
@@ -41,7 +40,9 @@ import nth.reflect.fw.layer5provider.url.UrlStreamHandlers;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
+import nth.reflect.fw.vaadin.css.StyleBuilder;
 import nth.reflect.fw.vaadin.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
+import nth.reflect.fw.vaadin.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerClasses;
 import nth.reflect.fw.vaadin.layer5provider.actionmethod.result.ActionMethodResultHandelerClasses;
 import nth.reflect.fw.vaadin.layer5provider.properyfield.PropertyFieldFactoryClasses;
 import nth.reflect.fw.vaadin.mainwindow.MainWindow;
@@ -142,7 +143,13 @@ public abstract class ReflectApplicationForVaadin14 extends Div
 		userInterfaceContainer = ReflectFramework.launch(this);
 		mainWindow = new MainWindow(userInterfaceContainer);
 		add(mainWindow);
+		setCssColors();
 		setSizeFull();
+	}
+
+	private void setCssColors() {
+		ColorProvider colorProvider = userInterfaceContainer.get(ColorProvider.class);
+		new StyleBuilder().setReflectColors(colorProvider).setFor(this);
 	}
 
 	public MainWindow getMainWindow() {

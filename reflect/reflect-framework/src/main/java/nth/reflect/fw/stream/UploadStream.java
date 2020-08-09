@@ -1,6 +1,9 @@
 package nth.reflect.fw.stream;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * Receives a file from the user to the application (e.g. opens a file selection
@@ -13,41 +16,55 @@ public class UploadStream {
 
 	private final String fileTypeDescription;
 	private final String[] fileExtentionFilters;
-	private File file;
+	private InputStream inputStream;
+	private String fileName;
 
 	public UploadStream(String fileTypeDescription, String... fileExtentionFilters) {
+		if (fileTypeDescription == null || fileTypeDescription.isBlank()) {
+			throw new IllegalArgumentException("fileTypeDescription may not be empty");
+		}
 		this.fileTypeDescription = fileTypeDescription;
 		this.fileExtentionFilters = fileExtentionFilters;
 	}
 
-	public File getFile() {
-		return file;
+	public UploadStream() {
+		this("All files", "*.*");
 	}
-
-//	public InputStream getInputStream() throws FileNotFoundException {
-//		return new FileInputStream(file);
-//	}
 
 	public String getFileTypeDescription() {
 		return fileTypeDescription;
 	}
 
-	// TODO rename to getFileExtentionFilter and fix FormatFactory for String[]
-	public String[] fileExtentionFilters() {
+	// TODO change to MIME types?
+	public String[] getFileExtentionFilters() {
 		return fileExtentionFilters;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
 	}
 
 	@Override
 	public String toString() {
-		if (file == null) {
-			return fileTypeDescription;
+		if (fileName == null) {
+			return "";
 		} else {
-			return file.getPath();
+			return fileName;
 		}
+	}
+
+	public void setResult(InputStream inputStream, String fileName) {
+		this.inputStream = inputStream;
+		this.fileName = fileName;
+	}
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setResult(File file) throws FileNotFoundException {
+		fileName = file.getAbsolutePath();
+		inputStream = new FileInputStream(file);
 	}
 
 }
