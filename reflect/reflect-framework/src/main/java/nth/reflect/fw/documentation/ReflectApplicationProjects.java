@@ -49,7 +49,14 @@ import nth.reflect.fw.ReflectFramework;
  * You might also be ale to use another <a href=
  * "https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
  * Development Environment</a>. This however never was tested.</li>
+ * <li><b>NodeJs:</b> NodeJs is a javascript framework that you will need to
+ * install when using the {@link ReflectApplicationForVaadin14}. It can be
+ * downloaded from:
+ * <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>. It automatically
+ * comes with NPM: a Node Package Manager for downloading java script libraries.
+ * </li>
  * </ul>
+ * 
  * <!-- TODO add youtube film -->
  * 
  * <h2>Reflect for the Web</h2>

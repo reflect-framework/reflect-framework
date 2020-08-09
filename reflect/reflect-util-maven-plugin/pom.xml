@@ -65,6 +65,7 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<!-- needs .m2/settings.xml??? -->
 				<!-- Restricts scanning for MoJo annotation only in current project (not 
 					full class path, this causes ArrayIndexOutOfBoundsException) -->
 				<!-- See https://stackoverflow.com/questions/44312695/custom-maven-plugin-fail-java-lang-arrayindexoutofboundsexception-3379-at-org -->
