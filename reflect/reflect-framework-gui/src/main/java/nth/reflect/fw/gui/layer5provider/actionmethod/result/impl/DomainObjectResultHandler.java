@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.layer5provider.actionmethod.result;
+package nth.reflect.fw.gui.layer5provider.actionmethod.result.impl;
 
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ public abstract class DomainObjectResultHandler
 		if (result.isPresent()) {
 			tabs.setSelected(result.get());
 		} else {
-			Tab formTab = createFormTab(container, methodOwner, methodInfo, methodParameter, methodResult, READ_ONLY);
+			Tab formTab = createReadOnlyFormTab(container, methodOwner, methodInfo, methodParameter, methodResult);
 			tabs.setSelected(formTab);
 		}
 	}
@@ -50,6 +50,6 @@ public abstract class DomainObjectResultHandler
 	 * 
 	 * @param methodOwner
 	 */
-	public abstract Tab createFormTab(UserInterfaceContainer container, Object methodOwner, ActionMethodInfo methodInfo,
-			Object methodParameter, Object methodResult, FormMode formMode);
+	public abstract Tab createReadOnlyFormTab(UserInterfaceContainer container, Object methodOwner,
+			ActionMethodInfo methodInfo, Object methodParameter, Object methodResult);
 }

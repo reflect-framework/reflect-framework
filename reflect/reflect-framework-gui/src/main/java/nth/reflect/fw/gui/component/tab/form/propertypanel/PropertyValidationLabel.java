@@ -5,6 +5,7 @@ import java.util.List;
 import nth.reflect.fw.gui.component.ReflectGuiComponent;
 import nth.reflect.fw.gui.component.tab.form.FormTab;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.field.PropertyField;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 
 /**
@@ -33,8 +34,16 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
  */
 public interface PropertyValidationLabel extends ReflectGuiComponent {
 
+	/**
+	 * Replace the following method with
+	 * setMessages(List<{@link TranslatableString}> messages);
+	 */
 	public void addMessage(String message);
 
+	/**
+	 * Replace the following method with
+	 * setMessages(List<{@link TranslatableString}> messages);
+	 */
 	public void clearMessage();
 
 	public void setVisible(boolean visible);

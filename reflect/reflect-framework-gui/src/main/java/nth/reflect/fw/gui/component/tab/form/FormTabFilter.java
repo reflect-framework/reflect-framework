@@ -10,15 +10,15 @@ public class FormTabFilter implements Predicate<Tab> {
 	private Object methodOwner;
 	private ActionMethodInfo actionMethodInfo;
 	private Object methodParameter;
-	private Object methodResult;
+	private Object domainObject;
 	private FormMode formMode;
 
 	public FormTabFilter(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameter,
-			Object methodResult, FormMode formMode) {
+			Object domainObject, FormMode formMode) {
 		this.methodOwner = methodOwner;
 		this.actionMethodInfo = actionMethodInfo;
 		this.methodParameter = methodParameter;
-		this.methodResult = methodResult;
+		this.domainObject = domainObject;
 		this.formMode = formMode;
 	}
 
@@ -27,7 +27,7 @@ public class FormTabFilter implements Predicate<Tab> {
 		if (tab instanceof FormTab) {
 			FormTab formTab = (FormTab) tab;
 			return formTab.getMethodOwner() == methodOwner && formTab.getMethodInfo() == actionMethodInfo
-					&& formTab.getMethodParameter() == methodParameter && formTab.getDomainObject() == methodResult
+					&& formTab.getMethodParameter() == methodParameter && formTab.getDomainObject() == domainObject
 					&& formTab.getFormMode() == formMode;
 		} else {
 			return false;

@@ -62,6 +62,10 @@ public interface PropertyPanel<LABEL extends PropertyLabel, FIELD extends Proper
 			for (PropertyIconButton propertyIconButton : propertyIconButtons) {
 				propertyIconButton.onRefresh();
 			}
+
+			PropertyValidationLabel validationLabel = getPropertyValidationLabel();
+			validationLabel.clearMessage();
+			// TODO validate at a later time
 		}
 	}
 

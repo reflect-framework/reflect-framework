@@ -102,7 +102,9 @@ public class FormTab extends Tab implements nth.reflect.fw.gui.component.tab.for
 	}
 
 	public static void appendStyleGroups(StyleSheet styleSheet) {
-		styleSheet.addStyleGroup(StyleSelector.createFor(FormTab.class)).getProperties()
+		styleSheet
+				.addStyleGroup(StyleSelector.createFor(FormTab.class))
+				.getProperties()
 				.setBackground(ReflectColorName.CONTENT.BACKGROUND());
 	}
 

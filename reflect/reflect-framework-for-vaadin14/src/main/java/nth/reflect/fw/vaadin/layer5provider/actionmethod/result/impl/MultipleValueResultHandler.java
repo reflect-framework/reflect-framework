@@ -1,10 +1,10 @@
-package nth.reflect.fw.swing.layer5provider.actionmethod.result;
+package nth.reflect.fw.vaadin.layer5provider.actionmethod.result.impl;
 
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.swing.tab.table.TableTab;
+import nth.reflect.fw.vaadin.tab.table.TableTab;
 
-public class MultipleValueResultHandler extends nth.reflect.fw.gui.layer5provider.actionmethod.result.MultipleValueResultHandler {
+public class MultipleValueResultHandler extends nth.reflect.fw.gui.layer5provider.actionmethod.result.impl.MultipleValueResultHandler {
 
 	@Override
 	public TableTab createTableTab(UserInterfaceContainer container, Object methodOwner,

@@ -1,6 +1,5 @@
 package nth.reflect.fw.layer5provider.reflection.info.actionmethod;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
@@ -8,7 +7,6 @@ import java.net.URL;
 import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.generic.util.MethodCanonicalName;
 import nth.reflect.fw.generic.util.StringUtil;
-import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer3domain.DomainObject;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
@@ -47,7 +45,6 @@ import nth.reflect.fw.layer5provider.reflection.info.actionmethod.exception.Acti
 import nth.reflect.fw.layer5provider.reflection.info.type.FirstParameterTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.ReturnTypeInfo;
 import nth.reflect.fw.layer5provider.reflection.info.type.TypeInfo;
-import nth.reflect.fw.layer5provider.reflection.info.userinterfacemethod.EditParameterMethodFactory;
 
 /**
  * <p>
@@ -71,7 +68,6 @@ public class ActionMethodInfo implements NameInfo {
 	private final ParameterFactoryModel parameterFactoryModel;
 	private final ExecutionModeType executionMode;
 	private final FontIconModel fontIconModel;
-	private final Method editParameterMethod;
 	private final TypeInfo returnTypeInfo;
 	private final TypeInfo firstParameterTypeInfo;
 	private final boolean isReadOnly;
@@ -89,16 +85,12 @@ public class ActionMethodInfo implements NameInfo {
 		validateNoOrSingleParameter(method);
 
 		ReflectApplication application = container.get(ReflectApplication.class);
-		Class<? extends UserInterfaceController> controllerClass = application.getUserInterfaceControllerClass();
 		LanguageProvider languageProvider = container.get(LanguageProvider.class);
 		AuthorizationProvider authorizationProvider = container.get(AuthorizationProvider.class);
 		this.reflectionProvider = container.get(ReflectionProvider.class);
 		this.executionMode = ExecutionModeFactory.create(method);
 		this.returnTypeInfo = createReturnTypeInfo(application, method);
 		this.firstParameterTypeInfo = createFirstParameterTypeInfo(application, method);
-		this.editParameterMethod = EditParameterMethodFactory
-				.create(controllerClass, executionMode, method, firstParameterTypeInfo);
-
 		this.actionMethod = method;
 		this.canonicalName = MethodCanonicalName.getFor(method);
 		this.displayName = new TranslatedMethodDisplayName(languageProvider, method, this);
@@ -286,15 +278,6 @@ public class ActionMethodInfo implements NameInfo {
 
 	public boolean hasReturnValue() {
 		return actionMethod.getReturnType() != Void.TYPE;
-	}
-
-	/**
-	 * Method to invoke a editAtionMethodParameter method of the
-	 * {@link UserInterfaceController}
-	 */
-	public void invokeEditParameterMethod(UserInterfaceController userInterfaceController, Object methodOwner,
-			Object methodParameter) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		editParameterMethod.invoke(userInterfaceController, methodOwner, this, methodParameter);
 	}
 
 	public ActionMethodPreHandler getPreHandler() {

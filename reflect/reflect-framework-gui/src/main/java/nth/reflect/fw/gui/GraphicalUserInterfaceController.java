@@ -2,26 +2,19 @@ package nth.reflect.fw.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import nth.reflect.fw.gui.component.mainwindow.MainWindow;
 import nth.reflect.fw.gui.component.tab.Tab;
 import nth.reflect.fw.gui.component.tab.Tabs;
-import nth.reflect.fw.gui.component.tab.form.FormMode;
-import nth.reflect.fw.gui.component.tab.form.FormTab;
-import nth.reflect.fw.gui.component.tab.form.FormTabFilter;
 import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyPanelFactory;
 import nth.reflect.fw.gui.item.dialog.DialogCloseItem;
 import nth.reflect.fw.gui.item.dialog.DialogShowStackTraceItem;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer1userinterface.item.Item;
-import nth.reflect.fw.layer5provider.actionmethod.resulthandler.ActionMethodResultHandler;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.NotificationProvider;
 import nth.reflect.fw.layer5provider.notification.Task;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.stream.UploadStream;
 
 /**
  * <p>
@@ -73,44 +66,6 @@ public abstract class GraphicalUserInterfaceController<TAB extends Tab, PROPERTY
 		// TODO Auto-generated method stub
 
 	}
-
-	public void editActionMethodParameter(Object actionMethodOwner, ActionMethodInfo actionMethodInfo,
-			Object actionMethodParameterValue) {
-		showFormTab(actionMethodOwner, actionMethodInfo, actionMethodParameterValue, actionMethodParameterValue,
-				FormMode.EDIT);
-	}
-
-	/**
-	 * TODO move to {@link ActionMethodResultHandler}
-	 * 
-	 * @param methodOwner
-	 * @param actionMethodInfo
-	 * @param methodParameter
-	 * @param methodResult
-	 * @param formMode
-	 */
-	public void showFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameter,
-			Object methodResult, FormMode formMode) {
-
-		Tabs tabs = getTabs();
-
-		FormTabFilter formTabFilter = new FormTabFilter(methodOwner, actionMethodInfo, methodParameter, methodResult,
-				formMode);
-		Optional<FormTab> result = tabs.stream().filter(formTabFilter).findFirst();
-
-		if (result.isPresent()) {
-			tabs.setSelected(result.get());
-		} else {
-			Tab formTab = createFormTab(methodOwner, actionMethodInfo, methodParameter, methodResult, formMode);
-			tabs.setSelected(formTab);
-		}
-	}
-
-	public abstract Tab createFormTab(Object methodOwner, ActionMethodInfo actionMethodInfo, Object methodParameter,
-			Object methodResult, FormMode formMode);
-
-	public abstract void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo,
-			UploadStream uploadStream);
 
 	@Override
 	public void showError(TranslatableString title, TranslatableString message, Throwable throwable) {

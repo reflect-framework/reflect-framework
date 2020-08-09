@@ -2,11 +2,14 @@ package nth.reflect.all.feature.domain;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
 
 import nth.reflect.fw.gui.style.fontawesome.FontAwesomeUrl;
 import nth.reflect.fw.layer2service.ServiceObject;
@@ -19,6 +22,7 @@ import nth.reflect.fw.layer5provider.reflection.behavior.order.Order;
 import nth.reflect.fw.layer5provider.reflection.behavior.parameterfactory.ParameterFactory;
 import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethod;
 import nth.reflect.fw.stream.DownloadStream;
+import nth.reflect.fw.stream.UploadStream;
 import nth.reflect.util.random.Random;
 
 /**
@@ -120,6 +124,19 @@ public class DomainObjectService {
 		} catch (UnsupportedEncodingException e) {
 			return null;
 		}
+	}
+
+	@Order(95)
+	public void uploadFile(UploadStream uploadStream) throws IOException {
+		InputStream inputStream = uploadStream.getInputStream();
+		String fileName = uploadStream.getFileName();
+		byte[] buffer = new byte[1024];
+		IOUtils.read(inputStream, buffer);
+		System.out.println("Read file:" + fileName);
+	}
+
+	public UploadStream uploadFileParameterFactory() {
+		return new UploadStream();// TODO MIME types
 	}
 
 	@Order(100)

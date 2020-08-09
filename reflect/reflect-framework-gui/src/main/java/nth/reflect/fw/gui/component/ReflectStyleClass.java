@@ -2,7 +2,8 @@ package nth.reflect.fw.gui.component;
 
 import nth.reflect.fw.documentation.ReflectApplicationProjects;
 import nth.reflect.fw.documentation.ReflectDocumentationInterface;
-import nth.reflect.fw.gui.component.table.Table;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyLabel;
+import nth.reflect.fw.gui.component.tab.form.propertypanel.PropertyLabelStyle;
 
 /**
  * <p>
@@ -13,7 +14,8 @@ import nth.reflect.fw.gui.component.table.Table;
  *
  * <p>
  * {@link ReflectStyleClass}es are named: &lt;{@link ReflectGuiComponent}
- * name&gt;Style. E.g. the GridStyle for the {@link Table} component
+ * name&gt;Style. E.g. the {@link PropertyLabelStyle} for the
+ * {@link PropertyLabel} component
  * </p>
  * 
  * <p>

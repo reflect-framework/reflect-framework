@@ -1,28 +1,20 @@
 package nth.reflect.fw.swing;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import nth.reflect.fw.gui.GraphicalUserInterfaceController;
-import nth.reflect.fw.gui.component.tab.form.FormMode;
 import nth.reflect.fw.gui.layer5provider.properyfield.PropertyFieldProvider;
 import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.item.Item;
 import nth.reflect.fw.layer1userinterface.item.Item.Action;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
-import nth.reflect.fw.layer5provider.reflection.info.actionmethod.ActionMethodInfo;
-import nth.reflect.fw.stream.UploadStream;
 import nth.reflect.fw.swing.dialog.toast.Toast;
 import nth.reflect.fw.swing.dialog.toast.Toast.Style;
 import nth.reflect.fw.swing.mainwindow.MainWindow;
 import nth.reflect.fw.swing.tab.Tab;
-import nth.reflect.fw.swing.tab.form.FormTab;
 import nth.reflect.fw.swing.tab.form.proppanel.PropertyPanel;
 import nth.reflect.fw.swing.tab.form.proppanel.PropertyPanelFactory;
 
@@ -63,31 +55,6 @@ public class UserinterfaceControllerForSwing extends GraphicalUserInterfaceContr
 	public void showMessage(TranslatableString message) {
 		String translatedMessage = message.getTranslation(languageProvider);
 		Toast.makeText(mainWindow, translatedMessage, Style.NORMAL).display();
-	}
-
-	@Override
-	public void editActionMethodParameter(Object methodOwner, ActionMethodInfo methodInfo, UploadStream uploadStream) {
-		final JFileChooser fc = new JFileChooser();
-		String title = methodInfo.getTitle(uploadStream).getTranslation(languageProvider);
-		fc.setDialogTitle(title);
-		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(uploadStream.getFileTypeDescription(),
-				uploadStream.fileExtentionFilters());
-		fc.setFileFilter(filter);
-		int result = fc.showOpenDialog(getMainWindow());
-		if (result == JFileChooser.APPROVE_OPTION) {
-			File selectedFile = fc.getSelectedFile();
-			uploadStream.setFile(selectedFile);
-			Object methodParameter = uploadStream;
-			ActionMethodInvoker invoker = new ActionMethodInvoker(container, methodInfo, methodOwner, methodParameter);
-			invoker.run();
-		}
-	};
-
-	@Override
-	public Tab createFormTab(Object serviceObject, ActionMethodInfo actionMethodInfo, Object methodParameterValue,
-			Object domainObject, FormMode formMode) {
-		return new FormTab(container, serviceObject, actionMethodInfo, methodParameterValue, domainObject, formMode);
 	}
 
 	@Override

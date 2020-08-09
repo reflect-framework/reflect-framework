@@ -1,4 +1,4 @@
-package nth.reflect.fw.gui.layer5provider.actionmethod.result;
+package nth.reflect.fw.gui.layer5provider.actionmethod.result.impl;
 
 import java.util.ArrayList;
 import java.util.List;

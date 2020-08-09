@@ -13,6 +13,8 @@ public class PropertyPanelStyle implements ReflectStyleClass {
 
 	public static final int BACKGROUND_RADIUS = 5;
 
+	public static final int BOTTOM_PADDING = 14;// px
+
 	public static int MAX_SMALL_WIDTH = 350;
 
 	public static int MIN_SMALL_WIDTH = 100;
