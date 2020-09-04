@@ -12,7 +12,7 @@ public class Repetition {
 		this.regex = regex;
 	}
 
-	public static Repetition onceOrNotAtAll() {
+	public static Repetition zeroOrOneTime() {
 		return new Repetition("?");
 	}
 	
