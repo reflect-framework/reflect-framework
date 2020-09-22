@@ -35,6 +35,7 @@ import nth.reflect.util.random.generator.number.LongGenerator;
 import nth.reflect.util.random.generator.number.ShortGenerator;
 import nth.reflect.util.random.generator.text.CharacterGenerator;
 import nth.reflect.util.random.generator.text.FormatGenerator;
+import nth.reflect.util.random.generator.text.LetterCaseGenerator;
 import nth.reflect.util.random.generator.text.StringGenerator;
 import nth.reflect.util.random.generator.word.ChapterGenerator;
 import nth.reflect.util.random.generator.word.LoremIpsumGenerator;
@@ -196,6 +197,10 @@ public class Random {
 	public static StringGenerator string() {
 		return new StringGenerator();
 	}
+	
+	public static LetterCaseGenerator letterCase(String string) {
+		return new LetterCaseGenerator(string);
+	}
 
 	public static SyllableGenerator syllable() {
 		return new SyllableGenerator();
@@ -221,4 +226,5 @@ public class Random {
 		return new DateGenerator();
 	}
 
+	
 }

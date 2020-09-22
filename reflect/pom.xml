@@ -170,6 +170,7 @@
 		<module>reflect-example-web-shop-for-javafx</module>
 		<module>reflect-example-web-shop-for-swing</module>
 		<module>reflect-example-web-shop-for-vaadin</module>
+		<module>reflect-util-parser</module>
 	</modules>
 
 	<dependencyManagement>

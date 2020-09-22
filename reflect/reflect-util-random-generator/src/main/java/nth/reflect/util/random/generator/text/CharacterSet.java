@@ -12,6 +12,7 @@ public class CharacterSet extends HashSet<Character> {
 	public static final String CONSONANTS = "bcdfghjklmnpqrstvwxz";
 	public static final String VOWELS = "aeiouy";
 	public static final String LETTERS = "abcdefghijklmnopqrstuvwxyz";
+	public static final String WHITE_SPACES = WhiteSpace.charactersToString();
 	private static final long serialVersionUID = 2975964856391508512L;
 
 	public CharacterSet() {
@@ -108,6 +109,11 @@ public class CharacterSet extends HashSet<Character> {
 		return this;
 	}
 
+	public static CharacterSet whiteSpaces() {
+		return new CharacterSet(WHITE_SPACES);
+	}
+
+	
 	public static CharacterSet common() {
 		return CharacterSet.letters(LetterCase.UPPER_AND_LOWER).withNumbers().withSymbols();
 	}
