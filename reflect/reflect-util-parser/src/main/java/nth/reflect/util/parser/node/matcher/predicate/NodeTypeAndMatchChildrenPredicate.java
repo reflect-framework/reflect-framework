@@ -11,8 +11,8 @@ public class NodeTypeAndMatchChildrenPredicate extends NodeTypePredicate {
 
 	private final NodeMatcher nodeMatcher;
 
-	public NodeTypeAndMatchChildrenPredicate(Class<? extends Node> nodeType, MatchRules matchRules) {
-		super(nodeType);
+	public NodeTypeAndMatchChildrenPredicate(Class<? extends Node> nodeTypeToFind, MatchRules matchRules) {
+		super(nodeTypeToFind);
 		nodeMatcher = new NodeMatcher(matchRules);
 	}
 

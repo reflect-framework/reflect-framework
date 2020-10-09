@@ -1,7 +1,8 @@
 package nth.reflect.util.parser.node.matcher.rule;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import nth.reflect.fw.generic.util.TitleBuilder;
@@ -14,7 +15,7 @@ import nth.reflect.util.parser.node.matcher.result.MatchResults;
  * {@link MatchRule}s for a {@link NodeMatcher}. It is much like (heavily
  * inspired) a regular expression. A {@link MatchRule} contains information such
  * as {@link #predicate} to match nodes, {@link #repetition} to indicate how
- * many times the rule should match the nodes and a {@link #parent} so that the
+ * many times the rule should match the nodes and a {@link #parents} so that the
  * a part of the {@link MatchResults} can be filtered to get specific
  * {@link Node}s
  * 
@@ -24,16 +25,16 @@ import nth.reflect.util.parser.node.matcher.result.MatchResults;
 public class MatchRule {
 	private final Predicate<Node> predicate;
 	private final Repetition repetition;
-	private Optional<MatchRules> parent;
+	private Set<MatchRules> parents;
 
 	public MatchRule(Predicate<Node> predicate, Repetition repetition) {
-		this.parent = Optional.empty();
+		this.parents = new HashSet<>();
 		this.predicate = predicate;
 		this.repetition = repetition;
 	}
 
 	public MatchRule(MatchRules parent, Predicate<Node> predicate, Repetition repetition) {
-		this.parent = Optional.of(parent);
+		this.parents = new HashSet<>();
 		this.predicate = predicate;
 		this.repetition = repetition;
 	}
@@ -42,16 +43,12 @@ public class MatchRule {
 		return predicate;
 	}
 
-	public Repetition getRepetition() {
+	public Repetition getRepetitionRule() {
 		return repetition;
 	}
 
-	public Optional<MatchRules> getParent() {
-		return parent;
-	}
-
-	public void setParent(MatchRules parent) {
-		this.parent = Optional.of(parent);
+	public Set<MatchRules> getParents() {
+		return parents;
 	}
 
 	public boolean isValid(Node child) {
@@ -68,19 +65,5 @@ public class MatchRule {
 		return title.toString();
 	}
 
-	public boolean mustGoToNext(MatchResults matchResults) {
-		if (repetition.max == Integer.MAX_VALUE) {
-			return false;
-		}
-		int numberOfMatches = matchResults.getNumberOfMatches(this);
-		boolean mustGoToNextPattern = numberOfMatches >= repetition.getMax();
-		return mustGoToNextPattern;
-	}
-
-	public boolean canGoToNext(MatchResults matchResults) {
-		int numberOfMatches = matchResults.getNumberOfMatches(this);
-		boolean canGoToNextPattern = numberOfMatches >= repetition.getMin();
-		return canGoToNextPattern;
-	}
-
+	
 }

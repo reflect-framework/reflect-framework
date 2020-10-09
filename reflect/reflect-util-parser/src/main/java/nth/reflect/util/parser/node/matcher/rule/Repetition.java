@@ -9,13 +9,20 @@ import nth.reflect.fw.generic.util.TitleBuilder;
  *
  */
 public class Repetition {
+	private static final boolean EAGER = true;
 	private final int min;
-	final int max;
+	private final int max;
+	private final boolean eager;//otherwise reluctant=lazy
 
 	public Repetition(int min, int max) {
+		this(min, max, EAGER);
+	}
+
+	public Repetition(int min, int max, boolean eager) {
 		super();
 		this.min = min;
 		this.max = max;
+		this.eager = eager;
 	}
 
 	public int getMin() {
@@ -30,12 +37,27 @@ public class Repetition {
 		return new Repetition(0, Integer.MAX_VALUE);
 	}
 
-	public static Repetition oneTime() {
+	public static Repetition zeroOrOnce() {
+		return new Repetition(0, 1);
+	}
+
+	public static Repetition once() {
 		return new Repetition(1, 1);
 	}
 
-	public static Repetition oneOrMore() {
+	public static Repetition onceOrMore() {
 		return new Repetition(1, Integer.MAX_VALUE);
+	}
+
+	public boolean isEager() {
+		return eager;
+	}
+
+	/**
+	 * Fluent interface to set the value to reluctant<br>
+	 */
+	public Repetition reluctant() {
+		return new Repetition(min, max, ! EAGER);
 	}
 
 	@Override
@@ -44,6 +66,7 @@ public class Repetition {
 		title.append(Repetition.class.getSimpleName());
 		title.append(" min=", min);
 		title.append(", max=", max);
+		title.append(", eager=", eager);
 		return title.toString();
 	}
 

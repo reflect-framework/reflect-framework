@@ -1,11 +1,9 @@
 package nth.reflect.util.parser.node.matcher;
 
 import java.util.List;
-import java.util.regex.Matcher;
-
-import com.google.common.base.Optional;
 
 import nth.reflect.util.parser.node.Node;
+import nth.reflect.util.parser.node.matcher.result.MatchResult;
 import nth.reflect.util.parser.node.matcher.result.MatchResults;
 import nth.reflect.util.parser.node.matcher.rule.FirstMatchRule;
 import nth.reflect.util.parser.node.matcher.rule.LastMatchRule;
@@ -16,6 +14,20 @@ import nth.reflect.util.parser.node.matcher.rule.MatchRules;
  * A {@link NodeMatcher} tries to match a list of {@link Node}s with a list of
  * {@link MatchRules}, much like (heavily inspired by) the Regex
  * {@link Matcher}. The results are returned in {@link MatchResults}
+ * <p>
+ * It uses a backtracking algorithm (e.g. see
+ * a<href="https://www.baeldung.com/java-sudoku">https://www.baeldung.com/java-sudoku</a>)
+ * <p>
+ * if a {@link Node} matches the first {@link MatchRule} the algorithm moves to
+ * the next node repeats the process for the next node.
+ * <p>
+ * if this node does not match the {@link MatchRule} is will try the next
+ * {@link MatchRule} (if {@link MatchRule#canGoToNext(MatchResults)}. It will
+ * travel back to the previous node and try the next MatchRule for that node.
+ * <p>
+ * It will return the {@link MatchResult} if there are no more
+ * {@link MatchRules}.
+ * <p>
  * 
  * @author nilsth
  *
@@ -54,30 +66,10 @@ public class NodeMatcher {
 		return matchResults;
 	}
 
-	private MatchResults match(List<Node> nodes, int nodeStartIndex) {
-		MatchResults matchResults = new MatchResults(nodes);
-
-		int ruleIndex = 0;
-
-		for (int nodeIndex = nodeStartIndex; nodeIndex < nodes.size(); nodeIndex++) {
-			Node node = nodes.get(nodeIndex);
-			Optional<MatchRule> foundRule = findMatchingRule(node, ruleIndex, matchResults);
-			if (foundRule.isPresent()) {
-				MatchRule matchRule = foundRule.get();
-				matchResults.add(matchRule, nodeIndex);
-				ruleIndex = matchRules.indexOf(matchRule);
-			} else {
-				// found first mismatch but this is ok if we where done anyway
-				return getValidatedResults(matchResults);
-			}
-		}
-		// done matching. did we match all?
-		return getValidatedResults(matchResults);
-	}
-
-
-	private MatchResults getValidatedResults(MatchResults matchResults) {
-		if (done(matchResults)) {
+	private MatchResults match(List<Node> nodes, int startNodeIndex) {
+		Pattern pattern = new Pattern(matchRules, nodes, startNodeIndex);
+		MatchResults matchResults = pattern.match();
+		if (matchResults.hasResults()) {
 			if (firstAndLastRulesAreOk(matchResults)) {
 				return matchResults;
 			} else {
@@ -89,14 +81,14 @@ public class NodeMatcher {
 	}
 
 	private boolean firstAndLastRulesAreOk(MatchResults matchResults) {
-		int firstFoundNodeIndex = matchResults.getFirstNodeIndex();
+		int firstFoundNodeIndex = matchResults.getFirstResult().getNodeIndex();
 		boolean firstFoundNodeIsFirst = firstFoundNodeIndex == 0;
 		boolean firstRuleOk = firstMatchCanBeAnyNode() || firstFoundNodeIsFirst;
 
-		int lastFoundNodeIndex = matchResults.getLastResult().getLastNodeIndex();
+		int lastFoundNodeIndex = matchResults.getLastResult().getNodeIndex();
 		int lastNodeIndex = matchResults.getNodes().size() - 1;
-		boolean lastFoundNodeisLast = lastFoundNodeIndex == lastNodeIndex;
-		boolean lastRuleOk = lastMatchCanBeAnyNode() || lastFoundNodeisLast;
+		boolean lastFoundNodeIsLast = lastFoundNodeIndex == lastNodeIndex;
+		boolean lastRuleOk = lastMatchCanBeAnyNode() || lastFoundNodeIsLast;
 
 		return firstRuleOk && lastRuleOk;
 	}
@@ -107,77 +99,6 @@ public class NodeMatcher {
 
 	private boolean firstMatchCanBeAnyNode() {
 		return matchRules.getFirstMatchRule() == FirstMatchRule.CAN_BE_ANY_NODE;
-	}
-
-	private boolean done(MatchResults matchResults) {
-		if (!matchResults.hasResults()) {
-			return false;
-		}
-		int ruleIndex = matchRules.indexOf(matchResults.getLastResult().getRule());
-		if (passedAllRules(ruleIndex)) {
-			return true;
-		}
-		if (remainingRulesCanGoToNext(ruleIndex + 1, matchResults)) {
-			return true;
-		}
-		return false;
-	}
-
-	private boolean remainingRulesCanGoToNext(int ruleIndex, MatchResults matchResults) {
-		if (ruleIndex >= matchRules.size()) {
-			// is last rule so remaining matchRules can go to next
-			return true;
-		}
-		MatchRule matchRule = matchRules.get(ruleIndex);
-		boolean canGoToNext = matchRule.canGoToNext(matchResults);
-		if (canGoToNext) {
-			// recursive call for the remaining node matchRules;
-			boolean remainingRulesCanGoToNext = remainingRulesCanGoToNext(ruleIndex + 1, matchResults);
-			return remainingRulesCanGoToNext;
-		}
-		return false;
-	}
-
-	private boolean passedAllRules(int ruleIndex) {
-		boolean passedAllRules = ruleIndex >= matchRules.size();
-		return passedAllRules;
-	}
-
-	private Optional<MatchRule> findMatchingRule(Node node, int startRuleIndex, MatchResults matchResults) {
-		int ruleCurrentIndex = findRuleThatMustMatch(startRuleIndex, matchResults);
-
-		Optional<MatchRule> found = findMatchingRule(node, startRuleIndex, ruleCurrentIndex, matchResults);
-
-		return found;
-	}
-
-	private Optional<MatchRule> findMatchingRule(Node node, int ruleStartIndex, int ruleCurrentIndex, MatchResults matchResults) {
-		MatchRule matchRule = matchRules.get(ruleCurrentIndex);
-		if (matchRule.getPredicate().test(node)) {
-			return Optional.of(matchRule);
-		} else {
-			if (ruleCurrentIndex - 1 < ruleStartIndex) {
-				// nothing found if we are back where we started
-				return Optional.absent();
-			} else {
-				// try to find a matching rule in the previous matchRules (recursively)
-				return findMatchingRule(node, ruleStartIndex, ruleCurrentIndex - 1, matchResults);
-			}
-		}
-	}
-
-	private int findRuleThatMustMatch(int ruleIndex, MatchResults matchResults) {
-		if (ruleIndex >= matchRules.size()) {
-			return matchRules.size() - 1;
-		}
-		MatchRule matchRule = matchRules.get(ruleIndex);
-		if (matchRule.mustGoToNext(matchResults) || matchRule.canGoToNext(matchResults)) {
-			// recursive call
-			int findNextRuleIndexToMatch = findRuleThatMustMatch(ruleIndex + 1, matchResults);
-			return findNextRuleIndexToMatch;
-		} else {
-			return ruleIndex;
-		}
 	}
 
 }

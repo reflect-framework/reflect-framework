@@ -2,6 +2,8 @@ package nth.reflect.util.parser.node.matcher.result;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import nth.reflect.util.parser.node.Node;
 import nth.reflect.util.parser.node.NodeParser;
@@ -12,8 +14,7 @@ import nth.reflect.util.parser.node.matcher.rule.MatchRule;
 import nth.reflect.util.parser.node.matcher.rule.MatchRules;
 
 /**
- * {@link MatchResults} are the matchResults of a {@link NodeParser}. Each match
- * is stored in one a {@link MatchResult} per {@link MatchRule}.
+ * {@link MatchResults} are the matchResults of a {@link NodeParser}. 
  * 
  * @author nilsth
  *
@@ -34,21 +35,8 @@ public class MatchResults {
 		return !matchResults.isEmpty();
 	}
 
-	public void add(MatchRule matchRule, int index) {
-		if (!hasResults()) {
-			createAndAddNewResult(index, matchRule);
-		} else {
-			MatchResult lastResult = getLastResult();
-			if (matchRule == lastResult.getRule()) {
-				lastResult.setLastNodeIndex(index);
-			} else {
-				createAndAddNewResult(index, matchRule);
-			}
-		}
-	}
-
-	private void createAndAddNewResult(int index, MatchRule matchRule) {
-		MatchResult newResult = new MatchResult(matchRule, index);
+	public void add(int nodeIndex, MatchRule matchRule) {
+		MatchResult newResult = new MatchResult(nodeIndex, matchRule);
 		matchResults.add(newResult);
 	}
 
@@ -57,6 +45,11 @@ public class MatchResults {
 		int first = resultFilter.getFirstNodeIndex(matchResults);
 		return first;
 	}
+	public int getLastNodeIndex(ResultFilter resultFilter) {
+		throwErrorWhenNothingWasFound();
+		int last = resultFilter.getLastNodeIndex(matchResults);
+		return last;
+	}
 
 	private void throwErrorWhenNothingWasFound() {
 		if (!hasResults()) {
@@ -64,22 +57,24 @@ public class MatchResults {
 		}
 	}
 
-	public int getLastNodeIndex(ResultFilter resultFilter) {
-		throwErrorWhenNothingWasFound();
-		int last = resultFilter.getLastNodeIndex(matchResults);
-		return last;
+
+	private void throwErrorWhenRulesWhereNotFound(List<MatchResult> results) {
+		if (results.isEmpty()) {
+			throw new NoRulesFoundException();
+		}
 	}
+
 
 	public void replaceFoundNodesWith(Node replacementNode) {
 		removeFoundNodes();
-		int replacementIndex = getFirstNodeIndex();
+		int replacementIndex = getFirstResult().getNodeIndex();
 		nodes.add(replacementIndex, replacementNode);
 	}
 
 	public void removeFoundNodes() {
 		throwErrorWhenNothingWasFound();
-		int firstIndex = getFirstNodeIndex();
-		int lastIndex = getLastNodeIndex();
+		int firstIndex = getFirstResult().getNodeIndex();
+		int lastIndex = getLastResult().getNodeIndex();
 
 		for (int index = firstIndex; index <= lastIndex; index++) {
 			nodes.remove(firstIndex);
@@ -116,36 +111,75 @@ public class MatchResults {
 		return getFoundNodes(All_RESULTS_FILTER);
 	}
 
-	public MatchResult getLastResult() {
-		throwErrorWhenNothingWasFound();
-		return matchResults.get(matchResults.size() - 1);
-	}
 
 	public MatchResult getFirstResult() {
 		throwErrorWhenNothingWasFound();
 		return matchResults.get(0);
 	}
-
-	public int getFirstNodeIndex() {
+	
+	public MatchResult getFirstResult(MatchRules rulesToFind) {
 		throwErrorWhenNothingWasFound();
-		int lastNodeIndex = getFirstResult().getFirstNodeIndex();
-		return lastNodeIndex;
+		List<MatchResult> results = getMatchResults(rulesToFind);
+		throwErrorWhenRulesWhereNotFound(results);
+		return results.get(0);
 	}
 
-	public int getLastNodeIndex() {
+	private List<MatchResult> getMatchResults(MatchRules rulesToFind) {
+		List<MatchResult> resuts = matchResults.stream().filter(r-> r.getMatchRule().getParents().contains(rulesToFind)).collect(Collectors.toList());
+		return resuts;
+	}
+
+	public MatchResult getLastResult() {
 		throwErrorWhenNothingWasFound();
-		int lastNodeIndex = getLastResult().getLastNodeIndex();
-		return lastNodeIndex;
+		return matchResults.get(matchResults.size() - 1);
+	}
+
+	
+	public MatchResult getLastResult(MatchRules rulesToFind) {
+		throwErrorWhenNothingWasFound();
+		List<MatchResult> results = getMatchResults(rulesToFind);
+		throwErrorWhenRulesWhereNotFound(results);
+		return results.get(results.size()-1);
+	}
+
+
+	public void remove(MatchResult matchResult) {
+		matchResults.remove(matchResult);		
 	}
 
 	public int getNumberOfMatches(MatchRule ruleToFind) {
-		int numberOfMatches = (int) matchResults.stream().filter(r -> r.getRule() == ruleToFind).count();
+		int numberOfMatches = (int) matchResults.stream().filter(r -> r.getMatchRule() == ruleToFind).count();
 		return numberOfMatches;
 	}
 
 	public List<Node> getNodes() {
 		return nodes;
 	}
+
+	public List<Node> getFoundNodes( Predicate<? super Node> predicateToFind) {
+		List<Node> found=new ArrayList<>();
+		List<MatchResult> results = matchResults.stream().filter(result -> result.getMatchRule().getPredicate()==predicateToFind).collect(Collectors.toList());
+		for (MatchResult matchResult : results) {
+			int nodeIndex=matchResult.getNodeIndex();
+			found.add(nodes.get(nodeIndex));
+		}
+		return found;
+	}
+
+	public boolean hasFoundRuleWithPredicate(Predicate<Node> predicateToFind) {
+		boolean foundRuleWithGivenPredicate = matchResults.stream().anyMatch(result -> result.getMatchRule().getPredicate()==predicateToFind);
+		return 	foundRuleWithGivenPredicate;
+	}
+
+	public MatchResults getMatchResultsWithoutLastResult() {
+		MatchResults reply=new MatchResults(nodes);
+		for (int i=0;i<matchResults.size()-1;i++) {
+			MatchResult matchResult=matchResults.get(i);
+			reply.add(matchResult.getNodeIndex(), matchResult.getMatchRule());
+		}
+		return reply;
+	}
+
 
 
 }

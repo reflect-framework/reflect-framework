@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import nth.reflect.util.parser.node.Node;
 import nth.reflect.util.parser.node.matcher.NodeMatcher;
-import nth.reflect.util.parser.node.matcher.predicate.NodeTypePredicate;
 
 /**
  * {@link MatchRules} is a fluent interface for defining a {@link List} of {@link MatchRule}s for a
@@ -55,7 +54,7 @@ public class MatchRules extends ArrayList<MatchRule> {
 	}
 
 	public MatchRules add(Predicate<Node> predicate) {
-		MatchRule matchRule = new MatchRule(this, predicate, Repetition.oneTime());
+		MatchRule matchRule = new MatchRule(this, predicate, Repetition.once());
 		add(matchRule);
 		return this;
 	}
@@ -68,16 +67,10 @@ public class MatchRules extends ArrayList<MatchRule> {
 
 	public MatchRules add(MatchRules matchRules) {
 		for (MatchRule matchRule : matchRules) {
-			matchRule.setParent(matchRules);
+			matchRule.getParents().add(matchRules);
 		}
 		addAll(matchRules);
 		return this;
 	}
-
-	public MatchRules addParentPath(NodeTypePredicate... braceNodePredicate) {
-		//TODO
-		return this;
-	}
-
 
 }

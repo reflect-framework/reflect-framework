@@ -19,7 +19,7 @@ public class RulesResultFilter extends ResultFilter {
 		throwErrorWhenNoResultsAreFound(matchResults);
 		List<MatchResult> filteredResults = findResults(matchResults);
 		MatchResult firstResult = filteredResults.get(0);
-		int firstNodeIndex=firstResult.getFirstNodeIndex();
+		int firstNodeIndex=firstResult.getNodeIndex();
 		return firstNodeIndex;
 	}
 
@@ -28,12 +28,12 @@ public class RulesResultFilter extends ResultFilter {
 		throwErrorWhenNoResultsAreFound(matchResults);
 		List<MatchResult> filteredResults = findResults(matchResults);
 		MatchResult lastResult=filteredResults.get(filteredResults.size()-1);
-		int lastNodeIndex=lastResult.getLastNodeIndex();
+		int lastNodeIndex=lastResult.getNodeIndex();
 		return lastNodeIndex;
 	}
 
 	private List<MatchResult> findResults(List<MatchResult> matchResults) {
-		return matchResults.stream().filter(result-> result.getRule().getParent().isPresent() && result.getRule().getParent().get()==rulesToFind).collect(Collectors.toList());
+		return matchResults.stream().filter(result-> result.getMatchRule().getParents().contains(rulesToFind)).collect(Collectors.toList());
 	}
 
 }
