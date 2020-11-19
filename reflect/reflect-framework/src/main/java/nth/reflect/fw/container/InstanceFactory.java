@@ -126,7 +126,6 @@ public class InstanceFactory {
 		try {
 			object = bestConstructor.newInstance(constructorParameterValues);
 		} catch (Throwable e) {
-			e.printStackTrace();
 			throw new nth.reflect.fw.container.exception.InstantiationException(container, bestConstructor, e);
 		}
 		return object;
