@@ -12,6 +12,7 @@ import nth.reflect.fw.layer1userinterface.UserInterfaceContainer;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer5provider.ProviderContainer;
 import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodInvoker;
+import nth.reflect.fw.layer5provider.language.translatable.TranslatableException;
 import nth.reflect.fw.layer5provider.language.translatable.TranslatableString;
 import nth.reflect.fw.layer5provider.notification.Task;
 import nth.reflect.fw.layer5provider.reflection.behavior.executionmode.ExecutionModeType;
@@ -106,6 +107,7 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		if (invalidNumberOfArguments) {
 			HelpView helpView = new HelpView("Invalid number of arguments!", commands);
 			System.out.println(helpView.toString());
+			System.exit(1);
 		}
 
 		Object methodParameterValue = command.createMethodParameter();
@@ -170,9 +172,19 @@ public class UserInterfaceControllerForCommandLine extends UserInterfaceControll
 		txt.append("\n");
 		txt.append(message.getTranslation(languageProvider));
 		txt.append("\n");
-		txt.append("Cause: ");
-		txt.append(ExceptionUtil.getRootCause(throwable, languageProvider).getMessage());
-		txt.append("\n");
+		String cause = ExceptionUtil.getRootCause(throwable, languageProvider).getMessage();
+		if (cause == null) {
+			if (throwable instanceof TranslatableException) {
+				TranslatableException translatableCause=(TranslatableException) throwable;
+				translatableCause.setLanguageProvider(languageProvider);
+			}
+			cause = throwable.getMessage();			
+		}
+		if (cause != null) {
+			txt.append("Cause: ");
+			txt.append(cause);
+			txt.append("\n");
+		}
 		txt.append("Details: ");
 		txt.append("\n");
 		txt.append(ExceptionUtil.getRootCauseStackTrace(throwable, languageProvider));

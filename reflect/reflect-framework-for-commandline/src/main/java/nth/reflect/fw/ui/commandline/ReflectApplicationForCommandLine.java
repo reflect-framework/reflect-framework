@@ -8,7 +8,6 @@ import nth.reflect.fw.ReflectApplication;
 import nth.reflect.fw.ReflectFramework;
 import nth.reflect.fw.layer1userinterface.controller.UserInterfaceController;
 import nth.reflect.fw.layer2service.ServiceObjectActionMethod;
-import nth.reflect.fw.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandler;
 import nth.reflect.fw.layer5provider.actionmethod.prehandler.ActionMethodPreHandlerProvider;
 import nth.reflect.fw.layer5provider.actionmethod.prehandler.impl.ProcessDirectly;
@@ -32,6 +31,7 @@ import nth.reflect.fw.layer5provider.url.UrlStreamHandlers;
 import nth.reflect.fw.layer5provider.validation.DefaultValidationProvider;
 import nth.reflect.fw.layer5provider.version.DefaultVersionProvider;
 import nth.reflect.fw.layer5provider.version.VersionProvider;
+import nth.reflect.fw.ui.commandline.layer5provider.actionmethod.execution.ActionMethodExecutionProvider;
 import nth.reflect.fw.ui.commandline.layer5provider.actionmethod.result.ActionMethodResultHandlerClasses;
 
 /**
