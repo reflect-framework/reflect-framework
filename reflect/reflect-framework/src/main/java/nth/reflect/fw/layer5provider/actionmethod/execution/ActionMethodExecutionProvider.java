@@ -61,7 +61,6 @@ public abstract class ActionMethodExecutionProvider implements Provider {
 				methodParameter = methodInfo.createMethodParameter(methodOwner);
 			}
 
-			System.out.println(":" + methodParameter);
 			ActionMethodPreHandler handler = methodInfo.getPreHandler();
 			handler.preProcess(container, methodInfo, methodOwner, methodParameter);
 
