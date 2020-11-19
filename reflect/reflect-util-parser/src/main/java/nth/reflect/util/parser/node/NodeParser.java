@@ -35,8 +35,9 @@ public class NodeParser {
 		List<Node> nodes = parseTree.getNodes();
 		boolean doneReplacement = false;
 		do {
+			doneReplacement=false;
 			for (NodeParserRule nodeParserRule : nodeParserRules) {
-				doneReplacement = replaceAll(nodes, nodeParserRule);
+				doneReplacement =doneReplacement || replaceAll(nodes, nodeParserRule);
 			}
 		} while (doneReplacement);
 	}

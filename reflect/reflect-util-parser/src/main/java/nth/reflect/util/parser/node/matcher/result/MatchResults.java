@@ -66,16 +66,25 @@ public class MatchResults {
 
 
 	public void replaceFoundNodesWith(Node replacementNode) {
-		removeFoundNodes();
-		int replacementIndex = getFirstResult().getNodeIndex();
-		nodes.add(replacementIndex, replacementNode);
-	}
-
-	public void removeFoundNodes() {
 		throwErrorWhenNothingWasFound();
 		int firstIndex = getFirstResult().getNodeIndex();
 		int lastIndex = getLastResult().getNodeIndex();
+		removeFoundNodes(firstIndex,lastIndex);
+		nodes.add(firstIndex, replacementNode);
+	}
+	
+	public void replaceFoundNodesWith(Predicate<Node> predicateToFind,
+			Node replacementNode) {
+		throwErrorWhenNothingWasFound();
+		List<Node> foundNodes = getFoundNodes(predicateToFind);//!Assuming these are all connected in nodes!!!
+		int firstIndex = nodes.indexOf(foundNodes.get(0));
+		int lastIndex = nodes.indexOf(foundNodes.get(foundNodes.size()-1));
+		removeFoundNodes(firstIndex,lastIndex);
+		nodes.add(firstIndex, replacementNode);		
+	}
 
+
+	public void removeFoundNodes(int firstIndex, int lastIndex) {
 		for (int index = firstIndex; index <= lastIndex; index++) {
 			nodes.remove(firstIndex);
 		}
@@ -125,7 +134,7 @@ public class MatchResults {
 	}
 
 	private List<MatchResult> getMatchResults(MatchRules rulesToFind) {
-		List<MatchResult> resuts = matchResults.stream().filter(r-> r.getMatchRule().getParents().contains(rulesToFind)).collect(Collectors.toList());
+		List<MatchResult> resuts = matchResults.stream().filter(r-> r.getMatchRule().getSources().contains(rulesToFind)).collect(Collectors.toList());
 		return resuts;
 	}
 
@@ -158,7 +167,7 @@ public class MatchResults {
 
 	public List<Node> getFoundNodes( Predicate<? super Node> predicateToFind) {
 		List<Node> found=new ArrayList<>();
-		List<MatchResult> results = matchResults.stream().filter(result -> result.getMatchRule().getPredicate()==predicateToFind).collect(Collectors.toList());
+		List<MatchResult> results = matchResults.stream().filter(result -> result.getMatchRule().getPredicate().equals(predicateToFind)).collect(Collectors.toList());
 		for (MatchResult matchResult : results) {
 			int nodeIndex=matchResult.getNodeIndex();
 			found.add(nodes.get(nodeIndex));
@@ -179,6 +188,7 @@ public class MatchResults {
 		}
 		return reply;
 	}
+
 
 
 

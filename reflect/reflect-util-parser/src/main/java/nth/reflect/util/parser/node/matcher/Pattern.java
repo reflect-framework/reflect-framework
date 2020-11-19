@@ -37,7 +37,7 @@ public class Pattern {
 	}
 
 	public MatchResults match() {
-		printForDebugging(nodes, startNodeIndex);
+		//printForDebugging(nodes, startNodeIndex);
 		
 		MatchResults matchResults = new MatchResults(nodes);
 

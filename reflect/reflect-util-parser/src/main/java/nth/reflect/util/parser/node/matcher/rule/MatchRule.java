@@ -15,7 +15,7 @@ import nth.reflect.util.parser.node.matcher.result.MatchResults;
  * {@link MatchRule}s for a {@link NodeMatcher}. It is much like (heavily
  * inspired) a regular expression. A {@link MatchRule} contains information such
  * as {@link #predicate} to match nodes, {@link #repetition} to indicate how
- * many times the rule should match the nodes and a {@link #parents} so that the
+ * many times the rule should match the nodes and a {@link #sources} so that the
  * a part of the {@link MatchResults} can be filtered to get specific
  * {@link Node}s
  * 
@@ -25,16 +25,17 @@ import nth.reflect.util.parser.node.matcher.result.MatchResults;
 public class MatchRule {
 	private final Predicate<Node> predicate;
 	private final Repetition repetition;
-	private Set<MatchRules> parents;
+	private Set<Object> sources;
 
 	public MatchRule(Predicate<Node> predicate, Repetition repetition) {
-		this.parents = new HashSet<>();
+		this.sources = new HashSet<>();
+		sources.add(predicate);
 		this.predicate = predicate;
 		this.repetition = repetition;
 	}
 
 	public MatchRule(MatchRules parent, Predicate<Node> predicate, Repetition repetition) {
-		this.parents = new HashSet<>();
+		this.sources = new HashSet<>();
 		this.predicate = predicate;
 		this.repetition = repetition;
 	}
@@ -47,8 +48,12 @@ public class MatchRule {
 		return repetition;
 	}
 
-	public Set<MatchRules> getParents() {
-		return parents;
+	public Set<Object> getSources() {
+		return sources;
+	}
+
+	public void setSources(Set<Object> sources) {
+		this.sources = sources;
 	}
 
 	public boolean isValid(Node child) {

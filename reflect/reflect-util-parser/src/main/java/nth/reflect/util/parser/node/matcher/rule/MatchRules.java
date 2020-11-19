@@ -67,7 +67,7 @@ public class MatchRules extends ArrayList<MatchRule> {
 
 	public MatchRules add(MatchRules matchRules) {
 		for (MatchRule matchRule : matchRules) {
-			matchRule.getParents().add(matchRules);
+			matchRule.getSources().add(matchRules);
 		}
 		addAll(matchRules);
 		return this;

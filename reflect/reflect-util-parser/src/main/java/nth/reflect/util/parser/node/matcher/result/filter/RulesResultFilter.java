@@ -33,7 +33,7 @@ public class RulesResultFilter extends ResultFilter {
 	}
 
 	private List<MatchResult> findResults(List<MatchResult> matchResults) {
-		return matchResults.stream().filter(result-> result.getMatchRule().getParents().contains(rulesToFind)).collect(Collectors.toList());
+		return matchResults.stream().filter(result-> result.getMatchRule().getSources().contains(rulesToFind)).collect(Collectors.toList());
 	}
 
 }
